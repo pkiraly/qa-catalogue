@@ -80,7 +80,7 @@ public class Marc21ThompsonTraillAnalysis extends ThompsonTraillAnalysis {
   // Descriptive cataloging standard  040$e  1 point if value is “rda”
   private void calculateLanguageAndRda(Marc21Record marcRecord,
                                        ThompsonTraillScores ttScores) {
-    List<DataField> fields040 = marcRecord.getDatafield("040");
+    List<DataField> fields040 = marcRecord.getDatafieldsByTag("040");
     var noLanguageOrEnglish = false;
     var isRDA = false;
 
@@ -168,7 +168,7 @@ public class Marc21ThompsonTraillAnalysis extends ThompsonTraillAnalysis {
         continue;
       }
 
-      List<DataField> fields = marcRecord.getDatafield(tag);
+      List<DataField> fields = marcRecord.getDatafieldsByTag(tag);
       for (DataField field : fields) {
         calculateClassificationScore(field, marcRecord, ttScores);
       }
@@ -182,7 +182,7 @@ public class Marc21ThompsonTraillAnalysis extends ThompsonTraillAnalysis {
   }
 
   private int calculateIsOnlineFrom300a(Marc21Record marcRecord) {
-    List<DataField> fields300 = marcRecord.getDatafield("300");
+    List<DataField> fields300 = marcRecord.getDatafieldsByTag("300");
     var isOnlineResource = false;
 
     if (fields300 == null || fields300.isEmpty()) {
@@ -265,7 +265,7 @@ public class Marc21ThompsonTraillAnalysis extends ThompsonTraillAnalysis {
     var counter = 0;
     for (String tag : tags) {
       if (tagExists(marcRecord, tag))
-        counter += marcRecord.getDatafield(tag).size();
+        counter += marcRecord.getDatafieldsByTag(tag).size();
     }
     return counter;
   }
@@ -329,7 +329,7 @@ public class Marc21ThompsonTraillAnalysis extends ThompsonTraillAnalysis {
     }
     int score = 0;
 
-    List<DataField> fields = marcRecord.getDatafield(tag);
+    List<DataField> fields = marcRecord.getDatafieldsByTag(tag);
     for (DataField field : fields) {
       List<MarcSubfield> subfields = field.getSubfield("c");
       if (subfields == null || subfields.isEmpty()) {

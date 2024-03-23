@@ -17,20 +17,19 @@ public class NetworkAnalyzer {
     collector = new HashSet<>();
   }
 
-  public Set<DataField> process(int recordNumber) {
+  public Set<DataField> process() {
     for (DataField field : marcRecord.getAuthorityFields()) {
-      register(field, recordNumber);
+      register(field);
     }
 
     for (DataField field : marcRecord.getSubjects()) {
-      register(field, recordNumber);
+      register(field);
     }
 
     return collector;
   }
 
-  private void register(DataField field, int recordNumber) {
-    if (!collector.contains(field))
-      collector.add(field);
+  private void register(DataField field) {
+    collector.add(field);
   }
 }

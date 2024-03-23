@@ -95,7 +95,7 @@ public class UnimarcSerial extends MarcSerial {
   }
 
   private void detectPublisher() {
-    List<DataField> publisherFields = marcRecord.getDatafield("210");
+    List<DataField> publisherFields = marcRecord.getDatafieldsByTag("210");
     // Not repeatable, so we can use the first one
     DataField publisherField = publisherFields == null || publisherFields.isEmpty() ? null : publisherFields.get(0);
 
@@ -105,7 +105,7 @@ public class UnimarcSerial extends MarcSerial {
   }
 
   private void detectPublisherRDA() {
-    List<DataField> publisherFields = marcRecord.getDatafield("214");
+    List<DataField> publisherFields = marcRecord.getDatafieldsByTag("214");
     // Not repeatable, so we can use the first one
     DataField publisherField = publisherFields == null || publisherFields.isEmpty() ? null : publisherFields.get(0);
 
@@ -115,7 +115,7 @@ public class UnimarcSerial extends MarcSerial {
   }
 
   private void detectPublicationFrequency() {
-    List<DataField> frequencyFields = marcRecord.getDatafield("326");
+    List<DataField> frequencyFields = marcRecord.getDatafieldsByTag("326");
     // Repeatable
     boolean hasFrequencyFields = fieldsHaveAnySubfields(frequencyFields);
 
@@ -126,7 +126,7 @@ public class UnimarcSerial extends MarcSerial {
 
   private void detectContentTypeRDA() {
     // I assume this is the fields 181
-    List<DataField> contentTypeFields = marcRecord.getDatafield("181");
+    List<DataField> contentTypeFields = marcRecord.getDatafieldsByTag("181");
     // Repeatable
     boolean hasContentTypeFields = fieldsHaveAnySubfields(contentTypeFields);
 
@@ -138,7 +138,7 @@ public class UnimarcSerial extends MarcSerial {
   private void detectDateOfPublication() {
     // This appears to be 207 in UNIMARC
 
-    List<DataField> numberingFields = marcRecord.getDatafield("207");
+    List<DataField> numberingFields = marcRecord.getDatafieldsByTag("207");
     // Not repeatable, so we can use the first one
     DataField numberingField = numberingFields == null || numberingFields.isEmpty() ? null : numberingFields.get(0);
 

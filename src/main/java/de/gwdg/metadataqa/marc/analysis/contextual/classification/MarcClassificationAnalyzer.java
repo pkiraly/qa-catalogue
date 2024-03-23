@@ -1,7 +1,6 @@
-package de.gwdg.metadataqa.marc.analysis.classification;
+package de.gwdg.metadataqa.marc.analysis.contextual.classification;
 
 import de.gwdg.metadataqa.marc.MarcSubfield;
-import de.gwdg.metadataqa.marc.analysis.ClassificationStatistics;
 import de.gwdg.metadataqa.marc.analysis.FieldWithScheme;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
 import de.gwdg.metadataqa.marc.dao.DataField;
@@ -38,7 +37,7 @@ public abstract class MarcClassificationAnalyzer extends ClassificationAnalyzer 
       return 0;
     }
 
-    List<DataField> fields = marcRecord.getDatafield(tag);
+    List<DataField> fields = marcRecord.getDatafieldsByTag(tag);
     List<Schema> schemas = new ArrayList<>();
     for (DataField field : fields) {
       List<Schema> extractedSchemas = extractSchemasFromSubfield2(tag, field);
@@ -90,7 +89,7 @@ public abstract class MarcClassificationAnalyzer extends ClassificationAnalyzer 
     }
 
     // Get the fields with the fieldEntry tag from the current record
-    List<DataField> fields = marcRecord.getDatafield(tag);
+    List<DataField> fields = marcRecord.getDatafieldsByTag(tag);
     List<Schema> schemas = new ArrayList<>();
     // For each field that corresponds to the fieldEntry tag, extract the schema
     for (DataField field : fields) {

@@ -57,7 +57,7 @@ public class Marc21Filter {
    */
   protected boolean met(BibliographicRecord marcRecord) {
     for (DataField condition : conditions) {
-      List<DataField> recordFields = marcRecord.getDatafield(condition.getTag());
+      List<DataField> recordFields = marcRecord.getDatafieldsByTag(condition.getTag());
       if (recordFields == null || recordFields.isEmpty())
         continue;
       boolean passed = metCondition(condition, recordFields);

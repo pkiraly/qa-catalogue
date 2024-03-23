@@ -148,7 +148,7 @@ public class UnimarcThompsonTraillAnalysis extends ThompsonTraillAnalysis {
         continue;
       }
 
-      List<DataField> fields = marcRecord.getDatafield(tag);
+      List<DataField> fields = marcRecord.getDatafieldsByTag(tag);
       for (DataField field : fields) {
         calculateClassificationScore(field, ttScores);
       }
@@ -167,7 +167,7 @@ public class UnimarcThompsonTraillAnalysis extends ThompsonTraillAnalysis {
     var counter = 0;
     for (String tag : tags) {
       if (tagExists(marcRecord, tag))
-        counter += marcRecord.getDatafield(tag).size();
+        counter += marcRecord.getDatafieldsByTag(tag).size();
     }
     return counter;
   }

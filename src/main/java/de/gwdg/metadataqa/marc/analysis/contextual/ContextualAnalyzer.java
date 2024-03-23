@@ -1,13 +1,10 @@
-package de.gwdg.metadataqa.marc.analysis.classification;
+package de.gwdg.metadataqa.marc.analysis.contextual;
 
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.analysis.ClassificationStatistics;
-import de.gwdg.metadataqa.marc.cli.parameters.ClassificationParameters;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
-import de.gwdg.metadataqa.marc.definition.general.indexer.subject.ClassificationSchemes;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,32 +13,26 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
-import static de.gwdg.metadataqa.marc.Utils.count;
-
-public abstract class ClassificationAnalyzer {
-
-  protected static final ClassificationSchemes classificationSchemes =
-    ClassificationSchemes.getInstance();
+public abstract class ContextualAnalyzer<T extends ContextualStatistics> {
   protected static final Pattern NUMERIC_REGEX = Pattern.compile("^\\d");
-  protected final ClassificationStatistics statistics;
-  protected ClassificationParameters parameters = null;
-  protected BibliographicRecord bibliographicRecord;
-  protected List<Schema> schemasInRecord;
 
-  protected ClassificationAnalyzer(BibliographicRecord bibliographicRecord, ClassificationStatistics statistics) {
+  protected List<Schema> schemasInRecord = new ArrayList<>();
+  protected BibliographicRecord bibliographicRecord;
+
+  /**
+   * Statistics are updated during the analysis of the bibliographic record and are used to generate reports.
+   * Usually, statistics are shared among all the analyzers that are part of the same analysis, which means that
+   * the same statistics object is passed to all the analyzers.
+   */
+  protected final T statistics;
+
+  protected ContextualAnalyzer(BibliographicRecord bibliographicRecord, T statistics) {
     this.bibliographicRecord = bibliographicRecord;
     this.statistics = statistics;
   }
-
-  protected ClassificationAnalyzer(BibliographicRecord bibliographicRecord, ClassificationStatistics statistics, ClassificationParameters parameters) {
-    this(bibliographicRecord, statistics);
-    this.parameters = parameters;
-  }
-
-  public abstract int process();
 
   protected void updateSchemaSubfieldStatistics(DataField field, Schema currentSchema) {
     if (currentSchema == null) {
@@ -108,50 +99,31 @@ public abstract class ClassificationAnalyzer {
     return subfieldCodes;
   }
 
-  protected void increaseCounters(int total) {
-    count((total > 0), statistics.getHasClassifications());
-    count(total, statistics.getSchemaHistogram());
-    statistics.getFrequencyExamples().computeIfAbsent(total, s -> bibliographicRecord.getId(true));
+  /**
+   * Given the fieldStatistics map and a list of schemas, increment the count of each schema in the map.
+   * @param fieldStatistics The map of schemas and their counts
+   * @param schemas The list of schemas to be added to the map
+   */
+  protected void addSchemasToStatistics(Map<Schema, Integer> fieldStatistics, List<Schema> schemas) {
+    if (schemas.isEmpty()) {
+      return;
+    }
 
-    if (parameters != null && parameters.doCollectCollocations()) {
-      List<String> collocation = getCollocationInRecord();
-      if (!collocation.isEmpty())
-        count(collocation, statistics.getCollocationHistogram());
+    for (Schema scheme : schemas) {
+      Utils.count(scheme, fieldStatistics);
     }
   }
 
   protected void registerSchemas(List<Schema> schemas) {
     addSchemasToStatistics(statistics.getInstances(), schemas);
 
-    List<Schema> uniqSchemas = deduplicateSchema(schemas);
-    addSchemasToStatistics(statistics.getRecords(), uniqSchemas);
-    schemasInRecord.addAll(uniqSchemas);
-  }
-
-  private void addSchemasToStatistics(Map<Schema, Integer> fieldStatistics,
-                                      List<Schema> schemes) {
-    if (schemes.isEmpty()) {
-      return;
-    }
-    for (Schema scheme : schemes) {
-      Utils.count(scheme, fieldStatistics);
-    }
+    List<Schema> uniqueSchemas = deduplicateSchema(schemas);
+    addSchemasToStatistics(statistics.getRecords(), uniqueSchemas);
+    schemasInRecord.addAll(uniqueSchemas);
   }
 
   protected List<Schema> deduplicateSchema(List<Schema> schemas) {
     return new ArrayList<>(new HashSet<>(schemas));
   }
 
-  public List<Schema> getSchemasInRecord() {
-    return schemasInRecord;
-  }
-
-  public List<String> getCollocationInRecord() {
-    return schemasInRecord
-      .stream()
-      .map(Schema::getAbbreviation)
-      .sorted()
-      .distinct()
-      .collect(Collectors.toList());
-  }
 }

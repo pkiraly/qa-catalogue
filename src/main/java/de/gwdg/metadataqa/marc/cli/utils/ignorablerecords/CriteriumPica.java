@@ -37,7 +37,7 @@ public class CriteriumPica {
   }
 
   public boolean met(BibliographicRecord marcRecord) {
-    List<DataField> fields = marcRecord.getDatafield(path.getTag());
+    List<DataField> fields = marcRecord.getDatafieldsByTag(path.getTag());
     boolean passed = false;
     if (fields != null && !fields.isEmpty()) {
       Subfields subfieldsSelector = path.getSubfields();

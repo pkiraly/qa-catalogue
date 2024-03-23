@@ -66,7 +66,6 @@ public class ClassificationSchemes {
     schemes.put("This mixes multiple systems used in DNB before 2004", "dnbsgr");
 
     schemes.put("LoC Subject Headings", "lcsh0");
-    schemes.put("Regensburger Verbundklassifikation (RVK)", "rvk");
     schemes.put("Medical Subject Headings (MeSH)", "mesh");
     schemes.put("Klassifikation der National Library of Medicine (NLM)", "mesh");
     schemes.put("Schlagwortfolgen (DNB und Verbünde)", "dnb");
@@ -90,7 +89,7 @@ public class ClassificationSchemes {
     schemes.put("Systematiken der ekz", "ekz");
     schemes.put("STW-Schlagwörter", "stw");
     schemes.put("STW-Schlagwörter - Platzhalter", "stw-platz");
-    schemes.put("STW-Schlagwörter - automatisierte verbale Sacherschließung", "stw-sach");
+//    schemes.put("STW-Schlagwörter - automatisierte verbale Sacherschließung", "stw-sach"); TODO check if it's stw or stw-sach
     schemes.put("ZBW-Schlagwörter - Veröffentlichungsart", "zbw");
     schemes.put("SSG-Angabe für Fachkataloge", "ssg");
     schemes.put("DDC-Notation: Vollständige Notation", "ddc-not");

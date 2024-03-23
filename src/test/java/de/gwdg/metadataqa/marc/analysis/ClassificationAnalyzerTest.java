@@ -2,8 +2,9 @@ package de.gwdg.metadataqa.marc.analysis;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.MarcFactory;
-import de.gwdg.metadataqa.marc.analysis.classification.ClassificationAnalyzer;
-import de.gwdg.metadataqa.marc.analysis.classification.Marc21ClassificationAnalyzer;
+import de.gwdg.metadataqa.marc.analysis.contextual.classification.ClassificationAnalyzer;
+import de.gwdg.metadataqa.marc.analysis.contextual.classification.ClassificationStatistics;
+import de.gwdg.metadataqa.marc.analysis.contextual.classification.Marc21ClassificationAnalyzer;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
 import de.gwdg.metadataqa.marc.model.kos.KosRegistry;

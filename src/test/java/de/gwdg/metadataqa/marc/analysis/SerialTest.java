@@ -51,7 +51,7 @@ public class SerialTest {
     marcRecord.setField("650", " 7$aBiology.$2fast$0(OCoLC)fst00832383");
     marcRecord.setField("650", "17$aBiologie.$2gtt");
     marcRecord.setField("650", "17$aTheorievorming.$2gtt");
-    assertEquals("text", marcRecord.getDatafield("336").get(0).getSubfield("a").get(0).getValue());
+    assertEquals("text", marcRecord.getDatafieldsByTag("336").get(0).getSubfield("a").get(0).getValue());
 
     assertEquals(MarcLeader.Type.CONTINUING_RESOURCES, marcRecord.getType());
 

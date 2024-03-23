@@ -212,7 +212,7 @@ public class RecordCompleteness {
 
   private List<String> extract(BibliographicRecord marcRecord, String tag, String subfield) {
     List<String> values = new ArrayList<>();
-    List<DataField> fields = marcRecord.getDatafield(tag);
+    List<DataField> fields = marcRecord.getDatafieldsByTag(tag);
     if (fields == null || fields.isEmpty()) {
       return values;
     }

@@ -3,8 +3,8 @@ package de.gwdg.metadataqa.marc.cli;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.TestUtils;
-import de.gwdg.metadataqa.marc.analysis.AuthorithyAnalyzer;
-import de.gwdg.metadataqa.marc.analysis.AuthorityStatistics;
+import de.gwdg.metadataqa.marc.analysis.contextual.authority.AuthorityStatistics;
+import de.gwdg.metadataqa.marc.analysis.contextual.authority.PicaAuthorityAnalyzer;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.MarcFormat;
@@ -13,6 +13,8 @@ import de.gwdg.metadataqa.marc.utils.QAMarcReaderFactory;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaManager;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaReader;
 import junit.framework.TestCase;
+import org.apache.commons.io.FileUtils;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.marc4j.MarcReader;
@@ -62,7 +64,7 @@ public class AuthorityAnalysisTest extends CliTestUtils {
       System.err.println(subfield);
     }
     AuthorityStatistics statistics = new AuthorityStatistics();
-    var analyzer = new AuthorithyAnalyzer(marcRecord, statistics);
+    var analyzer = new PicaAuthorityAnalyzer(marcRecord, statistics);
     int count = analyzer.process();
     System.err.println(count);
     System.err.println(statistics.getSubfields());
@@ -152,6 +154,54 @@ public class AuthorityAnalysisTest extends CliTestUtils {
     );
 
     clearOutput(outputDir, outputFiles);
+  }
+
+  @Test
+  public void shelfReadyCompleteness_whenUnimarcRecord_runsSuccessfully() throws IOException {
+    String[] args = {
+      "--schemaType", "UNIMARC",
+      "--outputDir", outputDir,
+      TestUtils.getPath("unimarc/short.bnr.1993.mrc")
+    };
+
+    AuthorityAnalysis.main(args);
+
+    // Now compare the output files with the expected ones
+    File expectedFile = new File(getTestResource("unimarc/expected-results/authority/authorities-by-categories.csv"));
+    File actualFile = new File(outputDir, "authorities-by-categories.csv");
+    String expected = FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");
+    String actual = FileUtils.readFileToString(actualFile, "UTF-8").replaceAll("\r\n", "\n");
+    Assert.assertEquals(expected, actual);
+
+    expectedFile = new File(getTestResource("unimarc/expected-results/authority/authorities-by-records.csv"));
+    actualFile = new File(outputDir, "authorities-by-records.csv");
+    expected = FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");
+    actual = FileUtils.readFileToString(actualFile, "UTF-8").replaceAll("\r\n", "\n");
+    Assert.assertEquals(expected, actual);
+
+    expectedFile = new File(getTestResource("unimarc/expected-results/authority/authorities-by-schema.csv"));
+    actualFile = new File(outputDir, "authorities-by-schema.csv");
+    expected = FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");
+    actual = FileUtils.readFileToString(actualFile, "UTF-8").replaceAll("\r\n", "\n");
+    Assert.assertEquals(expected, actual);
+
+    expectedFile = new File(getTestResource("unimarc/expected-results/authority/authorities-by-schema-subfields.csv"));
+    actualFile = new File(outputDir, "authorities-by-schema-subfields.csv");
+    expected = FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");
+    actual = FileUtils.readFileToString(actualFile, "UTF-8").replaceAll("\r\n", "\n");
+    Assert.assertEquals(expected, actual);
+
+    expectedFile = new File(getTestResource("unimarc/expected-results/authority/authorities-frequency-examples.csv"));
+    actualFile = new File(outputDir, "authorities-frequency-examples.csv");
+    expected = FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");
+    actual = FileUtils.readFileToString(actualFile, "UTF-8").replaceAll("\r\n", "\n");
+    Assert.assertEquals(expected, actual);
+
+    expectedFile = new File(getTestResource("unimarc/expected-results/authority/authorities-histogram.csv"));
+    actualFile = new File(outputDir, "authorities-histogram.csv");
+    expected = FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");
+    actual = FileUtils.readFileToString(actualFile, "UTF-8").replaceAll("\r\n", "\n");
+    Assert.assertEquals(expected, actual);
   }
 
   protected static void clearOutput(String outputDir, List<String> outputFiles) {

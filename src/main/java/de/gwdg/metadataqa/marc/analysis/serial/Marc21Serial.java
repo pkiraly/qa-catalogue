@@ -32,19 +32,19 @@ public class Marc21Serial extends MarcSerial {
   }
 
   public List<DataField> getIssn022() {
-    return marcRecord.getDatafield("022");
+    return marcRecord.getDatafieldsByTag("022");
   }
 
   public List<DataField> getFrequency310() {
-    return marcRecord.getDatafield("310");
+    return marcRecord.getDatafieldsByTag("310");
   }
 
   public List<DataField> getDatesOfPublication362() {
-    return marcRecord.getDatafield("362");
+    return marcRecord.getDatafieldsByTag("362");
   }
 
   public List<DataField> getSourceOfDescription588() {
-    return marcRecord.getDatafield("588");
+    return marcRecord.getDatafieldsByTag("588");
   }
 
   public String getEncodingLevel() {
@@ -92,7 +92,7 @@ public class Marc21Serial extends MarcSerial {
 
   private void detectDeletion() {
     // Discard any that are RECORD REPORTED FOR DELETION
-    List<DataField> notes = marcRecord.getDatafield("936");
+    List<DataField> notes = marcRecord.getDatafieldsByTag("936");
     if (!empty(notes)
         && notes.get(0).getSubfield("0") != null
         && notes.get(0).getSubfield("0").get(0) != null
@@ -127,11 +127,11 @@ public class Marc21Serial extends MarcSerial {
 
   private void detectPPC() {
     // Any PCC record should automatically be kept unless it is not online and/or a ceased title
-    if (!empty(marcRecord.getDatafield("042"))
-        && marcRecord.getDatafield("042").get(0) != null
-        && marcRecord.getDatafield("042").get(0).getSubfield("a") != null
-        && !marcRecord.getDatafield("042").get(0).getSubfield("a").isEmpty()
-        && marcRecord.getDatafield("042").get(0).getSubfield("a").get(0).getCode().equals("pcc")) {
+    if (!empty(marcRecord.getDatafieldsByTag("042"))
+        && marcRecord.getDatafieldsByTag("042").get(0) != null
+        && marcRecord.getDatafieldsByTag("042").get(0).getSubfield("a") != null
+        && !marcRecord.getDatafieldsByTag("042").get(0).getSubfield("a").isEmpty()
+        && marcRecord.getDatafieldsByTag("042").get(0).getSubfield("a").get(0).getCode().equals("pcc")) {
       scores.set(SerialFields.PCC, 100);
     }
   }
@@ -148,42 +148,42 @@ public class Marc21Serial extends MarcSerial {
 
   private void detectDescriptionSource() {
     // Description based on/ Latest issue consulted notes (sourceOfDescription588)
-    if (!empty(marcRecord.getDatafield("588"))) {
+    if (!empty(marcRecord.getDatafieldsByTag("588"))) {
       scores.set(SerialFields.HAS_SOURCE_OF_DESCRIPTION_588, 1);
     }
   }
 
   private void detectDateOfPublication() {
     // Begins with... (datesOfPublication362)
-    if (!empty(marcRecord.getDatafield("362"))) {
+    if (!empty(marcRecord.getDatafieldsByTag("362"))) {
       scores.set(SerialFields.HAS_DATES_OF_PUBLICATION_362, 1);
     }
   }
 
   private void detectContentTypeRDA() {
     // Content Type (RDA) fields
-    if (!empty(marcRecord.getDatafield("336"))) {
+    if (!empty(marcRecord.getDatafieldsByTag("336"))) {
       scores.set(SerialFields.HAS_CONTENT_TYPE_336, 1);
     }
   }
 
   private void detectPublicationFrequency() {
     // Publication frequency
-    if (!empty(marcRecord.getDatafield("310"))) {
+    if (!empty(marcRecord.getDatafieldsByTag("310"))) {
       scores.set(SerialFields.HAS_PUBLICATION_FREQUENCY_310, 1);
     }
   }
 
   private void detectPublisherRDA() {
     // Record has publisher RDA
-    if (!empty(marcRecord.getDatafield("264"))) {
+    if (!empty(marcRecord.getDatafieldsByTag("264"))) {
       scores.set(SerialFields.HAS_PUBLISHER_264, 1);
     }
   }
 
   private void detectPublisher() {
     // Record has publisher AACR2
-    if (!empty(marcRecord.getDatafield("260"))) {
+    if (!empty(marcRecord.getDatafieldsByTag("260"))) {
       scores.set(SerialFields.HAS_PUBLISHER_260, 1);
     }
   }
@@ -235,7 +235,7 @@ public class Marc21Serial extends MarcSerial {
 
   private void detectAuthenticationCode() {
     // Authentication code (from the 042) is empty (the record is not pcc or nsdp)
-    List<DataField> authenticationcode = marcRecord.getDatafield("042");
+    List<DataField> authenticationcode = marcRecord.getDatafieldsByTag("042");
     if (!empty(authenticationcode)
         && authenticationcode.get(0) != null
         && authenticationcode.get(0).getSubfield("a") != null

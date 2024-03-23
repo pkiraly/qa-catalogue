@@ -11,7 +11,6 @@ import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaReader;
 import org.junit.Test;
 import org.marc4j.marc.DataField;
 import org.marc4j.marc.Record;
-import org.marc4j.marc.VariableField;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -20,7 +19,6 @@ import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -97,7 +95,7 @@ public class PicaNormalizedReaderTest {
     BibliographicRecord bibRecord = MarcFactory.createPicaFromMarc4j(record, schema);
 
     assertEquals("010705201", bibRecord.getId());
-    List<de.gwdg.metadataqa.marc.dao.DataField> tags = bibRecord.getDatafield("045T");
+    List<de.gwdg.metadataqa.marc.dao.DataField> tags = bibRecord.getDatafieldsByTag("045T");
     assertEquals(1, tags.size());
     de.gwdg.metadataqa.marc.dao.DataField tag = tags.get(0);
     assertEquals(2, tag.getSubfield("k").size());

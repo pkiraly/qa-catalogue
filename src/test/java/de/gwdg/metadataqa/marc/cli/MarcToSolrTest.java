@@ -39,7 +39,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -80,7 +79,7 @@ public class MarcToSolrTest {
 
     PicaPath groupBy = PicaPathParser.parse("001@$0");
     PicaGroupIndexer groupIndexer = new PicaGroupIndexer().setPicaPath(groupBy);
-    for (DataField field : bibliographicRecord.getDatafield(groupBy.getTag()))
+    for (DataField field : bibliographicRecord.getDatafieldsByTag(groupBy.getTag()))
       field.addFieldIndexer(groupIndexer);
 
     Map<String, List<String>> map = bibliographicRecord.getKeyValuePairs(SolrFieldType.MIXED, true, MarcVersion.MARC21);

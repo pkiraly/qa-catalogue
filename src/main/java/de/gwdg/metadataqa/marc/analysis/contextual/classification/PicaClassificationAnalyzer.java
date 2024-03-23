@@ -1,7 +1,6 @@
-package de.gwdg.metadataqa.marc.analysis.classification;
+package de.gwdg.metadataqa.marc.analysis.contextual.classification;
 
 import de.gwdg.metadataqa.marc.MarcSubfield;
-import de.gwdg.metadataqa.marc.analysis.ClassificationStatistics;
 import de.gwdg.metadataqa.marc.analysis.FieldWithScheme;
 import de.gwdg.metadataqa.marc.cli.parameters.ClassificationParameters;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
@@ -36,6 +35,7 @@ public class PicaClassificationAnalyzer extends ClassificationAnalyzer {
   }
 
   public int process() {
+    logger.log(Level.INFO, "Classifying PICA record");
     var total = 0;
     schemasInRecord = new ArrayList<>();
 
@@ -76,7 +76,7 @@ public class PicaClassificationAnalyzer extends ClassificationAnalyzer {
       return 0;
     }
 
-    List<DataField> fields = bibliographicRecord.getDatafield(tag);
+    List<DataField> fields = bibliographicRecord.getDatafieldsByTag(tag);
     List<Schema> schemas = new ArrayList<>();
     for (DataField field : fields) {
       String firstSubfield = getFirstSubfield(field);

@@ -48,7 +48,7 @@ public class PicaCompletenessPlugin implements CompletenessPlugin, Serializable 
 
   @Override
   public String getDocumentType(BibliographicRecord marcRecord) {
-    String code = marcRecord.getDatafield(field).get(0).getSubfield(subfield).get(0).getValue().substring(0, 1);
+    String code = marcRecord.getDatafieldsByTag(field).get(0).getSubfield(subfield).get(0).getValue().substring(0, 1);
     return types.getOrDefault(code, "invalid");
   }
 

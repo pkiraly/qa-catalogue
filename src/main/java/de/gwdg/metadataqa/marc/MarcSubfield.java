@@ -110,16 +110,19 @@ public class MarcSubfield implements Serializable { // Validatable
   }
 
   public Map<String, String> parseContent() {
-    if (definition.hasContentParser())
-      try {
-        return definition.getContentParser().parse(value);
-      } catch (ParserException e) {
-        var msg = String.format(
-          "Error in record: '%s' %s$%s: '%s'. Error message: '%s'",
-          marcRecord.getId(), field.getTag(), definition.getCode(), value, e.getMessage()
-        );
-        logger.severe(msg);
-      }
+    if (!definition.hasContentParser()) {
+      return Collections.emptyMap();
+    }
+
+    try {
+      return definition.getContentParser().parse(value);
+    } catch (ParserException e) {
+      var msg = String.format(
+        "Error in record: '%s' %s$%s: '%s'. Error message: '%s'",
+        marcRecord.getId(), field.getTag(), definition.getCode(), value, e.getMessage()
+      );
+      logger.severe(msg);
+    }
 
     return Collections.emptyMap();
   }

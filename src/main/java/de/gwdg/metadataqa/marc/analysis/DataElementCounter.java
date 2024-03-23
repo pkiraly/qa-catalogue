@@ -49,7 +49,7 @@ public class DataElementCounter {
   public List<Integer> count(BibliographicRecord marcRecord) {
     List<Integer> counts = new ArrayList<>();
     for (Map.Entry<String, List<DataElement>> entry : tags.entrySet()) {
-      List<DataField> instances = marcRecord.getDatafield(entry.getKey());
+      List<DataField> instances = marcRecord.getDatafieldsByTag(entry.getKey());
       if (instances == null || instances.isEmpty()) {
         for (int i=0; i<entry.getValue().size(); i++) {
           counts.add(0);

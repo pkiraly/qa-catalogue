@@ -1,6 +1,5 @@
-package de.gwdg.metadataqa.marc.analysis.classification;
+package de.gwdg.metadataqa.marc.analysis.contextual.classification;
 
-import de.gwdg.metadataqa.marc.analysis.ClassificationStatistics;
 import de.gwdg.metadataqa.marc.analysis.FieldWithScheme;
 import de.gwdg.metadataqa.marc.cli.parameters.ClassificationParameters;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
@@ -47,12 +46,12 @@ public class UnimarcClassificationAnalyzer extends MarcClassificationAnalyzer {
     "610"  // Uncontrolled subject terms
   );
 
-  public UnimarcClassificationAnalyzer(BibliographicRecord marcRecord, ClassificationStatistics statistics) {
-    super(marcRecord, statistics);
+  public UnimarcClassificationAnalyzer(BibliographicRecord bibliographicRecord, ClassificationStatistics statistics) {
+    super(bibliographicRecord, statistics);
   }
 
-  public UnimarcClassificationAnalyzer(BibliographicRecord marcRecord, ClassificationStatistics statistics, ClassificationParameters parameters) {
-    this(marcRecord, statistics);
+  public UnimarcClassificationAnalyzer(BibliographicRecord bibliographicRecord, ClassificationStatistics statistics, ClassificationParameters parameters) {
+    this(bibliographicRecord, statistics);
     this.parameters = parameters;
   }
 
@@ -112,7 +111,7 @@ public class UnimarcClassificationAnalyzer extends MarcClassificationAnalyzer {
     }
 
     // Get all fields that correspond to the tag
-    List<DataField> fields = marcRecord.getDatafield(tag);
+    List<DataField> fields = marcRecord.getDatafieldsByTag(tag);
     List<Schema> schemas = new ArrayList<>();
 
     // For each corresponding field, state that the schema is uncontrolled along with the abbreviation (or the name

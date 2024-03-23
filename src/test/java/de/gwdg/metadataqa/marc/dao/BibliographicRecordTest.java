@@ -143,7 +143,7 @@ public class BibliographicRecordTest {
     Marc21Record marcRecord = (Marc21Record) MarcFactory.createFromMarc4j(records.get(0));
     assertEquals(' ', records.get(0).getLeader().getCharCodingScheme());
     assertEquals(" ", ((Marc21Leader) marcRecord.getLeader()).getCharacterCodingScheme().getValue());
-    assertEquals("Az ítélet :", marcRecord.getDatafield("245").get(0).getSubfield("a").get(0).getValue());
+    assertEquals("Az ítélet :", marcRecord.getDatafieldsByTag("245").get(0).getSubfield("a").get(0).getValue());
   }
 
   @Test
@@ -155,8 +155,8 @@ public class BibliographicRecordTest {
 
     Marc21Record marcRecord = (Marc21Record) MarcFactory.createFromMarc4j(record);
     assertEquals(" ", ((Marc21Leader) marcRecord.getLeader()).getCharacterCodingScheme().getValue());
-    assertEquals("Az ítélet :", marcRecord.getDatafield("245").get(0).getSubfield("a").get(0).getValue());
-    assertEquals("[Följegyzések és dokumentumok néhány magyarországi református egyházi döntésről 1948 és 1998 között] :", marcRecord.getDatafield("245").get(0).getSubfield("b").get(0).getValue());
+    assertEquals("Az ítélet :", marcRecord.getDatafieldsByTag("245").get(0).getSubfield("a").get(0).getValue());
+    assertEquals("[Följegyzések és dokumentumok néhány magyarországi református egyházi döntésről 1948 és 1998 között] :", marcRecord.getDatafieldsByTag("245").get(0).getSubfield("b").get(0).getValue());
   }
 
 }

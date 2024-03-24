@@ -55,19 +55,21 @@ public class PicaFieldDefinition extends DataFieldDefinition {
   }
 
   public boolean inRange(String occurrence) {
-    if (range != null && range.getUnitLength() == occurrence.length())
-      if (range.isHasRange()) {
-        return range.getStart().compareTo(occurrence) <= 0 && range.getEnd().compareTo(occurrence) >= 0;
-      } else {
-        return range.getStart().equals(occurrence);
-      }
+    if (range == null || range.getUnitLength() != occurrence.length()) {
+      return false;
+    }
 
-    return false;
+    if (range.isHasRange()) {
+      return range.getStart().compareTo(occurrence) <= 0 && range.getEnd().compareTo(occurrence) >= 0;
+    }
+
+    return range.getStart().equals(occurrence);
   }
 
   public String getTagWithOccurrence() {
-    if (StringUtils.isBlank(occurrence))
+    if (StringUtils.isBlank(occurrence)) {
       return tag;
+    }
     return tag + "/" + occurrence;
   }
 

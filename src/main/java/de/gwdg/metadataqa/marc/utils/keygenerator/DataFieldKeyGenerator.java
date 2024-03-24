@@ -6,17 +6,14 @@ import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
-import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Pattern;
 
 public class DataFieldKeyGenerator {
-  private DataFieldDefinition definition;
-  private SolrFieldType type;
-  private String tag;
-  private String indexTag;
+  private final DataFieldDefinition definition;
+  private final SolrFieldType type;
+  private final String tag;
+  private final String indexTag;
   public static final Pattern nonValidSubfieldCode = Pattern.compile("[^0-9a-zA-Z]");
   private MarcVersion marcVersion;
   private SchemaType schemaType;
@@ -38,24 +35,33 @@ public class DataFieldKeyGenerator {
     if (schemaType.equals(SchemaType.PICA)) {
       this.tag = tag;
       this.indexTag = escape(tag);
-    } else {
-      if (definition != null) {
-        this.tag = definition.getTag();
-        this.indexTag = definition.getIndexTag();
-      } else {
-        this.tag = tag;
-        this.indexTag = tag;
-      }
+      return;
     }
+
+    if (definition != null) {
+      this.tag = definition.getTag();
+      this.indexTag = definition.getIndexTag();
+      return;
+    }
+
+    this.tag = tag;
+    this.indexTag = tag;
   }
 
+  /**
+   * Generate key for indicator 1. Depending on the type of the field, the key can be in different formats:
+   * - "ind1_ind1" for human-readable fields
+   * -
+   * @return
+   */
   public String forInd1() {
     String key = "";
     switch (type) {
       case HUMAN:
         key = String.format(
           "%s_%s",
-          indexTag, definition.getInd1().getIndexTag());
+          indexTag,
+          definition.getInd1().getIndexTag());
         break;
       case MIXED:
         if (definition == null) {
@@ -101,9 +107,14 @@ public class DataFieldKeyGenerator {
   public String forSubfield(MarcSubfield subfield) {
     String code = subfield.getCode();
     SubfieldDefinition subfieldDefinition = subfield.getDefinition();
-    if (subfieldDefinition == null && definition != null)
+    if (subfieldDefinition == null && definition != null) {
       subfieldDefinition = definition.getVersionSpecificSubfield(marcVersion, code);
-    String codeForIndex = (subfieldDefinition != null) ? subfieldDefinition.getCodeForIndex(schemaType) : code;
+    }
+
+    String codeForIndex = (subfieldDefinition != null)
+      ? subfieldDefinition.getCodeForIndex(schemaType)
+      : code;
+
     String key = forSubfield(code, codeForIndex);
 
     return addVersion(subfieldDefinition, key);
@@ -120,13 +131,23 @@ public class DataFieldKeyGenerator {
     return key;
   }
 
+  /**
+   * Generate a key for the given subfield code and index code. Depending on the fieldType chosen, either the code or
+   * the index code is used.
+   * @param code The subfield code.
+   * @param codeForIndex The index code of the subfield.
+   * @return The key for the subfield.
+   */
   private String forSubfield(String code, String codeForIndex) {
+    // Make sure that the field tag does not contain any invalid characters
     String safeTag = nonValidSubfieldCode.matcher(tag).find() ? escape(tag) : tag;
+
+    // Also make sure that the subfield code does not contain any invalid characters
     if (nonValidSubfieldCode.matcher(code).matches()) {
       code = String.format("x%x", (int) code.charAt(0));
     }
 
-    String key = "";
+    String key;
     switch (type) {
       case HUMAN:
         key = String.format("%s%s", indexTag, codeForIndex);
@@ -152,16 +173,14 @@ public class DataFieldKeyGenerator {
     return key;
   }
 
+  /**
+   * Escapes characters in the tag so that none are matched by the nonValidSubfieldCode pattern. Such characters are
+   * replaced by an underscore.
+   * @param tag The tag to escape.
+   * @return The escaped tag. For example: "%$a" -> "__a".
+   */
   public static String escape(String tag) {
-    List<String> safe = new ArrayList<>();
-    for (int i = 0; i < tag.length(); i++) {
-      String code = tag.substring(i, i+1);
-      if (nonValidSubfieldCode.matcher(code).matches()) {
-        code = "_"; // code = String.format("x%x", (int) code.charAt(0));
-      }
-      safe.add(code);
-    }
-    return StringUtils.join(safe, "");
+    return tag.replaceAll(nonValidSubfieldCode.pattern(), "_");
   }
 
   public String getIndexTag() {

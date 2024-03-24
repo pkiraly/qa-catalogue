@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.general.Linkage;
 import de.gwdg.metadataqa.marc.definition.general.parser.ParserException;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
+import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import de.gwdg.metadataqa.marc.model.validation.ErrorsCollector;
 import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGenerator;
 
@@ -76,9 +77,14 @@ public class MarcSubfield implements Serializable { // Validatable
     return label;
   }
 
+  /**
+   * Resolve the subfield value.
+   * @return Either the original value of the subfield or its label.
+   */
   public String resolve() {
-    if (definition == null)
+    if (definition == null) {
       return value;
+    }
 
     return definition.resolve(value);
   }
@@ -100,11 +106,12 @@ public class MarcSubfield implements Serializable { // Validatable
   }
 
   public String getCodeForIndex() {
-    if (codeForIndex == null) {
-      codeForIndex = "_" + code;
-      if (definition != null && definition.getCodeForIndex(marcRecord.getSchemaType()) != null) {
-        codeForIndex = definition.getCodeForIndex(marcRecord.getSchemaType());
-      }
+    if (codeForIndex != null) {
+      return codeForIndex;
+    }
+    codeForIndex = "_" + code;
+    if (definition != null && definition.getCodeForIndex(marcRecord.getSchemaType()) != null) {
+      codeForIndex = definition.getCodeForIndex(marcRecord.getSchemaType());
     }
     return codeForIndex;
   }
@@ -133,20 +140,27 @@ public class MarcSubfield implements Serializable { // Validatable
     }
 
     String tagForCache = this.getField().getTag();
-    if (this.getField().getOccurrence() != null)
+    if (this.getField().getOccurrence() != null) {
       tagForCache += "/" + this.getField().getOccurrence();
-    String cacheKey = String.format("%s$%s-%s-%s", tagForCache, code, keyGenerator.getType().getType(), keyGenerator.getMarcVersion());
-    if (!prefixCache.containsKey(cacheKey))
-      prefixCache.put(cacheKey, keyGenerator.forSubfield(this));
+    }
+
+    SolrFieldType fieldType = keyGenerator.getType();
+    String cacheKey = String.format("%s$%s-%s-%s", tagForCache, code, fieldType.getType(), keyGenerator.getMarcVersion());
+
+    String generatedPrefix = keyGenerator.forSubfield(this);
+    prefixCache.putIfAbsent(cacheKey, generatedPrefix);
     String prefix = prefixCache.get(cacheKey);
 
     Map<String, List<String>> pairs = new HashMap<>();
-    pairs.put(prefix, new ArrayList<>(List.of(resolve())));
-    if (getDefinition() != null) {
-      getKeyValuePairsForPositionalSubfields(pairs, prefix);
-      getKeyValuePairsFromContentParser(keyGenerator, pairs);
+    String resolvedValue = resolve();
+
+    pairs.put(prefix, new ArrayList<>(List.of(resolvedValue)));
+    if (getDefinition() == null) {
+      return pairs;
     }
 
+    getKeyValuePairsForPositionalSubfields(pairs, prefix);
+    getKeyValuePairsFromContentParser(keyGenerator, pairs);
     return pairs;
   }
 
@@ -165,11 +179,13 @@ public class MarcSubfield implements Serializable { // Validatable
   }
 
   private void getKeyValuePairsForPositionalSubfields(Map<String, List<String>> pairs, String prefix) {
-    if (getDefinition().hasPositions()) {
-      Map<String, String> extra = getDefinition().resolvePositional(getValue());
-      for (Map.Entry<String, String> entry : extra.entrySet()) {
-        pairs.put(prefix + "_" + entry.getKey(), new ArrayList<>(List.of(entry.getValue())));
-      }
+    if (!getDefinition().hasPositions()) {
+      return;
+    }
+
+    Map<String, String> extra = getDefinition().resolvePositional(getValue());
+    for (Map.Entry<String, String> entry : extra.entrySet()) {
+      pairs.put(prefix + "_" + entry.getKey(), new ArrayList<>(List.of(entry.getValue())));
     }
   }
 

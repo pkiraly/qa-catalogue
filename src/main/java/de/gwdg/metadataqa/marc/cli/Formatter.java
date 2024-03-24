@@ -1,10 +1,10 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.cli.parameters.FormatterParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
+import de.gwdg.metadataqa.marc.dao.DataField;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.utils.SchemaSpec;
@@ -112,16 +112,15 @@ public class Formatter implements BibliographicInputProcessor {
 
   @Override
   public void processRecord(Record marc4jRecord, int recordNumber) throws IOException {
-    if (
-      (parameters.hasId()
-        && marc4jRecord.getControlNumber() != null
-        && marc4jRecord.getControlNumber().trim().equals(parameters.getId())
-      )
-        ||
-        (
-          parameters.getCountNr() > -1
-            && parameters.getCountNr() == recordNumber)) {
-      System.out.println(marc4jRecord.toString());
+    boolean hasSpecifiedId = parameters.hasId()
+      && marc4jRecord.getControlNumber() != null
+      && marc4jRecord.getControlNumber().trim().equals(parameters.getId());
+
+    boolean hasSpecifiedRecordNumber = parameters.getCountNr() > -1
+      && parameters.getCountNr() == recordNumber;
+
+    if (hasSpecifiedId || hasSpecifiedRecordNumber) {
+      logger.info(marc4jRecord::toString);
     }
   }
 
@@ -134,46 +133,52 @@ public class Formatter implements BibliographicInputProcessor {
   public void processRecord(BibliographicRecord marcRecord, int recordNumber) throws IOException {
     if (parameters.hasId() && marcRecord.getId().trim().equals(parameters.getId())) {
       for (DataField field : marcRecord.getDatafields()) {
-        System.err.println(field.getTag());
+       logger.info(field.getTag());
       }
-      System.err.println("has STA: " + marcRecord.hasDatafield("STA"));
+      logger.info(() -> "has STA: " + marcRecord.hasDatafield("STA"));
     }
 
     if (parameters.hasSearch()) {
       List<String> results = marcRecord.search(parameters.getPath(), parameters.getQuery());
       if (!results.isEmpty()) {
-        System.out.println(marcRecord.toString());
+        logger.info(marcRecord::toString);
       }
     }
-    if (parameters.hasSelector()) {
-      List<String> values = new ArrayList<>();
-      if (parameters.withId())
-        values.add(marcRecord.getId());
-      if (parameters.getSchemaType().equals(SchemaType.MARC21)) {
-        for (SchemaSpec marcSpec : parameters.getSelector()) {
-          List<String> results = marcRecord.select((MarcSpec) marcSpec);
-          values.add(results.isEmpty() ? "" : StringUtils.join(results, "||"));
-        }
-      } else if (parameters.getSchemaType().equals(SchemaType.PICA)) {
-        for (SchemaSpec marcSpec : parameters.getSelector()) {
-          PicaSpec spec = (PicaSpec) marcSpec;
-          List<String> results = marcRecord.select(spec.getPath());
-          if (!results.isEmpty() && spec.getFunction() != null) {
-            List<String> candidates = new ArrayList<>();
-            for (String result : results)
-              if (spec.getFunction().equals("extractPicaDate"))
-                candidates.add(extractPicaDate(result));
-            results = candidates;
+    if (!parameters.hasSelector()) {
+      return;
+    }
+
+    List<String> values = new ArrayList<>();
+    if (parameters.withId()) {
+      values.add(marcRecord.getId());
+    }
+
+    if (parameters.getSchemaType().equals(SchemaType.MARC21)) {
+      for (SchemaSpec marcSpec : parameters.getSelector()) {
+        List<String> results = marcRecord.select((MarcSpec) marcSpec);
+        values.add(results.isEmpty() ? "" : StringUtils.join(results, "||"));
+      }
+    } else if (parameters.getSchemaType().equals(SchemaType.PICA)) {
+      for (SchemaSpec marcSpec : parameters.getSelector()) {
+        PicaSpec spec = (PicaSpec) marcSpec;
+        List<String> results = marcRecord.select(spec.getPath());
+        if (!results.isEmpty() && spec.getFunction() != null) {
+          List<String> candidates = new ArrayList<>();
+          for (String result : results) {
+            if (spec.getFunction().equals("extractPicaDate")) {
+              candidates.add(extractPicaDate(result));
+            }
           }
-          values.add(results.isEmpty() ? "" : StringUtils.join(results, "||"));
+          results = candidates;
         }
+        values.add(results.isEmpty() ? "" : StringUtils.join(results, "||"));
       }
-      // System.out.println(StringUtils.join(values, parameters.getSeparator()));
-      try {
-        writer.write(StringUtils.join(values, parameters.getSeparator()) + "\n");
-      } catch (IOException e) {
-        logger.log(Level.SEVERE, "processRecord", e);
-      }
+    }
+
+    try {
+      writer.write(StringUtils.join(values, parameters.getSeparator()) + "\n");
+    } catch (IOException e) {
+      logger.log(Level.SEVERE, "processRecord", e);
     }
   }
 
@@ -184,12 +189,14 @@ public class Formatter implements BibliographicInputProcessor {
 
   @Override
   public void afterIteration(int numberOfprocessedRecords, long duration) {
-    if (writer != null) {
-      try {
-        writer.close();
-      } catch (IOException e) {
-        logger.log(Level.SEVERE, "afterIteration", e);
-      }
+    if (writer == null) {
+      return;
+    }
+
+    try {
+      writer.close();
+    } catch (IOException e) {
+      logger.log(Level.SEVERE, "afterIteration", e);
     }
   }
 

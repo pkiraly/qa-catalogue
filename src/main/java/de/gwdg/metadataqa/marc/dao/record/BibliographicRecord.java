@@ -292,7 +292,6 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
                                                     MarcVersion marcVersion) {
     if (mainKeyValuePairs == null) {
       mainKeyValuePairs = new LinkedHashMap<>();
-
       getKeyValuePairsForDatafields(type, withDeduplication, marcVersion);
     }
 

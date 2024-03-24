@@ -67,7 +67,7 @@ public class ValidatorCliTest extends CliTestUtils {
       TestUtils.getPath("pica/pica-with-holdings-info.dat")
     });
     RecordIterator iterator = new RecordIterator(processor);
-    iterator.setProcessWithEroors(true);
+    iterator.setProcessWithErrors(true);
     iterator.start();
     assertEquals("done", iterator.getStatus());
 
@@ -147,7 +147,7 @@ public class ValidatorCliTest extends CliTestUtils {
       TestUtils.getPath("pica/pica-with-holdings-info.dat")
     });
     RecordIterator iterator = new RecordIterator(processor);
-    iterator.setProcessWithEroors(true);
+    iterator.setProcessWithErrors(true);
     iterator.start();
     assertEquals(iterator.getStatus(), "done");
 
@@ -281,7 +281,7 @@ public class ValidatorCliTest extends CliTestUtils {
       TestUtils.getPath("alephseq/alephseq-example6-error.txt")
     });
     RecordIterator iterator = new RecordIterator(processor);
-    iterator.setProcessWithEroors(true);
+    iterator.setProcessWithErrors(true);
     iterator.start();
     assertEquals("done", iterator.getStatus());
 
@@ -367,7 +367,7 @@ public class ValidatorCliTest extends CliTestUtils {
     });
 
     RecordIterator iterator = new RecordIterator(processor);
-    iterator.setProcessWithEroors(true);
+    iterator.setProcessWithErrors(true);
     iterator.start();
 
     assertEquals("done", iterator.getStatus());

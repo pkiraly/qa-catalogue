@@ -47,6 +47,9 @@ public class DataField implements Extractable, Serializable {
   private String ind2;
   private List<MarcSubfield> subfields;
   private Map<String, List<MarcSubfield>> subfieldIndex = new LinkedHashMap<>();
+  /**
+   * Occurrence is only used in PICA records
+   */
   private String occurrence;
   private List<String> unhandledSubfields = null;
   private BibliographicRecord bibliographicRecord;
@@ -87,7 +90,6 @@ public class DataField implements Extractable, Serializable {
           definition.getTag(), code, value, definition.getTag().equals("886"),
           code.equals("k"));
       }
-
     }
   }
 
@@ -139,11 +141,6 @@ public class DataField implements Extractable, Serializable {
     parseAndAddSubfields(content);
   }
 
-  private void parseAndAddSubfields(String content) {
-    for (String[] sf : parseSubfields(content))
-      addSubfield(sf[0], sf[1]);
-  }
-
   public static List<String[]> parseSubfields(String content) {
     List<String[]> subfields = new ArrayList<>();
 
@@ -170,6 +167,11 @@ public class DataField implements Extractable, Serializable {
     subfields.add(new String[]{code, value.toString()});
 
     return subfields;
+  }
+
+  private void parseAndAddSubfields(String content) {
+    for (String[] sf : parseSubfields(content))
+      addSubfield(sf[0], sf[1]);
   }
 
   public BibliographicRecord getBibliographicRecord() {
@@ -339,6 +341,8 @@ public class DataField implements Extractable, Serializable {
                                                     MarcVersion marcVersion) {
     Map<String, List<String>> pairs = new HashMap<>();
 
+    // If the field is PICA and has a definition, use the definition's tag
+    // Otherwise, use the tag found in the field
     if (bibliographicRecord != null && bibliographicRecord.getSchemaType().equals(SchemaType.PICA) && definition != null) {
       PicaFieldDefinition picaDefinition = (PicaFieldDefinition) definition;
       tag = picaDefinition.getTag();
@@ -348,26 +352,27 @@ public class DataField implements Extractable, Serializable {
         tag += "_" + picaDefinition.getOccurrence();
     } else {
       tag = getTag();
-      if (getOccurrence() != null)
+      if (getOccurrence() != null) {
         tag += "/" + getOccurrence();
+      }
     }
 
     SchemaType schemaType = bibliographicRecord != null ? bibliographicRecord.getSchemaType() : SchemaType.MARC21;
     DataFieldKeyGenerator keyGenerator = new DataFieldKeyGenerator(definition, type, tag, schemaType);
     keyGenerator.setMarcVersion(marcVersion);
 
-    // ind1
+    // Indicator 1
     boolean hasInd1def = (definition != null && definition.getInd1() != null && definition.getInd1().exists());
     if (hasInd1def || !getInd1().equals(" ")) {
-      String value = hasInd1def ? resolveInd1() : getInd1();
+      String value = resolveInd1();
       pairs.put(keyGenerator.forInd1(), Collections.singletonList(value));
     }
 
     // ind2
     boolean hasInd2def = (definition != null && definition.getInd2() != null && definition.getInd2().exists());
     if (hasInd2def || !getInd2().equals(" ")) {
-      String value = hasInd2def ? resolveInd2() : getInd2();
-      pairs.put(keyGenerator.forInd2(), Arrays.asList(value));
+      String value = resolveInd2();
+      pairs.put(keyGenerator.forInd2(), Collections.singletonList(value));
     }
 
     // subfields
@@ -476,28 +481,47 @@ public class DataField implements Extractable, Serializable {
   }
 
   public String resolveInd1() {
+    if (definition == null) {
+      return ind1;
+    }
     return resolveIndicator(definition.getInd1(), ind1);
   }
 
   public String resolveInd2() {
+    if (definition == null) {
+      return ind2;
+    }
     return resolveIndicator(definition.getInd2(), ind2);
   }
 
+  /**
+   * Returns the label of the indicator if it can be found in the definition. Otherwise, returns the indicator code used.
+   * @param indicatorDefinition The definition of the indicator.
+   * @param indicator The indicator code.
+   * @return The label or the indicator code depending on the existence of the indicator in the definition.
+   */
   public String resolveIndicator(Indicator indicatorDefinition, String indicator) {
-    if (indicatorDefinition == null)
+    if (indicatorDefinition == null) {
       return indicator;
+    }
 
-    if (!indicatorDefinition.exists())
+    if (!indicatorDefinition.exists()) {
       return indicator;
+    }
 
-    if (!indicatorDefinition.hasCode(indicator))
+    if (!indicatorDefinition.hasCode(indicator)) {
       return indicator;
+    }
 
     EncodedValue indCode = indicatorDefinition.getCode(indicator);
     assert(indCode != null);
+
+    // If it's a range, return the label and the indicator
+    // For instance, code="0-9" -> "Number of parts: 3"
     if (indCode.isRange()) {
       return indCode.getLabel() + ": " + indicator;
     }
+
     return indCode.getLabel();
   }
 
@@ -558,8 +582,9 @@ public class DataField implements Extractable, Serializable {
   }
 
   public String getTagWithOccurrence() {
-    if (occurrence == null)
+    if (occurrence == null) {
       return getTag();
+    }
     return getTag() + "/" + occurrence;
   }
 

@@ -7,7 +7,6 @@ import de.gwdg.metadataqa.marc.definition.CompilanceLevel;
 import de.gwdg.metadataqa.marc.definition.FRBRFunction;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.bibliographic.BibliographicFieldDefinition;
-import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
 import de.gwdg.metadataqa.marc.definition.general.parser.SubfieldContentParser;
 import de.gwdg.metadataqa.marc.definition.general.validator.SubfieldValidator;
@@ -54,10 +53,11 @@ public class SubfieldDefinition implements Serializable {
   /**
    * Returns the subfield code needed for Solr indexing. If MQ or BIBFRAME tags are defined, they are used in that order.
    * Otherwise, the code is prefixed with an underscore (and special characters are replaced with their names).
-   * @param schemaType The schema type of the bibliographic record that the subfield belongs to.
+   * @implNote The code that's referred to here is the identifier of the subfield and not code in the sense of possible
+   * values of the subfield.
    * @return The subfield code for Solr indexing.
    */
-  public String getCodeForIndex(SchemaType schemaType) {
+  public String getCodeForIndex() {
     if (codeForIndex != null) {
       return codeForIndex;
     }
@@ -66,7 +66,7 @@ public class SubfieldDefinition implements Serializable {
       if (mqTag.equals("rdf:value"))
         codeForIndex = "";
       else
-        codeForIndex = "_" + mqTag;
+        codeForIndex = mqTag;
 
       return codeForIndex;
     }
@@ -75,25 +75,23 @@ public class SubfieldDefinition implements Serializable {
       switch (bibframeTag) {
         case "rdf:value": codeForIndex = ""; break;
         case "rdfs:label": codeForIndex = "label"; break;
-        default: codeForIndex = "_" + bibframeTag; break;
+        default: codeForIndex = bibframeTag; break;
       }
       return codeForIndex;
     }
 
     switch (code) {
       case "#":
-        codeForIndex = "_hash";
+        codeForIndex = "hash";
         break;
       case "*":
-        codeForIndex = "_star";
+        codeForIndex = "star";
         break;
       case "@":
-        codeForIndex = "_at";
+        codeForIndex = "at";
         break;
       default:
-        codeForIndex = (schemaType != null && schemaType.equals(SchemaType.PICA))
-          ? code
-          : "_" + code;
+        codeForIndex = code;
         break;
     }
 
@@ -204,10 +202,10 @@ public class SubfieldDefinition implements Serializable {
   }
 
   public EncodedValue getLocalCode(MarcVersion version, String code) {
-    List<EncodedValue> codes = getLocalCodes(version);
-    if (codes == null)
+    List<EncodedValue> localEncodedValues = getLocalCodes(version);
+    if (localEncodedValues == null)
       return null;
-    return getCode(codes, code);
+    return getCode(localEncodedValues, code);
   }
 
   public String getCardinalityCode() {

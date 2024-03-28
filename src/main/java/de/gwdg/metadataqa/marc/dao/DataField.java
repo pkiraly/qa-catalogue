@@ -86,9 +86,10 @@ public class DataField implements Extractable, Serializable {
       }
 
       if (!(definition.getTag().equals("886") && code.equals("k")) && !definition.getTag().equals("936")) {
-        System.err.printf("no definition for %s$%s (value: '%s') %s %s%n",
+        String errorMessage = String.format("no definition for %s$%s (value: '%s') %s %s%n",
           definition.getTag(), code, value, definition.getTag().equals("886"),
           code.equals("k"));
+        logger.severe(errorMessage);
       }
     }
   }
@@ -308,19 +309,37 @@ public class DataField implements Extractable, Serializable {
       output.append(String.format("%s_ind2: %s%n", definition.getIndexTag(), resolveInd2()));
 
     for (MarcSubfield subfield : subfields) {
-      String code = subfield.getCodeForIndex();
-      output.append(String.format("%s%s: %s%n", definition.getIndexTag(), code, subfield.resolve()));
-      if (subfield.getDefinition() != null && subfield.getDefinition().hasContentParser()) {
-        Map<String, String> extra = subfield.parseContent();
-        if (extra != null) {
-          for (Map.Entry<String, String> entry : extra.entrySet()) {
-            output.append(String.format(
-              "%s%s_%s: %s%n",
-              definition.getIndexTag(), code, entry.getKey(), entry.getValue()
-            ));
-          }
-        }
-      }
+      String subfieldOutput = formatSubfieldForIndex(subfield);
+      output.append(subfieldOutput);
+    }
+
+    return output.toString();
+  }
+
+  private String formatSubfieldForIndex(MarcSubfield subfield) {
+    StringBuilder output = new StringBuilder();
+
+    String code = subfield.getCodeForIndex();
+
+    // If PICA, then code = code, otherwise code = '_' + code
+    if (!bibliographicRecord.getSchemaType().equals(SchemaType.PICA) && !code.isEmpty()) {
+      code = "_" + code;
+    }
+
+    output.append(String.format("%s%s: %s%n", definition.getIndexTag(), code, subfield.resolve()));
+    if (subfield.getDefinition() == null || !subfield.getDefinition().hasContentParser()) {
+      return output.toString();
+    }
+    Map<String, String> extra = subfield.parseContent();
+    if (extra == null) {
+      return output.toString();
+    }
+
+    for (Map.Entry<String, String> entry : extra.entrySet()) {
+      output.append(String.format(
+        "%s%s_%s: %s%n",
+        definition.getIndexTag(), code, entry.getKey(), entry.getValue()
+      ));
     }
 
     return output.toString();
@@ -417,11 +436,11 @@ public class DataField implements Extractable, Serializable {
     }
 
     // classifications
-    String tag = schemaType.equals(SchemaType.PICA) ? this.getTagWithOccurrence() : this.getTag();
-    if (bibliographicRecord != null && bibliographicRecord.isSubjectTag(tag)) {
+    String fieldTag = schemaType.equals(SchemaType.PICA) ? this.getTagWithOccurrence() : this.getTag();
+    if (bibliographicRecord != null && bibliographicRecord.isSubjectTag(fieldTag)) {
       List<String> full = new ArrayList<>();
       for (MarcSubfield subfield : subfields) {
-        if (!bibliographicRecord.isSkippableSubjectSubfield(tag, subfield.getCode())) {
+        if (!bibliographicRecord.isSkippableSubjectSubfield(fieldTag, subfield.getCode())) {
           String value = subfield.getValue();
           full.add(value);
         }

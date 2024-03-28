@@ -48,12 +48,6 @@ public class DataFieldKeyGenerator {
     this.indexTag = tag;
   }
 
-  /**
-   * Generate key for indicator 1. Depending on the type of the field, the key can be in different formats:
-   * - "ind1_ind1" for human-readable fields
-   * -
-   * @return
-   */
   public String forInd1() {
     String key = "";
     switch (type) {
@@ -106,28 +100,29 @@ public class DataFieldKeyGenerator {
 
   public String forSubfield(MarcSubfield subfield) {
     String code = subfield.getCode();
-    SubfieldDefinition subfieldDefinition = subfield.getDefinition();
-    if (subfieldDefinition == null && definition != null) {
-      subfieldDefinition = definition.getVersionSpecificSubfield(marcVersion, code);
+    SubfieldDefinition versionSpecificDefinition = null;
+    if (definition != null) {
+      versionSpecificDefinition = definition.getVersionSpecificSubfield(marcVersion, code);
     }
 
-    String codeForIndex = (subfieldDefinition != null)
-      ? subfieldDefinition.getCodeForIndex(schemaType)
-      : code;
+    String codeForIndex = versionSpecificDefinition != null
+      ? versionSpecificDefinition.getCodeForIndex()
+      : subfield.getCodeForIndex();
 
     String key = forSubfield(code, codeForIndex);
 
-    return addVersion(subfieldDefinition, key);
+    return addVersion(versionSpecificDefinition, key);
   }
 
   public String forSubfield(SubfieldDefinition subfield) {
-    String key = forSubfield(subfield.getCode(), subfield.getCodeForIndex(schemaType));
+    String key = forSubfield(subfield.getCode(), subfield.getCodeForIndex());
     return addVersion(subfield, key);
   }
 
-  private String addVersion(SubfieldDefinition subfieldDefinition, String key) {
-    if (subfieldDefinition != null && subfieldDefinition.getMarcVersion() != null && type != SolrFieldType.MARC)
-      key += "_" + subfieldDefinition.getMarcVersion().getCode();
+  private String addVersion(SubfieldDefinition versionSpecificDefinition, String key) {
+    if (versionSpecificDefinition != null && versionSpecificDefinition.getMarcVersion() != null && type != SolrFieldType.MARC) {
+      key += "_" + versionSpecificDefinition.getMarcVersion().getCode();
+    }
     return key;
   }
 
@@ -150,15 +145,21 @@ public class DataFieldKeyGenerator {
     String key;
     switch (type) {
       case HUMAN:
-        key = String.format("%s%s", indexTag, codeForIndex);
+        if (schemaType != null && schemaType.equals(SchemaType.PICA)) {
+          key = String.format("%s%s", indexTag, codeForIndex);
+        } else if (!codeForIndex.isEmpty()) {
+          key = String.format("%s_%s", indexTag, codeForIndex);
+        } else {
+          key = String.format("%s", indexTag);
+        }
         break;
       case MIXED:
         if (schemaType != null && schemaType.equals(SchemaType.PICA)) {
           key = String.format("%s%s", safeTag, code);
         } else {
-          if (!tag.equals(indexTag) && !codeForIndex.equals("_" + code))
-            key = String.format("%s%s_%s%s", safeTag, code, indexTag, codeForIndex);
-          else if (!tag.equals(indexTag) && codeForIndex.equals("_" + code))
+          if (!tag.equals(indexTag) && !codeForIndex.equals(code) && !codeForIndex.isEmpty())
+            key = String.format("%s%s_%s_%s", safeTag, code, indexTag, codeForIndex);
+          else if (!tag.equals(indexTag))
             key = String.format("%s%s_%s", safeTag, code, indexTag);
           else
             key = String.format("%s%s", safeTag, code);

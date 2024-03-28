@@ -64,9 +64,9 @@ public class Marc21Record extends MarcRecord {
   @Override
   public List<MarcControlField> getControlfields() {
     List<MarcControlField> list = super.getControlfields();
-    if (control006 != null && !control006.isEmpty())
+    if (!control006.isEmpty())
       list.addAll(control006);
-    if (control007 != null && !control007.isEmpty())
+    if (!control007.isEmpty())
       list.addAll(control007);
     if (control008 != null)
       list.add(control008);
@@ -75,9 +75,9 @@ public class Marc21Record extends MarcRecord {
 
   public List<MarcPositionalControlField> getPositionalControlfields() {
     List<MarcPositionalControlField> list = new ArrayList<>();
-    if (control006 != null && !control006.isEmpty())
+    if (!control006.isEmpty())
       list.addAll(control006);
-    if (control007 != null && !control007.isEmpty())
+    if (!control007.isEmpty())
       list.addAll(control007);
     if (control008 != null)
       list.add(control008);
@@ -119,20 +119,22 @@ public class Marc21Record extends MarcRecord {
   public Map<String, List<String>> getKeyValuePairs(SolrFieldType type,
                                                     boolean withDeduplication,
                                                     MarcVersion marcVersion) {
-    if (mainKeyValuePairs == null) {
-      mainKeyValuePairs = new LinkedHashMap<>();
-
-      if (!schemaType.equals(SchemaType.PICA)) {
-        mainKeyValuePairs.put("type", Arrays.asList(getType().getValue()));
-        mainKeyValuePairs.putAll(leader.getKeyValuePairs(type));
-      }
-
-      for (MarcControlField controlField : getControlfields())
-        if (controlField != null)
-          mainKeyValuePairs.putAll(controlField.getKeyValuePairs(type));
-
-      getKeyValuePairsForDatafields(type, withDeduplication, marcVersion);
+    if (mainKeyValuePairs != null) {
+      return mainKeyValuePairs;
     }
+
+    mainKeyValuePairs = new LinkedHashMap<>();
+
+    mainKeyValuePairs.put("type", Collections.singletonList(getType().getValue()));
+    mainKeyValuePairs.putAll(leader.getKeyValuePairs(type));
+
+    for (MarcControlField controlField : getControlfields()) {
+      if (controlField != null) {
+        mainKeyValuePairs.putAll(controlField.getKeyValuePairs(type));
+      }
+    }
+
+    getKeyValuePairsForDatafields(type, withDeduplication, marcVersion);
 
     return mainKeyValuePairs;
   }

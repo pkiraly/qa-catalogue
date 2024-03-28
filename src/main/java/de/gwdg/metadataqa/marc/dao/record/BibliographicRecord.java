@@ -306,8 +306,7 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
         List<String> values = entry.getValue();
         if (mainKeyValuePairs.containsKey(key)) {
           mainKeyValuePairs.put(
-            key,
-            mergeValues(new ArrayList<>(mainKeyValuePairs.get(key)), values, withDeduplication)
+            key, mergeValues(new ArrayList<>(mainKeyValuePairs.get(key)), values, withDeduplication)
           );
         } else {
           mainKeyValuePairs.put(key, values);

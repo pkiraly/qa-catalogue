@@ -182,7 +182,7 @@ public class DataFieldValidator extends AbstractValidator {
 
     if (definition.isVersionSpecificSubfields(configuration.getMarcVersion(), subfield.getCode())) {
       subfield.setDefinition(
-          definition.getVersionSpecificSubfield(
+          definition.getVersionSpecificDefinition(
               configuration.getMarcVersion(), subfield.getCode()));
     }
   }

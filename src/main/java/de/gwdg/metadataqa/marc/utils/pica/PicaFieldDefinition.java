@@ -10,6 +10,10 @@ public class PicaFieldDefinition extends DataFieldDefinition {
   private String pica3;
   private String occurrence;
   private PicaRange range;
+  /**
+   * Represents the key of the field in the JSON PICA schema definition. It's usually the tag with or
+   * without the occurrence, depending on how the field is defined in the schema.
+   */
   private String id;
   private String counter;
 

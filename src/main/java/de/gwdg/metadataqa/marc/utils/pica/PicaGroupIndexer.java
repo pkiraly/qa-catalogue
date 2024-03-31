@@ -6,9 +6,7 @@ import de.gwdg.metadataqa.marc.definition.general.indexer.FieldIndexer;
 import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGenerator;
 import de.gwdg.metadataqa.marc.utils.pica.path.PicaPath;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +24,7 @@ public class PicaGroupIndexer implements FieldIndexer {
       if (subfields != null) {
         for (MarcSubfield subfield : subfields) {
           String key = subfield.getDefinition() != null
-            ? keyGenerator.forSubfield(subfield.getDefinition())
+            ? keyGenerator.forSubfieldDefinition(subfield.getDefinition())
             : keyGenerator.forSubfield(subfield);
           if (subfield.getValue() != null) {
             List<String> indexTerms = Arrays.asList(subfield.getValue().split(","));

@@ -300,14 +300,17 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
 
   protected void getKeyValuePairsForDatafields(SolrFieldType type, boolean withDeduplication, MarcVersion marcVersion) {
     for (DataField field : datafields) {
+      // Get the key value pairs for the data field and add them to the mainKeyValuePairs map
       Map<String, List<String>> keyValuePairs = field.getKeyValuePairs(type, marcVersion);
       for (Map.Entry<String, List<String>> entry : keyValuePairs.entrySet()) {
         String key = entry.getKey();
         List<String> values = entry.getValue();
+        // If mainKeyValuePairs already contains the key, merge the values into the existing list. Essentially extending
+        // the mainKeyValuePairs with the new key value pairs.
         if (mainKeyValuePairs.containsKey(key)) {
-          mainKeyValuePairs.put(
-            key, mergeValues(new ArrayList<>(mainKeyValuePairs.get(key)), values, withDeduplication)
-          );
+          ArrayList<String> existingPairs = new ArrayList<>(mainKeyValuePairs.get(key));
+          List<String> mergedPairs = mergeValues(existingPairs, values, withDeduplication);
+          mainKeyValuePairs.put(key, mergedPairs);
         } else {
           mainKeyValuePairs.put(key, values);
         }
@@ -318,14 +321,15 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
   protected List<String> mergeValues(List<String> existingValues,
                                      List<String> values,
                                      boolean withDeduplication) {
-    if (withDeduplication) {
-      for (String value : values) {
-        if (!existingValues.contains(value)) {
-          existingValues.add(value);
-        }
-      }
-    } else {
+    if (!withDeduplication) {
       existingValues.addAll(values);
+      return existingValues;
+    }
+
+    for (String value : values) {
+      if (!existingValues.contains(value)) {
+        existingValues.add(value);
+      }
     }
     return existingValues;
   }

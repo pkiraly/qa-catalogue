@@ -21,12 +21,12 @@ import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGenerator;
+import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGeneratorFactory;
 import de.gwdg.metadataqa.marc.utils.pica.PicaFieldDefinition;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -41,12 +41,12 @@ public class DataField implements Extractable, Serializable {
   private static final Logger logger = Logger.getLogger(DataField.class.getCanonicalName());
   private static final long serialVersionUID = -2283988601945108192L;
 
-  private DataFieldDefinition definition;
+  private final DataFieldDefinition definition;
   private String tag;
-  private String ind1;
-  private String ind2;
+  private final String ind1;
+  private final String ind2;
   private List<MarcSubfield> subfields;
-  private Map<String, List<MarcSubfield>> subfieldIndex = new LinkedHashMap<>();
+  private final Map<String, List<MarcSubfield>> subfieldIndex = new LinkedHashMap<>();
   /**
    * Occurrence is only used in PICA records
    */
@@ -216,9 +216,9 @@ public class DataField implements Extractable, Serializable {
   public Map<String, List<String>> getHumanReadableMap() {
     Map<String, List<String>> map = new LinkedHashMap<>();
     if (definition.getInd1().exists())
-      map.put(definition.getInd1().getLabel(), Arrays.asList(resolveInd1()));
+      map.put(definition.getInd1().getLabel(), Collections.singletonList(resolveInd1()));
     if (definition.getInd2().exists())
-      map.put(definition.getInd2().getLabel(), Arrays.asList(resolveInd2()));
+      map.put(definition.getInd2().getLabel(), Collections.singletonList(resolveInd2()));
     for (MarcSubfield subfield : subfields) {
       map.computeIfAbsent(subfield.getLabel(), s -> new ArrayList<>());
       map.get(subfield.getLabel()).add(subfield.resolve());
@@ -362,22 +362,10 @@ public class DataField implements Extractable, Serializable {
 
     // If the field is PICA and has a definition, use the definition's tag
     // Otherwise, use the tag found in the field
-    if (bibliographicRecord != null && bibliographicRecord.getSchemaType().equals(SchemaType.PICA) && definition != null) {
-      PicaFieldDefinition picaDefinition = (PicaFieldDefinition) definition;
-      tag = picaDefinition.getTag();
-      if (picaDefinition.getCounter() != null)
-        tag += "_" + picaDefinition.getCounter();
-      else if (picaDefinition.getOccurrence() != null)
-        tag += "_" + picaDefinition.getOccurrence();
-    } else {
-      tag = getTag();
-      if (getOccurrence() != null) {
-        tag += "/" + getOccurrence();
-      }
-    }
+    determineTag();
 
     SchemaType schemaType = bibliographicRecord != null ? bibliographicRecord.getSchemaType() : SchemaType.MARC21;
-    DataFieldKeyGenerator keyGenerator = new DataFieldKeyGenerator(definition, type, tag, schemaType);
+    DataFieldKeyGenerator keyGenerator = DataFieldKeyGeneratorFactory.create(type, definition, tag, schemaType);
     keyGenerator.setMarcVersion(marcVersion);
 
     // Indicator 1
@@ -399,87 +387,156 @@ public class DataField implements Extractable, Serializable {
       Utils.mergeMap(pairs, subfield.getKeyValuePairs(keyGenerator));
     }
 
-    if (getFieldIndexers() != null && !getFieldIndexers().isEmpty()) {
-      try {
-        for (FieldIndexer indexer : getFieldIndexers()) {
-          Map<String, List<String>> extra = indexer.index(this, keyGenerator);
-          Utils.mergeMap(pairs, extra);
-        }
-      } catch (IllegalArgumentException e) {
-        logger.log(Level.SEVERE, "{0} in record {1} {2}", new Object[]{e.getLocalizedMessage(), bibliographicRecord.getId(), this});
-      }
-    }
+    // Index fields that have SourceSpecificationType defined (which also means a FieldIndexer)
+    indexFieldsWithSchemas(pairs, keyGenerator);
 
-    // full field indexing: name authorities
-    if (bibliographicRecord != null && bibliographicRecord.isAuthorityTag(this.getTag())) {
-      List<String> full = new ArrayList<>();
-      for (MarcSubfield subfield : subfields) {
-        if (!bibliographicRecord.isSkippableAuthoritySubfield(this.getTag(), subfield.getCode())) {
-          String value = subfield.getValue();
-          if (bibliographicRecord.getSchemaType().equals(SchemaType.PICA)) {
-            if (subfield.getCode().equals("E")) {
-              value += "-";
-              if (subfieldIndex.containsKey("M"))
-                value += subfieldIndex.get("M").get(0).getValue();
-            } else if (subfield.getCode().equals("M") && subfieldIndex.containsKey("E")) {
-              continue;
-            }
-          }
-          full.add(value);
-        }
-      }
-      String key = keyGenerator.forFull();
-      String value = StringUtils.join(full, ", ");
-      if (!pairs.containsKey(key))
-        pairs.put(key, new ArrayList<>());
-      pairs.get(key).add(value);
-    }
+    // full field indexing
+    indexAllSubfields(pairs, keyGenerator);
 
     // classifications
-    String fieldTag = schemaType.equals(SchemaType.PICA) ? this.getTagWithOccurrence() : this.getTag();
-    if (bibliographicRecord != null && bibliographicRecord.isSubjectTag(fieldTag)) {
-      List<String> full = new ArrayList<>();
-      for (MarcSubfield subfield : subfields) {
-        if (!bibliographicRecord.isSkippableSubjectSubfield(fieldTag, subfield.getCode())) {
-          String value = subfield.getValue();
-          full.add(value);
-        }
-      }
-      String key = keyGenerator.forFull();
-      String value = StringUtils.join(full, ", ");
-      if (!pairs.containsKey(key))
-        pairs.put(key, new ArrayList<>());
-      pairs.get(key).add(value);
-    }
+    indexClassifications(schemaType, pairs, keyGenerator);
 
     return pairs;
   }
 
+  /**
+   * Sets the value of the tag field based on the definition, schema type, and occurrence. That tag will later be
+   * used to generate keys for the index.
+   */
+  private void determineTag() {
+    if (bibliographicRecord == null || !bibliographicRecord.getSchemaType().equals(SchemaType.PICA) || definition == null) {
+      tag = getTag();
+      if (getOccurrence() != null) {
+        tag += "/" + getOccurrence();
+      }
+      return;
+    }
+
+    PicaFieldDefinition picaDefinition = (PicaFieldDefinition) definition;
+    tag = picaDefinition.getTag();
+    if (picaDefinition.getCounter() != null) {
+      tag += "_" + picaDefinition.getCounter();
+    } else if (picaDefinition.getOccurrence() != null) {
+      tag += "_" + picaDefinition.getOccurrence();
+    }
+  }
+
+  private void indexClassifications(SchemaType schemaType,
+                                    Map<String, List<String>> pairs,
+                                    DataFieldKeyGenerator keyGenerator) {
+    String fieldTag = schemaType.equals(SchemaType.PICA) ? this.getTagWithOccurrence() : this.getTag();
+
+    if (bibliographicRecord == null || !bibliographicRecord.isSubjectTag(fieldTag)) {
+      return;
+    }
+
+    List<String> subfieldValues = new ArrayList<>();
+    for (MarcSubfield subfield : subfields) {
+      if (bibliographicRecord.isSkippableSubjectSubfield(fieldTag, subfield.getCode())) {
+        continue;
+      }
+      String value = subfield.getValue();
+      subfieldValues.add(value);
+    }
+    String key = keyGenerator.forEntireField();
+    String value = StringUtils.join(subfieldValues, ", ");
+
+    pairs.putIfAbsent(key, new ArrayList<>());
+    pairs.get(key).add(value);
+  }
+
+  private void indexAllSubfields(Map<String, List<String>> pairs, DataFieldKeyGenerator keyGenerator) {
+    String fieldTag = getTag();
+    if (bibliographicRecord == null || !bibliographicRecord.isAuthorityTag(fieldTag)) {
+      return;
+    }
+
+    List<String> subfieldValues = new ArrayList<>();
+    // This gets all subfield values in the field and concatenates them
+    // If the field is PICA, then the value of subfield E is concatenated with the value of subfield M
+    for (MarcSubfield subfield : subfields) {
+      String value = indexAuthorityNameFullSomethingWhatever(fieldTag, subfield);
+      if (value != null) {
+        subfieldValues.add(value);
+      }
+    }
+
+    String key = keyGenerator.forEntireField();
+    String value = StringUtils.join(subfieldValues, ", ");
+
+    pairs.putIfAbsent(key, new ArrayList<>());
+    pairs.get(key).add(value);
+  }
+
+  private String indexAuthorityNameFullSomethingWhatever(String fieldTag, MarcSubfield subfield) {
+
+    if (bibliographicRecord.isSkippableAuthoritySubfield(fieldTag, subfield.getCode())) {
+      return null;
+    }
+
+    String value = subfield.getValue();
+    if (!bibliographicRecord.getSchemaType().equals(SchemaType.PICA)) {
+      return value;
+    }
+
+    if (!subfield.getCode().equals("E") && subfield.getCode().equals("M") && subfieldIndex.containsKey("E")) {
+        return null;
+    }
+
+    value += "-";
+    if (subfieldIndex.containsKey("M")) {
+      value += subfieldIndex.get("M").get(0).getValue();
+    }
+    return value;
+  }
+
+  private void indexFieldsWithSchemas(Map<String, List<String>> pairs, DataFieldKeyGenerator keyGenerator) {
+    List<FieldIndexer> fieldWithSchemaIndexers = getFieldIndexers();
+
+    if (fieldWithSchemaIndexers == null || fieldWithSchemaIndexers.isEmpty()) {
+      return;
+    }
+
+    try {
+      for (FieldIndexer indexer : getFieldIndexers()) {
+        Map<String, List<String>> extra = indexer.index(this, keyGenerator);
+        Utils.mergeMap(pairs, extra);
+      }
+    } catch (IllegalArgumentException e) {
+      logger.log(Level.SEVERE, "{0} in record {1} {2}", new Object[]{e.getLocalizedMessage(), bibliographicRecord.getId(), this});
+    }
+  }
+
   private FieldIndexer getFieldIndexer() {
     FieldIndexer fieldIndexer = null;
-    if (definition != null
-      && definition.getSourceSpecificationType() != null) {
-      SourceSpecificationType specificationType = definition.getSourceSpecificationType();
-      switch (specificationType) {
-        case Indicator1Is7AndSubfield2:
-          fieldIndexer = SchemaFromInd1OrIf7FromSubfield2.getInstance();
-          break;
-        case Indicator1IsSpaceAndSubfield2:
-          fieldIndexer = SchemaFromInd1OrIfEmptyFromSubfield2.getInstance();
-          break;
-        case Indicator2AndSubfield2:
-          fieldIndexer = SchemaFromInd2AndSubfield2.getInstance();
-          break;
-        case Indicator2For055AndSubfield2:
-          fieldIndexer = SchemaFromInd2For055OrIf7FromSubfield2.getInstance();
-          break;
-        case Subfield2:
-          fieldIndexer = SchemaFromSubfield2.getInstance();
-          break;
-        case Indicator2:
-          fieldIndexer = SchemaFromInd2.getInstance();
-          break;
-      }
+
+    // If there is no definition or no source specification type, return null
+    // Source specification type is used only with MARC21 to specify the subfield or indicator to use
+    // in order
+    if (definition == null || definition.getSourceSpecificationType() == null) {
+      return null;
+    }
+
+    SourceSpecificationType specificationType = definition.getSourceSpecificationType();
+    switch (specificationType) {
+      case Indicator1Is7AndSubfield2:
+        fieldIndexer = SchemaFromInd1OrIf7FromSubfield2.getInstance();
+        break;
+      case Indicator1IsSpaceAndSubfield2:
+        fieldIndexer = SchemaFromInd1OrIfEmptyFromSubfield2.getInstance();
+        break;
+      case Indicator2AndSubfield2:
+        fieldIndexer = SchemaFromInd2AndSubfield2.getInstance();
+        break;
+      case Indicator2For055AndSubfield2:
+        fieldIndexer = SchemaFromInd2For055OrIf7FromSubfield2.getInstance();
+        break;
+      case Subfield2:
+        fieldIndexer = SchemaFromSubfield2.getInstance();
+        break;
+      case Indicator2:
+        fieldIndexer = SchemaFromInd2.getInstance();
+        break;
     }
     return fieldIndexer;
   }
@@ -579,7 +636,7 @@ public class DataField implements Extractable, Serializable {
   }
 
   public DataFieldKeyGenerator getKeyGenerator(SolrFieldType type) {
-    return new DataFieldKeyGenerator(getDefinition(), type);
+    return DataFieldKeyGeneratorFactory.create(type, getDefinition());
   }
 
   public void addUnhandledSubfields(String code) {

@@ -197,7 +197,7 @@ public abstract class DataFieldDefinition implements BibliographicFieldDefinitio
     return false;
   }
 
-  public SubfieldDefinition getVersionSpecificSubfield(MarcVersion marcVersion, String code) {
+  public SubfieldDefinition getVersionSpecificDefinition(MarcVersion marcVersion, String code) {
     if (!isVersionSpecificSubfields(marcVersion, code)) {
       return null;
     }

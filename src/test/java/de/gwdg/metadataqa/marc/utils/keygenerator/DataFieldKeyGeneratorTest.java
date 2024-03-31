@@ -4,7 +4,6 @@ import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.tags.tags20x.Tag245;
-import de.gwdg.metadataqa.marc.model.SolrFieldType;
 import org.junit.Test;
 
 import java.util.regex.Pattern;
@@ -19,7 +18,7 @@ public class DataFieldKeyGeneratorTest {
 
   @Test
   public void testMarc() {
-    DataFieldKeyGenerator generator = new DataFieldKeyGenerator(definition, SolrFieldType.MARC);
+    DataFieldKeyGenerator generator = new MarcDataFieldKeyGenerator(definition);
     assertNotNull(generator.forInd1());
     assertEquals("245ind1", generator.forInd1());
     assertEquals("245ind2", generator.forInd2());
@@ -28,7 +27,7 @@ public class DataFieldKeyGeneratorTest {
 
   @Test
   public void testHuman() {
-    DataFieldKeyGenerator generator = new DataFieldKeyGenerator(definition, SolrFieldType.HUMAN);
+    DataFieldKeyGenerator generator = new HumanDataFieldKeyGenerator(definition);
     assertNotNull(generator.forInd1());
     assertEquals("Title_titleAddedEntry", generator.forInd1());
     assertEquals("Title_nonfilingCharacters", generator.forInd2());
@@ -37,7 +36,7 @@ public class DataFieldKeyGeneratorTest {
 
   @Test
   public void testMixed() {
-    DataFieldKeyGenerator generator = new DataFieldKeyGenerator(definition, SolrFieldType.MIXED);
+    DataFieldKeyGenerator generator = new MixedDataFieldKeyGenerator(definition);
     assertNotNull(generator.forInd1());
     assertEquals("245ind1_Title_titleAddedEntry", generator.forInd1());
     assertEquals("245ind2_Title_nonfilingCharacters", generator.forInd2());
@@ -52,19 +51,19 @@ public class DataFieldKeyGeneratorTest {
 
   @Test
   public void testAt() {
-    DataFieldKeyGenerator generator = new DataFieldKeyGenerator(definition, SolrFieldType.MIXED);
-    assertEquals("245x40_Title_language_KBR", generator.forSubfield(definition.getVersionSpecificSubfield(MarcVersion.KBR, "@")));
+    DataFieldKeyGenerator generator = new MixedDataFieldKeyGenerator(definition);
+    assertEquals("245x40_Title_language_KBR", generator.forSubfieldDefinition(definition.getVersionSpecificDefinition(MarcVersion.KBR, "@")));
   }
 
   @Test
   public void getTag() {
-    DataFieldKeyGenerator generator = new DataFieldKeyGenerator(definition, SolrFieldType.MIXED);
+    DataFieldKeyGenerator generator = new MixedDataFieldKeyGenerator(definition);
     assertEquals("245", generator.getTag());
   }
 
   @Test
   public void getIndexTag() {
-    DataFieldKeyGenerator generator = new DataFieldKeyGenerator(definition, SolrFieldType.MIXED);
+    DataFieldKeyGenerator generator = new MixedDataFieldKeyGenerator(definition);
     assertEquals("Title", generator.getIndexTag());
   }
 }

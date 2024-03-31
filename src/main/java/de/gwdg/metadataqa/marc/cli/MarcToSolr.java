@@ -65,21 +65,28 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
 
   private void initialize() {
     options = parameters.getOptions();
+
     client = parameters.useEmbedded()
       ? new MarcSolrClient(parameters.getMainClient())
       : new MarcSolrClient(parameters.getSolrUrl());
     client.setTrimId(parameters.getTrimId());
     client.indexWithTokenizedField(parameters.indexWithTokenizedField());
-    if (parameters.getFieldPrefix() != null)
+
+    if (parameters.getFieldPrefix() != null) {
       client.setFieldPrefix(parameters.getFieldPrefix());
+    }
+
     if (parameters.getSolrForScoresUrl() != null) {
       validationClient = parameters.useEmbedded()
         ? new MarcSolrClient(parameters.getValidationClient())
         : new MarcSolrClient(parameters.getSolrForScoresUrl());
       validationClient.setTrimId(parameters.getTrimId());
-      if (parameters.getFieldPrefix() != null)
+
+      if (parameters.getFieldPrefix() != null) {
         validationClient.setFieldPrefix(parameters.getFieldPrefix());
+      }
     }
+
     readyToProcess = true;
     initializeGroups(parameters.getGroupBy(), parameters.isPica());
     if (doGroups()) {
@@ -134,7 +141,9 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
       parameters.getSolrFieldType(), true, parameters.getMarcVersion()
     );
 
+    // Add the record itself as a field to the index
     keyValuePairs.put("record_sni", Collections.singletonList(bibliographicRecord.asJson()));
+
     SolrInputDocument solrDocument = client.createSolrDoc(bibliographicRecord.getId(), keyValuePairs);
     if (validationClient != null) {
       indexValidationResults(bibliographicRecord, solrDocument);
@@ -186,10 +195,12 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
       } else {
         tag = field.getTag();
       }
-      fieldCounter.count(escape(tag));
+      String safeTag = escape(tag);
+      fieldCounter.count(safeTag);
     }
-    for (Map.Entry<String, Integer> entry : fieldCounter.entrySet())
+    for (Map.Entry<String, Integer> entry : fieldCounter.entrySet()) {
       document.addField(String.format("%s_count_i", entry.getKey()), entry.getValue());
+    }
   }
 
   private String escape(String tag) {

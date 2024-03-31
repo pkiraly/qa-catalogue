@@ -133,21 +133,21 @@ public class TagHierarchy {
     }
 
     // This now deals with regular subfields instead of indicators
-    SubfieldDefinition subfield;
+    SubfieldDefinition subfieldDefinition;
 
     // Version-specific subfields
     if (version != null && definition.getVersionSpecificSubfields() != null) {
-      subfield = definition.getVersionSpecificSubfield(version, subfieldCode);
-      if (subfield != null) {
-        subfieldLabel = String.format("%s (in %s version)", subfield.getLabel(), version.getCode());
+      subfieldDefinition = definition.getVersionSpecificDefinition(version, subfieldCode);
+      if (subfieldDefinition != null) {
+        subfieldLabel = String.format("%s (in %s version)", subfieldDefinition.getLabel(), version.getCode());
         return new TagHierarchy(category, tagLabel, subfieldLabel);
       }
     }
 
     // General subfields that are not version-specific
-    subfield = definition.getSubfield(subfieldCode);
-    if (subfield != null) {
-      subfieldLabel = subfield.getLabel();
+    subfieldDefinition = definition.getSubfield(subfieldCode);
+    if (subfieldDefinition != null) {
+      subfieldLabel = subfieldDefinition.getLabel();
     }
 
     return new TagHierarchy(category, tagLabel, subfieldLabel);

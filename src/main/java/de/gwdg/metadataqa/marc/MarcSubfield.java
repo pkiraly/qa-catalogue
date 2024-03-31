@@ -168,7 +168,7 @@ public class MarcSubfield implements Serializable { // Validatable
 
     for (Map.Entry<String, String> entry : extra.entrySet()) {
       pairs.put(
-        keyGenerator.forSubfield(this, entry.getKey()),
+        String.format("%s_%s", keyGenerator.forSubfield(this), entry.getKey()),
         new ArrayList<>(List.of(entry.getValue()))
       );
     }

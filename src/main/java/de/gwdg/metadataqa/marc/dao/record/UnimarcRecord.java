@@ -130,6 +130,8 @@ public class UnimarcRecord extends MarcRecord {
     return UNIMARC_SUBJECT_TAGS;
   }
 
+
+  @Override
   protected void initializeAuthorityTags() {
 
     skippableAuthoritySubfields = new HashMap<>();

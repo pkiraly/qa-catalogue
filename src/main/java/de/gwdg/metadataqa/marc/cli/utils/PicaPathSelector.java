@@ -2,18 +2,13 @@ package de.gwdg.metadataqa.marc.cli.utils;
 
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
-import de.gwdg.metadataqa.marc.utils.pica.path.PicaPath;
-import de.gwdg.metadataqa.marc.utils.pica.path.PicaPathParser;
+import de.gwdg.metadataqa.marc.utils.pica.path.PicaSpec;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class PicaPathSelector extends BibSelector {
-  private static Map<String, PicaPath> picaSpecs = new HashMap<>();
-
-  public PicaPathSelector(BibliographicRecord record) {
-    super(record);
+  public PicaPathSelector(BibliographicRecord bibliographicRecord) {
+    super(bibliographicRecord);
   }
 
   @Override
@@ -22,13 +17,7 @@ public class PicaPathSelector extends BibSelector {
   }
 
   public List<String> extract(String path) {
-    return record.select(getPicaSpec(path));
-  }
-
-  private PicaPath getPicaSpec(String path) {
-    if (!picaSpecs.containsKey(path))
-      picaSpecs.put(path, PicaPathParser.parse(path));
-    return picaSpecs.get(path);
+    return record.select(new PicaSpec(path));
   }
 
 }

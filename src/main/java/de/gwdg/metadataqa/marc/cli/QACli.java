@@ -9,6 +9,7 @@ import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.utils.BibiographicPath;
 import de.gwdg.metadataqa.marc.utils.pica.path.PicaPath;
 import de.gwdg.metadataqa.marc.utils.pica.path.PicaPathParser;
+import de.gwdg.metadataqa.marc.utils.pica.path.PicaSpec;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -78,8 +79,10 @@ public abstract class QACli<T extends CommonParameters> {
   }
 
   protected Set<String> getGroupIds(CommonParameters parameters, BibliographicRecord bibliographicRecord) {
-    if (this.groupBy != null) {
-      List<String> idLists = parameters.isPica() ? bibliographicRecord.select((PicaPath) groupBy) : null; // TODO: MARC21
+    if (this.groupBy != null && parameters.isPica()) {
+      // TODO: MARC21
+      PicaSpec picaSpec = new PicaSpec((PicaPath) groupBy);
+      List<String> idLists = bibliographicRecord.select(picaSpec);
       return QACli.extractGroupIds(idLists);
     }
     return new HashSet<>();

@@ -243,13 +243,17 @@ public class SubfieldDefinition implements Serializable {
   }
 
   public String resolve(String value) {
-    if (codeList != null && codeList.isValid(value))
+    if (codeList != null && codeList.isValid(value)) {
       return codeList.getCode(value).getLabel();
+    }
 
-    if (codes != null) {
-      EncodedValue code = getCode(value);
-      if (code != null)
-        return code.getLabel();
+    if (codes == null) {
+      return value;
+    }
+
+    EncodedValue resolvedCode = getCode(value);
+    if (resolvedCode != null) {
+      return resolvedCode.getLabel();
     }
 
     return value;

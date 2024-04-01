@@ -13,10 +13,10 @@ import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.utils.pica.PicaFieldDefinition;
-import de.gwdg.metadataqa.marc.utils.pica.reader.model.PicaLine;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaManager;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaReader;
 import de.gwdg.metadataqa.marc.utils.pica.PicaTagDefinition;
+import de.gwdg.metadataqa.marc.utils.pica.reader.model.PicaLine;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.marc4j.MarcReader;
@@ -29,7 +29,6 @@ import java.io.IOException;
 import java.io.Reader;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -228,7 +227,7 @@ public class PicaPlainReaderTest {
     assertEquals("010000070", marcRecord.getId());
     assertEquals(SchemaType.PICA, marcRecord.getSchemaType());
     assertEquals(184, marcRecord.getDatafields().size());
-    assertEquals("Herkunft und Standort", marcRecord.getDatafield("021A").get(0).getSubfield("a").get(0).getValue());
+    assertEquals("Herkunft und Standort", marcRecord.getDatafieldsByTag("021A").get(0).getSubfield("a").get(0).getValue());
   }
 
   private boolean directoryContains(Map<String, PicaFieldDefinition> schemaDirectory, PicaLine pl) {

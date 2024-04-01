@@ -43,11 +43,11 @@ public class DataFieldValidatorTest {
     Record record = reader.next();
     BibliographicRecord bibliographicRecord = MarcFactory.createPicaFromMarc4j(record, schema);
 
-    assertNotNull(bibliographicRecord.getDatafield("036F").get(0).getDefinition());
-    assertNull(bibliographicRecord.getDatafield("036F/01").get(0).getDefinition());
+    assertNotNull(bibliographicRecord.getDatafieldsByTag("036F").get(0).getDefinition());
+    assertNull(bibliographicRecord.getDatafieldsByTag("036F/01").get(0).getDefinition());
 
     DataField selected = null;
-    for (DataField field : bibliographicRecord.getDatafield("036E/01")) {
+    for (DataField field : bibliographicRecord.getDatafieldsByTag("036E/01")) {
       if (field.getOccurrence() != null) {
         selected = field;
         break;

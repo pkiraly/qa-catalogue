@@ -1,10 +1,8 @@
 package de.gwdg.metadataqa.marc.dao.record;
 
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.analysis.AuthorityCategory;
+import de.gwdg.metadataqa.marc.analysis.contextual.authority.AuthorityCategory;
 import de.gwdg.metadataqa.marc.analysis.shelfready.ShelfReadyFieldsBooks;
-import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.UnimarcLeader;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 
 import java.util.ArrayList;
@@ -15,6 +13,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 public class UnimarcRecord extends MarcRecord {
   protected static final List<String> UNIMARC_SUBJECT_TAGS = Arrays.asList("600", "601", "602", "604", "605", "606",
@@ -22,20 +21,7 @@ public class UnimarcRecord extends MarcRecord {
     "676", "680", "686");
 
   protected static final List<String> allowedControlFieldTags = Arrays.asList("001", "003", "005");
-
-  // TODO for now I essentially have no idea what to do with these attributes such as authority tags etc.
-  private static List<String> authorityTags;
-  private static Map<String, Boolean> authorityTagsIndex;
-  private static Map<String, Boolean> subjectTagIndex;
-  private static Map<String, Map<String, Boolean>> skippableAuthoritySubfields;
-  private static Map<String, Map<String, Boolean>> skippableSubjectSubfields;
-  /**
-   * Key-value pairs of AuthorityCategory and tags
-   */
-  private static Map<AuthorityCategory, List<String>> authorityTagsMap;
   private static Map<ShelfReadyFieldsBooks, Map<String, List<String>>> shelfReadyMap;
-
-  private UnimarcLeader leader;
 
   public UnimarcRecord() {
     super();
@@ -45,87 +31,6 @@ public class UnimarcRecord extends MarcRecord {
   public UnimarcRecord(String id) {
     super(id);
     schemaType = SchemaType.UNIMARC;
-  }
-
-  public List<DataField> getAuthorityFields() {
-    if (authorityTags == null) {
-      initializeAuthorityTags();
-    }
-    return getAuthorityFields(authorityTags);
-  }
-
-  @Override
-  public List<String> getAllowedControlFieldTags() {
-    return allowedControlFieldTags;
-  }
-
-  public boolean isAuthorityTag(String tag) {
-    if (authorityTagsIndex == null) {
-      initializeAuthorityTags();
-    }
-    return authorityTagsIndex.getOrDefault(tag, false);
-  }
-
-  public boolean isSkippableAuthoritySubfield(String tag, String code) {
-    if (authorityTagsIndex == null)
-      initializeAuthorityTags();
-
-    if (!skippableAuthoritySubfields.containsKey(tag))
-      return false;
-
-    return skippableAuthoritySubfields.get(tag).getOrDefault(code, false);
-  }
-
-  public boolean isSubjectTag(String tag) {
-    if (subjectTagIndex == null) {
-      initializeAuthorityTags();
-    }
-    return subjectTagIndex.getOrDefault(tag, false);
-  }
-
-  public boolean isSkippableSubjectSubfield(String tag, String code) {
-    if (subjectTagIndex == null)
-      initializeAuthorityTags();
-
-    if (!skippableSubjectSubfields.containsKey(tag))
-      return false;
-
-    return skippableSubjectSubfields.get(tag).getOrDefault(code, false);
-  }
-
-  public Map<DataField, AuthorityCategory> getAuthorityFieldsMap() {
-    if (authorityTags == null)
-      initializeAuthorityTags();
-
-    return getAuthorityFields(authorityTagsMap);
-  }
-
-  public Map<ShelfReadyFieldsBooks, Map<String, List<String>>> getShelfReadyMap() {
-    if (shelfReadyMap == null)
-      initializeShelfReadyMap();
-
-    return shelfReadyMap;
-  }
-
-  protected List<String> getSubjectTags() {
-    return UNIMARC_SUBJECT_TAGS;
-  }
-
-  private static void initializeAuthorityTags() {
-    authorityTags = Arrays.asList(
-    );
-    authorityTagsIndex = Utils.listToMap(authorityTags);
-
-    skippableAuthoritySubfields = new HashMap<>();
-
-    List<String> subjectTags = Arrays.asList(
-      "045A", "045B", "045F", "045R", "045C", "045E", "045G"
-    );
-    subjectTagIndex = Utils.listToMap(subjectTags);
-    skippableSubjectSubfields = new HashMap<>();
-
-    authorityTagsMap = new EnumMap<>(AuthorityCategory.class);
-
   }
 
   private static void initializeShelfReadyMap() {
@@ -207,5 +112,41 @@ public class UnimarcRecord extends MarcRecord {
     raw.put(ShelfReadyFieldsBooks.TAG8XX, "410$a");
 
     return raw;
+  }
+
+  @Override
+  public List<String> getAllowedControlFieldTags() {
+    return allowedControlFieldTags;
+  }
+
+  public Map<ShelfReadyFieldsBooks, Map<String, List<String>>> getShelfReadyMap() {
+    if (shelfReadyMap == null)
+      initializeShelfReadyMap();
+
+    return shelfReadyMap;
+  }
+
+  protected List<String> getSubjectTags() {
+    return UNIMARC_SUBJECT_TAGS;
+  }
+
+  protected void initializeAuthorityTags() {
+
+    skippableAuthoritySubfields = new HashMap<>();
+
+    subjectTagIndex = Utils.listToMap(UNIMARC_SUBJECT_TAGS);
+    skippableSubjectSubfields = new HashMap<>();
+
+    authorityTagsMap = new EnumMap<>(AuthorityCategory.class);
+    authorityTagsMap.put(AuthorityCategory.PERSONAL, List.of("700", "701", "702"));
+    authorityTagsMap.put(AuthorityCategory.CORPORATE, List.of("710$ind1=0", "711$ind1=0", "712$ind1=0"));
+    authorityTagsMap.put(AuthorityCategory.MEETING, List.of("710$ind1=1", "711$ind1=1", "712$ind1=1"));
+    authorityTagsMap.put(AuthorityCategory.GEOGRAPHIC, List.of("620"));
+    authorityTagsMap.put(AuthorityCategory.TITLES, List.of("500", "501", "506", "507", "576", "577"));
+    authorityTagsMap.put(AuthorityCategory.OTHER, List.of("730"));
+    authorityTags = authorityTagsMap.values().stream().flatMap(List::stream).collect(Collectors.toList());
+    authorityTagsIndex = Utils.listToMap(authorityTags);
+    skippableAuthoritySubfields = new HashMap<>();
+
   }
 }

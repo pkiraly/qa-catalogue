@@ -1,11 +1,11 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.MarcToSolrParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
+import de.gwdg.metadataqa.marc.dao.DataField;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.datastore.MarcSolrClient;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.general.indexer.FieldIndexer;
@@ -126,7 +126,7 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
       return;
 
     if (bibliographicRecord.getSchemaType().equals(SchemaType.PICA) && doGroups())
-      for (DataField groupField : bibliographicRecord.getDatafield(((PicaPath) groupBy).getTag()))
+      for (DataField groupField : bibliographicRecord.getDatafieldsByTag(((PicaPath) groupBy).getTag()))
         groupField.addFieldIndexer(groupIndexer);
 
     Map<String, List<String>> map = bibliographicRecord.getKeyValuePairs(

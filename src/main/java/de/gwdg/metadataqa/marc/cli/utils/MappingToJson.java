@@ -202,9 +202,6 @@ public class MappingToJson {
     values.put("start", subfield.getPositionStart());
     values.put("end", subfield.getPositionEnd() - 1);
     values.put("repeatableContent", subfield.isRepeatableContent());
-    if (subfield.isRepeatableContent()) {
-      values.put("unitLength", subfield.getUnitLength());
-    }
 
     if (generator != null)
       values.put("solr", generator.forSubfield(subfield));
@@ -385,8 +382,6 @@ public class MappingToJson {
       positionMap.put("start", position.getPositionStart());
       positionMap.put("end", position.getPositionEnd() - 1);
       positionMap.put("repeatableContent", position.isRepeatableContent());
-      if (position.isRepeatableContent())
-        positionMap.put("unitLength", position.getUnitLength());
 
       if (position.hasCodelist()) {
         if (position.getCodes() != null && !position.getCodes().isEmpty()) {

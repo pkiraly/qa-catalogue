@@ -524,7 +524,6 @@
               "start": 1,
               "end": 4,
               "repeatableContent": true,
-              "unitLength": 1,
               "codes": {
                 " ": {
                   "code": " ",
@@ -704,7 +703,6 @@
               "start": 7,
               "end": 10,
               "repeatableContent": true,
-              "unitLength": 1,
               "codes": {
                 " ": {
                   "code": " ",
@@ -1634,7 +1632,6 @@
               "start": 8,
               "end": 10,
               "repeatableContent": true,
-              "unitLength": 1,
               "codes": {
                 " ": {
                   "code": " ",
@@ -1936,7 +1933,6 @@
               "start": 1,
               "end": 4,
               "repeatableContent": true,
-              "unitLength": 1,
               "codes": {
                 " ": {
                   "code": " ",
@@ -2383,7 +2379,6 @@
               "start": 16,
               "end": 17,
               "repeatableContent": true,
-              "unitLength": 1,
               "codes": {
                 " ": {
                   "code": " ",
@@ -3015,7 +3010,6 @@
               "start": 7,
               "end": 12,
               "repeatableContent": true,
-              "unitLength": 1,
               "codes": {
                 " ": {
                   "code": " ",
@@ -3085,7 +3079,6 @@
               "start": 13,
               "end": 14,
               "repeatableContent": true,
-              "unitLength": 1,
               "codes": {
                 " ": {
                   "code": " ",
@@ -7593,7 +7586,6 @@
               "start": 3,
               "end": 4,
               "repeatableContent": true,
-              "unitLength": 1,
               "codes": {
                 " ": {
                   "code": " ",
@@ -7684,7 +7676,6 @@
               "start": 6,
               "end": 8,
               "repeatableContent": true,
-              "unitLength": 1,
               "codes": {
                 " ": {
                   "code": " ",
@@ -8458,7 +8449,6 @@
               "start": 18,
               "end": 21,
               "repeatableContent": true,
-              "unitLength": 1,
               "codes": {
                 " ": {
                   "code": " ",
@@ -8668,7 +8658,6 @@
               "start": 24,
               "end": 27,
               "repeatableContent": true,
-              "unitLength": 1,
               "codes": {
                 " ": {
                   "code": " ",
@@ -9687,7 +9676,6 @@
               "start": 25,
               "end": 27,
               "repeatableContent": true,
-              "unitLength": 1,
               "codes": {
                 " ": {
                   "code": " ",
@@ -10004,7 +9992,6 @@
               "start": 18,
               "end": 21,
               "repeatableContent": true,
-              "unitLength": 1,
               "codes": {
                 " ": {
                   "code": " ",
@@ -10456,7 +10443,6 @@
               "start": 33,
               "end": 34,
               "repeatableContent": true,
-              "unitLength": 1,
               "codes": {
                 " ": {
                   "code": " ",
@@ -11208,7 +11194,6 @@
               "start": 24,
               "end": 29,
               "repeatableContent": true,
-              "unitLength": 1,
               "codes": {
                 " ": {
                   "code": " ",
@@ -11294,7 +11279,6 @@
               "start": 30,
               "end": 31,
               "repeatableContent": true,
-              "unitLength": 1,
               "codes": {
                 " ": {
                   "code": " ",
@@ -20412,7 +20396,6 @@
               "start": 12,
               "end": 12,
               "repeatableContent": true,
-              "unitLength": 1,
               "codes": {
                 " ": {
                   "label": "No determinable frequency"

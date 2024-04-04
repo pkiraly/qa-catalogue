@@ -544,7 +544,6 @@
               "start": 1,
               "end": 4,
               "repeatableContent": true,
-              "unitLength": 1,
               "solr": "006book01_AdditionalMaterialCharacteristics_illustrations",
               "codes": {
                 " ": {
@@ -727,7 +726,6 @@
               "start": 7,
               "end": 10,
               "repeatableContent": true,
-              "unitLength": 1,
               "solr": "006book07_AdditionalMaterialCharacteristics_natureOfContents",
               "codes": {
                 " ": {
@@ -1674,7 +1672,6 @@
               "start": 8,
               "end": 10,
               "repeatableContent": true,
-              "unitLength": 1,
               "solr": "006continuing08_AdditionalMaterialCharacteristics_natureOfContents",
               "codes": {
                 " ": {
@@ -1981,7 +1978,6 @@
               "start": 1,
               "end": 4,
               "repeatableContent": true,
-              "unitLength": 1,
               "solr": "006map01_AdditionalMaterialCharacteristics_relief",
               "codes": {
                 " ": {
@@ -2434,7 +2430,6 @@
               "start": 16,
               "end": 17,
               "repeatableContent": true,
-              "unitLength": 1,
               "solr": "006map16_AdditionalMaterialCharacteristics_specialFormatCharacteristics",
               "codes": {
                 " ": {
@@ -3073,7 +3068,6 @@
               "start": 7,
               "end": 12,
               "repeatableContent": true,
-              "unitLength": 1,
               "solr": "006music07_AdditionalMaterialCharacteristics_accompanyingMatter",
               "codes": {
                 " ": {
@@ -3144,7 +3138,6 @@
               "start": 13,
               "end": 14,
               "repeatableContent": true,
-              "unitLength": 1,
               "solr": "006music13_AdditionalMaterialCharacteristics_literaryTextForSoundRecordings",
               "codes": {
                 " ": {
@@ -7740,7 +7733,6 @@
               "start": 3,
               "end": 4,
               "repeatableContent": true,
-              "unitLength": 1,
               "solr": "007tactile03_PhysicalDescription_classOfBrailleWriting",
               "codes": {
                 " ": {
@@ -7833,7 +7825,6 @@
               "start": 6,
               "end": 8,
               "repeatableContent": true,
-              "unitLength": 1,
               "solr": "007tactile06_PhysicalDescription_brailleMusicFormat",
               "codes": {
                 " ": {
@@ -8626,7 +8617,6 @@
               "start": 18,
               "end": 21,
               "repeatableContent": true,
-              "unitLength": 1,
               "solr": "008book18_GeneralInformation_illustrations",
               "codes": {
                 " ": {
@@ -8839,7 +8829,6 @@
               "start": 24,
               "end": 27,
               "repeatableContent": true,
-              "unitLength": 1,
               "solr": "008book24_GeneralInformation_natureOfContents",
               "codes": {
                 " ": {
@@ -9875,7 +9864,6 @@
               "start": 25,
               "end": 27,
               "repeatableContent": true,
-              "unitLength": 1,
               "solr": "008continuing25_GeneralInformation_natureOfContents",
               "codes": {
                 " ": {
@@ -10197,7 +10185,6 @@
               "start": 18,
               "end": 21,
               "repeatableContent": true,
-              "unitLength": 1,
               "solr": "008map18_GeneralInformation_relief",
               "codes": {
                 " ": {
@@ -10655,7 +10642,6 @@
               "start": 33,
               "end": 34,
               "repeatableContent": true,
-              "unitLength": 1,
               "solr": "008map33_GeneralInformation_specialFormatCharacteristics",
               "codes": {
                 " ": {
@@ -11414,7 +11400,6 @@
               "start": 24,
               "end": 29,
               "repeatableContent": true,
-              "unitLength": 1,
               "solr": "008music24_GeneralInformation_accompanyingMatter",
               "codes": {
                 " ": {
@@ -11501,7 +11486,6 @@
               "start": 30,
               "end": 31,
               "repeatableContent": true,
-              "unitLength": 1,
               "solr": "008music30_GeneralInformation_literaryTextForSoundRecordings",
               "codes": {
                 " ": {
@@ -22043,7 +22027,6 @@
               "start": 12,
               "end": 12,
               "repeatableContent": true,
-              "unitLength": 1,
               "codes": {
                 " ": {
                   "label": "No determinable frequency"

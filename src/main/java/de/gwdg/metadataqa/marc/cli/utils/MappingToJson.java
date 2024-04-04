@@ -111,9 +111,7 @@ public class MappingToJson {
       String url = entry.getKey();
       Map<String, Map<String, Object>> codes = new LinkedHashMap<>();
       for (EncodedValue code : entry.getValue()) {
-        codes.put(code.getCode(), Map.of("label", code.getLabel()));
-        if (code.getRange() != null)
-          codes.get(code.getCode()).put("range", code.getRange());
+        addCodeOrRange(codes, code, false);
       }
       codelists.put(url, codes);
     }
@@ -121,6 +119,37 @@ public class MappingToJson {
 
     // System.err.println(referencesCodeLists.keySet());
   }
+
+  static void addCodeOrRange(Map<String, Map<String, Object>> codes, EncodedValue code, boolean deprecated) {
+
+    if (code.getRange() != null) {
+      String[] range = code.getCode().split("-");
+      try {
+        int from = Integer.parseInt(range[0]);
+        int to = Integer.parseInt(range[1]);
+        for (int i=from; i<=to; i++) {
+          String codeNumber = Integer.toString(i);
+          Map<String, Object> map = new LinkedHashMap<>();
+          map.put("code", codeNumber);
+          map.put("label", code.getLabel());
+          if (deprecated) {
+            map.put("deprecated", true);
+          }
+          codes.put(codeNumber, map);
+        }
+      } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+        System.err.println("Invalid range in codelist!");
+      }
+    } else {
+      Map<String, Object> map = new LinkedHashMap<>();
+      map.put("code", code.getCode());
+      map.put("label", code.getLabel());
+      if (deprecated) {
+        map.put("deprecated", true);
+      }
+      codes.put(code.getCode(), map);
+    }
+  } 
 
   private Map<String, Object> buildControlField(ControlFieldDefinition field, ControlfieldPositionList positionDefinition) {
     Map<String, Object> positions;
@@ -389,12 +418,10 @@ public class MappingToJson {
         } else if (position.getCodeList() != null) {
           referencesCodeLists.put(position.getCodeList().getUrl(), position.getCodeList().getCodes());
           positionMap.put(codesOrFlags, position.getCodeList().getUrl());
-          // positionMap.put("codes", extractCodes(position.getCodeList().getCodes()));
         } else if (position.getCodeListReference() != null) {
           String url = String.format("%s#%s", position.getCodeListReference().getDescriptionUrl(), position.getCodeListReference().getPositionStart());
           referencesCodeLists.put(url, position.getCodeListReference().getCodes());
           positionMap.put(codesOrFlags, url);
-          // positionMap.put("codes", extractCodes(position.getCodeListReference().getCodes()));
         } else {
           logger.log(Level.WARNING, "{0}${1}/{2}: missing code list!", new Object[]{
             subfield.getParent().getTag(), subfield.getCode(), position.getPositionStart()});
@@ -414,11 +441,7 @@ public class MappingToJson {
   private static Map<String, Map<String, Object>> extractCodes(List<EncodedValue> codeList) {
     Map<String, Map<String, Object>> codes = new HashMap<>();
     for (EncodedValue code : codeList) {
-      Map<String, Object> codeInfo = new LinkedHashMap<>();
-      codeInfo.put("label", code.getLabel());
-      if (code.getRange() != null)
-        codeInfo.put("range", code.getRange());
-      codes.put(code.getCode(), codeInfo);
+      addCodeOrRange(codes, code, false);
     }
     return codes;
   }
@@ -444,22 +467,15 @@ public class MappingToJson {
     Map<String, Object> value = new LinkedHashMap<>();
     value.put("label", indicator.getLabel());
 
-    Map<String, Object> codes = new LinkedHashMap<>();
+    Map<String, Map<String, Object>> codes = new LinkedHashMap<>();
     if (indicator.getCodes() != null) {
       for (EncodedValue code : indicator.getCodes()) {
-        Map<String, Object> map = new LinkedHashMap<>();
-        map.put("code", code.getCode());
-        map.put("label", code.getLabel());
-        codes.put(code.getCode(), map);
+        addCodeOrRange(codes, code, false);
       }
     }
     if (indicator.getHistoricalCodes() != null) {
       for (EncodedValue code : indicator.getHistoricalCodes()) {
-        Map<String, Object> map = new LinkedHashMap<>();
-        map.put("code", code.getCode());
-        map.put("label", code.getLabel());
-        map.put("deprecated", true);
-        codes.put(code.getCode(), map);
+        addCodeOrRange(codes, code, true);
       }
     }
     if (codes.size() > 0) { 

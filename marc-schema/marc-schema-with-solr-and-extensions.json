@@ -13793,6 +13793,13 @@
             "repeatable": false,
             "solr": "035x23_SystemControlNumber_number_KBR"
           }
+        },
+        "ZB": {
+          "9": {
+            "label": "System-Kontrollnummer",
+            "repeatable": false,
+            "solr": "0359_SystemControlNumber_ZB"
+          }
         }
       }
     },
@@ -25092,127 +25099,146 @@
         }
       }
     },
-    "520": {
-      "tag": "520",
-      "label": "Summary, etc.",
-      "url": "https://www.loc.gov/marc/bibliographic/bd520.html",
-      "repeatable": true,
-      "solr": "Summary",
-      "version": "MARC21",
-      "indicator1": {
-        "label": "Display constant controller",
-        "codes": {
-          " ": {
-            "code": " ",
-            "label": "Summary"
+    "520": [
+      {
+        "tag": "520",
+        "label": "Summary, etc.",
+        "url": "https://www.loc.gov/marc/bibliographic/bd520.html",
+        "repeatable": true,
+        "solr": "Summary",
+        "version": "MARC21",
+        "indicator1": {
+          "label": "Display constant controller",
+          "codes": {
+            " ": {
+              "code": " ",
+              "label": "Summary"
+            },
+            "0": {
+              "code": "0",
+              "label": "Subject"
+            },
+            "1": {
+              "code": "1",
+              "label": "Review"
+            },
+            "2": {
+              "code": "2",
+              "label": "Scope and content"
+            },
+            "3": {
+              "code": "3",
+              "label": "Abstract"
+            },
+            "4": {
+              "code": "4",
+              "label": "Content advice"
+            },
+            "8": {
+              "code": "8",
+              "label": "No display constant generated"
+            }
+          }
+        },
+        "indicator2": null,
+        "subfields": {
+          "a": {
+            "label": "Summary, etc.",
+            "repeatable": false,
+            "solr": "520a_Summary"
           },
-          "0": {
-            "code": "0",
-            "label": "Subject"
+          "b": {
+            "label": "Expansion of summary note",
+            "repeatable": false,
+            "solr": "520b_Summary_expansion"
           },
-          "1": {
-            "code": "1",
-            "label": "Review"
+          "c": {
+            "label": "Assigning source",
+            "repeatable": false,
+            "solr": "520c_Summary_assigningSource"
+          },
+          "u": {
+            "label": "Uniform Resource Identifier",
+            "repeatable": true,
+            "solr": "520u_Summary_uri"
           },
           "2": {
-            "code": "2",
-            "label": "Scope and content"
+            "label": "Source",
+            "repeatable": false,
+            "solr": "5202_Summary_source",
+            "codes": "https://www.loc.gov/standards/sourcelist/content-advice.html"
           },
           "3": {
-            "code": "3",
-            "label": "Abstract"
+            "label": "Materials specified",
+            "repeatable": false,
+            "solr": "5203_Summary_materialsSpecified"
           },
-          "4": {
-            "code": "4",
-            "label": "Content advice"
+          "6": {
+            "label": "Linkage",
+            "repeatable": false,
+            "solr": "5206_Summary_linkage",
+            "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
+          },
+          "7": {
+            "label": "Data provenance",
+            "repeatable": true,
+            "solr": "5207_Summary_dataProvenance"
           },
           "8": {
-            "code": "8",
-            "label": "No display constant generated"
+            "label": "Field link and sequence number",
+            "repeatable": true,
+            "solr": "5208_Summary_fieldLink"
+          },
+          "z": {
+            "label": "Source of note information (BK, AM, CF, SE) [OBSOLETE, 1990]",
+            "deprecated": true
+          }
+        },
+        "versionSpecificSubfields": {
+          "NKCR": {
+            "9": {
+              "label": "Annotation language code",
+              "repeatable": false,
+              "solr": "5209_Summary_NKCR"
+            }
+          },
+          "KBR": {
+            "*": {
+              "label": "Link with identifier",
+              "repeatable": false,
+              "solr": "520x2a_Summary_link_KBR"
+            },
+            "@": {
+              "label": "Language of field",
+              "repeatable": false,
+              "solr": "520x40_Summary_language_KBR"
+            },
+            "#": {
+              "label": "number/occurrence of field",
+              "repeatable": false,
+              "solr": "520x23_Summary_number_KBR"
+            }
           }
         }
       },
-      "indicator2": null,
-      "subfields": {
-        "a": {
-          "label": "Summary, etc.",
-          "repeatable": false,
-          "solr": "520a_Summary"
-        },
-        "b": {
-          "label": "Expansion of summary note",
-          "repeatable": false,
-          "solr": "520b_Summary_expansion"
-        },
-        "c": {
-          "label": "Assigning source",
-          "repeatable": false,
-          "solr": "520c_Summary_assigningSource"
-        },
-        "u": {
-          "label": "Uniform Resource Identifier",
-          "repeatable": true,
-          "solr": "520u_Summary_uri"
-        },
-        "2": {
-          "label": "Source",
-          "repeatable": false,
-          "solr": "5202_Summary_source",
-          "codes": "https://www.loc.gov/standards/sourcelist/content-advice.html"
-        },
-        "3": {
-          "label": "Materials specified",
-          "repeatable": false,
-          "solr": "5203_Summary_materialsSpecified"
-        },
-        "6": {
-          "label": "Linkage",
-          "repeatable": false,
-          "solr": "5206_Summary_linkage",
-          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
-        },
-        "7": {
-          "label": "Data provenance",
-          "repeatable": true,
-          "solr": "5207_Summary_dataProvenance"
-        },
-        "8": {
-          "label": "Field link and sequence number",
-          "repeatable": true,
-          "solr": "5208_Summary_fieldLink"
-        },
-        "z": {
-          "label": "Source of note information (BK, AM, CF, SE) [OBSOLETE, 1990]",
-          "deprecated": true
-        }
-      },
-      "versionSpecificSubfields": {
-        "NKCR": {
-          "9": {
-            "label": "Annotation language code",
+      {
+        "tag": "520",
+        "label": "Zusammenfassung des Inhalts, Abstract usw.",
+        "url": null,
+        "repeatable": true,
+        "solr": "ZusammenfassungInhaltAbstract",
+        "version": "ZB",
+        "indicator1": null,
+        "indicator2": null,
+        "subfields": {
+          "5": {
+            "label": "Datum und Kürzel des Bearbeiters/der Bearbeiterin",
             "repeatable": false,
-            "solr": "5209_Summary_NKCR"
-          }
-        },
-        "KBR": {
-          "*": {
-            "label": "Link with identifier",
-            "repeatable": false,
-            "solr": "520x2a_Summary_link_KBR"
-          },
-          "@": {
-            "label": "Language of field",
-            "repeatable": false,
-            "solr": "520x40_Summary_language_KBR"
-          },
-          "#": {
-            "label": "number/occurrence of field",
-            "repeatable": false,
-            "solr": "520x23_Summary_number_KBR"
+            "solr": "5205_ZusammenfassungInhaltAbstract"
           }
         }
       }
-    },
+    ],
     "521": {
       "tag": "521",
       "label": "Target Audience Note",
@@ -46464,23 +46490,87 @@
         }
       }
     ],
-    "997": {
-      "tag": "997",
-      "label": "Shared Library Message Field",
-      "url": null,
-      "repeatable": true,
-      "solr": "SharedLibraryMessageField",
-      "version": "BL",
-      "indicator1": null,
-      "indicator2": null,
-      "subfields": {
-        "a": {
-          "label": "Legal Deposit Library’s message",
-          "repeatable": true,
-          "solr": "997a_SharedLibraryMessageField_legalDepositLibrarysMessage"
+    "997": [
+      {
+        "tag": "997",
+        "label": "Shared Library Message Field",
+        "url": null,
+        "repeatable": true,
+        "solr": "SharedLibraryMessageField",
+        "version": "BL",
+        "indicator1": null,
+        "indicator2": null,
+        "subfields": {
+          "a": {
+            "label": "Legal Deposit Library’s message",
+            "repeatable": true,
+            "solr": "997a_SharedLibraryMessageField_legalDepositLibrarysMessage"
+          }
+        }
+      },
+      {
+        "tag": "997",
+        "label": "Item information",
+        "url": null,
+        "repeatable": true,
+        "solr": "ItemInformation",
+        "version": "KBR",
+        "indicator1": null,
+        "indicator2": null,
+        "subfields": {
+          "a": {
+            "label": "Barcode number",
+            "repeatable": false,
+            "solr": "997a_ItemInformation_barcode"
+          },
+          "c": {
+            "label": "Library (holding institution)",
+            "repeatable": false,
+            "solr": "997c_ItemInformation_library"
+          },
+          "d": {
+            "label": "Section (department of holding institution)",
+            "repeatable": false,
+            "solr": "997d_ItemInformation_section"
+          },
+          "g": {
+            "label": "Call Number",
+            "repeatable": false,
+            "solr": "997g_ItemInformation_callNumber"
+          },
+          "h": {
+            "label": "Rating2",
+            "repeatable": false,
+            "solr": "997h_ItemInformation_rating2"
+          },
+          "i": {
+            "label": "Rating3",
+            "repeatable": false,
+            "solr": "997i_ItemInformation_rating3"
+          },
+          "t": {
+            "label": "Document type",
+            "repeatable": false,
+            "solr": "997t_ItemInformation_documentType"
+          },
+          "*": {
+            "label": "Link with identifier",
+            "repeatable": false,
+            "solr": "997x2a_ItemInformation_link"
+          },
+          "@": {
+            "label": "Language of field",
+            "repeatable": false,
+            "solr": "997x40_ItemInformation_language"
+          },
+          "#": {
+            "label": "number/occurrence of field",
+            "repeatable": false,
+            "solr": "997x23_ItemInformation_number"
+          }
         }
       }
-    },
+    ],
     "998": {
       "tag": "998",
       "label": "Šifra zpracovatele (pracovní pole retrokonverze)",

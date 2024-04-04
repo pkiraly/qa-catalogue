@@ -201,7 +201,6 @@ public class MappingToJson {
     values.put("url", subfield.getDescriptionUrl());
     values.put("start", subfield.getPositionStart());
     values.put("end", subfield.getPositionEnd() - 1);
-    values.put("repeatableContent", subfield.isRepeatableContent());
 
     if (generator != null)
       values.put("solr", generator.forSubfield(subfield));
@@ -225,6 +224,7 @@ public class MappingToJson {
       }
     }
     if (codes.size() > 0) {
+      String codesOrFlags = subfield.isRepeatableContent() ? "flags" : "codes";
       values.put("codes", codes);
     }
     return values;
@@ -381,19 +381,19 @@ public class MappingToJson {
       positionMap.put("label", position.getLabel());
       positionMap.put("start", position.getPositionStart());
       positionMap.put("end", position.getPositionEnd() - 1);
-      positionMap.put("repeatableContent", position.isRepeatableContent());
 
       if (position.hasCodelist()) {
+        String codesOrFlags = position.isRepeatableContent() ? "flags" : "codes";
         if (position.getCodes() != null && !position.getCodes().isEmpty()) {
-          positionMap.put("codes", extractCodes(position.getCodes()));
+          positionMap.put(codesOrFlags, extractCodes(position.getCodes()));
         } else if (position.getCodeList() != null) {
           referencesCodeLists.put(position.getCodeList().getUrl(), position.getCodeList().getCodes());
-          positionMap.put("codes", position.getCodeList().getUrl());
+          positionMap.put(codesOrFlags, position.getCodeList().getUrl());
           // positionMap.put("codes", extractCodes(position.getCodeList().getCodes()));
         } else if (position.getCodeListReference() != null) {
           String url = String.format("%s#%s", position.getCodeListReference().getDescriptionUrl(), position.getCodeListReference().getPositionStart());
           referencesCodeLists.put(url, position.getCodeListReference().getCodes());
-          positionMap.put("codes", url);
+          positionMap.put(codesOrFlags, url);
           // positionMap.put("codes", extractCodes(position.getCodeListReference().getCodes()));
         } else {
           logger.log(Level.WARNING, "{0}${1}/{2}: missing code list!", new Object[]{

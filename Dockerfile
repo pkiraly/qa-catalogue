@@ -3,6 +3,10 @@ FROM ubuntu:20.04
 LABEL maintainer="Péter Király <pkiraly@gwdg.de>, Ákos Takács <rimelek@rimelek.hu>"
 
 LABEL description="QA catalogue - a metadata quality assessment tool for MARC based library catalogues."
+# the Github repo labels
+LABEL org.opencontainers.image.description="QA catalogue - a metadata quality assessment tool for MARC based library catalogues."
+LABEL org.opencontainers.image.source=https://github.com/pkiraly/qa-catalogue
+LABEL org.opencontainers.image.licenses="GNU General Public License v3.0"
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG QA_CATALOGUE_VERSION=0.8.0-SNAPSHOT

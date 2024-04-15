@@ -169,8 +169,6 @@ at QA catalogue's wiki.
 
 Everything else should work the same way as in other environments, so follow the next sections.
 
-More details about the Docker use case: http://pkiraly.github.io/2020/05/31/running-with-docker/.
-
 ### Use
 
 ```bash

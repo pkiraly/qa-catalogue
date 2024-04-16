@@ -4,6 +4,7 @@ version: '2'
 
 services:
   app:
+    container_name: metadata-qa-marc
     image: ${IMAGE:-pkiraly/metadata-qa-marc:0.7.0}
     volumes:
       - ./${INPUT:-input}:/opt/qa-catalogue/marc

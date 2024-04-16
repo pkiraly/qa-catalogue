@@ -11,8 +11,9 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ./${INPUT:-input}:/opt/qa-catalogue/marc
-      - ./${WEBBCONFIG:-web-config}:/var/www/html/qa-catalogue/config
+      - ./${INPUT:-input}:/opt/qa-catalogue/input
+      - ./${OUTPUT:-output}:/opt/qa-catalogue/output
+      - ./catalogues:/opt/qa-catalogue/catalogues
     ports:
       - "${WEBPORT:-80}:80"       # qa-catalogue-web
       - "${SOLRPORT:-8983}:8983"  # Solr

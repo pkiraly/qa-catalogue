@@ -135,12 +135,7 @@ RUN cd /opt \
 # install Solr
 COPY ${SOLR_INSTALL_SOURCE}* /opt
 
-RUN echo "install lsof" \
- && apt-get update \
- && apt-get install -y --no-install-recommends \
-      lsof \
- && apt-get --assume-yes autoremove \
- && rm -rf /var/lib/apt/lists/* \
+RUN echo "install solr" \
  && cd /opt \
  && MAJOR_VERSION=$(echo $SOLR_VERSION | sed 's/^\([0-9]*\)\..*/\1/') \
  && if [ ${MAJOR_VERSION} -gt 8 ]; then \

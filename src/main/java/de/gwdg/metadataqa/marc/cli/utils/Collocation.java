@@ -3,6 +3,7 @@ package de.gwdg.metadataqa.marc.cli.utils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
+import java.util.Locale;
 
 import static de.gwdg.metadataqa.marc.Utils.createRow;
 
@@ -22,7 +23,7 @@ public class Collocation {
   }
 
   public String formatRow() {
-    return createRow(key, count, String.format("%.2f%%", percent));
+    return createRow(key, count, String.format(Locale.ENGLISH, "%.2f%%", percent));
   }
 
   public int compareTo(Collocation other) {

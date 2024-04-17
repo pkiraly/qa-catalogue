@@ -272,10 +272,21 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     return output.toString();
   }
 
+  /**
+   * This method can produce wrong results due to the fact that it doesn't take into account the MarcVersion that the
+   * record is in. The method should be used with caution.
+   * @return A map of key-value pairs for the specified Solr field type.
+   */
   public Map<String, List<String>> getKeyValuePairs() {
     return getKeyValuePairs(SolrFieldType.MARC);
   }
 
+  /**
+   * This method can produce wrong results due to the fact that it doesn't take into account the MarcVersion that the
+   * record is in. The method should be used with caution.
+   * @param type The type of the Solr field to get the key-value pairs for. Can be set to MARC, HUMAN, or MIXED.
+   * @return A map of key-value pairs for the specified Solr field type.
+   */
   public Map<String, List<String>> getKeyValuePairs(SolrFieldType type) {
     return getKeyValuePairs(type, false, MarcVersion.MARC21);
   }

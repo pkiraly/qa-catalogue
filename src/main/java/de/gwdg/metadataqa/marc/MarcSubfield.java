@@ -5,7 +5,6 @@ import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.general.Linkage;
 import de.gwdg.metadataqa.marc.definition.general.parser.ParserException;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
-import de.gwdg.metadataqa.marc.model.validation.ErrorsCollector;
 import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGenerator;
 
 import java.io.Serializable;
@@ -19,16 +18,16 @@ import java.util.logging.Logger;
 public class MarcSubfield implements Serializable { // Validatable
 
   private static final Logger logger = Logger.getLogger(MarcSubfield.class.getCanonicalName());
-
+  private static Map<String, String> prefixCache;
   private BibliographicRecord marcRecord;
   private DataField field;
   private SubfieldDefinition definition;
   private final String code;
   private final String value;
   private String codeForIndex = null;
-  private ErrorsCollector errors = null;
   private Linkage linkage;
   private String referencePath;
+
 
   public MarcSubfield(SubfieldDefinition definition, String code, String value) {
     this.definition = definition;
@@ -140,8 +139,21 @@ public class MarcSubfield implements Serializable { // Validatable
   }
 
   public Map<String, List<String>> getKeyValuePairs(DataFieldKeyGenerator keyGenerator) {
-    // TODO add caching
-    String prefix = keyGenerator.forSubfield(this);
+    if (prefixCache == null) {
+      prefixCache = new HashMap<>();
+    }
+
+    String tagForCache = this.getField().getTag();
+    if (this.getField().getOccurrence() != null) {
+      tagForCache += "/" + this.getField().getOccurrence();
+    }
+
+    String cacheKey = String.format("%s$%s-%s-%s", tagForCache, code, keyGenerator.getClass().getSimpleName(), keyGenerator.getMarcVersion());
+    if (!prefixCache.containsKey(cacheKey)) {
+      String generatedPrefix = keyGenerator.forSubfield(this);
+      prefixCache.put(cacheKey, generatedPrefix);
+    }
+    String prefix = prefixCache.get(cacheKey);
 
     Map<String, List<String>> pairs = new HashMap<>();
     String resolvedValue = resolve();

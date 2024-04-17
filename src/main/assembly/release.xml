@@ -59,6 +59,13 @@
             </includes>
             <outputDirectory>marc-schema</outputDirectory>
         </fileSet>
+        <fileSet>
+            <directory>catalogues</directory>
+            <includes>
+                <include>*.*</include>
+            </includes>
+            <outputDirectory>catalogues</outputDirectory>
+        </fileSet>
     </fileSets>
     <files>
         <file>

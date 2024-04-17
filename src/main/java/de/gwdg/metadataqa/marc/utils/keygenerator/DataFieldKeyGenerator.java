@@ -97,7 +97,7 @@ public abstract class DataFieldKeyGenerator {
    * Generates a key for the entire (full) field. That means that the key is essentially the same as the tag in the
    * given representation (HUMAN, MIXED, MARC), with an additional "_full" suffix.
    */
-  public abstract String forEntireField();
+  public abstract String forFullField();
 
   public MarcVersion getMarcVersion() {
     return marcVersion;

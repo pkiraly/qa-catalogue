@@ -390,10 +390,10 @@ public class DataField implements Extractable, Serializable {
     // Index fields that have SourceSpecificationType defined (which also means a FieldIndexer)
     indexFieldsWithSchemas(pairs, keyGenerator);
 
-    // full field indexing
-    indexAllSubfields(pairs, keyGenerator);
+    // Full field indexing for authority fields
+    indexAllAuthoritySubfields(pairs, keyGenerator);
 
-    // classifications
+    // Full field indexing for subject fields
     indexClassifications(schemaType, pairs, keyGenerator);
 
     return pairs;
@@ -438,14 +438,14 @@ public class DataField implements Extractable, Serializable {
       String value = subfield.getValue();
       subfieldValues.add(value);
     }
-    String key = keyGenerator.forEntireField();
+    String key = keyGenerator.forFullField();
     String value = StringUtils.join(subfieldValues, ", ");
 
     pairs.putIfAbsent(key, new ArrayList<>());
     pairs.get(key).add(value);
   }
 
-  private void indexAllSubfields(Map<String, List<String>> pairs, DataFieldKeyGenerator keyGenerator) {
+  private void indexAllAuthoritySubfields(Map<String, List<String>> pairs, DataFieldKeyGenerator keyGenerator) {
     String fieldTag = getTag();
     if (bibliographicRecord == null || !bibliographicRecord.isAuthorityTag(fieldTag)) {
       return;
@@ -461,7 +461,7 @@ public class DataField implements Extractable, Serializable {
       }
     }
 
-    String key = keyGenerator.forEntireField();
+    String key = keyGenerator.forFullField();
     String value = StringUtils.join(subfieldValues, ", ");
 
     pairs.putIfAbsent(key, new ArrayList<>());
@@ -510,9 +510,15 @@ public class DataField implements Extractable, Serializable {
   private FieldIndexer getFieldIndexer() {
     FieldIndexer fieldIndexer = null;
 
+    // If the Schema is UNIMARC and the field is either a classification (subject) or an authority field,
+    // then use the subfield 2 to determine the schema
+    boolean isUnimarc = bibliographicRecord != null && bibliographicRecord.getSchemaType().equals(SchemaType.UNIMARC);
+    if (isUnimarc && (bibliographicRecord.isSubjectTag(getTag()) || bibliographicRecord.isAuthorityTag(getTag()))) {
+        fieldIndexer = SchemaFromSubfield2.getInstance();
+        return fieldIndexer;
+    }
+
     // If there is no definition or no source specification type, return null
-    // Source specification type is used only with MARC21 to specify the subfield or indicator to use
-    // in order
     if (definition == null || definition.getSourceSpecificationType() == null) {
       return null;
     }

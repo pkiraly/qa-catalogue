@@ -50,7 +50,7 @@ public class HumanDataFieldKeyGenerator extends DataFieldKeyGenerator {
   }
 
   @Override
-  public String forEntireField() {
+  public String forFullField() {
     return indexTag + "_full";
   }
 }

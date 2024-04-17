@@ -52,8 +52,6 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
   protected List<String> authorityTags;
   /**
    * Key-value pairs of tags and a boolean value indicating if the tag is an authority tag.
-   * <br/>
-   * I personally don't see the value of using this map if we could've maybe used a set for authorityTags.
    */
   protected Map<String, Boolean> authorityTagsIndex;
   /**

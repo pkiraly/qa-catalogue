@@ -24,7 +24,14 @@ public class UnimarcAuthorityAnalyzer extends AuthorityAnalyzer {
   private int processFieldWithSubfield2(DataField field) {
     // Even though the subfield $2 in UNIMARC authority fields usually doesn't contain schema information,
     // for now, the same logic as in the MARC21 analyzer is used to extract schemas from subfield $2.
-    List<Schema> schemas = extractSchemasFromSubfield2(field.getTag(), field);
+
+    // If it's a field 710, 711, or 712, then it's not quite clear whether we're talking about a corporate body or a meeting.
+    // In this case it's necessary to specify if we're talking about a corporate body or a meeting.
+    String tag = field.getTag();
+    if (tag.equals("710") || tag.equals("711") || tag.equals("712")) {
+      tag += "$ind1=" + field.getInd1();
+    }
+    List<Schema> schemas = extractSchemasFromSubfield2(tag, field);
     for (Schema schema : schemas) {
       updateSchemaSubfieldStatistics(field, schema);
     }

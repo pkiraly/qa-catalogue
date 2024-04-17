@@ -40,7 +40,7 @@ public class MarcDataFieldKeyGenerator extends DataFieldKeyGenerator {
   }
 
   @Override
-  public String forEntireField() {
+  public String forFullField() {
     String safeTag = nonValidSubfieldCode.matcher(tag).find() ? escape(tag) : tag;
     return safeTag + "_full";
   }

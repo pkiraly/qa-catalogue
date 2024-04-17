@@ -57,7 +57,7 @@ public class MixedDataFieldKeyGenerator extends DataFieldKeyGenerator {
   }
 
   @Override
-  public String forEntireField() {
+  public String forFullField() {
     String safeTag = nonValidSubfieldCode.matcher(tag).find() ? escape(tag) : tag;
     if (definition != null && !tag.equals(indexTag)) {
       String key = String.format("%s_%s", safeTag, indexTag);

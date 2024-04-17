@@ -14,6 +14,7 @@ services:
       - ./${INPUT:-input}:/opt/qa-catalogue/input
       - ./${OUTPUT:-output}:/opt/qa-catalogue/output
       - ./catalogues:/opt/qa-catalogue/catalogues
+      - ./${WEBBCONFIG:-web-config}:/var/www/html/qa-catalogue/config
     ports:
       - "${WEBPORT:-8000}:80"       # qa-catalogue-web
       - "${SOLRPORT:-8983}:8983"  # Solr

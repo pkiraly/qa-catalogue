@@ -9,7 +9,7 @@ RUN mvn clean install
 
 FROM ubuntu:20.04
 
-LABEL maintainer="Péter Király <pkiraly@gwdg.de>, Ákos Takács <rimelek@rimelek.hu>"
+LABEL maintainer="Péter Király <pkiraly@gwdg.de>, Ákos Takács <rimelek@rimelek.hu>, Jakob Voß <jakob.voss@gbv.de>"
 
 LABEL description="QA catalogue - a metadata quality assessment tool for MARC based library catalogues."
 # the Github repo labels

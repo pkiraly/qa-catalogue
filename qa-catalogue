@@ -95,7 +95,7 @@ CONFIG_FILE:              ${CONFIG_FILE}
 EOF
 
 # don't proceed if web configuration shall be updated but cannot do so
-if [[ ! -z "$K10" ]]; then
+if [[ ! -z "$WEB_CONFIG" ]]; then
   if [[ ! -f "$WEB_CONFIG" ]]; then
     echo "web configuration file missing: $WEB_CONFIG" >&2
     exit 1

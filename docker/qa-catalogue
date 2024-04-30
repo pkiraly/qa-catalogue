@@ -10,7 +10,7 @@ if [ $# == 0 ]; then
   echo "variable CONTAINER). Try command 'help' for usage of QA catalogue!"
 else
   docker container exec \
-    -ti \
+    -it \
     "$CONTAINER" \
     ./qa-catalogue \
     "$@"

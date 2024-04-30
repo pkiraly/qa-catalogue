@@ -147,16 +147,16 @@ public class MarcSpecTest {
   @Test
   public void testValidity() {
     MarcSpec marcSpec = new MarcSpec();
-    marcSpec.validate("245");
-    marcSpec.validate("245ab");
-    marcSpec.validate("XXXab");
-    marcSpec.validate("245ab_1");
-    marcSpec.validate("245ab__0");
-    marcSpec.validate("245ab_10");
-    marcSpec.validate("245ab_1_");
-    marcSpec.validate("245$a");
-    marcSpec.validate("LDR/0-4");
-    marcSpec.validate("880_1");
+    assertTrue(marcSpec.validate("245"));
+    assertTrue(marcSpec.validate("245ab"));
+    assertTrue(marcSpec.validate("XXXab"));
+    assertTrue(marcSpec.validate("245ab_1"));
+    assertTrue(marcSpec.validate("245ab__0"));
+    assertTrue(marcSpec.validate("245ab_10"));
+    assertTrue(marcSpec.validate("245ab_1_"));
+    assertTrue(marcSpec.validate("245$a"));
+    assertTrue(marcSpec.validate("LDR/0-4"));
+    assertTrue(marcSpec.validate("880_1"));
   }
 
   @Test

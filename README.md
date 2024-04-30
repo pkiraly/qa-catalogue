@@ -134,6 +134,8 @@ following environment variables:
 
 - `SOLRPORT`: port to expose Solr to. Default: `8983`.
 
+- `CONTAINER`: the name of the docker container. Default: `metadata-qa-marc`.
+
 Environment variables can be set on command line or be put in local file `.env`, e.g.: 
 
 ```bash

@@ -20,6 +20,7 @@ Options:
   -u --update     last modification time of input files (default: timestamps)
   -v --version    optional version number/date of the catalogue to compare changes
   -w --web-config update the specified configuration file of qa-catalogue-web
+  -f --config-file a configuration file contains catalogue specific environment variables
 
 EOF
   . ./common-script help
@@ -37,9 +38,10 @@ NAME=${NAME:-qa-catalogue}
 TYPE_PARAMS=
 SCHEMA=MARC21
 WEB_CONFIG=
+CONFIG_FILE=
 
 # parse command line options
-options=$(getopt -o a:c:d:i:m:n:o:p:s:u:v:w: --long analyses:,catalogue:,input-dir:,input:,mask:,name:,output:,params:,schema:,update:,version:,web-config: -- "$@")
+options=$(getopt -o a:c:d:i:m:n:o:p:s:u:v:w:f: --long analyses:,catalogue:,input-dir:,input:,mask:,name:,output:,params:,schema:,update:,version:,web-config:,config-file: -- "$@")
 
 eval set -- "$options"
 
@@ -57,6 +59,7 @@ while true; do
     -u|--update) UPDATE=$2 ; shift ;;
     -v|--version) VERSION=$2 ; shift ;;
     -w|--web-config) WEB_CONFIG=$2 ; shift ;;
+    -f|--config-file) CONFIG_FILE=$2 ; shift ;;
     --)
         shift
         break
@@ -66,6 +69,11 @@ while true; do
 done
 
 [ "${1:-help}" == "help" ] && usage
+
+if [[ "$CONFIG_FILE" != "" && -f $CONFIG_FILE ]]; then
+  echo "run config file"
+  . $CONFIG_FILE
+fi
 
 cat << EOF
 configuration:
@@ -82,11 +90,12 @@ TYPE_PARAMS (params):     ${TYPE_PARAMS}
 UPDATE:                   ${UPDATE:-}
 VERSION:                  ${VERSION:-}
 WEB_CONFIG:               ${WEB_CONFIG}
+CONFIG_FILE:              ${CONFIG_FILE}
 ---------------------------
 EOF
 
 # don't proceed if web configuration shall be updated but cannot do so
-if [[ ! -z "$WEB_CONFIG" ]]; then
+if [[ ! -z "$K10" ]]; then
   if [[ ! -f "$WEB_CONFIG" ]]; then
     echo "web configuration file missing: $WEB_CONFIG" >&2
     exit 1

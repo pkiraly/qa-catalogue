@@ -11,3 +11,4 @@ services:
     ports:
       - "${WEBPORT:-80}:80"       # qa-catalogue-web
       - "${SOLRPORT:-8983}:8983"  # Solr
+    container_name: ${CONTAINER:-metadata-qa-marc}

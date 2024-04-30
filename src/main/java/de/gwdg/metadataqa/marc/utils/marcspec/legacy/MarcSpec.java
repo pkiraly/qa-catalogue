@@ -47,7 +47,7 @@ public class MarcSpec implements SchemaSpec, Serializable {
    * executed without any exceptions and the specified character positions, indicators and subfields are set.
    * @param spec The Marc spec string to be validated.
    */
-  public void validate(String spec) {
+  public boolean validate(String spec) {
     checkIfString(spec);
     clear();
     spec = StringUtils.trim(spec);
@@ -67,7 +67,7 @@ public class MarcSpec implements SchemaSpec, Serializable {
 
     String dataRef = spec.substring(3);
     if (dataRef.isEmpty()) {
-      return;
+      return true;
     }
 
     // If the spec doesn't contain the positions specifier, then check for data reference
@@ -76,14 +76,14 @@ public class MarcSpec implements SchemaSpec, Serializable {
       // "_indicators".
       String[] splitDataReferences = validateDataRef(dataRef);
       if (splitDataReferences.length == 0) {
-        return;
+        return true;
       }
 
       addSubfields(splitDataReferences[0]);
       if (splitDataReferences.length > 1) {
         setIndicators(splitDataReferences[1]);
       }
-      return;
+      return true;
     }
 
     // Check character postion or range
@@ -93,7 +93,7 @@ public class MarcSpec implements SchemaSpec, Serializable {
     }
     int[] positions = validateCharPos(charPos);
     if (positions.length == 0) {
-      return;
+      return true;
     }
 
     setCharStart(positions[0]);
@@ -103,6 +103,7 @@ public class MarcSpec implements SchemaSpec, Serializable {
       setCharLength(1);
       setCharEnd(charStart);
     }
+    return true;
   }
 
   /**

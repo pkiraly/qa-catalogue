@@ -44,7 +44,7 @@ public class MarcFactoryTest {
     // System.err.println(record.formatAsMarc());
     // System.err.println(record.formatForIndex());
     // System.err.println(record.getKeyValuePairs());
-    Map<String, List<String>> pairs = marcRecord.getKeyValuePairs(SolrFieldType.HUMAN);
+    Map<String, List<String>> pairs = marcRecord.getKeyValuePairs(SolrFieldType.HUMAN, MarcVersion.DNB);
     assertEquals(124, pairs.size());
     Set<String> keys = pairs.keySet();
     // keys.remove("GentLocallyDefinedField");
@@ -471,7 +471,7 @@ public class MarcFactoryTest {
     JsonSelector selector = new JsonSelector(FileUtils.readFirstLineFromResource("general/verbund-tit.001.0000000.formatted.json"));
 
     BibliographicRecord marcRecord = MarcFactory.create(selector, MarcVersion.DNB);
-    Map<String, List<String>> pairs = marcRecord.getKeyValuePairs(SolrFieldType.MIXED);
+    Map<String, List<String>> pairs = marcRecord.getKeyValuePairs(SolrFieldType.MIXED, MarcVersion.DNB);
     assertEquals(124, pairs.size());
 
     Set<String> keys = pairs.keySet();

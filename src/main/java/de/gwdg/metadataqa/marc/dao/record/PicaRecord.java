@@ -1,13 +1,17 @@
 package de.gwdg.metadataqa.marc.dao.record;
 
+import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.analysis.contextual.authority.AuthorityCategory;
 import de.gwdg.metadataqa.marc.analysis.shelfready.ShelfReadyFieldsBooks;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
+import de.gwdg.metadataqa.marc.utils.SchemaSpec;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSubjectManager;
 import de.gwdg.metadataqa.marc.utils.pica.crosswalk.Crosswalk;
 import de.gwdg.metadataqa.marc.utils.pica.crosswalk.PicaMarcCrosswalkReader;
+import de.gwdg.metadataqa.marc.utils.pica.path.PicaPath;
+import de.gwdg.metadataqa.marc.utils.pica.path.PicaSpec;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,6 +57,36 @@ public class PicaRecord extends BibliographicRecord {
     return shelfReadyMap;
   }
 
+  @Override
+  public List<String> select(SchemaSpec schemaSpec) {
+
+    if (!(schemaSpec instanceof PicaSpec)) {
+      return new ArrayList<>();
+    }
+
+    PicaSpec picaSpec = (PicaSpec) schemaSpec;
+    PicaPath selector = picaSpec.getPath();
+    
+    List<String> results = new ArrayList<>();
+    List<DataField> dataFields = getDatafieldsByTag(selector.getTag());
+    if (dataFields == null) {
+      return results;
+    }
+
+    for (DataField dataField : dataFields) {
+      for (String code : selector.getSubfields().getCodes()) {
+        List<MarcSubfield> subfields = dataField.getSubfield(code);
+        if (subfields == null) {
+          continue;
+        }
+        for (MarcSubfield subfield : subfields) {
+          results.add(subfield.getValue());
+        }
+      }
+    }
+
+    return results;
+  }
   protected List<String> getSubjectTags() {
     return PICA_SUBJECT_TAGS;
   }

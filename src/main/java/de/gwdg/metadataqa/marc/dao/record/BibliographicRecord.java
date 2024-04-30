@@ -15,8 +15,8 @@ import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
+import de.gwdg.metadataqa.marc.utils.SchemaSpec;
 import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
-import de.gwdg.metadataqa.marc.utils.pica.path.PicaPath;
 import de.gwdg.metadataqa.marc.utils.unimarc.UnimarcConverter;
 import org.apache.commons.lang3.StringUtils;
 
@@ -52,8 +52,6 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
   protected List<String> authorityTags;
   /**
    * Key-value pairs of tags and a boolean value indicating if the tag is an authority tag.
-   * <br/>
-   * I personally don't see the value of using this map if we could've maybe used a set for authorityTags.
    */
   protected Map<String, Boolean> authorityTagsIndex;
   /**
@@ -110,6 +108,20 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
       values.add(subfield.getValue());
     }
     return StringUtils.join(values," ");
+  }
+
+  private static Predicate<DataField> getDataFieldPredicate(String subfieldCode, String subfieldValue) {
+    Predicate<DataField> filterPredicate;
+    // ind1 and ind2 should also be considered as subfield codes
+    if (subfieldCode.equals("ind1")) {
+      filterPredicate = dataField -> dataField.getInd1().equals(subfieldValue);
+    } else if (subfieldCode.equals("ind2")) {
+      filterPredicate = dataField -> dataField.getInd2().equals(subfieldValue);
+    } else {
+      filterPredicate = dataField -> dataField.getSubfield(subfieldCode).stream()
+        .anyMatch(subfield -> subfield.getValue().equals(subfieldValue));
+    }
+    return filterPredicate;
   }
 
   public void addDataField(DataField dataField) {
@@ -177,20 +189,6 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     }
 
     return fields;
-  }
-
-  private static Predicate<DataField> getDataFieldPredicate(String subfieldCode, String subfieldValue) {
-    Predicate<DataField> filterPredicate;
-    // ind1 and ind2 should also be considered as subfield codes
-    if (subfieldCode.equals("ind1")) {
-      filterPredicate = dataField -> dataField.getInd1().equals(subfieldValue);
-    } else if (subfieldCode.equals("ind2")) {
-      filterPredicate = dataField -> dataField.getInd2().equals(subfieldValue);
-    } else {
-      filterPredicate = dataField -> dataField.getSubfield(subfieldCode).stream()
-        .anyMatch(subfield -> subfield.getValue().equals(subfieldValue));
-    }
-    return filterPredicate;
   }
 
   public List<DataField> getDatafields() {
@@ -274,10 +272,21 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     return output.toString();
   }
 
+  /**
+   * This method can produce wrong results due to the fact that it doesn't take into account the MarcVersion that the
+   * record is in. The method should be used with caution.
+   * @return A map of key-value pairs for the specified Solr field type.
+   */
   public Map<String, List<String>> getKeyValuePairs() {
     return getKeyValuePairs(SolrFieldType.MARC);
   }
 
+  /**
+   * This method can produce wrong results due to the fact that it doesn't take into account the MarcVersion that the
+   * record is in. The method should be used with caution.
+   * @param type The type of the Solr field to get the key-value pairs for. Can be set to MARC, HUMAN, or MIXED.
+   * @return A map of key-value pairs for the specified Solr field type.
+   */
   public Map<String, List<String>> getKeyValuePairs(SolrFieldType type) {
     return getKeyValuePairs(type, false, MarcVersion.MARC21);
   }
@@ -292,7 +301,6 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
                                                     MarcVersion marcVersion) {
     if (mainKeyValuePairs == null) {
       mainKeyValuePairs = new LinkedHashMap<>();
-
       getKeyValuePairsForDatafields(type, withDeduplication, marcVersion);
     }
 
@@ -301,15 +309,17 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
 
   protected void getKeyValuePairsForDatafields(SolrFieldType type, boolean withDeduplication, MarcVersion marcVersion) {
     for (DataField field : datafields) {
+      // Get the key value pairs for the data field and add them to the mainKeyValuePairs map
       Map<String, List<String>> keyValuePairs = field.getKeyValuePairs(type, marcVersion);
       for (Map.Entry<String, List<String>> entry : keyValuePairs.entrySet()) {
         String key = entry.getKey();
         List<String> values = entry.getValue();
+        // If mainKeyValuePairs already contains the key, merge the values into the existing list. Essentially extending
+        // the mainKeyValuePairs with the new key value pairs.
         if (mainKeyValuePairs.containsKey(key)) {
-          mainKeyValuePairs.put(
-            key,
-            mergeValues(new ArrayList<>(mainKeyValuePairs.get(key)), values, withDeduplication)
-          );
+          ArrayList<String> existingPairs = new ArrayList<>(mainKeyValuePairs.get(key));
+          List<String> mergedPairs = mergeValues(existingPairs, values, withDeduplication);
+          mainKeyValuePairs.put(key, mergedPairs);
         } else {
           mainKeyValuePairs.put(key, values);
         }
@@ -320,14 +330,15 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
   protected List<String> mergeValues(List<String> existingValues,
                                      List<String> values,
                                      boolean withDeduplication) {
-    if (withDeduplication) {
-      for (String value : values) {
-        if (!existingValues.contains(value)) {
-          existingValues.add(value);
-        }
-      }
-    } else {
+    if (!withDeduplication) {
       existingValues.addAll(values);
+      return existingValues;
+    }
+
+    for (String value : values) {
+      if (!existingValues.contains(value)) {
+        existingValues.add(value);
+      }
     }
     return existingValues;
   }
@@ -403,27 +414,23 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
    * @param selector The selector that lists the field and its subfields to select
    * @return The final result of the selection
    */
-  public List<String> select(MarcSpec selector) {
-    List<String> results = new ArrayList<>();
-    if (!datafieldIndex.containsKey(selector.getFieldTag())) {
-      return results;
-    }
+  public List<String> select(SchemaSpec selector) {
+    MarcSpec marcSpec = (MarcSpec) selector;
 
-    List<DataField> selectedDatafields = datafieldIndex.get(selector.getFieldTag());
-
-    for (DataField field : selectedDatafields) {
-      List<String> selectedFromDatafield = selectDatafield(field, selector);
-      results.addAll(selectedFromDatafield);
+    if (!datafieldIndex.containsKey(marcSpec.getFieldTag())) {
+      return new ArrayList<>();
     }
-    return results;
+    return selectDatafields(marcSpec);
   }
 
   /**
    * Selects the datafield's subfields that are listed in the selector. If no subfields are listed in the selector,
    * then all subfields of the field are selected. The selected subfields are added to the list of selected results.
-   * @param field The datafield to select from
-   * @param selector The selector that lists subfields to select
-   * @return The final result of the selection
+   * <br/>
+   * If no subfields are specified in the selector, then all subfields of the field get selected.
+   * @param field The datafield to select from.
+   * @param selector The selector that lists subfields to select.
+   * @return The final result of the selection.
    */
   protected List<String> selectDatafield(DataField field, MarcSpec selector) {
     List<String> selectedResults = new ArrayList<>();
@@ -453,30 +460,20 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     return selectedResults;
   }
 
-  public List<String> select(PicaPath selector) {
-    if (!schemaType.equals(SchemaType.PICA)) {
-      throw new IllegalArgumentException("The record is not a PICA record");
+  protected List<String> selectDatafields(MarcSpec selector) {
+    List<String> selectedResults = new ArrayList<>();
+
+    String selectorFieldTag = selector.getFieldTag();
+    List<DataField> selectedDatafields = datafieldIndex.get(selectorFieldTag);
+
+    for (DataField field : selectedDatafields) {
+      List<String> selectedFromDatafield = selectDatafield(field, selector);
+      selectedResults.addAll(selectedFromDatafield);
     }
 
-    List<String> results = new ArrayList<>();
-    List<DataField> dataFields = getDatafieldsByTag(selector.getTag());
-    if (dataFields == null) {
-      return results;
-    }
-
-    for (DataField dataField : dataFields) {
-      for (String code : selector.getSubfields().getCodes()) {
-        List<MarcSubfield> dubfields = dataField.getSubfield(code);
-        if (dubfields != null) {
-          for (MarcSubfield subfield : dubfields) {
-            results.add(subfield.getValue());
-          }
-        }
-      }
-    }
-
-    return results;
+    return selectedResults;
   }
+
 
   protected boolean searchDatafield(String query, List<String> results,
                                   String subfieldCode, DataField field) {

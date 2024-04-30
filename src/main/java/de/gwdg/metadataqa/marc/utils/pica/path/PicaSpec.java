@@ -15,6 +15,10 @@ public class PicaSpec implements SchemaSpec, Serializable {
       function = parts[1];
   }
 
+  public PicaSpec(PicaPath path) {
+    this.path = path;
+  }
+
   public PicaPath getPath() {
     return path;
   }

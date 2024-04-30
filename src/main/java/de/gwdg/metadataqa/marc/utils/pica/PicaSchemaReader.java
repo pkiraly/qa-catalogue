@@ -13,7 +13,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -34,7 +33,7 @@ public class PicaSchemaReader {
   private PicaSchemaReader(String fileName) {
     try {
       readFile(fileName);
-    } catch (IOException | ParseException | URISyntaxException e) {
+    } catch (IOException | ParseException e) {
       logger.severe(e.getLocalizedMessage());
     }
   }
@@ -42,7 +41,7 @@ public class PicaSchemaReader {
   private PicaSchemaReader(InputStream inputStream) {
     try {
       readStream(inputStream);
-    } catch (IOException | ParseException | URISyntaxException e) {
+    } catch (ParseException e) {
       logger.severe(e.getLocalizedMessage());
     }
   }
@@ -84,17 +83,17 @@ public class PicaSchemaReader {
     return picaSchemaManager;
   }
 
-  private void readFile(String fileName) throws IOException, ParseException, URISyntaxException {
+  private void readFile(String fileName) throws IOException, ParseException {
     JSONObject obj = (JSONObject) parser.parse(new FileReader(fileName));
     process(obj);
   }
 
-  private void readStream(InputStream inputStream) throws IOException, ParseException, URISyntaxException {
+  private void readStream(InputStream inputStream) throws ParseException {
     JSONObject obj = (JSONObject) parser.parse(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
     process(obj);
   }
 
-  private void process(JSONObject jsonObject) throws IOException, ParseException, URISyntaxException {
+  private void process(JSONObject jsonObject) {
     JSONObject fields = (JSONObject) jsonObject.get("fields");
     for (Map.Entry<String, Object> entry : fields.entrySet()) {
       String id = entry.getKey();
@@ -127,15 +126,20 @@ public class PicaSchemaReader {
   private void processSubfields(JSONObject field, PicaTagDefinition tag) {
     Object subfieldsRaw = field.get("subfields");
     List<SubfieldDefinition> subfieldDefinitions = new LinkedList<>();
-    if (subfieldsRaw != null) {
-      if (subfieldsRaw instanceof JSONObject) {
-        JSONObject subfields = (JSONObject) subfieldsRaw;
-        for (Map.Entry<String, Object> entry : subfields.entrySet())
-          processSubfield(entry.getValue(), subfieldDefinitions);
-      } else if (subfieldsRaw instanceof JSONArray) {
-        JSONArray subfields = (JSONArray) subfieldsRaw;
-        for (var i = 0; i < subfields.size(); i++)
-          processSubfield(subfields.get(i), subfieldDefinitions);
+    if (subfieldsRaw == null) {
+      tag.setSubfields(subfieldDefinitions);
+      return;
+    }
+
+    if (subfieldsRaw instanceof JSONObject) {
+      JSONObject subfields = (JSONObject) subfieldsRaw;
+      for (Map.Entry<String, Object> entry : subfields.entrySet()) {
+        processSubfield(entry.getValue(), subfieldDefinitions);
+      }
+    } else if (subfieldsRaw instanceof JSONArray) {
+      JSONArray subfields = (JSONArray) subfieldsRaw;
+      for (Object subfield : subfields) {
+        processSubfield(subfield, subfieldDefinitions);
       }
     }
     tag.setSubfields(subfieldDefinitions);
@@ -149,30 +153,29 @@ public class PicaSchemaReader {
   }
 
   private SubfieldDefinition extractSubfield(Object o) {
-    SubfieldDefinition definition = null;
-    if (o instanceof JSONObject) {
-      JSONObject subfield = (JSONObject) o;
-      String code = (String) subfield.get("code");
-      String label = (String) subfield.get("label");
-      String cardinalityCode = ((boolean) subfield.get("repeatable")) ? Cardinality.Repeatable.getCode() : Cardinality.Nonrepeatable.getCode();
-      definition = new SubfieldDefinition(code, label, cardinalityCode);
-      for (String key : subfield.keySet()) {
-        // Object value = entry.getValue();
-        if (key.equals("code")) {
-        } else if (key.equals("label")) {
-        } else if (key.equals("repeatable")) {
-        } else if (key.equals("modified")) {
-          // skip
-        } else if (key.equals("order")) {
-          // skip
-        } else if (key.equals("pica3")) {
-          // skip
-        } else {
-          logger.log(Level.WARNING, "unhandled key in subfield: {0}", key);
-        }
-      }
-    } else {
+    if (!(o instanceof JSONObject)) {
       logger.log(Level.WARNING, "the JSON node's type is not JSONObject, but {0}", o.getClass().getCanonicalName());
+      return null;
+    }
+    JSONObject subfield = (JSONObject) o;
+    String code = (String) subfield.get("code");
+    String label = (String) subfield.get("label");
+    String cardinalityCode = ((boolean) subfield.get("repeatable")) ? Cardinality.Repeatable.getCode() : Cardinality.Nonrepeatable.getCode();
+    SubfieldDefinition definition = new SubfieldDefinition(code, label, cardinalityCode);
+    for (String key : subfield.keySet()) {
+      // Object value = entry.getValue();
+      if (key.equals("code")) {
+      } else if (key.equals("label")) {
+      } else if (key.equals("repeatable")) {
+      } else if (key.equals("modified")) {
+        // skip
+      } else if (key.equals("order")) {
+        // skip
+      } else if (key.equals("pica3")) {
+        // skip
+      } else {
+        logger.log(Level.WARNING, "unhandled key in subfield: {0}", key);
+      }
     }
     return definition;
   }

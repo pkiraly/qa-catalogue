@@ -130,6 +130,8 @@ public class UnimarcRecord extends MarcRecord {
     return UNIMARC_SUBJECT_TAGS;
   }
 
+
+  @Override
   protected void initializeAuthorityTags() {
 
     skippableAuthoritySubfields = new HashMap<>();
@@ -145,7 +147,13 @@ public class UnimarcRecord extends MarcRecord {
     authorityTagsMap.put(AuthorityCategory.TITLES, List.of("500", "501", "506", "507", "576", "577"));
     authorityTagsMap.put(AuthorityCategory.OTHER, List.of("730"));
     authorityTags = authorityTagsMap.values().stream().flatMap(List::stream).collect(Collectors.toList());
-    authorityTagsIndex = Utils.listToMap(authorityTags);
+    // Filter out the corporate and meeting tags and then later add separate "710", "711", "712" tags
+    // This is so that we can have the separate statistics of corporate/meeting bodies in the authority analysis resluts
+    // but not to index them separately, because that can be accessed in a different way
+    authorityTagsIndex = Utils.listToMap(authorityTags.stream().filter(tag -> !tag.contains("$")).collect(Collectors.toList()));
+    authorityTagsIndex.put("710", true);
+    authorityTagsIndex.put("711", true);
+    authorityTagsIndex.put("712", true);
     skippableAuthoritySubfields = new HashMap<>();
 
   }

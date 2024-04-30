@@ -112,7 +112,7 @@ public class ValidatorCli extends QACli<ValidatorParameters> implements Bibliogr
       System.exit(0);
     }
     RecordIterator iterator = new RecordIterator(processor);
-    iterator.setProcessWithEroors(true);
+    iterator.setProcessWithErrors(true);
     iterator.start();
   }
 

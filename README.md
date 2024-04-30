@@ -127,7 +127,8 @@ following environment variables:
 - `WEBCONFIG`: directory to expose configuration of [qa-catalogue-web]. Set to
   `./web-config` by default. If using non-default configuration for data analysis
   (for instance PICA instead of MARC) then you likely need to adjust configuration
-  of the web interface as well.
+  of the web interface as well. This directory should contain a configuration file
+  `configuration.cnf`.
 
 - `WEBPORT`: port to expose the web interface. For instance `WEBPORT=9000` will
    make it available at <http://localhost:9000/> instead of <http://localhost/>.

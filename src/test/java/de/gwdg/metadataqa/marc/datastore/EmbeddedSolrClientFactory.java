@@ -47,27 +47,30 @@ public class EmbeddedSolrClientFactory {
   }
 
   private static void initializeServer() {
-    if (server == null) {
-      try {
-        Path solrHomePath = FileUtils.getPath("solr-test/solr");
-        NodeConfig nodeConfig = SolrXmlConfig.fromSolrHome(solrHomePath, new Properties());
-        CoreContainer container = new CoreContainer(nodeConfig);
-        container.load();
-        server = new EmbeddedSolrServer(container, "default");
-      } catch (IOException | URISyntaxException e) {
-        throw new RuntimeException(e);
-      }
+    if (server != null) {
+      return;
+    }
+
+    try {
+      Path solrHomePath = FileUtils.getPath("solr-test/solr");
+      NodeConfig nodeConfig = SolrXmlConfig.fromSolrHome(solrHomePath, new Properties());
+      CoreContainer container = new CoreContainer(nodeConfig);
+      container.load();
+      server = new EmbeddedSolrServer(container, "default");
+    } catch (IOException | URISyntaxException e) {
+      throw new RuntimeException(e);
     }
   }
 
   private static void createCore(String coreName) throws SolrServerException, IOException {
     initializeServer();
-    if (server.getCoreContainer().getCore(coreName) == null) {
-      CoreAdminRequest.Create createRequest = new CoreAdminRequest.Create();
-      createRequest.setCoreName(coreName);
-      createRequest.setConfigSet("defaultConfigSet");
-      server.request(createRequest);
+    if (server.getCoreContainer().getCore(coreName) != null) {
+      return;
     }
+    CoreAdminRequest.Create createRequest = new CoreAdminRequest.Create();
+    createRequest.setCoreName(coreName);
+    createRequest.setConfigSet("defaultConfigSet");
+    server.request(createRequest);
   }
 
   private static void reload() throws SolrServerException, IOException {

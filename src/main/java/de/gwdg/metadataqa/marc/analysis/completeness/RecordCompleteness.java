@@ -17,6 +17,7 @@ import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.tags.TagCategory;
 import de.gwdg.metadataqa.marc.utils.BibiographicPath;
 import de.gwdg.metadataqa.marc.utils.pica.path.PicaPath;
+import de.gwdg.metadataqa.marc.utils.pica.path.PicaSpec;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -70,7 +71,8 @@ public class RecordCompleteness {
 
     if (hasGroupBy) {
       // TODO: MARC21 and UNIMARC
-      List<String> idLists = parameters.isPica() ? bibliographicRecord.select((PicaPath) groupBy) : null;
+      PicaSpec picaSpec = new PicaSpec((PicaPath) groupBy);
+      List<String> idLists = parameters.isPica() ? bibliographicRecord.select(picaSpec) : null;
       groupIds = QACli.extractGroupIds(idLists);
     }
   }

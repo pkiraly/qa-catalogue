@@ -11,7 +11,7 @@ public enum SourceSpecificationType {
   Subfield2(""),
   Indicator2("");
 
-  private List<String> indicators;
+  private final List<String> indicators;
 
   SourceSpecificationType(String... indicators) {
     this.indicators = Arrays.asList(indicators);

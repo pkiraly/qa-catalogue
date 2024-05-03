@@ -6,7 +6,12 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.CompilanceLevel;
 import de.gwdg.metadataqa.marc.definition.FRBRFunction;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.controlpositions.Control006Positions;
+import de.gwdg.metadataqa.marc.definition.controlpositions.Control007Positions;
+import de.gwdg.metadataqa.marc.definition.controlpositions.Control008Positions;
 import de.gwdg.metadataqa.marc.definition.controlpositions.ControlfieldPositionList;
+import de.gwdg.metadataqa.marc.definition.controlpositions.LeaderPositions;
+import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.general.validator.RegexValidator;
@@ -15,11 +20,6 @@ import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefiniti
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
-import de.gwdg.metadataqa.marc.definition.controlpositions.Control006Positions;
-import de.gwdg.metadataqa.marc.definition.controlpositions.Control007Positions;
-import de.gwdg.metadataqa.marc.definition.controlpositions.Control008Positions;
-import de.gwdg.metadataqa.marc.definition.controlpositions.LeaderPositions;
-import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
 import de.gwdg.metadataqa.marc.definition.tags.control.Control001Definition;
 import de.gwdg.metadataqa.marc.definition.tags.control.Control003Definition;
 import de.gwdg.metadataqa.marc.definition.tags.control.Control005Definition;
@@ -29,6 +29,7 @@ import de.gwdg.metadataqa.marc.definition.tags.control.Control008Definition;
 import de.gwdg.metadataqa.marc.definition.tags.control.LeaderDefinition;
 import de.gwdg.metadataqa.marc.utils.MarcTagLister;
 import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGenerator;
+import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGeneratorFactory;
 import de.gwdg.metadataqa.marc.utils.keygenerator.PositionalControlFieldKeyGenerator;
 import net.minidev.json.JSONValue;
 import org.apache.commons.cli.Options;
@@ -149,7 +150,7 @@ public class MappingToJson {
       }
       codes.put(code.getCode(), map);
     }
-  } 
+  }
 
   private Map<String, Object> buildControlField(ControlFieldDefinition field, ControlfieldPositionList positionDefinition) {
     Map<String, Object> positions;
@@ -252,47 +253,47 @@ public class MappingToJson {
         codes.put(code.getCode(), codeMap);
       }
     }
-    if (codes.size() > 0) {
+    if (!codes.isEmpty()) {
       String codesOrFlags = subfield.isRepeatableContent() ? "flags" : "codes";
       values.put("codes", codes);
     }
     return values;
   }
 
-  private void dataFieldToJson(Map fields, DataFieldDefinition tag) {
-    DataFieldKeyGenerator keyGenerator = new DataFieldKeyGenerator(tag, parameters.getSolrFieldType());
+  private void dataFieldToJson(Map fields, DataFieldDefinition fieldDefinition) {
+    DataFieldKeyGenerator keyGenerator = DataFieldKeyGeneratorFactory.create(parameters.getSolrFieldType(), fieldDefinition);
 
     Map<String, Object> tagMap = new LinkedHashMap<>();
-    tagMap.put("tag", tag.getTag());
-    tagMap.put("label", tag.getLabel());
-    tagMap.put("url", tag.getDescriptionUrl());
-    tagMap.put("repeatable", resolveCardinality(tag.getCardinality()));
+    tagMap.put("tag", fieldDefinition.getTag());
+    tagMap.put("label", fieldDefinition.getLabel());
+    tagMap.put("url", fieldDefinition.getDescriptionUrl());
+    tagMap.put("repeatable", resolveCardinality(fieldDefinition.getCardinality()));
     if (exportSelfDescriptiveCodes)
       tagMap.put("solr", keyGenerator.getIndexTag());
 
     if (parameters.doExportFrbrFunctions())
-      extractFunctions(tagMap, tag.getFrbrFunctions());
+      extractFunctions(tagMap, fieldDefinition.getFrbrFunctions());
 
     if (parameters.doExportCompilanceLevel())
-      extractCompilanceLevel(tagMap, tag.getNationalCompilanceLevel(), tag.getMinimalCompilanceLevel());
+      extractCompilanceLevel(tagMap, fieldDefinition.getNationalCompilanceLevel(), fieldDefinition.getMinimalCompilanceLevel());
 
     if (parameters.isWithLocallyDefinedFields())
-      tagMap.put("version", tag.getMarcVersion().getCode());
+      tagMap.put("version", fieldDefinition.getMarcVersion().getCode());
 
-    tagMap.put("indicator1", indicatorToJson(tag.getInd1()));
-    tagMap.put("indicator2", indicatorToJson(tag.getInd2()));
+    tagMap.put("indicator1", indicatorToJson(fieldDefinition.getInd1()));
+    tagMap.put("indicator2", indicatorToJson(fieldDefinition.getInd2()));
 
     Map<String, Object> subfields = new LinkedHashMap<>();
-    if (tag.getSubfields() != null) {
-      for (SubfieldDefinition subfield : tag.getSubfields()) {
+    if (fieldDefinition.getSubfields() != null) {
+      for (SubfieldDefinition subfield : fieldDefinition.getSubfields()) {
         subfields.put(subfield.getCode(), subfieldToJson(subfield, keyGenerator));
       }
     } else {
-      logger.info(tag + " does not have subfields");
+      logger.info(fieldDefinition + " does not have subfields");
     }
 
-    if (tag.getHistoricalSubfields() != null) {
-      for (EncodedValue code : tag.getHistoricalSubfields()) {
+    if (fieldDefinition.getHistoricalSubfields() != null) {
+      for (EncodedValue code : fieldDefinition.getHistoricalSubfields()) {
         Map<String, Object> subfieldDefinition = new LinkedHashMap<>();
         subfieldDefinition.put("label", code.getLabel());
         subfieldDefinition.put("deprecated", true);
@@ -303,7 +304,7 @@ public class MappingToJson {
     tagMap.put("subfields", subfields);
 
     if (parameters.isWithLocallyDefinedFields()) {
-      Map<MarcVersion, List<SubfieldDefinition>> versionSpecificSubfields = tag.getVersionSpecificSubfields();
+      Map<MarcVersion, List<SubfieldDefinition>> versionSpecificSubfields = fieldDefinition.getVersionSpecificSubfields();
       if (versionSpecificSubfields != null && !versionSpecificSubfields.isEmpty()) {
         Map<String, Map<String, Object>> versionSpecificSubfieldsMap = new LinkedHashMap<>();
         for (Map.Entry<MarcVersion, List<SubfieldDefinition>> entry : versionSpecificSubfields.entrySet()) {
@@ -319,8 +320,8 @@ public class MappingToJson {
       }
     }
 
-    if (fields.containsKey(tag.getTag())) {
-      Object existing = fields.get(tag.getTag());
+    if (fields.containsKey(fieldDefinition.getTag())) {
+      Object existing = fields.get(fieldDefinition.getTag());
       List<Map> list = null;
       if (existing instanceof Map) {
         list = new ArrayList<>();
@@ -332,9 +333,9 @@ public class MappingToJson {
         list = new ArrayList<>();
       }
       list.add(tagMap);
-      fields.put(tag.getTag(), list);
+      fields.put(fieldDefinition.getTag(), list);
     } else {
-      fields.put(tag.getTag(), tagMap);
+      fields.put(fieldDefinition.getTag(), tagMap);
     }
   }
 
@@ -348,26 +349,26 @@ public class MappingToJson {
     }
   }
 
-  private Map<String, Object> subfieldToJson(SubfieldDefinition subfield, DataFieldKeyGenerator keyGenerator) {
+  private Map<String, Object> subfieldToJson(SubfieldDefinition subfieldDefinition, DataFieldKeyGenerator keyGenerator) {
     Map<String, Object> codeMap = new LinkedHashMap<>();
-    codeMap.put("label", subfield.getLabel());
-    codeMap.put("repeatable", resolveCardinality(subfield.getCardinality()));
+    codeMap.put("label", subfieldDefinition.getLabel());
+    codeMap.put("repeatable", resolveCardinality(subfieldDefinition.getCardinality()));
 
     if (exportSelfDescriptiveCodes)
-      codeMap.put("solr", keyGenerator.forSubfield(subfield));
+      codeMap.put("solr", keyGenerator.forSubfieldDefinition(subfieldDefinition));
 
-    if (subfield.getContentParser() != null && subfield.getContentParser() instanceof LinkageParser)
-      codeMap.put("pattern", ((LinkageParser)subfield.getContentParser()).getPattern());
+    if (subfieldDefinition.getContentParser() instanceof LinkageParser)
+      codeMap.put("pattern", ((LinkageParser)subfieldDefinition.getContentParser()).getPattern());
 
-    if (subfield.getContentParser() != null && subfield.getContentParser() instanceof RecordControlNumberParser)
-      codeMap.put("pattern", ((RecordControlNumberParser)subfield.getContentParser()).getPattern());
+    if (subfieldDefinition.getContentParser() instanceof RecordControlNumberParser)
+      codeMap.put("pattern", ((RecordControlNumberParser)subfieldDefinition.getContentParser()).getPattern());
 
-    if (subfield.getValidator() != null && subfield.getValidator() instanceof RegexValidator)
-      codeMap.put("pattern", ((RegexValidator)subfield.getValidator()).getPattern());
+    if (subfieldDefinition.getValidator() instanceof RegexValidator)
+      codeMap.put("pattern", ((RegexValidator)subfieldDefinition.getValidator()).getPattern());
 
-    if (subfield.getCodeList() != null
-        && !subfield.getCodeList().getCodes().isEmpty()) {
-      CodeList codeList = subfield.getCodeList();
+    if (subfieldDefinition.getCodeList() != null
+        && !subfieldDefinition.getCodeList().getCodes().isEmpty()) {
+      CodeList codeList = subfieldDefinition.getCodeList();
       referencesCodeLists.put(codeList.getUrl(), codeList.getCodes());
       codeMap.put("codes", codeList.getUrl());
 
@@ -391,14 +392,14 @@ public class MappingToJson {
        */
     }
 
-    if (subfield.hasPositions())
-      codeMap.put("positions", getSubfieldPositions(subfield));
+    if (subfieldDefinition.hasPositions())
+      codeMap.put("positions", getSubfieldPositions(subfieldDefinition));
 
     if (parameters.doExportFrbrFunctions())
-      extractFunctions(codeMap, subfield.getFrbrFunctions());
+      extractFunctions(codeMap, subfieldDefinition.getFrbrFunctions());
 
     if (parameters.doExportCompilanceLevel())
-      extractCompilanceLevel(codeMap, subfield.getNationalCompilanceLevel(), subfield.getMinimalCompilanceLevel());
+      extractCompilanceLevel(codeMap, subfieldDefinition.getNationalCompilanceLevel(), subfieldDefinition.getMinimalCompilanceLevel());
 
     return codeMap;
   }

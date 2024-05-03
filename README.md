@@ -127,12 +127,15 @@ following environment variables:
 - `WEBCONFIG`: directory to expose configuration of [qa-catalogue-web]. Set to
   `./web-config` by default. If using non-default configuration for data analysis
   (for instance PICA instead of MARC) then you likely need to adjust configuration
-  of the web interface as well.
+  of the web interface as well. This directory should contain a configuration file
+  `configuration.cnf`.
 
 - `WEBPORT`: port to expose the web interface. For instance `WEBPORT=9000` will
    make it available at <http://localhost:9000/> instead of <http://localhost/>.
 
 - `SOLRPORT`: port to expose Solr to. Default: `8983`.
+
+- `CONTAINER`: the name of the docker container. Default: `metadata-qa-marc`.
 
 Environment variables can be set on command line or be put in local file `.env`, e.g.: 
 

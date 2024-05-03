@@ -53,7 +53,7 @@ public class MarcToSolrTest {
     marcRecord.addDataField(new DataField(Tag787.getInstance(), " ", " ","@", "japan"));
     Map<String, List<String>> solr = marcRecord.getKeyValuePairs(SolrFieldType.MIXED, false, MarcVersion.KBR);
     assertTrue(solr.containsKey("787x40_RelatedTo_language_KBR"));
-    assertEquals(Arrays.asList("japan"), solr.get("787x40_RelatedTo_language_KBR"));
+    assertEquals(List.of("japan"), solr.get("787x40_RelatedTo_language_KBR"));
   }
 
   @Test
@@ -91,14 +91,6 @@ public class MarcToSolrTest {
     assertEquals("70", map.get("001_0").get(2));
     assertEquals("77", map.get("001_0").get(3));
     assertEquals("2035", map.get("001_0").get(4));
-  }
-
-  @Test
-  public void name() {
-    assertEquals(-1, "a".compareTo("b"));
-    assertEquals(0, "a".compareTo("a"));
-    assertEquals(1, "b".compareTo("a"));
-    assertEquals(-1, "b".compareTo("c"));
   }
 
   @Test
@@ -205,6 +197,38 @@ public class MarcToSolrTest {
           }
         }
       }
+    } catch (ParseException | SolrServerException | IOException e) {
+      throw new RuntimeException(e);
+    }
+
+    EmbeddedSolrClientFactory.shutDown();
+  }
+
+  @Test
+  public void unimarc_withEmbeddedSolr() {
+    try {
+      String outputDir = TestUtils.getPath("output");
+      MarcToSolrParameters params = new MarcToSolrParameters(new String[]{
+        "--schemaType", "UNIMARC",
+        "--outputDir", outputDir,
+        "--solrFieldType", "human-readable",
+        "--useEmbedded",
+        "--solrUrl", "http://localhost:8983/solr/unimarc",
+        TestUtils.getPath("unimarc/serial.bnr.1993.mrc")
+      });
+
+      EmbeddedSolrServer mainClient = EmbeddedSolrClientFactory.getClient(coreFromUrl(params.getSolrUrl()));
+      params.setMainClient(mainClient);
+
+      MarcToSolr processor = new MarcToSolr(params);
+      RecordIterator iterator = new RecordIterator(processor);
+      iterator.start();
+      assertEquals("done", iterator.getStatus());
+
+      final QueryResponse response = mainClient.query(new MapSolrParams(Map.of("q", "*:*")));
+      final SolrDocumentList documents = response.getResults();
+      assertNotNull(documents);
+      assertEquals(11, documents.getNumFound());
     } catch (ParseException | SolrServerException | IOException e) {
       throw new RuntimeException(e);
     }

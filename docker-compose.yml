@@ -4,7 +4,6 @@ version: '2'
 
 services:
   app:
-    container_name: metadata-qa-marc
     # image: ${IMAGE:-pkiraly/metadata-qa-marc:0.7.0}
     # image: ghcr.io/pkiraly/qa-catalogue:main
     build:
@@ -16,6 +15,8 @@ services:
       - ./catalogues:/opt/qa-catalogue/catalogues
       - ./web-classes/catalogue:/var/www/html/qa-catalogue/classes/catalogue
       - ./${WEBBCONFIG:-web-config}:/var/www/html/qa-catalogue/config
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
     ports:
       - "${WEBPORT:-8000}:80"       # qa-catalogue-web
       - "${SOLRPORT:-8983}:8983"  # Solr

@@ -503,7 +503,7 @@ The tool detects the following issues:
 
 | machine name                        | explanation                                                        |
 |-------------------------------------|--------------------------------------------------------------------|
-| record level issues                 |
+| record level issues                                                                                     ||
 | ----------------------------------- | ---------------------------------------                            |
 | `undetectableType`                  | undetectable type                                                  |
 | `invalidLinkage`                    | invalid linkage                                                    |

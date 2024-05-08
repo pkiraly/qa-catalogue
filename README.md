@@ -527,7 +527,7 @@ The tool detects the following issues:
     <tr>
       <td colspan="2"><em>control field position issues</em></td>
     </tr>
-    <tr style="vertical-align: top;">
+    <tr style="vertical-align: top;" valign="top">
       <td><code>obsoleteControlPosition</code></td>
       <td>the code in the position is obsolete (it was valid in a previous version of MARC, but it is not valid now)</td>
     </tr>

@@ -528,68 +528,68 @@ The tool detects the following issues:
       <td colspan="2">control field position issues</td>
     </tr>
     <tr>
-      <td style="vertical-align: top;"><code>obsoleteControlPosition</code></td>
+      <td><code>obsoleteControlPosition</code></td>
       <td>the code in the position is obsolete (it was valid in a previous version of MARC, but it is not valid now)</td>
     </tr>
     <tr>
-      <td style="vertical-align: top;"><code>controlValueContainsInvalidCode</code></td>
+      <td><code>controlValueContainsInvalidCode</code></td>
       <td>the code in the position is invalid</td>
     </tr>
     <tr>
-      <td style="vertical-align: top;"><code>invalidValue</code></td>
+      <td><code>invalidValue</code></td>
       <td>the position value is invalid</td>
     </tr>
     <tr>
       <td colspan="2">data field issues</td>
     </tr>
     <tr>
-      <td style="vertical-align: top;"><code>missingSubfield</code></td>
+      <td><code>missingSubfield</code></td>
       <td>missing reference subfield (880$6)</td>
     </tr>
     <tr>
-      <td style="vertical-align: top;"><code>nonrepeatableField</code></td>
+      <td><code>nonrepeatableField</code></td>
       <td>repetition of a non-repeatable field</td>
     </tr>
     <tr>
-      <td style="vertical-align: top;"><code>undefinedField</code></td>
+      <td><code>undefinedField</code></td>
       <td>the field is not defined in the specified MARC version(s)</td>
     </tr>
     <tr>
       <td colspan="2">indicator issues</td>
     </tr>
     <tr>
-      <td style="vertical-align: top;"><code>obsoleteIndicator</code></td>
+      <td><code>obsoleteIndicator</code></td>
       <td>the indicator value is obsolete (it was valid in a previous version of MARC, but not in the current version)</td>
     </tr>
     <tr>
-      <td style="vertical-align: top;"><code>nonEmptyIndicator</code></td>
+      <td><code>nonEmptyIndicator</code></td>
       <td>indicator that should be empty is non-empty</td>
     </tr>
     <tr>
-      <td style="vertical-align: top;"><code>invalidValue</code></td>
+      <td><code>invalidValue</code></td>
       <td>the indicator value is invalid</td>
     </tr>
     <tr>
       <td colspan="2">subfield issues</td>
     </tr>
     <tr>
-      <td style="vertical-align: top;"><code>undefinedSubfield</code></td>
+      <td><code>undefinedSubfield</code></td>
       <td>the subfield is undefined in the specified MARC version(s)</td>
     </tr>
     <tr>
-      <td style="vertical-align: top;"><code>invalidLength</code></td>
+      <td><code>invalidLength</code></td>
       <td>the length of the value is invalid</td>
     </tr>
     <tr>
-      <td style="vertical-align: top;"><code>invalidReference</code></td>
+      <td><code>invalidReference</code></td>
       <td>the reference to the classification vocabulary is invalid</td>
     </tr>
     <tr>
-      <td style="vertical-align: top;"><code>patternMismatch</code></td>
+      <td><code>patternMismatch</code></td>
       <td>content does not match the patterns specified by the standard</td>
     </tr>
     <tr>
-      <td style="vertical-align: top;"><code>nonrepeatableSubfield</code></td>
+      <td><code>nonrepeatableSubfield</code></td>
       <td>repetition of a non-repeatable subfield</td>
     </tr>
     <tr>
@@ -601,7 +601,7 @@ The tool detects the following issues:
       <td>invalid ISSN value</td>
     </tr>
     <tr>
-      <td style="vertical-align: top;"><code>unparsableContent</code></td>
+      <td><code>unparsableContent</code></td>
       <td>the value of the subfield is not well-formed according to its specification</td>
     </tr>
     <tr>

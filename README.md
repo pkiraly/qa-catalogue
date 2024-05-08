@@ -501,6 +501,161 @@ which handles these fields as error, and another which handles these as valid fi
 
 The tool detects the following issues:
 
+<table>
+<thead>
+<tr>
+<th>machine name</th>
+<th>explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>record level issues</td>
+<td></td>
+</tr>
+<tr>
+<td>-----------------------------------</td>
+<td>---------------------------------------</td>
+</tr>
+<tr>
+<td><code>undetectableType</code></td>
+<td>undetectable type</td>
+</tr>
+<tr>
+<td><code>invalidLinkage</code></td>
+<td>invalid linkage</td>
+</tr>
+<tr>
+<td><code>ambiguousLinkage</code></td>
+<td>ambiguous linkage</td>
+</tr>
+<tr>
+<td>-----------------------------------</td>
+<td>---------------------------------------</td>
+</tr>
+<tr>
+<td>control field position issues</td>
+<td></td>
+</tr>
+<tr>
+<td>-----------------------------------</td>
+<td>---------------------------------------</td>
+</tr>
+<tr>
+<td><code>obsoleteControlPosition</code></td>
+<td>obsolete code</td>
+</tr>
+<tr>
+<td><code>controlValueContainsInvalidCode</code></td>
+<td>invalid code</td>
+</tr>
+<tr>
+<td><code>invalidValue</code></td>
+<td>invalid value</td>
+</tr>
+<tr>
+<td>-----------------------------------</td>
+<td>---------------------------------------</td>
+</tr>
+<tr>
+<td>data field issues</td>
+<td></td>
+</tr>
+<tr>
+<td>-----------------------------------</td>
+<td>---------------------------------------</td>
+</tr>
+<tr>
+<td><code>missingSubfield</code></td>
+<td>missing reference subfield (880$6)</td>
+</tr>
+<tr>
+<td><code>nonrepeatableField</code></td>
+<td>repetition of non-repeatable field</td>
+</tr>
+<tr>
+<td><code>undefinedField</code></td>
+<td>undefined field</td>
+</tr>
+<tr>
+<td>-----------------------------------</td>
+<td>---------------------------------------</td>
+</tr>
+<tr>
+<td>indicator issues</td>
+<td></td>
+</tr>
+<tr>
+<td>-----------------------------------</td>
+<td>---------------------------------------</td>
+</tr>
+<tr>
+<td><code>obsoleteIndicator</code></td>
+<td>obsolete value (the value was valid in a previous version of MARC)</td>
+</tr>
+<tr>
+<td><code>nonEmptyIndicator</code></td>
+<td>indicator that should be empty is non-empty</td>
+</tr>
+<tr>
+<td><code>invalidValue</code></td>
+<td>invalid value</td>
+</tr>
+<tr>
+<td>-----------------------------------</td>
+<td>---------------------------------------</td>
+</tr>
+<tr>
+<td>subfield issues</td>
+<td></td>
+</tr>
+<tr>
+<td>-----------------------------------</td>
+<td>---------------------------------------</td>
+</tr>
+<tr>
+<td><code>undefinedSubfield</code></td>
+<td>undefined subfield</td>
+</tr>
+<tr>
+<td><code>invalidLength</code></td>
+<td>invalid length</td>
+</tr>
+<tr>
+<td><code>invalidReference</code></td>
+<td>invalid classification reference</td>
+</tr>
+<tr>
+<td><code>patternMismatch</code></td>
+<td>content does not match any patterns</td>
+</tr>
+<tr>
+<td><code>nonrepeatableSubfield</code></td>
+<td>repetition of non-repeatable subfield</td>
+</tr>
+<tr>
+<td><code>invalidISBN</code></td>
+<td>invalid ISBN</td>
+</tr>
+<tr>
+<td><code>invalidISSN</code></td>
+<td>invalid ISSN</td>
+</tr>
+<tr>
+<td><code>unparsableContent</code></td>
+<td>content is not well-formatted</td>
+</tr>
+<tr>
+<td><code>nullCode</code></td>
+<td>null subfield code</td>
+</tr>
+<tr>
+<td><code>invalidValue</code></td>
+<td>invalid value</td>
+</tr>
+</tbody>
+</table>
+
 | machine name                        | explanation                                                        |
 |-------------------------------------|--------------------------------------------------------------------|
 | record level issues                                                                                     ||

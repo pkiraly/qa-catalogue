@@ -510,12 +510,7 @@ The tool detects the following issues:
 </thead>
 <tbody>
 <tr>
-<td>record level issues</td>
-<td></td>
-</tr>
-<tr>
-<td>-----------------------------------</td>
-<td>---------------------------------------</td>
+<td colspan="2"><em>record level issues</em></td>
 </tr>
 <tr>
 <td><code>undetectableType</code></td>
@@ -530,16 +525,7 @@ The tool detects the following issues:
 <td>ambiguous linkage</td>
 </tr>
 <tr>
-<td>-----------------------------------</td>
-<td>---------------------------------------</td>
-</tr>
-<tr>
-<td>control field position issues</td>
-<td></td>
-</tr>
-<tr>
-<td>-----------------------------------</td>
-<td>---------------------------------------</td>
+<td colspan="2"><em>control field position issues</em></td>
 </tr>
 <tr>
 <td><code>obsoleteControlPosition</code></td>
@@ -554,16 +540,7 @@ The tool detects the following issues:
 <td>invalid value</td>
 </tr>
 <tr>
-<td>-----------------------------------</td>
-<td>---------------------------------------</td>
-</tr>
-<tr>
-<td>data field issues</td>
-<td></td>
-</tr>
-<tr>
-<td>-----------------------------------</td>
-<td>---------------------------------------</td>
+<td colspan="2"><em>data field issues</em></td>
 </tr>
 <tr>
 <td><code>missingSubfield</code></td>
@@ -578,16 +555,7 @@ The tool detects the following issues:
 <td>undefined field</td>
 </tr>
 <tr>
-<td>-----------------------------------</td>
-<td>---------------------------------------</td>
-</tr>
-<tr>
-<td>indicator issues</td>
-<td></td>
-</tr>
-<tr>
-<td>-----------------------------------</td>
-<td>---------------------------------------</td>
+<td colspan="2"><em>indicator issues</em></td>
 </tr>
 <tr>
 <td><code>obsoleteIndicator</code></td>
@@ -602,16 +570,7 @@ The tool detects the following issues:
 <td>invalid value</td>
 </tr>
 <tr>
-<td>-----------------------------------</td>
-<td>---------------------------------------</td>
-</tr>
-<tr>
-<td>subfield issues</td>
-<td></td>
-</tr>
-<tr>
-<td>-----------------------------------</td>
-<td>---------------------------------------</td>
+<td colspan="2"><em>subfield issues</em></td>
 </tr>
 <tr>
 <td><code>undefinedSubfield</code></td>
@@ -655,46 +614,6 @@ The tool detects the following issues:
 </tr>
 </tbody>
 </table>
-
-| machine name                        | explanation                                                        |
-|-------------------------------------|--------------------------------------------------------------------|
-| record level issues                                                                                     ||
-| ----------------------------------- | ---------------------------------------                            |
-| `undetectableType`                  | undetectable type                                                  |
-| `invalidLinkage`                    | invalid linkage                                                    |
-| `ambiguousLinkage`                  | ambiguous linkage                                                  |
-| ----------------------------------- | ---------------------------------------                            |
-| control field position issues       |
-| ----------------------------------- | ---------------------------------------                            |
-| `obsoleteControlPosition`           | obsolete code                                                      |
-| `controlValueContainsInvalidCode`   | invalid code                                                       |
-| `invalidValue`                      | invalid value                                                      |
-| ----------------------------------- | ---------------------------------------                            |
-| data field issues                   |
-| ----------------------------------- | ---------------------------------------                            |
-| `missingSubfield`                   | missing reference subfield (880$6)                                 |
-| `nonrepeatableField`                | repetition of non-repeatable field                                 |
-| `undefinedField`                    | undefined field                                                    |
-| ----------------------------------- | ---------------------------------------                            |
-| indicator issues                    |
-| ----------------------------------- | ---------------------------------------                            |
-| `obsoleteIndicator`                 | obsolete value (the value was valid in a previous version of MARC) |
-| `nonEmptyIndicator`                 | indicator that should be empty is non-empty                        |
-| `invalidValue`                      | invalid value                                                      |
-| ----------------------------------- | ---------------------------------------                            |
-| subfield issues                     |
-| ----------------------------------- | ---------------------------------------                            |
-| `undefinedSubfield`                 | undefined subfield                                                 |
-| `invalidLength`                     | invalid length                                                     |
-| `invalidReference`                  | invalid classification reference                                   |
-| `patternMismatch`                   | content does not match any patterns                                |
-| `nonrepeatableSubfield`             | repetition of non-repeatable subfield                              |
-| `invalidISBN`                       | invalid ISBN                                                       |
-| `invalidISSN`                       | invalid ISSN                                                       |
-| `unparsableContent`                 | content is not well-formatted                                      |
-| `nullCode`                          | null subfield code                                                 |
-| `invalidValue`                      | invalid value                                                      |
-| -----------------                   | -----------------                                                  |
 
 Usage:
 

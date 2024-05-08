@@ -499,6 +499,48 @@ to decide whether it is valid or invalid in a particular context. So in some
 places the tool reflects this uncertainty and provides two calculations, one
 which handles these fields as error, and another which handles these as valid fields.
 
+The tool detects the following issues:
+
+| machine name                        | explanation                                                        |
+|-------------------------------------|--------------------------------------------------------------------|
+| record level issues                 |
+| ----------------------------------- | ---------------------------------------                            |
+| `undetectableType`                  | undetectable type                                                  |
+| `invalidLinkage`                    | invalid linkage                                                    |
+| `ambiguousLinkage`                  | ambiguous linkage                                                  |
+| ----------------------------------- | ---------------------------------------                            |
+| control field position issues       |
+| ----------------------------------- | ---------------------------------------                            |
+| `obsoleteControlPosition`           | obsolete code                                                      |
+| `controlValueContainsInvalidCode`   | invalid code                                                       |
+| `invalidValue`                      | invalid value                                                      |
+| ----------------------------------- | ---------------------------------------                            |
+| data field issues                   |
+| ----------------------------------- | ---------------------------------------                            |
+| `missingSubfield`                   | missing reference subfield (880$6)                                 |
+| `nonrepeatableField`                | repetition of non-repeatable field                                 |
+| `undefinedField`                    | undefined field                                                    |
+| ----------------------------------- | ---------------------------------------                            |
+| indicator issues                    |
+| ----------------------------------- | ---------------------------------------                            |
+| `obsoleteIndicator`                 | obsolete value (the value was valid in a previous version of MARC) |
+| `nonEmptyIndicator`                 | indicator that should be empty is non-empty                        |
+| `invalidValue`                      | invalid value                                                      |
+| ----------------------------------- | ---------------------------------------                            |
+| subfield issues                     |
+| ----------------------------------- | ---------------------------------------                            |
+| `undefinedSubfield`                 | undefined subfield                                                 |
+| `invalidLength`                     | invalid length                                                     |
+| `invalidReference`                  | invalid classification reference                                   |
+| `patternMismatch`                   | content does not match any patterns                                |
+| `nonrepeatableSubfield`             | repetition of non-repeatable subfield                              |
+| `invalidISBN`                       | invalid ISBN                                                       |
+| `invalidISSN`                       | invalid ISSN                                                       |
+| `unparsableContent`                 | content is not well-formatted                                      |
+| `nullCode`                          | null subfield code                                                 |
+| `invalidValue`                      | invalid value                                                      |
+| -----------------                   | -----------------                                                  |
+
 Usage:
 
 ```bash

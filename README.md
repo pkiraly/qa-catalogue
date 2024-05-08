@@ -510,7 +510,7 @@ The tool detects the following issues:
   </thead>
   <tbody>
     <tr>
-      <td colspan="2">record level issues</td>
+      <td colspan="2" align="center">record level issues</td>
     </tr>
     <tr>
       <td><code>undetectableType</code></td>
@@ -525,7 +525,7 @@ The tool detects the following issues:
       <td>the linkage in field 880 is ambiguous</td>
     </tr>
     <tr>
-      <td colspan="2">control field position issues</td>
+      <td colspan="2" align="center">control field position issues</td>
     </tr>
     <tr>
       <td><code>obsoleteControlPosition</code></td>
@@ -540,7 +540,7 @@ The tool detects the following issues:
       <td>the position value is invalid</td>
     </tr>
     <tr>
-      <td colspan="2">data field issues</td>
+      <td colspan="2" align="center">data field issues</td>
     </tr>
     <tr>
       <td><code>missingSubfield</code></td>
@@ -555,7 +555,7 @@ The tool detects the following issues:
       <td>the field is not defined in the specified MARC version(s)</td>
     </tr>
     <tr>
-      <td colspan="2">indicator issues</td>
+      <td colspan="2" align="center">indicator issues</td>
     </tr>
     <tr>
       <td><code>obsoleteIndicator</code></td>
@@ -570,7 +570,7 @@ The tool detects the following issues:
       <td>the indicator value is invalid</td>
     </tr>
     <tr>
-      <td colspan="2">subfield issues</td>
+      <td colspan="2" align="center">subfield issues</td>
     </tr>
     <tr>
       <td><code>undefinedSubfield</code></td>

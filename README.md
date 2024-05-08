@@ -657,7 +657,7 @@ options:
 * `-T`, `--collectAllErrors`: collect all errors (useful only for validating
   small number of records). Default is turned off.
 * `-I <types>`, `--ignorableIssueTypes <types>`: comma separated list of issue
-  types not to collect. The valid values are (for details see [issue types table](#issue-types)):
+  types not to collect. The valid values are (for details see the [issue types](#issue-types) table):
   * `undetectableType`: undetectable type
   * `invalidLinkage`: invalid linkage
   * `ambiguousLinkage`: ambiguous linkage

@@ -501,7 +501,13 @@ which handles these fields as error, and another which handles these as valid fi
 
 The tool detects the following issues:
 
-<table>
+<style type="text/css">
+table#issue-types td {
+  vertical-align: top;
+}
+</style>
+
+<table id="issue-types">
   <thead>
     <tr>
       <th>machine name</th>
@@ -510,7 +516,7 @@ The tool detects the following issues:
   </thead>
   <tbody>
     <tr>
-      <td colspan="2"><em>record level issues</em></td>
+      <td colspan="2">record level issues</td>
     </tr>
     <tr>
       <td><code>undetectableType</code></td>
@@ -525,9 +531,9 @@ The tool detects the following issues:
       <td>the linkage in field 880 is ambiguous</td>
     </tr>
     <tr>
-      <td colspan="2"><em>control field position issues</em></td>
+      <td colspan="2">control field position issues</td>
     </tr>
-    <tr style="vertical-align: top;" valign="top">
+    <tr>
       <td><code>obsoleteControlPosition</code></td>
       <td>the code in the position is obsolete (it was valid in a previous version of MARC, but it is not valid now)</td>
     </tr>
@@ -540,7 +546,7 @@ The tool detects the following issues:
       <td>the position value is invalid</td>
     </tr>
     <tr>
-      <td colspan="2"><em>data field issues</em></td>
+      <td colspan="2">data field issues</td>
     </tr>
     <tr>
       <td><code>missingSubfield</code></td>
@@ -555,7 +561,7 @@ The tool detects the following issues:
       <td>the field is not defined in the specified MARC version(s)</td>
     </tr>
     <tr>
-      <td colspan="2"><em>indicator issues</em></td>
+      <td colspan="2">indicator issues</td>
     </tr>
     <tr>
       <td><code>obsoleteIndicator</code></td>
@@ -570,7 +576,7 @@ The tool detects the following issues:
       <td>the indicator value is invalid</td>
     </tr>
     <tr>
-      <td colspan="2"><em>subfield issues</em></td>
+      <td colspan="2">subfield issues</td>
     </tr>
     <tr>
       <td><code>undefinedSubfield</code></td>

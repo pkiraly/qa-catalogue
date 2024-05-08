@@ -527,7 +527,7 @@ The tool detects the following issues:
     <tr>
       <td colspan="2"><em>control field position issues</em></td>
     </tr>
-    <tr>
+    <tr style="vertical-align: top;">
       <td><code>obsoleteControlPosition</code></td>
       <td>the code in the position is obsolete (it was valid in a previous version of MARC, but it is not valid now)</td>
     </tr>
@@ -537,7 +537,7 @@ The tool detects the following issues:
     </tr>
     <tr>
       <td><code>invalidValue</code></td>
-      <td>invalid value</td>
+      <td>the position value is invalid</td>
     </tr>
     <tr>
       <td colspan="2"><em>data field issues</em></td>
@@ -548,18 +548,18 @@ The tool detects the following issues:
     </tr>
     <tr>
       <td><code>nonrepeatableField</code></td>
-      <td>repetition of non-repeatable field</td>
+      <td>repetition of a non-repeatable field</td>
     </tr>
     <tr>
       <td><code>undefinedField</code></td>
-      <td>undefined field</td>
+      <td>the field is not defined in the specified MARC version(s)</td>
     </tr>
     <tr>
       <td colspan="2"><em>indicator issues</em></td>
     </tr>
     <tr>
       <td><code>obsoleteIndicator</code></td>
-      <td>obsolete value (the value was valid in a previous version of MARC)</td>
+      <td>the indicator value is obsolete (it was valid in a previous version of MARC, but not in the current version)</td>
     </tr>
     <tr>
       <td><code>nonEmptyIndicator</code></td>
@@ -567,42 +567,42 @@ The tool detects the following issues:
     </tr>
     <tr>
       <td><code>invalidValue</code></td>
-      <td>invalid value</td>
+      <td>the indicator value is invalid</td>
     </tr>
     <tr>
       <td colspan="2"><em>subfield issues</em></td>
     </tr>
     <tr>
       <td><code>undefinedSubfield</code></td>
-      <td>undefined subfield</td>
+      <td>the subfield is undefined in the specified MARC version(s)</td>
     </tr>
     <tr>
       <td><code>invalidLength</code></td>
-      <td>invalid length</td>
+      <td>the length of the value is invalid</td>
     </tr>
     <tr>
       <td><code>invalidReference</code></td>
-      <td>invalid classification reference</td>
+      <td>the reference to the classification vocabulary is invalid</td>
     </tr>
     <tr>
       <td><code>patternMismatch</code></td>
-      <td>content does not match any patterns</td>
+      <td>content does not match the patterns specified by the standard</td>
     </tr>
     <tr>
       <td><code>nonrepeatableSubfield</code></td>
-      <td>repetition of non-repeatable subfield</td>
+      <td>repetition of a non-repeatable subfield</td>
     </tr>
     <tr>
       <td><code>invalidISBN</code></td>
-      <td>invalid ISBN</td>
+      <td>invalid ISBN value</td>
     </tr>
     <tr>
       <td><code>invalidISSN</code></td>
-      <td>invalid ISSN</td>
+      <td>invalid ISSN value</td>
     </tr>
     <tr>
       <td><code>unparsableContent</code></td>
-      <td>content is not well-formatted</td>
+      <td>the value of the subfield is not well-formed according to its specification</td>
     </tr>
     <tr>
       <td><code>nullCode</code></td>
@@ -610,7 +610,7 @@ The tool detects the following issues:
     </tr>
     <tr>
       <td><code>invalidValue</code></td>
-      <td>invalid value</td>
+      <td>invalid subfield value</td>
     </tr>
   </tbody>
 </table>

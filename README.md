@@ -501,7 +501,7 @@ which handles these fields as error, and another which handles these as valid fi
 
 The tool detects the following issues:
 
-<style type="text/css">
+<style>
 table#issue-types td {
   vertical-align: top;
 }

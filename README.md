@@ -768,6 +768,11 @@ type,instances,records
 2,413,275
 ```
 
+where types are
+- 0: records without errors
+- 1: records with any kinds of errors
+- 2: records with errors excluding invalid field errors
+
 * `issue-collector.csv`: non normalized file of record ids per issues. This is the "inverse" of `issue-details.csv`, 
   it tells you in which records a particular issue occurred. 
 

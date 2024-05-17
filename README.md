@@ -331,21 +331,21 @@ The following table summarizes the configuration variables. The script
 `qa-catalogue` can be used to set variables and execute analysis without a
 library specific configuration file:
 
-| variable          | `qa-catalogue`      | description                                                        | default |
-|-------------------|---------------------|--------------------------------------------------------------------| ------- |
-| `ANALYSES`        | `-a`/`--analyses`   | which tasks to run with `all-analyses`                             | `validate,sqlite,completeness,completeness_sqlite,classifications,authorities,tt_completeness,shelf_ready_completeness,serial_score,functional_analysis,pareto,marc_history` |
-|                   | `-c`/`--catalogue`  | display name of the catalogue                                      | `$NAME` |
-| `NAME`            | `-n`/`--name`       | name of the catalogue                                              | qa-catalogue |
-| `BASE_INPUT_DIR`  | `-d`/`--input`      | parent directory of input file directories                         | `./input` |
-|                   | `-d`/`--input-dir`  | subdirectory of input directory to read files from                 | |
-| `BASE_OUTPUT_DIR` | `-o`/`--output`     | parent output directory                                            | `./output` |
-| `MASK`            | `-m`/`--mask`       | a file mask which input files to process, e.g. `*.mrc`             | `*` |
-| `TYPE_PARAMS`     | `-p`/`--params`     | parameters to pass to individual tasks (see below)                 | |
-| `SCHEMA`          | `-s`/`--schema`     | record schema                                                      | `MARC21` |
-| `UPDATE`          | `-u`/`--update`     | optional date of input files                                       | |
-| `VERSION`         | `-v`/`--version`    | optional version number/date of the catalogue to compare changes   | |
-| `WEB_CONFIG`      | `-w`/`--web-config` | update the specified configuration file of qa-catalogue-web        | |
-|                   | `-f`/`--config-file`| a configuration file with catalogue specific environment variables | |
+| variable          | `qa-catalogue`      | description                                                        | default                                                                                                                                                                                 |
+|-------------------|---------------------|--------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `ANALYSES`        | `-a`/`--analyses`   | which tasks to run with `all-analyses`                             | `validate, sqlite, completeness, completeness_sqlite, classifications, authorities, tt_completeness, shelf_ready_completeness, serial_score, functional_analysis, pareto, marc_history` |
+|                   | `-c`/`--catalogue`  | display name of the catalogue                                      | `$NAME`                                                                                                                                                                                 |
+| `NAME`            | `-n`/`--name`       | name of the catalogue                                              | qa-catalogue                                                                                                                                                                            |
+| `BASE_INPUT_DIR`  | `-d`/`--input`      | parent directory of input file directories                         | `./input`                                                                                                                                                                               |
+|                   | `-d`/`--input-dir`  | subdirectory of input directory to read files from                 |                                                                                                                                                                                         |
+| `BASE_OUTPUT_DIR` | `-o`/`--output`     | parent output directory                                            | `./output`                                                                                                                                                                              |
+| `MASK`            | `-m`/`--mask`       | a file mask which input files to process, e.g. `*.mrc`             | `*`                                                                                                                                                                                     |
+| `TYPE_PARAMS`     | `-p`/`--params`     | parameters to pass to individual tasks (see below)                 |                                                                                                                                                                                         |
+| `SCHEMA`          | `-s`/`--schema`     | record schema                                                      | `MARC21`                                                                                                                                                                                |
+| `UPDATE`          | `-u`/`--update`     | optional date of input files                                       |                                                                                                                                                                                         |
+| `VERSION`         | `-v`/`--version`    | optional version number/date of the catalogue to compare changes   |                                                                                                                                                                                         |
+| `WEB_CONFIG`      | `-w`/`--web-config` | update the specified configuration file of qa-catalogue-web        |                                                                                                                                                                                         |
+|                   | `-f`/`--config-file`| a configuration file with catalogue specific environment variables |                                                                                                                                                                                         |
 
 ## Detailed instructions
 

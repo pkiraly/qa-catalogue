@@ -12,7 +12,7 @@ Options:
   -c --catalogue  short name of the catalogue
   -n --name       name of the analysis (default: qa-catalogue)
   -i --input      input directory (default: ./input)
-  -d --input-dir  subdirectory of input directory to read files from (default: the NAME)
+  -d --input-dir  subdirectory of input directory to read files from
   -m --mask       input filename or glob (default: *)
   -o --output     output directory. Result are put into subdirectory NAME and _reports (default: ./output)
   -p --params     additional parameters passed to analyses

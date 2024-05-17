@@ -39,6 +39,7 @@ TYPE_PARAMS=
 SCHEMA=MARC21
 WEB_CONFIG=
 CONFIG_FILE=
+MARC_DIR=${BASE_INPUT_DIR:-}
 
 # parse command line options
 options=$(getopt -o a:c:d:i:m:n:o:p:s:u:v:w:f: --long analyses:,catalogue:,input-dir:,input:,mask:,name:,output:,params:,schema:,update:,version:,web-config:,config-file: -- "$@")

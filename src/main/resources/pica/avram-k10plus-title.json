@@ -1070,6 +1070,20 @@
           "pica3": "",
           "repeatable": false
         },
+        "5": {
+          "code": "5",
+          "label": "Institution, die das Feld in besonderer Art verwendet",
+          "modified": "2024-02-26T16:56:26",
+          "pica3": "$5",
+          "repeatable": false
+        },
+        "C": {
+          "code": "C",
+          "label": "Anwendungskontext",
+          "modified": "2024-02-26T16:59:16",
+          "pica3": "$C",
+          "repeatable": true
+        },
         "S": {
           "code": "S",
           "label": "Quelle/Code der Standardnummer",
@@ -1087,7 +1101,7 @@
         "v": {
           "code": "v",
           "label": "Bemerkungen",
-          "modified": "2019-12-02T10:01:35",
+          "modified": "2024-01-29T16:31:37",
           "pica3": "$v",
           "repeatable": false
         }
@@ -1777,7 +1791,7 @@
     },
     "013D": {
       "label": "Art des Inhalts",
-      "modified": "2022-07-11T13:20:15",
+      "modified": "2024-01-22T15:47:52",
       "pica3": "1131",
       "repeatable": true,
       "subfields": {
@@ -1812,7 +1826,7 @@
         "A": {
           "code": "A",
           "label": "Quelle",
-          "modified": "2022-06-07T11:20:38",
+          "modified": "2024-03-18T15:11:18",
           "pica3": "$A",
           "repeatable": true
         },
@@ -1944,7 +1958,7 @@
         "A": {
           "code": "A",
           "label": "Quelle",
-          "modified": "2022-06-07T11:21:06",
+          "modified": "2024-03-18T15:12:32",
           "pica3": "$A",
           "repeatable": true
         },
@@ -2010,7 +2024,7 @@
         "A": {
           "code": "A",
           "label": "Quelle",
-          "modified": "2022-06-07T11:18:17",
+          "modified": "2024-03-18T15:06:31",
           "pica3": "$A",
           "repeatable": true
         },
@@ -2082,7 +2096,7 @@
         "a": {
           "code": "a",
           "label": "Code",
-          "modified": "2023-07-04T08:22:43",
+          "modified": "2024-04-10T16:32:02",
           "pica3": "",
           "repeatable": true
         }
@@ -2903,7 +2917,7 @@
         "2": {
           "code": "2",
           "label": "Quelle des Terms",
-          "modified": "2022-06-23T11:35:20",
+          "modified": "2024-02-12T08:38:14",
           "pica3": "$2",
           "repeatable": false
         },
@@ -3673,7 +3687,7 @@
     },
     "028A": {
       "label": "Person/Familie als 1. geistiger Schöpfer",
-      "modified": "2022-01-17T07:19:01",
+      "modified": "2024-02-26T18:22:19",
       "pica3": "3000",
       "repeatable": true,
       "subfields": {
@@ -3789,6 +3803,13 @@
           "pica3": "$h",
           "repeatable": false
         },
+        "k": {
+          "code": "k",
+          "label": "Code des Generierungsverfahrens, Konfidenzwert",
+          "modified": "2024-02-26T18:18:07",
+          "pica3": "$k",
+          "repeatable": true
+        },
         "l": {
           "code": "l",
           "label": "In RDA-Sätzen nicht zugelassen",
@@ -3812,10 +3833,10 @@
         },
         "v": {
           "code": "v",
-          "label": "Bemerkungen, Regelwerk",
-          "modified": "2019-12-02T10:40:06",
+          "label": "Datum der Generierung",
+          "modified": "2024-02-26T18:18:55",
           "pica3": "$v",
-          "repeatable": false
+          "repeatable": true
         },
         "x": {
           "code": "x",
@@ -3830,7 +3851,7 @@
     },
     "028B/01-02": {
       "label": "2. und weitere Verfasser",
-      "modified": "2019-10-14T16:52:13",
+      "modified": "2024-02-26T18:40:44",
       "occurrence": "01-02",
       "pica3": "3001-3002",
       "repeatable": true,
@@ -3926,6 +3947,13 @@
           "pica3": "$h",
           "repeatable": false
         },
+        "k": {
+          "code": "k",
+          "label": "In RDA-Sätzen nicht zugelassen",
+          "modified": "2024-02-26T18:39:30",
+          "pica3": "$k",
+          "repeatable": true
+        },
         "l": {
           "code": "l",
           "label": "In RDA-Sätzen nicht zugelassen",
@@ -3946,6 +3974,13 @@
           "modified": "2023-06-05T15:46:57",
           "pica3": "$p",
           "repeatable": true
+        },
+        "v": {
+          "code": "v",
+          "label": "In RDA-Sätzen nicht zugelassen",
+          "modified": "2024-02-26T18:40:13",
+          "pica3": "$v",
+          "repeatable": true
         }
       },
       "tag": "028B",
@@ -3953,7 +3988,7 @@
     },
     "028C": {
       "label": "Person/Familie als 2. und weiterer geistiger Schöpfer, sonstige Personen/Familien, die mit dem Werk in Verbindung stehen, Mitwirkende, Hersteller, Verlage, Vertriebe",
-      "modified": "2020-06-04T11:35:31",
+      "modified": "2024-02-26T18:34:35",
       "pica3": "3010",
       "repeatable": true,
       "subfields": {
@@ -4055,6 +4090,13 @@
           "pica3": "$h",
           "repeatable": false
         },
+        "k": {
+          "code": "k",
+          "label": "Code des Generierungsverfahrens, Konfidenzwert",
+          "modified": "2024-02-26T18:31:39",
+          "pica3": "$k",
+          "repeatable": true
+        },
         "l": {
           "code": "l",
           "label": "Beiname, Gattungsname, Territorium, Titulatur",
@@ -4075,6 +4117,13 @@
           "modified": "2023-06-05T15:47:31",
           "pica3": "$p",
           "repeatable": true
+        },
+        "v": {
+          "code": "v",
+          "label": "Datum der Generierung",
+          "modified": "2024-02-26T18:32:45",
+          "pica3": "$v",
+          "repeatable": true
         }
       },
       "tag": "028C",
@@ -4082,7 +4131,7 @@
     },
     "028E": {
       "label": "Interpret",
-      "modified": "2018-08-09T09:39:38",
+      "modified": "2024-02-26T18:44:35",
       "pica3": "3030",
       "repeatable": true,
       "subfields": {
@@ -4177,6 +4226,13 @@
           "pica3": "$h",
           "repeatable": false
         },
+        "k": {
+          "code": "k",
+          "label": "Code des Generierungsverfahrens, Konfidenzwert",
+          "modified": "2024-02-26T18:43:27",
+          "pica3": "$k",
+          "repeatable": true
+        },
         "l": {
           "code": "l",
           "label": "In RDA-Sätzen nicht zugelassen",
@@ -4197,6 +4253,13 @@
           "modified": "2023-06-05T15:48:21",
           "pica3": "$p",
           "repeatable": true
+        },
+        "v": {
+          "code": "v",
+          "label": "Datum der Generierung",
+          "modified": "2024-02-26T18:43:57",
+          "pica3": "$v",
+          "repeatable": true
         }
       },
       "tag": "028E",
@@ -4204,7 +4267,7 @@
     },
     "028G": {
       "label": "Sonstige Person/Familie",
-      "modified": "2020-06-04T11:35:31",
+      "modified": "2024-02-26T18:48:12",
       "pica3": "3050",
       "repeatable": true,
       "subfields": {
@@ -4313,6 +4376,13 @@
           "pica3": "$h",
           "repeatable": false
         },
+        "k": {
+          "code": "k",
+          "label": "Code des Generierungsverfahrens, Konfidenzwert",
+          "modified": "2024-02-26T18:46:56",
+          "pica3": "$k",
+          "repeatable": true
+        },
         "l": {
           "code": "l",
           "label": "Beiname, Gattungsname, Territorium, Titulatur",
@@ -4333,6 +4403,13 @@
           "modified": "2023-06-05T15:48:52",
           "pica3": "$p",
           "repeatable": true
+        },
+        "v": {
+          "code": "v",
+          "label": "Datum der Generierung",
+          "modified": "2024-02-26T18:47:34",
+          "pica3": "$v",
+          "repeatable": true
         }
       },
       "tag": "028G",
@@ -4340,7 +4417,7 @@
     },
     "028Z": {
       "label": "Abweichende Namen in Nicht-RDA-Sätzen, Importdaten",
-      "modified": "2020-06-04T11:35:31",
+      "modified": "2023-12-11T11:47:27",
       "pica3": "3090",
       "repeatable": true,
       "subfields": {
@@ -5293,6 +5370,13 @@
           "pica3": "$2",
           "repeatable": false
         },
+        "5": {
+          "code": "5",
+          "label": "Institution, die das Feld in besonderer Art verwendet",
+          "modified": "2024-02-26T17:16:44",
+          "pica3": "$5",
+          "repeatable": false
+        },
         "7": {
           "code": "7",
           "label": "Vorläufiger Link",
@@ -5313,6 +5397,13 @@
           "modified": "2019-11-28T09:02:20",
           "pica3": "!...!",
           "repeatable": false
+        },
+        "C": {
+          "code": "C",
+          "label": "Anwendungskontext",
+          "modified": "2024-02-26T17:16:06",
+          "pica3": "$C",
+          "repeatable": true
         },
         "a": {
           "code": "a",
@@ -5338,6 +5429,13 @@
           "pica3": "$2",
           "repeatable": false
         },
+        "5": {
+          "code": "5",
+          "label": "Institution, die das Feld in besonderer Art verwendet",
+          "modified": "2024-02-26T17:19:56",
+          "pica3": "$5",
+          "repeatable": false
+        },
         "7": {
           "code": "7",
           "label": "Vorläufiger Link",
@@ -5358,6 +5456,13 @@
           "modified": "2019-11-28T08:57:55",
           "pica3": "!...!",
           "repeatable": false
+        },
+        "C": {
+          "code": "C",
+          "label": "Anwendungskontext",
+          "modified": "2024-02-26T17:19:12",
+          "pica3": "$C",
+          "repeatable": true
         },
         "a": {
           "code": "a",
@@ -5404,7 +5509,7 @@
         "v": {
           "code": "v",
           "label": "Bemerkungen",
-          "modified": "2022-09-30T10:02:33",
+          "modified": "2023-11-14T07:48:19",
           "pica3": "$v",
           "repeatable": false
         }
@@ -5424,6 +5529,20 @@
           "modified": "2021-01-22T14:23:15",
           "pica3": "$2",
           "repeatable": false
+        },
+        "5": {
+          "code": "5",
+          "label": "Institution, die das Feld in besonderer Art verwendet",
+          "modified": "2024-02-26T17:22:28",
+          "pica3": "$5",
+          "repeatable": false
+        },
+        "C": {
+          "code": "C",
+          "label": "Anwendungskontext",
+          "modified": "2024-02-26T17:21:42",
+          "pica3": "$C",
+          "repeatable": true
         },
         "a": {
           "code": "a",
@@ -5470,6 +5589,20 @@
       "pica3": "3217",
       "repeatable": false,
       "subfields": {
+        "5": {
+          "code": "5",
+          "label": "Institution, die das Feld in besonderer Art verwendet",
+          "modified": "2024-02-26T17:25:49",
+          "pica3": "$5",
+          "repeatable": false
+        },
+        "C": {
+          "code": "C",
+          "label": "Anwendungskontext",
+          "modified": "2024-02-26T17:25:23",
+          "pica3": "$C",
+          "repeatable": true
+        },
         "a": {
           "code": "a",
           "label": "Tonart des Werks",
@@ -6543,7 +6676,7 @@
         "7": {
           "code": "7",
           "label": "Vorläufiger Link",
-          "modified": "2021-04-20T14:34:21",
+          "modified": "2024-04-26T10:46:09",
           "pica3": "$7",
           "repeatable": false
         },
@@ -6589,17 +6722,24 @@
           "pica3": "#...#",
           "repeatable": false
         },
+        "a": {
+          "code": "a",
+          "label": "Überordnung Klartext",
+          "modified": "2021-04-20T14:34:06",
+          "pica3": "$a",
+          "repeatable": false
+        },
         "l": {
           "code": "l",
           "label": "Bandzählung (Vorlageform)",
-          "modified": "2021-04-20T14:35:02",
+          "modified": "2024-04-26T10:46:28",
           "pica3": "$l",
           "repeatable": false
         },
         "x": {
           "code": "x",
           "label": "Bandzählung in Sortierform (maschinell)",
-          "modified": "2021-04-20T14:34:48",
+          "modified": "2024-04-26T10:46:41",
           "pica3": "$x",
           "repeatable": false
         }
@@ -6667,9 +6807,10 @@
       "tag": "036E",
       "url": "https://format.k10plus.de/k10plushelp.pl?cmd=kat&katalog=Standard&val=4170-4179"
     },
-    "036F": {
+    "036F/00-09": {
       "label": "Verknüpfung zur fortlaufenden Ressource",
-      "modified": "2020-06-04T11:35:31",
+      "modified": "2023-07-04T14:42:39",
+      "occurrence": "00-09",
       "pica3": "4180-4189",
       "repeatable": true,
       "subfields": {
@@ -6855,7 +6996,7 @@
         "A": {
           "code": "A",
           "label": "Quelle",
-          "modified": "2020-06-04T08:39:58",
+          "modified": "2024-03-18T15:55:34",
           "pica3": "$A",
           "repeatable": false
         },
@@ -7105,12 +7246,26 @@
           "pica3": "$3",
           "repeatable": false
         },
+        "5": {
+          "code": "5",
+          "label": "Institution, die das Feld in besonderer Art verwendet",
+          "modified": "2024-02-26T17:06:21",
+          "pica3": "$5",
+          "repeatable": false
+        },
         "A": {
           "code": "A",
           "label": "Indikator",
           "modified": "2019-12-02T10:20:29",
           "pica3": "",
           "repeatable": false
+        },
+        "C": {
+          "code": "C",
+          "label": "Anwendungskontext",
+          "modified": "2024-02-26T17:05:29",
+          "pica3": "$C",
+          "repeatable": true
         },
         "S": {
           "code": "S",
@@ -7227,35 +7382,35 @@
         "u": {
           "code": "u",
           "label": "URI der Web-Ressource",
-          "modified": "2020-11-13T10:24:34",
+          "modified": "2024-01-18T13:30:06",
           "pica3": "$u",
           "repeatable": true
         },
         "v": {
           "code": "v",
           "label": "Bemerkungen",
-          "modified": "2019-12-02T10:23:02",
+          "modified": "2023-11-13T14:27:46",
           "pica3": "$v",
           "repeatable": false
         },
         "x": {
           "code": "x",
           "label": "Anfangsdatum",
-          "modified": "2019-12-02T10:22:03",
+          "modified": "2024-01-18T13:26:32",
           "pica3": "$x",
           "repeatable": false
         },
         "y": {
           "code": "y",
           "label": "Enddatum",
-          "modified": "2019-12-02T10:22:12",
+          "modified": "2024-01-18T13:26:58",
           "pica3": "$y",
           "repeatable": false
         },
         "z": {
           "code": "z",
           "label": "Name des extraterrestrischen Körpers",
-          "modified": "2019-12-02T10:22:20",
+          "modified": "2024-01-18T13:27:13",
           "pica3": "$z",
           "repeatable": false
         }
@@ -8096,8 +8251,8 @@
       "url": "https://format.k10plus.de/k10plushelp.pl?cmd=kat&katalog=Standard&val=4243"
     },
     "039E": {
-      "label": "Vorgänger-Nachfolge-Beziehungen auf Werkebene",
-      "modified": "2022-04-21T08:21:22",
+      "label": "Vorgänger-Nachfolge-Beziehungen auf Werk- und Expressionsebene",
+      "modified": "2024-02-19T11:35:50",
       "pica3": "4244",
       "repeatable": true,
       "subfields": {
@@ -8230,7 +8385,7 @@
         "t": {
           "code": "t",
           "label": "Titel",
-          "modified": "2020-11-11T10:25:46",
+          "modified": "2024-02-19T11:37:03",
           "pica3": "$t",
           "repeatable": false
         }
@@ -9180,7 +9335,7 @@
       "modified": "2020-03-04T13:51:56",
       "occurrence": "00-99",
       "pica3": "5100-5199",
-      "repeatable": true,
+      "repeatable": false,
       "subfields": {
         "7": {
           "code": "7",
@@ -9251,7 +9406,7 @@
         "A": {
           "code": "A",
           "label": "Quelle",
-          "modified": "2023-03-09T13:55:18",
+          "modified": "2024-03-18T15:58:33",
           "pica3": "$A",
           "repeatable": true
         },
@@ -9457,7 +9612,7 @@
         "A": {
           "code": "A",
           "label": "Quelle",
-          "modified": "2023-03-09T14:13:20",
+          "modified": "2024-03-18T15:18:05",
           "pica3": "$A",
           "repeatable": true
         },
@@ -9669,8 +9824,8 @@
         },
         "5": {
           "code": "5",
-          "label": "Institution, die Feld in besonderer Art verwendet",
-          "modified": "2019-12-02T15:31:41",
+          "label": "Institution, die das Feld in besonderer Art verwendet",
+          "modified": "2024-01-23T07:54:56",
           "pica3": "$5",
           "repeatable": true
         },
@@ -9698,7 +9853,7 @@
         "A": {
           "code": "A",
           "label": "Quelle",
-          "modified": "2022-05-06T12:51:30",
+          "modified": "2024-03-18T15:37:59",
           "pica3": "$A",
           "repeatable": true
         },
@@ -9918,7 +10073,7 @@
         "A": {
           "code": "A",
           "label": "Quelle",
-          "modified": "2023-03-08T13:10:06",
+          "modified": "2024-03-18T15:26:02",
           "pica3": "$A",
           "repeatable": true
         },
@@ -9953,7 +10108,7 @@
         "i": {
           "code": "i",
           "label": "Thesaurus bzw. Kennzeichnung von freien Schlagwörtern",
-          "modified": "2023-04-17T11:52:07",
+          "modified": "2024-04-22T15:22:30",
           "pica3": "[...]",
           "repeatable": false
         }
@@ -10061,7 +10216,7 @@
         "A": {
           "code": "A",
           "label": "Quelle",
-          "modified": "2019-11-29T11:58:44",
+          "modified": "2024-03-18T15:56:47",
           "pica3": "$A",
           "repeatable": true
         },
@@ -10134,7 +10289,7 @@
         "A": {
           "code": "A",
           "label": "Quelle",
-          "modified": "2019-11-29T11:54:54",
+          "modified": "2024-03-18T15:21:06",
           "pica3": "$A",
           "repeatable": true
         },
@@ -10378,7 +10533,7 @@
         "A": {
           "code": "A",
           "label": "Quelle",
-          "modified": "2023-03-14T15:50:05",
+          "modified": "2024-03-18T15:28:54",
           "pica3": "$A",
           "repeatable": true
         },
@@ -10502,7 +10657,7 @@
         "b": {
           "code": "b",
           "label": "Code",
-          "modified": "2023-03-09T14:19:55",
+          "modified": "2023-12-12T11:53:07",
           "pica3": "$b",
           "repeatable": false
         },
@@ -10786,7 +10941,7 @@
         "A": {
           "code": "A",
           "label": "Quelle",
-          "modified": "2019-11-29T12:50:04",
+          "modified": "2024-03-18T15:40:07",
           "pica3": "$A",
           "repeatable": true
         },
@@ -11251,7 +11406,7 @@
         "A": {
           "code": "A",
           "label": "Quelle",
-          "modified": "2019-11-29T12:36:58",
+          "modified": "2024-03-18T15:27:20",
           "pica3": "$A",
           "repeatable": true
         },
@@ -11341,7 +11496,7 @@
         "A": {
           "code": "A",
           "label": "Quelle",
-          "modified": "2022-03-07T15:00:27",
+          "modified": "2024-03-18T15:28:13",
           "pica3": "$A",
           "repeatable": true
         },
@@ -11362,7 +11517,7 @@
         "i": {
           "code": "i",
           "label": "Code für Klassifikationen",
-          "modified": "2023-09-08T12:59:24",
+          "modified": "2024-04-23T11:33:46",
           "pica3": "[...]",
           "repeatable": false
         },
@@ -11897,7 +12052,7 @@
         "5": {
           "code": "5",
           "label": "Bibliothek / Institution",
-          "modified": "2021-09-27T08:09:29",
+          "modified": "2024-02-16T16:13:56",
           "pica3": "$5",
           "repeatable": false
         },
@@ -11985,10 +12140,17 @@
           "pica3": "$u",
           "repeatable": false
         },
+        "x": {
+          "code": "x",
+          "label": "Interne Bemerkungen",
+          "modified": "2024-02-27T08:40:20",
+          "pica3": "$x",
+          "repeatable": true
+        },
         "z": {
           "code": "z",
           "label": "Anmerkung",
-          "modified": "2021-09-27T08:09:19",
+          "modified": "2024-02-27T08:41:38",
           "pica3": "$z",
           "repeatable": false
         }
@@ -12039,7 +12201,7 @@
         "A": {
           "code": "A",
           "label": "Quelle",
-          "modified": "2020-06-04T08:39:58",
+          "modified": "2024-03-18T15:54:37",
           "pica3": "$A",
           "repeatable": false
         },

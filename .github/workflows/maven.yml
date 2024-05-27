@@ -5,9 +5,7 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ main, develop, issue-75-british-library, 140-pica-parsing-pica-record ]
   pull_request:
-    branches: [ main, develop, issue-75-british-library, 140-pica-parsing-pica-record ]
 
 jobs:
   build:

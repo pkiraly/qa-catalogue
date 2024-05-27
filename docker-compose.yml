@@ -11,4 +11,6 @@ services:
     ports:
       - "${WEBPORT:-80}:80"       # qa-catalogue-web
       - "${SOLRPORT:-8983}:8983"  # Solr
+      - /etc/timezone:/etc/timezone:ro # Sync timezone
+      - /etc/localtime:/etc/localtime:ro # Sync localtime
     container_name: ${CONTAINER:-metadata-qa-marc}

@@ -103,26 +103,28 @@ default. Files of each catalogue are in a subdirectory of theses base directorie
 
 ### With Docker
 
-An Docker image bundling qa-catalogue with all of its dependencies and the web
-interface [qa-catalogue-web] is made available in Docker Hub. To use
-qa-catalogue via Docker first run the image in a new container (download may
-take some time):
+A Docker image bundling qa-catalogue with all of its dependencies and the web
+interface [qa-catalogue-web] is made available:
 
-```bash
-docker compose up -d
-```
+- continuously via GitHub as [`ghcr.io/pkiraly/qa-catalogue`](https://github.com/pkiraly/qa-catalogue/pkgs/container/qa-catalogue)
 
-You can configure the container *before* running this command with the
-following environment variables:
+- and for releases via Docker Hub as [`pkiraly/metadata-qa-marc`](https://hub.docker.com/r/pkiraly/metadata-qa-marc)
+
+To download, configure and start an image in a new container the file
+[docker-compose.yml](docker-compose.yml) is needed in the current directory. It
+can be configured with the following environment variables:
+
+- `IMAGE`: which Docker image to download and run. By default the latest
+   image from Docker Hub is used (`pkiraly/metadata-qa-marc`). Alternatives include
+
+   - `IMAGE=ghcr.io/pkiraly/qa-catalogue:main` for most recent image from GitHub packages
+   - `IMAGE=metadata-qa-marc` if you have locally [build the Docker image](#appendix-vi-build-docker-image)
+
+- `CONTAINER`: the name of the docker container. Default: `metadata-qa-marc`.
 
 - `INPUT`: Base directory to put your bibliographic record files in subdirectory
   `qa-catalogue`. Set to `./input` by default, so record files are expected to
    be in `input/qa-catalogue`.
-
-- `IMAGE`: which Docker image to download and run. By default the most recent
-   image from Docker Hub is used. For instance if you have locally 
-   [build the Docker image](#appendix-vi-build-docker-image), then set
-   `IMAGE=metadata-qa-marc`.
 
 - `WEBCONFIG`: directory to expose configuration of [qa-catalogue-web]. Set to
   `./web-config` by default. If using non-default configuration for data analysis
@@ -135,8 +137,6 @@ following environment variables:
 
 - `SOLRPORT`: port to expose Solr to. Default: `8983`.
 
-- `CONTAINER`: the name of the docker container. Default: `metadata-qa-marc`.
-
 Environment variables can be set on command line or be put in local file `.env`, e.g.: 
 
 ```bash
@@ -144,9 +144,10 @@ WEBPORT=9000 docker compose up -d
 ```
 
 When the application has been started this way, run analyses with script
-`./docker/qa-catalogue` the same ways as script `./qa-catalogue` is called when
-not using Docker (see [usage](#usage) for details). The following example uses
-parameters for Gent university library catalogue:
+[`./docker/qa-catalogue`](docker/qa-catalogue) the same ways as script
+`./qa-catalogue` is called when not using Docker (see [usage](#usage) for
+details). The following example uses parameters for Gent university library
+catalogue:
 
 ```bash
 ./docker/qa-catalogue \

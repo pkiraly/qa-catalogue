@@ -4,7 +4,7 @@ version: '2'
 
 services:
   app:
-    image: ${IMAGE:-pkiraly/metadata-qa-marc:0.7.0}
+    image: ${IMAGE:-pkiraly/metadata-qa-marc}
     volumes:
       - ./${INPUT:-input}:/opt/qa-catalogue/marc
       - ./${WEBBCONFIG:-web-config}:/var/www/html/qa-catalogue/config

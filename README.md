@@ -2125,7 +2125,7 @@ The script version generates 3 files, with different details:
 * `avram-schemas/marc-schema-with-solr.json`
 * `avram-schemas/marc-schema-with-solr-and-extensions.json`
 
-To validate these files install the Avram reference implementation in Node with `npm install` and run:
+To validate these files install the Avram reference implementation in Node with `npm ci` and run:
 
 	./avram-schemas/validate-schemas
 

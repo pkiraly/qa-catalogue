@@ -1,5 +1,6 @@
 #!/bin/bash
 set -ueo pipefail
+set -o allexport
 
 usage() {
   cat << EOF
@@ -62,7 +63,7 @@ if [[ -f "$ENV_FILE" ]]; then
   source "$ENV_FILE"
 fi
 
-# default values, if not set
+# default values
 BASE_INPUT_DIR=${BASE_INPUT_DIR:-./input}
 BASE_OUTPUT_DIR=${BASE_OUTPUT_DIR:-./output}
 MASK=${MASK:-*}
@@ -105,8 +106,15 @@ if [[ ! -z "$WEB_CONFIG" ]]; then
  fi
 fi
 
+fail() {
+  echo >&2 ""
+  echo >&2 "AN ERROR OCCURRED"
+  echo >&2 "Please consult log files in $BASE_INPUT_DIR/_reports/$NAME"
+  exit 1
+}
+
 # run actual analysis
-. ./common-script ${1:-}
+./common-script ${1:-} || fail
 
 # optionally update web configuration
 if [[ ! -z "$WEB_CONFIG" ]]; then

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -uo pipefail
+set -ueo pipefail
 
 # when run interactively via terminal
 if [ -t 1 ]; then

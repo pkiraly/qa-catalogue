@@ -35,11 +35,11 @@ BASE_INPUT_DIR=${BASE_INPUT_DIR:-./input}
 BASE_OUTPUT_DIR=${BASE_OUTPUT_DIR:-./output}
 MASK=${MASK:-*}
 NAME=${NAME:-qa-catalogue}
+INPUT_DIR=${INPUT_DIR:-$NAME}
 TYPE_PARAMS=${TYPE_PARAMS:-}
 SCHEMA=${SCHEMA:-MARC21}
 WEB_CONFIG=${WEB_CONFIG:-}
 ENV_FILE=${ENV_FILE:-.env}
-MARC_DIR=${BASE_INPUT_DIR:-}
 
 # parse command line options
 options=$(getopt -o a:c:d:i:m:n:o:p:s:u:v:w:f: --long analyses:,catalogue:,input-dir:,input:,mask:,name:,output:,params:,schema:,update:,version:,web-config:,env-file: -- "$@")
@@ -50,7 +50,7 @@ while true; do
     case "$1" in
     -a|--analyses) ANALYSES=$2 ; shift ;;
     -c|--catalogue) CATALOGUE=$2 ; shift ;;
-    -d|--input-dir) MARC_DIR=${BASE_INPUT_DIR}/$2 ; shift ;;
+    -d|--input-dir) INPUT_DIR=$2 ; shift ;;
     -i|--input) BASE_INPUT_DIR=$2 ; shift ;;
     -m|--mask) MASK=$2 ; shift ;;
     -n|--name) NAME=$2 ; shift ;;
@@ -76,13 +76,16 @@ if [[ -f "$ENV_FILE" ]]; then
   source "$ENV_FILE"
 fi
 
+# this should not be set by hand
+MARC_DIR=$BASE_INPUT_DIR/$INPUT_DIR
+
 cat << EOF
 configuration:
 ---------------------------
 ANALYSES:                 ${ANALYSES:-}
 CATALOGUE:                ${CATALOGUE:-}
-MARC_DIR (input-dir):     ${MARC_DIR:-}
 BASE_INPUT_DIR (input):   ${BASE_INPUT_DIR}
+INPUT_DIR (input-dir):    ${INPUT_DIR:-}
 MASK:                     ${MASK}
 NAME:                     ${NAME}
 BASE_OUTPUT_DIR (output): ${BASE_OUTPUT_DIR}

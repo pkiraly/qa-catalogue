@@ -570,6 +570,7 @@ fatal() {
 }
 
 # initialize environment, set default values
+# TODO: remove this because it's already done in ./qa-catalogue)
 NAME=${NAME:-$(basename $0 .sh)}
 BASE_INPUT_DIR=${BASE_INPUT_DIR:-./input}
 BASE_OUTPUT_DIR=${BASE_OUTPUT_DIR:-./output}

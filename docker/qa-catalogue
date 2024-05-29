@@ -1,8 +1,6 @@
 #!/bin/bash
 set -ueo pipefail
 
-docker_options="-it"
-
 # Rationale: qa-catalogue is run inside container but .env file is outside.
 
 # Check whether .env file is specified
@@ -10,7 +8,7 @@ env_file=".env"
 args=("${@}")
 for ((i=0; i<"${#args[@]}"; ++i)); do
   case ${args[i]} in
-   "--env-file")
+   "-f"|"--env-file")
     env_file=${args[i+1]}
     if [[ ! -f "$env_file" ]]; then
       echo >&2 "Missing file: $env_file"
@@ -20,12 +18,7 @@ for ((i=0; i<"${#args[@]}"; ++i)); do
   esac
 done
 
-if [ -f "$env_file" ]; then
-  source "$env_file" # make sure it has no syntax errors and to possibly get CONTAINER
-  docker_options="$docker_options --env-file $env_file"
-else
-  env_file=
-fi
+[ -f "$env_file" ] && source "$env_file"
 
 CONTAINER=${CONTAINER:=metadata-qa-marc}
 
@@ -36,10 +29,23 @@ if [ ${#args[@]} == 0 ]; then
   echo "variable CONTAINER). Try command 'help' for usage of QA catalogue!"
   echo "Environment variables are read from .env or file given with --env-file."
 else
+  # We can't use --env-file because Docker run expects no quotation (WTF?!)
+  # TODO: use default for BASE_INPUT_DIR and BASE_OUTPUT_DIR in Docker image
   set -x
-  docker container exec \
-    $docker_options \
+  docker container exec -it \
+    -e ANALYSES="${ANALYSES:-}" \
+    -e CATALOGUE="${CATALOGUE:-}" \
+    -e INPUT_DIR="${INPUT_DIR:-}" \
+    -e MASK="${MASK:-}" \
+    -e NAME="${NAME:-}" \
+    -e SCHEMA="${SCHEMA:-}" \
+    -e TYPE_PARAMS="${TYPE_PARAMS:-}" \
+    -e UPDATE="${UPDATE:-}" \
+    -e VERSION="${VERSION:-}" \
+    -e BASE_INPUT_DIR=/opt/qa-catalogue/marc \
+    -e BASE_OUTPUT_DIR=/opt/qa-catalogue/marc/_output \
     "$CONTAINER" \
     ./qa-catalogue \
     "${args[@]}"
 fi
+

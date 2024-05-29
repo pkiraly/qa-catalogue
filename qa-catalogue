@@ -58,7 +58,7 @@ done
 
 [ "${1:-help}" == "help" ] && usage
 
-if [[ -f "$ENV_FILE" ]]; then
+if [[ -f "${ENV_FILE:-}" ]]; then
   echo "run config file $ENV_FILE"
   source "$ENV_FILE"
 fi

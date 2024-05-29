@@ -2470,7 +2470,7 @@ docker compose -f docker/build.yml build app
 The `docker compose build` command has multiple `--build-arg` arguments to override defaults:
 
 - `QA_CATALOGUE_VERSION`: the QA catalogue version (default: `0.7.0`, current development version is `0.8.0-SNAPSHOT`)
-- `QA_CATALOGUE_WEB_VERSION`: it might be a released version such as `0.7.0` (current default), or `main` to use the
+- `QA_CATALOGUE_WEB_VERSION`: it might be a released version such as `0.7.0`, or `main` (default) to use the
    main branch, or `develop` to use the develop branch.
 - `SOLR_VERSION`: the Apache Solr version you would like to use (default: `8.11.1`)
 - `SOLR_INSTALL_SOURCE`: if its value is `remote` docker will download it from http://archive.apache.org/. 

@@ -12,15 +12,7 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: 20
-    - run: npm install -g avram@0.6.6 ajv ajv-formats # checking Avram 0.9.6
+    - run: npm install
     - name: Validate Avram Schema files
-      run: |
-        avram -s marc-schema/marc-schema.json
-        avram -s src/main/resources/marc-schema.json
-        avram -s src/main/resources/marc/authority-schema.avram.json
-        avram -s src/main/resources/pica-schema.json
-        avram -s src/main/resources/pica/avram-k10plus-title.json
-        avram -s src/main/resources/unimarc/avram-unimarc.json
-        avram -s src/test/resources/pica/schema/pica-schema-extra.json
-        avram -s src/test/resources/pica/schema/pica-schema.json
-        avram -s src/test/resources/unimarc/avram-unimarc.json
+      run: ./avram-schemas/validate-schemas
+

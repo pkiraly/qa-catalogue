@@ -2034,14 +2034,13 @@ The MARC JSON file is a JSON serialization of binary MARC file. See more the
 Some background info: [MARC21 structure in JSON](http://pkiraly.github.io/2018/01/28/marc21-in-json/).
 
 Usage:
+
 ```bash
-java -cp $JAR de.gwdg.metadataqa.marc.cli.utils.MappingToJson [options] > marc-schema
+java -cp $JAR de.gwdg.metadataqa.marc.cli.utils.MappingToJson [options] > avram-schema.json
 ```
-with script:
-```bash
-catalogues/[catalogue].sh export-schema-files
-```
+
 or
+
 ```bash
 ./qa-catalogue --params="[options]" export-schema-files
 ```
@@ -2122,9 +2121,13 @@ An example output:
 ```
 
 The script version generates 3 files, with different details:
-* `marc-schema/marc-schema.json`
-* `marc-schema/marc-schema-with-solr.json`
-* `marc-schema/marc-schema-with-solr-and-extensions.json`
+* `avram-schemas/marc-schema.json`
+* `avram-schemas/marc-schema-with-solr.json`
+* `avram-schemas/marc-schema-with-solr-and-extensions.json`
+
+To validate these files install the Avram reference implementation in Node with `npm install` and run:
+
+	./avram-schemas/validate-schemas
 
 ### to HTML
 

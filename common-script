@@ -423,15 +423,15 @@ EOF
 }
 
 do_export_schema_files() {
-  mkdir -p marc-schema
+  mkdir -p avram-schemas
   run avram
 
   untrace
-  ./export-schema --withSubfieldCodelists | jq . > marc-schema/marc-schema.json
-  ./export-schema --withSubfieldCodelists --solrFieldType mixed --withSelfDescriptiveCode | jq .  > marc-schema/marc-schema-with-solr.json
-  ./export-schema --withSubfieldCodelists --solrFieldType mixed --withSelfDescriptiveCode --withLocallyDefinedFields | jq . > marc-schema/marc-schema-with-solr-and-extensions.json
+  ./export-schema --withSubfieldCodelists | jq . > avram-schemas/marc-schema.json
+  ./export-schema --withSubfieldCodelists --solrFieldType mixed --withSelfDescriptiveCode | jq .  > avram-schemas/marc-schema-with-solr.json
+  ./export-schema --withSubfieldCodelists --solrFieldType mixed --withSelfDescriptiveCode --withLocallyDefinedFields | jq . > avram-schemas/marc-schema-with-solr-and-extensions.json
 
-  log "files generated at 'marc-schema' directory: marc-schema.json, marc-schema-with-solr.json, marc-schema-with-solr-and-extensions.json"
+  log "files generated at 'avram-schemas' directory: marc-schema.json, marc-schema-with-solr.json, marc-schema-with-solr-and-extensions.json"
 }
 
 do_shacl4bib() {

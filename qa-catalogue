@@ -91,7 +91,7 @@ TYPE_PARAMS (params):     ${TYPE_PARAMS}
 UPDATE:                   ${UPDATE:-}
 VERSION:                  ${VERSION:-}
 WEB_CONFIG:               ${WEB_CONFIG}
-ENV_FILE:                 ${ENV_FILE}
+ENV_FILE:                 ${ENV_FILE:-}
 ---------------------------
 EOF
 

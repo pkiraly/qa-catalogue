@@ -346,7 +346,7 @@ library specific configuration file:
 | `UPDATE`          | `-u`/`--update`     | optional date of input files                                       |                                                                                                                                                                                         |
 | `VERSION`         | `-v`/`--version`    | optional version number/date of the catalogue to compare changes   |                                                                                                                                                                                         |
 | `WEB_CONFIG`      | `-w`/`--web-config` | update the specified configuration file of qa-catalogue-web        |                                                                                                                                                                                         |
-|                   | `-f`/`--config-file`| a configuration file with catalogue specific environment variables |                                                                                                                                                                                         |
+|                   | `-f`/`--env-file`| configuration file to load environment variables from (default: `.env`) |                                                                                                                                                                                         |
 
 ## Detailed instructions
 

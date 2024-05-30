@@ -1,6 +1,6 @@
 # Used to create the base image with `docker compose build app`
 
-version: '2'
+version: '3'
 
 services:
   app:

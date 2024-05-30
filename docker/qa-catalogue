@@ -42,8 +42,6 @@ else
     -e TYPE_PARAMS="${TYPE_PARAMS:-}" \
     -e UPDATE="${UPDATE:-}" \
     -e VERSION="${VERSION:-}" \
-    -e BASE_INPUT_DIR=/opt/qa-catalogue/marc \
-    -e BASE_OUTPUT_DIR=/opt/qa-catalogue/marc/_output \
     "$CONTAINER" \
     ./qa-catalogue \
     "${args[@]}"

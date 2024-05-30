@@ -6,10 +6,11 @@ services:
   app:
     image: ${IMAGE:-pkiraly/metadata-qa-marc}
     volumes:
-      - ./${INPUT:-input}:/opt/qa-catalogue/marc
+      - ./${INPUT:-input}:/opt/qa-catalogue/input
+      - ./${OUTPUT:-output}:/opt/qa-catalogue/output
       - ./${WEBBCONFIG:-web-config}:/var/www/html/qa-catalogue/config
-      - /etc/timezone:/etc/timezone:ro # Sync timezone
-      - /etc/localtime:/etc/localtime:ro # Sync localtime
+      - /etc/timezone:/etc/timezone:ro    # Sync timezone
+      - /etc/localtime:/etc/localtime:ro  # Sync localtime
     ports:
       - "${WEBPORT:-80}:80"       # qa-catalogue-web
       - "${SOLRPORT:-8983}:8983"  # Solr

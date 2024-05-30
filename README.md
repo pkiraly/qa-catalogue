@@ -122,9 +122,11 @@ can be configured with the following environment variables:
 
 - `CONTAINER`: the name of the docker container. Default: `metadata-qa-marc`.
 
-- `INPUT`: Base directory to put your bibliographic record files in subdirectory
-  `qa-catalogue`. Set to `./input` by default, so record files are expected to
-   be in `input/qa-catalogue`.
+- `INPUT`: Base directory to put your bibliographic record files in subdirectories of.
+   Set to `./input` by default, so record files are expected to be in `input/$NAME`.
+
+- `OUTPUT`: Base directory to put result of qa-catalogue in subdirectory of.
+   Set to `./output` by default, so files are put in `output/$NAME`.
 
 - `WEBCONFIG`: directory to expose configuration of [qa-catalogue-web]. Set to
   `./web-config` by default. If using non-default configuration for data analysis

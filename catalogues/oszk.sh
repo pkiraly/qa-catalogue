@@ -4,7 +4,6 @@
 
 . ./setdir.sh
 NAME=oszk
-MARC_DIR=${BASE_INPUT_DIR}/oszk
 TYPE_PARAMS="--emptyLargeCollectors --defaultEncoding UTF8 --indexWithTokenizedField"
 MASK=OSZK_*.mrc.gz
 

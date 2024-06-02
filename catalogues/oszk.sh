@@ -8,6 +8,3 @@ TYPE_PARAMS="--emptyLargeCollectors --defaultEncoding UTF8 --indexWithTokenizedF
 MASK=OSZK_*.mrc.gz
 
 . ./common-script
-
-echo "DONE"
-exit 0

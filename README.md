@@ -103,6 +103,8 @@ default. Files of each catalogue are in a subdirectory of theses base directorie
 
 ### With Docker
 
+*A more detailed instruction how to use qa-catalogue with Docker can be found [in the wiki](https://github.com/pkiraly/qa-catalogue/wiki/Docker)* 
+
 A Docker image bundling qa-catalogue with all of its dependencies and the web
 interface [qa-catalogue-web] is made available:
 
@@ -162,8 +164,8 @@ catalogue:
 [qa-catalogue-web]: https://github.com/pkiraly/qa-catalogue-web
 
 Now you can reach the web interface ([qa-catalogue-web]) at
-<http://localhost:80/metadata-qa> (or at another port as configured with
-environment variables). To further modify appearance of the interface,
+<http://localhost:80/> (or at another port as configured with
+environment variable `WEBPORT`). To further modify appearance of the interface,
 create [templates](https://github.com/pkiraly/qa-catalogue-web/?tab=readme-ov-file#customization)
 in your `WEBCONFIG` directory and/or create a file `configuration.cnf` in
 this directory to extend [UI configuration](https://github.com/pkiraly/qa-catalogue-web/?tab=readme-ov-file#configuration) without having to restart the Docker container. 

@@ -56,3 +56,6 @@ setdir.sh
 
 # used as Docker volume
 web-config
+
+# Node packages
+node_modules

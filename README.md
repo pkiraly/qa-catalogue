@@ -103,26 +103,32 @@ default. Files of each catalogue are in a subdirectory of theses base directorie
 
 ### With Docker
 
-An Docker image bundling qa-catalogue with all of its dependencies and the web
-interface [qa-catalogue-web] is made available in Docker Hub. To use
-qa-catalogue via Docker first run the image in a new container (download may
-take some time):
+*A more detailed instruction how to use qa-catalogue with Docker can be found [in the wiki](https://github.com/pkiraly/qa-catalogue/wiki/Docker)* 
 
-```bash
-docker compose up -d
-```
+A Docker image bundling qa-catalogue with all of its dependencies and the web
+interface [qa-catalogue-web] is made available:
 
-You can configure the container *before* running this command with the
-following environment variables:
+- continuously via GitHub as [`ghcr.io/pkiraly/qa-catalogue`](https://github.com/pkiraly/qa-catalogue/pkgs/container/qa-catalogue)
 
-- `INPUT`: Base directory to put your bibliographic record files in subdirectory
-  `qa-catalogue`. Set to `./input` by default, so record files are expected to
-   be in `input/qa-catalogue`.
+- and for releases via Docker Hub as [`pkiraly/metadata-qa-marc`](https://hub.docker.com/r/pkiraly/metadata-qa-marc)
 
-- `IMAGE`: which Docker image to download and run. By default the most recent
-   image from Docker Hub is used. For instance if you have locally 
-   [build the Docker image](#appendix-vi-build-docker-image), then set
-   `IMAGE=metadata-qa-marc`.
+To download, configure and start an image in a new container the file
+[docker-compose.yml](docker-compose.yml) is needed in the current directory. It
+can be configured with the following environment variables:
+
+- `IMAGE`: which Docker image to download and run. By default the latest
+   image from Docker Hub is used (`pkiraly/metadata-qa-marc`). Alternatives include
+
+   - `IMAGE=ghcr.io/pkiraly/qa-catalogue:main` for most recent image from GitHub packages
+   - `IMAGE=metadata-qa-marc` if you have locally [build the Docker image](#appendix-vi-build-docker-image)
+
+- `CONTAINER`: the name of the docker container. Default: `metadata-qa-marc`.
+
+- `INPUT`: Base directory to put your bibliographic record files in subdirectories of.
+   Set to `./input` by default, so record files are expected to be in `input/$NAME`.
+
+- `OUTPUT`: Base directory to put result of qa-catalogue in subdirectory of.
+   Set to `./output` by default, so files are put in `output/$NAME`.
 
 - `WEBCONFIG`: directory to expose configuration of [qa-catalogue-web]. Set to
   `./web-config` by default. If using non-default configuration for data analysis
@@ -135,8 +141,6 @@ following environment variables:
 
 - `SOLRPORT`: port to expose Solr to. Default: `8983`.
 
-- `CONTAINER`: the name of the docker container. Default: `metadata-qa-marc`.
-
 Environment variables can be set on command line or be put in local file `.env`, e.g.: 
 
 ```bash
@@ -144,9 +148,10 @@ WEBPORT=9000 docker compose up -d
 ```
 
 When the application has been started this way, run analyses with script
-`./docker/qa-catalogue` the same ways as script `./qa-catalogue` is called when
-not using Docker (see [usage](#usage) for details). The following example uses
-parameters for Gent university library catalogue:
+[`./docker/qa-catalogue`](docker/qa-catalogue) the same ways as script
+`./qa-catalogue` is called when not using Docker (see [usage](#usage) for
+details). The following example uses parameters for Gent university library
+catalogue:
 
 ```bash
 ./docker/qa-catalogue \
@@ -159,8 +164,8 @@ parameters for Gent university library catalogue:
 [qa-catalogue-web]: https://github.com/pkiraly/qa-catalogue-web
 
 Now you can reach the web interface ([qa-catalogue-web]) at
-<http://localhost:80/metadata-qa> (or at another port as configured with
-environment variables). To further modify appearance of the interface,
+<http://localhost:80/> (or at another port as configured with
+environment variable `WEBPORT`). To further modify appearance of the interface,
 create [templates](https://github.com/pkiraly/qa-catalogue-web/?tab=readme-ov-file#customization)
 in your `WEBCONFIG` directory and/or create a file `configuration.cnf` in
 this directory to extend [UI configuration](https://github.com/pkiraly/qa-catalogue-web/?tab=readme-ov-file#configuration) without having to restart the Docker container. 
@@ -337,7 +342,7 @@ library specific configuration file:
 |                   | `-c`/`--catalogue`  | display name of the catalogue                                      | `$NAME`                                                                                                                                                                                 |
 | `NAME`            | `-n`/`--name`       | name of the catalogue                                              | qa-catalogue                                                                                                                                                                            |
 | `BASE_INPUT_DIR`  | `-d`/`--input`      | parent directory of input file directories                         | `./input`                                                                                                                                                                               |
-|                   | `-d`/`--input-dir`  | subdirectory of input directory to read files from                 |                                                                                                                                                                                         |
+| `INPUT_DIR`       | `-d`/`--input-dir`  | subdirectory of input directory to read files from                 |                                                                                                                                                                                         |
 | `BASE_OUTPUT_DIR` | `-o`/`--output`     | parent output directory                                            | `./output`                                                                                                                                                                              |
 | `MASK`            | `-m`/`--mask`       | a file mask which input files to process, e.g. `*.mrc`             | `*`                                                                                                                                                                                     |
 | `TYPE_PARAMS`     | `-p`/`--params`     | parameters to pass to individual tasks (see below)                 |                                                                                                                                                                                         |
@@ -345,7 +350,7 @@ library specific configuration file:
 | `UPDATE`          | `-u`/`--update`     | optional date of input files                                       |                                                                                                                                                                                         |
 | `VERSION`         | `-v`/`--version`    | optional version number/date of the catalogue to compare changes   |                                                                                                                                                                                         |
 | `WEB_CONFIG`      | `-w`/`--web-config` | update the specified configuration file of qa-catalogue-web        |                                                                                                                                                                                         |
-|                   | `-f`/`--config-file`| a configuration file with catalogue specific environment variables |                                                                                                                                                                                         |
+|                   | `-f`/`--env-file`| configuration file to load environment variables from (default: `.env`) |                                                                                                                                                                                         |
 
 ## Detailed instructions
 
@@ -2035,14 +2040,13 @@ The MARC JSON file is a JSON serialization of binary MARC file. See more the
 Some background info: [MARC21 structure in JSON](http://pkiraly.github.io/2018/01/28/marc21-in-json/).
 
 Usage:
+
 ```bash
-java -cp $JAR de.gwdg.metadataqa.marc.cli.utils.MappingToJson [options] > marc-schema
+java -cp $JAR de.gwdg.metadataqa.marc.cli.utils.MappingToJson [options] > avram-schema.json
 ```
-with script:
-```bash
-catalogues/[catalogue].sh export-schema-files
-```
+
 or
+
 ```bash
 ./qa-catalogue --params="[options]" export-schema-files
 ```
@@ -2123,9 +2127,13 @@ An example output:
 ```
 
 The script version generates 3 files, with different details:
-* `marc-schema/marc-schema.json`
-* `marc-schema/marc-schema-with-solr.json`
-* `marc-schema/marc-schema-with-solr-and-extensions.json`
+* `avram-schemas/marc-schema.json`
+* `avram-schemas/marc-schema-with-solr.json`
+* `avram-schemas/marc-schema-with-solr-and-extensions.json`
+
+To validate these files install the Avram reference implementation in Node with `npm ci` and run:
+
+	./avram-schemas/validate-schemas
 
 ### to HTML
 
@@ -2471,7 +2479,7 @@ docker compose -f docker/build.yml build app
 The `docker compose build` command has multiple `--build-arg` arguments to override defaults:
 
 - `QA_CATALOGUE_VERSION`: the QA catalogue version (default: `0.7.0`, current development version is `0.8.0-SNAPSHOT`)
-- `QA_CATALOGUE_WEB_VERSION`: it might be a released version such as `0.7.0` (current default), or `main` to use the
+- `QA_CATALOGUE_WEB_VERSION`: it might be a released version such as `0.7.0`, or `main` (default) to use the
    main branch, or `develop` to use the develop branch.
 - `SOLR_VERSION`: the Apache Solr version you would like to use (default: `8.11.1`)
 - `SOLR_INSTALL_SOURCE`: if its value is `remote` docker will download it from http://archive.apache.org/. 

@@ -1,5 +1,6 @@
 #!/bin/bash
 set -ueo pipefail
+set -o allexport
 
 usage() {
   cat << EOF
@@ -20,29 +21,15 @@ Options:
   -u --update     last modification time of input files (default: timestamps)
   -v --version    optional version number/date of the catalogue to compare changes
   -w --web-config update the specified configuration file of qa-catalogue-web
-  -f --config-file a configuration file contains catalogue specific environment variables
+  -f --env-file   configuration file to override options
 
 EOF
   . ./common-script help
   exit
 }
 
-# optionally load default values
-[ -f ./setdir.sh ] && . ./setdir.sh
-
-# default values, if not set
-BASE_INPUT_DIR=${BASE_INPUT_DIR:-./input}
-BASE_OUTPUT_DIR=${BASE_OUTPUT_DIR:-./output}
-MASK=${MASK:-*}
-NAME=${NAME:-qa-catalogue}
-TYPE_PARAMS=
-SCHEMA=MARC21
-WEB_CONFIG=
-CONFIG_FILE=
-MARC_DIR=${BASE_INPUT_DIR:-}
-
 # parse command line options
-options=$(getopt -o a:c:d:i:m:n:o:p:s:u:v:w:f: --long analyses:,catalogue:,input-dir:,input:,mask:,name:,output:,params:,schema:,update:,version:,web-config:,config-file: -- "$@")
+options=$(getopt -o a:c:d:i:m:n:o:p:s:u:v:w:f: --long analyses:,catalogue:,input-dir:,input:,mask:,name:,output:,params:,schema:,update:,version:,web-config:,env-file: -- "$@")
 
 eval set -- "$options"
 
@@ -50,7 +37,7 @@ while true; do
     case "$1" in
     -a|--analyses) ANALYSES=$2 ; shift ;;
     -c|--catalogue) CATALOGUE=$2 ; shift ;;
-    -d|--input-dir) MARC_DIR=${BASE_INPUT_DIR}/$2 ; shift ;;
+    -d|--input-dir) INPUT_DIR=$2 ; shift ;;
     -i|--input) BASE_INPUT_DIR=$2 ; shift ;;
     -m|--mask) MASK=$2 ; shift ;;
     -n|--name) NAME=$2 ; shift ;;
@@ -60,7 +47,7 @@ while true; do
     -u|--update) UPDATE=$2 ; shift ;;
     -v|--version) VERSION=$2 ; shift ;;
     -w|--web-config) WEB_CONFIG=$2 ; shift ;;
-    -f|--config-file) CONFIG_FILE=$2 ; shift ;;
+    -f|--env-file) ENV_FILE=$2 ; shift ;;
     --)
         shift
         break
@@ -71,18 +58,31 @@ done
 
 [ "${1:-help}" == "help" ] && usage
 
-if [[ "$CONFIG_FILE" != "" && -f $CONFIG_FILE ]]; then
-  echo "run config file"
-  . $CONFIG_FILE
+if [[ -f "${ENV_FILE:-}" ]]; then
+  echo "run config file $ENV_FILE"
+  source "$ENV_FILE"
 fi
+
+# default values
+BASE_INPUT_DIR=${BASE_INPUT_DIR:-./input}
+BASE_OUTPUT_DIR=${BASE_OUTPUT_DIR:-./output}
+MASK=${MASK:-*}
+NAME=${NAME:-qa-catalogue}
+INPUT_DIR=${INPUT_DIR:-$NAME}
+TYPE_PARAMS=${TYPE_PARAMS:-}
+SCHEMA=${SCHEMA:-MARC21}
+WEB_CONFIG=${WEB_CONFIG:-}
+
+# this should not be set by hand
+MARC_DIR=$BASE_INPUT_DIR/$INPUT_DIR
 
 cat << EOF
 configuration:
 ---------------------------
 ANALYSES:                 ${ANALYSES:-}
 CATALOGUE:                ${CATALOGUE:-}
-MARC_DIR (input-dir):     ${MARC_DIR:-}
 BASE_INPUT_DIR (input):   ${BASE_INPUT_DIR}
+INPUT_DIR (input-dir):    ${INPUT_DIR:-}
 MASK:                     ${MASK}
 NAME:                     ${NAME}
 BASE_OUTPUT_DIR (output): ${BASE_OUTPUT_DIR}
@@ -91,7 +91,7 @@ TYPE_PARAMS (params):     ${TYPE_PARAMS}
 UPDATE:                   ${UPDATE:-}
 VERSION:                  ${VERSION:-}
 WEB_CONFIG:               ${WEB_CONFIG}
-CONFIG_FILE:              ${CONFIG_FILE}
+ENV_FILE:                 ${ENV_FILE:-}
 ---------------------------
 EOF
 
@@ -106,8 +106,15 @@ if [[ ! -z "$WEB_CONFIG" ]]; then
  fi
 fi
 
+fail() {
+  echo >&2 ""
+  echo >&2 "AN ERROR OCCURRED"
+  echo >&2 "Please consult log files in $BASE_INPUT_DIR/_reports/$NAME"
+  exit 1
+}
+
 # run actual analysis
-. ./common-script ${1:-}
+./common-script ${1:-} || fail
 
 # optionally update web configuration
 if [[ ! -z "$WEB_CONFIG" ]]; then

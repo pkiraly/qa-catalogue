@@ -59,12 +59,10 @@ RUN cd /opt \
  && unzip qa-catalogue-${QA_CATALOGUE_VERSION}-release.zip \
  && rm qa-catalogue-${QA_CATALOGUE_VERSION}-release.zip \
  && mv qa-catalogue-${QA_CATALOGUE_VERSION} qa-catalogue \
- && mv /opt/qa-catalogue/setdir.sh.template /opt/qa-catalogue/setdir.sh \
- && mkdir -p /opt/qa-catalogue/marc \
- && sed -i.bak 's,BASE_INPUT_DIR=./input,BASE_INPUT_DIR=/opt/qa-catalogue/marc,' /opt/qa-catalogue/setdir.sh \
- && sed -i.bak 's,BASE_OUTPUT_DIR=./output,BASE_OUTPUT_DIR=/opt/qa-catalogue/marc/_output,' /opt/qa-catalogue/setdir.sh \
- # install web application
- && apt-get update \
+ && mkdir -p /opt/qa-catalogue/input /opt/qa-catalogue/output
+
+# install web application
+RUN apt-get update \
  && apt-get install -y --no-install-recommends \
       locales \
       apache2 \
@@ -77,9 +75,7 @@ RUN cd /opt \
       unzip \
       composer \
       gettext \
- && locale-gen en_GB.UTF-8 \
- && locale-gen de_DE.UTF-8 \
- && locale-gen pt_BR.UTF-8 \
+ && locale-gen en_GB.UTF-8 && locale-gen de_DE.UTF-8 && locale-gen pt_BR.UTF-8 \
  && apt-get --assume-yes autoremove \
  && rm -rf /var/lib/apt/lists/* \
  && cd /var/www/html/ \
@@ -94,12 +90,11 @@ RUN cd /opt \
  && ls -la \
  && unzip -q master.zip \
  && rm master.zip \
-# && mv qa-catalogue-web-0.4 qa-catalogue \
  && mv qa-catalogue-web-${QA_CATALOGUE_WEB_VERSION} qa-catalogue \
  && cd qa-catalogue \
  && composer install \
  && mkdir config \
- && echo dir=/opt/qa-catalogue/marc/_output > /var/www/html/qa-catalogue/configuration.cnf \
+ && echo dir=/opt/qa-catalogue/output > /var/www/html/qa-catalogue/configuration.cnf \
  && echo include=config/configuration.cnf >> /var/www/html/qa-catalogue/configuration.cnf \
  # && cp /var/www/html/qa-catalogue/configuration.js.template /var/www/html/qa-catalogue/configuration.js \
  && touch /var/www/html/qa-catalogue/selected-facets.js \

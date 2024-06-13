@@ -379,6 +379,8 @@ Most of the analyses uses the following general parameters
   * `B3KAT`, fields available at the B3Kat union catalogue of Bibliotheksverbundes Bayern (BVB)
      and Kooperativen Bibliotheksverbundes Berlin-Brandenburg (KOBV)
   * `KBR`, fields available at KBR, the national library of Belgium
+  * `ZB`, fields available at Zentralbibliothek Zürich
+  * `OGYK`, fields available at Országygyűlési Könyvtár, Budapest
 * `-n`, `--nolog` do not display log messages
 * parameters to limit the validation:
   * `-i [record ID]`, `--id [record ID]` validates only a single record

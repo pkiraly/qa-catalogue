@@ -6,7 +6,7 @@
 
 NAME=bnf
 MARC_DIR=${BASE_INPUT_DIR}/bnf
-TYPE_PARAMS="--emptyLargeCollectors --schemaType UNIMARC"
+TYPE_PARAMS="--emptyLargeCollectors --schemaType UNIMARC --defaultEncoding UTF8"
 MASK=P174_*.UTF8
 
 . ./common-script

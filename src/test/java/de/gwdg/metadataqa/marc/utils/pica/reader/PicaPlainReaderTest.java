@@ -230,6 +230,33 @@ public class PicaPlainReaderTest {
     assertEquals("Herkunft und Standort", marcRecord.getDatafieldsByTag("021A").get(0).getSubfield("a").get(0).getValue());
   }
 
+  @Test
+  public void picaReader3() throws IOException, URISyntaxException {
+    PicaSchemaManager schema = PicaSchemaReader.createSchema(TestUtils.getPath("pica/schema/k10plus.json"));
+    String recordFile = TestUtils.getPath("pica/pica-plain.pp");
+    MarcReader reader = new PicaPlainReader(recordFile);
+    /*
+      .setIdField("003@$0")
+      .setSubfieldSeparator("$");
+     */
+    int i = 0;
+    BibliographicRecord marcRecord = null;
+    List<String> ids = new ArrayList<>();
+    while (reader.hasNext()) {
+      Record record = reader.next();
+      marcRecord = MarcFactory.createPicaFromMarc4j(record, schema);
+      ids.add(marcRecord.getId());
+      i++;
+    }
+    assertEquals(1, i);
+    assertEquals(Arrays.asList("12345X"), ids);
+    assertEquals(1, ids.size());
+    assertEquals("12345X", marcRecord.getId());
+    assertEquals(SchemaType.PICA, marcRecord.getSchemaType());
+    assertEquals(2, marcRecord.getDatafields().size());
+    assertEquals("Ein Buch", marcRecord.getDatafieldsByTag("021A").get(0).getSubfield("a").get(0).getValue());
+  }
+
   private boolean directoryContains(Map<String, PicaFieldDefinition> schemaDirectory, PicaLine pl) {
     if (schemaDirectory.containsKey(pl.getTag())) {
       PicaFieldDefinition definitions = schemaDirectory.get(pl.getTag());

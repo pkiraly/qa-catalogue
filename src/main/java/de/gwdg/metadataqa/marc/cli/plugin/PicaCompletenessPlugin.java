@@ -12,6 +12,7 @@ import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaManager;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaReader;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -19,8 +20,8 @@ public class PicaCompletenessPlugin implements CompletenessPlugin, Serializable 
   private static final long serialVersionUID = 2002980948561227741L;
 
   private final CompletenessParameters parameters;
-  private final String field;
-  private final String subfield;
+  private final String typeField;
+  private final String typeSubfield;
   private final String separator;
   private final PicaSchemaManager picaSchema;
   private static final Map<String, String> types = Map.ofEntries(
@@ -41,14 +42,17 @@ public class PicaCompletenessPlugin implements CompletenessPlugin, Serializable 
     this.parameters = parameters;
     separator = Pattern.quote(parameters.getPicaSubfieldSeparator());
     FieldPath path = parse(parameters.getPicaRecordTypeField());
-    field = path.getField();
-    subfield = path.getSubfield();
+    typeField = path.getField();
+    typeSubfield = path.getSubfield();
     picaSchema = PicaSchemaReader.createSchemaManager(parameters.getPicaSchemaFile());
   }
 
   @Override
   public String getDocumentType(BibliographicRecord marcRecord) {
-    String code = marcRecord.getDatafieldsByTag(field).get(0).getSubfield(subfield).get(0).getValue().substring(0, 1);
+    List<DataField> fieldInstances = marcRecord.getDatafieldsByTag(typeField);
+    if (fieldInstances == null || fieldInstances.isEmpty())
+      return "invalid";
+    String code = fieldInstances.get(0).getSubfield(typeSubfield).get(0).getValue().substring(0, 1);
     return types.getOrDefault(code, "invalid");
   }
 

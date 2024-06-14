@@ -400,4 +400,25 @@ public class CompletenessTest extends CliTestUtils {
     Assert.assertEquals(expected, actual);
   }
 
+  @Test
+  public void completeness_picaplain() throws Exception {
+    clearOutput(outputDir, outputFiles);
+
+    Completeness processor = new Completeness(new String[]{
+      "--schemaType", "PICA",
+      "--marcFormat", "PICA_PLAIN",
+      "--outputDir", outputDir,
+      TestUtils.getPath("pica/pica-plain.pp")
+    });
+    RecordIterator iterator = new RecordIterator(processor);
+    iterator.start();
+
+    for (String outputFile : outputFiles) {
+      // System.err.println(outputFile);
+      File output = new File(outputDir, outputFile);
+      assertTrue(output.exists());
+      String expected = org.apache.commons.io.FileUtils.readFileToString(output, "UTF-8");
+      assertTrue(StringUtils.isNotBlank(expected));
+    }
+  }
 }

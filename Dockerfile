@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 LABEL maintainer="Péter Király <pkiraly@gwdg.de>, Ákos Takács <rimelek@rimelek.hu>, Jakob Voß <jakob.voss@gbv.de>"
 
@@ -75,11 +75,10 @@ RUN apt-get update \
       unzip \
       composer \
       gettext \
- && locale-gen en_GB.UTF-8 && locale-gen de_DE.UTF-8 && locale-gen pt_BR.UTF-8 \
+ && locale-gen en_GB.UTF-8 && locale-gen de_DE.UTF-8 && locale-gen pt_BR.UTF-8 && locale-gen hu_HU.UTF-8 \
  && apt-get --assume-yes autoremove \
  && rm -rf /var/lib/apt/lists/* \
  && cd /var/www/html/ \
-# && curl -s -L https://github.com/pkiraly/qa-catalogue-web/archive/${QA_CATALOGUE_VERSION}.zip --output master.zip \
  && if [ "${QA_CATALOGUE_WEB_VERSION}" = "main" ]; then \
       curl -s -L https://github.com/pkiraly/qa-catalogue-web/archive/refs/heads/main.zip --output master.zip ; \
     elif [ "${QA_CATALOGUE_WEB_VERSION}" = "develop" ]; then \

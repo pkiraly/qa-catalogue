@@ -1,7 +1,5 @@
 # Used to start the base image with `docker compose up -d`
 
-version: '2'
-
 services:
   app:
     image: ${IMAGE:-pkiraly/metadata-qa-marc}

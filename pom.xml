@@ -157,7 +157,7 @@
 		<dependency>
 			<artifactId>solr-solrj</artifactId>
 			<groupId>org.apache.solr</groupId>
-			<version>9.4.1</version>
+			<version>9.6.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.reflections</groupId>

@@ -28602,23 +28602,42 @@
         }
       }
     ],
-    "592": {
-      "tag": "592",
-      "label": "Collaboration Note",
-      "url": null,
-      "repeatable": true,
-      "solr": "CollaborationNote",
-      "version": "BL",
-      "indicator1": null,
-      "indicator2": null,
-      "subfields": {
-        "a": {
-          "label": "Collaboration note",
-          "repeatable": false,
-          "solr": "592a_CollaborationNote_collaborationNote"
+    "592": [
+      {
+        "tag": "592",
+        "label": "Collaboration Note",
+        "url": null,
+        "repeatable": true,
+        "solr": "CollaborationNote",
+        "version": "BL",
+        "indicator1": null,
+        "indicator2": null,
+        "subfields": {
+          "a": {
+            "label": "Collaboration note",
+            "repeatable": false,
+            "solr": "592a_CollaborationNote_collaborationNote"
+          }
+        }
+      },
+      {
+        "tag": "592",
+        "label": "Megjegyzés a különlenyomatról",
+        "url": "https://wiki.ogyk.hu/doku.php?id=ogyk:gyszo:katszab:konyv:592",
+        "repeatable": true,
+        "solr": "MegjegyzesKulonlenyomatrol",
+        "version": "OGYK",
+        "indicator1": null,
+        "indicator2": null,
+        "subfields": {
+          "a": {
+            "label": "Megjegyzés szövege",
+            "repeatable": false,
+            "solr": "592a_MegjegyzesKulonlenyomatrol"
+          }
         }
       }
-    },
+    ],
     "594": {
       "tag": "594",
       "label": "Reference to Items in Printed Catalogues",
@@ -28754,30 +28773,66 @@
             "solr": "5965_ADokumentumAllapota"
           }
         }
-      }
-    ],
-    "597": {
-      "tag": "597",
-      "label": "Editing or Error Message",
-      "url": null,
-      "repeatable": true,
-      "solr": "EditingOrErrorMessage",
-      "version": "BL",
-      "indicator1": null,
-      "indicator2": null,
-      "subfields": {
-        "a": {
-          "label": "Unconverted legacy field or Message relating to conversion, deduplication and enhancement",
-          "repeatable": false,
-          "solr": "597a_EditingOrErrorMessage_legacyFieldOrMessage"
-        },
-        "b": {
-          "label": "Information relating to record enhancement",
-          "repeatable": false,
-          "solr": "597b_EditingOrErrorMessage_recordEnhancement"
+      },
+      {
+        "tag": "596",
+        "label": "Megjegyzés a szabványosításról, az adatgyűjtés lezárásáról és a hatályba lépésről",
+        "url": "https://wiki.ogyk.hu/doku.php?id=ogyk:gyszo:katszab:konyv:596",
+        "repeatable": true,
+        "solr": "MegjegyzesSzabvanyositasiAdatok",
+        "version": "OGYK",
+        "indicator1": null,
+        "indicator2": null,
+        "subfields": {
+          "a": {
+            "label": "Megjegyzés szövege",
+            "repeatable": false,
+            "solr": "596a_MegjegyzesSzabvanyositasiAdatok"
+          }
         }
       }
-    },
+    ],
+    "597": [
+      {
+        "tag": "597",
+        "label": "Editing or Error Message",
+        "url": null,
+        "repeatable": true,
+        "solr": "EditingOrErrorMessage",
+        "version": "BL",
+        "indicator1": null,
+        "indicator2": null,
+        "subfields": {
+          "a": {
+            "label": "Unconverted legacy field or Message relating to conversion, deduplication and enhancement",
+            "repeatable": false,
+            "solr": "597a_EditingOrErrorMessage_legacyFieldOrMessage"
+          },
+          "b": {
+            "label": "Information relating to record enhancement",
+            "repeatable": false,
+            "solr": "597b_EditingOrErrorMessage_recordEnhancement"
+          }
+        }
+      },
+      {
+        "tag": "597",
+        "label": "Megjegyzés a megjelenésről",
+        "url": "https://wiki.ogyk.hu/doku.php?id=ogyk:gyszo:katszab:konyv:597",
+        "repeatable": true,
+        "solr": "MegjegyzesMegjelenesrol",
+        "version": "OGYK",
+        "indicator1": null,
+        "indicator2": null,
+        "subfields": {
+          "a": {
+            "label": "Megjegyzés szövege",
+            "repeatable": false,
+            "solr": "597a_MegjegyzesMegjelenesrol"
+          }
+        }
+      }
+    ],
     "598": [
       {
         "tag": "598",
@@ -28814,23 +28869,42 @@
         }
       }
     ],
-    "599": {
-      "tag": "599",
-      "label": "Notes Relating to an Original (RPS)",
-      "url": null,
-      "repeatable": true,
-      "solr": "NotesRelatingToAnOriginal",
-      "version": "BL",
-      "indicator1": null,
-      "indicator2": null,
-      "subfields": {
-        "a": {
-          "label": "Note relating to the copy filmed",
-          "repeatable": false,
-          "solr": "599a_NotesRelatingToAnOriginal_note"
+    "599": [
+      {
+        "tag": "599",
+        "label": "Notes Relating to an Original (RPS)",
+        "url": null,
+        "repeatable": true,
+        "solr": "NotesRelatingToAnOriginal",
+        "version": "BL",
+        "indicator1": null,
+        "indicator2": null,
+        "subfields": {
+          "a": {
+            "label": "Note relating to the copy filmed",
+            "repeatable": false,
+            "solr": "599a_NotesRelatingToAnOriginal_note"
+          }
+        }
+      },
+      {
+        "tag": "599",
+        "label": "Példány- és verzióazonosító megjegyzés",
+        "url": "https://wiki.ogyk.hu/doku.php?id=ogyk:gyszo:katszab:konyv:599",
+        "repeatable": true,
+        "solr": "PeldanyMegjegyzes",
+        "version": "OGYK",
+        "indicator1": null,
+        "indicator2": null,
+        "subfields": {
+          "a": {
+            "label": "Megjegyzés szövege",
+            "repeatable": false,
+            "solr": "599a_PeldanyMegjegyzes"
+          }
         }
       }
-    },
+    ],
     "600": {
       "tag": "600",
       "label": "Subject Added Entry - Personal Name",
@@ -40698,261 +40772,493 @@
         }
       }
     },
-    "856": {
-      "tag": "856",
-      "label": "Electronic Location and Access",
-      "url": "https://www.loc.gov/marc/bibliographic/bd856.html",
-      "repeatable": true,
-      "solr": "ElectronicLocationAndAccess",
-      "version": "MARC21",
-      "indicator1": {
-        "label": "Access method",
-        "codes": {
-          " ": {
-            "code": " ",
-            "label": "No information provided"
+    "856": [
+      {
+        "tag": "856",
+        "label": "Electronic Location and Access",
+        "url": "https://www.loc.gov/marc/bibliographic/bd856.html",
+        "repeatable": true,
+        "solr": "ElectronicLocationAndAccess",
+        "version": "MARC21",
+        "indicator1": {
+          "label": "Access method",
+          "codes": {
+            " ": {
+              "code": " ",
+              "label": "No information provided"
+            },
+            "0": {
+              "code": "0",
+              "label": "Email"
+            },
+            "1": {
+              "code": "1",
+              "label": "FTP"
+            },
+            "2": {
+              "code": "2",
+              "label": "Remote login (Telnet)"
+            },
+            "3": {
+              "code": "3",
+              "label": "Dial-up"
+            },
+            "4": {
+              "code": "4",
+              "label": "HTTP"
+            },
+            "7": {
+              "code": "7",
+              "label": "Method specified in subfield $2"
+            }
+          }
+        },
+        "indicator2": {
+          "label": "Relationship",
+          "codes": {
+            " ": {
+              "code": " ",
+              "label": "No information provided"
+            },
+            "0": {
+              "code": "0",
+              "label": "Resource"
+            },
+            "1": {
+              "code": "1",
+              "label": "Version of resource"
+            },
+            "2": {
+              "code": "2",
+              "label": "Related resource"
+            },
+            "3": {
+              "code": "3",
+              "label": "Component part(s) of resource"
+            },
+            "4": {
+              "code": "4",
+              "label": "Version of component part(s) of resource"
+            },
+            "8": {
+              "code": "8",
+              "label": "No display constant generated"
+            }
+          }
+        },
+        "subfields": {
+          "a": {
+            "label": "Host name",
+            "repeatable": true,
+            "solr": "856a_ElectronicLocationAndAccess_host"
           },
-          "0": {
-            "code": "0",
-            "label": "Email"
+          "c": {
+            "label": "Compression information",
+            "repeatable": true,
+            "solr": "856c_ElectronicLocationAndAccess_compression"
           },
-          "1": {
-            "code": "1",
-            "label": "FTP"
+          "d": {
+            "label": "Path",
+            "repeatable": true,
+            "solr": "856d_ElectronicLocationAndAccess_path"
+          },
+          "e": {
+            "label": "Data provenance",
+            "repeatable": true,
+            "solr": "856e_ElectronicLocationAndAccess_dataProvenance"
+          },
+          "f": {
+            "label": "Electronic name",
+            "repeatable": true,
+            "solr": "856f_ElectronicLocationAndAccess_name"
+          },
+          "g": {
+            "label": "Uniform Resource Name [OBSOLETE, 2000]",
+            "deprecated": true
+          },
+          "h": {
+            "label": "Processor of request [OBSOLETE, 2020]",
+            "deprecated": true
+          },
+          "l": {
+            "label": "Logon [OBSOLETE, 2020]",
+            "deprecated": true
+          },
+          "m": {
+            "label": "Contact for access assistance",
+            "repeatable": true,
+            "solr": "856m_ElectronicLocationAndAccess_contact"
+          },
+          "n": {
+            "label": "Name of location of host [OBSOLETE, 2020]",
+            "deprecated": true
+          },
+          "o": {
+            "label": "Operating system",
+            "repeatable": false,
+            "solr": "856o_ElectronicLocationAndAccess_operatingSystem"
+          },
+          "p": {
+            "label": "Port",
+            "repeatable": false,
+            "solr": "856p_ElectronicLocationAndAccess_port"
+          },
+          "q": {
+            "label": "Electronic format type",
+            "repeatable": true,
+            "solr": "856q_ElectronicLocationAndAccess_format"
+          },
+          "r": {
+            "label": "Settings [OBSOLETE, 2020]",
+            "deprecated": true
+          },
+          "s": {
+            "label": "File size",
+            "repeatable": true,
+            "solr": "856s_ElectronicLocationAndAccess_fileSize"
+          },
+          "t": {
+            "label": "Terminal emulation [OBSOLETE, 2020]",
+            "deprecated": true
+          },
+          "u": {
+            "label": "Uniform Resource Identifier",
+            "repeatable": true,
+            "solr": "856u_ElectronicLocationAndAccess_uri"
+          },
+          "v": {
+            "label": "Hours access method available",
+            "repeatable": true,
+            "solr": "856v_ElectronicLocationAndAccess_hours"
+          },
+          "w": {
+            "label": "Record control number",
+            "repeatable": true,
+            "solr": "856w_ElectronicLocationAndAccess_recordControlNumber",
+            "codes": "https://www.loc.gov/marc/organizations/orgshome.html"
+          },
+          "x": {
+            "label": "Nonpublic note",
+            "repeatable": true,
+            "solr": "856x_ElectronicLocationAndAccess_nonpublicNote"
+          },
+          "y": {
+            "label": "Link text",
+            "repeatable": true,
+            "solr": "856y_ElectronicLocationAndAccess_linkText"
+          },
+          "z": {
+            "label": "Public note",
+            "repeatable": true,
+            "solr": "856z_ElectronicLocationAndAccess_publicNote"
           },
           "2": {
-            "code": "2",
-            "label": "Remote login (Telnet)"
+            "label": "Access method",
+            "repeatable": false,
+            "solr": "8562_ElectronicLocationAndAccess_accessMethod",
+            "codes": "https://www.loc.gov/standards/valuelist/electronaccess.html"
           },
           "3": {
-            "code": "3",
-            "label": "Dial-up"
+            "label": "Materials specified",
+            "repeatable": false,
+            "solr": "8563_ElectronicLocationAndAccess_materialsSpecified"
           },
-          "4": {
-            "code": "4",
-            "label": "HTTP"
+          "6": {
+            "label": "Linkage",
+            "repeatable": false,
+            "solr": "8566_ElectronicLocationAndAccess_linkage",
+            "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
           },
           "7": {
-            "code": "7",
-            "label": "Method specified in subfield $2"
-          }
-        }
-      },
-      "indicator2": {
-        "label": "Relationship",
-        "codes": {
-          " ": {
-            "code": " ",
-            "label": "No information provided"
-          },
-          "0": {
-            "code": "0",
-            "label": "Resource"
-          },
-          "1": {
-            "code": "1",
-            "label": "Version of resource"
-          },
-          "2": {
-            "code": "2",
-            "label": "Related resource"
-          },
-          "3": {
-            "code": "3",
-            "label": "Component part(s) of resource"
-          },
-          "4": {
-            "code": "4",
-            "label": "Version of component part(s) of resource"
+            "label": "Access status",
+            "repeatable": false,
+            "solr": "8567_ElectronicLocationAndAccess_accessStatus"
           },
           "8": {
-            "code": "8",
-            "label": "No display constant generated"
+            "label": "Field link and sequence number",
+            "repeatable": true,
+            "solr": "8568_ElectronicLocationAndAccess_fieldLink"
+          },
+          "b": {
+            "label": "Access number [OBSOLETE, 2020]",
+            "deprecated": true
+          },
+          "i": {
+            "label": "Instruction [OBSOLETE, 2020]",
+            "deprecated": true
+          },
+          "j": {
+            "label": "Bits per second [OBSOLETE, 2020]",
+            "deprecated": true
+          },
+          "k": {
+            "label": "Password [OBSOLETE, 2020]",
+            "deprecated": true
+          }
+        },
+        "versionSpecificSubfields": {
+          "NKCR": {
+            "4": {
+              "label": "Aleph subfield related to copyright",
+              "repeatable": false,
+              "solr": "8564_ElectronicLocationAndAccess_NKCR"
+            },
+            "9": {
+              "label": "Aleph/ANL fulltext linkage",
+              "repeatable": false,
+              "solr": "8569_ElectronicLocationAndAccess_NKCR"
+            }
+          },
+          "KBR": {
+            "*": {
+              "label": "Link with identifier",
+              "repeatable": false,
+              "solr": "856x2a_ElectronicLocationAndAccess_link_KBR"
+            },
+            "@": {
+              "label": "Language of field",
+              "repeatable": false,
+              "solr": "856x40_ElectronicLocationAndAccess_language_KBR"
+            },
+            "#": {
+              "label": "number/occurrence of field",
+              "repeatable": false,
+              "solr": "856x23_ElectronicLocationAndAccess_number_KBR"
+            }
           }
         }
       },
-      "subfields": {
-        "a": {
-          "label": "Host name",
-          "repeatable": true,
-          "solr": "856a_ElectronicLocationAndAccess_host"
-        },
-        "c": {
-          "label": "Compression information",
-          "repeatable": true,
-          "solr": "856c_ElectronicLocationAndAccess_compression"
-        },
-        "d": {
-          "label": "Path",
-          "repeatable": true,
-          "solr": "856d_ElectronicLocationAndAccess_path"
-        },
-        "e": {
-          "label": "Data provenance",
-          "repeatable": true,
-          "solr": "856e_ElectronicLocationAndAccess_dataProvenance"
-        },
-        "f": {
-          "label": "Electronic name",
-          "repeatable": true,
-          "solr": "856f_ElectronicLocationAndAccess_name"
-        },
-        "g": {
-          "label": "Uniform Resource Name [OBSOLETE, 2000]",
-          "deprecated": true
-        },
-        "h": {
-          "label": "Processor of request [OBSOLETE, 2020]",
-          "deprecated": true
-        },
-        "l": {
-          "label": "Logon [OBSOLETE, 2020]",
-          "deprecated": true
-        },
-        "m": {
-          "label": "Contact for access assistance",
-          "repeatable": true,
-          "solr": "856m_ElectronicLocationAndAccess_contact"
-        },
-        "n": {
-          "label": "Name of location of host [OBSOLETE, 2020]",
-          "deprecated": true
-        },
-        "o": {
-          "label": "Operating system",
-          "repeatable": false,
-          "solr": "856o_ElectronicLocationAndAccess_operatingSystem"
-        },
-        "p": {
-          "label": "Port",
-          "repeatable": false,
-          "solr": "856p_ElectronicLocationAndAccess_port"
-        },
-        "q": {
-          "label": "Electronic format type",
-          "repeatable": true,
-          "solr": "856q_ElectronicLocationAndAccess_format"
-        },
-        "r": {
-          "label": "Settings [OBSOLETE, 2020]",
-          "deprecated": true
-        },
-        "s": {
-          "label": "File size",
-          "repeatable": true,
-          "solr": "856s_ElectronicLocationAndAccess_fileSize"
-        },
-        "t": {
-          "label": "Terminal emulation [OBSOLETE, 2020]",
-          "deprecated": true
-        },
-        "u": {
-          "label": "Uniform Resource Identifier",
-          "repeatable": true,
-          "solr": "856u_ElectronicLocationAndAccess_uri"
-        },
-        "v": {
-          "label": "Hours access method available",
-          "repeatable": true,
-          "solr": "856v_ElectronicLocationAndAccess_hours"
-        },
-        "w": {
-          "label": "Record control number",
-          "repeatable": true,
-          "solr": "856w_ElectronicLocationAndAccess_recordControlNumber",
-          "codes": "https://www.loc.gov/marc/organizations/orgshome.html"
-        },
-        "x": {
-          "label": "Nonpublic note",
-          "repeatable": true,
-          "solr": "856x_ElectronicLocationAndAccess_nonpublicNote"
-        },
-        "y": {
-          "label": "Link text",
-          "repeatable": true,
-          "solr": "856y_ElectronicLocationAndAccess_linkText"
-        },
-        "z": {
-          "label": "Public note",
-          "repeatable": true,
-          "solr": "856z_ElectronicLocationAndAccess_publicNote"
-        },
-        "2": {
+      {
+        "tag": "856",
+        "label": "Electronic Location and Access (OGYK)",
+        "url": "https://wiki.ogyk.hu/doku.php?id=ogyk:gyszo:katszab:konyv:856",
+        "repeatable": true,
+        "solr": "ElectronicLocationAndAccessOGYK",
+        "version": "OGYK",
+        "indicator1": {
           "label": "Access method",
-          "repeatable": false,
-          "solr": "8562_ElectronicLocationAndAccess_accessMethod",
-          "codes": "https://www.loc.gov/standards/valuelist/electronaccess.html"
+          "codes": {
+            " ": {
+              "code": " ",
+              "label": "No information provided"
+            },
+            "0": {
+              "code": "0",
+              "label": "Email"
+            },
+            "1": {
+              "code": "1",
+              "label": "FTP"
+            },
+            "2": {
+              "code": "2",
+              "label": "Remote login (Telnet)"
+            },
+            "3": {
+              "code": "3",
+              "label": "Dial-up"
+            },
+            "4": {
+              "code": "4",
+              "label": "HTTP"
+            },
+            "7": {
+              "code": "7",
+              "label": "Method specified in subfield $2"
+            }
+          }
         },
-        "3": {
-          "label": "Materials specified",
-          "repeatable": false,
-          "solr": "8563_ElectronicLocationAndAccess_materialsSpecified"
+        "indicator2": {
+          "label": "Relationship",
+          "codes": {
+            " ": {
+              "code": " ",
+              "label": "No information provided"
+            },
+            "0": {
+              "code": "0",
+              "label": "Resource"
+            },
+            "1": {
+              "code": "1",
+              "label": "Version of resource"
+            },
+            "2": {
+              "code": "2",
+              "label": "Related resource"
+            },
+            "8": {
+              "code": "8",
+              "label": "No display constant generated"
+            }
+          }
         },
-        "6": {
-          "label": "Linkage",
-          "repeatable": false,
-          "solr": "8566_ElectronicLocationAndAccess_linkage",
-          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
-        },
-        "7": {
-          "label": "Access status",
-          "repeatable": false,
-          "solr": "8567_ElectronicLocationAndAccess_accessStatus"
-        },
-        "8": {
-          "label": "Field link and sequence number",
-          "repeatable": true,
-          "solr": "8568_ElectronicLocationAndAccess_fieldLink"
-        },
-        "b": {
-          "label": "Access number [OBSOLETE, 2020]",
-          "deprecated": true
-        },
-        "i": {
-          "label": "Instruction [OBSOLETE, 2020]",
-          "deprecated": true
-        },
-        "j": {
-          "label": "Bits per second [OBSOLETE, 2020]",
-          "deprecated": true
-        },
-        "k": {
-          "label": "Password [OBSOLETE, 2020]",
-          "deprecated": true
-        }
-      },
-      "versionSpecificSubfields": {
-        "NKCR": {
+        "subfields": {
+          "a": {
+            "label": "Host name",
+            "repeatable": true,
+            "solr": "856a_ElectronicLocationAndAccessOGYK_host"
+          },
+          "b": {
+            "label": "Access number",
+            "repeatable": true,
+            "solr": "856b_ElectronicLocationAndAccessOGYK_accessNumber"
+          },
+          "c": {
+            "label": "Compression information",
+            "repeatable": true,
+            "solr": "856c_ElectronicLocationAndAccessOGYK_compression"
+          },
+          "d": {
+            "label": "Path",
+            "repeatable": true,
+            "solr": "856d_ElectronicLocationAndAccessOGYK_path"
+          },
+          "f": {
+            "label": "Electronic name",
+            "repeatable": true,
+            "solr": "856f_ElectronicLocationAndAccessOGYK_name"
+          },
+          "h": {
+            "label": "Processor of request",
+            "repeatable": false,
+            "solr": "856h_ElectronicLocationAndAccessOGYK_processor"
+          },
+          "i": {
+            "label": "Instruction",
+            "repeatable": true,
+            "solr": "856i_ElectronicLocationAndAccessOGYK_instruction"
+          },
+          "j": {
+            "label": "Bits per second",
+            "repeatable": false,
+            "solr": "856j_ElectronicLocationAndAccessOGYK_bitsPerSecond"
+          },
+          "k": {
+            "label": "Password",
+            "repeatable": false,
+            "solr": "856k_ElectronicLocationAndAccessOGYK_password"
+          },
+          "l": {
+            "label": "Logon",
+            "repeatable": false,
+            "solr": "856l_ElectronicLocationAndAccessOGYK_logon"
+          },
+          "m": {
+            "label": "Contact for access assistance",
+            "repeatable": true,
+            "solr": "856m_ElectronicLocationAndAccessOGYK_contact"
+          },
+          "n": {
+            "label": "Name of location of host",
+            "repeatable": false,
+            "solr": "856n_ElectronicLocationAndAccessOGYK_location"
+          },
+          "o": {
+            "label": "Operating system",
+            "repeatable": false,
+            "solr": "856o_ElectronicLocationAndAccessOGYK_operatingSystem"
+          },
+          "p": {
+            "label": "Port",
+            "repeatable": false,
+            "solr": "856p_ElectronicLocationAndAccessOGYK_port"
+          },
+          "q": {
+            "label": "Electronic format type",
+            "repeatable": false,
+            "solr": "856q_ElectronicLocationAndAccessOGYK_format"
+          },
+          "r": {
+            "label": "Settings",
+            "repeatable": false,
+            "solr": "856r_ElectronicLocationAndAccessOGYK_settings"
+          },
+          "s": {
+            "label": "File size",
+            "repeatable": true,
+            "solr": "856s_ElectronicLocationAndAccessOGYK_fileSize"
+          },
+          "t": {
+            "label": "Terminal emulation",
+            "repeatable": true,
+            "solr": "856t_ElectronicLocationAndAccessOGYK_terminalEmulation"
+          },
+          "u": {
+            "label": "Uniform Resource Identifier",
+            "repeatable": true,
+            "solr": "856u_ElectronicLocationAndAccessOGYK_uri"
+          },
+          "v": {
+            "label": "Hours access method available",
+            "repeatable": true,
+            "solr": "856v_ElectronicLocationAndAccessOGYK_hours"
+          },
+          "w": {
+            "label": "Record control number",
+            "repeatable": true,
+            "solr": "856w_ElectronicLocationAndAccessOGYK_recordControlNumber",
+            "codes": "https://www.loc.gov/marc/organizations/orgshome.html"
+          },
+          "x": {
+            "label": "Nonpublic note",
+            "repeatable": true,
+            "solr": "856x_ElectronicLocationAndAccessOGYK_nonpublicNote"
+          },
+          "y": {
+            "label": "Link text",
+            "repeatable": true,
+            "solr": "856y_ElectronicLocationAndAccessOGYK_linkText"
+          },
+          "z": {
+            "label": "Public note",
+            "repeatable": true,
+            "solr": "856z_ElectronicLocationAndAccessOGYK_publicNote"
+          },
+          "2": {
+            "label": "Access method",
+            "repeatable": false,
+            "solr": "8562_ElectronicLocationAndAccessOGYK_accessMethod",
+            "codes": "https://www.loc.gov/standards/valuelist/electronaccess.html"
+          },
+          "3": {
+            "label": "Materials specified",
+            "repeatable": false,
+            "solr": "8563_ElectronicLocationAndAccessOGYK_materialsSpecified"
+          },
+          "6": {
+            "label": "Linkage",
+            "repeatable": false,
+            "solr": "8566_ElectronicLocationAndAccessOGYK_linkage",
+            "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
+          },
+          "7": {
+            "label": "Access status",
+            "repeatable": false,
+            "solr": "8567_ElectronicLocationAndAccessOGYK_accessStatus"
+          },
+          "8": {
+            "label": "Field link and sequence number",
+            "repeatable": true,
+            "solr": "8568_ElectronicLocationAndAccessOGYK_fieldLink"
+          },
           "4": {
             "label": "Aleph subfield related to copyright",
             "repeatable": false,
-            "solr": "8564_ElectronicLocationAndAccess_NKCR"
+            "solr": "8564_ElectronicLocationAndAccessOGYK"
           },
           "9": {
             "label": "Aleph/ANL fulltext linkage",
             "repeatable": false,
-            "solr": "8569_ElectronicLocationAndAccess_NKCR"
-          }
-        },
-        "KBR": {
-          "*": {
-            "label": "Link with identifier",
-            "repeatable": false,
-            "solr": "856x2a_ElectronicLocationAndAccess_link_KBR"
+            "solr": "8569_ElectronicLocationAndAccessOGYK"
           },
-          "@": {
-            "label": "Language of field",
-            "repeatable": false,
-            "solr": "856x40_ElectronicLocationAndAccess_language_KBR"
-          },
-          "#": {
-            "label": "number/occurrence of field",
-            "repeatable": false,
-            "solr": "856x23_ElectronicLocationAndAccess_number_KBR"
+          "g": {
+            "label": "Uniform Resource Name [OBSOLETE, 2000]",
+            "deprecated": true
           }
         }
       }
-    },
+    ],
     "857": {
       "tag": "857",
       "label": "Electronic Archive Location and Access",
@@ -43875,6 +44181,23 @@
         }
       }
     },
+    "934": {
+      "tag": "934",
+      "label": "Szolgáltatás kódja",
+      "url": "https://wiki.ogyk.hu/doku.php?id=ogyk:gyszo:katszab:konyv:933-934",
+      "repeatable": true,
+      "solr": "SzolgaltatasKodja",
+      "version": "OGYK",
+      "indicator1": null,
+      "indicator2": null,
+      "subfields": {
+        "a": {
+          "label": "Kód",
+          "repeatable": false,
+          "solr": "934a_SzolgaltatasKodja"
+        }
+      }
+    },
     "936": [
       {
         "tag": "936",
@@ -45482,23 +45805,42 @@
         }
       }
     ],
-    "972": {
-      "tag": "972",
-      "label": "BTJ-KOODI",
-      "url": "https://www.kansalliskirjasto.fi/extra/marc21/bib/omat.htm#972",
-      "repeatable": true,
-      "solr": "BTJKoodi",
-      "version": "FENNICA",
-      "indicator1": null,
-      "indicator2": null,
-      "subfields": {
-        "a": {
-          "label": "Koodi",
-          "repeatable": false,
-          "solr": "972a_BTJKoodi"
+    "972": [
+      {
+        "tag": "972",
+        "label": "Gyűjteményi témakód (monografikus)",
+        "url": "https://wiki.ogyk.hu/doku.php?id=ogyk:gyszo:katszab:konyv:972",
+        "repeatable": false,
+        "solr": "GyujtemenyiTemakodMonografikus",
+        "version": "OGYK",
+        "indicator1": null,
+        "indicator2": null,
+        "subfields": {
+          "a": {
+            "label": "Témakód",
+            "repeatable": false,
+            "solr": "972a_GyujtemenyiTemakodMonografikus_Temakod"
+          }
+        }
+      },
+      {
+        "tag": "972",
+        "label": "BTJ-KOODI",
+        "url": "https://www.kansalliskirjasto.fi/extra/marc21/bib/omat.htm#972",
+        "repeatable": true,
+        "solr": "BTJKoodi",
+        "version": "FENNICA",
+        "indicator1": null,
+        "indicator2": null,
+        "subfields": {
+          "a": {
+            "label": "Koodi",
+            "repeatable": false,
+            "solr": "972a_BTJKoodi"
+          }
         }
       }
-    },
+    ],
     "973": {
       "tag": "973",
       "label": "Local Added Entry Special Collections (Uncontrolled)",
@@ -46663,205 +47005,244 @@
         }
       }
     },
-    "983": {
-      "tag": "983",
-      "label": "Added Entry - Personal Name",
-      "url": "https://www.nkp.cz/o-knihovne/odborne-cinnosti/zpracovani-fondu/informativni-materialy/blok-9xxuni-m21",
-      "repeatable": true,
-      "solr": "AddedPersonalName",
-      "version": "NKCR",
-      "indicator1": {
-        "label": "Type of personal name entry element",
-        "codes": {
-          "0": {
-            "code": "0",
-            "label": "Forename"
-          },
-          "1": {
-            "code": "1",
-            "label": "Surname"
-          },
-          "3": {
-            "code": "3",
-            "label": "Family name"
+    "983": [
+      {
+        "tag": "983",
+        "label": "Added Entry - Personal Name",
+        "url": "https://www.nkp.cz/o-knihovne/odborne-cinnosti/zpracovani-fondu/informativni-materialy/blok-9xxuni-m21",
+        "repeatable": true,
+        "solr": "AddedPersonalName",
+        "version": "NKCR",
+        "indicator1": {
+          "label": "Type of personal name entry element",
+          "codes": {
+            "0": {
+              "code": "0",
+              "label": "Forename"
+            },
+            "1": {
+              "code": "1",
+              "label": "Surname"
+            },
+            "3": {
+              "code": "3",
+              "label": "Family name"
+            }
           }
-        }
-      },
-      "indicator2": {
-        "label": "Type of added entry",
-        "codes": {
-          " ": {
-            "code": " ",
-            "label": "No information provided"
+        },
+        "indicator2": {
+          "label": "Type of added entry",
+          "codes": {
+            " ": {
+              "code": " ",
+              "label": "No information provided"
+            },
+            "2": {
+              "code": "2",
+              "label": "Analytical entry"
+            }
+          }
+        },
+        "subfields": {
+          "a": {
+            "label": "Personal name",
+            "repeatable": false,
+            "solr": "983a_AddedPersonalName_personalName"
+          },
+          "b": {
+            "label": "Numeration",
+            "repeatable": false,
+            "solr": "983b_AddedPersonalName_numeration"
+          },
+          "c": {
+            "label": "Titles and other words associated with a name",
+            "repeatable": true,
+            "solr": "983c_AddedPersonalName_titlesAndWords"
+          },
+          "d": {
+            "label": "Dates associated with a name",
+            "repeatable": false,
+            "solr": "983d_AddedPersonalName_dates"
+          },
+          "e": {
+            "label": "Relator term",
+            "repeatable": true,
+            "solr": "983e_AddedPersonalName_relatorTerm"
+          },
+          "f": {
+            "label": "Date of a work",
+            "repeatable": false,
+            "solr": "983f_AddedPersonalName_dateOfAWork"
+          },
+          "g": {
+            "label": "Miscellaneous information",
+            "repeatable": true,
+            "solr": "983g_AddedPersonalName_miscellaneous"
+          },
+          "h": {
+            "label": "Medium",
+            "repeatable": false,
+            "solr": "983h_AddedPersonalName_medium"
+          },
+          "i": {
+            "label": "Relationship information",
+            "repeatable": true,
+            "solr": "983i_AddedPersonalName_relationship"
+          },
+          "j": {
+            "label": "Attribution qualifier",
+            "repeatable": true,
+            "solr": "983j_AddedPersonalName_attributionQualifier"
+          },
+          "k": {
+            "label": "Form subheading",
+            "repeatable": true,
+            "solr": "983k_AddedPersonalName_formSubheading"
+          },
+          "l": {
+            "label": "Language of a work",
+            "repeatable": false,
+            "solr": "983l_AddedPersonalName_language"
+          },
+          "m": {
+            "label": "Medium of performance for music",
+            "repeatable": true,
+            "solr": "983m_AddedPersonalName_mediumOfPerformance"
+          },
+          "n": {
+            "label": "Number of part/section of a work",
+            "repeatable": true,
+            "solr": "983n_AddedPersonalName_numberOfPart"
+          },
+          "o": {
+            "label": "Arranged statement for music",
+            "repeatable": false,
+            "solr": "983o_AddedPersonalName_arrangedStatement"
+          },
+          "p": {
+            "label": "Name of part/section of a work",
+            "repeatable": true,
+            "solr": "983p_AddedPersonalName_nameOfPart"
+          },
+          "q": {
+            "label": "Fuller form of name",
+            "repeatable": false,
+            "solr": "983q_AddedPersonalName_fullerForm"
+          },
+          "r": {
+            "label": "Key for music",
+            "repeatable": false,
+            "solr": "983r_AddedPersonalName_keyForMusic"
+          },
+          "s": {
+            "label": "Version",
+            "repeatable": false,
+            "solr": "983s_AddedPersonalName_version"
+          },
+          "t": {
+            "label": "Title of a work",
+            "repeatable": false,
+            "solr": "983t_AddedPersonalName_titleOfAWork"
+          },
+          "u": {
+            "label": "Affiliation",
+            "repeatable": false,
+            "solr": "983u_AddedPersonalName_affiliation"
+          },
+          "x": {
+            "label": "International Standard Serial Number",
+            "repeatable": false,
+            "solr": "983x_AddedPersonalName_issn"
+          },
+          "0": {
+            "label": "Authority record control number or standard number",
+            "repeatable": true,
+            "solr": "9830_AddedPersonalName_authorityRecordControlNumber",
+            "pattern": "^\\((.{1,100})\\)(.{1,100})$"
           },
           "2": {
-            "code": "2",
-            "label": "Analytical entry"
+            "label": "Source of heading or term",
+            "repeatable": false,
+            "solr": "9832_AddedPersonalName_source",
+            "codes": "https://www.loc.gov/standards/sourcelist/name-title.html"
+          },
+          "3": {
+            "label": "Materials specified",
+            "repeatable": false,
+            "solr": "9833_AddedPersonalName_materialsSpecified"
+          },
+          "4": {
+            "label": "Relationship",
+            "repeatable": true,
+            "solr": "9834_AddedPersonalName_relationship",
+            "codes": "https://www.loc.gov/marc/relators/relaterm.html"
+          },
+          "5": {
+            "label": "Kód instituce:signatura exempláře",
+            "repeatable": false,
+            "solr": "9835_AddedPersonalName_institutionToWhichFieldApplies"
+          },
+          "6": {
+            "label": "Linkage",
+            "repeatable": false,
+            "solr": "9836_AddedPersonalName_linkage",
+            "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
+          },
+          "7": {
+            "label": "NKCR Authority ID",
+            "repeatable": false,
+            "solr": "9837_AddedPersonalName"
+          },
+          "8": {
+            "label": "(Místo) a datum získání knihy (z exlibris, supralibros apod.)",
+            "repeatable": true,
+            "solr": "9838_AddedPersonalName_fieldLink"
+          },
+          "9": {
+            "label": "Slovní vyjádření kódu role",
+            "repeatable": false,
+            "solr": "9839_AddedPersonalName"
           }
         }
       },
-      "subfields": {
-        "a": {
-          "label": "Personal name",
-          "repeatable": false,
-          "solr": "983a_AddedPersonalName_personalName"
-        },
-        "b": {
-          "label": "Numeration",
-          "repeatable": false,
-          "solr": "983b_AddedPersonalName_numeration"
-        },
-        "c": {
-          "label": "Titles and other words associated with a name",
-          "repeatable": true,
-          "solr": "983c_AddedPersonalName_titlesAndWords"
-        },
-        "d": {
-          "label": "Dates associated with a name",
-          "repeatable": false,
-          "solr": "983d_AddedPersonalName_dates"
-        },
-        "e": {
-          "label": "Relator term",
-          "repeatable": true,
-          "solr": "983e_AddedPersonalName_relatorTerm"
-        },
-        "f": {
-          "label": "Date of a work",
-          "repeatable": false,
-          "solr": "983f_AddedPersonalName_dateOfAWork"
-        },
-        "g": {
-          "label": "Miscellaneous information",
-          "repeatable": true,
-          "solr": "983g_AddedPersonalName_miscellaneous"
-        },
-        "h": {
-          "label": "Medium",
-          "repeatable": false,
-          "solr": "983h_AddedPersonalName_medium"
-        },
-        "i": {
-          "label": "Relationship information",
-          "repeatable": true,
-          "solr": "983i_AddedPersonalName_relationship"
-        },
-        "j": {
-          "label": "Attribution qualifier",
-          "repeatable": true,
-          "solr": "983j_AddedPersonalName_attributionQualifier"
-        },
-        "k": {
-          "label": "Form subheading",
-          "repeatable": true,
-          "solr": "983k_AddedPersonalName_formSubheading"
-        },
-        "l": {
-          "label": "Language of a work",
-          "repeatable": false,
-          "solr": "983l_AddedPersonalName_language"
-        },
-        "m": {
-          "label": "Medium of performance for music",
-          "repeatable": true,
-          "solr": "983m_AddedPersonalName_mediumOfPerformance"
-        },
-        "n": {
-          "label": "Number of part/section of a work",
-          "repeatable": true,
-          "solr": "983n_AddedPersonalName_numberOfPart"
-        },
-        "o": {
-          "label": "Arranged statement for music",
-          "repeatable": false,
-          "solr": "983o_AddedPersonalName_arrangedStatement"
-        },
-        "p": {
-          "label": "Name of part/section of a work",
-          "repeatable": true,
-          "solr": "983p_AddedPersonalName_nameOfPart"
-        },
-        "q": {
-          "label": "Fuller form of name",
-          "repeatable": false,
-          "solr": "983q_AddedPersonalName_fullerForm"
-        },
-        "r": {
-          "label": "Key for music",
-          "repeatable": false,
-          "solr": "983r_AddedPersonalName_keyForMusic"
-        },
-        "s": {
-          "label": "Version",
-          "repeatable": false,
-          "solr": "983s_AddedPersonalName_version"
-        },
-        "t": {
-          "label": "Title of a work",
-          "repeatable": false,
-          "solr": "983t_AddedPersonalName_titleOfAWork"
-        },
-        "u": {
-          "label": "Affiliation",
-          "repeatable": false,
-          "solr": "983u_AddedPersonalName_affiliation"
-        },
-        "x": {
-          "label": "International Standard Serial Number",
-          "repeatable": false,
-          "solr": "983x_AddedPersonalName_issn"
-        },
-        "0": {
-          "label": "Authority record control number or standard number",
-          "repeatable": true,
-          "solr": "9830_AddedPersonalName_authorityRecordControlNumber",
-          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
-        },
-        "2": {
-          "label": "Source of heading or term",
-          "repeatable": false,
-          "solr": "9832_AddedPersonalName_source",
-          "codes": "https://www.loc.gov/standards/sourcelist/name-title.html"
-        },
-        "3": {
-          "label": "Materials specified",
-          "repeatable": false,
-          "solr": "9833_AddedPersonalName_materialsSpecified"
-        },
-        "4": {
-          "label": "Relationship",
-          "repeatable": true,
-          "solr": "9834_AddedPersonalName_relationship",
-          "codes": "https://www.loc.gov/marc/relators/relaterm.html"
-        },
-        "5": {
-          "label": "Kód instituce:signatura exempláře",
-          "repeatable": false,
-          "solr": "9835_AddedPersonalName_institutionToWhichFieldApplies"
-        },
-        "6": {
-          "label": "Linkage",
-          "repeatable": false,
-          "solr": "9836_AddedPersonalName_linkage",
-          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
-        },
-        "7": {
-          "label": "NKCR Authority ID",
-          "repeatable": false,
-          "solr": "9837_AddedPersonalName"
-        },
-        "8": {
-          "label": "(Místo) a datum získání knihy (z exlibris, supralibros apod.)",
-          "repeatable": true,
-          "solr": "9838_AddedPersonalName_fieldLink"
-        },
-        "9": {
-          "label": "Slovní vyjádření kódu role",
-          "repeatable": false,
-          "solr": "9839_AddedPersonalName"
+      {
+        "tag": "983",
+        "label": "Konverziós adatok (Medea + Globaldigit)",
+        "url": "https://wiki.ogyk.hu/doku.php?id=ogyk:gyszo:katszab:konyv:983",
+        "repeatable": true,
+        "solr": "KonverziosAdatokMedea",
+        "version": "OGYK",
+        "indicator1": null,
+        "indicator2": null,
+        "subfields": {
+          "a": {
+            "label": "A retrokonverziót végző cég megjegyzése",
+            "repeatable": true,
+            "solr": "983a_KonverziosAdatokMedea"
+          },
+          "b": {
+            "label": "A retrokonverziót végző cég megjegyzése",
+            "repeatable": false,
+            "solr": "983b_KonverziosAdatokMedea"
+          },
+          "u": {
+            "label": "Digitalizált cédula elérése (URL)",
+            "repeatable": false,
+            "solr": "983u_KonverziosAdatokMedea"
+          },
+          "x": {
+            "label": "A retrokonverziót végző cég által használt kódolás",
+            "repeatable": true,
+            "solr": "983x_KonverziosAdatokMedea"
+          },
+          "y": {
+            "label": "A katalóguskarton szkennelt verziójának sorszáma",
+            "repeatable": true,
+            "solr": "983y_KonverziosAdatokMedea"
+          }
         }
       }
-    },
+    ],
     "984": {
       "tag": "984",
       "label": "Město vydání (staré tisky)",
@@ -47220,6 +47601,23 @@
             "solr": "996j_CPKHoldingsInformation"
           }
         }
+      },
+      {
+        "tag": "996",
+        "label": "Digitalizálás (projekt-kód)",
+        "url": "https://wiki.ogyk.hu/doku.php?id=ogyk:gyszo:katszab:konyv:996-997",
+        "repeatable": false,
+        "solr": "DDK",
+        "version": "OGYK",
+        "indicator1": null,
+        "indicator2": null,
+        "subfields": {
+          "a": {
+            "label": "Kód",
+            "repeatable": false,
+            "solr": "996a_DDK"
+          }
+        }
       }
     ],
     "997": [
@@ -47237,6 +47635,28 @@
             "label": "Legal Deposit Library’s message",
             "repeatable": true,
             "solr": "997a_SharedLibraryMessageField_legalDepositLibrarysMessage"
+          }
+        }
+      },
+      {
+        "tag": "997",
+        "label": "Digitalizálás (kronologikus besorolás gyűjteménybe szervezéshez)",
+        "url": "https://wiki.ogyk.hu/doku.php?id=ogyk:gyszo:katszab:konyv:996-997",
+        "repeatable": true,
+        "solr": "DGY2",
+        "version": "OGYK",
+        "indicator1": null,
+        "indicator2": null,
+        "subfields": {
+          "a": {
+            "label": "Kód",
+            "repeatable": false,
+            "solr": "997a_DGY2"
+          },
+          "b": {
+            "label": "Kód feloldása",
+            "repeatable": false,
+            "solr": "997b_DGY2"
           }
         }
       },
@@ -47303,28 +47723,52 @@
         }
       }
     ],
-    "998": {
-      "tag": "998",
-      "label": "Šifra zpracovatele (pracovní pole retrokonverze)",
-      "url": "https://www.nkp.cz/o-knihovne/odborne-cinnosti/zpracovani-fondu/informativni-materialy/blok-9xxuni-m21",
-      "repeatable": true,
-      "solr": "998",
-      "version": "NKCR",
-      "indicator1": null,
-      "indicator2": null,
-      "subfields": {
-        "a": {
-          "label": "Šifra zpracovatele",
-          "repeatable": false,
-          "solr": "998a"
-        },
-        "b": {
-          "label": "Šifra revidujícího",
-          "repeatable": false,
-          "solr": "998b"
+    "998": [
+      {
+        "tag": "998",
+        "label": "Šifra zpracovatele (pracovní pole retrokonverze)",
+        "url": "https://www.nkp.cz/o-knihovne/odborne-cinnosti/zpracovani-fondu/informativni-materialy/blok-9xxuni-m21",
+        "repeatable": true,
+        "solr": "998",
+        "version": "NKCR",
+        "indicator1": null,
+        "indicator2": null,
+        "subfields": {
+          "a": {
+            "label": "Šifra zpracovatele",
+            "repeatable": false,
+            "solr": "998a"
+          },
+          "b": {
+            "label": "Šifra revidujícího",
+            "repeatable": false,
+            "solr": "998b"
+          }
+        }
+      },
+      {
+        "tag": "998",
+        "label": "Digitalizálás (tematikus besorolás gyűjteménybe szervezéshez)",
+        "url": "https://wiki.ogyk.hu/doku.php?id=ogyk:gyszo:katszab:konyv:998",
+        "repeatable": true,
+        "solr": "DGY1",
+        "version": "OGYK",
+        "indicator1": null,
+        "indicator2": null,
+        "subfields": {
+          "a": {
+            "label": "Kód",
+            "repeatable": false,
+            "solr": "998a_DGY1_Kod"
+          },
+          "b": {
+            "label": "Kód feloldása",
+            "repeatable": false,
+            "solr": "998b_DGY1_KodFeloldasa"
+          }
         }
       }
-    },
+    ],
     "999": {
       "tag": "999",
       "label": "OAI-Identifier des Datensatzes",
@@ -48163,6 +48607,28 @@
           "label": "STM serials designation and linking data",
           "repeatable": false,
           "solr": "SSDa_STMSerialsDesignation_stmSerialsDesignation"
+        }
+      }
+    },
+    "STA": {
+      "tag": "STA",
+      "label": "Feldolgozottsági állapot",
+      "url": "https://wiki.ogyk.hu/doku.php?id=ogyk:gyszo:katszab:konyv:sta",
+      "repeatable": false,
+      "solr": "FeldolgozottsagiAllapot",
+      "version": "OGYK",
+      "indicator1": null,
+      "indicator2": null,
+      "subfields": {
+        "a": {
+          "label": "Státusz",
+          "repeatable": false,
+          "solr": "STAa_FeldolgozottsagiAllapot_Statusz"
+        },
+        "d": {
+          "label": "Dátum",
+          "repeatable": false,
+          "solr": "STAd_FeldolgozottsagiAllapot_Datum"
         }
       }
     },

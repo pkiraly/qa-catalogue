@@ -37,12 +37,12 @@ do_validate() {
   OUTPUT_PARAMS="--outputDir ${OUTPUT_DIR} --detailsFileName issue-details.csv --summaryFileName issue-summary.csv"
   PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--(indexWithTokenizedField|indexFieldCounts|solrUrl)//g')
   run validate
-  ./validate ${GENERAL_PARAMS} ${OUTPUT_PARAMS} ${PARAMS} ${MARC_DIR}/$MASK 2> ${PREFIX}/validate.log
+  ./validate ${GENERAL_PARAMS} ${OUTPUT_PARAMS} ${PARAMS} ${MARC_DIR}/$MASK 2> ${LOG_DIR}/validate.log
 }
 
 do_prepare_solr() {
   run prepare-solr
-  ./prepare-solr $NAME 2> ${PREFIX}/solr.log
+  ./prepare-solr $NAME 2> ${LOG_DIR}/solr.log
 }
 
 do_index() {
@@ -63,18 +63,18 @@ do_index() {
     PARAMS=$(echo ${PARAMS} | sed -r 's/\s*--onlyIndex//')
     CORE=${NAME}
   fi
-  ./index --core ${CORE} --file-path ${MARC_DIR} --file-mask $MASK ${PARAMS} --trimId 2>> ${PREFIX}/solr.log
+  ./index --core ${CORE} --file-path ${MARC_DIR} --file-mask $MASK ${PARAMS} --trimId 2>> ${LOG_DIR}/solr.log
 }
 
 do_postprocess_solr() {
   run postprocess-solr
-  ./postprocess-solr $NAME 2>> ${PREFIX}/solr.log
+  ./postprocess-solr $NAME 2>> ${LOG_DIR}/solr.log
 }
 
 do_completeness() {
   PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--ignorableIssueTypes [^ ]+|\s*--(indexWithTokenizedField|indexFieldCounts|solrUrl)//g')
   run completeness
-  ./completeness --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/completeness.log
+  ./completeness --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${LOG_DIR}/completeness.log
 }
 
 do_completeness_sqlite() {
@@ -88,24 +88,24 @@ do_completeness_sqlite() {
 do_classifications() {
   PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--ignorableIssueTypes [^ ]+|\s*--(indexWithTokenizedField|indexFieldCounts|solrUrl)//g')
   run classifications
-  ./classifications --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/classifications.log
+  ./classifications --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${LOG_DIR}/classifications.log
   Rscript scripts/classifications/classifications-type.R ${OUTPUT_DIR}
 }
 
 do_authorities() {
   PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--ignorableIssueTypes [^ ]+|\s*--(indexWithTokenizedField|indexFieldCounts|solrUrl)//g')
   run authorities
-  ./authorities --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/authorities.log
+  ./authorities --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${LOG_DIR}/authorities.log
 }
 
 do_tt_completeness() {
   PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--ignorableIssueTypes [^ ]+|\s*--(indexWithTokenizedField|indexFieldCounts|solrUrl)//g')
   run tt-completeness
-  ./tt-completeness --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/tt-completeness.log
-  Rscript scripts/tt-histogram/tt-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/tt-completeness.log
+  ./tt-completeness --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${LOG_DIR}/tt-completeness.log
+  Rscript scripts/tt-histogram/tt-histogram.R ${OUTPUT_DIR} &>> ${LOG_DIR}/tt-completeness.log
 
   # for large files
-  # php scripts/tt-histogram/tt-histogram.php ${OUTPUT_DIR} &>> ${PREFIX}/tt-completeness.log
+  # php scripts/tt-histogram/tt-histogram.php ${OUTPUT_DIR} &>> ${LOG_DIR}/tt-completeness.log
 }
 
 do_shelf_ready_completeness() {
@@ -115,12 +115,12 @@ do_shelf_ready_completeness() {
     --defaultRecordType BOOKS \
     ${PARAMS} \
     --outputDir ${OUTPUT_DIR}/ \
-    --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/shelf-ready-completeness.log
+    --trimId ${MARC_DIR}/${MASK} 2> ${LOG_DIR}/shelf-ready-completeness.log
 
-  Rscript scripts/shelf-ready/shelf-ready-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/shelf-ready-completeness.log
+  Rscript scripts/shelf-ready/shelf-ready-histogram.R ${OUTPUT_DIR} &>> ${LOG_DIR}/shelf-ready-completeness.log
 
   # for large files
-  # php scripts/shelf-ready-histogram.php ${OUTPUT_DIR} &>> ${PREFIX}/shelf-ready-completeness.log
+  # php scripts/shelf-ready-histogram.php ${OUTPUT_DIR} &>> ${LOG_DIR}/shelf-ready-completeness.log
 }
 
 do_bl_classification() {
@@ -130,7 +130,7 @@ do_bl_classification() {
     --defaultRecordType BOOKS \
     ${PARAMS} \
     --outputDir ${OUTPUT_DIR}/ \
-    --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/bl-classification.log
+    --trimId ${MARC_DIR}/${MASK} 2> ${LOG_DIR}/bl-classification.log
 }
 
 do_serial_score() {
@@ -139,9 +139,9 @@ do_serial_score() {
   ./serial-score --defaultRecordType BOOKS \
                  ${PARAMS} \
                  --outputDir ${OUTPUT_DIR}/ \
-                 --trimId ${MARC_DIR}/${MASK} 2> ${PREFIX}/serial-score.log
+                 --trimId ${MARC_DIR}/${MASK} 2> ${LOG_DIR}/serial-score.log
 
-  Rscript scripts/serial-score/serial-score-histogram.R ${OUTPUT_DIR} &>> ${PREFIX}/serial-score.log
+  Rscript scripts/serial-score/serial-score-histogram.R ${OUTPUT_DIR} &>> ${LOG_DIR}/serial-score.log
 }
 
 do_format() {
@@ -154,7 +154,7 @@ do_functional_analysis() {
   run functional-analysis
   ./functional-analysis --defaultRecordType BOOKS \
                         ${PARAMS} \
-                        --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/functional-analysis.log
+                        --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${LOG_DIR}/functional-analysis.log
 }
 
 do_network_analysis() {
@@ -163,20 +163,20 @@ do_network_analysis() {
   ./network-analysis --defaultRecordType BOOKS \
                      ${PARAMS} \
                      --outputDir ${OUTPUT_DIR}/ \
-                     ${MARC_DIR}/${MASK} 2> ${PREFIX}/network-analysis.log
+                     ${MARC_DIR}/${MASK} 2> ${LOG_DIR}/network-analysis.log
 
   # network.csv (concept, id) ->
   #   network-by-concepts.csv (concept, count, ids)
   #   network-by-record.csv (id, count, concepts)
   #   network-statistics.csv (type, total, single, multi)
-  Rscript scripts/network-transform.R ${OUTPUT_DIR} &>> ${PREFIX}/network-analysis.log
+  Rscript scripts/network-transform.R ${OUTPUT_DIR} &>> ${LOG_DIR}/network-analysis.log
 
   # network-by-concepts (concept, count, ids) ->
   #   network-pairs.csv (id1 id2)
   #   network-nodes.csv (id, id)
   ./network-analysis --outputDir ${OUTPUT_DIR} \
                      --action pairing \
-                     &>> ${PREFIX}/network-analysis.log
+                     &>> ${LOG_DIR}/network-analysis.log
 
   untrace
 
@@ -198,7 +198,7 @@ do_network_analysis() {
 
 do_pareto() {
   run pareto
-  Rscript scripts/pareto/frequency-range.R ${OUTPUT_DIR} &> ${PREFIX}/pareto.log
+  Rscript scripts/pareto/frequency-range.R ${OUTPUT_DIR} &> ${LOG_DIR}/pareto.log
   untrace
 
   . ./common-variables
@@ -218,7 +218,7 @@ do_marc_history() {
 
   run marc-history
   ./formatter --selector "$SELECTOR" --defaultRecordType BOOKS ${PARAMS} --separator "," \
-              --outputDir ${OUTPUT_DIR}/ --fileName "marc-history.csv" ${MARC_DIR}/${MASK} &> ${PREFIX}/marc-history.log
+              --outputDir ${OUTPUT_DIR}/ --fileName "marc-history.csv" ${MARC_DIR}/${MASK} &> ${LOG_DIR}/marc-history.log
     # | grep -v '008~7-10,008~0-5' \
   
   untrace
@@ -229,15 +229,15 @@ do_marc_history() {
     | sed 's, ,,g' > ${OUTPUT_DIR}/marc-history-grouped.csv
   set -x
 
-  Rscript scripts/marc-history/marc-history-grouped.R ${OUTPUT_DIR} &>> ${PREFIX}/marc-history.log
+  Rscript scripts/marc-history/marc-history-grouped.R ${OUTPUT_DIR} &>> ${LOG_DIR}/marc-history.log
 }
 
 do_record_patterns() {
   PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--ignorableIssueTypes [^ ]+|\s*--(indexWithTokenizedField|indexFieldCounts|solrUrl)//g')
 
   run record-patterns
-  Rscript scripts/record-patterns/top-fields.R ${OUTPUT_DIR} &>> ${PREFIX}/top-fields.log
-  ./record-patterns --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} &> ${PREFIX}/record-patterns.log
+  Rscript scripts/record-patterns/top-fields.R ${OUTPUT_DIR} &>> ${LOG_DIR}/top-fields.log
+  ./record-patterns --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} &> ${LOG_DIR}/record-patterns.log
 
   head -1 ${OUTPUT_DIR}/record-patterns.csv | sed -e 's/^/count,/' > ${OUTPUT_DIR}/record-patterns-grouped.csv
   cat ${OUTPUT_DIR}/record-patterns.csv \
@@ -263,7 +263,7 @@ do_version_link() {
 
 do_validate_sqlite() {
   run "validate sqlite"
-  php scripts/sqlite/normalize-issue-details.php ${OUTPUT_DIR} &> ${PREFIX}/sqlite.log
+  php scripts/sqlite/normalize-issue-details.php ${OUTPUT_DIR} &> ${LOG_DIR}/sqlite.log
 
   untrace
 
@@ -321,7 +321,7 @@ EOF
 
   if [[ "${HAS_GROUP_PARAM}" == "0" ]]; then
     log "index"
-    sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/modify-tables.sql &>> ${PREFIX}/sqlite.log
+    sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/modify-tables.sql &>> ${LOG_DIR}/sqlite.log
     if [[ "${SOLR_FOR_SCORES_URL}" != "" ]]; then
       echo "index at ${SOLR_FOR_SCORES_URL}"
       # index id-groupid.csv and issue-details.csv
@@ -337,7 +337,7 @@ EOF
 do_mysql() {
   run mysql
 
-  php scripts/sqlite/normalize-issue-details.php ${OUTPUT_DIR} &> ${PREFIX}/mysql.log
+  php scripts/sqlite/normalize-issue-details.php ${OUTPUT_DIR} &> ${LOG_DIR}/mysql.log
 
   untrace
 
@@ -415,10 +415,10 @@ EOF
 
   if [[ "${HAS_GROUP_PARAM}" == "0" ]]; then
     log "index"
-    sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/modify-tables.sql &>> ${PREFIX}/mysql.log
+    sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/modify-tables.sql &>> ${LOG_DIR}/mysql.log
   else
     log "index (grouped)"
-    mysql --defaults-extra-file=mysql.client.cnf ${NAME} < scripts/sqlite/modify-tables.grouped.mysql.sql &>> ${PREFIX}/mysql.log
+    mysql --defaults-extra-file=mysql.client.cnf ${NAME} < scripts/sqlite/modify-tables.grouped.mysql.sql &>> ${LOG_DIR}/mysql.log
   fi
 }
 
@@ -438,8 +438,8 @@ do_shacl4bib() {
   # note: SHACL specific parameters are missing here --shaclConfigurationFile, --shaclOutputType, --shaclOutputFile
   PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--ignorableIssueTypes [^ ]+|\s*--(indexWithTokenizedField|indexFieldCounts|solrUrl)//g')
   run shacl4bib
-  echo "  ./shacl4bib --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/shacl4bib.log"
-  ./shacl4bib --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/shacl4bib.log
+  echo "  ./shacl4bib --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${LOG_DIR}/shacl4bib.log"
+  ./shacl4bib --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${LOG_DIR}/shacl4bib.log
   Rscript scripts/shacl4bib/shacl4bib.R ${OUTPUT_DIR}
 
   log "import issue details"
@@ -479,7 +479,7 @@ do_all_solr() {
   do_index
   do_postprocess_solr
 #  if [[ "${HAS_GROUP_PARAM}" == "1" ]]; then
-#    php scripts/sqlite/solr-copy-ids-from-validation.php ${NAME}_validation ${NAME} 2>> ${PREFIX}/solr.log
+#    php scripts/sqlite/solr-copy-ids-from-validation.php ${NAME}_validation ${NAME} 2>> ${LOG_DIR}/solr.log
 #  fi
 }
 
@@ -537,7 +537,7 @@ Environmental variables:
   ANALYSES                   a comma separated list of analyses (commands) to execute
   SCHEMA                     the metadata schema (MARC21 (default) or PICA)
   WEB_DIR                    the directory of the qa-catalogue-web
-  PREFIX                     the directory where log files are written (default: BASE_INPUT_DIR/_reports/NAME)
+  LOG_DIR                    the directory where log files are written (default: BASE_LOG_DIR/NAME)
   UPDATE                     the date time string (in YYYY-mm-dd H:M:s format) of the last data update.
                              It will be stored into OUTPUT_DIR/last-update.csv
   VERSION                    a version number for the source data (e.g. the date of the update). If set, the actual
@@ -559,7 +559,7 @@ config() {
   echo "ANALYSES=$ANALYSES"
   echo "SCHEMA=$SCHEMA"
   echo "WEB_DIR=$WEB_DIR"
-  echo "PREFIX=$PREFIX"
+  echo "LOG_DIR=$LOG_DIR"
   echo "UPDATE=$UPDATE"
   cat ./common-variables
 }
@@ -574,10 +574,12 @@ fatal() {
 NAME=${NAME:-$(basename $0 .sh)}
 BASE_INPUT_DIR=${BASE_INPUT_DIR:-./input}
 BASE_OUTPUT_DIR=${BASE_OUTPUT_DIR:-./output}
+BASE_LOGS_DIR=${BASE_OUTPUT_DIR:-./logs}
+
 MARC_DIR=${MARC_DIR:-$BASE_INPUT_DIR/$NAME}
 SCHEMA=${SCHEMA:-MARC21}
 
-PREFIX=${BASE_INPUT_DIR}/_reports/$NAME
+LOG_DIR=${BASE_LOG_DIR}/${NAME}
 if [[ "${VERSION:-}" != "" ]]; then
   OUTPUT_DIR=${BASE_OUTPUT_DIR}/${NAME}-${VERSION}
 else
@@ -608,12 +610,12 @@ done
 
 # check directories for processing commands
 if [[ "$datatask" = true ]]; then
-  mkdir -p $PREFIX
+  mkdir -p $LOG_DIR
   mkdir -p $OUTPUT_DIR
 
   log "input:  $MARC_DIR/$MASK"
   log "output: $OUTPUT_DIR"
-  log "logs:   $PREFIX"
+  log "logs:   $LOG_DIR"
 
   ls ${MARC_DIR}/${MASK} &> /dev/null || fatal "Missing input files: ${MARC_DIR}/${MASK}!\n"
 

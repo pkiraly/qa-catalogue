@@ -147,6 +147,12 @@ Environment variables can be set on command line or be put in local file `.env`,
 WEBPORT=9000 docker compose up -d
 ```
 
+or
+
+```bash
+docker compose --env-file config.env up -d
+```
+
 When the application has been started this way, run analyses with script
 [`./docker/qa-catalogue`](docker/qa-catalogue) the same ways as script
 `./qa-catalogue` is called when not using Docker (see [usage](#usage) for

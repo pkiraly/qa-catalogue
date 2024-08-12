@@ -1,10 +1,6 @@
 package de.gwdg.metadataqa.marc.analysis.contextual.authority;
 
-import org.apache.commons.lang3.StringUtils;
-
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public enum AuthorityCategory {

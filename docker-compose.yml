@@ -1,10 +1,8 @@
 # Used to start the base image with `docker compose up -d`
 
-version: '2'
-
 services:
   app:
-    # image: ${IMAGE:-pkiraly/metadata-qa-marc:0.7.0}
+    # image: ${IMAGE:-pkiraly/metadata-qa-marc}
     # image: ghcr.io/pkiraly/qa-catalogue:main
     build:
       context: .
@@ -15,8 +13,8 @@ services:
       - ./catalogues:/opt/qa-catalogue/catalogues
       - ./web-classes/catalogue:/var/www/html/qa-catalogue/classes/catalogue
       - ./${WEBBCONFIG:-web-config}:/var/www/html/qa-catalogue/config
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro    # Sync timezone
+      - /etc/localtime:/etc/localtime:ro  # Sync localtime
     ports:
       - "${WEBPORT:-8000}:80"       # qa-catalogue-web
       - "${SOLRPORT:-8983}:8983"  # Solr

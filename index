@@ -166,7 +166,7 @@ echo "SOLR HOST: ${SOLR_HOST}"
 echo "CORE: ${CORE}"
 
 if [[ "${DO_PURGE}" == "1" ]]; then
-  purge_and_exit
+  purge_and_exit ${CORE}
 fi
 
 if [[ "${SKIP_DELETE}" == "0" ]]; then

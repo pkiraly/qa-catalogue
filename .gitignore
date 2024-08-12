@@ -55,4 +55,7 @@ setdir.sh
 .env
 
 # used as Docker volume
-# web-config
+web-config
+
+# Node packages
+node_modules

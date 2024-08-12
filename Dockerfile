@@ -7,7 +7,7 @@
 #WORKDIR /opt/qa-catalogue
 #RUN mvn clean install
 
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 LABEL maintainer="Péter Király <pkiraly@gwdg.de>, Ákos Takács <rimelek@rimelek.hu>, Jakob Voß <jakob.voss@gbv.de>"
 
@@ -72,8 +72,10 @@ RUN cd /opt \
  && mv /opt/qa-catalogue/setdir.sh.template /opt/qa-catalogue/setdir.sh \
  && sed -i.bak 's,BASE_INPUT_DIR=./input,BASE_INPUT_DIR=/opt/qa-catalogue/input,' /opt/qa-catalogue/setdir.sh \
  && sed -i.bak 's,BASE_OUTPUT_DIR=./output,BASE_OUTPUT_DIR=/opt/qa-catalogue/output,' /opt/qa-catalogue/setdir.sh \
- # install web application
- && apt-get update \
+ && mkdir -p /opt/qa-catalogue/input /opt/qa-catalogue/output
+
+# install web application
+RUN apt-get update \
  && apt-get install -y --no-install-recommends \
       locales \
       apache2 \
@@ -86,13 +88,10 @@ RUN cd /opt \
       unzip \
       composer \
       gettext \
- && locale-gen en_GB.UTF-8 \
- && locale-gen de_DE.UTF-8 \
- && locale-gen pt_BR.UTF-8 \
+ && locale-gen en_GB.UTF-8 && locale-gen de_DE.UTF-8 && locale-gen pt_BR.UTF-8 && locale-gen hu_HU.UTF-8 \
  && apt-get --assume-yes autoremove \
  && rm -rf /var/lib/apt/lists/* \
  && cd /var/www/html/ \
-# && curl -s -L https://github.com/pkiraly/qa-catalogue-web/archive/${QA_CATALOGUE_VERSION}.zip --output master.zip \
  && if [ "${QA_CATALOGUE_WEB_VERSION}" = "main" ]; then \
       curl -s -L https://github.com/pkiraly/qa-catalogue-web/archive/refs/heads/main.zip --output master.zip ; \
     elif [ "${QA_CATALOGUE_WEB_VERSION}" = "develop" ]; then \
@@ -103,7 +102,6 @@ RUN cd /opt \
  && ls -la \
  && unzip -q master.zip \
  && rm master.zip \
-# && mv qa-catalogue-web-0.4 qa-catalogue \
  && mv qa-catalogue-web-${QA_CATALOGUE_WEB_VERSION} qa-catalogue \
  && cd qa-catalogue \
  && composer install \

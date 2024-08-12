@@ -9,9 +9,3 @@ TYPE_PARAMS="--marcxml --emptyLargeCollectors --indexWithTokenizedField"
 MASK=kb-marc*.xml.gz
 
 . ./common-script
-
-if [[ "$1" != "help" ]]; then
-  echo "DONE"
-fi
-
-exit 0

@@ -1,4 +1,4 @@
 # Calling MARC formatter
 . ./common-variables
 
-java -cp $JAR de.gwdg.metadataqa.marc.cli.Formatter $@
+java $JAVA_OPTIONS -cp $JAR de.gwdg.metadataqa.marc.cli.Formatter $@

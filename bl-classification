@@ -1,4 +1,4 @@
 # Calling BL classification calculator
 . ./common-variables
 
-java -cp $JAR de.gwdg.metadataqa.marc.cli.BLClassificationAnalysis $@
+java $JAVA_OPTIONS -cp $JAR de.gwdg.metadataqa.marc.cli.BLClassificationAnalysis $@

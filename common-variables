@@ -1,3 +1,4 @@
+JAVA_OPTIONS="-DentityExpansionLimit=0 -DtotalEntitySizeLimit=0 -Djdk.xml.totalEntitySizeLimit=0"
 VERSION=0.8.0-SNAPSHOT
 JAR=target/qa-catalogue-${VERSION}-jar-with-dependencies.jar
 DIR=.

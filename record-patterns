@@ -1,4 +1,4 @@
 # Calling MARC record-patterns
 . ./common-variables
 
-java -cp $JAR de.gwdg.metadataqa.marc.cli.DataElements $@
+java $JAVA_OPTIONS -cp $JAR de.gwdg.metadataqa.marc.cli.DataElements $@

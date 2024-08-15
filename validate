@@ -120,7 +120,7 @@ if [[ $HELP -eq 1 ]]; then
   show_usage
 fi
 
-CMD="/usr/bin/java -Xmx8g $JAVA_OPTIONS -cp $JAR de.gwdg.metadataqa.marc.cli.ValidatorCli"
+CMD="/usr/bin/java -Xmx32g $JAVA_OPTIONS -cp $JAR de.gwdg.metadataqa.marc.cli.ValidatorCli"
 
 echo $CMD $PARAMS "$@"
 $CMD $PARAMS "$@"

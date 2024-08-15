@@ -104,7 +104,7 @@ if [[ $HELP -eq 1 ]]; then
   show_usage
 fi
 
-CMD="/usr/bin/java -Xmx2g $JAVA_OPTIONS -cp $JAR de.gwdg.metadataqa.marc.cli.FunctionalAnalysis"
+CMD="/usr/bin/java -Xmx8g $JAVA_OPTIONS -cp $JAR de.gwdg.metadataqa.marc.cli.FunctionalAnalysis"
 
 echo $CMD $PARAMS "$@"
 $CMD $PARAMS "$@"

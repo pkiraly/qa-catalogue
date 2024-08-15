@@ -1,4 +1,4 @@
 # Calling MappingToJson
 . ./common-variables
 
-java -Xmx2g $JAVA_OPTIONS -cp $JAR de.gwdg.metadataqa.marc.cli.utils.MappingToJson $@
+java -Xmx8g $JAVA_OPTIONS -cp $JAR de.gwdg.metadataqa.marc.cli.utils.MappingToJson $@

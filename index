@@ -202,7 +202,7 @@ curl -s $SOLR_URL/update -H "Content-type: text/xml" --data-binary '<commit/>'
 # ---END
 # EOT
 
-CMD="/usr/bin/java -Xmx2g $JAVA_OPTIONS -cp $JAR de.gwdg.metadataqa.marc.cli.MarcToSolr"
+CMD="/usr/bin/java -Xmx8g $JAVA_OPTIONS -cp $JAR de.gwdg.metadataqa.marc.cli.MarcToSolr"
 
 # echo $CMD $PARAMS "$@"
 # $CMD $PARAMS "$@"

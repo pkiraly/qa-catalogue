@@ -438,8 +438,8 @@ do_shacl4bib() {
   # note: SHACL specific parameters are missing here --shaclConfigurationFile, --shaclOutputType, --shaclOutputFile
   PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--ignorableIssueTypes [^ ]+|\s*--(indexWithTokenizedField|indexFieldCounts|solrUrl)//g')
   run shacl4bib
-  echo "  ./shacl4bib --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/shacl4bib.log"
-  ./shacl4bib --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/shacl4bib.log
+  echo "  ./shacl4bib --defaultRecordType BOOKS ${PARAMS} ${SHACL_PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/shacl4bib.log"
+  ./shacl4bib --defaultRecordType BOOKS ${PARAMS} ${SHACL_PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${PREFIX}/shacl4bib.log
   Rscript scripts/shacl4bib/shacl4bib.R ${OUTPUT_DIR}
 
   log "import issue details"

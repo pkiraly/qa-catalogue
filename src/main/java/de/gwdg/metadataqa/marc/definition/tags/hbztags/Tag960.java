@@ -80,7 +80,7 @@ public class Tag960 extends DataFieldDefinition {
     "oas", "ostasiatisch",
     "chin", "chinesisch (Orig.-schrift)",
     "jap", "japanisch (Orig.-schrift)",
-    "korea", "koreanisch (Orig.-schrift)",
+    "korea", "koreanisch (Orig.-schrift)"
     );
 
     getSubfield("i").setCodes(

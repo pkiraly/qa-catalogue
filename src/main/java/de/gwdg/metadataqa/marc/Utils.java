@@ -77,6 +77,7 @@ public class Utils {
       case "dnbtags":     version = MarcVersion.DNB;     break;
       case "fennicatags": version = MarcVersion.FENNICA; break;
       case "genttags":    version = MarcVersion.GENT;    break;
+      case "hbztags":     version = MarcVersion.HBZ;     break;      
       case "oclctags":    version = MarcVersion.OCLC;    break;
       case "sztetags":    version = MarcVersion.SZTE;    break;
       case "nkcrtags":    version = MarcVersion.NKCR;    break;

@@ -1,8 +1,5 @@
 package de.gwdg.metadataqa.marc.definition.tags.hbztags;
 
-import org.apache.spark.sql.catalyst.expressions.Month;
-import org.sparkproject.jetty.server.RequestLog.Collection;
-
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;

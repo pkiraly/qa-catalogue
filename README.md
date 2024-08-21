@@ -2166,7 +2166,7 @@ Parameters:
 * `-C <file>`, `--shaclConfigurationFile <file>`: specify the SHACL like configuration file
 * `-O <file>`, `--shaclOutputFile <file>`: output file (default: `shacl4bib.csv`)
 * `-P <type>`, `--shaclOutputType <type>`: specify what the output files should contain. Possible values:
-  * `STATUS`: status only, where the following values appear:
+  * `STATUS`: status only (default), where the following values appear:
     * `1` the criteria met,
     * `0` the criteria have not met,
     * `NA`: the data element is not available in the record),

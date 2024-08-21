@@ -31,7 +31,7 @@ public class UseCaseTest {
     List<String> definitions = UseCase.E02.getDataElelemntsNormalized();
     assertEquals(11, definitions.size());
     assertEquals(
-      List.of("110$e", "111$e", "100$e", "700$e", "710$e", "711$e", "720$e", "751$e", "752$e", "775$e", "788$e"),
+      List.of("100$e", "110$e", "111$e", "700$e", "710$e", "711$e", "720$e", "751$e", "752$e", "775$e", "788$e"),
       definitions);
   }
 

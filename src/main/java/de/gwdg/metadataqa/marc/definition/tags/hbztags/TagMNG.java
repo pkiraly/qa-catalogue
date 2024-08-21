@@ -36,7 +36,7 @@ public class TagMNG extends DataFieldDefinition {
     setSubfieldsWithCardinality(
       "a", "Created by subfield", "R",
       "b", "Create date subfield", "R",
-      "c", "Updated by subfield",
+      "c", "Updated by subfield", "R",
       "d", "Update date subfield", "R",
       "e", "Suppress from publishing subfield", "R",
       "f", "Originating system subfield", "R",

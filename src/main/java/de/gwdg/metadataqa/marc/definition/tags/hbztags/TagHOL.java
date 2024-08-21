@@ -36,7 +36,7 @@ public class TagHOL extends DataFieldDefinition {
     setSubfieldsWithCardinality(
       "a", "Created by subfield", "R",
       "b", "Create date subfield", "R",
-      "c", "Updated by subfield",
+      "c", "Updated by subfield", "R",
       "d", "Update date subfield", "R",
       "e", "Library name subfield", "R",
       "f", "Location name subfield", "R",

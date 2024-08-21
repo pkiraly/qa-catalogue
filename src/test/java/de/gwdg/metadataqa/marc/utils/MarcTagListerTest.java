@@ -37,6 +37,7 @@ public class MarcTagListerTest {
       MarcVersion version = Utils.getVersion(tag);
       DataFieldDefinition definition = TagDefinitionLoader.load(
         tag.getSimpleName().replace("Tag", ""), version);
+      assertNotNull("The definition for tag " + tag.getCanonicalName() + " should not be null", definition);
       assertEquals(tag.getSimpleName() + " should have the same tag", "Tag" + definition.getTag(), tag.getSimpleName());
 
       assertEquals(version, definition.getMarcVersion());

@@ -8,7 +8,4 @@
  */
 package de.gwdg.metadataqa.marc.definition.tags.hbztags;
 
-import de.gwdg.metadataqa.marc.definition.tags.dnbtags.*;
-
-
 //rest of the file is empty

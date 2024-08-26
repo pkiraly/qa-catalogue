@@ -1,4 +1,4 @@
-package de.gwdg.metadataqa.marc.definition.tags.dnbtags;
+package de.gwdg.metadataqa.marc.definition.tags.hbztags;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;

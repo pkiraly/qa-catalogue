@@ -31,7 +31,14 @@ public class TagGPN extends DataFieldDefinition {
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=949911658";
 
-    ind1 = new Indicator();
+    ind1 = new Indicator("Art der Eintragung des Personennamenelements")
+      .setCodes(
+        "0", "Vorname",
+        "1", "Nachname",
+        "3", "Familienname"
+      )
+      .setMqTag("artDerEintragungDesPersonennamenelements");
+
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(

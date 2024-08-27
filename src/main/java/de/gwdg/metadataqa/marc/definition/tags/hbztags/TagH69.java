@@ -31,8 +31,20 @@ public class TagH69 extends DataFieldDefinition {
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=949911658";
 
-    ind1 = new Indicator();
-    ind2 = new Indicator();
+    ind1 = new Indicator("Gruppe")
+    .setCodes(
+      "0", "Beginngruppe",
+      "1", "Endgruppe"
+    )
+    .setMqTag("gruppe");
+
+
+    ind2 = new Indicator("Status")
+    .setCodes(
+      "0", "abgeschlossen",
+      "1", "laufend"
+    )
+    .setMqTag("status");
 
     setSubfieldsWithCardinality(
       "8", "Sortierhilfe ", "NR",

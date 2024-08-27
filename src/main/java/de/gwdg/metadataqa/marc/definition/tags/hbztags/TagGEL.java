@@ -32,7 +32,11 @@ public class TagGEL extends DataFieldDefinition {
     descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=949911658";
 
     ind1 = new Indicator();
-    ind2 = new Indicator();
+    ind2 = new Indicator("Nichtsortierende Zeichen")
+    .setCodes(
+      "0", "Keine nichtsortierenden Zeichen"
+    )
+    .setMqTag("nichtsortierendeZeichen");
 
     setSubfieldsWithCardinality(
       "a", "Titel eines Werkes", "NR",

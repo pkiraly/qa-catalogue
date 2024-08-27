@@ -31,7 +31,12 @@ public class TagGSI extends DataFieldDefinition {
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=949911658";
 
-    ind1 = new Indicator();
+    ind1 = new Indicator("Art der Standard-Nummer oder des Codes")
+    .setCodes(
+      "7", "Quelle näher beschrieben im Unterfeld $2",
+      "8", "Unspezifizierte Art der Standardnummer oder des Codes"
+    )
+    .setMqTag("artDerStandard-NummerOderDesCodes");
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(

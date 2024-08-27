@@ -1,5 +1,7 @@
 package de.gwdg.metadataqa.marc.definition.tags.hbztags;
 
+import org.apache.hadoop.shaded.org.jline.builtins.telnet.Telnet;
+
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
@@ -30,8 +32,30 @@ public class TagH56 extends DataFieldDefinition {
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=949911658";
 
-    ind1 = new Indicator();
-    ind2 = new Indicator();
+    ind1 = new Indicator("Access method")
+    .setCodes(
+      " ", "No information provided",
+      "0", "Email",
+      "1", "FTP",
+      "2", "Remote login (Telnet)",
+      "3", "Dial-up",
+      "4", "HTTP",
+      "7", "Method specified in subfield $2"
+    )
+    .setMqTag("accessMethod");
+
+
+    ind2 = new Indicator("Relationship")
+    .setCodes(
+      " ", "No information provided",
+      "0", "Resource",
+      "1", "Version of resource",
+      "2", "Related resource",
+      "3", "Component part(s) of resource",
+      "4", "Version of component part(s) of resource",
+      "8", "No display constant generated"
+    )
+    .setMqTag("relationship");
 
     setSubfieldsWithCardinality(
 

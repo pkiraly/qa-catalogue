@@ -30,7 +30,13 @@ public class TagH83 extends DataFieldDefinition {
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=949911658";
 
-    ind1 = new Indicator();
+    ind1 = new Indicator("Privacy")
+    .setCodes(
+      " ", "No information provided",
+      "0", "Private",
+      "1", "Not Private"
+    )
+    .setMqTag("privacy");
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(

@@ -31,7 +31,13 @@ public class TagGKT extends DataFieldDefinition {
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=949911658";
 
-    ind1 = new Indicator();
+    ind1 = new Indicator("Art Körperschaftsnamens")
+    .setCodes(
+      "1", "Name einer Gebietskörperschaft",
+      "2", "Name einer Körperschaft"
+    )
+    .setMqTag("artKoerperschaftsnamens");
+    
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(

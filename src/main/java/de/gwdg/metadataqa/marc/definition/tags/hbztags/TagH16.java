@@ -30,7 +30,13 @@ public class TagH16 extends DataFieldDefinition {
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=949911658";
 
-    ind1 = new Indicator();
+    ind1 = new Indicator("National bibliographic agency")
+    .setCodes(
+      " ", "Library and Archives Canada",
+      "7", "Source specified in subfield $2"
+    )
+    .setMqTag("nationalBibliographicAgency");
+    
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(

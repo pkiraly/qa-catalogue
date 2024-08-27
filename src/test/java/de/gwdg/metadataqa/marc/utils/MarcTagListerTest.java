@@ -118,8 +118,8 @@ public class MarcTagListerTest {
     assertEquals( 12, (int) versionCounter2.get(MarcVersion.OGYK));
     assertEquals( 12, (int) versionCounter.get("ogyktags"));
 
-    assertEquals( 36, (int) versionCounter2.get(MarcVersion.HBZ));
-    assertEquals( 36, (int) versionCounter.get("hbztags"));    
+    assertEquals( 37, (int) versionCounter2.get(MarcVersion.HBZ));
+    assertEquals( 37, (int) versionCounter.get("hbztags"));    
 
     assertEquals(229, (int) versionCounter2.get(MarcVersion.MARC21));
     assertEquals(  2, (int) versionCounter.get("holdings"));

@@ -6,7 +6,8 @@ import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 
 /**
  *  Meeting Name (GKS) from ALMA Publishing GND Authority Enrichment
- * https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=949911658 based on PICA+ Version of https://wiki.dnb.de/pages/viewpage.action?pageId=50759357&preview=/50759357/100664310/411.pdf
+ * https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=949911658 based on MARC Version of https://wiki.dnb.de/pages/viewpage.action?pageId=50759357&preview=/50759357/100664310/411.pdf
+ * https://www.alma-dach.org/alma-marc/authority/411/411.html
  */
 public class TagGKS extends DataFieldDefinition {
 
@@ -34,21 +35,22 @@ public class TagGKS extends DataFieldDefinition {
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
-      "4", "GND-Code für Beziehungen", "NR",
-        "5", "Institution (ISIL), die Feld in besonderer Art verwendet", "R",
-        "a", "Hauptkonferenz", "NR",
-        "b", "Untergeordnete Einheit", "R",
-        "c", "Ort", "R",
-        "d", "Datum", "NR",
-        "g", "Zusatz", "R",
-        "L", "Sprachencode", "NR",
-        "v", "Bemerkungen, Regelwerk", "R",
-        "x", "Allgemeine Unterteilung (temporär durch Migration)", "R",
-        "T", "Feldzuordnung bei nicht-lateinischen Schriftzeichen", "NR",
-        "U", "Schriftcode bei nicht-lateinischen Schriftzeichen", "NR",
-        "A", "Vocabulary subfield", "R",
-        "B", "Authority ID subfield", "R",
-        "C", "Authority tag subfield","R"
+      "a", "Hauptkonferenzname", "NR",
+      "c", "Ort der Veranstaltung", "NR",
+      "d", "Datum", "NR",
+      "e", "Untergeordnete Einheit", "R",
+      "g", "Zusatz", "R",
+      "i", "Beziehungsphrase", "NR",
+      "j", "Funktionsbezeichnung", "R",
+      "n", "Zählung", "R",
+      "w", "Kontrollunterfeld", "NR",
+      "x", "Allgemeine Unterteilung", "R",
+      "4", "Beziehungscode", "R",
+      "5", "Institution, auf die sich das Feld bezieht", "R",
+      "9", "C: - Anwendungskontext (W), L: - Sprachcode (NW), U: - Schriftcode (NW), v: - Bemerkungen (W)", "R",
+      "A", "Vocabulary subfield", "R",
+      "B", "Authority ID subfield", "R",
+      "C", "Authority tag subfield","R"
     );
   }
 }

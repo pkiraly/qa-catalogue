@@ -6,7 +6,8 @@ import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 
 /**
  *   	Identifier/System Control Number (GSI) from ALMA Publishing GND Authority Enrichment
- * https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=949911658 based on PICA+ Version of https://wiki.dnb.de/pages/viewpage.action?pageId=50759357&preview=/50759357/100664257/024.pdf
+ * https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=949911658 based on MARC Version of https://wiki.dnb.de/pages/viewpage.action?pageId=50759357&preview=/50759357/100664257/024.pdfhttps://www.alma-dach.org/alma-marc/authority/024/024.html
+ * https://www.alma-dach.org/alma-marc/authority/024/024.html
  */
 public class TagGSI extends DataFieldDefinition {
 
@@ -34,12 +35,13 @@ public class TagGSI extends DataFieldDefinition {
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
-      "0", "Nummer/Code", "R",
-        "S", "Quelle/Code der Standardnummer", "NR",
-        "v", "Bemerkung", "NR",        
-        "A", "Vocabulary subfield", "R",
-        "B", "Authority ID subfield", "R",
-        "C", "Authority tag subfield","R"
+      "a", "Standardnummer oder Code", "NR",
+      "0", "Standardnummer oder Code", "NR",
+      "2", "Quelle der Nummer oder des Codes", "NR",
+      "9", "5: - Zuständige Institution (NW), C: - Anwendungskontext (W), v: - Bemerkungen (NW)", "R",   
+      "A", "Vocabulary subfield", "R",
+      "B", "Authority ID subfield", "R",
+      "C", "Authority tag subfield","R"
     );
   }
 }

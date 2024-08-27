@@ -6,7 +6,8 @@ import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 
 /**
  * Personal Name (GPN) - GND 400 from ALMA Publishing GND Authority Enrichment
- * https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=949911658 based on PICA+ Version of https://wiki.dnb.de/pages/viewpage.action?pageId=50759357&preview=/50759357/100664281/400.pdf
+ * https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=949911658 based on MARC Version of https://wiki.dnb.de/pages/viewpage.action?pageId=50759357&preview=/50759357/100664281/400.pdf
+ * https://www.alma-dach.org/alma-marc/authority/400/400.html
  */
 public class TagGPN extends DataFieldDefinition {
 
@@ -34,23 +35,20 @@ public class TagGPN extends DataFieldDefinition {
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
-      "4", "GND-Code für Beziehungen", "NR",
-        "5", "InstitutioNR(=ISIL), die Feld iNRbesonderer Art verwendet", "R",
-        "a", "Nachname", "NR",
-        "c", "Nachgestelltes Präfix", "NR",
-        "d", "Vorname", "NR",
-        "g", "Zusatz", "R",
-        "l", "Beiname, Gattungsname, Titulatur, Territorium", "NR",
-        "L", "Sprachencode", "NR",
-        "N", "Zählung", "NR",
-        "P", "Persönlicher Name", "NR",
-        "v", "Bemerkungen, Regelwerk", "R",
-        "x", "Allgemeine Unterteilung", "R",
-        "T", "Feldzuordnung bei nicht-lateinischen Schriftzeichen", "NR",
-        "U", "Schriftcode bei nicht-lateinischen Schriftzeichen", "NR",
-        "A", "Vocabulary subfield", "R",
-        "B", "Authority ID subfield", "R",
-        "C", "Authority tag subfield","R"
+      "a", "Personenname", "NR",
+      "b", "Zählung", "NR",
+      "c", "Titel und andere Wörter in Verbindung mit einem Namen", "R",
+      "d", "Datumsangaben in Verbindung mit einem Namen", "NR",
+      "e", "Funktionsbezeichnung", "R",
+      "i", "Beziehungsphrase", "NR",
+      "w", "Kontrollunterfeld", "NR",
+      "x", "Allgemeine Unterteilung", "R",
+      "4", "Beziehungscode", "R",
+      "5", "Institution, auf die sich das Feld bezieht ", "R",
+      "9", "C: - Anwendungskontext (W), L: - Sprachcode (NW), U: - Schriftcode (NW), v: - Bemerkungen (W)", "R",
+      "A", "Vocabulary subfield", "R",
+      "B", "Authority ID subfield", "R",
+      "C", "Authority tag subfield","R"
     );
   }
 }

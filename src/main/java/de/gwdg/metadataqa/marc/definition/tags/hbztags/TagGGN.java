@@ -6,7 +6,8 @@ import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 
 /**
  *  Geographic Name(GGN) from ALMA Publishing GND Authority Enrichment
- * https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=949911658 based on PICA+ Version of https://wiki.dnb.de/pages/viewpage.action?pageId=50759357&preview=/50759357/100664311/451.pdf
+ * https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=949911658 based on MARC Version of https://wiki.dnb.de/pages/viewpage.action?pageId=50759357&preview=/50759357/100664311/451.pdf
+ * https://www.alma-dach.org/alma-marc/authority/451/451.html
  */
 public class TagGGN extends DataFieldDefinition {
 
@@ -34,19 +35,18 @@ public class TagGGN extends DataFieldDefinition {
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
-      "4", "GND-Code für Beziehungen", "NR",
-        "5", "Institution (ISIL), die Feld in besonderer Art verwendet", "R",
-        "a", "Geografikum", "NR",
-        "g", "Zusatz", "R",
-        "L", "Sprachencode", "NR",
-        "v", "Bemerkungen, Regelwerk", "R",
-        "x", "Allgemeine Unterteilung (temporär durch Migration)", "R",
-        "z", "Geografische Untergliederung", "R",
-        "T", "Feldzuordnung bei nicht-lateinischen Schriftzeichen", "NR",
-        "U", "Schriftcode bei nicht-lateinischen Schriftzeichen", "NR",
-        "A", "Vocabulary subfield", "R",
-        "B", "Authority ID subfield", "R",
-        "C", "Authority tag subfield","R"
+      "a", "Name eines Geografikums", "NR",
+      "g", "Zusatz", "R",
+      "i", "Beziehungsphrase", "NR",
+      "w", "Kontrollunterfeld", "NR",
+      "x", "Allgemeine Unterteilung", "R",
+      "z", "Geografische Unterteilung", "R",
+      "4", "Beziehungscode", "R",
+      "5", "Institution, auf die sich das Feld bezieht", "R",
+      "9", "C: - Anwendungskontext (W), L: - Sprachcode (NW), U: - Schriftcode (NW), v: - Bemerkungen (NW)", "R",
+      "A", "Vocabulary subfield", "R",
+      "B", "Authority ID subfield", "R",
+      "C", "Authority tag subfield","R"
     );
   }
 }

@@ -5,8 +5,9 @@ import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 
 /**
- *   	LOCAL 695 (H95) from ALMA Publishing  Holdings information (Hxx)
+ *   Schlagwörter und Schlagwortketten (nicht RSWK) - LOCAL 695 (H95) from ALMA Publishing  Holdings information (Hxx)
  * https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=949911658
+ * https://www.alma-dach.org/alma-marc/holdings/695/695.html
  */
 public class TagH95 extends DataFieldDefinition {
 
@@ -33,14 +34,12 @@ public class TagH95 extends DataFieldDefinition {
     ind1 = new Indicator();
     ind2 = new Indicator();
 
-    // TODO: Needs to be adjusted:
-    // setSubfieldsWithCardinality(
-    //   "0", "Nummer/Code", "R",
-    //     "S", "Quelle/Code der Standardnummer", "NR",
-    //     "v", "Bemerkung", "NR",        
-    //     "A", "Vocabulary subfield", "R",
-    //     "B", "Authority ID subfield", "R",
-    //     "C", "Authority tag subfield","R"
-    // );
+    setSubfieldsWithCardinality(
+      "a", "...", "R",
+      "b", "...", "R",
+      "9", "...", "R",
+      "x", "...", "R",
+      "v", "...", "R"
+    );
   }
 }

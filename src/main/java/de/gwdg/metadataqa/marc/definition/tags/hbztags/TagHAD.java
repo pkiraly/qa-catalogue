@@ -6,7 +6,7 @@ import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 
 /**
  *   	Alte Drucke/Provenienz LOCAL 992 (HAD) from ALMA Publishing  Holdings information (Hxx)
- * https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=949911658
+ * https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=949911658 - https://www.alma-dach.org/alma-marc/holdings/992/992.html
  */
 public class TagHAD extends DataFieldDefinition {
 
@@ -33,14 +33,23 @@ public class TagHAD extends DataFieldDefinition {
     ind1 = new Indicator();
     ind2 = new Indicator();
 
-    // TODO: Needs to be adjusted:
-    // setSubfieldsWithCardinality(
-    //   "0", "Nummer/Code", "R",
-    //     "S", "Quelle/Code der Standardnummer", "NR",
-    //     "v", "Bemerkung", "NR",        
-    //     "A", "Vocabulary subfield", "R",
-    //     "B", "Authority ID subfield", "R",
-    //     "C", "Authority tag subfield","R"
-    // );
+
+    setSubfieldsWithCardinality(
+      "a", "Zweigstelle", "NR",
+      "b", "Exemplarspezifische bibliographische Angaben", "NR",
+      "c", "Illustration(en) /Buchmalerei Schreibstoff / Beschreibstoff Wasserzeichen", "NR",
+      "d", "Einband", "NR",
+      "e", "Exemplarhinweise", "NR",
+      "f", "Signaturvermerk", "NR",
+      "g", "Standortvermerk (Standort, Collection)", "NR",
+      "h", "Aufstellungssystematikvermerk", "NR",
+      "k", "Historische Kaufvermerke", "NR",
+      "l", "Literaturhinweise", "NR",
+      "m", "Marginalien", "NR",
+      "p", "Provenienz", "R",
+      "q", "Raubgutkennung (CV-Liste verfügbar)", "NR",
+      "r", "Restitutionsstatus (CV-Liste verfügbar)", "NR",
+      "s", "Alte Signatur", "R"
+    );
   }
-}
+} 

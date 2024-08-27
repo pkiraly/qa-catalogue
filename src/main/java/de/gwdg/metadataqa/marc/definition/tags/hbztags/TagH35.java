@@ -1,5 +1,7 @@
 package de.gwdg.metadataqa.marc.definition.tags.hbztags;
 
+import org.apache.spark.internal.config.R;
+
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
@@ -33,14 +35,11 @@ public class TagH35 extends DataFieldDefinition {
     ind1 = new Indicator();
     ind2 = new Indicator();
 
-    // TODO: Needs to be adjusted:
-    // setSubfieldsWithCardinality(
-    //   "0", "Nummer/Code", "R",
-    //     "S", "Quelle/Code der Standardnummer", "NR",
-    //     "v", "Bemerkung", "NR",        
-    //     "A", "Vocabulary subfield", "R",
-    //     "B", "Authority ID subfield", "R",
-    //     "C", "Authority tag subfield","R"
-    // );
+    setSubfieldsWithCardinality(
+      "a", "System control number", "NR",
+      "z", "Canceled or invalid control number", "R",
+      "6", "Linkage", "NR",
+      "8", "Field link and sequence number", "R"
+    );
   }
 }

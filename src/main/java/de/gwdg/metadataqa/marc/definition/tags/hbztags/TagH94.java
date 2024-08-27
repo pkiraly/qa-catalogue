@@ -5,8 +5,9 @@ import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 
 /**
- *   	LOCAL 094 (H94) from ALMA Publishing  Holdings information (Hxx)
+ *  Lokale Notation - LOCAL 094 (H94) from ALMA Publishing  Holdings information (Hxx)
  * https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=949911658
+ * https://www.alma-dach.org/alma-marc/holdings/094/094.html
  */
 public class TagH94 extends DataFieldDefinition {
 
@@ -33,14 +34,9 @@ public class TagH94 extends DataFieldDefinition {
     ind1 = new Indicator();
     ind2 = new Indicator();
 
-    // TODO: Needs to be adjusted:
-    // setSubfieldsWithCardinality(
-    //   "0", "Nummer/Code", "R",
-    //     "S", "Quelle/Code der Standardnummer", "NR",
-    //     "v", "Bemerkung", "NR",        
-    //     "A", "Vocabulary subfield", "R",
-    //     "B", "Authority ID subfield", "R",
-    //     "C", "Authority tag subfield","R"
-    // );
+
+    setSubfieldsWithCardinality(
+       "a", "Notation", "R"
+       );
   }
 }

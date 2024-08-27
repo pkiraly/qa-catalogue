@@ -33,14 +33,28 @@ public class TagH83 extends DataFieldDefinition {
     ind1 = new Indicator();
     ind2 = new Indicator();
 
-    // TODO: Needs to be adjusted:
-    // setSubfieldsWithCardinality(
-    //   "0", "Nummer/Code", "R",
-    //     "S", "Quelle/Code der Standardnummer", "NR",
-    //     "v", "Bemerkung", "NR",        
-    //     "A", "Vocabulary subfield", "R",
-    //     "B", "Authority ID subfield", "R",
-    //     "C", "Authority tag subfield","R"
-    // );
+    setSubfieldsWithCardinality(
+      "a", "Action", "NR",
+      "b", "Action identification", "R",
+      "c", "Time/date of action", "R",
+      "d", "Action interval", "R",
+      "e", "Contingency for action", "R",
+      "f", "Authorization", "R",
+      "h", "Jurisdiction", "R",
+      "i", "Method of action", "R",
+      "j", "Site of action", "R",
+      "k", "Action agent", "R",
+      "l", "Status", "R", 
+      "n", "Extent", "R",
+      "o", "Type of unit", "R",
+      "u", "Uniform Resource Identifier", "R",
+      "x", "Nonpublic note", "R",
+      "z", "Public note", "R",
+      "2", "Source of term", "NR",
+      "3", "Materials specified", "NR",
+      "5", "Institution to which field applies", "NR",
+      "6", "Linkage", "NR",
+      "8", "Field link and sequence number", "R"
+    );
   }
 }

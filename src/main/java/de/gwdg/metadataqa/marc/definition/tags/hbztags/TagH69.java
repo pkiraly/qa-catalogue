@@ -5,8 +5,9 @@ import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 
 /**
- *   	LOCAL 869 (H69) from ALMA Publishing  Holdings information (Hxx)
+ *   Lizenzzeiträume in normierter Form	LOCAL 869 (H69) from ALMA Publishing  Holdings information (Hxx)
  * https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=949911658
+ * https://www.alma-dach.org/alma-marc/holdings/869/869.html
  */
 public class TagH69 extends DataFieldDefinition {
 
@@ -33,14 +34,15 @@ public class TagH69 extends DataFieldDefinition {
     ind1 = new Indicator();
     ind2 = new Indicator();
 
-    // TODO: Needs to be adjusted:
-    // setSubfieldsWithCardinality(
-    //   "0", "Nummer/Code", "R",
-    //     "S", "Quelle/Code der Standardnummer", "NR",
-    //     "v", "Bemerkung", "NR",        
-    //     "A", "Vocabulary subfield", "R",
-    //     "B", "Authority ID subfield", "R",
-    //     "C", "Authority tag subfield","R"
-    // );
+    setSubfieldsWithCardinality(
+      "8", "Sortierhilfe ", "NR",
+      "9", "interne Feldnummerierung", "NR",
+      "y", "Moving Wall", "NR",
+      "a", "Bandzählung", "NR",
+      "b", "Heftzählung", "NR",
+      "j", "Monatszählung", "NR",
+      "k", "Tageszählung", "NR",
+      "i", "Jahreszählung", "NR"
+    );
   }
 }

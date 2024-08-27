@@ -33,14 +33,20 @@ public class TagH43 extends DataFieldDefinition {
     ind1 = new Indicator();
     ind2 = new Indicator();
 
-    // TODO: Needs to be adjusted:
-    // setSubfieldsWithCardinality(
-    //   "0", "Nummer/Code", "R",
-    //     "S", "Quelle/Code der Standardnummer", "NR",
-    //     "v", "Bemerkung", "NR",        
-    //     "A", "Vocabulary subfield", "R",
-    //     "B", "Authority ID subfield", "R",
-    //     "C", "Authority tag subfield","R"
-    // );
+    setSubfieldsWithCardinality(
+      "a", "Type of reproduction", "NR",
+      "b", "Place of reproduction", "R",
+      "c", "Agency responsible for reproduction", "R",
+      "d", "Date of reproduction", "NR",
+      "e", "Physical description of reproduction", "NR",
+      "f", "Series statement of reproduction", "R",
+      "m", "Dates of publication and/or sequential designation of issues reproduced", "R",
+      "n", "Note about reproduction", "R",
+      "3", "Materials specified", "NR",
+      "5", "Institution to which field applies", "NR",
+      "6", "Linkage", "NR", 
+      "7", "Fixed-length data elements of reproduction", "NR",
+      "8", "Field link and sequence number", "R"
+    );
   }
 }

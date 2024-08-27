@@ -5,8 +5,9 @@ import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 
 /**
- *   	LOCAL 859 (H59) from ALMA Publishing  Holdings information (Hxx)
+ *  normierte Bestandsangaben 	LOCAL 859 (H59) from ALMA Publishing  Holdings information (Hxx)
  * https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=949911658
+ * https://www.alma-dach.org/alma-marc/holdings/859/859.html
  */
 public class TagH59 extends DataFieldDefinition {
 
@@ -33,14 +34,10 @@ public class TagH59 extends DataFieldDefinition {
     ind1 = new Indicator();
     ind2 = new Indicator();
 
-    // TODO: Needs to be adjusted:
-    // setSubfieldsWithCardinality(
-    //   "0", "Nummer/Code", "R",
-    //     "S", "Quelle/Code der Standardnummer", "NR",
-    //     "v", "Bemerkung", "NR",        
-    //     "A", "Vocabulary subfield", "R",
-    //     "B", "Authority ID subfield", "R",
-    //     "C", "Authority tag subfield","R"
-    // );
+    setSubfieldsWithCardinality(
+      "8", "Sortierhilfe", "NR",
+      "a", "Bandzählung", "NR",
+      "i", "Berichtsjahr", "NR"
+    );
   }
 }

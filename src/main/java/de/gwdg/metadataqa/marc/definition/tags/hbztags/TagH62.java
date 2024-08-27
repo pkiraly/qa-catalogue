@@ -33,14 +33,16 @@ public class TagH62 extends DataFieldDefinition {
     ind1 = new Indicator();
     ind2 = new Indicator();
 
-    // TODO: Needs to be adjusted:
-    // setSubfieldsWithCardinality(
-    //   "0", "Nummer/Code", "R",
-    //     "S", "Quelle/Code der Standardnummer", "NR",
-    //     "v", "Bemerkung", "NR",        
-    //     "A", "Vocabulary subfield", "R",
-    //     "B", "Authority ID subfield", "R",
-    //     "C", "Authority tag subfield","R"
-    // );
+    setSubfieldsWithCardinality(
+      "a", "Identifying markings", "R",
+      "b", "Copy identification", "R",
+      "c", "Version identification", "R",
+      "d", "Presentation format", "R",
+      "e", "Number of copies", "R", 
+      "3", "Materials specified", "NR",
+      "5", "Institution to which field applies", "NR",
+      "6", "Linkage", "NR",
+      "8", "Field link and sequence number", "R"
+    );
   }
 }

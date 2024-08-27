@@ -33,14 +33,15 @@ public class TagH24 extends DataFieldDefinition {
     ind1 = new Indicator();
     ind2 = new Indicator();
 
-    // TODO: Needs to be adjusted:
-    // setSubfieldsWithCardinality(
-    //   "0", "Nummer/Code", "R",
-    //     "S", "Quelle/Code der Standardnummer", "NR",
-    //     "v", "Bemerkung", "NR",        
-    //     "A", "Vocabulary subfield", "R",
-    //     "B", "Authority ID subfield", "R",
-    //     "C", "Authority tag subfield","R"
-    // );
+    setSubfieldsWithCardinality(
+    "a", "Standard number or code", "NR",
+    "c", "Terms of availability", "NR",
+    "d", "Additional codes following the standard number or code", "NR",
+    "q", "Qualifying information", "R",
+    "z", "Canceled/invalid standard number or code", "R",
+    "2", "Source of number or code", "NR",
+    "6", "Linkage", "NR",
+    "8", "Field link and sequence number", "R"
+    );
   }
 }

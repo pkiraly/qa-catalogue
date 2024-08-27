@@ -33,14 +33,35 @@ public class TagH56 extends DataFieldDefinition {
     ind1 = new Indicator();
     ind2 = new Indicator();
 
-    // TODO: Needs to be adjusted:
-    // setSubfieldsWithCardinality(
-    //   "0", "Nummer/Code", "R",
-    //     "S", "Quelle/Code der Standardnummer", "NR",
-    //     "v", "Bemerkung", "NR",        
-    //     "A", "Vocabulary subfield", "R",
-    //     "B", "Authority ID subfield", "R",
-    //     "C", "Authority tag subfield","R"
-    // );
+    setSubfieldsWithCardinality(
+
+    "a", "Host name", "R",
+    "c", "Compression information", "R",
+    "d", "Path", "R",
+    "f", "Electronic name", "R",
+    "g", "Persistent identifier", "R",
+    "h", "Non-functioning Uniform Resource Identifier", "R",
+    "l", "Standardized information governing access", "R",
+    "m", "Contact for access assistance", "R",
+    "n", "Terms governing access", "R",
+    "o", "Operating system", "NR",
+    "p", "Port", "NR",
+    "q", "Electronic format type", "R",
+    "r", "Standardized information governing use and reproduction", "R",
+    "s", "File size", "R",
+    "t", "Terms governing use and reproduction", "R",
+    "u", "Uniform Resource Identifier", "R",
+    "v", "Hours access method available", "R",
+    "w", "Record control number", "R",
+    "x", "Nonpublic note", "R",
+    "y", "Link text", "R",
+    "z", "Public note", "R",
+    "2", "Access method", "NR",
+    "3", "Materials specified", "NR",
+    "6", "Linkage", "NR",
+    "7", "Access status", "NR",
+    "8", "Field link and sequence number", "R"
+
+    );
   }
 }

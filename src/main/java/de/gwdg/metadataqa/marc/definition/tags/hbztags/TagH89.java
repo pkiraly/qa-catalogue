@@ -5,7 +5,7 @@ import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 
 /**
- *   	LOCAL 689 (H89) from ALMA Publishing  Holdings information (Hxx)
+ *   	RSWK-Schlagwortketten 	LOCAL 689 (H89) from ALMA Publishing  Holdings information (Hxx)
  * https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=949911658
  */
 public class TagH89 extends DataFieldDefinition {

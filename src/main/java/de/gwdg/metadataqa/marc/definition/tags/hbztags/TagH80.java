@@ -33,14 +33,19 @@ public class TagH80 extends DataFieldDefinition {
     ind1 = new Indicator();
     ind2 = new Indicator();
 
-    // TODO: Needs to be adjusted:
+    // TODO: Needs to be adjusted, element is not defined:
     // setSubfieldsWithCardinality(
-    //   "0", "Nummer/Code", "R",
-    //     "S", "Quelle/Code der Standardnummer", "NR",
-    //     "v", "Bemerkung", "NR",        
-    //     "A", "Vocabulary subfield", "R",
-    //     "B", "Authority ID subfield", "R",
-    //     "C", "Authority tag subfield","R"
+    //  H80  $8
+    //  H80  $a 
+    //  H80  $b 
+    //  H80  $d 
+    //  H80  $k 
+    //  H80  $n 
+    //  H80  $o 
+    //  H80  $p 
+    //  H80  $q 
+    //  H80  $r 
+    //  H80  $t 
     // );
   }
 }

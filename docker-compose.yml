@@ -10,6 +10,8 @@ services:
     volumes:
       - ./${INPUT:-input}:/opt/qa-catalogue/input
       - ./${OUTPUT:-output}:/opt/qa-catalogue/output
+      - ./logs:/opt/qa-catalogue/logs
+      - ./solr:/opt/solr
       - ./catalogues:/opt/qa-catalogue/catalogues
       - ./web-classes/catalogue:/var/www/html/qa-catalogue/classes/catalogue
       - ./${WEBBCONFIG:-web-config}:/var/www/html/qa-catalogue/config

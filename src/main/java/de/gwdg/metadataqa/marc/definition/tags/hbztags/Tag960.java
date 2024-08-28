@@ -33,18 +33,18 @@ public class Tag960 extends DataFieldDefinition {
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
-      "b",	"bibliographische Sachverhalte", "R",
-      "d",	"lizenzfreie Online-Dissertationen", "R",
-      "f",	"fremdsprachige Titel", "R",
-      "i",	"Internet-Ressourcen", "R",
-      "n",	"Nordrhein-Westfälische Bibliographie", "R",
-      "o",	"Offline-Datenübernahmen", "R",
-      "r",	"frei definierbare Selektionskennzeichen für Bibliotheken", "R",	
-      "s",	"Sammlung E-Paper (DNB-Codierung ep)", "R",	
-      "u",	"Lizenzhistorie EBooks:Produktsigel", "R",
-      "v",	"Lizenzhistorie EBooks:      Lizenzjahr (NW)", "R",
-      "w",	"Lizenzhistorie EBooks:  Datum Aufbau des Feldes Lizenzhistorie Books", "R",
-      "z",	"SelektionskennzeichenZDB", "R"
+      "b", "bibliographische Sachverhalte", "R",
+      "d", "lizenzfreie Online-Dissertationen", "R",
+      "f", "fremdsprachige Titel", "R",
+      "i", "Internet-Ressourcen", "R",
+      "n", "Nordrhein-Westfälische Bibliographie", "R",
+      "o", "Offline-Datenübernahmen", "R",
+      "r", "frei definierbare Selektionskennzeichen für Bibliotheken", "R", 
+      "s", "Sammlung E-Paper (DNB-Codierung ep)", "R", 
+      "u", "Lizenzhistorie EBooks:Produktsigel", "R",
+      "v", "Lizenzhistorie EBooks:      Lizenzjahr (NW)", "R",
+      "w", "Lizenzhistorie EBooks:  Datum Aufbau des Feldes Lizenzhistorie Books", "R",
+      "z", "SelektionskennzeichenZDB", "R"
     );
 
     getSubfield("b").setCodes(

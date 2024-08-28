@@ -33,7 +33,7 @@ public class Tag962 extends DataFieldDefinition {
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
-      "e",	"Selektionskennzeichen EBooks, Digitalisate", "R"
+      "e", "Selektionskennzeichen EBooks, Digitalisate", "R"
     );
 
   }

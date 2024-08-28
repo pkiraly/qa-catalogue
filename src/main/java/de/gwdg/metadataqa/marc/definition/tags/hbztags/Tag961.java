@@ -33,7 +33,7 @@ public class Tag961 extends DataFieldDefinition {
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
-      "a",	"Sonstige Standardnummer", "R"
+      "a", "Sonstige Standardnummer", "R"
     );
 
   }

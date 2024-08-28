@@ -33,9 +33,9 @@ public class Tag964 extends DataFieldDefinition {
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
-      "A",	"A", "R",
-      "F",	"F", "R",
-      "V",	"V", "R"
+      "A", "A", "R",
+      "F", "F", "R",
+      "V", "V", "R"
     );
 
   }

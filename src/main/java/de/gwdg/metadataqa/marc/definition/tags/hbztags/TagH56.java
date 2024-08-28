@@ -1,7 +1,5 @@
 package de.gwdg.metadataqa.marc.definition.tags.hbztags;
 
-import org.apache.hadoop.shaded.org.jline.builtins.telnet.Telnet;
-
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;

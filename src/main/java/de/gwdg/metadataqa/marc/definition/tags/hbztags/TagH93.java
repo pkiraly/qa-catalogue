@@ -44,7 +44,7 @@ public class TagH93 extends DataFieldDefinition {
       "f", "Angaben zum Lizenztyp", "NR",
       "g", "Angaben zum Preistyp", "NR",
       "h", "Kommentar zu Dokument-, Lizenz- und Preistyp", "NR",
-      "8", "ALMA MMS ID linking HOL to HXX elements"
+      "8", "ALMA MMS ID linking HOL to HXX elements","R"
     );
   }
 }

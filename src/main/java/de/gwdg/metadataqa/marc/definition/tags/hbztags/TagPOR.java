@@ -64,7 +64,7 @@ public class TagPOR extends DataFieldDefinition {
       "M", "Member code subfield", "R",
       "A", "Available for Institution subfield", "R",
       "S", "Service ID subfield", "R",
-      "8", "ALMA MMS ID linking POR"
+      "8", "ALMA MMS ID linking POR", "R"
 
   );
   }

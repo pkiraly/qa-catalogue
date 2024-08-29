@@ -37,6 +37,6 @@ public class Tag290 extends DataFieldDefinition {
       "a", "Incipit der Unterlage", "R",
       "b", "Einheitsincipit", "R",
       "c", "Ausreifung / Entstehungsstufe", "R"
-    )
+    );
   }
 }

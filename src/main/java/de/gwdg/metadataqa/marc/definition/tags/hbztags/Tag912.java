@@ -36,6 +36,6 @@ public class Tag912 extends DataFieldDefinition {
     setSubfieldsWithCardinality(
       "a", "Kennzeichnungen für Nationallizenzen und digitale Sammlungen", "NR",
       "b", "Lizenzjahr", "NR"
-    )
+    );
   }
 }

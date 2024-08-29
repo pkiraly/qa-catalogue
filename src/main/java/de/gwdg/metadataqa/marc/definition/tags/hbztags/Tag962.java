@@ -26,7 +26,7 @@ public class Tag962 extends DataFieldDefinition {
     tag = "962";
     label = "Selektionskennzeichen EBooks, Digitalisate";
     mqTag = "SelektionskennzeichenEBooksDigitalisate";
-    cardinality = Cardinality.Nonrepeatable;
+    cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://service-wiki.hbz-nrw.de/display/VDBE/962+-+Selektionskennzeichen+EBooks%2C+Digitalisate";
 
     ind1 = new Indicator();

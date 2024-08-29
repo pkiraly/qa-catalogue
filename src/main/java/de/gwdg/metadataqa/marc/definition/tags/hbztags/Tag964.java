@@ -26,11 +26,20 @@ public class Tag964 extends DataFieldDefinition {
     tag = "964";
     label = "In Aleph benötigte Informationen (Wickelfeld)";
     mqTag = "InAlephbenötigteInformationenWickelfeld";
-    cardinality = Cardinality.Nonrepeatable;
+    cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=724304028";
 
-    ind1 = new Indicator();
-    ind2 = new Indicator();
+    ind1 = new Indicator();    ind1 = new Indicator("undefined")
+    .setCodes(  
+      "0", "..."
+    )
+    .setMqTag("undefined");
+    ind2 = new Indicator("undefined")
+    .setCodes(  
+      "s", "...",
+      "u", "..."     
+    )
+    .setMqTag("undefined");
 
     setSubfieldsWithCardinality(
       "A", "A", "R",

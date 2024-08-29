@@ -41,7 +41,8 @@ public class TagHOL extends DataFieldDefinition {
       "e", "Library name subfield", "R",
       "f", "Location name subfield", "R",
       "g", "Suppress from publishing subfield", "R",
-      "M", "Member code subfield", "R"
+      "M", "Member code subfield", "R",
+      "8", "ALMA MMS ID linking HOL to HXX elements"
     );
   }
 }

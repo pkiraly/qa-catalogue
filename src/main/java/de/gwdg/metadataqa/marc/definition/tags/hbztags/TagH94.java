@@ -36,7 +36,8 @@ public class TagH94 extends DataFieldDefinition {
 
 
     setSubfieldsWithCardinality(
-       "a", "Notation", "R"
+       "a", "Notation", "R",
+      "8", "ALMA MMS ID linking HOL to HXX elements"
        );
   }
 }

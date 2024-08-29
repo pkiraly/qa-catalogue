@@ -46,7 +46,8 @@ public class TagH92 extends DataFieldDefinition {
         "u", "SSG-Nummer und/oder Angaben zur DFG-Förderung", "NR",
         "w", "SSG-Notation", "R",
         "y", "ZDB-Prioritätszahl", "R",
-        "z", "Finanzierungsart", "NR"
+        "z", "Finanzierungsart", "NR",
+      "8", "ALMA MMS ID linking HOL to HXX elements"
     );
   }
 }

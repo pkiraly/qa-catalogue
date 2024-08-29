@@ -39,7 +39,8 @@ public class TagH95 extends DataFieldDefinition {
       "b", "...", "R",
       "9", "...", "R",
       "x", "...", "R",
-      "v", "...", "R"
+      "v", "...", "R",
+      "8", "ALMA MMS ID linking HOL to HXX elements"
     );
   }
 }

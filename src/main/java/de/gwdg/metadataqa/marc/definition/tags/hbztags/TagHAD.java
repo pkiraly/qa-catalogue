@@ -49,7 +49,8 @@ public class TagHAD extends DataFieldDefinition {
       "p", "Provenienz", "R",
       "q", "Raubgutkennung (CV-Liste verfügbar)", "NR",
       "r", "Restitutionsstatus (CV-Liste verfügbar)", "NR",
-      "s", "Alte Signatur", "R"
+      "s", "Alte Signatur", "R",
+      "8", "ALMA MMS ID linking HOL to HXX elements"
     );
   }
 } 

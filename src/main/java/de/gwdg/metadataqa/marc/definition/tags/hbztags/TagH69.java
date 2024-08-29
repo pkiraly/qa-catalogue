@@ -54,7 +54,8 @@ public class TagH69 extends DataFieldDefinition {
       "b", "Heftzählung", "NR",
       "j", "Monatszählung", "NR",
       "k", "Tageszählung", "NR",
-      "i", "Jahreszählung", "NR"
+      "i", "Jahreszählung", "NR",
+      "8", "ALMA MMS ID linking HOL to HXX elements"
     );
   }
 }

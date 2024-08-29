@@ -49,7 +49,8 @@ public class TagH59 extends DataFieldDefinition {
     setSubfieldsWithCardinality(
       "8", "Sortierhilfe", "NR",
       "a", "Bandzählung", "NR",
-      "i", "Berichtsjahr", "NR"
+      "i", "Berichtsjahr", "NR",
+      "8", "ALMA MMS ID linking HOL to HXX elements"
     );
   }
 }

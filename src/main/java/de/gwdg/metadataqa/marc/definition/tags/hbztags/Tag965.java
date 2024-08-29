@@ -25,7 +25,7 @@ public class Tag965 extends DataFieldDefinition {
   private void initialize() {
     tag = "965";
     label = "Inhaltsverzeichnis URL für Primo";
-    mqTag = "inhaltsverzeichnisURLFürPrimo";
+    mqTag = "InhaltsverzeichnisURLFürPrimo";
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=724304028";
 

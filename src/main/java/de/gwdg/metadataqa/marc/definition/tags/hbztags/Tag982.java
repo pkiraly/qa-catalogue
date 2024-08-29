@@ -25,7 +25,7 @@ public class Tag982 extends DataFieldDefinition {
   private void initialize() {
     tag = "982";
     label = "Lokales Schlagwort";
-    mqTag = "lokalesSchlagwort";
+    mqTag = "LokalesSchlagwort";
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=518750316";
 

@@ -20,7 +20,7 @@ public class Tag991 extends DataFieldDefinition {
   private void initialize() {
     tag = "991";
     label = "Bemerkung intern";
-    mqTag = "bemerkungintern";
+    mqTag = "Bemerkungintern";
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=518750316";	
     

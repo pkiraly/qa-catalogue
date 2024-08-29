@@ -20,7 +20,7 @@ public class Tag988 extends DataFieldDefinition {
   private void initialize() {
     tag = "988";
     label = "Digitalisierungsangaben";
-    mqTag = "digitalisierungsangaben";
+    mqTag = "Digitalisierungsangaben";
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=518750316";	
     

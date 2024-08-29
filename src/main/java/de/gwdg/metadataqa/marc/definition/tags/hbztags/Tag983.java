@@ -25,7 +25,7 @@ public class Tag983 extends DataFieldDefinition {
   private void initialize() {
     tag = "983";
     label = "Lokale Notation";
-    mqTag = "lokaleNotation";
+    mqTag = "LokaleNotation";
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=518750316";
 

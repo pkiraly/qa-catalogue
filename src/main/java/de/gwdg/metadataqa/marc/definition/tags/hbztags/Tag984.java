@@ -25,7 +25,7 @@ public class Tag984 extends DataFieldDefinition {
   private void initialize() {
     tag = "984";
     label = "Provenienzen: Mit dem Exemplar in Beziehung stehende Person/Körperschaft,  Sammlungen";
-    mqTag = "provenienzenBezugPerson";
+    mqTag = "ProvenienzenBezugPerson";
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=518750316";
 

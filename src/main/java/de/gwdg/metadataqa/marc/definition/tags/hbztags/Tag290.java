@@ -26,7 +26,7 @@ public class Tag290 extends DataFieldDefinition {
   private void initialize() {
     tag = "290";
     label = "Angabe zum Text der Unterlage";
-    mqTag = "angabeZumTextDerUnterlage";
+    mqTag = "AngabeZumTextDerUnterlage";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=525369446";
 

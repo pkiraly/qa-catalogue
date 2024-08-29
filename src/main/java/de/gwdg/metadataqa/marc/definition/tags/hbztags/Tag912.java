@@ -26,7 +26,7 @@ public class Tag912 extends DataFieldDefinition {
   private void initialize() {
     tag = "912";
     label = "Produktsigel";
-    mqTag = "produktsigel";
+    mqTag = "Produktsigel";
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=525369446";
 

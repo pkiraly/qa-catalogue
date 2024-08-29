@@ -25,7 +25,7 @@ public class Tag981 extends DataFieldDefinition {
   private void initialize() {
     tag = "981";
     label = "Systemnummer alt";
-    mqTag = "systemnummerAlt";
+    mqTag = "SystemnummerAlt";
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=518750316";
 

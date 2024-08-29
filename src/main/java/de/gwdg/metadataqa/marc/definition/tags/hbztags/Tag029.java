@@ -27,7 +27,7 @@ public class Tag029 extends DataFieldDefinition {
     label = "Weitere internationale Standardnummer(n) für fortlaufende Sammelwerke (ISSN)";
     mqTag = "WeitereinternationaleStandardnummernfürfortlaufendeSammelwerkeISSN";
     cardinality = Cardinality.Repeatable;
-    // descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=525369446";
+    descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=525369446";
 
     ind1 = new Indicator();
     ind2 = new Indicator();

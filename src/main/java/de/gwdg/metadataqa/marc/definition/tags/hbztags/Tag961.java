@@ -27,7 +27,7 @@ public class Tag961 extends DataFieldDefinition {
     label = "Sonstige Standardnummer";
     mqTag = "SonstigeStandardnummer";
     cardinality = Cardinality.Repeatable;
-    // descriptionUrl = "https://service-wiki.hbz-nrw.de/nebenbei/cgi/anonymous_display_only.pl?pageId=717357250";
+    descriptionUrl = "https://service-wiki.hbz-nrw.de/nebenbei/cgi/anonymous_display_only.pl?pageId=717357250";
 
     ind1 = new Indicator();
     ind2 = new Indicator();

@@ -27,7 +27,7 @@ public class Tag997 extends DataFieldDefinition {
     label = "Aufnahmedatum, Aufnahmejahr";
     mqTag = "AufnahmedatumAufnahmejahr";
     cardinality = Cardinality.Nonrepeatable;
-    // descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=518750316";
+    descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=518750316";
 
     ind1 = new Indicator();
     ind2 = new Indicator();

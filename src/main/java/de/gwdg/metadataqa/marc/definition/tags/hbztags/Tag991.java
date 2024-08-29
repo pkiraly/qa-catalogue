@@ -22,7 +22,7 @@ public class Tag991 extends DataFieldDefinition {
     label = "Bemerkung intern";
     mqTag = "Bemerkungintern";
     cardinality = Cardinality.Repeatable;
-    // descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=518750316";	
+    descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=518750316";	
     
     ind1 = new Indicator();
     ind2 = new Indicator();	

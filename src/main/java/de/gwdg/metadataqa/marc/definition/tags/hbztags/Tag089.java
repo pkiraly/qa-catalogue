@@ -27,7 +27,7 @@ public class Tag089 extends DataFieldDefinition {
     label = "Dewey Decimal Classification Number (analytisch)";
     mqTag = "DeweyDecimalClassificationNumberAnalytisch";
     cardinality = Cardinality.Repeatable;
-    // descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=525369446";
+    descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=525369446";
 
     ind1 = new Indicator("Ausgabe")
     .setCodes(

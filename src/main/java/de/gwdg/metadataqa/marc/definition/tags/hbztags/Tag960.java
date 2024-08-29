@@ -27,7 +27,7 @@ public class Tag960 extends DataFieldDefinition {
     label = "Selektionskennzeichen NZ";
     mqTag = "SelektionskennzeichenNZ";
     cardinality = Cardinality.Repeatable;
-    // descriptionUrl = "https://service-wiki.hbz-nrw.de/nebenbei/cgi/anonymous_display_only.pl?pageId=706314428";
+    descriptionUrl = "https://service-wiki.hbz-nrw.de/nebenbei/cgi/anonymous_display_only.pl?pageId=706314428";
 
     ind1 = new Indicator("notDefined")
     .setCodes(

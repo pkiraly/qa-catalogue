@@ -27,7 +27,7 @@ public class Tag993 extends DataFieldDefinition {
     label = "Deskriptor";
     mqTag = "Deskriptor";
     cardinality = Cardinality.Repeatable;
-    // descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=518750316";
+    descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=518750316";
 
     ind1 = new Indicator("undefined")
     .setCodes(  

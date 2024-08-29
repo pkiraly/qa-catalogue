@@ -27,7 +27,7 @@ public class Tag090 extends DataFieldDefinition {
     label = "Weitere Codierungen";
     mqTag = "WeitereCodierungen";
     cardinality = Cardinality.Nonrepeatable;
-    // descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=525369446";
+    descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=525369446";
 
     ind1 = new Indicator();
     ind2 = new Indicator();

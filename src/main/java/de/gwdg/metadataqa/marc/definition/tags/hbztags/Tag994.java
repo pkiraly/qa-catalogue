@@ -22,7 +22,7 @@ public class Tag994 extends DataFieldDefinition {
     label = "Aufnahmeinformation";
     mqTag = "Aufnahmeinformation";
     cardinality = Cardinality.Repeatable;
-    // descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=518750316";	
+    descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=518750316";	
     
     ind1 = new Indicator();
     ind2 = new Indicator();	

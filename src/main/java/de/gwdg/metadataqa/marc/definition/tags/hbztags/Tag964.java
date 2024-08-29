@@ -27,7 +27,7 @@ public class Tag964 extends DataFieldDefinition {
     label = "In Aleph benötigte Informationen (Wickelfeld)";
     mqTag = "InAlephbenötigteInformationenWickelfeld";
     cardinality = Cardinality.Nonrepeatable;
-    // descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=724304028";
+    descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=724304028";
 
     ind1 = new Indicator();
     ind2 = new Indicator();

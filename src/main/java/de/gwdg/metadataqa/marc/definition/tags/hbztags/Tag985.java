@@ -27,7 +27,7 @@ public class Tag985 extends DataFieldDefinition {
     label = "Provenienzen: Exemplarbeschreibung";
     mqTag = "ProvenienzenExemplarbeschreibung";
     cardinality = Cardinality.Repeatable;
-    // descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=518750316";
+    descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=518750316";
 
     ind1 = new Indicator();
     ind2 = new Indicator();

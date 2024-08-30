@@ -206,7 +206,8 @@ public class Tag100 extends DataFieldDefinition {
     ));
 
     putVersionSpecificSubfields(MarcVersion.HBZ, Arrays.asList(
-      new SubfieldDefinition("B", "Authority ID subfield", "NR")
+      new SubfieldDefinition("B", "Authority ID subfield", "NR"),
+      new SubfieldDefinition("9", "Anreicherung bei TAT", "NR")
     ));
 
     sourceSpecificationType = SourceSpecificationType.Subfield2;

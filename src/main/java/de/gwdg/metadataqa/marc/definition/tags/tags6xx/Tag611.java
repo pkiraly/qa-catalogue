@@ -260,5 +260,9 @@ public class Tag611 extends DataFieldDefinition {
       new SubfieldDefinition("@", "Language of field", "NR").setMqTag("language"),
       new SubfieldDefinition("#", "number/occurrence of field", "NR").setMqTag("number")
     ));
+
+    putVersionSpecificSubfields(MarcVersion.HBZ, Arrays.asList(
+      new SubfieldDefinition("B", "Authority ID subfield", "NR")
+    ));
   }
 }

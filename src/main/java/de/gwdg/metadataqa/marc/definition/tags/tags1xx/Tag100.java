@@ -205,6 +205,10 @@ public class Tag100 extends DataFieldDefinition {
       new SubfieldDefinition("#", "number/occurrence of field", "NR").setMqTag("number")
     ));
 
+    putVersionSpecificSubfields(MarcVersion.HBZ, Arrays.asList(
+      new SubfieldDefinition("B", "Authority ID subfield", "NR")
+    ));
+
     sourceSpecificationType = SourceSpecificationType.Subfield2;
   }
 }

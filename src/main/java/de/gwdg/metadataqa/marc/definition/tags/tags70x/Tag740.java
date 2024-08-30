@@ -121,5 +121,6 @@ public class Tag740 extends DataFieldDefinition {
       new SubfieldDefinition("@", "Language of field", "NR").setMqTag("language"),
       new SubfieldDefinition("#", "number/occurrence of field", "NR").setMqTag("number")
     ));
+    
   }
 }

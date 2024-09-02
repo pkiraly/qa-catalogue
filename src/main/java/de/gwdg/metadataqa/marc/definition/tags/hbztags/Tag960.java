@@ -93,13 +93,26 @@ public class Tag960 extends DataFieldDefinition {
     );
 
     getSubfield("n").setCodes(
-      "NWBib", "Nordrhein-westfälische Bibliographie",
-      "NWBib-Zeitschrift", "NWBib-Zeitschrift",
+      "NWBib", "Nordrhein-westfälische Bibliographie", 
+      "NWBib-5", "Nordrhein-westfälische Bibliographie", 
+      "NWBib-6", "Nordrhein-westfälische Bibliographie", 
+      "NWBib-61", "Nordrhein-westfälische Bibliographie", 
+      "NWBib-Zeitschrift", "NWBib-Zeitschrift", 
+      "NWBib-Zeitschrift-5", "Nordrhein-westfälische Bibliographie", 
+      "NWBib-Zeitschrift-6", "Nordrhein-westfälische Bibliographie", 
+      "NWBib-Zeitschrift-61", "Nordrhein-westfälische Bibliographie", 
       "prov", "provisor. Aufn. f. NWBib"
     );
 
     getSubfield("o").setCodes(
-      "bdf", "Bibliothek der Frauenfrage in Deutschland"
+      "bdf",  "Bibliothek der Frauenfrage in Deutschland", 
+      "bdl",  "Bibliothek der deutschen Literatur", 
+      "bst",  "Bibliothek Stein", 
+      "dfhb",  "Diplomarbeiten FHBD", 
+      "ecorv",  "Edition Corvey", 
+      "eeb",  "Early English Books, Mikroformsammlung KI USB Köln", 
+      "nszk",  "Projekt NS-Zentralkatalog NRW", 
+      "retro",  "Projekt Retrokonversion"
     );
 
   }

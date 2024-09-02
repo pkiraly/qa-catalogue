@@ -33,7 +33,8 @@ public class Tag997 extends DataFieldDefinition {
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
-      "a", "Aufnahmedatum, Aufnahmejahr", "R"
+      "a", "Aufnahmedatum, Aufnahmejahr", "R",
+      "9", "Verweis auf Lokalinformation","NR"    
     );
 
     //TODO: Field a needs to be YYYYMMDD

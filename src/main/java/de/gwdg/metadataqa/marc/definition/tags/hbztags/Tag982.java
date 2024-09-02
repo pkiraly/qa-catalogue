@@ -35,7 +35,8 @@ public class Tag982 extends DataFieldDefinition {
     setSubfieldsWithCardinality(
       "a", "Schlagwort, unaufgegliedert", "R",
       "b", "Sachschlagwort", "R",
-      "c", "Formschlagwort", "R"      
+      "c", "Formschlagwort", "R",
+      "9", "Verweis auf Lokalinformation","NR"          
     );
 
   }

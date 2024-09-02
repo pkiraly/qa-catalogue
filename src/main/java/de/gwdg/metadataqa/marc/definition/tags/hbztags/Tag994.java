@@ -31,7 +31,8 @@ public class Tag994 extends DataFieldDefinition {
       "a", "Aufnahmeland", "R",
       "b", "Sendeanstalt", "NR",
       "c", "Sendedatum", "NR",
-      "d", "Bandposition", "NR"
+      "d", "Bandposition", "NR",
+      "9", "Verweis auf Lokalinformation","NR"    
       );	
   }
 }

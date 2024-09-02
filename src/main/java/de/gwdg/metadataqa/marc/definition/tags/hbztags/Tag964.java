@@ -36,15 +36,16 @@ public class Tag964 extends DataFieldDefinition {
     .setMqTag("undefined");
     ind2 = new Indicator("undefined")
     .setCodes(  
-      "s", "...",
-      "u", "..."     
+      "s", "save",
+      "u", "unknown",
+      "i", "information"     
     )
     .setMqTag("undefined");
 
     setSubfieldsWithCardinality(
       "A", "A", "R",
-      "F", "F", "R",
-      "V", "V", "R"
+      "F", "Feste Felder Aleph", "R",
+      "V", "Variable Felder Aleph", "R"
     );
 
   }

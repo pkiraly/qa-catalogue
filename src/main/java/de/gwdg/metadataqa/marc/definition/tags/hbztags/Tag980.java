@@ -50,7 +50,8 @@ public class Tag980 extends DataFieldDefinition {
       "g", "Abrufzeichen Publikationsarten", "R",
       "h", "Abrufzeichen Schenkungen,Leihgaben", "R",
       "s", "Sammlungsvermerke", "R",
-      "x", "LKR", "R"
+      "x", "LKR", "R",
+      "9", "Verweis auf Lokalinformation","NR"    
     );
 
 

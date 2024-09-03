@@ -234,6 +234,10 @@ public class Tag856 extends DataFieldDefinition {
       new SubfieldDefinition("#", "number/occurrence of field", "NR").setMqTag("number")
     ));
 
+    putVersionSpecificSubfields(MarcVersion.HBZ, Arrays.asList(
+      new SubfieldDefinition("9", "Kennzeichnung Link PKN", "NR")
+    ));
+
     setHistoricalSubfields(
       "g", "Uniform Resource Name [OBSOLETE, 2000]",
       "b", "Access number [OBSOLETE, 2020]", // "R",

@@ -102,5 +102,9 @@ public class Tag020 extends DataFieldDefinition {
       new SubfieldDefinition("@", "Language of field", "NR").setMqTag("language"),
       new SubfieldDefinition("#", "number/occurrence of field", "NR").setMqTag("number")
     ));
+
+    putVersionSpecificSubfields(MarcVersion.HBZ, Arrays.asList(
+      new SubfieldDefinition("9", "ISBN mit Bindestrichen (fakultativ)", "NR")
+    ));
   }
 }

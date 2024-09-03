@@ -28,7 +28,7 @@ public class MarcTagListerTest {
     List<Class<? extends DataFieldDefinition>> tags = MarcTagLister.listTags();
     assertNotNull(tags);
     assertNotEquals(0, tags.size());
-    assertEquals(457, tags.size());
+    assertEquals(529, tags.size());
     assertEquals("Tag010", tags.get(0).getSimpleName());
     Map<String, Integer> versionCounter = new HashMap<>();
     Map<MarcVersion, Integer> versionCounter2 = new HashMap<>();
@@ -37,6 +37,7 @@ public class MarcTagListerTest {
       MarcVersion version = Utils.getVersion(tag);
       DataFieldDefinition definition = TagDefinitionLoader.load(
         tag.getSimpleName().replace("Tag", ""), version);
+      assertNotNull("The definition for tag " + tag.getCanonicalName() + " should not be null", definition);
       assertEquals(tag.getSimpleName() + " should have the same tag", "Tag" + definition.getTag(), tag.getSimpleName());
 
       assertEquals(version, definition.getMarcVersion());
@@ -72,7 +73,7 @@ public class MarcTagListerTest {
     List<MarcVersion> testedVersions = List.of(
       MarcVersion.MARC21, MarcVersion.DNB, MarcVersion.FENNICA, MarcVersion.GENT, MarcVersion.NKCR, MarcVersion.OCLC,
       MarcVersion.SZTE, MarcVersion.KBR, MarcVersion.ZB, MarcVersion.BL, MarcVersion.MARC21NO, MarcVersion.UVA,
-      MarcVersion.B3KAT, MarcVersion.OGYK,
+      MarcVersion.B3KAT, MarcVersion.OGYK, MarcVersion.HBZ,
       MarcVersion.UNIMARC // special case
     );
     for (MarcVersion version : MarcVersion.values()) {
@@ -116,6 +117,9 @@ public class MarcTagListerTest {
 
     assertEquals( 12, (int) versionCounter2.get(MarcVersion.OGYK));
     assertEquals( 12, (int) versionCounter.get("ogyktags"));
+
+    assertEquals( 72, (int) versionCounter2.get(MarcVersion.HBZ));
+    assertEquals( 72, (int) versionCounter.get("hbztags"));    
 
     assertEquals(229, (int) versionCounter2.get(MarcVersion.MARC21));
     assertEquals(  2, (int) versionCounter.get("holdings"));

@@ -31,6 +31,7 @@ public enum TagCategory {
   KBR(23, "kbrtags", "KBR", "Locally defined tags of the Royal Library of Belgium", false),
   ZB(24, "zbtags", "ZB", "Locally defined tags of the Zentralbibliothek Zürich", false),
   OGYK(25, "ogyktags", "OGYK", "Locally defined tags of the Országygyűlési Könyvtár, Budapest", false),
+  HBZ(26, "hbztags", "HBZ", "Locally defined tags of North Rhine-Westphalian Library Service Centre, Cologne", false),
 
   // PICA
   PICA_0(50, "pica0", "0...", "PICA+ bibliographic description", false),

@@ -250,6 +250,10 @@ public class Tag830 extends DataFieldDefinition {
       new SubfieldDefinition("#", "number/occurrence of field", "NR").setMqTag("number")
     ));
 
+    putVersionSpecificSubfields(MarcVersion.HBZ, Arrays.asList(
+      new SubfieldDefinition("9", "Enthält Angabe mit welchem Gesamttitel verknüpft wird, solange der Parallelbetrieb ALMA/Aleph läuft", "NR")
+    ));
+
     sourceSpecificationType = SourceSpecificationType.Subfield2;
   }
 }

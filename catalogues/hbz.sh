@@ -11,7 +11,7 @@ if [[ $TYPE == "marc" ]]; then
   MASK=*.mrc
 elif [[ $TYPE == "xml" ]]; then
   echo "xml"
-  TYPE_PARAMS="--marcVersion DNB,HBZ --marcxml --fixAlma"
+  TYPE_PARAMS="--marcVersion HBZ --marcxml --fixAlma"
   MARC_DIR=${BASE_INPUT_DIR}/${NAME}/marc
   MASK=*.gz
 else

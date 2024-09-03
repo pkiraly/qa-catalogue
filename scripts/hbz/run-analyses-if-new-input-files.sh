@@ -3,7 +3,7 @@
 # run this script with name of your catalogue as argument
 # if no argument given defaults to test
 
-APPDIR="/opt/qa-catalogue"
+APPDIR="/home/qa-catalogue/qa-catalogue"
 CATALOGUE=${1:-test}
 DATADIR="${APPDIR}/input/${CATALOGUE}/marc"
 CHECKFILE="${DATADIR}/check_file.txt"

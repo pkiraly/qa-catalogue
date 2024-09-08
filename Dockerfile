@@ -115,41 +115,42 @@ RUN apt-get update \
         mkdir /var/www/html/qa-catalogue/images ; \
     fi \
  && sed -i.bak 's,</VirtualHost>,        RedirectMatch ^/$ /qa-catalogue/\n        <Directory /var/www/html/qa-catalogue>\n                Options Indexes FollowSymLinks MultiViews\n                AllowOverride All\n                Order allow\,deny\n                allow from all\n                DirectoryIndex index.php index.html\n        </Directory>\n</VirtualHost>,' /etc/apache2/sites-available/000-default.conf \
- && echo "\nWEB_DIR=/var/www/html/qa-catalogue/\n" >> /opt/qa-catalogue/common-variables
+ && echo "\nWEB_DIR=/var/www/html/qa-catalogue/\n" >> /opt/qa-catalogue/common-variables \
+ && rm -rf /var/lib/apt/lists/*
 
 # install Solr
-COPY ${SOLR_INSTALL_SOURCE}* /opt
+# COPY ${SOLR_INSTALL_SOURCE}* /opt
 
-RUN echo "install lsof" \
- && apt-get update \
- && apt-get install -y --no-install-recommends \
-      lsof \
- && apt-get --assume-yes autoremove \
- && rm -rf /var/lib/apt/lists/* \
- && cd /opt \
- && MAJOR_VERSION=$(echo $SOLR_VERSION | sed 's/^\([0-9]*\)\..*/\1/') \
- && if [ ${MAJOR_VERSION} -gt 8 ]; then \
-      SOLR_PACKAGE="solr-${SOLR_VERSION}.tgz" ; \
-      SOLR_DOWNLOAD_PATH="solr/solr" ; \
-      SOLR_EXTRACT_METHOD="tgz" ; \
-    else \
-      SOLR_PACKAGE="solr-${SOLR_VERSION}.zip" ; \
-      SOLR_DOWNLOAD_PATH="lucene/solr" ; \
-      SOLR_EXTRACT_METHOD="zip" ; \
-    fi \
- && if [ ! -f solr-${SOLR_PACKAGE} ]; then \
-      DOWNLOAD_URL=https://archive.apache.org/dist/${SOLR_DOWNLOAD_PATH}/${SOLR_VERSION}/${SOLR_PACKAGE} ; \
-      curl -L ${DOWNLOAD_URL} --output /opt/${SOLR_PACKAGE} ; \
-    fi \
- && if [ "${SOLR_EXTRACT_METHOD}" = "zip" ]; then \
-      echo "unzip -q ${SOLR_PACKAGE}" ; \
-      unzip -q ${SOLR_PACKAGE} ; \
-    elif [ "${SOLR_EXTRACT_METHOD}" = "tgz" ]; then \
-      echo "tar -xvzf ${SOLR_PACKAGE}" ; \
-      tar -xzf ${SOLR_PACKAGE} ; \
-    fi \
- && rm ${SOLR_PACKAGE} \
- && ln -s solr-${SOLR_VERSION} solr
+# RUN echo "install lsof" \
+#  && apt-get update \
+#  && apt-get install -y --no-install-recommends \
+#       lsof \
+#  && apt-get --assume-yes autoremove \
+#  && rm -rf /var/lib/apt/lists/* \
+#  && cd /opt \
+#  && MAJOR_VERSION=$(echo $SOLR_VERSION | sed 's/^\([0-9]*\)\..*/\1/') \
+#  && if [ ${MAJOR_VERSION} -gt 8 ]; then \
+#       SOLR_PACKAGE="solr-${SOLR_VERSION}.tgz" ; \
+#       SOLR_DOWNLOAD_PATH="solr/solr" ; \
+#       SOLR_EXTRACT_METHOD="tgz" ; \
+#     else \
+#       SOLR_PACKAGE="solr-${SOLR_VERSION}.zip" ; \
+#       SOLR_DOWNLOAD_PATH="lucene/solr" ; \
+#       SOLR_EXTRACT_METHOD="zip" ; \
+#     fi \
+#  && if [ ! -f solr-${SOLR_PACKAGE} ]; then \
+#       DOWNLOAD_URL=https://archive.apache.org/dist/${SOLR_DOWNLOAD_PATH}/${SOLR_VERSION}/${SOLR_PACKAGE} ; \
+#       curl -L ${DOWNLOAD_URL} --output /opt/${SOLR_PACKAGE} ; \
+#     fi \
+#  && if [ "${SOLR_EXTRACT_METHOD}" = "zip" ]; then \
+#       echo "unzip -q ${SOLR_PACKAGE}" ; \
+#       unzip -q ${SOLR_PACKAGE} ; \
+#     elif [ "${SOLR_EXTRACT_METHOD}" = "tgz" ]; then \
+#       echo "tar -xvzf ${SOLR_PACKAGE}" ; \
+#       tar -xzf ${SOLR_PACKAGE} ; \
+#     fi \
+#  && rm ${SOLR_PACKAGE} \
+#  && ln -s solr-${SOLR_VERSION} solr
 
 # init process supervisor
 RUN echo "install supervisor" \

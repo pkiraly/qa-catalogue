@@ -1,15 +1,56 @@
 # Used to start the base image with `docker compose up -d`
 
 services:
+
+  solr:
+    image: solr:9.6.1
+    ports:
+      - "${SOLRPORT:-8983}:8983"
+    volumes:
+      # Create directory up front with the right permissions, eg.:
+      # mkdir ./solr-data && sudo chown -R 8983:8983 ./solr-data && sudo chmod -R 777 ./solr-data
+      - ${SOLR_DATA:-./solr-data}:/var/solr
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl -s http://localhost:8983",
+        ]
+      interval: 10s
+      timeout: 10s
+      retries: 120
+    restart: on-failure
+    container_name: ${CONTAINER:-qa-catalogue-solr}
+    networks:
+      - qa-catalogue-backend
+
   app:
+    depends_on:
+      solr:
+        condition: service_healthy
     image: ${IMAGE:-pkiraly/metadata-qa-marc}
+    # image: ghcr.io/pkiraly/qa-catalogue:main
+    build:
+      context: .
+      dockerfile: Dockerfile
     volumes:
       - ./${INPUT:-input}:/opt/qa-catalogue/input
       - ./${OUTPUT:-output}:/opt/qa-catalogue/output
+      - ./catalogues:/opt/qa-catalogue/catalogues
       - ./${WEBBCONFIG:-web-config}:/var/www/html/qa-catalogue/config
       - /etc/timezone:/etc/timezone:ro    # Sync timezone
       - /etc/localtime:/etc/localtime:ro  # Sync localtime
     ports:
       - "${WEBPORT:-80}:80"       # qa-catalogue-web
-      - "${SOLRPORT:-8983}:8983"  # Solr
+      #- "${SOLRPORT:-8983}:8983"  # Solr
+    environment:
+      SOLR_HOST: solr
+      SOLR_PORT: ${SOLRPORT:-8983}
     container_name: ${CONTAINER:-metadata-qa-marc}
+    networks:
+      - qa-catalogue-backend
+
+networks:
+  qa-catalogue-backend:
+    name: qa-catalogue-backend
+#    external: true

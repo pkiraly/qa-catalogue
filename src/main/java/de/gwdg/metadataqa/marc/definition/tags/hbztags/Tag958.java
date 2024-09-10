@@ -25,7 +25,7 @@ public class Tag958 extends DataFieldDefinition {
   private void initialize() {
     tag = "958";
     label = "reserviert für HeBIS";
-    mqTag = "reserviert für HeBIS";
+    mqTag = "ReserviertFürHeBIS";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=698777686";
 

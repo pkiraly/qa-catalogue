@@ -25,7 +25,7 @@ public class Tag973 extends DataFieldDefinition {
   private void initialize() {
     tag = "973";
     label = "reserviert für OBV";
-    mqTag = "reserviert für OBV";
+    mqTag = "ReserviertFürOBV";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=698777686";
 

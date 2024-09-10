@@ -25,7 +25,7 @@ public class Tag940 extends DataFieldDefinition {
   private void initialize() {
     tag = "940";
     label = "reserviert für BVB";
-    mqTag = "reserviert für BVB";
+    mqTag = "ReserviertFürBVB";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=698777686";
 

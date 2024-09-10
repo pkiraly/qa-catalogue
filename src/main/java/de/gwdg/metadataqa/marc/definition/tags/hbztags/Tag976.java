@@ -25,7 +25,7 @@ public class Tag976 extends DataFieldDefinition {
   private void initialize() {
     tag = "976";
     label = "reserviert für NB Schweiz und Schweiz";
-    mqTag = "reserviert für NB Schweiz und Schweiz";
+    mqTag = "ReserviertFürNB Schweiz und Schweiz";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=698777686";
 

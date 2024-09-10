@@ -25,7 +25,7 @@ public class Tag946 extends DataFieldDefinition {
   private void initialize() {
     tag = "946";
     label = "reserviert für EKZ";
-    mqTag = "reserviert für EKZ";
+    mqTag = "ReserviertFürEKZ";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=698777686";
 

@@ -59,7 +59,6 @@ public class Tag089 extends DataFieldDefinition {
       "l", "Notation aus Hilfstafel 5", "R",
       "m", "Notation aus Hilfstafel 6", "R",
       "t", "Notation aus einer Anhaengetafel", "R",
-      "t", "Quelle der vergebenen Notation", "R",
       "A","Quelle der vergebenen Notation","R"
     );
 

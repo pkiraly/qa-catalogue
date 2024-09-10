@@ -34,7 +34,7 @@ public class Tag981 extends DataFieldDefinition {
 
     setSubfieldsWithCardinality(
       "a", "Systemnummer alt", "NR",
-      "u", " IDN Exemplar (EPN)", "NR",
+      "b", "IDN Exemplar (EPN)", "NR",
       "9", "Verweis auf Lokalinformation","NR"      
     );
 

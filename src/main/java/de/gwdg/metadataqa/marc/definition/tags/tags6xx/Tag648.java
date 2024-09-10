@@ -160,7 +160,8 @@ public class Tag648 extends DataFieldDefinition {
     ));
 
     putVersionSpecificSubfields(MarcVersion.HBZ, Arrays.asList(
-      new SubfieldDefinition("B", "Authority ID subfield", "NR")
+      new SubfieldDefinition("B", "Authority ID subfield", "NR"),
+      new SubfieldDefinition("9", "Feldzuordnung Aleph", "R")
     ));
 
     sourceSpecificationType = SourceSpecificationType.Indicator2AndSubfield2;

@@ -75,6 +75,9 @@ public class Tag246 extends DataFieldDefinition {
       .putVersionSpecificCodes(MarcVersion.DNB, Arrays.asList(
         new EncodedValue("9", "Ansetzungstitel")
       ))
+      .putVersionSpecificCodes(MarcVersion.HBZ, Arrays.asList(
+        new EncodedValue("9", "Ansetzungstitel")
+      ))
       .setMqTag("type")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess, ManagementSort);
 

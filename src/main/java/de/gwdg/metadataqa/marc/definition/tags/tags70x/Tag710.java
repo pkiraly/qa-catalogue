@@ -258,7 +258,8 @@ public class Tag710 extends DataFieldDefinition {
     ));
 
     putVersionSpecificSubfields(MarcVersion.HBZ, Arrays.asList(
-      new SubfieldDefinition("B", "Authority ID subfield", "NR")
+      new SubfieldDefinition("B", "Authority ID subfield", "NR"),
+      new SubfieldDefinition("9", "Feldzuordnung Aleph", "R")
     ));
   }
 }

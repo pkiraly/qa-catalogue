@@ -26,7 +26,7 @@ public class Tag591 extends DataFieldDefinition {
     tag = "591";
     label = "Redaktionelle Bemerkungen";
     mqTag = "RedaktionelleBemerkungen";
-    cardinality = Cardinality.Repeatable;
+    cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=525369446";
 
     ind1 = new Indicator();

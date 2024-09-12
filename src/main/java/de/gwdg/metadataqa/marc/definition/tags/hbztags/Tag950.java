@@ -5,38 +5,37 @@ import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 
 /**
- * Systemnummer alt
+ * reserviert für GBV
  */
-public class Tag981 extends DataFieldDefinition {
+public class Tag950 extends DataFieldDefinition {
 
-  private static Tag981 uniqueInstance;
+  private static Tag950 uniqueInstance;
 
-  private Tag981() {
+  private Tag950() {
     initialize();
     postCreation();
   }
 
-  public static Tag981 getInstance() {
+  public static Tag950 getInstance() {
     if (uniqueInstance == null)
-      uniqueInstance = new Tag981();
+      uniqueInstance = new Tag950();
     return uniqueInstance;
   }
 
   private void initialize() {
-    tag = "981";
-    label = "Systemnummer alt";
-    mqTag = "SystemnummerAlt";
+    tag = "950";
+    label = "reserviert für GBV";
+    mqTag = "ReserviertFürGBV";
     cardinality = Cardinality.Repeatable;
-    descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=518750316";
+    descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=698777686";
 
     ind1 = new Indicator();
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
-      "a", "Systemnummer alt", "NR",
-      "b", "IDN Exemplar (EPN)", "NR",
-      "9", "Verweis auf Lokalinformation","NR"      
+      "a", "GBV-Feld", "R"
     );
+
 
   }
 }

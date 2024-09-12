@@ -26,7 +26,7 @@ public class Tag987 extends DataFieldDefinition {
     tag = "987";
     label = "Selektionskennzeichen IZ";
     mqTag = "SelektionskennzeichenIZ";
-    cardinality = Cardinality.Repeatable;
+    cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=518750316";
 
     ind1 = new Indicator("undefined")

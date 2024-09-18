@@ -1,11 +1,11 @@
-#FROM openjdk:11-jdk AS build
-#RUN apt-get update && apt-get install -y --no-install-recommends \
-#  maven \
-#  && rm -rf /var/lib/apt/lists/*
-#RUN mkdir -p /opt/qa-catalogue
-#COPY . /opt/qa-catalogue
-#WORKDIR /opt/qa-catalogue
-#RUN mvn clean install
+FROM openjdk:11-jdk AS build
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  maven \
+  && rm -rf /var/lib/apt/lists/*
+RUN mkdir -p /opt/qa-catalogue
+COPY . /opt/qa-catalogue
+WORKDIR /opt/qa-catalogue
+RUN mvn clean install
 
 FROM ubuntu:22.04
 
@@ -62,8 +62,8 @@ RUN apt-get update \
  && rm -rf /var/lib/apt/lists/*
 
 # install qa-catalogue
-#COPY --from=build /opt/qa-catalogue/target/qa-catalogue-${QA_CATALOGUE_VERSION}-release.zip /opt
-COPY target/qa-catalogue-${QA_CATALOGUE_VERSION}-release.zip /opt
+COPY --from=build /opt/qa-catalogue/target/qa-catalogue-${QA_CATALOGUE_VERSION}-release.zip /opt
+# COPY target/qa-catalogue-${QA_CATALOGUE_VERSION}-release.zip /opt
 
 RUN cd /opt \
  && unzip qa-catalogue-${QA_CATALOGUE_VERSION}-release.zip \

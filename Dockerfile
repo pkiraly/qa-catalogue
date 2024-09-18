@@ -130,6 +130,11 @@ RUN apt-get update \
  && sed -i.bak 's,</VirtualHost>,        RedirectMatch ^/$ /qa-catalogue/\n        <Directory /var/www/html/qa-catalogue>\n                Options Indexes FollowSymLinks MultiViews\n                AllowOverride All\n                Order allow\,deny\n                allow from all\n                DirectoryIndex index.php index.html\n        </Directory>\n</VirtualHost>,' /etc/apache2/sites-available/000-default.conf \
  && echo "\nWEB_DIR=/var/www/html/qa-catalogue/\n" >> /opt/qa-catalogue/common-variables
 
+# hbz: create symlinks
+RUN cd /var/www/html \
+ && ln -s qa-catalogue hbz \
+ && ln -s qa-catalogue hbz-update
+
 # install Solr
 COPY ${SOLR_INSTALL_SOURCE}* /opt
 

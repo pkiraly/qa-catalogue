@@ -31,8 +31,8 @@ public class Tag980 extends DataFieldDefinition {
 
     ind1 = new Indicator("undefined")
     .setCodes(  
-      "1", "...",
-      "2", "..."
+      "1", "Selektionskennzeichen",
+      "2", "LKR"
     )
     .setMqTag("undefined");
 

@@ -57,5 +57,23 @@ public class Tag985 extends DataFieldDefinition {
       "8", "Feldverknüpfung und Reihenfolge", "NR"
     );
 
+
+    getSubfield("c").setCodes(
+      "0", "kein Schaden",
+      "1", "leichter Schaden",
+      "2", "mittlerer Schaden",
+      "3", "schwerer Schaden"
+    );
+
+    getSubfield("d").setCodes(
+      "Ersatzbeschaffung geplant", "Ersatzbeschaffung geplant",
+      "restauriert", "restauriert",
+      "Schutzverpackung", "Schutzverpackung",
+      "Maßnahme geplant", "Maßnahme geplant"
+    );
+
+    getSubfield("p").setCodes(
+      "unvollständiger Provenienzvermerk", "unvollständiger Provenienzvermerk"
+    );
   }
 }

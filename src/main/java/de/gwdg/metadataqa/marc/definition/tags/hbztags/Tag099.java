@@ -30,12 +30,16 @@ public class Tag099 extends DataFieldDefinition {
     cardinality = Cardinality.Nonrepeatable;
     descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=698777686";
 
-    ind1 = new Indicator();
+    ind1 = new Indicator("nicht definiert")
+    .setCodes(   
+      "1", "Erstellungsdatum des Austauschsatzes",
+      "2", "letzte Transaktion"
+    )
+    .setMqTag("NichtDefiniert");
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(
-      "a", "Kennzeichnungen für Nationallizenzen und digitale Sammlungen", "NR",
-      "b", "Lizenzjahr", "NR"
+      "a", "Datum", "NR"
     );
   }
 }

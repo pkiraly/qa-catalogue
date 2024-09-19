@@ -31,10 +31,10 @@ public class Tag998 extends DataFieldDefinition {
 
     ind1 = new Indicator("undefined")
     .setCodes(  
-      " ", "...",
-      "4", "4"
+      " ", "Keine Information vorhanden",
+      "4", "HTTP"
     )
-    .setMqTag("undefined");
+    .setMqTag("Zugangsmethode");
 
     ind2 = new Indicator();
 

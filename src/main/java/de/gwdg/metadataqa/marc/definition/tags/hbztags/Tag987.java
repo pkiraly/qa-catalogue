@@ -31,7 +31,7 @@ public class Tag987 extends DataFieldDefinition {
 
     ind1 = new Indicator("undefined")
     .setCodes(  
-      "1", "..."
+      "1", "Mikrocodierung"
     )
     .setMqTag("undefined");
 

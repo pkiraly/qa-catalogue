@@ -31,7 +31,7 @@ public class Tag089 extends DataFieldDefinition {
 
     ind1 = new Indicator("Ausgabe")
     .setCodes(
-      " ", "empty",      
+      " ", "No information provided",      
       "0", "Vollversion",
       "1", "Kurzausgabe"
     )
@@ -39,7 +39,7 @@ public class Tag089 extends DataFieldDefinition {
 
     ind2 = new Indicator("Nicht erstellt von LC")
     .setCodes(
-      " ", "empty",      
+      " ", "No information provided",      
       "4", "Erstellt nicht von LC"
     )
     .setMqTag("nichtVonLCERstellt");

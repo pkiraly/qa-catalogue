@@ -37,7 +37,7 @@ public class Tag983 extends DataFieldDefinition {
       "b", "Notation", "R",
       "c", "Notation", "R",
       "d", "Beschreibung", "R",
-      "z", "Herkunft", "NR"      
+      "2", "Herkunft", "NR"      
     );
 
   }

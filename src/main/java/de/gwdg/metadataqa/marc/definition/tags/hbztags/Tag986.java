@@ -39,7 +39,7 @@ public class Tag986 extends DataFieldDefinition {
       "i", "Herstellungsjahr", "R",
       "j", "Entstehungsort", "R",
       "k", "Referenznummern/Nachweis", "R",
-      "l", "	Bemerkungen    ", "R",
+      "l", "Bemerkungen", "R",
       "8", "Feldverknüpfung und Reihenfolge", "NR"
       );	
   }

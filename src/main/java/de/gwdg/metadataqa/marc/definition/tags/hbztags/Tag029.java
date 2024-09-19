@@ -29,8 +29,20 @@ public class Tag029 extends DataFieldDefinition {
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://service-wiki.hbz-nrw.de/pages/viewpage.action?pageId=525369446";
 
-    ind1 = new Indicator();
-    ind2 = new Indicator();
+    ind1 = new Indicator("nicht definiert")
+    .setCodes(  " ", "ISSN formal nicht geprüft",
+      "1", "ISSN formal richtig",
+      "2", "ISSN formal falsch"
+    )
+    .setMqTag("NichtDefiniert");
+    
+    ind2 = new Indicator("nicht definiert")
+    .setCodes(  "a", "Autorisierte ISSN",
+      "b", "ISSN der Ausgabe auf Datenträger",
+      "c", "ISSN der Internetausgabe",
+      "d", "ISSN der Druckausgabe"      
+    )
+    .setMqTag("NichtDefiniert");
 
     setSubfieldsWithCardinality(
       "a", "Autorisierte ISSN", "NR",

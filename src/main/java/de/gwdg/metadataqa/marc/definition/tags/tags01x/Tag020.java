@@ -104,7 +104,7 @@ public class Tag020 extends DataFieldDefinition {
     ));
 
     putVersionSpecificSubfields(MarcVersion.HBZ, Arrays.asList(
-      new SubfieldDefinition("9", "ISBN mit Bindestrichen (fakultativ)", "NR")
+      new SubfieldDefinition("9", "ISBN mit Bindestrichen (fakultativ)", "R")
     ));
   }
 }

@@ -275,7 +275,7 @@ public class Tag700 extends DataFieldDefinition {
 
     putVersionSpecificSubfields(MarcVersion.HBZ, Arrays.asList(
       new SubfieldDefinition("B", "Authority ID subfield", "NR"),
-      new SubfieldDefinition("9", "Anreicherung bei TAT", "NR")
+      new SubfieldDefinition("9", "Feldzuordnung Aleph", "NR")
     ));
   }
 }

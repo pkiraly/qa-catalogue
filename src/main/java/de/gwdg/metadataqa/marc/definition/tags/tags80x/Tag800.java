@@ -302,6 +302,10 @@ public class Tag800 extends DataFieldDefinition {
       new SubfieldDefinition("#", "number/occurrence of field", "NR").setMqTag("number")
     ));
 
+    putVersionSpecificSubfields(MarcVersion.HBZ, Arrays.asList(
+      new SubfieldDefinition("9", "Bandangabe in Sortierform", "R")
+    ));
+
     sourceSpecificationType = SourceSpecificationType.Subfield2;
   }
 }

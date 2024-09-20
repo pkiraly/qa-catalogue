@@ -140,5 +140,9 @@ public class Tag247 extends DataFieldDefinition {
       "e", "Name of section/part/series (SE) [OBSOLETE, 1979]",
       "c", "Remainder of Title Page transcription [OBSOLETE] [CAN/MARC only]"
     );
+
+    putVersionSpecificSubfields(MarcVersion.HBZ, Arrays.asList(
+      new SubfieldDefinition("9", "Feldzuordnung Aleph", "R")
+    ));
   }
 }

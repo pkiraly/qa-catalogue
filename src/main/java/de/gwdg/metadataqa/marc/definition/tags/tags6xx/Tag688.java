@@ -100,6 +100,10 @@ public class Tag688 extends DataFieldDefinition {
       new SubfieldDefinition("#", "number/occurrence of field", "NR").setMqTag("number")
     ));
 
+    putVersionSpecificSubfields(MarcVersion.HBZ, Arrays.asList(
+      new SubfieldDefinition("9", "Feldzuordnung Aleph", "R")
+    ));
+
     sourceSpecificationType = SourceSpecificationType.Subfield2;
   }
 }

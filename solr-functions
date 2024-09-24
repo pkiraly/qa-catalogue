@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
-SOLR_HOST=${SOLR_HOST:-http://localhost:${PORT:-8983}}
+SOLR_BASE_URL=${SOLR_PROTOCOL:-http}://${SOLR_HOST:-localhost}:${SOLR_PORT:-8983}
+# SOLR_HOST=${SOLR_HOST:-http://localhost:${PORT:-8983}}
 
 check_core() {
   LOCAL_CORE=$1
-  LOCAL_URL=$(printf "%s/solr/admin/cores?action=STATUS&core=%s" $SOLR_HOST $LOCAL_CORE)
+  LOCAL_URL=$(printf "%s/solr/admin/cores?action=STATUS&core=%s" $SOLR_BASE_URL $LOCAL_CORE)
   CORE_EXISTS=$(curl -s "$LOCAL_URL" | jq .status | grep "\"$LOCAL_CORE\":" | grep -c -P '{$')
   # use echo instead of return
   echo $CORE_EXISTS
@@ -12,8 +13,8 @@ check_core() {
 
 create_core() {
   LOCAL_CORE=$1
-  echo "creating Solr index: ${LOCAL_CORE} at $SOLR_HOST"
-  curl -s "$SOLR_HOST/solr/admin/cores?action=CREATE&name=$LOCAL_CORE&configSet=_default"
+  echo "creating Solr index: ${LOCAL_CORE} at $SOLR_BASE_URL"
+  curl -s "$SOLR_BASE_URL/solr/admin/cores?action=CREATE&name=$LOCAL_CORE&configSet=_default"
 }
 
 rename_core() {
@@ -21,7 +22,7 @@ rename_core() {
   LOCAL_TO=$2
 
   echo "rename Solr index: ${LOCAL_FROM} to ${LOCAL_TO}"
-  curl -s "$SOLR_HOST/solr/admin/cores?action=RENAME&core=${LOCAL_FROM}&other=${LOCAL_TO}"
+  curl -s "$SOLR_BASE_URL/solr/admin/cores?action=RENAME&core=${LOCAL_FROM}&other=${LOCAL_TO}"
 }
 
 swap_cores() {
@@ -29,12 +30,12 @@ swap_cores() {
   LOCAL_TO=$2
 
   echo "Swap Solr indexes ${LOCAL_FROM} and ${LOCAL_TO}"
-  curl -s "$SOLR_HOST/solr/admin/cores?action=SWAP&core=${LOCAL_FROM}&other=${LOCAL_TO}"
+  curl -s "$SOLR_BASE_URL/solr/admin/cores?action=SWAP&core=${LOCAL_FROM}&other=${LOCAL_TO}"
 }
 
 prepare_schema() {
   LOCAL_CORE=$1
-  SCHEMA_URL="${SOLR_HOST}/api/cores/${LOCAL_CORE}/schema"
+  SCHEMA_URL="${SOLR_BASE_URL}/api/cores/${LOCAL_CORE}/schema"
 
   echo "prepare_schema ${LOCAL_CORE}"
 
@@ -125,9 +126,9 @@ prepare_schema() {
 }
 
 status() {
-  echo "Solr index status at ${SOLR_HOST}"
+  echo "Solr index status at ${SOLR_BASE_URL}"
   echo 
-  curl -s "${SOLR_HOST}/solr/admin/cores?action=STATUS" \
+  curl -s "${SOLR_BASE_URL}/solr/admin/cores?action=STATUS" \
     | jq . \
     | grep instanceDir \
     | head -1 \
@@ -138,7 +139,7 @@ status() {
   FORMAT="%-20s | %-15s | %10s | %10s | %19s\n"
   printf "${FORMAT}" "core" "location" "nr of docs" "size" "last modified"
   printf "${FORMAT}" "...................." "..............." ".........." ".........." "..................."
-  curl -s "${SOLR_HOST}/solr/admin/cores?action=STATUS" \
+  curl -s "${SOLR_BASE_URL}/solr/admin/cores?action=STATUS" \
     | jq '.status[] | [.name, .instanceDir, .index.numDocs, .index.size, .index.lastModified]' \
     | sed -r 's,".*/server/solr/(.+)",\1,' \
     | paste - - - - - - - \
@@ -151,7 +152,7 @@ status() {
 
 purge_core() {
   LOCAL_CORE=$1
-  SOLR_DB_URL="${SOLR_HOST}/solr/${LOCAL_CORE}"
+  SOLR_DB_URL="${SOLR_BASE_URL}/solr/${LOCAL_CORE}"
   echo "Delete records in ${SOLR_DB_URL}"
   curl -s $SOLR_DB_URL/update \
        -H "Content-type: text/xml" \
@@ -161,7 +162,7 @@ purge_core() {
 
 optimize_core() {
   LOCAL_CORE=$1
-  SOLR_DB_URL="${SOLR_HOST}/solr/${LOCAL_CORE}"
+  SOLR_DB_URL="${SOLR_BASE_URL}/solr/${LOCAL_CORE}"
   echo "Optimizing ${SOLR_DB_URL}"
   curl -s "$SOLR_DB_URL/update?optimize=true" \
        -H 'Content-type: text/xml' \

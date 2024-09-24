@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
@@ -173,9 +174,9 @@ public class MarcSpecTest {
   @Test
   public void testCharConsistency1() {
     MarcSpec marcSpec = new MarcSpec("650");
-    assertEquals(null, marcSpec.getCharStart());
-    assertEquals(null, marcSpec.getCharEnd());
-    assertEquals(null, marcSpec.getCharLength());
+    assertNull(marcSpec.getCharStart());
+    assertNull(marcSpec.getCharEnd());
+    assertNull(marcSpec.getCharLength());
     assertEquals("650", marcSpec.encode());
   }
 
@@ -189,7 +190,7 @@ public class MarcSpecTest {
   public void testGetters_subfield() {
     MarcSpec marcSpec = new MarcSpec("650a");
     assertEquals("650", marcSpec.getFieldTag());
-    List<String> list = new ArrayList(marcSpec.getSubfields().keySet());
+    List<String> list = new ArrayList<>(marcSpec.getSubfields().keySet());
     assertEquals(1, list.size());
     assertEquals("a", list.get(0));
   }
@@ -198,7 +199,7 @@ public class MarcSpecTest {
   public void testGetters_subfields() {
     MarcSpec marcSpec = new MarcSpec("650ab");
     assertEquals("650", marcSpec.getFieldTag());
-    List<String> list = new ArrayList(marcSpec.getSubfields().keySet());
+    List<String> list = new ArrayList<>(marcSpec.getSubfields().keySet());
     assertEquals(2, list.size());
     assertEquals("a", list.get(0));
     assertEquals("b", list.get(1));
@@ -216,14 +217,14 @@ public class MarcSpecTest {
 
     marcSpec = new MarcSpec(paths[0]);
     assertEquals("650", marcSpec.getFieldTag());
-    list = new ArrayList(marcSpec.getSubfields().keySet());
+    list = new ArrayList<>(marcSpec.getSubfields().keySet());
     assertEquals(2, list.size());
     assertEquals("a", list.get(0));
     assertEquals("b", list.get(1));
 
     marcSpec = new MarcSpec(paths[1]);
     assertEquals("651", marcSpec.getFieldTag());
-    list = new ArrayList(marcSpec.getSubfields().keySet());
+    list = new ArrayList<>(marcSpec.getSubfields().keySet());
     assertEquals(1, list.size());
     assertEquals("x", list.get(0));
   }

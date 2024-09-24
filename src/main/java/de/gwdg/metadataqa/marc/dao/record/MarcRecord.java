@@ -5,7 +5,10 @@ import de.gwdg.metadataqa.marc.dao.Marc21Leader;
 import de.gwdg.metadataqa.marc.dao.MarcControlField;
 import de.gwdg.metadataqa.marc.dao.MarcLeader;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.utils.SchemaSpec;
+import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
 import de.gwdg.metadataqa.marc.utils.unimarc.UnimarcConverter;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,6 +23,8 @@ public abstract class MarcRecord extends BibliographicRecord {
   protected MarcControlField control001;
   protected MarcControlField control003;
   protected MarcControlField control005;
+  private static final List<String> simpleControlTags = Arrays.asList("001", "003", "005");
+
 
   protected MarcRecord() {
     super();
@@ -104,5 +109,52 @@ public abstract class MarcRecord extends BibliographicRecord {
     controlfieldIndex.put(control005.getDefinition().getTag(), List.of(control005));
   }
 
+  @Override
+  public List<String> select(SchemaSpec schemaSpec) {
+    MarcSpec marcSpec = (MarcSpec) schemaSpec;
+
+    List<String> results = new ArrayList<>();
+    if (marcSpec.getFieldTag().equals("LDR") && leader != null && StringUtils.isNotEmpty(leader.getContent())) {
+      return selectLeader(marcSpec);
+    }
+
+    if (controlfieldIndex.containsKey(marcSpec.getFieldTag())) {
+      return selectControlFields(marcSpec);
+    }
+
+    if (datafieldIndex.containsKey(marcSpec.getFieldTag())) {
+      return selectDatafields(marcSpec);
+    }
+
+    return results;
+  }
+
+  protected List<String> selectLeader(MarcSpec selector) {
+    List<String> selectedResults = new ArrayList<>();
+    if (selector.hasRangeSelector()) {
+      selectedResults.add(selector.selectRange(leader.getContent()));
+    } else {
+      selectedResults.add(leader.getContent());
+    }
+    return selectedResults;
+  }
+
+  protected List<String> selectControlFields(MarcSpec selector) {
+    List<String> selectedResults = new ArrayList<>();
+    for (MarcControlField controlField : controlfieldIndex.get(selector.getFieldTag())) {
+      if (controlField == null) {
+        continue;
+      }
+      if (!simpleControlTags.contains(controlField.getDefinition().getTag())) {
+        // TODO: check control subfields
+      }
+      if (selector.hasRangeSelector()) {
+        selectedResults.add(selector.selectRange(controlField.getContent()));
+      } else {
+        selectedResults.add(controlField.getContent());
+      }
+    }
+    return selectedResults;
+  }
 
 }

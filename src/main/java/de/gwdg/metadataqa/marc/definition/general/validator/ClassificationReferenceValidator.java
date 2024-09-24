@@ -42,7 +42,7 @@ public class ClassificationReferenceValidator implements RecordValidator, FieldV
         continue;
       }
 
-      List<DataField> fields = marcRecord.getDatafield(tag);
+      List<DataField> fields = marcRecord.getDatafieldsByTag(tag);
       for (DataField field : fields) {
         List<MarcSubfield> subfield2 = field.getSubfield("2");
 

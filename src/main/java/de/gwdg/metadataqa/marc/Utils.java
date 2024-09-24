@@ -84,6 +84,7 @@ public class Utils {
       case "b3kattags":   version = MarcVersion.B3KAT;   break;
       case "kbrtags":     version = MarcVersion.KBR;     break;
       case "zbtags":      version = MarcVersion.ZB;      break;
+      case "ogyktags":    version = MarcVersion.OGYK;    break;
       default:            version = MarcVersion.MARC21;  break;
     }
     return version;
@@ -100,27 +101,33 @@ public class Utils {
   public static Object quote(Object value) {
     if (value instanceof String) {
       return '"' + ((String) value).replace("\\", "\\\\")
-                                   .replace("\"", "\\\"")
-                                   .replace("\n", "\\n") + '"';
+        .replace("\"", "\\\"")
+        .replace("\n", "\\n") + '"';
     }
     return value;
   }
 
   /**
-   * Increment a counter with 1. The counter is a key in a map.
-   * @param key (any kind of object)
-   * @param counter (a map where the key type equals to the key parameter)
-   * @param <T>
+   * If the key is not in the map, it will be added with the value of 1. In any case, the value will be incremented by i.
+   * @param key A key in the counter map or a value that can be used as a key of that map
+   * @param counter A map which uses any kind of object as key and integer as value. Essentially counts the occurrences
+   *                of the keys.
+   * @param <T> Any kind of object. Type of the key in the counter map.
    */
-  public static <T extends Object> void count(T key, Map<T, Integer> counter) {
-    if (!counter.containsKey(key))
-      counter.put(key, 1);
-    else
-      counter.put(key, counter.get(key) + 1);
+  public static <T> void count(T key, Map<T, Integer> counter) {
+    addToCounter(key, counter, 1);
   }
 
-  public static <T extends Object> void add(T key, Map<T, Integer> counter, int i) {
-    counter.computeIfAbsent(key, s -> 0);
+  /**
+   * If the key is not in the map, it will be added with the value of 0. In any case, the value will be incremented by i.
+   * @param key A key in the counter map or a value that can be used as a key of that map
+   * @param counter A map which uses any kind of object as key and integer as value. Essentially counts the occurrences
+   *                of its keys.
+   * @param i The value to increment the counter with
+   * @param <T> Any kind of object. Type of the key in the counter map.
+   */
+  public static <T> void addToCounter(T key, Map<T, Integer> counter, int i) {
+    counter.putIfAbsent(key, 0);
     counter.put(key, counter.get(key) + i);
   }
 
@@ -169,8 +176,8 @@ public class Utils {
 
   public static int parseId(String id) {
     return (id.contains("+"))
-        ? Utils.scientificNotationToInt(id)
-        : Integer.parseInt(id);
+      ? Utils.scientificNotationToInt(id)
+      : Integer.parseInt(id);
   }
 
   public static String base36Encode(int i) {
@@ -203,6 +210,11 @@ public class Utils {
       "Character position range %d-%d is not available in string '%s'", start, end, value));
   }
 
+  /**
+   * Convert a list of strings to a map where the keys are the strings and the values are true.
+   * @param list A list of strings.
+   * @return A map where the keys are the strings and the values are true.
+   */
   public static Map<String, Boolean> listToMap(List<String> list) {
     Map<String, Boolean> map = new HashMap<>();
     for (String tag : list)

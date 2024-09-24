@@ -1,8 +1,8 @@
 package de.gwdg.metadataqa.marc.analysis;
 
 import de.gwdg.metadataqa.marc.MarcSubfield;
-import de.gwdg.metadataqa.marc.analysis.bl.UseCase;
 import de.gwdg.metadataqa.marc.analysis.bl.Element;
+import de.gwdg.metadataqa.marc.analysis.bl.UseCase;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 
@@ -14,8 +14,8 @@ import java.util.logging.Logger;
 
 import static de.gwdg.metadataqa.marc.analysis.bl.Band.BASIC;
 import static de.gwdg.metadataqa.marc.analysis.bl.Band.DEFICIENT;
-import static de.gwdg.metadataqa.marc.analysis.bl.Band.SATISFACTORY;
 import static de.gwdg.metadataqa.marc.analysis.bl.Band.EFFECTIVE;
+import static de.gwdg.metadataqa.marc.analysis.bl.Band.SATISFACTORY;
 
 public class BLClassifier implements Classifier, Serializable {
   private static final Logger logger = Logger.getLogger(BLClassifier.class.getCanonicalName());
@@ -63,7 +63,7 @@ public class BLClassifier implements Classifier, Serializable {
         if (element.getSubfield() == null) {
           return true;
         } else {
-          for (DataField field : marcRecord.getDatafield(element.getTag())) {
+          for (DataField field : marcRecord.getDatafieldsByTag(element.getTag())) {
             List<MarcSubfield> subfields = field.getSubfield(element.getSubfield());
             if (subfields != null && !subfields.isEmpty())
               return true;

@@ -55,7 +55,7 @@ public class NkcrMarcReaderTest {
       DataFieldValidator validator = new DataFieldValidator(new ValidatorConfiguration().withMarcVersion(MarcVersion.NKCR));
       for (String nkrcField : nkrcFields) {
         if (marcRecord.hasDatafield(nkrcField)) {
-          for (DataField field : marcRecord.getDatafield(nkrcField)) {
+          for (DataField field : marcRecord.getDatafieldsByTag(nkrcField)) {
             boolean isValid = validator.validate(field);
             if (i == 5 && nkrcField.equals("910")) {
               assertEquals(1, validator.getValidationErrors().size());

@@ -24,7 +24,7 @@ public abstract class ThompsonTraillAnalysis {
   }
 
   protected boolean tagExists(BibliographicRecord marcRecord, String tag) {
-    List<DataField> fields = marcRecord.getDatafield(tag);
+    List<DataField> fields = marcRecord.getDatafieldsByTag(tag);
     return (fields != null && !fields.isEmpty());
   }
 }

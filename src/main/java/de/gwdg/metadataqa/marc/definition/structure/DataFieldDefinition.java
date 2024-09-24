@@ -47,14 +47,17 @@ public abstract class DataFieldDefinition implements BibliographicFieldDefinitio
   }
 
   public String getIndexTag() {
-    if (indexTag == null) {
-      if (mqTag != null)
-        indexTag = mqTag;
-      else if (bibframeTag != null)
-        indexTag = bibframeTag.replace("/", "");
-      else
-        indexTag = tag;
+    if (indexTag != null) {
+      return indexTag;
     }
+    if (mqTag != null) {
+      indexTag = mqTag;
+    } else if (bibframeTag != null) {
+      indexTag = bibframeTag.replace("/", "");
+    } else {
+      indexTag = tag;
+    }
+
     return indexTag;
   }
 
@@ -153,11 +156,6 @@ public abstract class DataFieldDefinition implements BibliographicFieldDefinitio
     return descriptionUrl;
   }
 
-  /**
-   *
-   * @param code
-   * @return The subfield definition or null
-   */
   public SubfieldDefinition getSubfield(String code) {
     return subfieldIndex.getOrDefault(code, null);
   }
@@ -184,23 +182,29 @@ public abstract class DataFieldDefinition implements BibliographicFieldDefinitio
   }
 
   public boolean isVersionSpecificSubfields(MarcVersion marcVersion, String code) {
-    if (versionSpecificSubfields != null
-      && !versionSpecificSubfields.isEmpty()
-      && versionSpecificSubfields.containsKey(marcVersion)
-      && !versionSpecificSubfields.get(marcVersion).isEmpty()) {
-      for (SubfieldDefinition subfieldDefinition : versionSpecificSubfields.get(marcVersion)) {
-        if (subfieldDefinition.getCode().equals(code))
-          return true;
+    if (versionSpecificSubfields == null
+      || versionSpecificSubfields.isEmpty()
+      || !versionSpecificSubfields.containsKey(marcVersion)
+      || versionSpecificSubfields.get(marcVersion).isEmpty()) {
+      return false;
+    }
+
+    for (SubfieldDefinition subfieldDefinition : versionSpecificSubfields.get(marcVersion)) {
+      if (subfieldDefinition.getCode().equals(code)) {
+        return true;
       }
     }
     return false;
   }
 
-  public SubfieldDefinition getVersionSpecificSubfield(MarcVersion marcVersion, String code) {
-    if (isVersionSpecificSubfields(marcVersion, code)) {
-      for (SubfieldDefinition subfieldDefinition : versionSpecificSubfields.get(marcVersion)) {
-        if (subfieldDefinition.getCode().equals(code))
-          return subfieldDefinition;
+  public SubfieldDefinition getVersionSpecificDefinition(MarcVersion marcVersion, String code) {
+    if (!isVersionSpecificSubfields(marcVersion, code)) {
+      return null;
+    }
+
+    for (SubfieldDefinition subfieldDefinition : versionSpecificSubfields.get(marcVersion)) {
+      if (subfieldDefinition.getCode().equals(code)) {
+        return subfieldDefinition;
       }
     }
     return null;

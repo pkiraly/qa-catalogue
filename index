@@ -218,11 +218,10 @@ $CMD $PARAMS ${FILE_PATH}/${FILE_MASK}
 #   $marcFormat $ignorableFields $groupBy $outputDir $PARAMS \
 #   ${FILE_PATH}/${FILE_MASK}
 
-# echo "Start optimizing"
-# curl "$SOLR_DB_URL/update?optimize=true" -H 'Content-type: text/xml' --data-binary '<commit/>'
+echo "Start optimizing"
 optimize_core $CORE
 
-# store field list to JSON file
+echo "store field list to JSON file"
 store_fields ${SOLR_DB_URL} ${OUTPUT_DIR}
 
 echo "indexing DONE"

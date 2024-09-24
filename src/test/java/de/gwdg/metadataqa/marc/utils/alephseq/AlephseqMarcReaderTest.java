@@ -45,7 +45,7 @@ public class AlephseqMarcReaderTest {
     assertNotNull(marcRecord);
 
     assertEquals("000000002", marcRecord.getId());
-    List<DataField> fields = marcRecord.getDatafield("100");
+    List<DataField> fields = marcRecord.getDatafieldsByTag("100");
     assertNotNull(fields);
     assertEquals(1, fields.size());
     DataField field = fields.get(0);
@@ -344,7 +344,7 @@ public class AlephseqMarcReaderTest {
       marc4jRecord = reader.next();
       if (marc4jRecord.getControlNumber().equals("000000008")) {
         BibliographicRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, MarcLeader.Type.BOOKS, MarcVersion.GENT, "^");
-        assertEquals("München :", marcRecord.getDatafield("260").get(0).getSubfield("a").get(0).getValue());
+        assertEquals("München :", marcRecord.getDatafieldsByTag("260").get(0).getSubfield("a").get(0).getValue());
       }
     }
   }
@@ -363,7 +363,7 @@ public class AlephseqMarcReaderTest {
       marc4jRecord = reader.next();
       if (marc4jRecord.getControlNumber().equals("990017782740205171")) {
         BibliographicRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, MarcLeader.Type.BOOKS, MarcVersion.GENT, "^");
-        assertEquals("1993.", marcRecord.getDatafield("260").get(0).getSubfield("c").get(0).getValue());
+        assertEquals("1993.", marcRecord.getDatafieldsByTag("260").get(0).getSubfield("c").get(0).getValue());
       }
     }
   }

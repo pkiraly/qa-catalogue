@@ -63,15 +63,20 @@ fi
 SHORT_OPTIONS="m:hnl:o:i:d:qabpxyt:rz:v:f:s:g:1:2:u:j:w:k:c:e:3:4:G:SHF:R:WTI:"
 LONG_OPTIONS="marcVersion:,help,nolog,limit:,offset:,id:,defaultRecordType:,fixAlephseq,fixAlma,fixKbr,alephseq,marcxml,lineSeparated,outputDir:,trimId,ignorableFields:,ignorableRecords:,marcFormat:,dataSource:,defaultEncoding:,alephseqLineType:,picaIdField:,picaSubfieldSeparator:,picaSchemaFile:,schemaType:,picaRecordType:,allowableRecords:,groupBy:,groupListFile:,solrForScoresUrl:,summaryFileName:,summary,details,detailsFileName:,format:,emptyLargeCollectors,collectAllErrors,ignorableIssueTypes:"
 
+echo "@: ${@}"
+
 GETOPT=$(getopt \
   -o ${SHORT_OPTIONS} \
   --long ${LONG_OPTIONS} \
   -n ${ME} -- "$@")
 eval set -- "${GETOPT}"
 
+echo "GETOPT: ${GETOPT}"
+
 PARAMS=""
 HELP=0
 while true ; do
+  echo "process $1"
   case "$1" in
     -m|--marcVersion)            PARAMS="$PARAMS --marcVersion $2" ;           shift 2 ;;
     -h|--help)                   PARAMS="$PARAMS --help" ; HELP=1;             shift   ;;
@@ -122,5 +127,9 @@ fi
 
 CMD="/usr/bin/java -Xmx8g -cp $JAR de.gwdg.metadataqa.marc.cli.ValidatorCli"
 
+echo 'CMD: ' $CMD
+echo 'PARAMS: ' $PARAMS
+echo 'REST: ' "$@"
 echo $CMD $PARAMS "$@"
+exit
 $CMD $PARAMS "$@"

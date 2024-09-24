@@ -73,13 +73,7 @@ public class MARCspec {
       throw new InvalidMARCspecException(InvalidMARCspecException.PR + InvalidMARCspecException.PR5, positionInput);
     }
 
-    if (2 < positions.length) {
-      throw new InvalidMARCspecException(InvalidMARCspecException.PR + InvalidMARCspecException.PR6, positionInput);
-    }
-
-    if (1 == positions.length) {
-      positions[1] = null;
-    }
+    // Here, removed null assignment to an out-of-bounds index positions[1]
 
     Position[] indexPositions = new Position[positions.length];
     for (int i = 0; i<positions.length; i++) {

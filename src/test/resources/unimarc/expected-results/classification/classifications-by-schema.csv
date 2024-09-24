@@ -1,0 +1,5 @@
+id,field,location,scheme,abbreviation,abbreviation4solr,recordcount,instancecount,type
+1,606,$2,"RAMEAU : repertoire d’autorite-matiere encyclopedique et alphabetique unifie. (Paris : Bibliotheque nationale de France ; Montpellier : Agence bibliographique de l’enseignement superieur)","rameau",rameau,1,5,UNKNOWN
+2,606,$2,"Library of Congress Subject Headings. (Washington : Library of Congress)","lc",lc,1,1,UNKNOWN
+3,675,$a,"Universal Decimal Classification","udc",udc,1,1,CLASSIFICATION_SCHEME
+4,676,$a,"Dewey Decimal Classification","ddc",ddc,1,1,CLASSIFICATION_SCHEME

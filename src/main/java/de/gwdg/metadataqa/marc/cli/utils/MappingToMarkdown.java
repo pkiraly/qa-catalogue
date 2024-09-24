@@ -1,6 +1,5 @@
 package de.gwdg.metadataqa.marc.cli.utils;
 
-import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 import de.gwdg.metadataqa.marc.utils.MarcTagLister;
@@ -55,9 +54,10 @@ public class MappingToMarkdown {
         tag.getInd2().getLabel());
     System.out.printf("|  | data subfields |  |%n");
     for (SubfieldDefinition subfield : tag.getSubfields()) {
-      System.out.printf("| `%s$%s` | `%s%s` | %s |%n",
+      // This codeForIndex doesn't contain underscore so it's added in the format string
+      System.out.printf("| `%s$%s` | `%s_%s` | %s |%n",
         tag.getTag(), subfield.getCode(),
-        tag.getIndexTag(), subfield.getCodeForIndex(SchemaType.MARC21),
+        tag.getIndexTag(), subfield.getCodeForIndex(),
         subfield.getLabel());
     }
   }

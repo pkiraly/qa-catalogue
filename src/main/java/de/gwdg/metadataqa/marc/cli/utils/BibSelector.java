@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.api.model.selector.Selector;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.dao.record.Marc21BibliographicRecord;
 import de.gwdg.metadataqa.marc.dao.record.PicaRecord;
+import de.gwdg.metadataqa.marc.dao.record.UnimarcRecord;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,6 +16,7 @@ public abstract class BibSelector implements Selector {
   protected final BibliographicRecord record;
   private boolean isMarc21 = false;
   private boolean isPica = false;
+  private boolean isUnimarc = false;
 
   public BibSelector(BibliographicRecord record) {
     if (record != null) {
@@ -23,6 +25,8 @@ public abstract class BibSelector implements Selector {
         isMarc21 = true;
       } else if (record instanceof PicaRecord) {
         isPica = true;
+      } else if (record instanceof UnimarcRecord) {
+        isUnimarc = true;
       }
     } else {
       throw new IllegalArgumentException("Only BibliographicRecord object as Argument");
@@ -38,7 +42,6 @@ public abstract class BibSelector implements Selector {
     }
     return fieldList;
   }
-
 
   @Override
   public Object read(String path, Object jsonFragment) {

@@ -119,38 +119,53 @@ public class RecordIterator {
       System.exit(1);
     } catch (Exception ex) {
       if (!processor.getParameters().doLog()) {
-        logger.log(Level.SEVERE, "start", ex);
-        System.exit(1);
+        logger.log(Level.SEVERE, "error in processFile()", ex);
+        // System.exit(1);
       }
 
       logger.severe("Other exception: " + ex);
+      ex.printStackTrace();
 
       for (StackTraceElement element : ex.getStackTrace()) {
-        logger.severe(element.toString());
+        // logger.severe(element.toString());
+        System.err.println(element.toString());
       }
       Throwable exa = ex;
       while (exa.getCause() != null) {
         logger.severe("cause");
         exa = exa.getCause();
         for (StackTraceElement element : exa.getStackTrace()) {
-          logger.severe(element.toString());
+          System.err.println(element.toString());
         }
       }
-      logger.log(Level.SEVERE, "start", ex);
-      System.exit(1);
+      // logger.log(Level.SEVERE, "start2", ex);
+      // System.exit(1);
     }
   }
 
   private void processContent(MarcReader reader, String fileName) {
-    while (reader.hasNext()) {
-      if (!processor.readyToProcess()
-        || isOverLimit(processor.getParameters().getLimit(), recordNumber)) {
-        break;
-      }
+    try {
+      while (reader.hasNext()) {
+        if (!processor.readyToProcess()
+          || isOverLimit(processor.getParameters().getLimit(), recordNumber)) {
+          break;
+        }
 
-      IteratorResponse iteratorResponse = getNextMarc4jRecord(recordNumber, lastKnownId, reader);
-      recordNumber++;
-      processIteratorResponse(iteratorResponse, fileName);
+        try {
+          IteratorResponse iteratorResponse = getNextMarc4jRecord(recordNumber, lastKnownId, reader);
+          recordNumber++;
+          processIteratorResponse(iteratorResponse, fileName);
+        } catch (MarcException ex) {
+          logger.log(Level.SEVERE, "catched MarcException", ex);
+        } catch (Exception ex) {
+          logger.log(Level.SEVERE, "catched Exception", ex);
+        }
+      }
+    } catch (MarcException ex) {
+      String msg = String.format("Error during processing the file content." +
+          " File: %s, last known record number: %s, last known record identifier: %s",
+        fileName, recordNumber, lastKnownId);
+      logger.log(Level.SEVERE, msg, ex);
     }
   }
 
@@ -163,7 +178,6 @@ public class RecordIterator {
     if (isUnderOffset(processor.getParameters().getOffset(), recordNumber)) {
       return;
     }
-
 
     if (marc4jRecord.getControlNumber() == null) {
       logger.log(Level.SEVERE, "No record number at {0}, last known ID: {1}", new Object[]{recordNumber, lastKnownId});
@@ -261,7 +275,7 @@ public class RecordIterator {
       logger.severe(msg);
     } catch (Exception e) {
       response.addError(lastKnownId, e.getLocalizedMessage());
-      logger.log(Level.SEVERE, "start", e);
+      logger.log(Level.SEVERE, "error in getNextMarc4jRecord()", e);
     }
     return response;
   }
@@ -276,7 +290,7 @@ public class RecordIterator {
       logger.log(Level.SEVERE, "No record number at {0}", i);
     if (processor.getParameters().doLog())
       logger.log(Level.SEVERE, String.format(message, marc4jRecord.getControlNumber(), e.getMessage()));
-    logger.log(Level.SEVERE, "start", e);
+    logger.log(Level.SEVERE, "error in extracted()", e);
   }
 
   private static boolean isOverLimit(int limit, int i) {

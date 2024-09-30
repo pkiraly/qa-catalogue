@@ -2,8 +2,8 @@
 
 class Hbz extends Catalogue {
   protected $name = 'hbz';
-  protected $label = 'hbz Verbunddaten Basedump vom 10.08.2024';
-  protected $url = 'https://example.com/';
+  protected $label = 'hbz Verbunddaten Basedump vom 23.09.2024';
+  protected $url = 'https://lobid.org/';
   protected $marcVersion = 'HBZ';
-  protected $linkTemplate = 'http://example.com/{id}';
+  protected $linkTemplate = 'https://lobid.org/marcxml/{id}';
 }

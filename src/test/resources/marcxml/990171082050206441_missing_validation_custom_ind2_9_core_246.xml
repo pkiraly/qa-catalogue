@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record xmlns="http://www.loc.gov/MARC21/slim" type="Bibliographic">
+	<leader>00000nas a2200000#c 4500</leader>
+	<controlfield tag="005">20230413112905.0</controlfield>
+	<controlfield tag="007">tu</controlfield>
+	<controlfield tag="008">080903c20089999gw f||p|  ||| 0||||1ger c</controlfield>
+	<controlfield tag="003">DE-605</controlfield>
+	<controlfield tag="001">990171082050206441</controlfield>
+	<datafield tag="015" ind1=" " ind2=" ">
+		<subfield code="a">09,A13,0747</subfield>
+		<subfield code="2">dnb</subfield>
+	</datafield>
+	<datafield tag="016" ind1="7" ind2=" ">
+		<subfield code="a">2448980-3</subfield>
+		<subfield code="2">DE-600</subfield>
+	</datafield>
+	<datafield tag="016" ind1="7" ind2=" ">
+		<subfield code="a">990271072</subfield>
+		<subfield code="2">DE-101</subfield>
+	</datafield>
+	<datafield tag="022" ind1=" " ind2=" ">
+		<subfield code="a">1867-2035</subfield>
+		<subfield code="0">http://worldcat.org/issn/{0}1867-2035</subfield>
+	</datafield>
+	<datafield tag="022" ind1=" " ind2=" ">
+		<subfield code="a">1867-2035</subfield>
+		<subfield code="2">6</subfield>
+		<subfield code="0">http://worldcat.org/issn/{0}1867-2035</subfield>
+	</datafield>
+	<datafield tag="035" ind1=" " ind2=" ">
+		<subfield code="a">(DE-599)ZDB2448980-3</subfield>
+	</datafield>
+	<datafield tag="035" ind1=" " ind2=" ">
+		<subfield code="a">(OCoLC)723803602</subfield>
+	</datafield>
+	<datafield tag="035" ind1=" " ind2=" ">
+		<subfield code="a">(DE-600)2448980-3</subfield>
+	</datafield>
+	<datafield tag="035" ind1=" " ind2=" ">
+		<subfield code="a">(DE-101)990271072</subfield>
+	</datafield>
+	<datafield tag="040" ind1=" " ind2=" ">
+		<subfield code="a">1141</subfield>
+		<subfield code="b">ger</subfield>
+		<subfield code="c">DE-101</subfield>
+		<subfield code="d">0005</subfield>
+	</datafield>
+	<datafield tag="041" ind1=" " ind2=" ">
+		<subfield code="a">ger</subfield>
+	</datafield>
+	<datafield tag="044" ind1=" " ind2=" ">
+		<subfield code="c">XA-DE</subfield>
+	</datafield>
+	<datafield tag="082" ind1="0" ind2="4">
+		<subfield code="a">372.21094305</subfield>
+		<subfield code="q">DE-101</subfield>
+		<subfield code="2">22/ger</subfield>
+	</datafield>
+	<datafield tag="084" ind1=" " ind2=" ">
+		<subfield code="a">370</subfield>
+		<subfield code="q">DE-101</subfield>
+		<subfield code="2">sdnb</subfield>
+	</datafield>
+	<datafield tag="084" ind1=" " ind2=" ">
+		<subfield code="a">370</subfield>
+		<subfield code="q">DE-600</subfield>
+		<subfield code="2">sdnb</subfield>
+	</datafield>
+	<datafield tag="222" ind1=" " ind2="0">
+		<subfield code="a">Bausteine Kindergarten. Zahlen, Mengen, Formen</subfield>
+	</datafield>
+	<datafield tag="245" ind1="0" ind2="0">
+		<subfield code="a">Bausteine Kindergarten</subfield>
+		<subfield code="n">[...]</subfield>
+		<subfield code="p">Zahlen, Mengen, Formen</subfield>
+	</datafield>
+	<datafield tag="246" ind1="1" ind2="9">
+		<subfield code="a">Bausteine Kindergarten / Zahlen, Mengen, Formen</subfield>
+	</datafield>
+	<datafield tag="264" ind1="3" ind2="1">
+		<subfield code="a">Aachen</subfield>
+		<subfield code="b">Bergmoser + Höller</subfield>
+		<subfield code="c">2008-</subfield>
+	</datafield>
+	<datafield tag="300" ind1=" " ind2=" ">
+		<subfield code="c">30 cm</subfield>
+	</datafield>
+	<datafield tag="336" ind1=" " ind2=" ">
+		<subfield code="b">txt</subfield>
+	</datafield>
+	<datafield tag="337" ind1=" " ind2=" ">
+		<subfield code="b">n</subfield>
+	</datafield>
+	<datafield tag="338" ind1=" " ind2=" ">
+		<subfield code="b">nc</subfield>
+	</datafield>
+	<datafield tag="362" ind1="0" ind2=" ">
+		<subfield code="a">1.2008,1=1; 2.2009,1=2 -</subfield>
+	</datafield>
+	<datafield tag="363" ind1="0" ind2="1">
+		<subfield code="8">1.1\x</subfield>
+		<subfield code="i">2008</subfield>
+	</datafield>
+	<datafield tag="689" ind1="0" ind2="0">
+		<subfield code="a">Deutschland</subfield>
+		<subfield code="D">g</subfield>
+		<subfield code="0">(DE-588)4011882-4</subfield>
+		<subfield code="B">GND-040118827</subfield>
+	</datafield>
+	<datafield tag="689" ind1="0" ind2="1">
+		<subfield code="a">Kindergartenerziehung</subfield>
+		<subfield code="D">s</subfield>
+		<subfield code="0">(DE-588)4130244-8</subfield>
+		<subfield code="B">GND-041302443</subfield>
+	</datafield>
+	<datafield tag="689" ind1="0" ind2=" ">
+		<subfield code="5">DE-101</subfield>
+	</datafield>
+	<datafield tag="655" ind1=" " ind2="7">
+		<subfield code="a">Zeitschrift</subfield>
+		<subfield code="0">(DE-588)4067488-5</subfield>
+		<subfield code="2">gnd-content</subfield>
+	</datafield>
+	<datafield tag="515" ind1=" " ind2=" ">
+		<subfield code="a">Ersch. 2x jährl.</subfield>
+	</datafield>
+	<datafield tag="583" ind1="1" ind2=" ">
+		<subfield code="a">Archivierung/Langzeitarchivierung gewährleistet</subfield>
+		<subfield code="c">2020</subfield>
+		<subfield code="f">PENW</subfield>
+		<subfield code="5">DE-5</subfield>
+		<subfield code="2">pdager</subfield>
+	</datafield>
+	<datafield tag="MBD" ind1=" " ind2=" ">
+		<subfield code="M">49HBZ_NETWORK</subfield>
+		<subfield code="i">990171082050206441</subfield>
+		<subfield code="n">HBZ Network</subfield>
+	</datafield>
+	<datafield tag="MBD" ind1=" " ind2=" ">
+		<subfield code="M">49HBZ_ULB</subfield>
+		<subfield code="i">991018196269706467</subfield>
+		<subfield code="n">Universitaet Bonn</subfield>
+	</datafield>
+	<datafield tag="MNG" ind1=" " ind2=" ">
+		<subfield code="c">System</subfield>
+		<subfield code="f">ZDB</subfield>
+		<subfield code="i">marc21</subfield>
+		<subfield code="h">20230413112905.0</subfield>
+		<subfield code="k">01</subfield>
+		<subfield code="e">false</subfield>
+		<subfield code="d">2024-04-11 17:44:56 Europe/Berlin</subfield>
+		<subfield code="g">017108205-HBZ01</subfield>
+		<subfield code="j">90</subfield>
+		<subfield code="a">import</subfield>
+		<subfield code="b">2021-04-05 23:10:25 Europe/Berlin</subfield>
+	</datafield>
+	<datafield tag="H16" ind1="7" ind2=" ">
+		<subfield code="a">2448980-3</subfield>
+		<subfield code="2">DE-600</subfield>
+		<subfield code="8">22317382750006467</subfield>
+	</datafield>
+	<datafield tag="H35" ind1=" " ind2=" ">
+		<subfield code="a">(DE-600)268935009</subfield>
+		<subfield code="8">22317382750006467</subfield>
+	</datafield>
+	<datafield tag="H35" ind1=" " ind2=" ">
+		<subfield code="a">(DE-5)268935009-49hbz_ulb</subfield>
+		<subfield code="8">22317382750006467</subfield>
+	</datafield>
+	<datafield tag="H92" ind1=" " ind2=" ">
+		<subfield code="a">531000-3</subfield>
+		<subfield code="d">5</subfield>
+		<subfield code="k">NRW</subfield>
+		<subfield code="l">a</subfield>
+		<subfield code="o">b</subfield>
+		<subfield code="y">90-ff</subfield>
+		<subfield code="8">22317382750006467</subfield>
+	</datafield>
+	<datafield tag="H52" ind1="8" ind2="1">
+		<subfield code="b">0</subfield>
+		<subfield code="c">0-Mag</subfield>
+		<subfield code="8">1</subfield>
+		<subfield code="h">Z 2008/270</subfield>
+		<subfield code="9">00</subfield>
+		<subfield code="x">DE-5</subfield>
+		<subfield code="8">22317382750006467</subfield>
+	</datafield>
+	<datafield tag="H59" ind1="0" ind2="1">
+		<subfield code="8">1.1\x</subfield>
+		<subfield code="a">5</subfield>
+		<subfield code="i">2012</subfield>
+		<subfield code="8">22317382750006467</subfield>
+	</datafield>
+	<datafield tag="H66" ind1="3" ind2="0">
+		<subfield code="a">5.2012,1=8 -</subfield>
+		<subfield code="8">22317382750006467</subfield>
+	</datafield>
+	<datafield tag="HOL" ind1=" " ind2=" ">
+		<subfield code="b">2023-07-24 12:13:26</subfield>
+		<subfield code="8">22317382750006467</subfield>
+		<subfield code="M">49HBZ_ULB</subfield>
+		<subfield code="g">false</subfield>
+		<subfield code="a">import</subfield>
+	</datafield>
+	<datafield tag="ITM" ind1=" " ind2=" ">
+		<subfield code="H">22317382750006467</subfield>
+		<subfield code="x">0-MagInt</subfield>
+		<subfield code="I">Pflichtexemplar</subfield>
+		<subfield code="f">ISSUE</subfield>
+		<subfield code="v">0-Mag</subfield>
+		<subfield code="X">HK00051</subfield>
+		<subfield code="U">2024-09-20 17:09:11 Europe/Berlin</subfield>
+		<subfield code="Y">2024-09-20 17:09:27 Europe/Berlin</subfield>
+		<subfield code="j">2</subfield>
+		<subfield code="i">2024</subfield>
+		<subfield code="M">49HBZ_ULB</subfield>
+		<subfield code="s">1</subfield>
+		<subfield code="d">8</subfield>
+		<subfield code="V">HK00051</subfield>
+		<subfield code="b">ULB 0000036189</subfield>
+		<subfield code="a">23401622220006467</subfield>
+		<subfield code="R">PEBN</subfield>
+		<subfield code="c">Z 2008/270</subfield>
+		<subfield code="B">p2024.012496</subfield>
+		<subfield code="D">2024-09-20 15:09:11</subfield>
+		<subfield code="q">2024,2</subfield>
+		<subfield code="W">2024-09-20 17:08:44 Europe/Berlin</subfield>
+		<subfield code="u">0</subfield>
+		<subfield code="w">0</subfield>
+	</datafield>
+	<datafield tag="ITM" ind1=" " ind2=" ">
+		<subfield code="H">22317382750006467</subfield>
+		<subfield code="x">0-MagInt</subfield>
+		<subfield code="I">Pflichtexemplar</subfield>
+		<subfield code="f">ISSUE</subfield>
+		<subfield code="v">0-Mag</subfield>
+		<subfield code="X">Staff00010</subfield>
+		<subfield code="U">2024-03-28 15:09:04 Europe/Berlin</subfield>
+		<subfield code="Y">2024-03-28 15:09:08 Europe/Berlin</subfield>
+		<subfield code="j">1</subfield>
+		<subfield code="i">2024</subfield>
+		<subfield code="M">49HBZ_ULB</subfield>
+		<subfield code="A">true</subfield>
+		<subfield code="s">1</subfield>
+		<subfield code="d">8</subfield>
+		<subfield code="V">Staff00010</subfield>
+		<subfield code="b">ULB 0000025005</subfield>
+		<subfield code="a">23396247940006467</subfield>
+		<subfield code="R">PEBN</subfield>
+		<subfield code="c">Z 2008/270</subfield>
+		<subfield code="B">p2024.004318</subfield>
+		<subfield code="D">2024-03-28 14:09:04</subfield>
+		<subfield code="q">2024,1</subfield>
+		<subfield code="W">2024-03-28 15:08:29 Europe/Berlin</subfield>
+		<subfield code="u">0</subfield>
+		<subfield code="w">0</subfield>
+	</datafield>
+	<datafield tag="GST" ind1=" " ind2=" ">
+		<subfield code="a">Kindergarten</subfield>
+		<subfield code="x">Erziehung</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-041302443</subfield>
+		<subfield code="C">450</subfield>
+	</datafield>
+	<datafield tag="GST" ind1=" " ind2=" ">
+		<subfield code="a">Kindergartenarbeit</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-041302443</subfield>
+		<subfield code="C">450</subfield>
+	</datafield>
+	<datafield tag="GST" ind1=" " ind2=" ">
+		<subfield code="a">Kindergarten</subfield>
+		<subfield code="x">Didaktik</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-041302443</subfield>
+		<subfield code="C">450</subfield>
+	</datafield>
+	<datafield tag="GSI" ind1="7" ind2=" ">
+		<subfield code="a">4130244-8</subfield>
+		<subfield code="0">http://d-nb.info/gnd/4130244-8</subfield>
+		<subfield code="2">gnd</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-041302443</subfield>
+		<subfield code="C">024</subfield>
+	</datafield>
+	<datafield tag="GSI" ind1="7" ind2=" ">
+		<subfield code="a">http://d-nb.info/gnd/4011882-4</subfield>
+		<subfield code="2">uri</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-040118827</subfield>
+		<subfield code="C">024</subfield>
+	</datafield>
+	<datafield tag="GGN" ind1=" " ind2=" ">
+		<subfield code="a">Deutsche Länder</subfield>
+		<subfield code="9">v:als Sammelbezeichnung für die RVK</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-040118827</subfield>
+		<subfield code="C">451</subfield>
+	</datafield>
+	<datafield tag="GGN" ind1=" " ind2=" ">
+		<subfield code="a">Germany</subfield>
+		<subfield code="g">Deutschland</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-040118827</subfield>
+		<subfield code="C">451</subfield>
+	</datafield>
+	<datafield tag="GGN" ind1=" " ind2=" ">
+		<subfield code="a">Heiliges Römisches Reich</subfield>
+		<subfield code="4">naaf</subfield>
+		<subfield code="4">http://d-nb.info/standards/elementset/gnd#variantName</subfield>
+		<subfield code="w">r</subfield>
+		<subfield code="i">Alte Ansetzungsform</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-040118827</subfield>
+		<subfield code="C">451</subfield>
+	</datafield>
+	<datafield tag="GGN" ind1=" " ind2=" ">
+		<subfield code="a">Rheinbund</subfield>
+		<subfield code="4">naaf</subfield>
+		<subfield code="4">http://d-nb.info/standards/elementset/gnd#variantName</subfield>
+		<subfield code="w">r</subfield>
+		<subfield code="i">Alte Ansetzungsform</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-040118827</subfield>
+		<subfield code="C">451</subfield>
+	</datafield>
+	<datafield tag="GGN" ind1=" " ind2=" ">
+		<subfield code="a">Deutscher Bund</subfield>
+		<subfield code="4">naaf</subfield>
+		<subfield code="4">http://d-nb.info/standards/elementset/gnd#variantName</subfield>
+		<subfield code="w">r</subfield>
+		<subfield code="i">Alte Ansetzungsform</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-040118827</subfield>
+		<subfield code="C">451</subfield>
+	</datafield>
+	<datafield tag="GGN" ind1=" " ind2=" ">
+		<subfield code="a">Norddeutscher Bund</subfield>
+		<subfield code="4">naaf</subfield>
+		<subfield code="4">http://d-nb.info/standards/elementset/gnd#variantName</subfield>
+		<subfield code="w">r</subfield>
+		<subfield code="i">Alte Ansetzungsform</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-040118827</subfield>
+		<subfield code="C">451</subfield>
+	</datafield>
+	<datafield tag="GGN" ind1=" " ind2=" ">
+		<subfield code="a">Deutsches Reich</subfield>
+		<subfield code="4">naaf</subfield>
+		<subfield code="4">http://d-nb.info/standards/elementset/gnd#variantName</subfield>
+		<subfield code="w">r</subfield>
+		<subfield code="i">Alte Ansetzungsform</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-040118827</subfield>
+		<subfield code="C">451</subfield>
+	</datafield>
+	<datafield tag="GGN" ind1=" " ind2=" ">
+		<subfield code="a">Deutschland</subfield>
+		<subfield code="g">Gebiet unter Alliierter Besatzung</subfield>
+		<subfield code="4">naaf</subfield>
+		<subfield code="4">http://d-nb.info/standards/elementset/gnd#variantName</subfield>
+		<subfield code="w">r</subfield>
+		<subfield code="i">Alte Ansetzungsform</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-040118827</subfield>
+		<subfield code="C">451</subfield>
+	</datafield>
+	<datafield tag="GGN" ind1=" " ind2=" ">
+		<subfield code="a">Deutschland</subfield>
+		<subfield code="g">Bundesrepublik, 1990-</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-040118827</subfield>
+		<subfield code="C">451</subfield>
+	</datafield>
+	<datafield tag="GGN" ind1=" " ind2=" ">
+		<subfield code="a">BRD</subfield>
+		<subfield code="g">1990-</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-040118827</subfield>
+		<subfield code="C">451</subfield>
+	</datafield>
+	<datafield tag="GGN" ind1=" " ind2=" ">
+		<subfield code="a">Federal Republic of Germany</subfield>
+		<subfield code="g">Deutschland</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-040118827</subfield>
+		<subfield code="C">451</subfield>
+	</datafield>
+	<datafield tag="GGN" ind1=" " ind2=" ">
+		<subfield code="a">Republic of Germany</subfield>
+		<subfield code="g">Deutschland</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-040118827</subfield>
+		<subfield code="C">451</subfield>
+	</datafield>
+	<datafield tag="GGN" ind1=" " ind2=" ">
+		<subfield code="a">Allemagne</subfield>
+		<subfield code="g">Deutschland</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-040118827</subfield>
+		<subfield code="C">451</subfield>
+	</datafield>
+	<datafield tag="GGN" ind1=" " ind2=" ">
+		<subfield code="a">Ǧumhūrīyat Almāniyā al-Ittiḥādīya</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-040118827</subfield>
+		<subfield code="C">451</subfield>
+	</datafield>
+	<datafield tag="GGN" ind1=" " ind2=" ">
+		<subfield code="a">Bundesrepublik Deutschland</subfield>
+		<subfield code="g">1990-</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-040118827</subfield>
+		<subfield code="C">451</subfield>
+	</datafield>
+	<datafield tag="GGN" ind1=" " ind2=" ">
+		<subfield code="a">BRD</subfield>
+		<subfield code="4">abku</subfield>
+		<subfield code="4">http://d-nb.info/standards/elementset/gnd#abbreviatedNameForThePlaceOrGeographicName</subfield>
+		<subfield code="w">r</subfield>
+		<subfield code="i">Abkuerzung</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-040118827</subfield>
+		<subfield code="C">451</subfield>
+	</datafield>
+	<datafield tag="GGN" ind1=" " ind2=" ">
+		<subfield code="a">Niemcy</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-040118827</subfield>
+		<subfield code="C">451</subfield>
+	</datafield>
+	<datafield tag="GGN" ind1=" " ind2=" ">
+		<subfield code="a">République Fédérale d'Allemagne</subfield>
+		<subfield code="g">Deutschland</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-040118827</subfield>
+		<subfield code="C">451</subfield>
+	</datafield>
+	<datafield tag="GGN" ind1=" " ind2=" ">
+		<subfield code="a">Repubblica Federale di Germania</subfield>
+		<subfield code="g">Deutschland</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-040118827</subfield>
+		<subfield code="C">451</subfield>
+	</datafield>
+	<datafield tag="GGN" ind1=" " ind2=" ">
+		<subfield code="a">Germanija</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-040118827</subfield>
+		<subfield code="C">451</subfield>
+	</datafield>
+	<datafield tag="GGN" ind1=" " ind2=" ">
+		<subfield code="a">Federativnaja Respublika Germanija</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-040118827</subfield>
+		<subfield code="C">451</subfield>
+	</datafield>
+	<datafield tag="GGN" ind1=" " ind2=" ">
+		<subfield code="a">FRG</subfield>
+		<subfield code="4">abku</subfield>
+		<subfield code="4">http://d-nb.info/standards/elementset/gnd#abbreviatedNameForThePlaceOrGeographicName</subfield>
+		<subfield code="w">r</subfield>
+		<subfield code="i">Abkuerzung</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-040118827</subfield>
+		<subfield code="C">451</subfield>
+	</datafield>
+	<datafield tag="GGN" ind1=" " ind2=" ">
+		<subfield code="a">Deyizhi-Lianbang-Gongheguo</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-040118827</subfield>
+		<subfield code="C">451</subfield>
+	</datafield>
+</record>

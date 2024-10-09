@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record xmlns="http://www.loc.gov/MARC21/slim" type="Bibliographic">
+	<leader>00838nam#a22002172cc4500</leader>
+	<controlfield tag="005">20210408045646.0</controlfield>
+	<controlfield tag="008">931226|########xx############|||#|#####c</controlfield>
+	<controlfield tag="003">DE-605</controlfield>
+	<controlfield tag="001">990082522550206441</controlfield>
+	<datafield tag="016" ind1="7" ind2=" ">
+		<subfield code="a">1070572152</subfield>
+		<subfield code="2">OCoLC</subfield>
+	</datafield>
+	<datafield tag="020" ind1=" " ind2=" ">
+		<subfield code="a">083716737X</subfield>
+		<subfield code="9">0-8371-6737-X</subfield>
+	</datafield>
+	<datafield tag="035" ind1=" " ind2=" ">
+		<subfield code="a">(DE-605)HT005824604</subfield>
+	</datafield>
+	<datafield tag="040" ind1=" " ind2=" ">
+		<subfield code="a">361</subfield>
+		<subfield code="b">ger</subfield>
+		<subfield code="e">rakwb</subfield>
+	</datafield>
+	<datafield tag="100" ind1="1" ind2=" ">
+		<subfield code="a">Adler, Mortimer Jerome</subfield>
+		<subfield code="d">1902-2001</subfield>
+		<subfield code="0">(DE-588)118982184</subfield>
+		<subfield code="4">aut</subfield>
+		<subfield code="9">O:H</subfield>
+		<subfield code="0">https://d-nb.info/gnd/118982184</subfield>
+		<subfield code="0">http://viaf.org/viaf/66506672</subfield>
+		<subfield code="B">GND-118982184</subfield>
+	</datafield>
+	<datafield tag="245" ind1="1" ind2="0">
+<subfield code="a">&lt;&lt;The&gt;&gt; idea of freedom</subfield>
+<subfield code="n">1</subfield>
+<subfield code="p">A dialectical examination of the conceptions of freedom</subfield>
+<subfield code="c">by Mortimer J. Adler for The Institute for Philosophical Research</subfield>
+</datafield>
+<datafield tag="264" ind1=" " ind2="1">
+<subfield code="a">Westport, Conn.</subfield>
+<subfield code="b">Greenwood Pr.</subfield>
+</datafield>
+<datafield tag="300" ind1=" " ind2=" ">
+<subfield code="a">XXVII, 689 S</subfield>
+</datafield>
+<datafield tag="710" ind1="2" ind2=" ">
+<subfield code="a">Institute for Philosophical Research</subfield>
+<subfield code="g">San Francisco, Calif.</subfield>
+<subfield code="0">(DE-588)16210915-5</subfield>
+<subfield code="4">oth</subfield>
+<subfield code="9">O:H</subfield>
+<subfield code="0">https://d-nb.info/gnd/05528809X</subfield>
+<subfield code="0">http://viaf.org/viaf/125884231</subfield>
+<subfield code="B">GND-05528809X</subfield>
+</datafield>
+<datafield tag="773" ind1="0" ind2="8">
+<subfield code="w">(DE-605)HT005405490</subfield>
+<subfield code="q">1</subfield>
+</datafield>
+<datafield tag="964" ind1="0" ind2="s">
+<subfield code="F">030</subfield>
+<subfield code="A">h|1uc||||||||</subfield>
+</datafield>
+<datafield tag="035" ind1=" " ind2=" ">
+<subfield code="a">(OCoLC)1070572152</subfield>
+</datafield>
+<datafield tag="MBD" ind1=" " ind2=" ">
+<subfield code="M">49HBZ_NETWORK</subfield>
+<subfield code="i">990082522550206441</subfield>
+<subfield code="n">HBZ Network</subfield>
+</datafield>
+<datafield tag="MBD" ind1=" " ind2=" ">
+<subfield code="M">49HBZ_BIE</subfield>
+<subfield code="i">991004263349706442</subfield>
+<subfield code="n">Universität Bielefeld</subfield>
+</datafield>
+<datafield tag="MNG" ind1=" " ind2=" ">
+<subfield code="c">System</subfield>
+<subfield code="f">ILS</subfield>
+<subfield code="i">marc21</subfield>
+<subfield code="k">01</subfield>
+<subfield code="e">false</subfield>
+<subfield code="d">2024-06-22 04:24:34 Europe/Berlin</subfield>
+<subfield code="g">008252255-HBZ01</subfield>
+<subfield code="j">60</subfield>
+<subfield code="a">import</subfield>
+<subfield code="b">2021-04-05 08:30:34 Europe/Berlin</subfield>
+</datafield>
+<datafield tag="H52" ind1="8" ind2=" ">
+<subfield code="b">UB_BI</subfield>
+<subfield code="c">26_Mono</subfield>
+<subfield code="h">BF590 A237[1</subfield>
+<subfield code="8">22280250980006442</subfield>
+</datafield>
+<datafield tag="HOL" ind1=" " ind2=" ">
+<subfield code="b">2021-04-19 05:42:53</subfield>
+<subfield code="8">22280250980006442</subfield>
+<subfield code="M">49HBZ_BIE</subfield>
+<subfield code="g">false</subfield>
+<subfield code="a">import</subfield>
+</datafield>
+<datafield tag="ITM" ind1=" " ind2=" ">
+<subfield code="H">22280250980006442</subfield>
+<subfield code="x">26_Mono</subfield>
+<subfield code="f">BOOK</subfield>
+<subfield code="v">26_Mono</subfield>
+<subfield code="p">item_08</subfield>
+<subfield code="X">System</subfield>
+<subfield code="U">2021-04-18 12:59:00 Europe/Berlin</subfield>
+<subfield code="Y">2024-09-20 23:39:34 Europe/Berlin</subfield>
+<subfield code="h">false</subfield>
+<subfield code="M">49HBZ_BIE</subfield>
+<subfield code="s">0</subfield>
+<subfield code="d">8</subfield>
+<subfield code="V">import</subfield>
+<subfield code="L">Abteilung/Standort/Haushaltsstufe: 26 | SISIS-Magazindrucker: 0 | HBZ01: HT005824604 | Keine Beilagen: 1</subfield>
+<subfield code="b">168/1201847+01</subfield>
+<subfield code="O">SISIS-Ausleihzähler vorletztes Migrationsjahr: 1 | SISIS-Vormerkzähler Migrationsjahr: 0 | SISIS-vorletztes Rückgabedatum: 2020-01-13 | SISIS-Buchdaten-Aufnahmedatum: 2002-01-29</subfield>
+<subfield code="N">Fernleihkonditionen: 0 | Sigel: 361 | Klassifikation: 26_Mono | Altersbegrenzung: 0 | SISIS-Ausleihzähler Migrationsjahr: 0 | SISIS-Ausleihzähler Vor-Migrationsjahr: 2</subfield>
+<subfield code="a">23280250950006442</subfield>
+<subfield code="c">BF590 A237[1</subfield>
+<subfield code="r">LOAN</subfield>
+<subfield code="W">2021-04-19 07:42:53 Europe/Berlin</subfield>
+<subfield code="u">UB_BI</subfield>
+<subfield code="w">UB_BI</subfield>
+</datafield>
+<datafield tag="GSI" ind1="7" ind2=" ">
+<subfield code="a">http://d-nb.info/gnd/16210915-5</subfield>
+<subfield code="2">uri</subfield>
+<subfield code="A">GND</subfield>
+<subfield code="B">GND-05528809X</subfield>
+<subfield code="C">024</subfield>
+</datafield>
+<datafield tag="GPN" ind1="1" ind2=" ">
+<subfield code="a">Adler, Mortimer J.</subfield>
+<subfield code="d">1902-2001</subfield>
+<subfield code="A">GND</subfield>
+<subfield code="B">GND-118982184</subfield>
+<subfield code="C">400</subfield>
+</datafield>
+<datafield tag="GPN" ind1="1" ind2=" ">
+<subfield code="a">Adler, Mortimer</subfield>
+<subfield code="d">1902-2001</subfield>
+<subfield code="A">GND</subfield>
+<subfield code="B">GND-118982184</subfield>
+<subfield code="C">400</subfield>
+</datafield>
+<datafield tag="GPN" ind1="1" ind2=" ">
+<subfield code="a">Adler, Mort. J.</subfield>
+<subfield code="d">1902-2001</subfield>
+<subfield code="A">GND</subfield>
+<subfield code="B">GND-118982184</subfield>
+<subfield code="C">400</subfield>
+</datafield>
+<datafield tag="GSI" ind1="7" ind2=" ">
+<subfield code="a">118982184</subfield>
+<subfield code="0">http://d-nb.info/gnd/118982184</subfield>
+<subfield code="2">gnd</subfield>
+<subfield code="A">GND</subfield>
+<subfield code="B">GND-118982184</subfield>
+<subfield code="C">024</subfield>
+</datafield>
+</record>

@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record xmlns="http://www.loc.gov/MARC21/slim" type="Bibliographic">
+	<leader>02974cam a2200673 i 4500</leader>
+	<controlfield tag="005">20220323070735.0</controlfield>
+	<controlfield tag="007">cr uuu---uuuuu</controlfield>
+	<controlfield tag="008">190917s2019    gw |||||om    00| ||ger c</controlfield>
+	<controlfield tag="001">991000922029706482</controlfield>
+	<datafield tag="020" ind1=" " ind2=" ">
+		<subfield code="a">9783503188284</subfield>
+		<subfield code="9">978-3-503-18828-4</subfield>
+	</datafield>
+	<datafield tag="035" ind1=" " ind2=" ">
+		<subfield code="a">(DE-1871)238203</subfield>
+	</datafield>
+	<datafield tag="035" ind1=" " ind2=" ">
+		<subfield code="a">(DE-627)1677136928</subfield>
+	</datafield>
+	<datafield tag="040" ind1=" " ind2=" ">
+		<subfield code="a">DE-627</subfield>
+		<subfield code="b">ger</subfield>
+		<subfield code="c">DE-627</subfield>
+		<subfield code="e">rda</subfield>
+	</datafield>
+	<datafield tag="041" ind1=" " ind2=" ">
+		<subfield code="a">ger</subfield>
+	</datafield>
+	<datafield tag="044" ind1=" " ind2=" ">
+		<subfield code="c">XA-DE-BE</subfield>
+	</datafield>
+	<datafield tag="082" ind1="0" ind2=" ">
+		<subfield code="a">657.96</subfield>
+		<subfield code="q">SEPA</subfield>
+	</datafield>
+	<datafield tag="082" ind1="0" ind2="4">
+		<subfield code="a">650</subfield>
+		<subfield code="q">DE-101</subfield>
+	</datafield>
+	<datafield tag="084" ind1=" " ind2=" ">
+		<subfield code="a">QP 820</subfield>
+		<subfield code="q">SEPA</subfield>
+		<subfield code="2">rvk</subfield>
+		<subfield code="0">(DE-625)rvk/141943:</subfield>
+	</datafield>
+	<datafield tag="084" ind1=" " ind2=" ">
+		<subfield code="a">85.25</subfield>
+		<subfield code="2">bkl</subfield>
+	</datafield>
+	<datafield tag="100" ind1="1" ind2=" ">
+		<subfield code="a">Krauß, Felix</subfield>
+		<subfield code="e">VerfasserIn</subfield>
+		<subfield code="0">(DE-588)1172982538</subfield>
+		<subfield code="4">aut</subfield>
+		<subfield code="0">https://d-nb.info/gnd/1172982538</subfield>
+		<subfield code="0">http://viaf.org/viaf/819154441721435460000</subfield>
+		<subfield code="B">GND-1172982538</subfield>
+	</datafield>
+	<datafield tag="245" ind1="1" ind2="0">
+		<subfield code="a">Aufsichtsrechtlich motivierte Bilanzpolitik</subfield>
+		<subfield code="b">Wirkungsanalyse materieller Bilanzpolitik im IFRS-Abschluss hinsichtlich der Mindestkapitalanforderungen der CRR</subfield>
+		<subfield code="c">von Felix Krauß</subfield>
+	</datafield>
+	<datafield tag="264" ind1=" " ind2="1">
+		<subfield code="a">Berlin</subfield>
+		<subfield code="b">Erich Schmidt Verlag</subfield>
+		<subfield code="c">[2019]</subfield>
+	</datafield>
+	<datafield tag="264" ind1=" " ind2="4">
+		<subfield code="c">© 2019</subfield>
+	</datafield>
+	<datafield tag="300" ind1=" " ind2=" ">
+		<subfield code="a">1 Online-Ressource (354 Seiten)</subfield>
+	</datafield>
+	<datafield tag="336" ind1=" " ind2=" ">
+		<subfield code="a">Text</subfield>
+		<subfield code="b">txt</subfield>
+		<subfield code="2">rdacontent</subfield>
+	</datafield>
+	<datafield tag="337" ind1=" " ind2=" ">
+		<subfield code="a">Computermedien</subfield>
+		<subfield code="b">c</subfield>
+		<subfield code="2">rdamedia</subfield>
+	</datafield>
+	<datafield tag="338" ind1=" " ind2=" ">
+		<subfield code="a">Online-Ressource</subfield>
+		<subfield code="b">cr</subfield>
+		<subfield code="2">rdacarrier</subfield>
+	</datafield>
+	<datafield tag="490" ind1="1" ind2=" ">
+		<subfield code="a">Bilanz-, Prüfungs- und Steuerwesen</subfield>
+		<subfield code="v">Band 55</subfield>
+	</datafield>
+	<datafield tag="502" ind1=" " ind2=" ">
+		<subfield code="b">Dissertation -</subfield>
+		<subfield code="c">Universität des Saarlandes,</subfield>
+		<subfield code="d">2018</subfield>
+	</datafield>
+	<datafield tag="630" ind1="0" ind2="7">
+		<subfield code="0">(DE-588)1069555282</subfield>
+		<subfield code="a">Europäische Union.</subfield>
+		<subfield code="t">Kapitaladäquanzverordnung</subfield>
+		<subfield code="2">gnd</subfield>
+		<subfield code="0">https://d-nb.info/gnd/1069555282</subfield>
+		<subfield code="0">http://viaf.org/viaf/315558194</subfield>
+		<subfield code="B">GND-1069555282</subfield>
+	</datafield>
+	<datafield tag="650" ind1=" " ind2="7">
+		<subfield code="a">Bilanzpolitik</subfield>
+		<subfield code="2">stw</subfield>
+		<subfield code="8">1.1\x</subfield>
+	</datafield>
+	<datafield tag="650" ind1=" " ind2="7">
+		<subfield code="a">IFRS</subfield>
+		<subfield code="2">stw</subfield>
+		<subfield code="8">1.2\x</subfield>
+	</datafield>
+	<datafield tag="650" ind1=" " ind2="7">
+		<subfield code="a">Bankenaufsicht</subfield>
+		<subfield code="2">stw</subfield>
+		<subfield code="8">1.3\x</subfield>
+	</datafield>
+	<datafield tag="650" ind1=" " ind2="7">
+		<subfield code="a">Basler Akkord</subfield>
+		<subfield code="2">stw</subfield>
+		<subfield code="8">1.4\x</subfield>
+	</datafield>
+	<datafield tag="650" ind1=" " ind2="7">
+		<subfield code="a">Bank</subfield>
+		<subfield code="2">stw</subfield>
+		<subfield code="8">1.5\x</subfield>
+	</datafield>
+	<datafield tag="650" ind1=" " ind2="7">
+		<subfield code="a">Deutschland</subfield>
+		<subfield code="2">stw</subfield>
+		<subfield code="8">1.6\x</subfield>
+	</datafield>
+	<datafield tag="650" ind1=" " ind2="7">
+		<subfield code="a">International Financial Reporting Standards</subfield>
+		<subfield code="0">(DE-588)4699643-6</subfield>
+		<subfield code="2">gnd</subfield>
+		<subfield code="0">https://d-nb.info/gnd/965235785</subfield>
+		<subfield code="B">GND-965235785</subfield>
+	</datafield>
+	<datafield tag="650" ind1=" " ind2="7">
+		<subfield code="a">Kreditinstitut</subfield>
+		<subfield code="0">(DE-588)4165579-5</subfield>
+		<subfield code="2">gnd</subfield>
+		<subfield code="0">https://d-nb.info/gnd/041655796</subfield>
+		<subfield code="B">GND-041655796</subfield>
+	</datafield>
+	<datafield tag="650" ind1=" " ind2="7">
+		<subfield code="a">Konzernabschluss</subfield>
+		<subfield code="0">(DE-588)4198602-7</subfield>
+		<subfield code="2">gnd</subfield>
+		<subfield code="0">https://d-nb.info/gnd/041986024</subfield>
+		<subfield code="B">GND-041986024</subfield>
+	</datafield>
+	<datafield tag="655" ind1=" " ind2="7">
+		<subfield code="a">Hochschulschrift</subfield>
+		<subfield code="0">(DE-588)4113937-9</subfield>
+		<subfield code="2">gnd-content</subfield>
+	</datafield>
+	<datafield tag="710" ind1="2" ind2=" ">
+		<subfield code="a">Erich-Schmidt-Verlag</subfield>
+		<subfield code="e">Verlag</subfield>
+		<subfield code="g">(Berlin),</subfield>
+		<subfield code="0">(DE-588)4052857-1</subfield>
+		<subfield code="4">pbl</subfield>
+		<subfield code="0">https://d-nb.info/gnd/04052857X</subfield>
+		<subfield code="0">http://viaf.org/viaf/141857074</subfield>
+		<subfield code="B">GND-04052857X</subfield>
+	</datafield>
+	<datafield tag="751" ind1=" " ind2=" ">
+		<subfield code="a">Saarbrücken</subfield>
+		<subfield code="0">(DE-588)4076912-4</subfield>
+		<subfield code="4">uvp</subfield>
+		<subfield code="0">https://d-nb.info/gnd/040769127</subfield>
+		<subfield code="B">GND-040769127</subfield>
+	</datafield>
+	<datafield tag="776" ind1="1" ind2=" ">
+		<subfield code="z">9783503188277</subfield>
+	</datafield>
+	<datafield tag="776" ind1="0" ind2="8">
+		<subfield code="i">Erscheint auch als:</subfield>
+		<subfield code="n">Druck-Ausgabe</subfield>
+		<subfield code="a">Krauß, Felix.</subfield>
+		<subfield code="t">Aufsichtsrechtlich motivierte Bilanzpolitik.</subfield>
+		<subfield code="d">Berlin : Erich Schmidt Verlag, 2019.</subfield>
+		<subfield code="h">XXXIII, 318 Seiten</subfield>
+		<subfield code="z">9783503188277</subfield>
+		<subfield code="z">3503188274</subfield>
+	</datafield>
+	<datafield tag="776" ind1="0" ind2="8">
+		<subfield code="i">Erscheint auch als:</subfield>
+		<subfield code="n">Druck-Ausgabe</subfield>
+		<subfield code="z">9783503188277</subfield>
+	</datafield>
+	<datafield tag="830" ind1=" " ind2="0">
+		<subfield code="a">Bilanz-, Prüfungs- und Steuerwesen</subfield>
+		<subfield code="v">Band 55</subfield>
+		<subfield code="w">(DE-1871)237616</subfield>
+	</datafield>
+	<datafield tag="852" ind1=" " ind2=" ">
+		<subfield code="a">DE-1871</subfield>
+		<subfield code="c">eBibliothek</subfield>
+		<subfield code="z">Elektronischer Volltext - Campuslizenz</subfield>
+	</datafield>
+	<datafield tag="852" ind1=" " ind2=" ">
+		<subfield code="a">DE-1926</subfield>
+		<subfield code="c">eBook ESV</subfield>
+		<subfield code="z">Elektronischer Volltext - Campuslizenz</subfield>
+	</datafield>
+	<datafield tag="856" ind1="4" ind2="0">
+		<subfield code="m">X:ESV</subfield>
+		<subfield code="u">https://www.ESV-Campus.de/978-3-503-18828-4</subfield>
+		<subfield code="y">Verlag</subfield>
+		<subfield code="z">lizenzpflichtig</subfield>
+	</datafield>
+	<datafield tag="856" ind1="4" ind2="0">
+		<subfield code="m">X:ESV</subfield>
+		<subfield code="u">https://esv-campus.de/978-3-503-18828-4</subfield>
+		<subfield code="y">Verlag</subfield>
+		<subfield code="z">lizenzpflichtig</subfield>
+	</datafield>
+	<datafield tag="856" ind1="4" ind2="0">
+		<subfield code="u">http://www.esvcampus.de/978-3-503-18828-4</subfield>
+		<subfield code="z">Nur aus dem Campusnetz erreichbar</subfield>
+		<subfield code="2">DE-1871</subfield>
+	</datafield>
+	<datafield tag="912" ind1=" " ind2=" ">
+		<subfield code="a">GBV-47-RWS</subfield>
+	</datafield>
+	<datafield tag="912" ind1=" " ind2=" ">
+		<subfield code="a">ZDB-47-ESW</subfield>
+		<subfield code="b">2019</subfield>
+	</datafield>
+	<datafield tag="912" ind1=" " ind2=" ">
+		<subfield code="a">ZDB-47-ECRW</subfield>
+		<subfield code="b">2019</subfield>
+	</datafield>
+	<datafield tag="912" ind1=" " ind2=" ">
+		<subfield code="a">ZDB-47-ESV</subfield>
+	</datafield>
+	<datafield tag="952" ind1=" " ind2=" ">
+		<subfield code="7">Online verfügbar</subfield>
+		<subfield code="9">37455</subfield>
+		<subfield code="a">DE-1871</subfield>
+		<subfield code="b">DE-1871</subfield>
+		<subfield code="c">eBibliothek</subfield>
+		<subfield code="d">2021-01-31</subfield>
+		<subfield code="l">0</subfield>
+		<subfield code="r">2021-02-11</subfield>
+		<subfield code="w">2021-02-11</subfield>
+		<subfield code="y">EBOOK</subfield>
+	</datafield>
+	<datafield tag="981" ind1=" " ind2=" ">
+		<subfield code="b">3837309711</subfield>
+	</datafield>
+	<datafield tag="981" ind1=" " ind2=" ">
+		<subfield code="b">383730972X</subfield>
+	</datafield>
+	<datafield tag="MBD" ind1=" " ind2=" ">
+		<subfield code="M">49HBZ_HHL</subfield>
+		<subfield code="i">991000922029706482</subfield>
+		<subfield code="n">Hochschule Hamm-Lippstadt</subfield>
+	</datafield>
+	<datafield tag="MNG" ind1=" " ind2=" ">
+		<subfield code="c">System</subfield>
+		<subfield code="f">ILS</subfield>
+		<subfield code="i">marc21</subfield>
+		<subfield code="k">01</subfield>
+		<subfield code="e">false</subfield>
+		<subfield code="d">2024-09-21 01:55:10 Europe/Berlin</subfield>
+		<subfield code="g">238203-49hbz_hhl</subfield>
+		<subfield code="j">00</subfield>
+		<subfield code="a">import</subfield>
+		<subfield code="b">2023-08-07 14:50:11 Europe/Berlin</subfield>
+	</datafield>
+	<datafield tag="POR" ind1=" " ind2=" ">
+		<subfield code="x">System</subfield>
+		<subfield code="a">5329454470006482</subfield>
+		<subfield code="M">49HBZ_HHL</subfield>
+		<subfield code="p">6133667770006482</subfield>
+		<subfield code="q">Unterdrückte Portfolios - X: aus Koha</subfield>
+		<subfield code="c">static</subfield>
+		<subfield code="l">lizenzpflichtig</subfield>
+		<subfield code="y">2024-03-25 15:09:42 Europe/Berlin</subfield>
+		<subfield code="w">2023-08-08 10:11:24 Europe/Berlin</subfield>
+		<subfield code="D">https://eu04.alma.exlibrisgroup.com/view/uresolver/49HBZ_NETWORK/openurl?u.ignore_date_coverage=true&amp;portfolio_pid=5329454470006482&amp;Force_direct=true</subfield>
+		<subfield code="v">P2E_JOB</subfield>
+		<subfield code="z">2023-08-08 08:11:24</subfield>
+		<subfield code="i">false</subfield>
+		<subfield code="g">DE-1871</subfield>
+		<subfield code="S">6233667760006482</subfield>
+		<subfield code="d">https://hbz-network.userservices.exlibrisgroup.com/view/uresolver/49HBZ_NETWORK/openurl?u.ignore_date_coverage=true&amp;rft.mms_id=991000922029706482</subfield>
+		<subfield code="b">Not Available</subfield>
+		<subfield code="f">BOOK</subfield>
+		<subfield code="e">https://www.ESV-Campus.de/978-3-503-18828-4</subfield>
+		<subfield code="8">5329454470006482</subfield>
+	</datafield>
+	<datafield tag="POR" ind1=" " ind2=" ">
+		<subfield code="x">System</subfield>
+		<subfield code="a">5329454450006482</subfield>
+		<subfield code="M">49HBZ_HHL</subfield>
+		<subfield code="p">6133667770006482</subfield>
+		<subfield code="q">Unterdrückte Portfolios - X: aus Koha</subfield>
+		<subfield code="c">static</subfield>
+		<subfield code="l">lizenzpflichtig</subfield>
+		<subfield code="y">2024-03-25 15:09:42 Europe/Berlin</subfield>
+		<subfield code="w">2023-08-08 10:11:24 Europe/Berlin</subfield>
+		<subfield code="D">https://eu04.alma.exlibrisgroup.com/view/uresolver/49HBZ_NETWORK/openurl?u.ignore_date_coverage=true&amp;portfolio_pid=5329454450006482&amp;Force_direct=true</subfield>
+		<subfield code="v">P2E_JOB</subfield>
+		<subfield code="z">2023-08-08 08:11:24</subfield>
+		<subfield code="i">false</subfield>
+		<subfield code="g">DE-1871</subfield>
+		<subfield code="S">6233667760006482</subfield>
+		<subfield code="d">https://hbz-network.userservices.exlibrisgroup.com/view/uresolver/49HBZ_NETWORK/openurl?u.ignore_date_coverage=true&amp;rft.mms_id=991000922029706482</subfield>
+		<subfield code="b">Not Available</subfield>
+		<subfield code="f">BOOK</subfield>
+		<subfield code="e">https://esv-campus.de/978-3-503-18828-4</subfield>
+		<subfield code="8">5329454450006482</subfield>
+	</datafield>
+	<datafield tag="GSI" ind1="7" ind2=" ">
+		<subfield code="a">1172982538</subfield>
+		<subfield code="0">http://d-nb.info/gnd/1172982538</subfield>
+		<subfield code="2">gnd</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-1172982538</subfield>
+		<subfield code="C">024</subfield>
+	</datafield>
+	<datafield tag="GST" ind1=" " ind2=" ">
+		<subfield code="a">Konzern</subfield>
+		<subfield code="x">Jahresabschluss</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-041986024</subfield>
+		<subfield code="C">450</subfield>
+	</datafield>
+	<datafield tag="GST" ind1=" " ind2=" ">
+		<subfield code="a">Konzernjahresabschluss</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-041986024</subfield>
+		<subfield code="C">450</subfield>
+	</datafield>
+	<datafield tag="GST" ind1=" " ind2=" ">
+		<subfield code="a">Konsolidierter Jahresabschluss</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-041986024</subfield>
+		<subfield code="C">450</subfield>
+	</datafield>
+	<datafield tag="GSI" ind1="7" ind2=" ">
+		<subfield code="a">4198602-7</subfield>
+		<subfield code="0">http://d-nb.info/gnd/4198602-7</subfield>
+		<subfield code="2">gnd</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-041986024</subfield>
+		<subfield code="C">024</subfield>
+	</datafield>
+	<datafield tag="GST" ind1=" " ind2=" ">
+		<subfield code="a">Kreditanstalt</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-041655796</subfield>
+		<subfield code="C">450</subfield>
+	</datafield>
+	<datafield tag="GST" ind1=" " ind2=" ">
+		<subfield code="a">Kreditinstitute</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-041655796</subfield>
+		<subfield code="C">450</subfield>
+	</datafield>
+	<datafield tag="GSI" ind1="7" ind2=" ">
+		<subfield code="a">4165579-5</subfield>
+		<subfield code="0">http://d-nb.info/gnd/4165579-5</subfield>
+		<subfield code="2">gnd</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-041655796</subfield>
+		<subfield code="C">024</subfield>
+	</datafield>
+	<datafield tag="GST" ind1=" " ind2=" ">
+		<subfield code="a">IFRS</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-965235785</subfield>
+		<subfield code="C">450</subfield>
+	</datafield>
+	<datafield tag="GSI" ind1="7" ind2=" ">
+		<subfield code="a">4699643-6</subfield>
+		<subfield code="0">http://d-nb.info/gnd/4699643-6</subfield>
+		<subfield code="2">gnd</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-965235785</subfield>
+		<subfield code="C">024</subfield>
+	</datafield>
+	<datafield tag="GSI" ind1="7" ind2=" ">
+		<subfield code="a">4076912-4</subfield>
+		<subfield code="0">http://d-nb.info/gnd/4076912-4</subfield>
+		<subfield code="2">gnd</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-040769127</subfield>
+		<subfield code="C">024</subfield>
+	</datafield>
+	<datafield tag="GSI" ind1="7" ind2=" ">
+		<subfield code="a">2842647</subfield>
+		<subfield code="2">geonames</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-040769127</subfield>
+		<subfield code="C">024</subfield>
+	</datafield>
+	<datafield tag="GGN" ind1=" " ind2=" ">
+		<subfield code="a">Sarrebruck</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-040769127</subfield>
+		<subfield code="C">451</subfield>
+	</datafield>
+	<datafield tag="GGN" ind1=" " ind2=" ">
+		<subfield code="a">Kommune Saarbrücken</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-040769127</subfield>
+		<subfield code="C">451</subfield>
+	</datafield>
+	<datafield tag="GGN" ind1=" " ind2=" ">
+		<subfield code="a">Saarbruchen</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-040769127</subfield>
+		<subfield code="C">451</subfield>
+	</datafield>
+	<datafield tag="GGN" ind1=" " ind2=" ">
+		<subfield code="a">LHS Saarbrücken</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-040769127</subfield>
+		<subfield code="C">451</subfield>
+	</datafield>
+	<datafield tag="GGN" ind1=" " ind2=" ">
+		<subfield code="a">Stadtgemeinde Saarbrücken</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-040769127</subfield>
+		<subfield code="C">451</subfield>
+	</datafield>
+	<datafield tag="GGN" ind1=" " ind2=" ">
+		<subfield code="a">Landeshauptstadt Saarbrücken</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-040769127</subfield>
+		<subfield code="C">451</subfield>
+	</datafield>
+	<datafield tag="GKT" ind1="2" ind2=" ">
+		<subfield code="a">Europäische Union</subfield>
+		<subfield code="t">Verordnung (EU) Nr. 575/2013 des Europäischen Parlaments und des Rates vom 26. Juni 2013 über Aufsichtsanforderungen an Kreditinstitute und Wertpapierfirmen und zur Änderung der Verordnung (EU) Nr. 646/2012</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-1069555282</subfield>
+		<subfield code="C">410</subfield>
+	</datafield>
+	<datafield tag="GKT" ind1="2" ind2=" ">
+		<subfield code="a">Europäische Union</subfield>
+		<subfield code="t">Verordnung über die Aufsichtsanforderungen an Kreditinstitute und Wertpapierfirmen und zur Änderung der Verordnung (EU) Nr. 646/2012</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-1069555282</subfield>
+		<subfield code="C">410</subfield>
+	</datafield>
+	<datafield tag="GKT" ind1="2" ind2=" ">
+		<subfield code="a">Europäische Union</subfield>
+		<subfield code="t">EU-Bankenaufsichtsverordnung</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-1069555282</subfield>
+		<subfield code="C">410</subfield>
+	</datafield>
+	<datafield tag="GKT" ind1="2" ind2=" ">
+		<subfield code="a">Europäische Union</subfield>
+		<subfield code="t">Verordnung (EU) Nr. 575/2013</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-1069555282</subfield>
+		<subfield code="C">410</subfield>
+	</datafield>
+	<datafield tag="GKT" ind1="2" ind2=" ">
+		<subfield code="a">Europäische Union</subfield>
+		<subfield code="t">Capital Requirements Regulation</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-1069555282</subfield>
+		<subfield code="C">410</subfield>
+	</datafield>
+	<datafield tag="GKT" ind1="2" ind2=" ">
+		<subfield code="a">Europäische Union</subfield>
+		<subfield code="t">CRR-VO</subfield>
+		<subfield code="4">abku</subfield>
+		<subfield code="4">http://d-nb.info/standards/elementset/gnd#abbreviatedNameForTheWork</subfield>
+		<subfield code="w">r</subfield>
+		<subfield code="i">Abkuerzung</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-1069555282</subfield>
+		<subfield code="C">410</subfield>
+	</datafield>
+	<datafield tag="GKT" ind1="2" ind2=" ">
+		<subfield code="a">Europäische Union</subfield>
+		<subfield code="t">CRR</subfield>
+		<subfield code="4">abku</subfield>
+		<subfield code="4">http://d-nb.info/standards/elementset/gnd#abbreviatedNameForTheWork</subfield>
+		<subfield code="w">r</subfield>
+		<subfield code="i">Abkuerzung</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-1069555282</subfield>
+		<subfield code="C">410</subfield>
+	</datafield>
+	<datafield tag="GSI" ind1="7" ind2=" ">
+		<subfield code="a">http://d-nb.info/gnd/1069555282</subfield>
+		<subfield code="2">uri</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-1069555282</subfield>
+		<subfield code="C">024</subfield>
+	</datafield>
+	<datafield tag="GKT" ind1="2" ind2=" ">
+		<subfield code="a">Erich-Schmidt-Verlag</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-04052857X</subfield>
+		<subfield code="C">410</subfield>
+	</datafield>
+	<datafield tag="GKT" ind1="2" ind2=" ">
+		<subfield code="a">Schmidt-Verlag</subfield>
+		<subfield code="g">Erich Schmidt Verlag</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-04052857X</subfield>
+		<subfield code="C">410</subfield>
+	</datafield>
+	<datafield tag="GKT" ind1="2" ind2=" ">
+		<subfield code="a">Schmidt, Erich</subfield>
+		<subfield code="g">Firma</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-04052857X</subfield>
+		<subfield code="C">410</subfield>
+	</datafield>
+	<datafield tag="GKT" ind1="2" ind2=" ">
+		<subfield code="a">Erich Schmidt Verlag GmbH &amp; Co.</subfield>
+		<subfield code="4">nauv</subfield>
+		<subfield code="i">Unveraenderte Form</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-04052857X</subfield>
+		<subfield code="C">410</subfield>
+	</datafield>
+	<datafield tag="GKT" ind1="2" ind2=" ">
+		<subfield code="a">Erich Schmidt Verlag GmbH &amp; Co KG</subfield>
+		<subfield code="4">nauv</subfield>
+		<subfield code="i">Unveraenderte Form</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-04052857X</subfield>
+		<subfield code="C">410</subfield>
+	</datafield>
+	<datafield tag="GKT" ind1="2" ind2=" ">
+		<subfield code="a">ESV</subfield>
+		<subfield code="4">abku</subfield>
+		<subfield code="i">Abkuerzung</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-04052857X</subfield>
+		<subfield code="C">410</subfield>
+	</datafield>
+	<datafield tag="GSI" ind1="7" ind2=" ">
+		<subfield code="a">4052857-1</subfield>
+		<subfield code="0">http://d-nb.info/gnd/4052857-1</subfield>
+		<subfield code="2">gnd</subfield>
+		<subfield code="A">GND</subfield>
+		<subfield code="B">GND-04052857X</subfield>
+		<subfield code="C">024</subfield>
+	</datafield>
+</record>

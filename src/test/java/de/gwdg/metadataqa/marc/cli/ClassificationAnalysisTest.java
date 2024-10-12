@@ -151,7 +151,7 @@ public class ClassificationAnalysisTest extends CliTestUtils {
   @Test
   public void marcxml() throws IOException {
     clearOutput(outputDir, outputFiles);
-    inputFile = TestUtils.getPath("marcxml/marcxml.xml")
+    inputFile = TestUtils.getPath("marcxml/marcxml.xml");
 
     var args = new String[]{
       "--defaultRecordType", "BOOKS",

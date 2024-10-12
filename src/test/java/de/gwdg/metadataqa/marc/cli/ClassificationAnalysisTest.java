@@ -7,6 +7,7 @@ import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.utils.ReadMarc;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.marc4j.marc.Record;
@@ -158,7 +159,7 @@ public class ClassificationAnalysisTest extends CliTestUtils {
       "--collectCollocations",
       "--marcxml",
       "--outputDir", outputDir,
-      inputFile = TestUtils.getPath("marcxml/marcxml.xml")
+      TestUtils.getPath("marcxml/marcxml.xml")
     };
     ClassificationAnalysis.main(args);
 

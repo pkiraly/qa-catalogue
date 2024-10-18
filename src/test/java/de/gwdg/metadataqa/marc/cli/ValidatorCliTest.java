@@ -13,7 +13,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
@@ -436,10 +435,6 @@ public class ValidatorCliTest extends CliTestUtils {
       "--details",
       "--trimId",
       "--summary",
-      // "--format", "csv",
-      // "--defaultRecordType", "BOOKS",
-      // "--detailsFileName", "issue-details.csv",
-      // "--summaryFileName", "issue-summary.csv",
       TestUtils.getPath("marcxml/990082522550206441_missing_validation_custom_subfield_9_core_710.xml"),
       TestUtils.getPath("marcxml/990171082050206441_missing_validation_custom_ind2_9_core_246.xml"),
       TestUtils.getPath("marcxml/991000922029706482_missing_subfield_validation_t_in_customfield_GKT.xml"),

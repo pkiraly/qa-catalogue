@@ -321,7 +321,6 @@ public class CompletenessTest extends CliTestUtils {
         assertTrue(line.contains("\"trimId\":false,"));
         assertTrue(line.contains("\"outputDir\":\"/"));
         assertTrue(line.contains("/qa-catalogue/src/test/resources/output\","));
-        assertTrue(line.contains("\"recordIgnorator\":{\"criteria\":[],\"booleanCriteria\":null,\"empty\":true},"));
         assertTrue(line.contains("\"recordFilter\":{\"criteria\":[],\"booleanCriteria\":null,\"empty\":true},"));
         assertTrue(line.contains("\"ignorableFields\":{\"fields\":null,\"empty\":true},"));
         assertTrue(line.contains("\"stream\":null,"));

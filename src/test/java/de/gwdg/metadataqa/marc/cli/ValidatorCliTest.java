@@ -18,6 +18,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 
+import java.util.stream.Collectors;
+
 public class ValidatorCliTest extends CliTestUtils {
 
   private String outputDir;
@@ -417,6 +419,40 @@ public class ValidatorCliTest extends CliTestUtils {
     assertEquals(2, lines.size());
     assertEquals("total", lines.get(0).trim());
     assertEquals("1", lines.get(1).trim());
+  }
+
+  @Test
+  public void validate_whenHbz() throws Exception {
+    clearOutput(outputDir, outputFiles);
+
+    ValidatorCli processor = new ValidatorCli(new String[]{
+      "--schemaType", "MARC21",
+      "--marcVersion", "HBZ",
+      "--marcxml",
+      "--outputDir", outputDir,
+      "--fixAlma",
+      "--ignorableRecords", "DEL$a=Y",
+      "--ignorableFields", "964,940,941,942,944,945,946,947,948,949,950,951,952,955,956,957,958,959,966,967,970,971,972,973,974,975,976,977,978,978,979",
+      "--details",
+      "--trimId",
+      "--summary",
+      TestUtils.getPath("marcxml/990082522550206441_missing_validation_custom_subfield_9_core_710.xml"),
+      TestUtils.getPath("marcxml/990171082050206441_missing_validation_custom_ind2_9_core_246.xml"),
+      TestUtils.getPath("marcxml/991000922029706482_missing_subfield_validation_t_in_customfield_GKT.xml"),
+    });
+
+    RecordIterator iterator = new RecordIterator(processor);
+    iterator.setProcessWithErrors(true);
+    iterator.start();
+
+    List<String> lines = getFileLines("issue-summary.csv");
+    assertEquals(3, lines.size());
+    List<String> undefinedFields = lines.stream()
+      .filter(line -> line.contains("undefined field"))
+      .collect(Collectors.toList());
+    assertEquals(0, undefinedFields.size());
+    // Pattern pattern = Pattern.compile("^\\d+,952,\\d+,\\d+,undefined field");
+    // assertTrue(pattern.matcher(undefinedFields.get(0)).find());
   }
 
   private List<String> getFileLines(String outputFile) throws IOException {

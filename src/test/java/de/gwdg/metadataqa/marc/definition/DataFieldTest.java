@@ -65,6 +65,14 @@ public class DataFieldTest {
   }
 
   @Test
+  public void split_shorter() {
+    DataField tag041 = SubfieldParser.parseField(Tag041.getInstance(), "  $aengge");
+    List<String> splittedValue = tag041.getSubfield("a").get(0).split();
+
+    assertEquals(List.of("eng", "ge"), splittedValue);
+  }
+
+  @Test
   public void testGetKeyValuePairs_repetitions() {
     DataField tag041 = SubfieldParser.parseField(Tag041.getInstance(), "  $aengger");
     Map<String, List<String>> map = tag041.getKeyValuePairs();

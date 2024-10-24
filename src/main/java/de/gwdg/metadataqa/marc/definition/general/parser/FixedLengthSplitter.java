@@ -9,12 +9,12 @@ import java.util.List;
  * Split content into list of fixed length strings
  */
 public class FixedLengthSplitter implements SubfieldContentSplitter {
-  private int lengh = 3;
+  private int fixedLength = 3;
 
   public FixedLengthSplitter() {}
 
-  public FixedLengthSplitter(int lengh) {
-    this.lengh = lengh;
+  public FixedLengthSplitter(int fixedLength) {
+    this.fixedLength = fixedLength;
   }
 
   @Override
@@ -23,12 +23,13 @@ public class FixedLengthSplitter implements SubfieldContentSplitter {
     if (StringUtils.isBlank(content))
       return result;
 
-    if (content.length() > lengh)
-      for (int i = 0; i < content.length(); i = i + lengh) {
-        int end = i + lengh < lengh ? lengh : i + lengh;
+    if (content.length() > fixedLength) {
+      int contentLength = content.length();
+      for (int i = 0; i < contentLength; i = i + fixedLength) {
+        int end = i + fixedLength < contentLength ? i + fixedLength : contentLength;
         result.add(content.substring(i, end));
       }
-    else
+    } else
       result.add(content);
 
     return result;

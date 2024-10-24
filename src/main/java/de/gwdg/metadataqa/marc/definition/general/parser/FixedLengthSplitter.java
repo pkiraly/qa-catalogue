@@ -24,8 +24,10 @@ public class FixedLengthSplitter implements SubfieldContentSplitter {
       return result;
 
     if (content.length() > lengh)
-      for (int i = 0; i < content.length(); i = i + lengh)
-        result.add(content.substring(i, i + lengh));
+      for (int i = 0; i < content.length(); i = i + lengh) {
+        int end = i + lengh < lengh ? lengh : i + lengh;
+        result.add(content.substring(i, end));
+      }
     else
       result.add(content);
 

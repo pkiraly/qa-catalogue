@@ -79,11 +79,17 @@ public class MarcSubfield implements Serializable { // Validatable
    * @return Either the original value of the subfield or its label.
    */
   public String resolve() {
-    if (definition == null) {
+    if (definition == null)
       return value;
-    }
 
     return definition.resolve(value);
+  }
+
+  public List<String> split() {
+    if (definition == null || !definition.hasContentSplitter())
+      return List.of(value);
+
+    return definition.getContentSplitter().parse(value);
   }
 
   public SubfieldDefinition getDefinition() {
@@ -148,7 +154,9 @@ public class MarcSubfield implements Serializable { // Validatable
       tagForCache += "/" + this.getField().getOccurrence();
     }
 
-    String cacheKey = String.format("%s$%s-%s-%s", tagForCache, code, keyGenerator.getClass().getSimpleName(), keyGenerator.getMarcVersion());
+    String cacheKey = String.format(
+      "%s$%s-%s-%s",
+      tagForCache, code, keyGenerator.getClass().getSimpleName(), keyGenerator.getMarcVersion());
     if (!prefixCache.containsKey(cacheKey)) {
       String generatedPrefix = keyGenerator.forSubfield(this);
       prefixCache.put(cacheKey, generatedPrefix);
@@ -156,9 +164,15 @@ public class MarcSubfield implements Serializable { // Validatable
     String prefix = prefixCache.get(cacheKey);
 
     Map<String, List<String>> pairs = new HashMap<>();
-    String resolvedValue = resolve();
+    if (definition != null && definition.hasContentSplitter()) {
+      List<String> items = new ArrayList<>();
+      for (String item : split())
+        items.add(definition.resolve(item));
 
-    pairs.put(prefix, new ArrayList<>(List.of(resolvedValue)));
+      pairs.put(prefix, items);
+    } else
+      pairs.put(prefix, new ArrayList<>(List.of(resolve())));
+
     if (getDefinition() == null) {
       return pairs;
     }
@@ -168,7 +182,9 @@ public class MarcSubfield implements Serializable { // Validatable
     return pairs;
   }
 
-  private void getKeyValuePairsFromContentParser(DataFieldKeyGenerator keyGenerator, Map<String, List<String>> pairs) {
+  private void getKeyValuePairsFromContentParser(DataFieldKeyGenerator keyGenerator,
+                                                 Map<String,
+                                                 List<String>> pairs) {
     if (!getDefinition().hasContentParser()) {
       return;
     }

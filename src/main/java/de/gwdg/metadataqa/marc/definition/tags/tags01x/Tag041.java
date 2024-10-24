@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.general.parser.FixedLengthSplitter;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.LanguageCodes;
@@ -107,66 +108,82 @@ public class Tag041 extends DataFieldDefinition {
 
     getSubfield("a")
       .setBibframeTag("rdf:value")
+      .setContentSplitter(new FixedLengthSplitter())
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseInterpret)
       .setCompilanceLevels("M");
 
     getSubfield("b")
       .setMqTag("ofSummary")
+      .setContentSplitter(new FixedLengthSplitter())
       .setFrbrFunctions(DiscoverySelect, UseInterpret)
       .setCompilanceLevels("A");
 
     getSubfield("d")
       .setMqTag("ofSungOrSpokenText")
+      .setContentSplitter(new FixedLengthSplitter())
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseInterpret)
       .setCompilanceLevels("A");
 
     getSubfield("e")
       .setMqTag("ofLibrettos")
+      .setContentSplitter(new FixedLengthSplitter())
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect, DiscoveryObtain, UseInterpret)
       .setCompilanceLevels("A");
 
     getSubfield("f")
       .setMqTag("ofTableOfContents")
+      .setContentSplitter(new FixedLengthSplitter())
       .setFrbrFunctions(DiscoverySelect, UseInterpret)
       .setCompilanceLevels("O");
 
     getSubfield("g")
       .setMqTag("ofAccompanyingMaterial")
+      .setContentSplitter(new FixedLengthSplitter())
       .setFrbrFunctions(DiscoverySelect, UseInterpret)
       .setCompilanceLevels("A");
 
     getSubfield("h")
       .setMqTag("ofOriginal")
+      .setContentSplitter(new FixedLengthSplitter())
       .setFrbrFunctions(DiscoverySelect)
       .setCompilanceLevels("A");
 
     getSubfield("i")
-      .setMqTag("ofIntertitles");
+      .setMqTag("ofIntertitles")
+      .setContentSplitter(new FixedLengthSplitter());
 
     getSubfield("j")
       .setMqTag("ofSubtitles")
+      .setContentSplitter(new FixedLengthSplitter())
       .setCompilanceLevels("A");
 
     getSubfield("k")
-      .setMqTag("ofTranslations");
+      .setMqTag("ofTranslations")
+      .setContentSplitter(new FixedLengthSplitter());
 
     getSubfield("m")
-      .setMqTag("ofOriginalAccompanyingMaterial");
+      .setMqTag("ofOriginalAccompanyingMaterial")
+      .setContentSplitter(new FixedLengthSplitter());
 
     getSubfield("n")
-      .setMqTag("ofOriginalLibretto");
+      .setMqTag("ofOriginalLibretto")
+      .setContentSplitter(new FixedLengthSplitter());
 
     getSubfield("p")
-      .setMqTag("ofCaptions");
+      .setMqTag("ofCaptions")
+      .setContentSplitter(new FixedLengthSplitter());
 
     getSubfield("q")
-      .setMqTag("ofAccessibleAudio");
+      .setMqTag("ofAccessibleAudio")
+      .setContentSplitter(new FixedLengthSplitter());
 
     getSubfield("r")
-      .setMqTag("ofAccessibleVisualLanguage");
+      .setMqTag("ofAccessibleVisualLanguage")
+      .setContentSplitter(new FixedLengthSplitter());
 
     getSubfield("t")
-      .setMqTag("ofTranscripts");
+      .setMqTag("ofTranscripts")
+      .setContentSplitter(new FixedLengthSplitter());
 
     getSubfield("2")
       .setMqTag("source")

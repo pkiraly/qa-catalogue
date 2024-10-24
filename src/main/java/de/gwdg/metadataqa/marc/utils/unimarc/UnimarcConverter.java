@@ -15,7 +15,6 @@ public class UnimarcConverter {
   }
 
   public static String contentFromUnimarc(String tag, String content) {
-    // System.err.println("contentFromUnimarc: " + tag + ") " + content);
     String ind1 = content.substring(0, 1);
     String ind2 = content.substring(1, 2);
     List<String[]> subfields = DataField.parseSubfields(content.substring(2));

@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.record.Marc21BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.tags.tags01x.Tag040;
+import de.gwdg.metadataqa.marc.definition.tags.tags01x.Tag041;
 import de.gwdg.metadataqa.marc.definition.tags.tags20x.Tag245;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
@@ -53,6 +54,25 @@ public class DataFieldTest {
 
     assertEquals(1, map.get("040a").size());
     assertEquals("Montana State Library", map.get("040a").get(0));
+  }
+
+  @Test
+  public void split() {
+    DataField tag041 = SubfieldParser.parseField(Tag041.getInstance(), "  $aengger");
+    List<String> splittedValue = tag041.getSubfield("a").get(0).split();
+
+    assertEquals(List.of("eng", "ger"), splittedValue);
+  }
+
+  @Test
+  public void testGetKeyValuePairs_repetitions() {
+    DataField tag041 = SubfieldParser.parseField(Tag041.getInstance(), "  $aengger");
+    Map<String, List<String>> map = tag041.getKeyValuePairs();
+
+    assertEquals(3, map.size());
+    assertEquals(2, map.get("041a").size());
+    assertEquals("English", map.get("041a").get(0));
+    assertEquals("German", map.get("041a").get(1));
   }
 
   @Test

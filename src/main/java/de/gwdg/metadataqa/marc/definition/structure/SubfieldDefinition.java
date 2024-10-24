@@ -9,6 +9,7 @@ import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.bibliographic.BibliographicFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
 import de.gwdg.metadataqa.marc.definition.general.parser.SubfieldContentParser;
+import de.gwdg.metadataqa.marc.definition.general.parser.SubfieldContentSplitter;
 import de.gwdg.metadataqa.marc.definition.general.validator.SubfieldValidator;
 import org.apache.commons.lang3.StringUtils;
 
@@ -37,6 +38,7 @@ public class SubfieldDefinition implements Serializable {
   private BibliographicFieldDefinition parent;
   private SubfieldValidator validator;
   private SubfieldContentParser contentParser;
+  private SubfieldContentSplitter contentSplitter;
   private boolean hasCodeList = true;
   protected CodeList codeList;
   private List<EncodedValue> codes;
@@ -236,6 +238,20 @@ public class SubfieldDefinition implements Serializable {
     this.contentParser = contentParser;
     return this;
   }
+
+  public boolean hasContentSplitter() {
+    return contentSplitter != null;
+  }
+
+  public SubfieldContentSplitter getContentSplitter() {
+    return contentSplitter;
+  }
+
+  public SubfieldDefinition setContentSplitter(SubfieldContentSplitter contentSplitter) {
+    this.contentSplitter = contentSplitter;
+    return this;
+  }
+
 
   private void processIndicatorType(String types) {
     allowedCodes = new ArrayList<>();
@@ -457,4 +473,5 @@ public class SubfieldDefinition implements Serializable {
       ", label='" + label + '\'' +
       '}';
   }
+
 }

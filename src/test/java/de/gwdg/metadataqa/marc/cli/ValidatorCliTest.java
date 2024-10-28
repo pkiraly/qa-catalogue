@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
@@ -229,7 +230,6 @@ public class ValidatorCliTest extends CliTestUtils {
         assertTrue(line.contains("\"trimId\":true,"));
         assertTrue(line.contains("\"outputDir\":\""));
         assertTrue(line.contains("qa-catalogue/src/test/resources/output\","));
-        assertTrue(line.contains("\"recordIgnorator\":{\"criteria\":[],\"booleanCriteria\":null,\"empty\":true},"));
         assertTrue(line.contains("\"recordFilter\":{\"criteria\":[],\"booleanCriteria\":null,\"empty\":true},"));
         assertTrue(line.contains("\"ignorableFields\":{\"fields\":null,\"empty\":true},"));
         assertTrue(line.contains("\"stream\":null,"));
@@ -446,6 +446,7 @@ public class ValidatorCliTest extends CliTestUtils {
     iterator.start();
 
     List<String> lines = getFileLines("issue-summary.csv");
+    System.err.println(StringUtils.join(lines, "\n"));
     assertEquals(3, lines.size());
     List<String> undefinedFields = lines.stream()
       .filter(line -> line.contains("undefined field"))

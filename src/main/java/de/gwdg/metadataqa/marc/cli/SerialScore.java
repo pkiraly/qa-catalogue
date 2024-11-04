@@ -127,7 +127,7 @@ public class SerialScore extends QACli<SerialScoreParameters> implements Bibliog
 
     MarcRecord marcRecord = (MarcRecord) bibliographicRecord;
     if (!marcRecord.getType().equals(MarcLeader.Type.CONTINUING_RESOURCES)) {
-      logger.info("Skipping non-serial record: " + marcRecord.getId());
+      // logger.info("Skipping non-serial record: " + marcRecord.getId());
       return;
     }
 
@@ -137,10 +137,10 @@ public class SerialScore extends QACli<SerialScoreParameters> implements Bibliog
 
     MarcSerial serial;
     if (marcRecord instanceof Marc21Record) {
-      logger.info("Processing MARC21 serial record: " + marcRecord.getId());
+      // logger.info("Processing MARC21 serial record: " + marcRecord.getId());
       serial = new Marc21Serial((Marc21Record) marcRecord);
     } else {
-      logger.info("Processing UNIMARC serial record: " + marcRecord.getId());
+      // logger.info("Processing UNIMARC serial record: " + marcRecord.getId());
       serial = new UnimarcSerial((UnimarcRecord) marcRecord);
     }
 

@@ -26,8 +26,6 @@ public abstract class AuthorityAnalyzer extends ContextualAnalyzer<AuthorityStat
    * @return The number of authority fields processed
    */
   public int process() {
-    logger.info(() -> "Running authority analysis on record " + bibliographicRecord.getId(true));
-
     Map<AuthorityCategory, Integer> categoryCounter = new EnumMap<>(AuthorityCategory.class);
     var count = 0;
     for (Map.Entry<DataField, AuthorityCategory> entry : bibliographicRecord.getAuthorityFieldsMap().entrySet()) {

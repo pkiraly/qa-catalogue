@@ -2,7 +2,10 @@ package de.gwdg.metadataqa.marc.definition.tags.tags3xx;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.general.codelist.AccessibilityContentSourceCodes;
+import de.gwdg.metadataqa.marc.definition.general.codelist.CountryCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
+import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
@@ -51,6 +54,8 @@ public class Tag341 extends DataFieldDefinition {
       "c", "Visual assistive features", "R",
       "d", "Auditory assistive features", "R",
       "e", "Tactile assistive features", "R",
+      "0", "Authority record control number or standard number", "R",
+      "1", "Real World Object URI", "R",
       "2", "Source", "NR",
       "3", "Materials specified", "NR",
       "6", "Linkage", "NR",
@@ -72,8 +77,16 @@ public class Tag341 extends DataFieldDefinition {
     getSubfield("e")
       .setMqTag("tactileAssistiveFeatures");
 
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber")
+      .setContentParser(RecordControlNumberParser.getInstance());
+
+    getSubfield("1")
+      .setMqTag("uri");
+
     getSubfield("2")
-      .setBibframeTag("source");
+      .setBibframeTag("source")
+      .setCodeList(AccessibilityContentSourceCodes.getInstance());
 
     getSubfield("3")
       .setMqTag("materialsSpecified");

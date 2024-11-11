@@ -49,12 +49,16 @@ public class Tag532 extends DataFieldDefinition {
 
     setSubfieldsWithCardinality(
       "a", "Summary of accessibility", "NR",
+      "3", "Materials specified", "NR",
       "6", "Linkage", "NR",
       "8", "Field link and sequence number", "R"
     );
 
     getSubfield("a")
       .setMqTag("summary");
+
+    getSubfield("3")
+      .setMqTag("materialsSpecified");
 
     getSubfield("6")
       .setBibframeTag("linkage")

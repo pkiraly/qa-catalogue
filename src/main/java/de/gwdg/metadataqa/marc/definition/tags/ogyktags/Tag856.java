@@ -75,7 +75,7 @@ public class Tag856 extends DataFieldDefinition {
       "o", "Operating system", "NR",
       "p", "Port", "NR",
       "q", "Electronic format type", "NR",
-      "r", "Settings", "NR",
+      "r", "Standardized information governing use and reproduction", "NR",
       "s", "File size", "R",
       "t", "Terminal emulation", "R",
       "u", "Uniform Resource Identifier", "R",
@@ -189,9 +189,7 @@ public class Tag856 extends DataFieldDefinition {
       .setCompilanceLevels("A");
 
     getSubfield("r")
-      .setMqTag("settings")
-      .setFrbrFunctions(DiscoveryObtain)
-      .setCompilanceLevels("A");
+      .setMqTag("useAndReproductionRights");
 
     getSubfield("s")
       .setMqTag("fileSize")
@@ -251,6 +249,7 @@ public class Tag856 extends DataFieldDefinition {
 
     setHistoricalSubfields(
       "g", "Uniform Resource Name [OBSOLETE, 2000]"
+      // "r", "Settings [OBSOLETE, 2020]" -- but it was reintroduced with another definition in 2022
     );
   }
 }

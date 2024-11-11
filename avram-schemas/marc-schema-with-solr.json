@@ -12133,16 +12133,6 @@
           "repeatable": false,
           "solr": "022a_Issn"
         },
-        "l": {
-          "label": "ISSN-L",
-          "repeatable": false,
-          "solr": "022l_Issn_issnL"
-        },
-        "m": {
-          "label": "Canceled ISSN-L",
-          "repeatable": true,
-          "solr": "022m_Issn_canceledIssnL"
-        },
         "y": {
           "label": "Incorrect ISSN",
           "repeatable": true,
@@ -12155,7 +12145,7 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true,
+          "repeatable": false,
           "solr": "0220_Issn_authorityRecordControlNumber",
           "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
@@ -12187,6 +12177,79 @@
         "c": {
           "label": "Price [OBSOLETE] [CAN/MARC only]",
           "deprecated": true
+        },
+        "l": {
+          "label": "ISSN-L [OBSOLETE, 2023]. Subfield $l was made obsolete in favor of recording ISSN-L in field 023.",
+          "deprecated": true
+        },
+        "m": {
+          "label": "Canceled ISSN-L [OBSOLETE, 2023] Subfield $m was made obsolete in favor of recording canceled ISSN-L in field 023.",
+          "deprecated": true
+        }
+      }
+    },
+    "023": {
+      "tag": "023",
+      "label": "Cluster ISSN",
+      "url": "https://www.loc.gov/marc/bibliographic/bd020.html",
+      "repeatable": true,
+      "solr": "ClusterIssn",
+      "indicator1": {
+        "label": "Type of Cluster ISSN",
+        "codes": {
+          "0": {
+            "code": "0",
+            "label": "ISSN-L"
+          },
+          "1": {
+            "code": "1",
+            "label": "ISSN-H"
+          }
+        }
+      },
+      "indicator2": null,
+      "subfields": {
+        "a": {
+          "label": "Cluster ISSN",
+          "repeatable": false,
+          "solr": "023a_ClusterIssn"
+        },
+        "y": {
+          "label": "Incorrect Cluster ISSN",
+          "repeatable": true,
+          "solr": "023y_ClusterIssn_acquisitionTerms"
+        },
+        "z": {
+          "label": "Canceled Cluster ISSN",
+          "repeatable": true,
+          "solr": "023z_ClusterIssn_canceledClusterISSN"
+        },
+        "0": {
+          "label": "Authority record control number or standard number",
+          "repeatable": false,
+          "solr": "0230_ClusterIssn_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
+        },
+        "1": {
+          "label": "Real World Object URI",
+          "repeatable": true,
+          "solr": "0231_ClusterIssn_uri"
+        },
+        "2": {
+          "label": "Source",
+          "repeatable": false,
+          "solr": "0232_ClusterIssn_source"
+        },
+        "6": {
+          "label": "Linkage",
+          "repeatable": false,
+          "solr": "0236_ClusterIssn_linkage",
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
+        },
+        "8": {
+          "label": "Field link and sequence number",
+          "repeatable": true,
+          "solr": "0238_ClusterIssn_fieldLink"
         }
       }
     },
@@ -13962,31 +14025,31 @@
         }
       },
       "indicator2": {
-        "label": "Type, completeness, source of class/call number",
+        "label": "Type, completeness, source of call/class number",
         "codes": {
           "0": {
             "code": "0",
-            "label": "LC-based call number assigned by LAC"
+            "label": "LCC (or LCC-compatible) call number assigned by LAC"
           },
           "1": {
             "code": "1",
-            "label": "Complete LC class number assigned by LAC"
+            "label": "Complete LCC (or LCC-compatible) class number assigned by LAC"
           },
           "2": {
             "code": "2",
-            "label": "Incomplete LC class number assigned by LAC"
+            "label": "Incomplete LCC (or LCC-compatible) class number assigned by LAC"
           },
           "3": {
             "code": "3",
-            "label": "LC-based call number assigned by the contributing library"
+            "label": "LCC (or LCC-compatible) call number assigned by a Canadian organization other than LAC"
           },
           "4": {
             "code": "4",
-            "label": "Complete LC class number assigned by the contributing library"
+            "label": "Complete LCC (or LCC-compatible) class number assigned by a Canadian organization other than LAC"
           },
           "5": {
             "code": "5",
-            "label": "Incomplete LC class number assigned by the contributing library"
+            "label": "Incomplete LCC (or LCC-compatible) class number assigned by a Canadian organization other than LAC"
           },
           "6": {
             "code": "6",
@@ -13998,11 +14061,11 @@
           },
           "8": {
             "code": "8",
-            "label": "Other call number assigned by the contributing library"
+            "label": "Other call number assigned by a Canadian organization other than LAC"
           },
           "9": {
             "code": "9",
-            "label": "Other class number assigned by the contributing library"
+            "label": "Other class number assigned by a Canadian organization other than LAC"
           }
         }
       },
@@ -14496,6 +14559,17 @@
           "solr": "082q_ClassificationDdc_source",
           "codes": "https://www.loc.gov/marc/organizations/orgshome.html"
         },
+        "0": {
+          "label": "Authority record control number or standard number",
+          "repeatable": true,
+          "solr": "0820_ClassificationDdc_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
+        },
+        "1": {
+          "label": "Real World Object URI",
+          "repeatable": true,
+          "solr": "0821_ClassificationDdc_uri"
+        },
         "2": {
           "label": "Edition information",
           "repeatable": false,
@@ -14574,6 +14648,17 @@
           "label": "Table identification",
           "repeatable": true,
           "solr": "083z_ClassificationAdditionalDdc_tableId"
+        },
+        "0": {
+          "label": "Authority record control number or standard number",
+          "repeatable": true,
+          "solr": "0830_ClassificationAdditionalDdc_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
+        },
+        "1": {
+          "label": "Real World Object URI",
+          "repeatable": true,
+          "solr": "0831_ClassificationAdditionalDdc_uri"
         },
         "2": {
           "label": "Edition information",
@@ -17788,10 +17873,22 @@
           "repeatable": true,
           "solr": "341e_AccessibilityContent_tactileAssistiveFeatures"
         },
+        "0": {
+          "label": "Authority record control number or standard number",
+          "repeatable": true,
+          "solr": "3410_AccessibilityContent_authorityRecordControlNumber",
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
+        },
+        "1": {
+          "label": "Real World Object URI",
+          "repeatable": true,
+          "solr": "3411_AccessibilityContent_uri"
+        },
         "2": {
           "label": "Source",
           "repeatable": false,
-          "solr": "3412_AccessibilityContent_source"
+          "solr": "3412_AccessibilityContent_source",
+          "codes": "https://www.loc.gov/standards/sourcelist/accessibility.html"
         },
         "3": {
           "label": "Materials specified",
@@ -19649,11 +19746,27 @@
     },
     "383": {
       "tag": "383",
-      "label": "Numeric Designation of Musical Work",
+      "label": "Numeric Designation of Musical Work or Expression",
       "url": "https://www.loc.gov/marc/bibliographic/bd383.html",
       "repeatable": true,
       "solr": "383",
-      "indicator1": null,
+      "indicator1": {
+        "label": "Type of entity",
+        "codes": {
+          " ": {
+            "code": " ",
+            "label": "No information provided"
+          },
+          "0": {
+            "code": "0",
+            "label": "Work"
+          },
+          "1": {
+            "code": "1",
+            "label": "Expression"
+          }
+        }
+      },
       "indicator2": null,
       "subfields": {
         "a": {
@@ -21955,6 +22068,11 @@
           "repeatable": false,
           "solr": "532a_AccessibilityNote_summary"
         },
+        "3": {
+          "label": "Materials specified",
+          "repeatable": false,
+          "solr": "5323_AccessibilityNote_materialsSpecified"
+        },
         "6": {
           "label": "Linkage",
           "repeatable": false,
@@ -23566,6 +23684,12 @@
           "repeatable": false,
           "solr": "580a_LinkingEntryComplexity"
         },
+        "5": {
+          "label": "Institution to which field applies",
+          "repeatable": false,
+          "solr": "5805_LinkingEntryComplexity_institution",
+          "codes": "https://www.loc.gov/marc/organizations/orgshome.html"
+        },
         "6": {
           "label": "Linkage",
           "repeatable": false,
@@ -24888,6 +25012,11 @@
           "repeatable": false,
           "solr": "647d_NamedEvent_date"
         },
+        "e": {
+          "label": "Relator term",
+          "repeatable": true,
+          "solr": "647e_NamedEvent_relatorTerm"
+        },
         "g": {
           "label": "Miscellaneous information",
           "repeatable": true,
@@ -24933,6 +25062,12 @@
           "label": "Materials specified",
           "repeatable": false,
           "solr": "6473_NamedEvent_materialsSpecified"
+        },
+        "4": {
+          "label": "Relationship",
+          "repeatable": true,
+          "solr": "6474_NamedEvent_relationship",
+          "codes": "https://www.loc.gov/marc/relators/relaterm.html"
         },
         "6": {
           "label": "Linkage",
@@ -24997,6 +25132,11 @@
           "repeatable": false,
           "solr": "648a_ChronologicalSubject"
         },
+        "e": {
+          "label": "Relator term",
+          "repeatable": true,
+          "solr": "648e_ChronologicalSubject_relatorTerm"
+        },
         "v": {
           "label": "Form subdivision",
           "repeatable": true,
@@ -25038,6 +25178,12 @@
           "label": "Materials specified",
           "repeatable": false,
           "solr": "6483_ChronologicalSubject_materialsSpecified"
+        },
+        "4": {
+          "label": "Relationship",
+          "repeatable": true,
+          "solr": "6484_ChronologicalSubject_relationship",
+          "codes": "https://www.loc.gov/marc/relators/relaterm.html"
         },
         "6": {
           "label": "Linkage",
@@ -29349,6 +29495,12 @@
           "solr": "7734_PartOf_relationship",
           "codes": "https://www.loc.gov/marc/relators/relaterm.html"
         },
+        "5": {
+          "label": "Institution to which field applies",
+          "repeatable": false,
+          "solr": "7735_PartOf_institution",
+          "codes": "https://www.loc.gov/marc/organizations/orgshome.html"
+        },
         "6": {
           "label": "Linkage",
           "repeatable": false,
@@ -29664,6 +29816,12 @@
           "repeatable": true,
           "solr": "7744_HasPart_relationship",
           "codes": "https://www.loc.gov/marc/relators/relaterm.html"
+        },
+        "5": {
+          "label": "Institution to which field applies",
+          "repeatable": false,
+          "solr": "7745_HasPart_institution",
+          "codes": "https://www.loc.gov/marc/organizations/orgshome.html"
         },
         "6": {
           "label": "Linkage",
@@ -31949,6 +32107,11 @@
           "repeatable": true,
           "solr": "7874_RelatedTo_relationship",
           "codes": "https://www.loc.gov/marc/relators/relaterm.html"
+        },
+        "5": {
+          "label": "Institution to which field applies",
+          "repeatable": false,
+          "solr": "7875_RelatedTo_institution"
         },
         "6": {
           "label": "Linkage",
@@ -112970,6 +113133,12 @@
       "vgmsng": {
         "code": "vgmsng",
         "label": "Video Game Metadata Schema: Controlled vocabulary for narrative genre (GAME Research (GAMER) Group)"
+      }
+    },
+    "https://www.loc.gov/standards/sourcelist/accessibility.html": {
+      "sapdv": {
+        "code": "sapdv",
+        "label": "Schema.org Accessibility Properties for Discoverability Vocabulary (Accessibility Discoverability Vocabulary for Schema.org Community Group)"
       }
     },
     "https://www.loc.gov/standards/sourcelist/price-type.html": {

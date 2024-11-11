@@ -11870,14 +11870,6 @@
           "label": "International Standard Serial Number",
           "repeatable": false
         },
-        "l": {
-          "label": "ISSN-L",
-          "repeatable": false
-        },
-        "m": {
-          "label": "Canceled ISSN-L",
-          "repeatable": true
-        },
         "y": {
           "label": "Incorrect ISSN",
           "repeatable": true
@@ -11888,7 +11880,7 @@
         },
         "0": {
           "label": "Authority record control number or standard number",
-          "repeatable": true,
+          "repeatable": false,
           "pattern": "^\\((.{1,100})\\)(.{1,100})$"
         },
         "1": {
@@ -11915,6 +11907,70 @@
         "c": {
           "label": "Price [OBSOLETE] [CAN/MARC only]",
           "deprecated": true
+        },
+        "l": {
+          "label": "ISSN-L [OBSOLETE, 2023]. Subfield $l was made obsolete in favor of recording ISSN-L in field 023.",
+          "deprecated": true
+        },
+        "m": {
+          "label": "Canceled ISSN-L [OBSOLETE, 2023] Subfield $m was made obsolete in favor of recording canceled ISSN-L in field 023.",
+          "deprecated": true
+        }
+      }
+    },
+    "023": {
+      "tag": "023",
+      "label": "Cluster ISSN",
+      "url": "https://www.loc.gov/marc/bibliographic/bd020.html",
+      "repeatable": true,
+      "indicator1": {
+        "label": "Type of Cluster ISSN",
+        "codes": {
+          "0": {
+            "code": "0",
+            "label": "ISSN-L"
+          },
+          "1": {
+            "code": "1",
+            "label": "ISSN-H"
+          }
+        }
+      },
+      "indicator2": null,
+      "subfields": {
+        "a": {
+          "label": "Cluster ISSN",
+          "repeatable": false
+        },
+        "y": {
+          "label": "Incorrect Cluster ISSN",
+          "repeatable": true
+        },
+        "z": {
+          "label": "Canceled Cluster ISSN",
+          "repeatable": true
+        },
+        "0": {
+          "label": "Authority record control number or standard number",
+          "repeatable": false,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
+        },
+        "1": {
+          "label": "Real World Object URI",
+          "repeatable": true
+        },
+        "2": {
+          "label": "Source",
+          "repeatable": false
+        },
+        "6": {
+          "label": "Linkage",
+          "repeatable": false,
+          "pattern": "^(\\d{3})-(\\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$"
+        },
+        "8": {
+          "label": "Field link and sequence number",
+          "repeatable": true
         }
       }
     },
@@ -13458,31 +13514,31 @@
         }
       },
       "indicator2": {
-        "label": "Type, completeness, source of class/call number",
+        "label": "Type, completeness, source of call/class number",
         "codes": {
           "0": {
             "code": "0",
-            "label": "LC-based call number assigned by LAC"
+            "label": "LCC (or LCC-compatible) call number assigned by LAC"
           },
           "1": {
             "code": "1",
-            "label": "Complete LC class number assigned by LAC"
+            "label": "Complete LCC (or LCC-compatible) class number assigned by LAC"
           },
           "2": {
             "code": "2",
-            "label": "Incomplete LC class number assigned by LAC"
+            "label": "Incomplete LCC (or LCC-compatible) class number assigned by LAC"
           },
           "3": {
             "code": "3",
-            "label": "LC-based call number assigned by the contributing library"
+            "label": "LCC (or LCC-compatible) call number assigned by a Canadian organization other than LAC"
           },
           "4": {
             "code": "4",
-            "label": "Complete LC class number assigned by the contributing library"
+            "label": "Complete LCC (or LCC-compatible) class number assigned by a Canadian organization other than LAC"
           },
           "5": {
             "code": "5",
-            "label": "Incomplete LC class number assigned by the contributing library"
+            "label": "Incomplete LCC (or LCC-compatible) class number assigned by a Canadian organization other than LAC"
           },
           "6": {
             "code": "6",
@@ -13494,11 +13550,11 @@
           },
           "8": {
             "code": "8",
-            "label": "Other call number assigned by the contributing library"
+            "label": "Other call number assigned by a Canadian organization other than LAC"
           },
           "9": {
             "code": "9",
-            "label": "Other class number assigned by the contributing library"
+            "label": "Other class number assigned by a Canadian organization other than LAC"
           }
         }
       },
@@ -13936,6 +13992,15 @@
           "repeatable": false,
           "codes": "https://www.loc.gov/marc/organizations/orgshome.html"
         },
+        "0": {
+          "label": "Authority record control number or standard number",
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
+        },
+        "1": {
+          "label": "Real World Object URI",
+          "repeatable": true
+        },
         "2": {
           "label": "Edition information",
           "repeatable": false
@@ -14002,6 +14067,15 @@
         },
         "z": {
           "label": "Table identification",
+          "repeatable": true
+        },
+        "0": {
+          "label": "Authority record control number or standard number",
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
+        },
+        "1": {
+          "label": "Real World Object URI",
           "repeatable": true
         },
         "2": {
@@ -16786,9 +16860,19 @@
           "label": "Tactile assistive features",
           "repeatable": true
         },
+        "0": {
+          "label": "Authority record control number or standard number",
+          "repeatable": true,
+          "pattern": "^\\((.{1,100})\\)(.{1,100})$"
+        },
+        "1": {
+          "label": "Real World Object URI",
+          "repeatable": true
+        },
         "2": {
           "label": "Source",
-          "repeatable": false
+          "repeatable": false,
+          "codes": "https://www.loc.gov/standards/sourcelist/accessibility.html"
         },
         "3": {
           "label": "Materials specified",
@@ -18357,10 +18441,26 @@
     },
     "383": {
       "tag": "383",
-      "label": "Numeric Designation of Musical Work",
+      "label": "Numeric Designation of Musical Work or Expression",
       "url": "https://www.loc.gov/marc/bibliographic/bd383.html",
       "repeatable": true,
-      "indicator1": null,
+      "indicator1": {
+        "label": "Type of entity",
+        "codes": {
+          " ": {
+            "code": " ",
+            "label": "No information provided"
+          },
+          "0": {
+            "code": "0",
+            "label": "Work"
+          },
+          "1": {
+            "code": "1",
+            "label": "Expression"
+          }
+        }
+      },
       "indicator2": null,
       "subfields": {
         "a": {
@@ -20339,6 +20439,10 @@
           "label": "Summary of accessibility",
           "repeatable": false
         },
+        "3": {
+          "label": "Materials specified",
+          "repeatable": false
+        },
         "6": {
           "label": "Linkage",
           "repeatable": false,
@@ -21724,6 +21828,11 @@
           "label": "Linking entry complexity note",
           "repeatable": false
         },
+        "5": {
+          "label": "Institution to which field applies",
+          "repeatable": false,
+          "codes": "https://www.loc.gov/marc/organizations/orgshome.html"
+        },
         "6": {
           "label": "Linkage",
           "repeatable": false,
@@ -22867,6 +22976,10 @@
           "label": "Date of named event",
           "repeatable": false
         },
+        "e": {
+          "label": "Relator term",
+          "repeatable": true
+        },
         "g": {
           "label": "Miscellaneous information",
           "repeatable": true
@@ -22903,6 +23016,11 @@
         "3": {
           "label": "Materials specified",
           "repeatable": false
+        },
+        "4": {
+          "label": "Relationship",
+          "repeatable": true,
+          "codes": "https://www.loc.gov/marc/relators/relaterm.html"
         },
         "6": {
           "label": "Linkage",
@@ -22963,6 +23081,10 @@
           "label": "Chronological term",
           "repeatable": false
         },
+        "e": {
+          "label": "Relator term",
+          "repeatable": true
+        },
         "v": {
           "label": "Form subdivision",
           "repeatable": true
@@ -22996,6 +23118,11 @@
         "3": {
           "label": "Materials specified",
           "repeatable": false
+        },
+        "4": {
+          "label": "Relationship",
+          "repeatable": true,
+          "codes": "https://www.loc.gov/marc/relators/relaterm.html"
         },
         "6": {
           "label": "Linkage",
@@ -26813,6 +26940,11 @@
           "repeatable": true,
           "codes": "https://www.loc.gov/marc/relators/relaterm.html"
         },
+        "5": {
+          "label": "Institution to which field applies",
+          "repeatable": false,
+          "codes": "https://www.loc.gov/marc/organizations/orgshome.html"
+        },
         "6": {
           "label": "Linkage",
           "repeatable": false,
@@ -27103,6 +27235,11 @@
           "label": "Relationship",
           "repeatable": true,
           "codes": "https://www.loc.gov/marc/relators/relaterm.html"
+        },
+        "5": {
+          "label": "Institution to which field applies",
+          "repeatable": false,
+          "codes": "https://www.loc.gov/marc/organizations/orgshome.html"
         },
         "6": {
           "label": "Linkage",
@@ -29208,6 +29345,10 @@
           "label": "Relationship",
           "repeatable": true,
           "codes": "https://www.loc.gov/marc/relators/relaterm.html"
+        },
+        "5": {
+          "label": "Institution to which field applies",
+          "repeatable": false
         },
         "6": {
           "label": "Linkage",
@@ -109872,6 +110013,12 @@
       "vgmsng": {
         "code": "vgmsng",
         "label": "Video Game Metadata Schema: Controlled vocabulary for narrative genre (GAME Research (GAMER) Group)"
+      }
+    },
+    "https://www.loc.gov/standards/sourcelist/accessibility.html": {
+      "sapdv": {
+        "code": "sapdv",
+        "label": "Schema.org Accessibility Properties for Discoverability Vocabulary (Accessibility Discoverability Vocabulary for Schema.org Community Group)"
       }
     },
     "https://www.loc.gov/standards/sourcelist/price-type.html": {

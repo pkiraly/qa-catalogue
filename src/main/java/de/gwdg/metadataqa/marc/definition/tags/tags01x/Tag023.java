@@ -43,7 +43,8 @@ public class Tag023 extends DataFieldDefinition {
       .setCodes(
         "0", "ISSN-L",
         "1", "ISSN-H"
-      );
+      )
+      .setMqTag("type");
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(

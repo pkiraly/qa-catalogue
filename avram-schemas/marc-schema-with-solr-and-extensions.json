@@ -41092,8 +41092,9 @@
             "solr": "856q_ElectronicLocationAndAccess_format"
           },
           "r": {
-            "label": "Settings [OBSOLETE, 2020]",
-            "deprecated": true
+            "label": "Standardized information governing use and reproduction",
+            "repeatable": true,
+            "solr": "856r_ElectronicLocationAndAccess_useAndReproductionRights"
           },
           "s": {
             "label": "File size",

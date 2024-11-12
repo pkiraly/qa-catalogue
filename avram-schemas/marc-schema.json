@@ -31028,8 +31028,8 @@
           "repeatable": true
         },
         "r": {
-          "label": "Settings [OBSOLETE, 2020]",
-          "deprecated": true
+          "label": "Standardized information governing use and reproduction",
+          "repeatable": true
         },
         "s": {
           "label": "File size",

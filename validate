@@ -69,8 +69,6 @@ GETOPT=$(getopt \
   -n ${ME} -- "$@")
 eval set -- "${GETOPT}"
 
-echo "GETOPT: ${GETOPT}"
-
 PARAMS=""
 HELP=0
 while true ; do

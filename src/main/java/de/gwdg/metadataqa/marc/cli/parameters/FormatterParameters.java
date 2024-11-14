@@ -40,6 +40,10 @@ public class FormatterParameters extends CommonParameters {
     }
   }
 
+  public FormatterParameters() {
+    super();
+  }
+
   public FormatterParameters(String[] arguments) throws ParseException {
     super(arguments);
 

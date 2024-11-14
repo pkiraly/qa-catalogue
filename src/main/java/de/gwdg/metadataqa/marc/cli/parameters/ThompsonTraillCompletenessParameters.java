@@ -19,6 +19,10 @@ public class ThompsonTraillCompletenessParameters extends CommonParameters {
     }
   }
 
+  public ThompsonTraillCompletenessParameters() {
+    super();
+  }
+
   public ThompsonTraillCompletenessParameters(String[] arguments) throws ParseException {
     super(arguments);
 

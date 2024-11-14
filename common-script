@@ -405,7 +405,6 @@ EOF
     # sudo rm ${MYSQL_SEC_DIR}/id-groupid.csv
   fi
 
-
   log "delete importable files"
   # rm ${OUTPUT_DIR}/issue-details-normalized_noheader.csv
   # rm ${OUTPUT_DIR}/issue-summary_noheader.csv
@@ -432,6 +431,12 @@ do_export_schema_files() {
   ./export-schema --withSubfieldCodelists --solrFieldType mixed --withSelfDescriptiveCode --withLocallyDefinedFields | jq . > avram-schemas/marc-schema-with-solr-and-extensions.json
 
   log "files generated at 'avram-schemas' directory: marc-schema.json, marc-schema-with-solr.json, marc-schema-with-solr-and-extensions.json"
+}
+
+do_export_cli_parameters() {
+  . ./common-variables
+  java -cp $JAR de.gwdg.metadataqa.marc.cli.CliParameterDefinitionsExporter | jq . > cli-parameter-definitions.json
+  log "CLI parameters has been exported into cli-parameter-definitions.json"
 }
 
 do_shacl4bib() {
@@ -514,6 +519,7 @@ Commands:
   index                      indexing with Solr
   postprocess-solr           postprocess indexing (swap NAME and NAME_dev indexes)
   export-schema-files        export schema files
+  export-cli-parameters      export the parameters of the CLI components into a JSON file
   shacl4bib                  run SHACL-like validation
   all-analyses               run all analytical tasks (or those set via ANALYSES)
   all-solr                   run all indexing tasks
@@ -603,7 +609,7 @@ datatask=
 
 # Check whether data is going to be processed
 for task in ${tasks//,/ }; do
-  if [[ ! "$task" =~ ^(help|config|export-schema-files)$ ]]; then
+  if [[ ! "$task" =~ ^(help|config|export-schema-files|export-cli-parameters)$ ]]; then
     datatask=true
   fi
 done
@@ -648,6 +654,7 @@ for task in ${tasks//,/ }; do
     record-patterns)          do_record_patterns ;;
     mysql)                    do_mysql ;;
     export-schema-files)      do_export_schema_files ;;
+    export-cli-parameters)    do_export_cli_parameters ;;
     shacl4bib)                do_shacl4bib ;;
     all-analyses)             do_all_analyses ;;
     all-solr)                 do_all_solr ;;

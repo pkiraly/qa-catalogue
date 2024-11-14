@@ -37,6 +37,10 @@ public class MarcToSolrParameters extends CommonParameters {
     }
   }
 
+  public MarcToSolrParameters() {
+    super();
+  }
+
   public MarcToSolrParameters(String[] arguments) throws ParseException {
     super(arguments);
 

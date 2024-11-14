@@ -41,7 +41,7 @@ options:
  -e, --groupBy <arg>                group the results by the value of this data element (e.g. the ILN of  library)
  -3, --groupListFile <arg>          the file which contains a list of ILN codes
  -4, --solrForScoresUrl <arg>       the URL of the Solr server used to store scores
- -A, --collectCollocations          collect collocatiion of schemas
+ -A, --collectCollocations          collect collocation of schemas
 
 more info: https://github.com/pkiraly/qa-catalogue#classification-analysis
 

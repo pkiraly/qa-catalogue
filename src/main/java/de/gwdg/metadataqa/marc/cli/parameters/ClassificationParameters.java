@@ -12,7 +12,7 @@ public class ClassificationParameters extends CommonParameters implements Serial
   protected void setOptions() {
     if (!isOptionSet) {
       super.setOptions();
-      options.addOption("A", "collectCollocations", false, "collect collocatiion of schemas");
+      options.addOption("A", "collectCollocations", false, "collect collocation of schemas");
       isOptionSet = true;
     }
   }

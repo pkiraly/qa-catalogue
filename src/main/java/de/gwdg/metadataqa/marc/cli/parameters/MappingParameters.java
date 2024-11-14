@@ -37,6 +37,7 @@ public class MappingParameters {
   }
 
   public MappingParameters() {
+    super();
   }
 
   public MappingParameters(String[] arguments) throws ParseException {

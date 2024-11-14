@@ -19,6 +19,10 @@ public class ShelfReadyCompletenessParameters extends CommonParameters {
     }
   }
 
+  public ShelfReadyCompletenessParameters() {
+    super();
+  }
+
   public ShelfReadyCompletenessParameters(String[] arguments) throws ParseException {
     super(arguments);
 

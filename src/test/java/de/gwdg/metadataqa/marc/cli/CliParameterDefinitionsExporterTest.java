@@ -21,7 +21,6 @@ public class CliParameterDefinitionsExporterTest {
     CliParameterDefinitionsExporter extractor = new CliParameterDefinitionsExporter();
     String json = extractor.exportAll();
     assertNotNull(json);
-    System.err.println(json);
     assertTrue(json.contains("\"common\""));
     ObjectMapper mapper = new ObjectMapper();
     Map firstItem = null;
@@ -29,13 +28,13 @@ public class CliParameterDefinitionsExporterTest {
     try {
       parameters = (LinkedHashMap) mapper.readValue(json, Object.class);
 
-      assertEquals(15, parameters.size());
+      assertEquals(16, parameters.size());
       assertEquals(
         Set.of(
           "common", "completeness", "validate", "index", "classifications",
           "authorities", "tt-completeness", "shelf-ready-completeness",
           "bl-classification", "serial-score", "formatter", "functional-analysis",
-          "network-analysis", "record-patterns", "shacl4bib"
+          "network-analysis", "marc-history", "record-patterns", "shacl4bib"
         ),
         parameters.keySet());
 
@@ -151,6 +150,9 @@ public class CliParameterDefinitionsExporterTest {
       assertEquals("group-limit", firstItem.get("long"));
       assertEquals(true, firstItem.get("hasArg"));
       assertEquals("pair creation limit", firstItem.get("description"));
+
+      assertTrue(parameters.containsKey("marc-history"));
+      assertEquals(0, ((List) parameters.get("marc-history")).size());
 
       assertTrue(parameters.containsKey("record-patterns"));
       assertEquals(3, ((List) parameters.get("record-patterns")).size());

@@ -18,8 +18,15 @@ log() {
 }
 
 # define 'untrace' command to disable trace mode
+# remove all alias definitions
 unalias -a
+# shopt             set and unset shell options.
+#       -s OPTNAME: enable (set) each OPTNAME
+#          expand_aliases: aliases are expanded
+# Aliases are not expanded when the shell is not interactive,
+# unless the expand_aliases shell option is set using shopt
 shopt -s expand_aliases
+# 'set +x': Print commands and their arguments as they are executed.
 alias untrace='{ set +x; } 2> /dev/null'
 
 # start a named processing step and enable trace mode
@@ -30,26 +37,35 @@ run() {
   set -x
 }
 
+filter_params() {
+  php scripts/utils/parameter-filter.php $1 ${TYPE_PARAMS}
+}
+
 # ---- proccessing steps ----
 
+# run validation
 do_validate() {
   GENERAL_PARAMS="--details --trimId --summary --format csv --defaultRecordType BOOKS"
   OUTPUT_PARAMS="--outputDir ${OUTPUT_DIR} --detailsFileName issue-details.csv --summaryFileName issue-summary.csv"
-  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--(indexWithTokenizedField|indexFieldCounts|solrUrl)//g')
+  PARAMS=$(filter_params "validate")
+  log "log file: ${LOG_DIR}/validate.log"
   run validate
   ./validate ${GENERAL_PARAMS} ${OUTPUT_PARAMS} ${PARAMS} ${MARC_DIR}/$MASK 2> ${LOG_DIR}/validate.log
 }
 
 do_prepare_solr() {
+  log "log file: ${LOG_DIR}/solr.log"
   run prepare-solr
   ./prepare-solr $NAME 2> ${LOG_DIR}/solr.log
 }
 
 do_index() {
+  log "log file: ${LOG_DIR}/solr.log"
   run index
   untrace
 
-  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--ignorableIssueTypes [^ ]+//g')
+  PARAMS=$(filter_params "index")
+
   # HAS_GROUP_PARAM=$(echo ${TYPE_PARAMS} | grep -c -P -e '--groupBy [^-]' || true)
   # if [[ "${HAS_GROUP_PARAM}" == "1" ]]; then
   #   PARAMS="${PARAMS} --solrForScoresUrl ${NAME}_validation"
@@ -67,12 +83,14 @@ do_index() {
 }
 
 do_postprocess_solr() {
+  log "log file: ${LOG_DIR}/solr.log"
   run postprocess-solr
   ./postprocess-solr $NAME 2>> ${LOG_DIR}/solr.log
 }
 
 do_completeness() {
-  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--ignorableIssueTypes [^ ]+|\s*--(indexWithTokenizedField|indexFieldCounts|solrUrl)//g')
+  PARAMS=$(filter_params "completeness")
+  log "log file: ${LOG_DIR}/completeness.log"
   run completeness
   ./completeness --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${LOG_DIR}/completeness.log
 }
@@ -86,20 +104,23 @@ do_completeness_sqlite() {
 }
 
 do_classifications() {
-  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--ignorableIssueTypes [^ ]+|\s*--(indexWithTokenizedField|indexFieldCounts|solrUrl)//g')
+  PARAMS=$(filter_params "classifications")
+  log "log file: ${LOG_DIR}/classifications.log"
   run classifications
   ./classifications --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${LOG_DIR}/classifications.log
   Rscript scripts/classifications/classifications-type.R ${OUTPUT_DIR}
 }
 
 do_authorities() {
-  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--ignorableIssueTypes [^ ]+|\s*--(indexWithTokenizedField|indexFieldCounts|solrUrl)//g')
+  PARAMS=$(filter_params "authorities")
+  log "log file: ${LOG_DIR}/authorities.log"
   run authorities
   ./authorities --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${LOG_DIR}/authorities.log
 }
 
 do_tt_completeness() {
-  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--ignorableIssueTypes [^ ]+|\s*--(indexWithTokenizedField|indexFieldCounts|solrUrl)//g')
+  PARAMS=$(filter_params "tt-completeness")
+  log "log file: ${LOG_DIR}/tt-completeness.log"
   run tt-completeness
   ./tt-completeness --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${LOG_DIR}/tt-completeness.log
   Rscript scripts/tt-histogram/tt-histogram.R ${OUTPUT_DIR} &>> ${LOG_DIR}/tt-completeness.log
@@ -109,7 +130,8 @@ do_tt_completeness() {
 }
 
 do_shelf_ready_completeness() {
-  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--ignorableIssueTypes [^ ]+|\s*--(indexWithTokenizedField|indexFieldCounts|solrUrl)//g')
+  PARAMS=$(filter_params "shelf-ready-completeness")
+  log "log file: ${LOG_DIR}/shelf-ready-completeness.log"
   run shelf-ready-completeness
   ./shelf-ready-completeness \
     --defaultRecordType BOOKS \
@@ -124,7 +146,8 @@ do_shelf_ready_completeness() {
 }
 
 do_bl_classification() {
-  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--ignorableIssueTypes [^ ]+|\s*--(indexWithTokenizedField|indexFieldCounts|solrUrl)//g')
+  PARAMS=$(filter_params "bk-classification")
+  log "log file: ${LOG_DIR}/bl-classification.log"
   run bk-classification
   ./bl-classification \
     --defaultRecordType BOOKS \
@@ -134,7 +157,8 @@ do_bl_classification() {
 }
 
 do_serial_score() {
-  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--ignorableIssueTypes [^ ]+|\s*--(indexWithTokenizedField|indexFieldCounts|solrUrl)//g')
+  PARAMS=$(filter_params "bk-classification")
+  log "log file: ${LOG_DIR}/serial-score.log"
   run serial-score
   ./serial-score --defaultRecordType BOOKS \
                  ${PARAMS} \
@@ -150,7 +174,8 @@ do_format() {
 }
 
 do_functional_analysis() {
-  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--ignorableIssueTypes [^ ]+|\s*--(indexWithTokenizedField|indexFieldCounts|solrUrl)//g')
+  PARAMS=$(filter_params "functional-analysis")
+  log "log file: ${LOG_DIR}/functional-analysis.log"
   run functional-analysis
   ./functional-analysis --defaultRecordType BOOKS \
                         ${PARAMS} \
@@ -158,7 +183,8 @@ do_functional_analysis() {
 }
 
 do_network_analysis() {
-  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--ignorableIssueTypes [^ ]+|\s*--(indexWithTokenizedField|indexFieldCounts|solrUrl)//g')
+  PARAMS=$(filter_params "network-analysis")
+  log "log file: ${LOG_DIR}/network-analysis.log"
   run network-analysis
   ./network-analysis --defaultRecordType BOOKS \
                      ${PARAMS} \
@@ -197,6 +223,7 @@ do_network_analysis() {
 }
 
 do_pareto() {
+  log "log file: ${LOG_DIR}/pareto.log"
   run pareto
   Rscript scripts/pareto/frequency-range.R ${OUTPUT_DIR} &> ${LOG_DIR}/pareto.log
   untrace
@@ -214,7 +241,9 @@ do_marc_history() {
   else
     SELECTOR="008~7-10;008~0-5"
   fi
-  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--ignorableIssueTypes [^ ]+|\s*--(indexWithTokenizedField|indexFieldCounts|solrUrl)//g')
+
+  PARAMS=$(filter_params "marc-history")
+  log "log file: ${LOG_DIR}/marc-history.log"
 
   run marc-history
   ./formatter --selector "$SELECTOR" --defaultRecordType BOOKS ${PARAMS} --separator "," \
@@ -233,7 +262,8 @@ do_marc_history() {
 }
 
 do_record_patterns() {
-  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--ignorableIssueTypes [^ ]+|\s*--(indexWithTokenizedField|indexFieldCounts|solrUrl)//g')
+  PARAMS=$(filter_params "record-patterns")
+  log "log file: ${LOG_DIR}/record-patterns.log"
 
   run record-patterns
   Rscript scripts/record-patterns/top-fields.R ${OUTPUT_DIR} &>> ${LOG_DIR}/top-fields.log
@@ -320,7 +350,7 @@ EOF
   ONLY_INDEX=$(echo ${PARAMS} | grep -c -P -e '--onlyIndex' || true)
 
   if [[ "${HAS_GROUP_PARAM}" == "0" ]]; then
-    log "index"
+    log "index sqlite3"
     sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/modify-tables.sql &>> ${LOG_DIR}/sqlite.log
     if [[ "${SOLR_FOR_SCORES_URL}" != "" ]]; then
       echo "index at ${SOLR_FOR_SCORES_URL}"
@@ -441,9 +471,10 @@ do_export_cli_parameters() {
 
 do_shacl4bib() {
   # note: SHACL specific parameters are missing here --shaclConfigurationFile, --shaclOutputType, --shaclOutputFile
-  PARAMS=$(echo ${TYPE_PARAMS} | sed -r 's/\s*--emptyLargeCollectors|\s*--ignorableIssueTypes [^ ]+|\s*--(indexWithTokenizedField|indexFieldCounts|solrUrl)//g')
+  PARAMS=$(filter_params "shacl4bib")
+  log "log file: ${LOG_DIR}/shacl4bib.log"
+
   run shacl4bib
-  echo "  ./shacl4bib --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${LOG_DIR}/shacl4bib.log"
   ./shacl4bib --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${LOG_DIR}/shacl4bib.log
   Rscript scripts/shacl4bib/shacl4bib.R ${OUTPUT_DIR}
 
@@ -571,6 +602,7 @@ config() {
 }
 
 fatal() {
+  echo "fatal()"
   colored "1;31" "$1"
   exit 1
 }
@@ -631,6 +663,7 @@ if [[ "$datatask" = true ]]; then
   fi
 fi
 
+echo "tasks: ${tasks}"
 for task in ${tasks//,/ }; do
   case $task in
     validate)                 do_validate ; do_validate_sqlite ;;

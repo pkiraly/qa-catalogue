@@ -50,6 +50,7 @@ public class CliParameterDefinitionsExporter {
     options.put("formatter", export(new FormatterParameters())); // TODO at common-script
     options.put("functional-analysis", export(new CompletenessParameters())); // TODO
     options.put("network-analysis", export(new NetworkParameters()));
+    options.put("marc-history", export(new CommonParameters()));
     options.put("record-patterns", export(new CompletenessParameters())); // TODO
     // options.put("export-schema", read(new MappingParameters()));
     options.put("shacl4bib", export(new Shacl4bibParameters()));

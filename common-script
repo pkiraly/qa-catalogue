@@ -157,7 +157,7 @@ do_bl_classification() {
 }
 
 do_serial_score() {
-  PARAMS=$(filter_params "bk-classification")
+  PARAMS=$(filter_params "serial-score")
   log "log file: ${LOG_DIR}/serial-score.log"
   run serial-score
   ./serial-score --defaultRecordType BOOKS \

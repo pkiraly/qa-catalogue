@@ -618,10 +618,12 @@ MARC_DIR=${MARC_DIR:-$BASE_INPUT_DIR/$NAME}
 SCHEMA=${SCHEMA:-MARC21}
 
 LOG_DIR=${BASE_LOG_DIR}/${NAME}
-if [[ "${VERSION:-}" != "" ]]; then
-  OUTPUT_DIR=${BASE_OUTPUT_DIR}/${NAME}-${VERSION}
-else
-  OUTPUT_DIR=${BASE_OUTPUT_DIR}/${NAME}
+if [[ "${OUTPUT_DIR:-}" = "" ]]; then
+  if [[ "${VERSION:-}" != "" ]]; then
+    OUTPUT_DIR=${BASE_OUTPUT_DIR}/${NAME}-${VERSION}
+  else
+    OUTPUT_DIR=${BASE_OUTPUT_DIR}/${NAME}
+  fi
 fi
 
 # which tasks to run on `all-analyses`

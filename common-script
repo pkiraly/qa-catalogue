@@ -247,7 +247,8 @@ do_marc_history() {
 
   run marc-history
   ./formatter --selector "$SELECTOR" --defaultRecordType BOOKS ${PARAMS} --separator "," \
-              --outputDir ${OUTPUT_DIR}/ --fileName "marc-history.csv" ${MARC_DIR}/${MASK} &> ${LOG_DIR}/marc-history.log
+              --outputDir ${OUTPUT_DIR}/ --fileName "marc-history.csv" ${MARC_DIR}/${MASK} \
+              &> ${LOG_DIR}/marc-history.log
     # | grep -v '008~7-10,008~0-5' \
   
   untrace
@@ -465,7 +466,8 @@ do_export_schema_files() {
 
 do_export_cli_parameters() {
   . ./common-variables
-  java -cp $JAR de.gwdg.metadataqa.marc.cli.CliParameterDefinitionsExporter | jq . > cli-parameter-definitions.json
+  java -cp $JAR de.gwdg.metadataqa.marc.cli.CliParameterDefinitionsExporter \
+    | jq . > cli-parameter-definitions.json
   log "CLI parameters has been exported into cli-parameter-definitions.json"
 }
 

@@ -83,6 +83,7 @@ ANALYSES:                 ${ANALYSES:-}
 CATALOGUE:                ${CATALOGUE:-}
 BASE_INPUT_DIR (input):   ${BASE_INPUT_DIR}
 INPUT_DIR (input-dir):    ${INPUT_DIR:-}
+MARC_DIR                  ${MARC_DIR:-}
 MASK:                     ${MASK}
 NAME:                     ${NAME}
 BASE_OUTPUT_DIR (output): ${BASE_OUTPUT_DIR}
@@ -112,6 +113,9 @@ fail() {
   echo >&2 "Please consult log files in $BASE_INPUT_DIR/_reports/$NAME"
   exit 1
 }
+
+echo ${1:-}
+exit
 
 # run actual analysis
 ./common-script ${1:-} || fail

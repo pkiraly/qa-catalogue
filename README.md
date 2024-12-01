@@ -704,10 +704,10 @@ total
 ```
 
 * `issue-by-category.csv`: the counts of issues by categories. Columns:
- * `id` the identifier of error category
- * `category` the name of the category
- * `instances` the number of instances of errors within the category (one record might have multiple instances of the same error)
- * `records` the number of records having at least one of the errors within the category
+  * `id` the identifier of error category
+  * `category` the name of the category
+  * `instances` the number of instances of errors within the category (one record might have multiple instances of the same error)
+  * `records` the number of records having at least one of the errors within the category
 
 ```csv
 id,category,instances,records

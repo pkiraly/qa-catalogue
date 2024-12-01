@@ -56,7 +56,14 @@ public class Tag086 extends DataFieldDefinition {
       .setHistoricalCodes(
         "0", "United States",
         "1", "Canada",
-        "2-9", "Reserved"
+        "2", "Reserved",
+        "3", "Reserved",
+        "4", "Reserved",
+        "5", "Reserved",
+        "6", "Reserved",
+        "7", "Reserved",
+        "8", "Reserved",
+        "9", "Reserved"
       )
       .setMqTag("numberSource")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);

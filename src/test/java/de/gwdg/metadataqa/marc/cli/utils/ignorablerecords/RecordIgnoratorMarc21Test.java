@@ -24,7 +24,7 @@ public class RecordIgnoratorMarc21Test {
 
     BibliographicRecord marcRecord = new Marc21BibliographicRecord("test");
     DataField field = new DataField("STA", "  $sSUPPRESSED");
-    field.setMarcRecord(marcRecord);
+    field.setBibliographicRecord(marcRecord);
     marcRecord.addDataField(field);
 
     assertTrue(conditions.isIgnorable(marcRecord));

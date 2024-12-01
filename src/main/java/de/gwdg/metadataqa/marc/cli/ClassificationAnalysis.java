@@ -1,15 +1,18 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.cli.parameters.ClassificationParameters;
-import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.analysis.ClassificationAnalyzer;
-import de.gwdg.metadataqa.marc.analysis.ClassificationStatistics;
+import de.gwdg.metadataqa.marc.analysis.contextual.classification.ClassificationAnalyzer;
+import de.gwdg.metadataqa.marc.analysis.contextual.classification.ClassificationStatistics;
+import de.gwdg.metadataqa.marc.analysis.contextual.classification.Marc21ClassificationAnalyzer;
+import de.gwdg.metadataqa.marc.analysis.contextual.classification.PicaClassificationAnalyzer;
+import de.gwdg.metadataqa.marc.analysis.contextual.classification.UnimarcClassificationAnalyzer;
+import de.gwdg.metadataqa.marc.cli.parameters.ClassificationParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.Collocation;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSubjectManager;
 import org.apache.commons.cli.Options;
@@ -38,7 +41,6 @@ public class ClassificationAnalysis extends QACli<ClassificationParameters> impl
   private static final Logger logger = Logger.getLogger(ClassificationAnalysis.class.getCanonicalName());
 
   private final Options options;
-  // private ClassificationParameters parameters;
   private boolean readyToProcess;
   private static char separator = ',';
   private File collectorFile;
@@ -48,7 +50,7 @@ public class ClassificationAnalysis extends QACli<ClassificationParameters> impl
     parameters = new ClassificationParameters(args);
     options = parameters.getOptions();
     readyToProcess = true;
-    Schema.reset();
+    Schema.resetIdCounter();
   }
 
   public static void main(String[] args) {
@@ -56,11 +58,11 @@ public class ClassificationAnalysis extends QACli<ClassificationParameters> impl
     try {
       processor = new ClassificationAnalysis(args);
     } catch (ParseException e) {
-      System.err.println(createRow("ERROR. ", e.getLocalizedMessage()));
+      logger.severe(createRow("ERROR. ", e.getLocalizedMessage()));
       System.exit(1);
     }
     if (processor.getParameters().getArgs().length < 1) {
-      System.err.println("Please provide a MARC file name!");
+      logger.severe("Please provide a MARC file name!");
       processor.printHelp(processor.getParameters().getOptions());
       System.exit(0);
     }
@@ -88,11 +90,19 @@ public class ClassificationAnalysis extends QACli<ClassificationParameters> impl
   }
 
   @Override
-  public void processRecord(BibliographicRecord marcRecord, int recordNumber) throws IOException {
-    if (parameters.getRecordIgnorator().isIgnorable(marcRecord))
+  public void processRecord(BibliographicRecord bibliographicRecord, int recordNumber) throws IOException {
+    if (parameters.getRecordIgnorator().isIgnorable(bibliographicRecord))
       return;
 
-    ClassificationAnalyzer analyzer = new ClassificationAnalyzer(marcRecord, statistics, parameters);
+    ClassificationAnalyzer analyzer;
+    if (parameters.isPica()) {
+      analyzer = new PicaClassificationAnalyzer(bibliographicRecord, statistics, parameters);
+    } else if (parameters.isUnimarc()) {
+      analyzer = new UnimarcClassificationAnalyzer(bibliographicRecord, statistics, parameters);
+    } else {
+      analyzer = new Marc21ClassificationAnalyzer(bibliographicRecord, statistics, parameters);
+    }
+
     analyzer.process();
 
     /*
@@ -113,16 +123,17 @@ public class ClassificationAnalysis extends QACli<ClassificationParameters> impl
 
   @Override
   public void beforeIteration() {
+    // Method not used
   }
 
   @Override
   public void fileOpened(Path path) {
-
+    // Method not used
   }
 
   @Override
   public void fileProcessed() {
-
+    // Method not used
   }
 
   @Override
@@ -156,7 +167,7 @@ public class ClassificationAnalysis extends QACli<ClassificationParameters> impl
       writer.write(Collocation.header());
       Integer total1 = statistics.getHasClassifications().getOrDefault(true, Integer.valueOf(0));
       Integer total = statistics.recordCountWithClassification();
-      logger.info("total: " + total);
+      logger.info(() -> "total: " + total);
       if (!total1.equals(total))
         logger.log(Level.SEVERE, "total from hasClassifications ({0}) != from collation ({1})", new Object[]{total1, total});
 
@@ -352,7 +363,7 @@ public class ClassificationAnalysis extends QACli<ClassificationParameters> impl
 
   @Override
   public void printHelp(Options options) {
-
+    // Method not used
   }
 
   @Override

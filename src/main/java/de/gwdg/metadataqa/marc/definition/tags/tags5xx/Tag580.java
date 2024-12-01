@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags5xx;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
@@ -45,6 +46,7 @@ public class Tag580 extends DataFieldDefinition {
 
     setSubfieldsWithCardinality(
       "a", "Linking entry complexity note", "NR",
+      "5", "Institution to which field applies", "NR",
       "6", "Linkage", "NR",
       "8", "Field link and sequence number", "R"
     );
@@ -54,6 +56,10 @@ public class Tag580 extends DataFieldDefinition {
     getSubfield("a")
       .setMqTag("rdf:value")
       .setCompilanceLevels("M");
+
+    getSubfield("5")
+      .setMqTag("institution")
+      .setCodeList(OrganizationCodes.getInstance());
 
     getSubfield("6")
       .setBibframeTag("linkage")

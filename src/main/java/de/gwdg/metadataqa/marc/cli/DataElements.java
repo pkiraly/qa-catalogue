@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
@@ -103,8 +104,13 @@ public class DataElements implements BibliographicInputProcessor, Serializable {
     packageCounter.put("all", new TreeMap<>());
     dataElementCounter = new DataElementCounter(parameters.getOutputDir(), "top-fields.txt", DataElementCounter.Basis.EXISTENCE);
     outputFile = new File(parameters.getOutputDir(), "record-patterns.csv");
-    if (outputFile.exists() && !outputFile.delete())
-      logger.severe("Deletion of " + outputFile.getAbsolutePath() + " was unsuccessful!");
+    if (outputFile.exists()) {
+      try {
+        Files.delete(outputFile.toPath());
+      } catch (IOException e) {
+        logger.log(Level.SEVERE, "The output file ({}) has not been deleted", outputFile.getAbsolutePath());
+      }
+    }
     printToFile(outputFile, dataElementCounter.getHeader() + "\n");
   }
 

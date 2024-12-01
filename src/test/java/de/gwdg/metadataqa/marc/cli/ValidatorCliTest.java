@@ -67,7 +67,7 @@ public class ValidatorCliTest extends CliTestUtils {
       TestUtils.getPath("pica/pica-with-holdings-info.dat")
     });
     RecordIterator iterator = new RecordIterator(processor);
-    iterator.setProcessWithEroors(true);
+    iterator.setProcessWithErrors(true);
     iterator.start();
     assertEquals("done", iterator.getStatus());
 
@@ -147,7 +147,7 @@ public class ValidatorCliTest extends CliTestUtils {
       TestUtils.getPath("pica/pica-with-holdings-info.dat")
     });
     RecordIterator iterator = new RecordIterator(processor);
-    iterator.setProcessWithEroors(true);
+    iterator.setProcessWithErrors(true);
     iterator.start();
     assertEquals(iterator.getStatus(), "done");
 
@@ -227,7 +227,6 @@ public class ValidatorCliTest extends CliTestUtils {
         assertTrue(line.contains("\"trimId\":true,"));
         assertTrue(line.contains("\"outputDir\":\""));
         assertTrue(line.contains("qa-catalogue/src/test/resources/output\","));
-        assertTrue(line.contains("\"recordIgnorator\":{\"criteria\":[],\"booleanCriteria\":null,\"empty\":true},"));
         assertTrue(line.contains("\"recordFilter\":{\"criteria\":[],\"booleanCriteria\":null,\"empty\":true},"));
         assertTrue(line.contains("\"ignorableFields\":{\"fields\":null,\"empty\":true},"));
         assertTrue(line.contains("\"stream\":null,"));
@@ -247,7 +246,7 @@ public class ValidatorCliTest extends CliTestUtils {
         assertTrue(line.contains("\"pica\":true,"));
         assertTrue(line.contains("\"replacementInControlFields\":null,"));
         assertTrue(line.contains("\"marc21\":false,"));
-        assertTrue(line.contains("\"mqaf.version\":\"0.9.3\","));
+        assertTrue(line.contains("\"mqaf.version\":\"0.9.5\","));
         assertTrue(line.contains("\"qa-catalogue.version\":\"0.8.0-SNAPSHOT\""));
         assertTrue(line.contains("\"duration\":\"00:00:00\""));
         assertTrue(line.contains("\"numberOfprocessedRecords\":10"));
@@ -281,7 +280,7 @@ public class ValidatorCliTest extends CliTestUtils {
       TestUtils.getPath("alephseq/alephseq-example6-error.txt")
     });
     RecordIterator iterator = new RecordIterator(processor);
-    iterator.setProcessWithEroors(true);
+    iterator.setProcessWithErrors(true);
     iterator.start();
     assertEquals("done", iterator.getStatus());
 
@@ -367,7 +366,7 @@ public class ValidatorCliTest extends CliTestUtils {
     });
 
     RecordIterator iterator = new RecordIterator(processor);
-    iterator.setProcessWithEroors(true);
+    iterator.setProcessWithErrors(true);
     iterator.start();
 
     assertEquals("done", iterator.getStatus());

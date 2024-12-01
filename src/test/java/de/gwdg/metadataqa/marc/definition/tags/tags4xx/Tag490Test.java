@@ -21,7 +21,7 @@ public class Tag490Test {
     Marc21Record marcRecord = new Marc21BibliographicRecord("000714573");
     marcRecord.setLeader(new Marc21Leader("01168cam a2200325 a 4500"));
     DataField field = new DataField(Tag490.getInstance(), "0", " ", "6", "880-03", "a", "ifriyat ha-Entsiḳlopedyah ha-Miḳraʼit ;", "v", "9");
-    field.setMarcRecord(marcRecord);
+    field.setBibliographicRecord(marcRecord);
     marcRecord.addDataField(field);
     Validator validator = new Validator(new ValidatorConfiguration().withMarcVersion(MarcVersion.GENT));
     boolean isValid = validator.validate(marcRecord);
@@ -35,7 +35,7 @@ public class Tag490Test {
     Marc21Record marcRecord = new Marc21BibliographicRecord("000714573");
     marcRecord.setLeader(new Marc21Leader("01168cam a2200325 a 4500"));
     DataField field = new DataField(Tag880.getInstance(), " ", "0", "6", "490-03/(2/r", "a", "ספריית האנציקלופדיה המקראית ;", "v", "9");
-    field.setMarcRecord(marcRecord);
+    field.setBibliographicRecord(marcRecord);
     marcRecord.addDataField(field);
 
     Validator validator = new Validator(new ValidatorConfiguration().withMarcVersion(MarcVersion.GENT));

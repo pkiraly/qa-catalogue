@@ -50,3 +50,12 @@ setdir.sh
 .settings
 
 /target/
+
+# environment variables
+.env
+
+# used as Docker volume
+web-config
+
+# Node packages
+node_modules

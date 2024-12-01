@@ -21,13 +21,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -51,13 +51,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -85,14 +85,14 @@
       "indicator1": {
         "label": "National bibliographic agency",
         "codes": {
-          "#": "Library and Archives Canada",
+          " ": "Library and Archives Canada",
           "7": "Source specified in subfield $2"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -128,13 +128,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -182,13 +182,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -251,7 +251,7 @@
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -343,13 +343,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -449,13 +449,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Type of ring",
         "codes": {
-          "#": "Not applicable",
+          " ": "Not applicable",
           "0": "Outer ring",
           "1": "Exclusion ring"
         }
@@ -485,13 +485,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -535,13 +535,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -551,13 +551,19 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
+        }
+      },
+      "subfields": {
+        "a": {
+          "label": "Authentication code",
+          "repeatable": true
         }
       }
     },
@@ -605,13 +611,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -643,7 +649,7 @@
       "indicator1": {
         "label": "Type of time period in subfield $b or $c",
         "codes": {
-          "#": "Subfield $b or $c not present",
+          " ": "Subfield $b or $c not present",
           "0": "Single date/time",
           "1": "Multiple single dates/times",
           "2": "Range of dates/times"
@@ -652,7 +658,7 @@
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -736,13 +742,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -786,7 +792,7 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
@@ -837,7 +843,7 @@
       "indicator1": {
         "label": "Code source",
         "codes": {
-          "#": "Library of Congress Classification",
+          " ": "Library of Congress Classification",
           "1": "U.S. Dept. of Defense Classification",
           "7": "Source specified in subfield $2"
         }
@@ -845,7 +851,7 @@
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -889,7 +895,7 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
@@ -944,7 +950,7 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
@@ -995,7 +1001,7 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
@@ -1054,13 +1060,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -1084,13 +1090,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -1130,13 +1136,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -1168,13 +1174,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Code source",
         "codes": {
-          "#": "No information provided",
+          " ": "No information provided",
           "0": "NAL subject category code list",
           "7": "Source specified in subfield $2"
         }
@@ -1204,13 +1210,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -1242,13 +1248,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -1292,7 +1298,7 @@
       "indicator1": {
         "label": "Type of edition",
         "codes": {
-          "#": "No information provided",
+          " ": "No information provided",
           "0": "Full",
           "1": "Abridged"
         }
@@ -1300,7 +1306,7 @@
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -1348,7 +1354,7 @@
       "indicator2": {
         "label": "Source of call number",
         "codes": {
-          "#": "No information provided",
+          " ": "No information provided",
           "0": "Assigned by LC",
           "4": "Assigned by agency other than LC"
         }
@@ -1447,7 +1453,7 @@
       "indicator1": {
         "label": "Number source",
         "codes": {
-          "#": "Source specified in subfield $2",
+          " ": "Source specified in subfield $2",
           "0": "Superintendent of Documents Classification System",
           "1": "Government of Canada Publications: Outline of Classification"
         }
@@ -1455,7 +1461,7 @@
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -1499,7 +1505,7 @@
       "indicator1": {
         "label": "Number source",
         "codes": {
-          "#": "Source specified in subfield $2",
+          " ": "Source specified in subfield $2",
           "0": "Superintendent of Documents Classification System",
           "1": "Government of Canada Publications: Outline of Classification"
         }
@@ -1507,7 +1513,7 @@
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -1631,7 +1637,7 @@
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -1747,7 +1753,7 @@
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -1855,7 +1861,7 @@
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -1951,13 +1957,22 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Nonfiling characters",
         "codes": {
-          "0-9": "Number of nonfiling characters"
+          "0": "Number of nonfiling characters",
+          "1": "Number of nonfiling characters",
+          "2": "Number of nonfiling characters",
+          "3": "Number of nonfiling characters",
+          "4": "Number of nonfiling characters",
+          "5": "Number of nonfiling characters",
+          "6": "Number of nonfiling characters",
+          "7": "Number of nonfiling characters",
+          "8": "Number of nonfiling characters",
+          "9": "Number of nonfiling characters"
         }
       }
     },
@@ -2013,13 +2028,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -2063,13 +2078,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -2121,13 +2136,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -2175,13 +2190,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -2225,13 +2240,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -2259,13 +2274,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -2305,13 +2320,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -2351,13 +2366,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -2397,13 +2412,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -2443,13 +2458,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -2489,13 +2504,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -2543,13 +2558,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -2597,13 +2612,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -2651,13 +2666,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -2697,13 +2712,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -2783,7 +2798,7 @@
       "indicator1": {
         "label": "Privacy",
         "codes": {
-          "#": "No information provided",
+          " ": "No information provided",
           "0": "Private",
           "1": "Not private"
         }
@@ -2791,7 +2806,7 @@
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -2859,13 +2874,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -2953,13 +2968,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -3031,13 +3046,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -3093,13 +3108,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -3163,13 +3178,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -3225,13 +3240,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -3287,13 +3302,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -3357,13 +3372,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -3407,13 +3422,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Source of code",
         "codes": {
-          "#": "MARC language code",
+          " ": "MARC language code",
           "7": "Source specified in $2"
         }
       }
@@ -3450,13 +3465,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -3496,13 +3511,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -3550,13 +3565,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -3632,7 +3647,7 @@
       "indicator1": {
         "label": "Display constant controller",
         "codes": {
-          "#": "No information provided",
+          " ": "No information provided",
           "0": "Medium of performance",
           "1": "Partial medium of performance",
           "2": "Medium of performance of musical content of representative expression",
@@ -3642,7 +3657,7 @@
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -3690,13 +3705,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -3732,7 +3747,7 @@
       "indicator1": {
         "label": "Key type",
         "codes": {
-          "#": "Relationship to original unknown",
+          " ": "Relationship to original unknown",
           "0": "Original key",
           "1": "Transposed key",
           "2": "Key of representative expression"
@@ -3741,7 +3756,7 @@
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -3797,13 +3812,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -3867,13 +3882,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -3965,13 +3980,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -4015,7 +4030,7 @@
       "indicator1": {
         "label": "Type of time period",
         "codes": {
-          "#": "No information provided",
+          " ": "No information provided",
           "1": "Creation of work",
           "2": "Creation of aggregate work"
         }
@@ -4023,7 +4038,7 @@
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -4181,7 +4196,7 @@
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -4331,7 +4346,7 @@
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -4473,7 +4488,7 @@
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -4603,13 +4618,22 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Nonfiling characters",
         "codes": {
-          "0-9": "Number of nonfiling characters"
+          "0": "Number of nonfiling characters",
+          "1": "Number of nonfiling characters",
+          "2": "Number of nonfiling characters",
+          "3": "Number of nonfiling characters",
+          "4": "Number of nonfiling characters",
+          "5": "Number of nonfiling characters",
+          "6": "Number of nonfiling characters",
+          "7": "Number of nonfiling characters",
+          "8": "Number of nonfiling characters",
+          "9": "Number of nonfiling characters"
         }
       }
     },
@@ -4699,13 +4723,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -4783,13 +4807,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -4875,13 +4899,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -4963,13 +4987,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -5047,13 +5071,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -5115,13 +5139,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -5195,13 +5219,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -5275,13 +5299,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -5355,13 +5379,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -5435,13 +5459,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -5607,7 +5631,7 @@
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -5765,7 +5789,7 @@
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -5915,7 +5939,7 @@
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -6053,13 +6077,22 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Nonfiling characters",
         "codes": {
-          "0-9": "Number of nonfiling characters"
+          "0": "Number of nonfiling characters",
+          "1": "Number of nonfiling characters",
+          "2": "Number of nonfiling characters",
+          "3": "Number of nonfiling characters",
+          "4": "Number of nonfiling characters",
+          "5": "Number of nonfiling characters",
+          "6": "Number of nonfiling characters",
+          "7": "Number of nonfiling characters",
+          "8": "Number of nonfiling characters",
+          "9": "Number of nonfiling characters"
         }
       }
     },
@@ -6157,13 +6190,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -6249,13 +6282,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -6349,13 +6382,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -6445,13 +6478,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -6537,13 +6570,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -6613,13 +6646,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -6701,13 +6734,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -6789,13 +6822,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -6877,13 +6910,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -6965,13 +6998,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -7006,7 +7039,7 @@
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -7034,13 +7067,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -7072,13 +7105,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -7110,13 +7143,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -7152,13 +7185,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -7190,13 +7223,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -7228,13 +7261,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -7266,13 +7299,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -7304,13 +7337,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -7334,13 +7367,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -7364,13 +7397,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -7398,13 +7431,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -7444,13 +7477,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -7506,14 +7539,22 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Nonfiling characters",
         "codes": {
           "0": "No nonfiling characters",
-          "1-9": "Number of nonfiling characters"
+          "1": "Number of nonfiling characters",
+          "2": "Number of nonfiling characters",
+          "3": "Number of nonfiling characters",
+          "4": "Number of nonfiling characters",
+          "5": "Number of nonfiling characters",
+          "6": "Number of nonfiling characters",
+          "7": "Number of nonfiling characters",
+          "8": "Number of nonfiling characters",
+          "9": "Number of nonfiling characters"
         }
       }
     },
@@ -7557,14 +7598,22 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Nonfiling characters",
         "codes": {
           "0": "No nonfiling characters",
-          "1-9": "Number of nonfiling characters"
+          "1": "Number of nonfiling characters",
+          "2": "Number of nonfiling characters",
+          "3": "Number of nonfiling characters",
+          "4": "Number of nonfiling characters",
+          "5": "Number of nonfiling characters",
+          "6": "Number of nonfiling characters",
+          "7": "Number of nonfiling characters",
+          "8": "Number of nonfiling characters",
+          "9": "Number of nonfiling characters"
         }
       }
     },
@@ -7592,13 +7641,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -7630,13 +7679,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -7672,7 +7721,7 @@
       "indicator1": {
         "label": "Type of data",
         "codes": {
-          "#": "No information provided",
+          " ": "No information provided",
           "0": "Biographical sketch",
           "1": "Administrative history"
         }
@@ -7680,7 +7729,7 @@
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -7716,13 +7765,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -7750,13 +7799,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -7788,13 +7837,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -7822,13 +7871,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -8445,7 +8494,7 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
@@ -8552,7 +8601,7 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
@@ -8647,7 +8696,7 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
@@ -8750,7 +8799,7 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
@@ -8849,7 +8898,7 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
@@ -8944,7 +8993,7 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
@@ -9023,7 +9072,7 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
@@ -9114,7 +9163,7 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
@@ -9205,7 +9254,7 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
@@ -9296,7 +9345,7 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
@@ -9387,7 +9436,7 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
@@ -9444,7 +9493,7 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
@@ -9577,7 +9626,7 @@
       "indicator1": {
         "label": "Access method",
         "codes": {
-          "#": "No information provided",
+          " ": "No information provided",
           "0": "Email",
           "1": "FTP",
           "2": "Remote login (Telnet)",
@@ -9589,7 +9638,7 @@
       "indicator2": {
         "label": "Relationship",
         "codes": {
-          "#": "No information provided",
+          " ": "No information provided",
           "0": "Resource",
           "1": "Version of resource",
           "2": "Related resource",
@@ -9703,7 +9752,7 @@
       "indicator1": {
         "label": "Access method",
         "codes": {
-          "#": "No information provided",
+          " ": "No information provided",
           "1": "FTP",
           "4": "HTTP",
           "7": "Method specified in subfield $2"
@@ -9712,7 +9761,7 @@
       "indicator2": {
         "label": "Relationship",
         "codes": {
-          "#": "No information provided",
+          " ": "No information provided",
           "0": "Resource",
           "1": "Version of resource",
           "2": "Related resource",
@@ -9800,7 +9849,7 @@
       "indicator1": {
         "label": "Method of assignment",
         "codes": {
-          "#": "No information provided/not applicable",
+          " ": "No information provided/not applicable",
           "0": "Fully machine-generated",
           "1": "Partially machine-generated",
           "2": "Not machine-generated"
@@ -9809,7 +9858,7 @@
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -9841,13 +9890,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -9903,13 +9952,13 @@
       "indicator1": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       },
       "indicator2": {
         "label": "Undefined",
         "codes": {
-          "#": "Undefined"
+          " ": "Undefined"
         }
       }
     },
@@ -9948,8 +9997,8 @@
           "label": "Undefined character positions",
           "start": 7,
           "end": 8,
-          "codes": {
-            "#": "Undefined"
+          "flags": {
+            " ": "Undefined"
           }
         },
         "09": {
@@ -9957,7 +10006,7 @@
           "start": 9,
           "end": 9,
           "codes": {
-            "#": "MARC-8",
+            " ": "MARC-8",
             "a": "UCS/Unicode"
           }
         },
@@ -9978,12 +10027,9 @@
           }
         },
         "12-16": {
-          "label": "Base address of data",
+          "label": "Base address of data (Length of Leader and Directory)",
           "start": 12,
-          "end": 16,
-          "codes": {
-            "[number]": "Length of Leader and Directory"
-          }
+          "end": 16
         },
         "17": {
           "label": "Encoding level",
@@ -9999,7 +10045,7 @@
           "start": 18,
           "end": 18,
           "codes": {
-            "#": "No information provided",
+            " ": "No information provided",
             "c": "Punctuation omitted",
             "i": "Punctuation included",
             "u": "Unknown"
@@ -10010,7 +10056,7 @@
           "start": 19,
           "end": 19,
           "codes": {
-            "#": "Undefined"
+            " ": "Undefined"
           }
         },
         "20": {
@@ -10074,7 +10120,7 @@
           "start": 6,
           "end": 6,
           "codes": {
-            "#": "Not subdivided geographically",
+            " ": "Not subdivided geographically",
             "d": "Subdivided geographically-direct",
             "i": "Subdivided geographically-indirect",
             "n": "Not applicable",
@@ -10102,7 +10148,7 @@
           "start": 8,
           "end": 8,
           "codes": {
-            "#": "No information provided",
+            " ": "No information provided",
             "b": "English and French",
             "e": "English only",
             "f": "French only",
@@ -10229,8 +10275,8 @@
           "label": "Undefined character positions",
           "start": 18,
           "end": 27,
-          "codes": {
-            "#": "Undefined",
+          "flags": {
+            " ": "Undefined",
             "|": "No attempt to code"
           }
         },
@@ -10239,7 +10285,7 @@
           "start": 28,
           "end": 28,
           "codes": {
-            "#": "Not a government agency",
+            " ": "Not a government agency",
             "a": "Autonomous or semi-autonomous component",
             "c": "Multilocal",
             "f": "Federal/national",
@@ -10269,7 +10315,7 @@
           "start": 30,
           "end": 30,
           "codes": {
-            "#": "Undefined",
+            " ": "Undefined",
             "|": "No attempt to code"
           }
         },
@@ -10311,8 +10357,8 @@
           "label": "Undefined character positions",
           "start": 34,
           "end": 37,
-          "codes": {
-            "#": "Undefined",
+          "flags": {
+            " ": "Undefined",
             "|": "No attempt to code"
           }
         },
@@ -10321,7 +10367,7 @@
           "start": 38,
           "end": 38,
           "codes": {
-            "#": "Not modified",
+            " ": "Not modified",
             "s": "Shortened",
             "x": "Missing characters",
             "|": "No attempt to code"
@@ -10332,7 +10378,7 @@
           "start": 39,
           "end": 39,
           "codes": {
-            "#": "National bibliographic agency",
+            " ": "National bibliographic agency",
             "c": "Cooperative cataloging program",
             "d": "Other",
             "u": "Unknown",

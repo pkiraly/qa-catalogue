@@ -114,7 +114,7 @@ public class MarcFactory {
             var field = MapToDatafield.parse(fieldInstance, version);
             if (field != null) {
               marcRecord.addDataField(field);
-              field.setMarcRecord(marcRecord);
+              field.setBibliographicRecord(marcRecord);
             } else {
               marcRecord.addUnhandledTags(dataElement.getLabel());
             }
@@ -535,7 +535,7 @@ public class MarcFactory {
             if (pair.length == 2 && pair[0] != null && pair[1] != null) {
               df.addSubfield(new SubfieldImpl(pair[0].charAt(0), pair[1]));
             } else {
-              logger.log(Level.WARNING, "parse error in record #{0}) tag {1]: \"{2]\"",
+              logger.log(Level.WARNING, "parse error in record #{0}) tag {1}: \"{2}\"",
                 new Object[]{line.getRecordID(), line.getTag(), line.getRawContent()});
             }
           }

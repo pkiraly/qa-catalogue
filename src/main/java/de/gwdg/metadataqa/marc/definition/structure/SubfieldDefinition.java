@@ -7,9 +7,9 @@ import de.gwdg.metadataqa.marc.definition.CompilanceLevel;
 import de.gwdg.metadataqa.marc.definition.FRBRFunction;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.bibliographic.BibliographicFieldDefinition;
-import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
 import de.gwdg.metadataqa.marc.definition.general.parser.SubfieldContentParser;
+import de.gwdg.metadataqa.marc.definition.general.parser.SubfieldContentSplitter;
 import de.gwdg.metadataqa.marc.definition.general.validator.SubfieldValidator;
 import org.apache.commons.lang3.StringUtils;
 
@@ -38,6 +38,7 @@ public class SubfieldDefinition implements Serializable {
   private BibliographicFieldDefinition parent;
   private SubfieldValidator validator;
   private SubfieldContentParser contentParser;
+  private SubfieldContentSplitter contentSplitter;
   private boolean hasCodeList = true;
   protected CodeList codeList;
   private List<EncodedValue> codes;
@@ -51,30 +52,51 @@ public class SubfieldDefinition implements Serializable {
   private List<MarcVersion> disallowedIn;
   private MarcVersion marcVersion = null;
 
-  public String getCodeForIndex(SchemaType schemaType) {
-    if (codeForIndex == null) {
-      if (mqTag != null) {
-        if (mqTag.equals("rdf:value"))
-          codeForIndex = "";
-        else
-          codeForIndex = "_" + mqTag;
-      } else if (bibframeTag != null) {
-        switch (bibframeTag) {
-          case "rdf:value": codeForIndex = ""; break;
-          case "rdfs:label": codeForIndex = "label"; break;
-          default: codeForIndex = "_" + bibframeTag; break;
-        }
-      } else {
-        if (code.equals("#"))
-          codeForIndex = "_hash";
-        else if (code.equals("*"))
-          codeForIndex = "_star";
-        else if (code.equals("@"))
-          codeForIndex = "_at";
-        else
-          codeForIndex = (schemaType != null && schemaType.equals(SchemaType.PICA)) ? code : "_" + code;
-      }
+  /**
+   * Returns the subfield code needed for Solr indexing. If MQ or BIBFRAME tags are defined, they are used in that order.
+   * Otherwise, the code is prefixed with an underscore (and special characters are replaced with their names).
+   * @implNote The code that's referred to here is the identifier of the subfield and not code in the sense of possible
+   * values of the subfield.
+   * @return The subfield code for Solr indexing.
+   */
+  public String getCodeForIndex() {
+    if (codeForIndex != null) {
+      return codeForIndex;
     }
+
+    if (mqTag != null) {
+      if (mqTag.equals("rdf:value"))
+        codeForIndex = "";
+      else
+        codeForIndex = mqTag;
+
+      return codeForIndex;
+    }
+
+    if (bibframeTag != null) {
+      switch (bibframeTag) {
+        case "rdf:value": codeForIndex = ""; break;
+        case "rdfs:label": codeForIndex = "label"; break;
+        default: codeForIndex = bibframeTag; break;
+      }
+      return codeForIndex;
+    }
+
+    switch (code) {
+      case "#":
+        codeForIndex = "hash";
+        break;
+      case "*":
+        codeForIndex = "star";
+        break;
+      case "@":
+        codeForIndex = "at";
+        break;
+      default:
+        codeForIndex = code;
+        break;
+    }
+
     return codeForIndex;
   }
 
@@ -143,16 +165,28 @@ public class SubfieldDefinition implements Serializable {
     return this;
   }
 
+  /**
+   * Get the EncodedValue object (label+code) from the list of codes of this subfield for the given code.
+   * @param code The code to look up.
+   * @return The EncodedValue object for the given code or null if not found.
+   */
   public EncodedValue getCode(String code) {
     return getCode(codes, code);
   }
 
-  public EncodedValue getCode(List<EncodedValue> codes, String otherCode) {
-    for (EncodedValue code : codes)
-      if (code.getCode().equals(otherCode))
-        return code;
-      else if (code.isRange() && code.getRange().isValid(otherCode))
-        return code;
+  /**
+   * Get the EncodedValue object (label+code) for a given subfield code.
+   * @param codes The list of EncodedValue objects (codes of the subfield).
+   * @param code The code to look up.
+   * @return The EncodedValue object for the given code or null if not found.
+   */
+  public EncodedValue getCode(List<EncodedValue> codes, String code) {
+    for (EncodedValue encodedValue : codes) {
+      if (encodedValue.getCode().equals(code)
+        || encodedValue.isRange() && encodedValue.getRange().isValid(code)) {
+        return encodedValue;
+      }
+    }
 
     return null;
   }
@@ -170,10 +204,10 @@ public class SubfieldDefinition implements Serializable {
   }
 
   public EncodedValue getLocalCode(MarcVersion version, String code) {
-    List<EncodedValue> codes = getLocalCodes(version);
-    if (codes == null)
+    List<EncodedValue> localEncodedValues = getLocalCodes(version);
+    if (localEncodedValues == null)
       return null;
-    return getCode(codes, code);
+    return getCode(localEncodedValues, code);
   }
 
   public String getCardinalityCode() {
@@ -204,6 +238,20 @@ public class SubfieldDefinition implements Serializable {
     this.contentParser = contentParser;
     return this;
   }
+
+  public boolean hasContentSplitter() {
+    return contentSplitter != null;
+  }
+
+  public SubfieldContentSplitter getContentSplitter() {
+    return contentSplitter;
+  }
+
+  public SubfieldDefinition setContentSplitter(SubfieldContentSplitter contentSplitter) {
+    this.contentSplitter = contentSplitter;
+    return this;
+  }
+
 
   private void processIndicatorType(String types) {
     allowedCodes = new ArrayList<>();
@@ -242,14 +290,27 @@ public class SubfieldDefinition implements Serializable {
     return codeList;
   }
 
+  /**
+   * Resolves the value of a subfield to its label if it can be found in the codeList or the list of codes. Otherwise,
+   * it returns the value as is.
+   * @param value The value of the subfield to resolve.
+   * @return The resolved value. Either the label of the code or the value itself.
+   */
   public String resolve(String value) {
-    if (codeList != null && codeList.isValid(value))
+    // If the code value is present in the code list, return the label
+    if (codeList != null && codeList.isValid(value)) {
       return codeList.getCode(value).getLabel();
+    }
 
-    if (codes != null) {
-      EncodedValue code = getCode(value);
-      if (code != null)
-        return code.getLabel();
+    // If no codes are defined for this subfield, return the value as is
+    if (codes == null) {
+      return value;
+    }
+
+    // If the code value is present in the list of codes, return the label
+    EncodedValue resolvedCode = getCode(value);
+    if (resolvedCode != null) {
+      return resolvedCode.getLabel();
     }
 
     return value;
@@ -412,4 +473,5 @@ public class SubfieldDefinition implements Serializable {
       ", label='" + label + '\'' +
       '}';
   }
+
 }

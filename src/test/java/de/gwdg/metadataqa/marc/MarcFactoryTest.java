@@ -44,7 +44,7 @@ public class MarcFactoryTest {
     // System.err.println(record.formatAsMarc());
     // System.err.println(record.formatForIndex());
     // System.err.println(record.getKeyValuePairs());
-    Map<String, List<String>> pairs = marcRecord.getKeyValuePairs(SolrFieldType.HUMAN);
+    Map<String, List<String>> pairs = marcRecord.getKeyValuePairs(SolrFieldType.HUMAN, MarcVersion.DNB);
     assertEquals(124, pairs.size());
     Set<String> keys = pairs.keySet();
     // keys.remove("GentLocallyDefinedField");
@@ -450,7 +450,7 @@ public class MarcFactoryTest {
     assertNotNull(marcRecord);
     assertNotNull("Leader should not be null", marcRecord.getLeader());
 
-    List<DataField> admins = marcRecord.getDatafield("040");
+    List<DataField> admins = marcRecord.getDatafieldsByTag("040");
     assertEquals(1, admins.size());
     DataField adminMeta = admins.get(0);
     List<MarcSubfield> subfields = adminMeta.getSubfields();
@@ -471,7 +471,7 @@ public class MarcFactoryTest {
     JsonSelector selector = new JsonSelector(FileUtils.readFirstLineFromResource("general/verbund-tit.001.0000000.formatted.json"));
 
     BibliographicRecord marcRecord = MarcFactory.create(selector, MarcVersion.DNB);
-    Map<String, List<String>> pairs = marcRecord.getKeyValuePairs(SolrFieldType.MIXED);
+    Map<String, List<String>> pairs = marcRecord.getKeyValuePairs(SolrFieldType.MIXED, MarcVersion.DNB);
     assertEquals(124, pairs.size());
 
     Set<String> keys = pairs.keySet();
@@ -653,7 +653,7 @@ public class MarcFactoryTest {
         line = reader.readLine();
       }
       marcRecord = MarcFactory.createFromAlephseq(lines, MarcVersion.MARC21);
-      List<DataField> tag700 = marcRecord.getDatafield("700");
+      List<DataField> tag700 = marcRecord.getDatafieldsByTag("700");
       assertEquals("700", tag700.get(0).getTag());
       assertEquals("1", tag700.get(0).getInd1());
       assertEquals(" ", tag700.get(0).getInd2());
@@ -781,9 +781,9 @@ public class MarcFactoryTest {
   private void test01000011RecordProperties(Marc21Record marcRecord) {
     assertEquals("02191cam a2200541   4500", marcRecord.getLeader().getLeaderString());
     assertEquals("861106s1985    xx |||||      10| ||ger c", marcRecord.getControl008().getContent());
-    assertEquals(3, marcRecord.getDatafield("689").size());
-    assertEquals(2, marcRecord.getDatafield("810").size());
-    assertEquals(" ", marcRecord.getDatafield("810").get(1).getInd2());
+    assertEquals(3, marcRecord.getDatafieldsByTag("689").size());
+    assertEquals(2, marcRecord.getDatafieldsByTag("810").size());
+    assertEquals(" ", marcRecord.getDatafieldsByTag("810").get(1).getInd2());
     assertEquals(38, marcRecord.getDatafields().size());
   }
 }

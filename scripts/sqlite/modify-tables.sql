@@ -1,6 +1,6 @@
 --- issue_details indices
+CREATE INDEX IF NOT EXISTS "recordId" ON "issue_details" ("id");
 CREATE INDEX IF NOT EXISTS "errorId" ON "issue_details" ("errorId");
-CREATE INDEX IF NOT EXISTS "recordId" ON "issue_details" ("recordId");
 
 --- issue_summary indices
 CREATE INDEX IF NOT EXISTS "id" ON "issue_summary" ("id");

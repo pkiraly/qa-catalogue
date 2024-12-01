@@ -98,7 +98,7 @@ public class ValidationTest {
 
     for (DataField field : fields) {
       marcRecord.addDataField(field);
-      field.setMarcRecord(marcRecord);
+      field.setBibliographicRecord(marcRecord);
     }
 
     Validator validator = new Validator(new ValidatorConfiguration().withMarcVersion(MarcVersion.GENT).withDoSummary(false));

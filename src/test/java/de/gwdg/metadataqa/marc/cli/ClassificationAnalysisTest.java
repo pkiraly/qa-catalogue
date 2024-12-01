@@ -1,12 +1,12 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.TestUtils;
-import de.gwdg.metadataqa.marc.analysis.ClassificationStatistics;
+import de.gwdg.metadataqa.marc.analysis.contextual.classification.ClassificationStatistics;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.utils.ReadMarc;
+import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.marc4j.marc.Record;
@@ -14,7 +14,6 @@ import org.marc4j.marc.Record;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 
@@ -45,8 +44,9 @@ public class ClassificationAnalysisTest extends CliTestUtils {
 
   @Test
   public void test() throws Exception {
-    Path path = FileUtils.getPath("general/0001-01.mrc");
-    Record marc4jRecord = ReadMarc.read(path.toString()).get(0);
+    String path = getTestResource("general/0001-01.mrc");
+
+    Record marc4jRecord = ReadMarc.read(path).get(0);
     assertNotNull(marc4jRecord);
     ClassificationAnalysis analysis = new ClassificationAnalysis(new String[]{});
     BibliographicRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord);
@@ -101,7 +101,7 @@ public class ClassificationAnalysisTest extends CliTestUtils {
     String actual = Files.readString(output.toPath());
     assertEquals(
       "records-with-classification,count\n" +
-      "true,1\n",
+        "true,1\n",
       actual);
 
     output = new File(outputDir, "classifications-by-schema.csv");
@@ -151,6 +151,7 @@ public class ClassificationAnalysisTest extends CliTestUtils {
   @Test
   public void marcxml() throws IOException {
     clearOutput(outputDir, outputFiles);
+    inputFile = TestUtils.getPath("marcxml/marcxml.xml");
 
     var args = new String[]{
       "--defaultRecordType", "BOOKS",
@@ -158,7 +159,7 @@ public class ClassificationAnalysisTest extends CliTestUtils {
       "--collectCollocations",
       "--marcxml",
       "--outputDir", outputDir,
-      inputFile = TestUtils.getPath("marcxml/marcxml.xml")
+      inputFile
     };
     ClassificationAnalysis.main(args);
 
@@ -222,8 +223,7 @@ public class ClassificationAnalysisTest extends CliTestUtils {
     String actual = Files.readString(output.toPath());
     assertEquals(
       "records-with-classification,count\n" +
-      "false,4\n" +
-      "true,2\n",
+      "true,6\n",
       actual);
 
     output = new File(outputDir, "classifications-by-schema.csv");
@@ -240,12 +240,13 @@ public class ClassificationAnalysisTest extends CliTestUtils {
      */
     assertEquals(
       "id,field,location,scheme,abbreviation,abbreviation4solr,recordcount,instancecount,type\n" +
-      "4,044A,$a,\"LoC Subject Headings\",\"lcsh0\",lcsh0,1,2,SUBJECT_HEADING\n" +
-      "5,045A,$a,\"LCC-Notation\",\"lcc\",lcc,1,1,CLASSIFICATION_SCHEME\n" +
-      "1,045E,$a,\"Sachgruppen der Deutschen Nationalbibliografie bis 2003\",\"sdnb\",sdnb,2,2,UNKNOWN\n" +
-      "6,045F,$a,\"DDC-Notation\",\"ddc\",ddc,1,1,CLASSIFICATION_SCHEME\n" +
-      "2,045R,$a,\"Regensburger Verbundklassifikation (RVK)\",\"rvk\",rvk,1,1,CLASSIFICATION_SCHEME\n" +
-      "3,045V,$a,\"SSG-Nummer/FID-Kennzeichen\",\"045V\",045v,1,1,UNKNOWN\n",
+        "5,044A,$a,\"LoC Subject Headings\",\"lcsh0\",lcsh0,1,2,SUBJECT_HEADING\n" +
+        "6,045A,$a,\"LCC-Notation\",\"lcc\",lcc,1,1,CLASSIFICATION_SCHEME\n" +
+        "2,045E,$a,\"Sachgruppen der Deutschen Nationalbibliografie bis 2003\",\"sdnb\",sdnb,2,2,UNKNOWN\n" +
+        "7,045F,$a,\"DDC-Notation\",\"ddc\",ddc,1,1,CLASSIFICATION_SCHEME\n" +
+        "1,045Q/01,$a,\"Basisklassifikation\",\"basis\",basis,5,5,UNKNOWN\n" +
+        "3,045R,$a,\"Regensburger Verbundklassifikation (RVK)\",\"rvk\",rvk,1,1,CLASSIFICATION_SCHEME\n" +
+        "4,045V,$a,\"SSG-Nummer/FID-Kennzeichen\",\"ssg-nr\",ssg_nr,1,1,UNKNOWN\n",
       actual);
 
     output = new File(outputDir, "classifications-by-schema-subfields.csv");
@@ -262,13 +263,14 @@ public class ClassificationAnalysisTest extends CliTestUtils {
 
     assertEquals(
       "id,subfields,count\n" +
-      "4,a,1\n" +
-      "4,a+,1\n" +
-      "5,a,1\n" +
-      "1,a+,2\n" +
-      "6,a+,1\n" +
-      "2,V;a;j;k+;3;7;9,1\n" +
-      "3,a,1\n", actual);
+        "5,a,1\n" +
+        "5,a+,1\n" +
+        "6,a,1\n" +
+        "2,a+,2\n" +
+        "7,a+,1\n" +
+        "1,V;a;j;9,5\n" +
+        "3,V;a;j;k+;3;7;9,1\n" +
+        "4,a,1\n", actual);
 
     output = new File(outputDir, "classifications-collocations.csv");
     assertTrue(output.exists());
@@ -279,8 +281,9 @@ public class ClassificationAnalysisTest extends CliTestUtils {
       "ddc;dnbsgr;lcc,1,50.00%\n", actual);
      */
     assertEquals("abbreviations,recordcount,percent\n" +
-      "ddc;lcc;lcsh0;sdnb,1,50.00%\n" +
-      "045V;rvk;sdnb,1,50.00%\n", actual);
+      "basis,4,66.67%\n" +
+      "rvk;sdnb;ssg-nr,1,16.67%\n" +
+      "basis;ddc;lcc;lcsh0;sdnb,1,16.67%\n", actual);
 
     output = new File(outputDir, "classifications-histogram.csv");
     assertTrue(output.exists());
@@ -294,9 +297,9 @@ public class ClassificationAnalysisTest extends CliTestUtils {
      */
     assertEquals(
      "count,frequency\n" +
-      "0,4\n" +
-      "3,1\n" +
-      "5,1\n", actual);
+       "1,4\n" +
+       "3,1\n" +
+       "6,1\n", actual);
 
     output = new File(outputDir, "classifications-frequency-examples.csv");
     assertTrue(output.exists());
@@ -310,9 +313,59 @@ public class ClassificationAnalysisTest extends CliTestUtils {
     */
     assertEquals(
       "count,id\n" +
-      "0,010000011\n" +
-      "3,010000054\n" +
-      "5,010000070\n", actual);
+        "1,010000011\n" +
+        "3,010000054\n" +
+        "6,010000070\n", actual);
+
+    clearOutput(outputDir, outputFiles);
+  }
+
+  @Test
+  public void classificationAnalysis_whenUnimarc_runsSuccessfully() throws IOException {
+    clearOutput(outputDir, outputFiles);
+
+    String[] args = {
+      "--schemaType", "UNIMARC",
+      "--marcFormat", "MARC_LINE",
+      "--outputDir", outputDir,
+      TestUtils.getPath("unimarc/unimarc.mrctxt")
+    };
+    ClassificationAnalysis.main(args);
+
+    File expectedFile = new File(getTestResource("unimarc/expected-results/classification/classifications-by-records.csv"));
+    File actualFile = new File(outputDir, "classifications-by-records.csv");
+    String expected = FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");
+    String actual = FileUtils.readFileToString(actualFile, "UTF-8").replaceAll("\r\n", "\n");
+
+    assertEquals(expected, actual);
+
+    expectedFile = new File(getTestResource("unimarc/expected-results/classification/classifications-by-schema.csv"));
+    actualFile = new File(outputDir, "classifications-by-schema.csv");
+    expected = FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");
+    actual = FileUtils.readFileToString(actualFile, "UTF-8").replaceAll("\r\n", "\n");
+
+    assertEquals(expected, actual);
+
+    expectedFile = new File(getTestResource("unimarc/expected-results/classification/classifications-by-schema-subfields.csv"));
+    actualFile = new File(outputDir, "classifications-by-schema-subfields.csv");
+    expected = FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");
+    actual = FileUtils.readFileToString(actualFile, "UTF-8").replaceAll("\r\n", "\n");
+
+    assertEquals(expected, actual);
+
+    expectedFile = new File(getTestResource("unimarc/expected-results/classification/classifications-frequency-examples.csv"));
+    actualFile = new File(outputDir, "classifications-frequency-examples.csv");
+    expected = FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");
+    actual = FileUtils.readFileToString(actualFile, "UTF-8").replaceAll("\r\n", "\n");
+
+    assertEquals(expected, actual);
+
+    expectedFile = new File(getTestResource("unimarc/expected-results/classification/classifications-histogram.csv"));
+    actualFile = new File(outputDir, "classifications-histogram.csv");
+    expected = FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");
+    actual = FileUtils.readFileToString(actualFile, "UTF-8").replaceAll("\r\n", "\n");
+
+    assertEquals(expected, actual);
 
     clearOutput(outputDir, outputFiles);
   }

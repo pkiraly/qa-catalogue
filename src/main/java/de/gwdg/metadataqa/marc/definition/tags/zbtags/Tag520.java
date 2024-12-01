@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.definition.tags.zbtags;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
+import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 
 /**
  * Ausgabebezeichnung in normierter Form
@@ -29,11 +30,9 @@ public class Tag520 extends DataFieldDefinition {
     cardinality = Cardinality.Repeatable;
     // descriptionUrl = "http://swbtools.bsz-bw.de/cgi-bin/help.pl?cmd=kat&val=4010";
 
-    /*
-    * ind1 = new Indicator();
-    * ind2 = new Indicator();
-    */
-    
+    ind1 = new Indicator();
+    ind2 = new Indicator();
+
     setSubfieldsWithCardinality(
       "5", "Datum und Kürzel des Bearbeiters/der Bearbeiterin", "NR"
     );

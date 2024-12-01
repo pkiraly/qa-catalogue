@@ -14,4 +14,4 @@ CORE_DEV=${CORE}_dev
 echo "Swap ${CORE_DEV} to ${CORE}"
 swap_cores ${CORE_DEV} ${CORE}
 
-echo "Solr preparation DONE"
+echo "Solr index swapping DONE"

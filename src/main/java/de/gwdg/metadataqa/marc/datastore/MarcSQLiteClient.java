@@ -23,4 +23,14 @@ public class MarcSQLiteClient {
       logger.warning(e.getMessage());
     }
   }
+
+  public void close() {
+    if (conn != null) {
+      try {
+        conn.close();
+      } catch (SQLException e) {
+        throw new RuntimeException(e);
+      }
+    }
+  }
 }

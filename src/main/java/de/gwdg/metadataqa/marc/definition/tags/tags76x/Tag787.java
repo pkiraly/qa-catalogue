@@ -86,6 +86,7 @@ public class Tag787 extends DataFieldDefinition {
       "y", "CODEN designation", "NR",
       "z", "International Standard Book Number", "R",
       "4", "Relationship", "R",
+      "5", "Institution to which field applies", "NR",
       "6", "Linkage", "NR",
       "7", "Control subfield", "NR",
       "8", "Field link and sequence number", "R"
@@ -194,6 +195,9 @@ public class Tag787 extends DataFieldDefinition {
       .setMqTag("relationship")
       .setCodeList(RelatorCodes.getInstance())
       .setCompilanceLevels("O");
+
+    getSubfield("5")
+      .setMqTag("institution");
 
     getSubfield("6")
       .setBibframeTag("linkage")

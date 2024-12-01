@@ -17,7 +17,7 @@ public class Tag040Test {
   public void testCStH() {
     BibliographicRecord marcRecord = new Marc21BibliographicRecord("test");
     DataField field = new DataField(Tag040.getInstance(), " ", " ", "a", "CSt-H", "b", "eng", "c", "CSt-H", "e", "appm");
-    field.setMarcRecord(marcRecord);
+    field.setBibliographicRecord(marcRecord);
 
     Map<String, List<String>> map = field.getHumanReadableMap();
 

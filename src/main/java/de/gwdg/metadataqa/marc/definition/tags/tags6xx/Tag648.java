@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags6xx;
 
 import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
@@ -72,6 +73,7 @@ public class Tag648 extends DataFieldDefinition {
 
     setSubfieldsWithCardinality(
       "a", "Chronological term", "NR",
+      "e", "Relator term", "R",
       "v", "Form subdivision", "R",
       "x", "General subdivision", "R",
       "y", "Chronological subdivision", "R",
@@ -80,6 +82,7 @@ public class Tag648 extends DataFieldDefinition {
       "1", "Real World Object URI", "R",
       "2", "Source of heading or term", "NR",
       "3", "Materials specified", "NR",
+      "4", "Relationship", "R",
       "6", "Linkage", "NR",
       "7", "Data provenance", "R",
       "8", "Field link and sequence number", "R"
@@ -93,6 +96,9 @@ public class Tag648 extends DataFieldDefinition {
       .setBibframeTag("Temporal").setMqTag("rdf:value")
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify)
       .setCompilanceLevels("M");
+
+    getSubfield("e")
+      .setMqTag("relatorTerm");
 
     getSubfield("v")
       .setBibframeTag("formGenre").setMqTag("formSubdivision")
@@ -131,6 +137,10 @@ public class Tag648 extends DataFieldDefinition {
       .setMqTag("materialsSpecified")
       .setFrbrFunctions(DiscoveryIdentify)
       .setCompilanceLevels("O");
+
+    getSubfield("4")
+      .setMqTag("relationship")
+      .setCodeList(RelatorCodes.getInstance());
 
     getSubfield("6")
       .setBibframeTag("linkage")

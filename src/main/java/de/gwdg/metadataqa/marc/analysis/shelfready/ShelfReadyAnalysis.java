@@ -118,7 +118,7 @@ public class ShelfReadyAnalysis {
       return 0.0;
     }
 
-    List<DataField> dataFields = marcRecord.getDatafield(tag);
+    List<DataField> dataFields = marcRecord.getDatafieldsByTag(tag);
 
     // For all datafields with the given tag, check if they have the given subfield and add it to the collector if they do.
     // This doesn't seem to be checking for the values of the subfields, only for their presence. That would be beneficial

@@ -182,7 +182,7 @@ public class DataFieldValidator extends AbstractValidator {
 
     if (definition.isVersionSpecificSubfields(configuration.getMarcVersion(), subfield.getCode())) {
       subfield.setDefinition(
-          definition.getVersionSpecificSubfield(
+          definition.getVersionSpecificDefinition(
               configuration.getMarcVersion(), subfield.getCode()));
     }
   }
@@ -197,7 +197,7 @@ public class DataFieldValidator extends AbstractValidator {
 
   private void addError(String path, ValidationErrorType type, String message) {
     if (!isIgnorableType(type)) {
-      String id = field.getMarcRecord() == null ? null : field.getMarcRecord().getId();
+      String id = field.getBibliographicRecord() == null ? null : field.getBibliographicRecord().getId();
       String url = definition.getDescriptionUrl();
       errors.add(id, path, type, message, url);
     }

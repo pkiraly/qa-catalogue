@@ -59,11 +59,11 @@ public class Tag022 extends DataFieldDefinition {
 
     setSubfieldsWithCardinality(
       "a", "International Standard Serial Number", "NR",
-      "l", "ISSN-L", "NR",
-      "m", "Canceled ISSN-L", "R",
+      // "l", "ISSN-L", "NR",
+      // "m", "Canceled ISSN-L", "R",
       "y", "Incorrect ISSN", "R",
       "z", "Canceled ISSN", "R",
-      "0", "Authority record control number or standard number", "R",
+      "0", "Authority record control number or standard number", "NR",
       "1", "Real World Object URI", "R",
       "2", "Source", "NR",
       "6", "Linkage", "NR",
@@ -82,6 +82,7 @@ public class Tag022 extends DataFieldDefinition {
       .setFrbrFunctions(DiscoverySearch, DiscoveryIdentify, DiscoveryObtain)
       .setCompilanceLevels("A", "A");
 
+    /* Obsolete
     getSubfield("l")
       .setBibframeTag("issnL")
       .setCompilanceLevels("A", "A");
@@ -89,6 +90,7 @@ public class Tag022 extends DataFieldDefinition {
     getSubfield("m")
       .setMqTag("canceledIssnL")
       .setCompilanceLevels("A", "A");
+     */
 
     getSubfield("y")
       .setMqTag("incorrect")
@@ -124,7 +126,9 @@ public class Tag022 extends DataFieldDefinition {
 
     setHistoricalSubfields(
       "b", "Form of issue [OBSOLETE] [CAN/MARC only]",
-      "c", "Price [OBSOLETE] [CAN/MARC only]"
+      "c", "Price [OBSOLETE] [CAN/MARC only]",
+      "l", "ISSN-L [OBSOLETE, 2023]. Subfield $l was made obsolete in favor of recording ISSN-L in field 023.",
+      "m", "Canceled ISSN-L [OBSOLETE, 2023] Subfield $m was made obsolete in favor of recording canceled ISSN-L in field 023."
     );
 
     putVersionSpecificSubfields(MarcVersion.KBR, Arrays.asList(

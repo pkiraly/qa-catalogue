@@ -1,30 +1,21 @@
 package de.gwdg.metadataqa.marc.definition.general.indexer.subject;
 
 import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.definition.general.indexer.FieldIndexer;
-import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGenerator;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-public class SchemaFromInd2 extends SubjectIndexer implements FieldIndexer {
+public class SchemaFromInd2 extends SchemaIndicatorExtractor {
 
   @Override
-  public Map<String, List<String>> index(DataField dataField, DataFieldKeyGenerator keyGenerator) {
-    Map<String, List<String>> indexEntries = new HashMap<>();
-    String schemaAbbreviation;
+  protected String getSchemaAbbreviation(String indicatorSchemaCode, DataField dataField) {
     try {
-      schemaAbbreviation = ClassificationSchemes.getInstance().resolve(dataField.resolveInd2());
+      return ClassificationSchemes.getInstance().resolve(dataField.resolveInd2());
     } catch (IllegalArgumentException e) {
-      schemaAbbreviation = dataField.getInd2().equals(" ") ? "" : dataField.getInd2();
+      return indicatorSchemaCode.equals(" ") ? "" : indicatorSchemaCode;
     }
+  }
 
-    KeyValuesExtractor extractor = new KeyValuesExtractor(dataField, keyGenerator, schemaAbbreviation).invoke();
-    if (extractor.hadSuccess())
-      indexEntries.put(extractor.getKey(), extractor.getValues());
-
-    return indexEntries;
+  @Override
+  protected String getIndicatorSchemaCode(DataField dataField) {
+    return dataField.getInd2();
   }
 
   private static SchemaFromInd2 uniqueInstance;

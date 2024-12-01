@@ -2,7 +2,8 @@ package de.gwdg.metadataqa.marc.datastore;
 
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.impl.HttpSolrClient;
+import org.apache.solr.client.solrj.impl.BaseHttpSolrClient;
+import org.apache.solr.client.solrj.impl.Http2SolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
@@ -21,13 +22,13 @@ public class MarcSolrClient {
   private static final Logger logger = Logger.getLogger(MarcSolrClient.class.getCanonicalName());
   public static final String ID_QUERY = "id:\"%s\"";
 
-  private String defaultUrl = "http://localhost:8983/solr";
+  private final String defaultUrl = "http://localhost:8983/solr";
   private SolrClient solrClient;
   private boolean trimId = false;
   private boolean indexWithTokenizedField = false;
-  private String termFieldSuffix = "_tt";
+  private final String termFieldSuffix = "_tt";
   private String fieldPrefix = "";
-  private Map<String, String> termFieldNameCache = new HashMap<>();
+  private final Map<String, String> termFieldNameCache = new HashMap<>();
 
   public MarcSolrClient() {
     initialize(defaultUrl);
@@ -42,7 +43,7 @@ public class MarcSolrClient {
   }
 
   private void initialize(String url) {
-    solrClient = new HttpSolrClient.Builder(url).build();
+    solrClient = new Http2SolrClient.Builder(url).build();
   }
 
   public void indexMap(String id, Map<String, List<String>> objectMap) {
@@ -52,7 +53,7 @@ public class MarcSolrClient {
   public void index(SolrInputDocument document) {
     try {
       solrClient.add(document);
-    } catch (HttpSolrClient.RemoteSolrException | SolrServerException | IOException ex) {
+    } catch (BaseHttpSolrClient.RemoteSolrException | SolrServerException | IOException ex) {
       logger.log(Level.WARNING, "document", document);
       logger.log(Level.WARNING, "Commit exception", ex);
       throw new RuntimeException(ex);
@@ -65,23 +66,23 @@ public class MarcSolrClient {
     for (Map.Entry<String, List<String>> entry : objectMap.entrySet()) {
       String fieldName = entry.getKey();
       Object value = entry.getValue();
-      if (value != null) {
-        if (!fieldName.endsWith("_sni") && !fieldName.endsWith("_ss")) {
-          fieldName = fieldPrefix + fieldName;
-          fieldName += "_ss";
-        }
-        document.addField(fieldName, value);
-
-        if (indexWithTokenizedField && fieldName.endsWith("_ss"))
-          document.addField(getTermFieldName(fieldName), value);
+      if (value == null) {
+        continue;
       }
+      if (!fieldName.endsWith("_sni") && !fieldName.endsWith("_ss")) {
+        fieldName = fieldPrefix + fieldName;
+        fieldName += "_ss";
+      }
+      document.addField(fieldName, value);
+
+      if (indexWithTokenizedField && fieldName.endsWith("_ss"))
+        document.addField(getTermFieldName(fieldName), value);
     }
     return document;
   }
 
   private String getTermFieldName(String phraseField) {
-    if (!termFieldNameCache.containsKey(phraseField))
-      termFieldNameCache.put(phraseField, phraseField.replaceAll("_ss$", termFieldSuffix));
+    termFieldNameCache.putIfAbsent(phraseField, phraseField.replaceAll("_ss$", termFieldSuffix));
     return termFieldNameCache.get(phraseField);
   }
 
@@ -91,20 +92,20 @@ public class MarcSolrClient {
     document.addField("id", id);
     for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
       String key = entry.getKey();
-      System.err.println("key: " + key);
       Object value = entry.getValue();
-      if (value != null) {
-        if (!key.endsWith("_sni") && !key.endsWith("_ss")) {
-          key = fieldPrefix + key;
-          key += "_ss";
-        }
-        document.addField(key, value);
+      if (value == null) {
+        continue;
       }
+      if (!key.endsWith("_sni") && !key.endsWith("_ss")) {
+        key = fieldPrefix + key;
+        key += "_ss";
+      }
+      document.addField(key, value);
     }
 
     try {
       solrClient.add(document);
-    } catch (HttpSolrClient.RemoteSolrException ex) {
+    } catch (BaseHttpSolrClient.RemoteSolrException ex) {
       logger.log(Level.WARNING, "document", document);
       logger.log(Level.WARNING, "Commit exception", ex);
     }
@@ -126,22 +127,23 @@ public class MarcSolrClient {
     }
   }
 
+  /**
+   * Given an id, return the corresponding SolrDocument from the index, and also remove the id field.
+   */
   public SolrDocument get(String id) {
     try {
       final QueryResponse response = solrClient.query(new MapSolrParams(Map.of("q", String.format(ID_QUERY, id))));
       final SolrDocumentList documents = response.getResults();
-      if (documents.getNumFound() > 0) {
-        SolrDocument doc = documents.get(0);
-        doc.removeFields("id");
-        doc.removeFields("_version_");
-        return doc;
+      if (documents.getNumFound() <= 0) {
+        return null;
       }
-    } catch (SolrServerException e) {
-      throw new RuntimeException(e);
-    } catch (IOException e) {
+      SolrDocument doc = documents.get(0);
+      doc.removeFields("id");
+      doc.removeFields("_version_");
+      return doc;
+    } catch (SolrServerException | IOException e) {
       throw new RuntimeException(e);
     }
-    return null;
   }
 
   public boolean getTrimId() {

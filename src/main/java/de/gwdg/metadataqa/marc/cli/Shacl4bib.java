@@ -21,6 +21,7 @@ import org.marc4j.marc.Record;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
@@ -86,9 +87,13 @@ public class Shacl4bib extends QACli<Shacl4bibParameters> implements Bibliograph
       .setOnlyIdInHeader(true)
       .setOutputType(parameters.getShaclOutputType());
 
-    if (outputFile.exists())
-      if (!outputFile.delete())
+    if (outputFile.exists()) {
+      try {
+        Files.delete(outputFile.toPath());
+      } catch (IOException e) {
         logger.log(Level.SEVERE, "The output file ({}) has not been deleted", outputFile.getAbsolutePath());
+      }
+    }
     List<String> header = ruleCatalog.getHeader();
     header.add(0, "id");
     printToFile(outputFile, CsvUtils.createCsv(header));

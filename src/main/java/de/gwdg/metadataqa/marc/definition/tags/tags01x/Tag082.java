@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
@@ -74,6 +75,8 @@ public class Tag082 extends DataFieldDefinition {
       "b", "Item number", "NR",
       "m", "Standard or optional designation", "NR",
       "q", "Assigning agency", "NR",
+      "0", "Authority record control number or standard number", "R",
+      "1", "Real World Object URI", "R",
       "2", "Edition information", "NR",
       "6", "Linkage", "NR",
       "7", "Data provenance", "R",
@@ -101,6 +104,13 @@ public class Tag082 extends DataFieldDefinition {
     getSubfield("q")
       .setBibframeTag("source")
       .setCompilanceLevels("O");
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber")
+      .setContentParser(RecordControlNumberParser.getInstance());
+
+    getSubfield("1")
+      .setMqTag("uri");
 
     getSubfield("2")
       .setBibframeTag("edition")

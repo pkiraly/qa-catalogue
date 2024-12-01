@@ -1,0 +1,505 @@
+{
+  "common": [
+    {
+      "short": "m",
+      "long": "marcVersion",
+      "hasArg": true,
+      "description": "MARC version ('OCLC' or 'DNB')"
+    },
+    {
+      "short": "h",
+      "long": "help",
+      "hasArg": false,
+      "description": "display help"
+    },
+    {
+      "short": "n",
+      "long": "nolog",
+      "hasArg": false,
+      "description": "do not display log messages"
+    },
+    {
+      "short": "l",
+      "long": "limit",
+      "hasArg": true,
+      "description": "limit the number of records to process"
+    },
+    {
+      "short": "o",
+      "long": "offset",
+      "hasArg": true,
+      "description": "the first record to process"
+    },
+    {
+      "short": "i",
+      "long": "id",
+      "hasArg": true,
+      "description": "the MARC identifier (content of 001)"
+    },
+    {
+      "short": "d",
+      "long": "defaultRecordType",
+      "hasArg": true,
+      "description": "the default record type if the record's type is undetectable"
+    },
+    {
+      "short": "q",
+      "long": "fixAlephseq",
+      "hasArg": false,
+      "description": "fix the known issues of Alephseq format"
+    },
+    {
+      "short": "a",
+      "long": "fixAlma",
+      "hasArg": false,
+      "description": "fix the known issues of Alma format"
+    },
+    {
+      "short": "b",
+      "long": "fixKbr",
+      "hasArg": false,
+      "description": "fix the known issues of Alma format"
+    },
+    {
+      "short": "p",
+      "long": "alephseq",
+      "hasArg": false,
+      "description": "the source is in Alephseq format"
+    },
+    {
+      "short": "x",
+      "long": "marcxml",
+      "hasArg": false,
+      "description": "the source is in MARCXML format"
+    },
+    {
+      "short": "y",
+      "long": "lineSeparated",
+      "hasArg": false,
+      "description": "the source is in line separated MARC format"
+    },
+    {
+      "short": "t",
+      "long": "outputDir",
+      "hasArg": true,
+      "description": "output directory"
+    },
+    {
+      "short": "r",
+      "long": "trimId",
+      "hasArg": false,
+      "description": "remove spaces from the end of record IDs"
+    },
+    {
+      "short": "z",
+      "long": "ignorableFields",
+      "hasArg": true,
+      "description": "ignore fields from the analysis"
+    },
+    {
+      "short": "v",
+      "long": "ignorableRecords",
+      "hasArg": true,
+      "description": "ignore records from the analysis"
+    },
+    {
+      "short": "f",
+      "long": "marcFormat",
+      "hasArg": true,
+      "description": "MARC format (like 'ISO' or 'MARCXML')"
+    },
+    {
+      "short": "s",
+      "long": "dataSource",
+      "hasArg": true,
+      "description": "data source (file of stream)"
+    },
+    {
+      "short": "g",
+      "long": "defaultEncoding",
+      "hasArg": true,
+      "description": "default character encoding"
+    },
+    {
+      "short": "1",
+      "long": "alephseqLineType",
+      "hasArg": true,
+      "description": "Alephseq line type"
+    },
+    {
+      "short": "2",
+      "long": "picaIdField",
+      "hasArg": true,
+      "description": "PICA id field"
+    },
+    {
+      "short": "u",
+      "long": "picaSubfieldSeparator",
+      "hasArg": true,
+      "description": "PICA subfield separator"
+    },
+    {
+      "short": "j",
+      "long": "picaSchemaFile",
+      "hasArg": true,
+      "description": "Avram PICA schema file"
+    },
+    {
+      "short": "w",
+      "long": "schemaType",
+      "hasArg": true,
+      "description": "metadata schema type ('MARC21', 'UNIMARC', or 'PICA')"
+    },
+    {
+      "short": "k",
+      "long": "picaRecordType",
+      "hasArg": true,
+      "description": "picaRecordType"
+    },
+    {
+      "short": "c",
+      "long": "allowableRecords",
+      "hasArg": true,
+      "description": "allow records for the analysis"
+    },
+    {
+      "short": "e",
+      "long": "groupBy",
+      "hasArg": true,
+      "description": "group the results by the value of this data element (e.g. the ILN of  library)"
+    },
+    {
+      "short": "3",
+      "long": "groupListFile",
+      "hasArg": true,
+      "description": "the file which contains a list of ILN codes"
+    },
+    {
+      "short": "4",
+      "long": "solrForScoresUrl",
+      "hasArg": true,
+      "description": "the URL of the Solr server used to store scores"
+    }
+  ],
+  "completeness": [
+    {
+      "short": "R",
+      "long": "format",
+      "hasArg": true,
+      "description": "specify a format"
+    },
+    {
+      "short": "V",
+      "long": "advanced",
+      "hasArg": false,
+      "description": "advanced mode (not yet implemented)"
+    },
+    {
+      "short": "P",
+      "long": "onlyPackages",
+      "hasArg": false,
+      "description": "only packages (not yet implemented)"
+    }
+  ],
+  "validate": [
+    {
+      "short": "G",
+      "long": "summaryFileName",
+      "hasArg": true,
+      "description": "the summary file name (provides a summary of issues, such as the number of instance and number of records having the particular issue)"
+    },
+    {
+      "short": "S",
+      "long": "summary",
+      "hasArg": false,
+      "description": "show summary instead of record level display"
+    },
+    {
+      "short": "H",
+      "long": "details",
+      "hasArg": false,
+      "description": "show record level display"
+    },
+    {
+      "short": "F",
+      "long": "detailsFileName",
+      "hasArg": true,
+      "description": "the report file name (default is 'issue-details.csv')"
+    },
+    {
+      "short": "R",
+      "long": "format",
+      "hasArg": true,
+      "description": "specify a format"
+    },
+    {
+      "short": "W",
+      "long": "emptyLargeCollectors",
+      "hasArg": false,
+      "description": "empty large collectors"
+    },
+    {
+      "short": "T",
+      "long": "collectAllErrors",
+      "hasArg": false,
+      "description": "collect all errors (useful only for validating small number of records)"
+    },
+    {
+      "short": "I",
+      "long": "ignorableIssueTypes",
+      "hasArg": true,
+      "description": "comma separated list of issue types not to collect"
+    }
+  ],
+  "index": [
+    {
+      "short": "S",
+      "long": "solrUrl",
+      "hasArg": true,
+      "description": "the URL of Solr server including the core (e.g. http://localhost:8983/solr/loc)"
+    },
+    {
+      "short": "A",
+      "long": "doCommit",
+      "hasArg": false,
+      "description": "commits Solr index regularly"
+    },
+    {
+      "short": "T",
+      "long": "solrFieldType",
+      "hasArg": true,
+      "description": "type of Solr fields, could be one of 'marc-tags', 'human-readable', or 'mixed'"
+    },
+    {
+      "short": "B",
+      "long": "useEmbedded",
+      "hasArg": false,
+      "description": "use embedded Solr server (used in tests only)"
+    },
+    {
+      "short": "C",
+      "long": "indexWithTokenizedField",
+      "hasArg": false,
+      "description": "index data elements as tokenized field as well"
+    },
+    {
+      "short": "D",
+      "long": "commitAt",
+      "hasArg": true,
+      "description": "commit index after this number of records"
+    },
+    {
+      "short": "E",
+      "long": "indexFieldCounts",
+      "hasArg": false,
+      "description": "index the count of field instances"
+    },
+    {
+      "short": "F",
+      "long": "fieldPrefix",
+      "hasArg": true,
+      "description": "field prefix"
+    }
+  ],
+  "classifications": [
+    {
+      "short": "A",
+      "long": "collectCollocations",
+      "hasArg": false,
+      "description": "collect collocation of schemas"
+    }
+  ],
+  "authorities": [
+    {
+      "short": "G",
+      "long": "summaryFileName",
+      "hasArg": true,
+      "description": "the summary file name (provides a summary of issues, such as the number of instance and number of records having the particular issue)"
+    },
+    {
+      "short": "S",
+      "long": "summary",
+      "hasArg": false,
+      "description": "show summary instead of record level display"
+    },
+    {
+      "short": "H",
+      "long": "details",
+      "hasArg": false,
+      "description": "show record level display"
+    },
+    {
+      "short": "F",
+      "long": "detailsFileName",
+      "hasArg": true,
+      "description": "the report file name (default is 'issue-details.csv')"
+    },
+    {
+      "short": "R",
+      "long": "format",
+      "hasArg": true,
+      "description": "specify a format"
+    },
+    {
+      "short": "W",
+      "long": "emptyLargeCollectors",
+      "hasArg": false,
+      "description": "empty large collectors"
+    },
+    {
+      "short": "T",
+      "long": "collectAllErrors",
+      "hasArg": false,
+      "description": "collect all errors (useful only for validating small number of records)"
+    },
+    {
+      "short": "I",
+      "long": "ignorableIssueTypes",
+      "hasArg": true,
+      "description": "comma separated list of issue types not to collect"
+    }
+  ],
+  "tt-completeness": [
+    {
+      "short": "F",
+      "long": "fileName",
+      "hasArg": true,
+      "description": "the report file name (default is tt-completeness.csv)"
+    }
+  ],
+  "shelf-ready-completeness": [
+    {
+      "short": "F",
+      "long": "fileName",
+      "hasArg": true,
+      "description": "the report file name (default is shelf-ready-completeness.csv)"
+    }
+  ],
+  "bl-classification": [],
+  "serial-score": [
+    {
+      "short": "F",
+      "long": "fileName",
+      "hasArg": true,
+      "description": "the report file name (default is serial-score.csv)"
+    }
+  ],
+  "formatter": [
+    {
+      "short": "l",
+      "long": "selector",
+      "hasArg": true,
+      "description": "selectors"
+    },
+    {
+      "short": "p",
+      "long": "separator",
+      "hasArg": true,
+      "description": "separator between the parts (default: TAB)"
+    },
+    {
+      "short": "f",
+      "long": "format",
+      "hasArg": true,
+      "description": "specify a format"
+    },
+    {
+      "short": "s",
+      "long": "search",
+      "hasArg": true,
+      "description": "search string ([path]=[value])"
+    },
+    {
+      "short": "w",
+      "long": "withId",
+      "hasArg": false,
+      "description": "the generated CSV should contain record ID as first field"
+    },
+    {
+      "short": "c",
+      "long": "countNr",
+      "hasArg": true,
+      "description": "count number of the record (e.g. 1 means the first record)"
+    },
+    {
+      "short": "e",
+      "long": "fileName",
+      "hasArg": true,
+      "description": "output file (default: extracted.csv)"
+    }
+  ],
+  "functional-analysis": [
+    {
+      "short": "R",
+      "long": "format",
+      "hasArg": true,
+      "description": "specify a format"
+    },
+    {
+      "short": "V",
+      "long": "advanced",
+      "hasArg": false,
+      "description": "advanced mode (not yet implemented)"
+    },
+    {
+      "short": "P",
+      "long": "onlyPackages",
+      "hasArg": false,
+      "description": "only packages (not yet implemented)"
+    }
+  ],
+  "network-analysis": [
+    {
+      "short": "l",
+      "long": "group-limit",
+      "hasArg": true,
+      "description": "pair creation limit"
+    },
+    {
+      "short": "a",
+      "long": "action",
+      "hasArg": true,
+      "description": "action: 'primary' (default), 'pairing'"
+    }
+  ],
+  "record-patterns": [
+    {
+      "short": "R",
+      "long": "format",
+      "hasArg": true,
+      "description": "specify a format"
+    },
+    {
+      "short": "V",
+      "long": "advanced",
+      "hasArg": false,
+      "description": "advanced mode (not yet implemented)"
+    },
+    {
+      "short": "P",
+      "long": "onlyPackages",
+      "hasArg": false,
+      "description": "only packages (not yet implemented)"
+    }
+  ],
+  "shacl4bib": [
+    {
+      "short": "C",
+      "long": "shaclConfigurationFile",
+      "hasArg": true,
+      "description": "specify the configuration file"
+    },
+    {
+      "short": "O",
+      "long": "shaclOutputFile",
+      "hasArg": true,
+      "description": "output file"
+    },
+    {
+      "short": "P",
+      "long": "shaclOutputType",
+      "hasArg": true,
+      "description": "output type (STATUS: status only, SCORE: score only, BOTH: status and score"
+    }
+  ]
+}

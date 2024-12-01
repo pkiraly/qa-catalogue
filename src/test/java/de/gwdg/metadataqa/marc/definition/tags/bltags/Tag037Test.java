@@ -10,11 +10,6 @@ public class Tag037Test extends BLTagTest {
   }
 
   @Test
-  public void testValidFields() {
-    // validField("a", "c7507160a");
-  }
-
-  @Test
   public void testInvalidFields() {
     invalidFieldInBL(" ", "c", "$175.00");
     invalidFieldInBL(" ", "f", "paperbound");

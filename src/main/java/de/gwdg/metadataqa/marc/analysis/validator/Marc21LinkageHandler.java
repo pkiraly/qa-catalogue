@@ -50,7 +50,7 @@ public class Marc21LinkageHandler {
     if (!field.getTag().equals("880")) {
       return null;
     }
-    String recordId = field.getMarcRecord() == null ? null : field.getMarcRecord().getId();
+    String recordId = field.getBibliographicRecord() == null ? null : field.getBibliographicRecord().getId();
 
     List<MarcSubfield> subfield6s = field.getSubfield("6");
     if (subfield6s == null || subfield6s.isEmpty()) {
@@ -105,7 +105,7 @@ public class Marc21LinkageHandler {
           subfield.getValue()
       );
       associatedSubfield.setField(field);
-      associatedSubfield.setMarcRecord(field.getMarcRecord());
+      associatedSubfield.setMarcRecord(field.getBibliographicRecord());
       associatedSubfield.setLinkage(linkage);
       associatedSubfield.setReferencePath(definition.getTag());
       associatedSubfields.add(associatedSubfield);

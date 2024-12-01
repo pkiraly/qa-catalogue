@@ -47,6 +47,8 @@ public class CommonParameters implements Serializable {
   protected boolean lineSeparated = false;
   protected boolean trimId = false;
   private String outputDir = DEFAULT_OUTPUT_DIR;
+  protected String ignorableRecords;
+  @JsonIgnore
   protected RecordIgnorator recordIgnorator;
   protected RecordFilter recordFilter;
   protected IgnorableFields ignorableFields = new IgnorableFields();
@@ -194,7 +196,7 @@ public class CommonParameters implements Serializable {
   }
 
   private void readIgnorableRecords() {
-    String ignorableRecords = cmd.hasOption("ignorableRecords") ? cmd.getOptionValue("ignorableRecords") : "";
+    ignorableRecords = cmd.hasOption("ignorableRecords") ? cmd.getOptionValue("ignorableRecords") : "";
     setRecordIgnorator(ignorableRecords);
   }
 

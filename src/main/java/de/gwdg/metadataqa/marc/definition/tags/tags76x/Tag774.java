@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags76x;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.Tag76xSubfield7PositionsGenerator;
@@ -89,6 +90,7 @@ public class Tag774 extends DataFieldDefinition {
       "y", "CODEN designation", "NR",
       "z", "International Standard Book Number", "R",
       "4", "Relationship", "R",
+      "5", "Institution to which field applies", "NR",
       "6", "Linkage", "NR",
       "7", "Control subfield", "NR",
       "8", "Field link and sequence number", "R"
@@ -199,6 +201,10 @@ public class Tag774 extends DataFieldDefinition {
       .setMqTag("relationship")
       .setCodeList(RelatorCodes.getInstance())
       .setCompilanceLevels("O");
+
+    getSubfield("5")
+      .setMqTag("institution")
+      .setCodeList(OrganizationCodes.getInstance());
 
     getSubfield("6")
       .setBibframeTag("linkage")

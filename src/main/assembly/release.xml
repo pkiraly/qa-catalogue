@@ -53,11 +53,18 @@
             <outputDirectory>scripts</outputDirectory>
         </fileSet>
         <fileSet>
-            <directory>marc-schema</directory>
+            <directory>avram-schemas</directory>
             <includes>
                 <include>*.*</include>
             </includes>
-            <outputDirectory>marc-schema</outputDirectory>
+            <outputDirectory>avram-schemas</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>catalogues</directory>
+            <includes>
+                <include>*.*</include>
+            </includes>
+            <outputDirectory>catalogues</outputDirectory>
         </fileSet>
     </fileSets>
     <files>

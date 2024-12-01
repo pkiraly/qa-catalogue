@@ -13,7 +13,7 @@ Screenshot from the web UI of the QA catalogue
   * Validating 126 million MARC records at DATeCH 2019 
     [paper](https://doi.org/10.1145/3322905.3322929),
     [slides](http://bit.ly/qa-datech2019),
-    [thesis chapter](https://10.13140/RG.2.2.33177.77920)
+    [thesis chapter](https://doi.org/10.13140/RG.2.2.33177.77920)
   * Empirical evaluation of library catalogues at SWIB 2019 [slides](http://bit.ly/qa-swib2019),
     [paper in English](https://pro.europeana.eu/page/issue-15-swib-2019#empirical-evaluation-of-library-catalogues),
     [paper in Spanish](https://universoabierto.org/2020/06/01/evaluacion-empirica-de-los-catalogos-de-las-bibliotecas/)
@@ -68,13 +68,15 @@ Screenshot from the web UI of the QA catalogue
 * [Extending the functionalities](#extending-the-functionalities)
 * [User interface](#user-interface)
 * Appendices
-  * [Appendix I. Where can I get MARC records](#appendix-i-where-can-i-get-marc-records)
+  * [Appendix I: Where can I get MARC records](#appendix-i-where-can-i-get-marc-records)
     * [United States of America](#united-states-of-america)
     * [Germany](#germany)
     * [Elsewhere](#others)
-  * [Appendix II. Handling MARC versions](#appendix-ii-handling-marc-versions)
-  * [Appendix III. Institutions which reportedly use this tool](#appendix-iii-institutions-which-reportedly-use-this-tool)
-  * [Appendix IV. Special build process](#appendix-iv-special-build-process)
+  * [Appendix II: Handling MARC versions](#appendix-ii-handling-marc-versions)
+  * [Appendix III: Institutions which reportedly use this tool](#appendix-iii-institutions-which-reportedly-use-this-tool)
+  * [Appendix IV: Supporters and Sponsors](#appendix-iv-supporters-and-sponsors)
+  * [Appendix V: Special build process](#appendix-v-special-build-process)
+  * [Appendix VI: Build Docker image](#appendix-vi-build-docker-image)
 
 ## Quick start guide
 
@@ -99,48 +101,87 @@ default. Files of each catalogue are in a subdirectory of theses base directorie
  * cp catalogues/loc.sh catalogues/[abbreviation-of-your-library].sh
  * edit catalogues/[abbreviation-of-your-library].sh according to [configuration guide](#configuration-1)
 
-### With docker
+### With Docker
 
-An experimental Docker image is publicly available in Docker Hub. This image
-contain an Ubuntu 20.04 with Java, R and the current software. No installation
-is needed (given you have a Docker running environment). You only have to
-specify the directory on your local machine where the MARC files are located.
-The first issue of this command will download the Docker image, which takes a
-time. Once it is downloaded you will be entered into the bash shell (I denoted
-this with the `#` symbol), where you have to change directory to
-`/opt/metadata-qa-marc` the location of the application.
+*A more detailed instruction how to use qa-catalogue with Docker can be found [in the wiki](https://github.com/pkiraly/qa-catalogue/wiki/Docker)* 
 
-1. download Docker image and initialize the Docker container
+A Docker image bundling qa-catalogue with all of its dependencies and the web
+interface [qa-catalogue-web] is made available:
+
+- continuously via GitHub as [`ghcr.io/pkiraly/qa-catalogue`](https://github.com/pkiraly/qa-catalogue/pkgs/container/qa-catalogue)
+
+- and for releases via Docker Hub as [`pkiraly/metadata-qa-marc`](https://hub.docker.com/r/pkiraly/metadata-qa-marc)
+
+To download, configure and start an image in a new container the file
+[docker-compose.yml](docker-compose.yml) is needed in the current directory. It
+can be configured with the following environment variables:
+
+- `IMAGE`: which Docker image to download and run. By default the latest
+   image from Docker Hub is used (`pkiraly/metadata-qa-marc`). Alternatives include
+
+   - `IMAGE=ghcr.io/pkiraly/qa-catalogue:main` for most recent image from GitHub packages
+   - `IMAGE=metadata-qa-marc` if you have locally [build the Docker image](#appendix-vi-build-docker-image)
+
+- `CONTAINER`: the name of the docker container. Default: `metadata-qa-marc`.
+
+- `INPUT`: Base directory to put your bibliographic record files in subdirectories of.
+   Set to `./input` by default, so record files are expected to be in `input/$NAME`.
+
+- `OUTPUT`: Base directory to put result of qa-catalogue in subdirectory of.
+   Set to `./output` by default, so files are put in `output/$NAME`.
+
+- `WEBCONFIG`: directory to expose configuration of [qa-catalogue-web]. Set to
+  `./web-config` by default. If using non-default configuration for data analysis
+  (for instance PICA instead of MARC) then you likely need to adjust configuration
+  of the web interface as well. This directory should contain a configuration file
+  `configuration.cnf`.
+
+- `WEBPORT`: port to expose the web interface. For instance `WEBPORT=9000` will
+   make it available at <http://localhost:9000/> instead of <http://localhost/>.
+
+- `SOLRPORT`: port to expose Solr to. Default: `8983`.
+
+Environment variables can be set on command line or be put in local file `.env`, e.g.: 
+
 ```bash
-BIBL_RECORD_DIRECTORY=<the directory where bibliographic files take place>
-docker run \
-  -d \
-  -v [your-MARC-directory]:/opt/qa-catalogue/marc \
-  -p 8983:8983 -p 80:80 \
-  --name metadata-qa-marc \
-  pkiraly/metadata-qa-marc:0.7.0
+WEBPORT=9000 docker compose up -d
 ```
-2. run analyses (this example uses parameters for Gent university library catalogue)
+
+or
 
 ```bash
-docker container exec \
-  -ti \
-  metadata-qa-marc \
-  ./qa-catalogue \
+docker compose --env-file config.env up -d
+```
+
+When the application has been started this way, run analyses with script
+[`./docker/qa-catalogue`](docker/qa-catalogue) the same ways as script
+`./qa-catalogue` is called when not using Docker (see [usage](#usage) for
+details). The following example uses parameters for Gent university library
+catalogue:
+
+```bash
+./docker/qa-catalogue \
   --params "--marcVersion GENT --alephseq" \
   --mask "rug01.export" \
   --catalogue gent \
   all
 ```
 
-Now you can reach the dashboard at http://localhost/metadata-qa. 
+[qa-catalogue-web]: https://github.com/pkiraly/qa-catalogue-web
+
+Now you can reach the web interface ([qa-catalogue-web]) at
+<http://localhost:80/> (or at another port as configured with
+environment variable `WEBPORT`). To further modify appearance of the interface,
+create [templates](https://github.com/pkiraly/qa-catalogue-web/?tab=readme-ov-file#customization)
+in your `WEBCONFIG` directory and/or create a file `configuration.cnf` in
+this directory to extend [UI configuration](https://github.com/pkiraly/qa-catalogue-web/?tab=readme-ov-file#configuration) without having to restart the Docker container. 
 
 This example works under Linux. Windows users should consult the 
 [Docker on Windows](https://github.com/pkiraly/qa-catalogue/wiki/Docker-on-Windows) wiki page.
+Other useful [Docker commands](https://github.com/pkiraly/qa-catalogue/wiki/Docker-commands)
+at QA catalogue's wiki.
 
-Everything else works the same way as in other environments, so follow the next  sections.
-
-More details about the Docker use case: http://pkiraly.github.io/2020/05/31/running-with-docker/.
+Everything else should work the same way as in other environments, so follow the next sections.
 
 ### Use
 
@@ -297,34 +338,39 @@ TYPE_PARAMS="--marcVersion DNB --marcxml"
 This line sets the DNB's MARC version (to cover fields defined within DNB's
 MARC version), and XML as input format.
 
-The following table summarizes some of the configuration variables. The script
+The following table summarizes the configuration variables. The script
 `qa-catalogue` can be used to set variables and execute analysis without a
 library specific configuration file:
 
-| variable      | `qa-catalogue`  | description  | default |
-| ------------- | ----------------- | ------------ | ------- |
-| `NAME`        | `-n`/`--name`     | name of the catalogue | metadata-qa |
-| `TYPE_PARAMS` | `-p`/`--params`   | parameters to pass to individual tasks (see below) | |
-| `MASK`        | `-m`/`--mask`     | a file mask, e.g. `*.mrc` | |
-| `VERSION`     | `-v`/`--version`  | optional version number/date of the catalogue to compare changes | |
-| `ANALYSES`    | `-a`/`--analyses` | which tasks to run with `all-analyses` | `validate,sqlite,completeness,completeness_sqlite,classifications,authorities,tt_completeness,shelf_ready_completeness,serial_score,functional_analysis,pareto,marc_history` |
-| `UPDATE`      | `-u`/`--update`   | optional date of input files | |
-|               | `-c`/`--catalogue`| display name of the catalogue | `$NAME` |
-|               | `-d`/`--input_dir`| subdirectory of input files | `$NAME` |
+| variable          | `qa-catalogue`      | description                                                        | default                                                                                                                                                                                 |
+|-------------------|---------------------|--------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `ANALYSES`        | `-a`/`--analyses`   | which tasks to run with `all-analyses`                             | `validate, validate_sqlite, completeness, completeness_sqlite, classifications, authorities, tt_completeness, shelf_ready_completeness, serial_score, functional_analysis, pareto, marc_history` |
+|                   | `-c`/`--catalogue`  | display name of the catalogue                                      | `$NAME`                                                                                                                                                                                 |
+| `NAME`            | `-n`/`--name`       | name of the catalogue                                              | qa-catalogue                                                                                                                                                                            |
+| `BASE_INPUT_DIR`  | `-d`/`--input`      | parent directory of input file directories                         | `./input`                                                                                                                                                                               |
+| `INPUT_DIR`       | `-d`/`--input-dir`  | subdirectory of input directory to read files from                 |                                                                                                                                                                                         |
+| `BASE_OUTPUT_DIR` | `-o`/`--output`     | parent output directory                                            | `./output`                                                                                                                                                                              |
+| `MASK`            | `-m`/`--mask`       | a file mask which input files to process, e.g. `*.mrc`             | `*`                                                                                                                                                                                     |
+| `TYPE_PARAMS`     | `-p`/`--params`     | parameters to pass to individual tasks (see below)                 |                                                                                                                                                                                         |
+| `SCHEMA`          | `-s`/`--schema`     | record schema                                                      | `MARC21`                                                                                                                                                                                |
+| `UPDATE`          | `-u`/`--update`     | optional date of input files                                       |                                                                                                                                                                                         |
+| `VERSION`         | `-v`/`--version`    | optional version number/date of the catalogue to compare changes   |                                                                                                                                                                                         |
+| `WEB_CONFIG`      | `-w`/`--web-config` | update the specified configuration file of qa-catalogue-web        |                                                                                                                                                                                         |
+|                   | `-f`/`--env-file`| configuration file to load environment variables from (default: `.env`) |                                                                                                                                                                                         |
 
 ## Detailed instructions
 
 We will use the same jar file in every command, so we save its path into a variable.
 
 ```bash
-export JAR=target/metadata-qa-marc-0.6.0-jar-with-dependencies.jar
+export JAR=target/metadata-qa-marc-0.7.0-jar-with-dependencies.jar
 ```
 
 ### General parameters
 
 Most of the analyses uses the following general parameters
 
-* `-w <type>`, `--schemaType <type>` metadata schema type. The supported types are:
+* `--schemaType <type>` metadata schema type. The supported types are:
   * `MARC21`
   * `PICA`
   * `UNIMARC` (assessment of UNIMARC records are not yet supported, this
@@ -344,6 +390,8 @@ Most of the analyses uses the following general parameters
   * `B3KAT`, fields available at the B3Kat union catalogue of Bibliotheksverbundes Bayern (BVB)
      and Kooperativen Bibliotheksverbundes Berlin-Brandenburg (KOBV)
   * `KBR`, fields available at KBR, the national library of Belgium
+  * `ZB`, fields available at Zentralbibliothek Zürich
+  * `OGYK`, fields available at Országygyűlési Könyvtár, Budapest
 * `-n`, `--nolog` do not display log messages
 * parameters to limit the validation:
   * `-i [record ID]`, `--id [record ID]` validates only a single record
@@ -466,6 +514,122 @@ to decide whether it is valid or invalid in a particular context. So in some
 places the tool reflects this uncertainty and provides two calculations, one
 which handles these fields as error, and another which handles these as valid fields.
 
+The tool detects the following issues:
+
+<table id="issue-types">
+  <thead>
+    <tr>
+      <th>machine name</th>
+      <th>explanation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2"><strong>record level issues</strong></td>
+    </tr>
+    <tr>
+      <td><code>undetectableType</code></td>
+      <td>the document type is not detectable</td>
+    </tr>
+    <tr>
+      <td><code>invalidLinkage</code></td>
+      <td>the linkage in field 880 is invalid</td>
+    </tr>
+    <tr>
+      <td><code>ambiguousLinkage</code></td>
+      <td>the linkage in field 880 is ambiguous</td>
+    </tr>
+    <tr>
+      <td colspan="2"><strong>control field position issues</strong></td>
+    </tr>
+    <tr>
+      <td><code>obsoleteControlPosition</code></td>
+      <td>the code in the position is obsolete (it was valid in a previous version of MARC, but it is not valid now)</td>
+    </tr>
+    <tr>
+      <td><code>controlValueContainsInvalidCode</code></td>
+      <td>the code in the position is invalid</td>
+    </tr>
+    <tr>
+      <td><code>invalidValue</code></td>
+      <td>the position value is invalid</td>
+    </tr>
+    <tr>
+      <td colspan="2"><strong>data field issues</strong></td>
+    </tr>
+    <tr>
+      <td><code>missingSubfield</code></td>
+      <td>missing reference subfield (880$6)</td>
+    </tr>
+    <tr>
+      <td><code>nonrepeatableField</code></td>
+      <td>repetition of a non-repeatable field</td>
+    </tr>
+    <tr>
+      <td><code>undefinedField</code></td>
+      <td>the field is not defined in the specified MARC version(s)</td>
+    </tr>
+    <tr>
+      <td colspan="2"><strong>indicator issues</strong></td>
+    </tr>
+    <tr>
+      <td><code>obsoleteIndicator</code></td>
+      <td>the indicator value is obsolete (it was valid in a previous version of MARC, but not in the current version)</td>
+    </tr>
+    <tr>
+      <td><code>nonEmptyIndicator</code></td>
+      <td>indicator that should be empty is non-empty</td>
+    </tr>
+    <tr>
+      <td><code>invalidValue</code></td>
+      <td>the indicator value is invalid</td>
+    </tr>
+    <tr>
+      <td colspan="2"><strong>subfield issues</strong></td>
+    </tr>
+    <tr>
+      <td><code>undefinedSubfield</code></td>
+      <td>the subfield is undefined in the specified MARC version(s)</td>
+    </tr>
+    <tr>
+      <td><code>invalidLength</code></td>
+      <td>the length of the value is invalid</td>
+    </tr>
+    <tr>
+      <td><code>invalidReference</code></td>
+      <td>the reference to the classification vocabulary is invalid</td>
+    </tr>
+    <tr>
+      <td><code>patternMismatch</code></td>
+      <td>content does not match the patterns specified by the standard</td>
+    </tr>
+    <tr>
+      <td><code>nonrepeatableSubfield</code></td>
+      <td>repetition of a non-repeatable subfield</td>
+    </tr>
+    <tr>
+      <td><code>invalidISBN</code></td>
+      <td>invalid ISBN value</td>
+    </tr>
+    <tr>
+      <td><code>invalidISSN</code></td>
+      <td>invalid ISSN value</td>
+    </tr>
+    <tr>
+      <td><code>unparsableContent</code></td>
+      <td>the value of the subfield is not well-formed according to its specification</td>
+    </tr>
+    <tr>
+      <td><code>nullCode</code></td>
+      <td>null subfield code</td>
+    </tr>
+    <tr>
+      <td><code>invalidValue</code></td>
+      <td>invalid subfield value</td>
+    </tr>
+  </tbody>
+</table>
+
 Usage:
 
 ```bash
@@ -508,7 +672,7 @@ options:
 * `-T`, `--collectAllErrors`: collect all errors (useful only for validating
   small number of records). Default is turned off.
 * `-I <types>`, `--ignorableIssueTypes <types>`: comma separated list of issue
-  types not to collect. The valid values are:
+  types not to collect. The valid values are (for details see the [issue types](#issue-types) table):
   * `undetectableType`: undetectable type
   * `invalidLinkage`: invalid linkage
   * `ambiguousLinkage`: ambiguous linkage
@@ -540,10 +704,10 @@ total
 ```
 
 * `issue-by-category.csv`: the counts of issues by categories. Columns:
- * `id` the identifier of error category
- * `category` the name of the category
- * `instances` the number of instances of errors within the category (one record might have multiple instances of the same error)
- * `records` the number of records having at least one of the errors within the category
+  * `id` the identifier of error category
+  * `category` the name of the category
+  * `instances` the number of instances of errors within the category (one record might have multiple instances of the same error)
+  * `records` the number of records having at least one of the errors within the category
 
 ```csv
 id,category,instances,records
@@ -618,6 +782,11 @@ type,instances,records
 1,1711,848
 2,413,275
 ```
+
+where types are
+- 0: records without errors
+- 1: records with any kinds of errors
+- 2: records with errors excluding invalid field errors
 
 * `issue-collector.csv`: non normalized file of record ids per issues. This is the "inverse" of `issue-details.csv`, 
   it tells you in which records a particular issue occurred. 
@@ -1877,14 +2046,13 @@ The MARC JSON file is a JSON serialization of binary MARC file. See more the
 Some background info: [MARC21 structure in JSON](http://pkiraly.github.io/2018/01/28/marc21-in-json/).
 
 Usage:
+
 ```bash
-java -cp $JAR de.gwdg.metadataqa.marc.cli.utils.MappingToJson [options] > marc-schema
+java -cp $JAR de.gwdg.metadataqa.marc.cli.utils.MappingToJson [options] > avram-schema.json
 ```
-with script:
-```bash
-catalogues/[catalogue].sh export-schema-files
-```
+
 or
+
 ```bash
 ./qa-catalogue --params="[options]" export-schema-files
 ```
@@ -1965,9 +2133,13 @@ An example output:
 ```
 
 The script version generates 3 files, with different details:
-* `marc-schema/marc-schema.json`
-* `marc-schema/marc-schema-with-solr.json`
-* `marc-schema/marc-schema-with-solr-and-extensions.json`
+* `avram-schemas/marc-schema.json`
+* `avram-schemas/marc-schema-with-solr.json`
+* `avram-schemas/marc-schema-with-solr-and-extensions.json`
+
+To validate these files install the Avram reference implementation in Node with `npm ci` and run:
+
+	./avram-schemas/validate-schemas
 
 ### to HTML
 
@@ -1994,7 +2166,7 @@ Parameters:
 * `-C <file>`, `--shaclConfigurationFile <file>`: specify the SHACL like configuration file
 * `-O <file>`, `--shaclOutputFile <file>`: output file (default: `shacl4bib.csv`)
 * `-P <type>`, `--shaclOutputType <type>`: specify what the output files should contain. Possible values:
-  * `STATUS`: status only, where the following values appear:
+  * `STATUS`: status only (default), where the following values appear:
     * `1` the criteria met,
     * `0` the criteria have not met,
     * `NA`: the data element is not available in the record),
@@ -2300,32 +2472,59 @@ really like to hear about your use case and ideas.
 mvn clean deploy -Pdeploy
 ```
 
-### Docker image
+### Appendix VI: Build Docker image
 
 Build and test
 ```bash
 # create the Java library
 mvn clean install
-# create the docker images
-docker-compose -f docker-compose.yml build app
-# start the container
-docker run \
-  -d \                                              # run in background
-  -v [local-MARC-dir]:/opt/metadata-qa-marc/marc \  # map the local directory of MARC files
-  -p 8983:8983 -p 80:80 \                           # expose Solr and Apache ports (as host:container)
-  --name metadata-qa-marc \                         # name of the container
-  metadata-qa-marc                                  # name of the image
-# run analyses
-docker exec \                                       # execute a command
-  -t -i metadata-qa-marc \                          # inside the container
-  ./qa-catalogue \                                # the name of the command to run
-  --params "--marcVersion GENT --alephseq" \        # the parameters used in analyses 
-  --mask 'rug01.export' \                           # file mask
-  --catalogue gent \                                # the name of the catalogue
-  all                                               # run all analyses
+# create the docker base image
+docker compose -f docker/build.yml build app
 ```
 
-You will see some log messages, and it is done, you can check the output at http://localhost/metadata-qa.
+The `docker compose build` command has multiple `--build-arg` arguments to override defaults:
+
+- `QA_CATALOGUE_VERSION`: the QA catalogue version (default: `0.7.0`, current development version is `0.8.0-SNAPSHOT`)
+- `QA_CATALOGUE_WEB_VERSION`: it might be a released version such as `0.7.0`, or `main` (default) to use the
+   main branch, or `develop` to use the develop branch.
+- `SOLR_VERSION`: the Apache Solr version you would like to use (default: `8.11.1`)
+- `SOLR_INSTALL_SOURCE`: if its value is `remote` docker will download it from http://archive.apache.org/. 
+  If its value is a local path points to a previously downloaded package (named as `solr-${SOLR_VERSION}.zip`
+  up to version 8.x.x or `solr-${SOLR_VERSION}.tgz` from version 9.x.x) the process will copy it from the
+  host to the image file. Depending on the internet connection, download might take a long time, using a
+  previously downloaded package speeds the building process. 
+  (Note: it is not possible to specify files outside the current directory, not using symbolic links, but
+  you can create hard links - see an example below.)
+
+Using the current developer version:
+
+```bash
+docker compose -f docker/build.yml build app \
+  --build-arg QA_CATALOGUE_VERSION=0.8.0-SNAPSHOT \
+  --build-arg QA_CATALOGUE_WEB_VERSION=develop \
+  --build-arg SOLR_VERSION=8.11.3
+```
+
+Using a downloaded Solr package:
+
+```bash
+# create link temporary
+mkdir download
+ln ~/Downloads/solr/solr-8.11.3.zip download/solr-8.11.3.zip
+# run docker
+docker compose -f docker/build.yml build app \
+  --build-arg QA_CATALOGUE_VERSION=0.8.0-SNAPSHOT \
+  --build-arg QA_CATALOGUE_WEB_VERSION=develop \
+  --build-arg SOLR_VERSION=8.11.3 \
+  --build-arg SOLR_INSTALL_SOURCE=download/solr-8.11.3.zip
+# delete the temporary link
+rm -rf download
+```
+
+Then start the container with environment variable `IMAGE` set to
+`metadata-qa-marc` and run analyses [as described above](#with-docker).
+
+For maintainers only:
 
 Upload to Docker Hub:
 ```bash
@@ -2345,6 +2544,7 @@ docker rmi $(docker images metadata-qa-marc -q)
 # clear build cache
 docker builder prune -a -f
 ```
+
 
 Feedbacks are welcome!
 

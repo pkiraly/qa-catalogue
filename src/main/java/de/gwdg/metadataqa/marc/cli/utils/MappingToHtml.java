@@ -1,6 +1,5 @@
 package de.gwdg.metadataqa.marc.cli.utils;
 
-import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.controlpositions.Control006Positions;
 import de.gwdg.metadataqa.marc.definition.controlpositions.Control007Positions;
 import de.gwdg.metadataqa.marc.definition.controlpositions.Control008Positions;
@@ -110,33 +109,34 @@ public class MappingToHtml {
     System.out.print(row(marcTag + "/" + suffix, mqTag + "_" + code, subfield.getLabel()));
   }
 
-  private static void tagToHtml(DataFieldDefinition tag) {
-    StringBuffer text = new StringBuffer(
+  private static void tagToHtml(DataFieldDefinition dataField) {
+    StringBuilder text = new StringBuilder(
       String.format(
         "<tr><td colspan=\"3\"><strong>%s</strong></td></tr>%n",
-        tag.getTag()
+        dataField.getTag()
       )
     );
-    text.append(row(tag.getTag(), tag.getIndexTag(), tag.getLabel()));
-    if (tag.getInd1().exists() || tag.getInd2().exists())
+    text.append(row(dataField.getTag(), dataField.getIndexTag(), dataField.getLabel()));
+    if (dataField.getInd1().exists() || dataField.getInd2().exists())
       text.append("<tr><td colspan=\"3\"><em>indicators</em></td></tr>\n");
-    if (tag.getInd1().exists())
+    if (dataField.getInd1().exists())
       text.append(row(
-        String.format("%s$ind1", tag.getTag()),
-        String.format("%s_%s", tag.getIndexTag(), tag.getInd1().getIndexTag()),
-        tag.getInd1().getLabel()
+        String.format("%s$ind1", dataField.getTag()),
+        String.format("%s_%s", dataField.getIndexTag(), dataField.getInd1().getIndexTag()),
+        dataField.getInd1().getLabel()
       ));
-    if (tag.getInd2().exists())
+    if (dataField.getInd2().exists())
       text.append(row(
-        String.format("%s$ind2", tag.getTag()),
-        String.format("%s_%s", tag.getIndexTag(), tag.getInd2().getIndexTag()),
-        tag.getInd2().getLabel()
+        String.format("%s$ind2", dataField.getTag()),
+        String.format("%s_%s", dataField.getIndexTag(), dataField.getInd2().getIndexTag()),
+        dataField.getInd2().getLabel()
       ));
     text.append("<tr><td colspan=\"3\"><em>data subfields</em></td></tr>%n");
-    for (SubfieldDefinition subfield : tag.getSubfields()) {
+    for (SubfieldDefinition subfield : dataField.getSubfields()) {
       text.append(row(
-        String.format("%s$%s", tag.getTag(), subfield.getCode()),
-        String.format("%s%s", tag.getIndexTag(), subfield.getCodeForIndex(SchemaType.MARC21)),
+        String.format("%s$%s", dataField.getTag(), subfield.getCode()),
+        // This contains underscore because it's only for MARC21
+        String.format("%s_%s", dataField.getIndexTag(), subfield.getCodeForIndex()),
         subfield.getLabel()
       ));
     }

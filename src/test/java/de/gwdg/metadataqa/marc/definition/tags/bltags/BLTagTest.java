@@ -39,7 +39,7 @@ public class BLTagTest {
 
   public void validField(DataField field) {
     BibliographicRecord marcRecord = new Marc21BibliographicRecord("test");
-    field.setMarcRecord(marcRecord);
+    field.setBibliographicRecord(marcRecord);
 
     MarcSubfield subfield = field.getSubfields().get(0);
 
@@ -66,7 +66,7 @@ public class BLTagTest {
     DataField field = new DataField(tag, ind1, " ", subfield, value);
 
     BibliographicRecord marcRecord = new Marc21BibliographicRecord("test");
-    field.setMarcRecord(marcRecord);
+    field.setBibliographicRecord(marcRecord);
 
     DataFieldValidator validator = new DataFieldValidator();
     assertFalse(
@@ -85,7 +85,7 @@ public class BLTagTest {
   public void invalidField(DataField field) {
 
     BibliographicRecord marcRecord = new Marc21BibliographicRecord("test");
-    field.setMarcRecord(marcRecord);
+    field.setBibliographicRecord(marcRecord);
 
     MarcSubfield subfield = field.getSubfields().get(0);
 
@@ -108,7 +108,7 @@ public class BLTagTest {
     DataField field = new DataField(tag, ind1, " ", subfield, value);
 
     BibliographicRecord marcRecord = new Marc21BibliographicRecord("test");
-    field.setMarcRecord(marcRecord);
+    field.setBibliographicRecord(marcRecord);
 
     DataFieldValidator validator = new DataFieldValidator();
     assertTrue(

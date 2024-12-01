@@ -123,4 +123,5 @@ fi
 CMD="/usr/bin/java -Xmx8g -cp $JAR de.gwdg.metadataqa.marc.cli.ValidatorCli"
 
 echo $CMD $PARAMS "$@"
+
 $CMD $PARAMS "$@"

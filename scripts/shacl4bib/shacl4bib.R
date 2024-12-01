@@ -1,3 +1,8 @@
+#' it creates a statistics from the status columns counting the number
+#' of distinct values from all possible values (that are 0, 1, NA).
+#' The header of the file are
+# id,0,1,NA
+# the rows are the individual rules identified by their IDs
 library(tidyverse)
 
 args = commandArgs(trailingOnly=TRUE)

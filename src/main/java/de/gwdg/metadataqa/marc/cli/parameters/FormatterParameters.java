@@ -40,6 +40,10 @@ public class FormatterParameters extends CommonParameters {
     }
   }
 
+  public FormatterParameters() {
+    super();
+  }
+
   public FormatterParameters(String[] arguments) throws ParseException {
     super(arguments);
 
@@ -60,12 +64,12 @@ public class FormatterParameters extends CommonParameters {
       String rawSelector = cmd.getOptionValue("selector");
       String[] rawSelectors = rawSelector.split(";");
       selector = new ArrayList<>();
-      if (getSchemaType().equals(SchemaType.MARC21)) {
-        for (String _rawSelector : rawSelectors)
-          selector.add(new MarcSpec(_rawSelector));
-      } else if (getSchemaType().equals(SchemaType.PICA)) {
+      if (getSchemaType().equals(SchemaType.PICA)) {
         for (String _rawSelector : rawSelectors)
           selector.add(new PicaSpec(_rawSelector));
+      } else {
+        for (String _rawSelector : rawSelectors)
+          selector.add(new MarcSpec(_rawSelector));
       }
     }
 

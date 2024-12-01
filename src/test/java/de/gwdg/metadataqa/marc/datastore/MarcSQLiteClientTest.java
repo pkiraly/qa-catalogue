@@ -10,7 +10,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
 import java.util.Map;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class MarcSQLiteClientTest {
 
@@ -18,28 +23,38 @@ public class MarcSQLiteClientTest {
   public void connect() throws IOException, URISyntaxException {
     MarcSQLiteClient client = new MarcSQLiteClient();
     File file = new File(FileUtils.getPath("sqlite").toFile(), "test.db");
-    System.err.println(file.getAbsolutePath());
-    // if (file.exists())
-    //  file.delete();
+    assertTrue(file.getCanonicalPath().endsWith("test-classes/sqlite/test.db"));
+    if (!file.exists())
+      file.createNewFile();
+    assertTrue(file.exists());
 
     client.connect(file.getPath());
-    System.err.println(file.lastModified());
-    System.err.println(file.length());
+    client.close();
 
-    // if (file.exists())
-    //  file.delete();
+    if (file.exists())
+      Files.delete(file.toPath());
   }
 
   @Test
   public void csv2db() throws IOException, URISyntaxException {
     File csvFile = new File(FileUtils.getPath("sqlite").toFile(), "issue-summary.csv");
-    CSVIterator iterator = null;
     try {
       CSVReaderHeaderAware reader = new CSVReaderHeaderAware(new FileReader(csvFile));
-      iterator = new CSVIterator(reader);
+      int i = 0;
       Map<String, String> map;
-      while((map = reader.readMap()) != null) {
-        System.err.println(map);
+      while ((map = reader.readMap()) != null) {
+        assertNotNull(map);
+        if (i == 0) {
+          assertEquals("2", map.get("instances"));
+          assertEquals("2", map.get("records"));
+          assertEquals("undetectable type", map.get("type"));
+          assertEquals("Leader/06 (typeOfRecord): 'x', Leader/07 (bibliographicLevel): ' '", map.get("message"));
+          assertEquals("Leader", map.get("MarcPath"));
+          assertEquals("1", map.get("typeId"));
+          assertEquals("1217", map.get("id"));
+          assertEquals("1", map.get("categoryId"));
+        }
+        i++;
       }
     } catch (IOException e) {
       e.printStackTrace();

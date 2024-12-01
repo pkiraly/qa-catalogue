@@ -186,7 +186,6 @@ public class CompletenessTest extends CliTestUtils {
     Completeness processor = new Completeness(new String[]{
       "--schemaType", "PICA",
       "--groupBy", "001@$0",
-      // "--groupListFile", FileUtils.getPath("kxp-uniq-library-names.tsv").toAbsolutePath().toString(),
       "--groupListFile", FileUtils.getPath("k10plus-libraries-by-unique-iln.txt").toAbsolutePath().toString(),
       "--marcFormat", "PICA_NORMALIZED",
       "--outputDir", outputDir,
@@ -322,7 +321,6 @@ public class CompletenessTest extends CliTestUtils {
         assertTrue(line.contains("\"trimId\":false,"));
         assertTrue(line.contains("\"outputDir\":\"/"));
         assertTrue(line.contains("/qa-catalogue/src/test/resources/output\","));
-        assertTrue(line.contains("\"recordIgnorator\":{\"criteria\":[],\"booleanCriteria\":null,\"empty\":true},"));
         assertTrue(line.contains("\"recordFilter\":{\"criteria\":[],\"booleanCriteria\":null,\"empty\":true},"));
         assertTrue(line.contains("\"ignorableFields\":{\"fields\":null,\"empty\":true},"));
         assertTrue(line.contains("\"stream\":null,"));
@@ -342,7 +340,7 @@ public class CompletenessTest extends CliTestUtils {
         assertTrue(line.contains("\"pica\":true,"));
         assertTrue(line.contains("\"replacementInControlFields\":null,"));
         assertTrue(line.contains("\"marc21\":false,"));
-        assertTrue(line.contains("\"mqaf.version\":\"0.9.3\","));
+        assertTrue(line.contains("\"mqaf.version\":\"0.9.5\","));
         assertTrue(line.contains("\"qa-catalogue.version\":\"0.8.0-SNAPSHOT\""));
         assertTrue(line.contains("\"duration\":\"00:00:00\""));
         assertTrue(line.contains("\"numberOfprocessedRecords\":10"));
@@ -401,4 +399,25 @@ public class CompletenessTest extends CliTestUtils {
     Assert.assertEquals(expected, actual);
   }
 
+  @Test
+  public void completeness_picaplain() throws Exception {
+    clearOutput(outputDir, outputFiles);
+
+    Completeness processor = new Completeness(new String[]{
+      "--schemaType", "PICA",
+      "--marcFormat", "PICA_PLAIN",
+      "--outputDir", outputDir,
+      TestUtils.getPath("pica/pica-plain.pp")
+    });
+    RecordIterator iterator = new RecordIterator(processor);
+    iterator.start();
+
+    for (String outputFile : outputFiles) {
+      // System.err.println(outputFile);
+      File output = new File(outputDir, outputFile);
+      assertTrue(output.exists());
+      String expected = org.apache.commons.io.FileUtils.readFileToString(output, "UTF-8");
+      assertTrue(StringUtils.isNotBlank(expected));
+    }
+  }
 }

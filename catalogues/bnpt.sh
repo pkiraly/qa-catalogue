@@ -12,7 +12,6 @@ TYPE_PARAMS="$TYPE_PARAMS --solrForScoresUrl http://localhost:8983/solr/bnpt_val
 TYPE_PARAMS="$TYPE_PARAMS --indexWithTokenizedField"
 TYPE_PARAMS="$TYPE_PARAMS --indexFieldCounts"
 
-MARC_DIR=${BASE_INPUT_DIR}/bnpt
 MASK=bibliographics_*.xml
 
 . ./common-script

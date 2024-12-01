@@ -11,7 +11,6 @@ import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaReader;
 import org.junit.Test;
 import org.marc4j.marc.DataField;
 import org.marc4j.marc.Record;
-import org.marc4j.marc.VariableField;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -20,7 +19,6 @@ import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -97,7 +95,7 @@ public class PicaNormalizedReaderTest {
     BibliographicRecord bibRecord = MarcFactory.createPicaFromMarc4j(record, schema);
 
     assertEquals("010705201", bibRecord.getId());
-    List<de.gwdg.metadataqa.marc.dao.DataField> tags = bibRecord.getDatafield("045T");
+    List<de.gwdg.metadataqa.marc.dao.DataField> tags = bibRecord.getDatafieldsByTag("045T");
     assertEquals(1, tags.size());
     de.gwdg.metadataqa.marc.dao.DataField tag = tags.get(0);
     assertEquals(2, tag.getSubfield("k").size());
@@ -136,32 +134,32 @@ public class PicaNormalizedReaderTest {
     if (reader.hasNext())
       record = reader.next();
     BibliographicRecord bibRecord = MarcFactory.createPicaFromMarc4j(record, schema);
-
-    for (de.gwdg.metadataqa.marc.dao.DataField field : bibRecord.getDatafields()) {
-      System.err.println(field.getTagWithOccurrence());
-    }
-
-
-    /*
-    List<de.gwdg.metadataqa.marc.dao.DataField> tags = bibRecord.getDatafield("045R");
-    assertEquals(1, tags.size());
-    de.gwdg.metadataqa.marc.dao.DataField tag = tags.get(0);
-    assertEquals(2, tag.getSubfield("k").size());
-    assertEquals("Psychologie", tag.getSubfield("k").get(0).getValue());
-    assertEquals("Sozialpsychologie", tag.getSubfield("k").get(1).getValue());
-
     String json = bibRecord.asJson();
+
+    List<de.gwdg.metadataqa.marc.dao.DataField> tags = bibRecord.getDatafieldsByTag("045R");
+    assertEquals(5, tags.size());
+    de.gwdg.metadataqa.marc.dao.DataField tag = tags.get(0);
+    assertEquals(2, tag.getSubfield("J").size());
+    assertEquals("Psychologie", tag.getSubfield("J").get(0).getValue());
+    assertEquals("Sozialpsychologie", tag.getSubfield("J").get(1).getValue());
+
+    // string approach
+    int i = json.indexOf("\"045R");
+    String firstTag045R = json.substring(i, i + 182);
+    assertTrue(firstTag045R.contains("\"N\":[\"CL-CZ\",\"CV\"]"));
+    assertTrue(firstTag045R.contains("\"J\":[\"Psychologie\",\"Sozialpsychologie\"]"));
+
+    // JSON object approach
     ObjectMapper mapper = new ObjectMapper();
     Map<String, Object> configuration = mapper.readValue(json, new TypeReference<>(){});
-    assertNotNull(configuration.get("045T"));
-    assertTrue(configuration.get("045T") instanceof ArrayList);
-    assertEquals(1, ((List) configuration.get("045T")).size());
-    assertTrue(((List)configuration.get("045T")).get(0) instanceof Map);
-    Map<String, Object> tag = (Map) ((List) configuration.get("045T")).get(0);
-    Map<String, Object> subfields = (Map) tag.get("subfields");
-    assertTrue(subfields.get("k") instanceof List);
-    assertEquals("Psychologie", ((List<?>) subfields.get("k")).get(0));
-    assertEquals("Sozialpsychologie", ((List<?>) subfields.get("k")).get(1));
-    */
+    assertNotNull(configuration.get("045R"));
+    assertTrue(configuration.get("045R") instanceof ArrayList);
+    assertEquals(5, ((List) configuration.get("045R")).size());
+    assertTrue(((List)configuration.get("045R")).get(0) instanceof Map);
+    Map<String, Object> firstTag = (Map) ((List) configuration.get("045R")).get(0);
+    Map<String, Object> subfields = (Map) firstTag.get("subfields");
+    assertTrue(subfields.get("J") instanceof List);
+    assertEquals("Psychologie", ((List<?>) subfields.get("J")).get(0));
+    assertEquals("Sozialpsychologie", ((List<?>) subfields.get("J")).get(1));
   }
 }

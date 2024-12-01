@@ -28,7 +28,7 @@ public class MarcTagListerTest {
     List<Class<? extends DataFieldDefinition>> tags = MarcTagLister.listTags();
     assertNotNull(tags);
     assertNotEquals(0, tags.size());
-    assertEquals(446, tags.size());
+    assertEquals(458, tags.size());
     assertEquals("Tag010", tags.get(0).getSimpleName());
     Map<String, Integer> versionCounter = new HashMap<>();
     Map<MarcVersion, Integer> versionCounter2 = new HashMap<>();
@@ -72,62 +72,65 @@ public class MarcTagListerTest {
     List<MarcVersion> testedVersions = List.of(
       MarcVersion.MARC21, MarcVersion.DNB, MarcVersion.FENNICA, MarcVersion.GENT, MarcVersion.NKCR, MarcVersion.OCLC,
       MarcVersion.SZTE, MarcVersion.KBR, MarcVersion.ZB, MarcVersion.BL, MarcVersion.MARC21NO, MarcVersion.UVA,
-      MarcVersion.B3KAT,
+      MarcVersion.B3KAT, MarcVersion.OGYK,
       MarcVersion.UNIMARC // special case
     );
     for (MarcVersion version : MarcVersion.values()) {
       assertTrue(String.format("%s should be tested", version), testedVersions.contains(version));
     }
 
-    assertEquals( 11, (int) versionCounter2.get(MarcVersion.DNB));
-    assertEquals( 11, (int) versionCounter.get("dnbtags"));
+    assertEquals("There should be 11 defined tags in DNB",  11, (int) versionCounter2.get(MarcVersion.DNB));
+    assertEquals("There should be 11 defined tags in DNB",  11, (int) versionCounter.get("dnbtags"));
 
-    assertEquals( 24, (int) versionCounter2.get(MarcVersion.FENNICA));
-    assertEquals( 24, (int) versionCounter.get("fennicatags"));
+    assertEquals("There should be 24 defined tags in FENNICA",  24, (int) versionCounter2.get(MarcVersion.FENNICA));
+    assertEquals("There should be 24 defined tags in FENNICA",  24, (int) versionCounter.get("fennicatags"));
 
-    assertEquals(  3, (int) versionCounter2.get(MarcVersion.GENT));
-    assertEquals(  3, (int) versionCounter.get("genttags"));
+    assertEquals("There should be 3 defined tags in GENT",   3, (int) versionCounter2.get(MarcVersion.GENT));
+    assertEquals("There should be 3 defined tags in GENT",   3, (int) versionCounter.get("genttags"));
 
-    assertEquals( 39, (int) versionCounter2.get(MarcVersion.NKCR));
-    assertEquals( 39, (int) versionCounter.get("nkcrtags"));
+    assertEquals("There should be 39 defined tags in NKCR",  39, (int) versionCounter2.get(MarcVersion.NKCR));
+    assertEquals("There should be 39 defined tags in NKCR",  39, (int) versionCounter.get("nkcrtags"));
 
-    assertEquals( 15, (int) versionCounter2.get(MarcVersion.OCLC));
-    assertEquals( 15, (int) versionCounter.get("oclctags"));
+    assertEquals("There should be 15 defined tags in OCLC",  15, (int) versionCounter2.get(MarcVersion.OCLC));
+    assertEquals("There should be 15 defined tags in OCLC",  15, (int) versionCounter.get("oclctags"));
 
-    assertEquals( 15, (int) versionCounter2.get(MarcVersion.SZTE));
-    assertEquals( 15, (int) versionCounter.get("sztetags"));
+    assertEquals("There should be 15 defined tags in SZTE",  15, (int) versionCounter2.get(MarcVersion.SZTE));
+    assertEquals("There should be 15 defined tags in SZTE",  15, (int) versionCounter.get("sztetags"));
 
-    assertEquals( 1, (int) versionCounter2.get(MarcVersion.KBR));
-    assertEquals( 1, (int) versionCounter.get("kbrtags"));
+    assertEquals("There should be 1 defined tags in KBR",  1, (int) versionCounter2.get(MarcVersion.KBR));
+    assertEquals("There should be 1 defined tags in KBR",  1, (int) versionCounter.get("kbrtags"));
 
-    assertEquals( 2, (int) versionCounter2.get(MarcVersion.ZB));
-    assertEquals( 2, (int) versionCounter.get("zbtags"));
+    assertEquals("There should be 1 defined tags in ZB",  1, (int) versionCounter2.get(MarcVersion.ZB));
+    assertEquals("There should be 1 defined tags in ZB",  1, (int) versionCounter.get("zbtags"));
 
-    assertEquals( 76, (int) versionCounter2.get(MarcVersion.BL));
-    assertEquals( 76, (int) versionCounter.get("bltags"));
+    assertEquals("There should be 76 defined tags in BL",  76, (int) versionCounter2.get(MarcVersion.BL));
+    assertEquals("There should be 76 defined tags in BL",  76, (int) versionCounter.get("bltags"));
 
     assertFalse( versionCounter2.containsKey(MarcVersion.MARC21NO));
 
-    assertEquals( 26, (int) versionCounter2.get(MarcVersion.UVA));
-    assertEquals( 26, (int) versionCounter.get("uvatags"));
+    assertEquals("There should be 26 defined tags in UVA",  26, (int) versionCounter2.get(MarcVersion.UVA));
+    assertEquals("There should be 26 defined tags in UVA",  26, (int) versionCounter.get("uvatags"));
 
-    assertEquals( 5, (int) versionCounter2.get(MarcVersion.B3KAT));
-    assertEquals( 5, (int) versionCounter.get("b3kattags"));
+    assertEquals("There should be 5 defined tags in B3KAT",  5, (int) versionCounter2.get(MarcVersion.B3KAT));
+    assertEquals("There should be 5 defined tags in B3KAT",  5, (int) versionCounter.get("b3kattags"));
 
-    assertEquals(229, (int) versionCounter2.get(MarcVersion.MARC21));
-    assertEquals(  2, (int) versionCounter.get("holdings"));
-    assertEquals( 49, (int) versionCounter.get("tags01x"));
-    assertEquals(  4, (int) versionCounter.get("tags1xx"));
-    assertEquals(  8, (int) versionCounter.get("tags20x"));
-    assertEquals( 11, (int) versionCounter.get("tags25x"));
-    assertEquals( 40, (int) versionCounter.get("tags3xx"));
-    assertEquals(  5, (int) versionCounter.get("tags4xx"));
-    assertEquals( 51, (int) versionCounter.get("tags5xx"));
-    assertEquals( 16, (int) versionCounter.get("tags6xx"));
-    assertEquals( 11, (int) versionCounter.get("tags70x"));
-    assertEquals( 16, (int) versionCounter.get("tags76x"));
-    assertEquals(  4, (int) versionCounter.get("tags80x"));
-    assertEquals( 12, (int) versionCounter.get("tags84x"));
+    assertEquals("There should be 12 defined tags in OGYK",  12, (int) versionCounter2.get(MarcVersion.OGYK));
+    assertEquals("There should be 12 defined tags in OGYK",  12, (int) versionCounter.get("ogyktags"));
+
+    assertEquals("There should be 230 defined tags in MARC21", 230, (int) versionCounter2.get(MarcVersion.MARC21));
+    assertEquals("There should be 230 defined tags in MARC21 holdings",   2, (int) versionCounter.get("holdings"));
+    assertEquals("There should be 50 defined tags in 01x group",  50, (int) versionCounter.get("tags01x"));
+    assertEquals("There should be 50 defined tags in 1xx group",   4, (int) versionCounter.get("tags1xx"));
+    assertEquals("There should be 50 defined tags in 20x group",   8, (int) versionCounter.get("tags20x"));
+    assertEquals("There should be 50 defined tags in 25x group",  11, (int) versionCounter.get("tags25x"));
+    assertEquals("There should be 50 defined tags in 3xx group",  40, (int) versionCounter.get("tags3xx"));
+    assertEquals("There should be 50 defined tags in 4xx group",   5, (int) versionCounter.get("tags4xx"));
+    assertEquals("There should be 50 defined tags in 5xx group",  51, (int) versionCounter.get("tags5xx"));
+    assertEquals("There should be 50 defined tags in 6xx group",  16, (int) versionCounter.get("tags6xx"));
+    assertEquals("There should be 50 defined tags in 70x group",  11, (int) versionCounter.get("tags70x"));
+    assertEquals("There should be 50 defined tags in 76x group",  16, (int) versionCounter.get("tags76x"));
+    assertEquals("There should be 50 defined tags in 80x group",   4, (int) versionCounter.get("tags80x"));
+    assertEquals("There should be 50 defined tags in 84x group",  12, (int) versionCounter.get("tags84x"));
   }
 
   @Test

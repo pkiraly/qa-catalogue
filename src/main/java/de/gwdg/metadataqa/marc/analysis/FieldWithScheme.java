@@ -16,4 +16,12 @@ public class FieldWithScheme {
   public String getSchemaName() {
     return schemaName;
   }
+
+  @Override
+  public String toString() {
+    return "FieldWithScheme{" +
+      "tag='" + tag + '\'' +
+      ", schemaName='" + schemaName + '\'' +
+      '}';
+  }
 }

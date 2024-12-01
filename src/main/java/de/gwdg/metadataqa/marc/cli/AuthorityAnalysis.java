@@ -1,15 +1,18 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.analysis.AuthorithyAnalyzer;
-import de.gwdg.metadataqa.marc.analysis.AuthorityCategory;
-import de.gwdg.metadataqa.marc.analysis.AuthorityStatistics;
+import de.gwdg.metadataqa.marc.analysis.contextual.authority.AuthorityAnalyzer;
+import de.gwdg.metadataqa.marc.analysis.contextual.authority.AuthorityCategory;
+import de.gwdg.metadataqa.marc.analysis.contextual.authority.AuthorityStatistics;
+import de.gwdg.metadataqa.marc.analysis.contextual.authority.Marc21AuthorityAnalyzer;
+import de.gwdg.metadataqa.marc.analysis.contextual.authority.PicaAuthorityAnalyzer;
+import de.gwdg.metadataqa.marc.analysis.contextual.authority.UnimarcAuthorityAnalyzer;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.ValidatorParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.cli.utils.Schema;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
@@ -46,6 +49,7 @@ public class AuthorityAnalysis extends QACli<ValidatorParameters> implements Bib
   public AuthorityAnalysis(String[] args) throws ParseException {
     parameters = new ValidatorParameters(args);
     readyToProcess = true;
+    Schema.resetIdCounter();
   }
 
   public static void main(String[] args) {
@@ -89,7 +93,18 @@ public class AuthorityAnalysis extends QACli<ValidatorParameters> implements Bib
     if (parameters.getRecordIgnorator().isIgnorable(marcRecord))
       return;
 
-    var analyzer = new AuthorithyAnalyzer(marcRecord, statistics);
+    // Depending on the type of record, create the appropriate analyzer
+    AuthorityAnalyzer analyzer;
+    if (parameters.isMarc21()) {
+      analyzer = new Marc21AuthorityAnalyzer(marcRecord, statistics);
+    } else if (parameters.isPica()) {
+      analyzer = new PicaAuthorityAnalyzer(marcRecord, statistics);
+    } else if (parameters.isUnimarc()) {
+      analyzer = new UnimarcAuthorityAnalyzer(marcRecord, statistics);
+    } else {
+      logger.log(Level.SEVERE, "Unhandled schema type: {0}", new Object[]{parameters.getSchemaType()});
+      return;
+    }
     int count = analyzer.process();
     count((count > 0), hasClassifications);
     count(count, histogram);
@@ -99,16 +114,17 @@ public class AuthorityAnalysis extends QACli<ValidatorParameters> implements Bib
 
   @Override
   public void beforeIteration() {
+    // do nothing
   }
 
   @Override
   public void fileOpened(Path path) {
-
+    // do nothing
   }
 
   @Override
   public void fileProcessed() {
-
+    // do nothing
   }
 
   @Override
@@ -326,7 +342,7 @@ public class AuthorityAnalysis extends QACli<ValidatorParameters> implements Bib
 
   @Override
   public void printHelp(Options options) {
-
+    // do nothing
   }
 
   @Override

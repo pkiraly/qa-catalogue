@@ -1,23 +1,21 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.MarcSubfield;
+import de.gwdg.metadataqa.marc.analysis.functional.FrbrFunctionLister;
+import de.gwdg.metadataqa.marc.analysis.functional.FunctionalAnalyzer;
+import de.gwdg.metadataqa.marc.analysis.functional.Marc21FrbrFunctionLister;
+import de.gwdg.metadataqa.marc.analysis.functional.Marc21FunctionalAnalyzer;
+import de.gwdg.metadataqa.marc.analysis.functional.PicaFrbrFunctionLister;
+import de.gwdg.metadataqa.marc.analysis.functional.PicaFunctionalAnalyzer;
+import de.gwdg.metadataqa.marc.analysis.functional.UnimarcFrbrFunctionLister;
+import de.gwdg.metadataqa.marc.analysis.functional.UnimarcFunctionalAnalyzer;
 import de.gwdg.metadataqa.marc.cli.parameters.CompletenessParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
-import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.MarcControlField;
-import de.gwdg.metadataqa.marc.dao.MarcPositionalControlField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
-import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
-import de.gwdg.metadataqa.marc.definition.ControlValue;
-import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
-import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.FRBRFunction;
-import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
 import de.gwdg.metadataqa.marc.utils.Counter;
-import de.gwdg.metadataqa.marc.utils.FrbrFunctionLister;
 import de.gwdg.metadataqa.marc.utils.FunctionValue;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
@@ -30,10 +28,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -45,16 +41,15 @@ public class FunctionalAnalysis extends QACli<CompletenessParameters> implements
 
   private final Options options;
   private final boolean readyToProcess;
-  private FrbrFunctionLister frbrFunctionLister;
+
+
+  private FunctionalAnalyzer analyzer;
   private int recordNumber;
 
   public FunctionalAnalysis(String[] args) throws ParseException {
     parameters = new CompletenessParameters(args);
     options = parameters.getOptions();
     readyToProcess = true;
-    frbrFunctionLister = new FrbrFunctionLister(parameters.getSchemaType(), parameters.getMarcVersion());
-
-    logger.info(frbrFunctionLister.getBaseline().toString());
   }
 
   public static void main(String[] args) {
@@ -95,93 +90,33 @@ public class FunctionalAnalysis extends QACli<CompletenessParameters> implements
 
   @Override
   public void processRecord(BibliographicRecord bibliographicRecord, int recordNumber) throws IOException {
-    if (parameters.getRecordIgnorator().isIgnorable(bibliographicRecord))
+    if (parameters.getRecordIgnorator().isIgnorable(bibliographicRecord)) {
       return;
+    }
 
     this.recordNumber = recordNumber;
-    Map<FRBRFunction, FunctionValue> recordCounter = new TreeMap<>();
-    for (FRBRFunction f : FRBRFunction.values())
-      if (f.getParent() != null)
-        recordCounter.put(f, new FunctionValue());
 
-    Map<DataFieldDefinition, Boolean> cache = new HashMap<>();
-
-    if (bibliographicRecord instanceof Marc21Record && bibliographicRecord.getSchemaType().equals(SchemaType.MARC21)) {
-      countPositionalControlField(recordCounter, ((Marc21Record) bibliographicRecord).getLeader());
-      countControlFields(recordCounter, ((Marc21Record) bibliographicRecord).getControlfields());
-    }
-    countDataFields(recordCounter, bibliographicRecord.getDatafields(), bibliographicRecord.getSchemaType(), cache);
-
-    frbrFunctionLister.calculatePercent(recordCounter);
-
-    frbrFunctionLister.add(recordCounter);
-    frbrFunctionLister.addToHistogram(recordCounter);
+    analyzer.consumeRecord(bibliographicRecord);
   }
 
-  private void countDataFields(Map<FRBRFunction, FunctionValue> recordCounter,
-                               List<DataField> dataFields,
-                               SchemaType schemaType,
-                               Map<DataFieldDefinition, Boolean> cache) {
-    for (DataField dataField : dataFields) {
-      DataFieldDefinition definition = dataField.getDefinition();
-      if (!cache.containsKey(definition)) {
-        cache.put(definition, true);
-        if (definition != null && schemaType.equals(SchemaType.MARC21)) {
-          countIndicator(recordCounter, definition.getInd1(), dataField.getInd1());
-          countIndicator(recordCounter, definition.getInd2(), dataField.getInd2());
-        }
-        if (schemaType.equals(SchemaType.MARC21)) {
-          for (MarcSubfield subfield : dataField.getSubfields())
-            if (subfield.getDefinition() != null && subfield.getDefinition().getFrbrFunctions() != null)
-              FrbrFunctionLister.countFunctions(subfield.getDefinition().getFrbrFunctions(), recordCounter);
-        } else if (schemaType.equals(SchemaType.PICA)) {
-          for (MarcSubfield subfield : dataField.getSubfields()) {
-            String key = dataField.getTag() + "$" + subfield.getCode();
-            if (frbrFunctionLister.getFunctionByPicaPath().containsKey(key))
-              FrbrFunctionLister.countFunctions(frbrFunctionLister.getFunctionByPicaPath().get(key), recordCounter);
-          }
-        }
-      }
-    }
-  }
-
-  private void countIndicator(Map<FRBRFunction, FunctionValue> recordCounter,
-                              Indicator definition,
-                              String value) {
-    if (definition.getFrbrFunctions() != null
-        && StringUtils.isNotBlank(value)) {
-      FrbrFunctionLister.countFunctions(
-        definition.getFrbrFunctions(), recordCounter);
-    }
-  }
-
-  private void countControlFields(Map<FRBRFunction, FunctionValue> recordCounter,
-                                  List<MarcControlField> controlFields) {
-    for (MarcControlField controlField : controlFields) {
-      if (controlField == null) {
-        continue;
-      }
-      if (controlField instanceof MarcPositionalControlField) {
-        countPositionalControlField(recordCounter, (MarcPositionalControlField) controlField);
-      } else {
-        FrbrFunctionLister.countFunctions(
-          controlField.getDefinition().getFrbrFunctions(), recordCounter
-        );
-      }
-    }
-  }
-
-  private void countPositionalControlField(Map<FRBRFunction, FunctionValue> recordCounter,
-                                           MarcPositionalControlField leader) {
-    for (ControlValue controlValue : leader.getValuesList()) {
-      FrbrFunctionLister.countFunctions(
-        controlValue.getDefinition().getFrbrFunctions(), recordCounter
-      );
-    }
-  }
 
   @Override
   public void beforeIteration() {
+    // Determine the analyzer to be used
+    if (parameters.isMarc21()) {
+      FrbrFunctionLister marc21FrbrFunctionLister = new Marc21FrbrFunctionLister(parameters.getMarcVersion());
+      analyzer = new Marc21FunctionalAnalyzer(marc21FrbrFunctionLister);
+    } else if (parameters.isPica()) {
+      FrbrFunctionLister picaFrbrFunctionLister = new PicaFrbrFunctionLister();
+      analyzer = new PicaFunctionalAnalyzer(picaFrbrFunctionLister);
+    } else if (parameters.isUnimarc()) {
+      FrbrFunctionLister unimarcFrbrFunctionLister = new UnimarcFrbrFunctionLister();
+      analyzer = new UnimarcFunctionalAnalyzer(unimarcFrbrFunctionLister);
+    } else {
+      throw new IllegalArgumentException("Unknown MARC format");
+    }
+
+    logger.info(() -> analyzer.getFrbrFunctionLister().getBaselineCounterMap().toString());
   }
 
   @Override
@@ -202,10 +137,10 @@ public class FunctionalAnalysis extends QACli<CompletenessParameters> implements
       fileExtension = ".tsv";
     }
 
-    Map<FRBRFunction, List<Double>> result = frbrFunctionLister.percentOf(recordNumber);
+    Map<FRBRFunction, List<Double>> result = analyzer.percentOf(recordNumber);
     saveResult(result, fileExtension, separator);
 
-    Map<FRBRFunction, Counter<FunctionValue>> percentHistogram = frbrFunctionLister.getHistogram();
+    Map<FRBRFunction, Counter<FunctionValue>> percentHistogram = analyzer.getHistogram();
     saveHistogram(percentHistogram, fileExtension, separator);
 
     saveMapping(fileExtension, separator);
@@ -214,11 +149,8 @@ public class FunctionalAnalysis extends QACli<CompletenessParameters> implements
 
   private void saveMapping(String fileExtension,
                            char separator) {
-    Map<FRBRFunction, List<String>> functions = null;
-    if (parameters.getSchemaType().equals(SchemaType.MARC21))
-      functions = frbrFunctionLister.getMarcPathByFunction();
-    else if (parameters.getSchemaType().equals(SchemaType.PICA))
-      functions = frbrFunctionLister.getPicaPathByFunctionConcensed();
+    Map<FRBRFunction, List<String>> functions;
+    functions = analyzer.getFrbrFunctionLister().getPathByFunction();
 
     var path = Paths.get(parameters.getOutputDir(), "functional-analysis-mapping" + fileExtension);
     try (var writer = Files.newBufferedWriter(path)) {
@@ -261,7 +193,7 @@ public class FunctionalAnalysis extends QACli<CompletenessParameters> implements
             .forEach(functionValue -> {
               Integer count = histogramOfFunction.get(functionValue);
               try {
-                writer.write(createRow(function, functionValue.getCount(), functionValue.getPercent(), count));
+                writer.write(createRow(function, functionValue.getCount(), functionValue.getPercentage(), count));
               } catch (IOException e) {
                 logger.log(Level.SEVERE, "saveHistogram", e);
               }
@@ -307,7 +239,7 @@ public class FunctionalAnalysis extends QACli<CompletenessParameters> implements
 
   @Override
   public void printHelp(Options options) {
-
+    // do nothing
   }
 
   @Override
@@ -315,7 +247,8 @@ public class FunctionalAnalysis extends QACli<CompletenessParameters> implements
     return readyToProcess;
   }
 
-  public FrbrFunctionLister getFrbrFunctionLister() {
-    return frbrFunctionLister;
+  public FunctionalAnalyzer getAnalyzer() {
+    return analyzer;
   }
+
 }

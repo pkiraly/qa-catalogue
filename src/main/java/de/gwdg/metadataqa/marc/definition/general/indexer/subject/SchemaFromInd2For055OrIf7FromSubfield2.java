@@ -1,45 +1,40 @@
 package de.gwdg.metadataqa.marc.definition.general.indexer.subject;
 
-import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.MarcSubfield;
-import de.gwdg.metadataqa.marc.definition.general.indexer.FieldIndexer;
-import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGenerator;
+import de.gwdg.metadataqa.marc.dao.DataField;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class SchemaFromInd2For055OrIf7FromSubfield2 extends SubjectIndexer implements FieldIndexer {
+public class SchemaFromInd2For055OrIf7FromSubfield2 extends SchemaIndicatorExtractor {
 
   @Override
-  public Map<String, List<String>> index(DataField dataField,
-                                         DataFieldKeyGenerator keyGenerator) {
-    Map<String, List<String>> indexEntries = new HashMap<>();
-    String schemaCode = dataField.getInd1();
-    String schemaAbbreviation;
-    if (schemaCode.equals("6")
-       || schemaCode.equals("7")
-       || schemaCode.equals("8")
-       || schemaCode.equals("9"))
+  protected String getSchemaAbbreviation(String indicatorSchemaCode, DataField dataField) {
+    if (indicatorSchemaCode.equals("6")
+      || indicatorSchemaCode.equals("7")
+      || indicatorSchemaCode.equals("8")
+      || indicatorSchemaCode.equals("9"))
     {
       List<MarcSubfield> subfield2s = dataField.getSubfield("2");
-      if (subfield2s == null || subfield2s.isEmpty())
-        return indexEntries;
-
-      schemaAbbreviation = subfield2s.get(0).getValue();
-    } else {
-      try {
-        schemaAbbreviation = ClassificationSchemes.getInstance().resolve(dataField.resolveInd1());
-      } catch (IllegalArgumentException e) {
-        schemaAbbreviation = dataField.getInd1().equals(" ") ? "" : dataField.getInd1();
+      if (subfield2s == null || subfield2s.isEmpty()) {
+        return null;
       }
+
+      return subfield2s.get(0).getValue();
     }
 
-    KeyValuesExtractor extractor = new KeyValuesExtractor(dataField, keyGenerator, schemaAbbreviation).invoke();
-    if (extractor.hadSuccess())
-      indexEntries.put(extractor.getKey(), extractor.getValues());
+    // Try to resolve the schema abbreviation from the indicator 1
+    // If successful, return the resolved schema abbreviation. Otherwise, return that schema abbreviation from
+    // the indicator 1.
+    try {
+      return ClassificationSchemes.getInstance().resolve(dataField.resolveInd2());
+    } catch (IllegalArgumentException e) {
+      return indicatorSchemaCode.equals(" ") ? "" : indicatorSchemaCode;
+    }
+  }
 
-    return indexEntries;
+  @Override
+  protected String getIndicatorSchemaCode(DataField dataField) {
+    return dataField.getInd2();
   }
 
   private static SchemaFromInd2For055OrIf7FromSubfield2 uniqueInstance;

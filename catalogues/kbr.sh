@@ -14,8 +14,8 @@ TYPE_PARAMS="${TYPE_PARAMS} --indexWithTokenizedField"
 TYPE_PARAMS="${TYPE_PARAMS} --indexFieldCounts"
 
 SHACL_PARAMS="--shaclConfigurationFile /opt/shacl4bib/kbr-full.yaml"
-SHACL_PARAMS="${SHACL_PARAMS} --shaclOutputType BOTH"
+SHACL_PARAMS="${SHACL_PARAMS} --shaclOutputType STATUS"
 
-MASK=kbr-*.gz
+MASK=${MASK:-kbr-*.gz}
 
 . ./common-script

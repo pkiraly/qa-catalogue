@@ -114,9 +114,6 @@ fail() {
   exit 1
 }
 
-echo ${1:-}
-exit
-
 # run actual analysis
 ./common-script ${1:-} || fail
 

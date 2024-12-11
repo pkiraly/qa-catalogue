@@ -139,10 +139,13 @@ do_shelf_ready_completeness() {
     --outputDir ${OUTPUT_DIR}/ \
     --trimId ${MARC_DIR}/${MASK} 2> ${LOG_DIR}/shelf-ready-completeness.log
 
-  Rscript scripts/shelf-ready/shelf-ready-histogram.R ${OUTPUT_DIR} &>> ${LOG_DIR}/shelf-ready-completeness.log
-
-  # for large files
-  # php scripts/shelf-ready-histogram.php ${OUTPUT_DIR} &>> ${LOG_DIR}/shelf-ready-completeness.log
+  # TODO: check if the file size is larger then 1G
+  if [[ "$TYPE_PARAMS" =~ --emptyLargeCollectors ]]; then
+    # for large files
+    php scripts/shelf-ready/shelf-ready-histogram.php ${OUTPUT_DIR} &>> ${LOG_DIR}/shelf-ready-completeness.log
+  else
+    Rscript scripts/shelf-ready/shelf-ready-histogram.R ${OUTPUT_DIR} &>> ${LOG_DIR}/shelf-ready-completeness.log
+  fi
 }
 
 do_bl_classification() {

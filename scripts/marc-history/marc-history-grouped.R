@@ -141,7 +141,7 @@ plot <- filtered %>%
 
 img_dir <- sprintf('%s/img', output_dir)
 if (!dir.exists(img_dir)) {
-  if (file.exists(img_dir) {
+  if (file.exists(img_dir)) {
     file.remove(img_dir)
   }
   dir.create(img_dir)

@@ -191,7 +191,7 @@ create_all_pictures <- function(dir, field, file_name) {
     print(paste('saving to directory ', img_dir))
 
     if (!dir.exists(img_dir)) {
-      if (file.exists(img_dir) {
+      if (file.exists(img_dir)) {
         file.remove(img_dir)
       }
       print(paste('creating directory ', img_dir))

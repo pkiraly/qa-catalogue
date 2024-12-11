@@ -12,6 +12,6 @@ TYPE_PARAMS="${TYPE_PARAMS} --ignorableFields 590,591,592,593,594,595,596,659,90
 # TYPE_PARAMS="${TYPE_PARAMS} --solrForScoresUrl http://localhost:8983/solr/kbr_scores"
 TYPE_PARAMS="${TYPE_PARAMS} --indexWithTokenizedField"
 TYPE_PARAMS="${TYPE_PARAMS} --indexFieldCounts"
-MASK=kbr-*.gz
+MASK=${MASK:-kbr-*.gz}
 
 . ./common-script

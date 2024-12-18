@@ -15,10 +15,15 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.lang3.StringUtils;
+import org.marc4j.MarcException;
+import org.marc4j.MarcXmlWriter;
 import org.marc4j.marc.Record;
 
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -40,6 +45,7 @@ public class Formatter implements BibliographicInputProcessor {
   private final FormatterParameters parameters;
   private final boolean readyToProcess;
   private BufferedWriter writer;
+  private MarcXmlWriter marcXmlWriter;
 
   public Formatter(String[] args) throws ParseException {
     parameters = new FormatterParameters(args);
@@ -103,6 +109,18 @@ public class Formatter implements BibliographicInputProcessor {
         logger.log(Level.WARNING, "beforeIteration", e);
       }
     }
+    if (parameters.getIds() != null && !parameters.getIds().isEmpty()
+        && parameters.getFormat().equals("xml")) {
+      var path = Paths.get(parameters.getOutputDir(), parameters.getFileName());
+      logger.info("path: " + path.toAbsolutePath());
+      try {
+        // outputStream = new FileOutputStream(path.toFile());
+        marcXmlWriter = new MarcXmlWriter(new FileOutputStream(path.toFile()));
+        marcXmlWriter.setIndent(true);
+      } catch (FileNotFoundException e) {
+        logger.log(Level.WARNING, "beforeIteration", e);
+      }
+    }
   }
 
   @Override
@@ -112,15 +130,28 @@ public class Formatter implements BibliographicInputProcessor {
 
   @Override
   public void processRecord(Record marc4jRecord, int recordNumber) throws IOException {
-    boolean hasSpecifiedId = parameters.hasId() &&
-      marc4jRecord.getControlNumber() != null &&
-      marc4jRecord.getControlNumber().trim().equals(parameters.getId());
+    String id = marc4jRecord.getControlNumber() != null ?
+      marc4jRecord.getControlNumber().trim() : null;
+
+    boolean hasSpecifiedId = parameters.hasId() && id != null && id.equals(parameters.getId());
+
+    if (!hasSpecifiedId)
+      hasSpecifiedId = id != null
+                       && parameters.getIds() != null
+                       && !parameters.getIds().isEmpty()
+                       && parameters.getIds().contains(id);
 
     boolean hasSpecifiedRecordNumber = parameters.getCountNr() > -1
       && parameters.getCountNr() == recordNumber;
 
     if (hasSpecifiedId || hasSpecifiedRecordNumber) {
-      logger.info(marc4jRecord::toString);
+      if (parameters.getFormat().equals("xml")) {
+        marcXmlWriter.write(marc4jRecord);
+        // MarcXmlWriter.writeSingleRecord(marc4jRecord, System.out, true);
+        // MarcXmlWriter.writeSingleRecord(marc4jRecord, outputStream, true);
+      } else {
+        logger.info(marc4jRecord::toString);
+      }
     }
   }
 
@@ -135,7 +166,6 @@ public class Formatter implements BibliographicInputProcessor {
       for (DataField field : marcRecord.getDatafields()) {
        logger.info(field.getTag());
       }
-      logger.info(() -> "has STA: " + marcRecord.hasDatafield("STA"));
     }
 
     if (parameters.hasSearch()) {
@@ -174,15 +204,20 @@ public class Formatter implements BibliographicInputProcessor {
 
   @Override
   public void afterIteration(int numberOfprocessedRecords, long duration) {
-    if (writer == null) {
-      return;
-    }
 
-    try {
-      writer.close();
-    } catch (IOException e) {
-      logger.log(Level.SEVERE, "afterIteration", e);
-    }
+    if (writer != null)
+      try {
+        writer.close();
+      } catch (IOException e) {
+        logger.log(Level.SEVERE, "afterIteration", e);
+      }
+
+    if (marcXmlWriter != null)
+      try {
+        marcXmlWriter.close();
+      } catch (MarcException e) {
+        logger.log(Level.SEVERE, "afterIteration", e);
+      }
   }
 
   private List<String> selectPicaResults(PicaRecord picaRecord) {

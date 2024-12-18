@@ -1100,7 +1100,10 @@ or with a bash script
 
 options:
 * [general parameters](#general-parameters)
-* `-f`, `--format`: the name of the format (at time of writing there is no any)
+* `-f`, `--format`: the MARC output format
+  * if not set, the output format follows the examples in the MARC21 
+    documentation (see the example below)
+  * `xml`: the output will be MARCXML
 * `-c <number>`, `-countNr <number>`: count number of the record (e.g. 1 means
   the first record)
 * `-s [path=query]`, `-search [path=query]`: print records matching the query.
@@ -1118,6 +1121,8 @@ options:
   (default: TAB)
 * `-e <file>`, `--fileName <file>`: the name of report the program produces
   (default: `extracted.csv`)
+* `-A <identifiers>`, `--ids <identifiers>`: a comma separated list of record 
+  identifiers 
 
 The output of displaying a single MARC record is something like this one:
 
@@ -1823,6 +1828,7 @@ options:
   with `_txt`). \[This parameter is available from v0.8.0\]
 * `-D <int>`, `--commitAt <int>`: commit index after this number of records \[This parameter is available from v0.8.0\]
 * `-E`, `--indexFieldCounts`: index the count of field instances \[This parameter is available from v0.8.0\]
+* `-G`, `--indexSubfieldCounts`: index the count of subfield instances \[This parameter is available from v0.8.0\]
 * `-F`, `--fieldPrefix <arg>`: field prefix
 
 The `./index` file (which is used by `catalogues/[catalogue].sh` and `./qa-catalogue` scripts) has additional parameters:

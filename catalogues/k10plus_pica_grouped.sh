@@ -16,7 +16,8 @@ TYPE_PARAMS="$TYPE_PARAMS --allowableRecords base64:"$(echo '002@.0 !~ "^L" && 0
 # TYPE_PARAMS="$TYPE_PARAMS --solrUrl http://localhost:8983/solr/k10plus_pica_grouped"
 TYPE_PARAMS="$TYPE_PARAMS --solrForScoresUrl http://localhost:8983/solr/k10plus_pica_grouped_validation"
 TYPE_PARAMS="$TYPE_PARAMS --indexWithTokenizedField"
-TYPE_PARAMS="$TYPE_PARAMS --indexFieldCounts"
+TYPE_PARAMS="$TYPE_PARAMS --indexFieldCounts --indexSubfieldCounts"
+TYPE_PARAMS="$TYPE_PARAMS --fieldPrefix bib"
 # MASK=sample.pica
 # =kxp-title_2022-09-30-groupped.dat.gz
 MASK=${MASK:=pica-with-holdings-info-1K.dat} # if not set in setdir.sh

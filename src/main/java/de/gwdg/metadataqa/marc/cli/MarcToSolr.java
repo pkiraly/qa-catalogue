@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.cli;
 
+import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.MarcToSolrParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
@@ -66,18 +67,18 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
   private void initialize() {
     options = parameters.getOptions();
 
-    client = parameters.useEmbedded()
+    client = parameters.isUseEmbedded()
       ? new MarcSolrClient(parameters.getMainClient())
       : new MarcSolrClient(parameters.getSolrUrl());
     client.setTrimId(parameters.getTrimId());
-    client.indexWithTokenizedField(parameters.indexWithTokenizedField());
+    client.indexWithTokenizedField(parameters.isIndexWithTokenizedField());
 
     if (parameters.getFieldPrefix() != null) {
       client.setFieldPrefix(parameters.getFieldPrefix());
     }
 
     if (parameters.getSolrForScoresUrl() != null) {
-      validationClient = parameters.useEmbedded()
+      validationClient = parameters.isUseEmbedded()
         ? new MarcSolrClient(parameters.getValidationClient())
         : new MarcSolrClient(parameters.getSolrForScoresUrl());
       validationClient.setTrimId(parameters.getTrimId());
@@ -144,23 +145,34 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
     // Add the record itself as a field to the index
     keyValuePairs.put("record_sni", Collections.singletonList(bibliographicRecord.asJson()));
 
+    // logger.info(bibliographicRecord.getId());
     SolrInputDocument solrDocument = client.createSolrDoc(bibliographicRecord.getId(), keyValuePairs);
     if (validationClient != null) {
       indexValidationResults(bibliographicRecord, solrDocument);
     }
 
-    if (parameters.indexFieldCounts()) {
+    if (parameters.isIndexFieldCounts() || parameters.isIndexSubfieldCounts()) {
       indexFieldCounts(bibliographicRecord, solrDocument);
     }
 
-    client.index(solrDocument);
+    try {
+      client.index(solrDocument);
+    } catch (Exception e) {
+      logger.severe(() -> "ERROR while index." + e.getLocalizedMessage());
+    }
 
     if (recordNumber % parameters.getCommitAt() != 0) {
       return;
     }
 
-    if (parameters.doCommit()) {
+    if (parameters.isDoCommit()) {
+      logger.info("do commit @" + recordNumber);
       client.commit();
+      long indexedRecordCount = client.getCount();
+      if (recordNumber != indexedRecordCount) {
+        logger.severe(String.format("recordNumber: %d != indexedRecordCount: %d", recordNumber, indexedRecordCount));
+      }
+      logger.info("/do commit @" + recordNumber);
     }
 
     String logMessage = String.format(
@@ -183,8 +195,17 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
     }
   }
 
-  private void indexFieldCounts(BibliographicRecord bibliographicRecord, SolrInputDocument document) {
-    Counter<String> fieldCounter = new Counter<>();
+  /**
+   * Index field and subfield counts. The solr field will look like <tag>_count_i and
+   * <tag><subfield code>_count_i, the value will be the number of times this element is
+   * available in the record.
+   *
+   * @param bibliographicRecord The bibliographic record
+   * @param document The Solr document
+   */
+  private void indexFieldCounts(BibliographicRecord bibliographicRecord,
+                                SolrInputDocument document) {
+    Counter<String> counter = new Counter<>();
     boolean isPica = bibliographicRecord.getSchemaType().equals(SchemaType.PICA);
     for (DataField field : bibliographicRecord.getDatafields()) {
       String tag;
@@ -196,10 +217,20 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
         tag = field.getTag();
       }
       String safeTag = escape(tag);
-      fieldCounter.count(safeTag);
+      if (parameters.isIndexFieldCounts())
+        counter.count(safeTag);
+
+      if (parameters.isIndexSubfieldCounts()) {
+        for (MarcSubfield subfield : field.getSubfields()) {
+          String safeSubfieldCode = DataFieldKeyGenerator.escape(subfield.getCode());
+          counter.count(safeTag + safeSubfieldCode);
+        }
+      }
     }
-    for (Map.Entry<String, Integer> entry : fieldCounter.entrySet()) {
-      document.addField(String.format("%s_count_i", entry.getKey()), entry.getValue());
+    for (Map.Entry<String, Integer> entry : counter.entrySet()) {
+      document.addField(String.format(
+        "%s%s_count_i",
+        parameters.getFieldPrefix(), entry.getKey()), entry.getValue());
     }
   }
 
@@ -228,7 +259,15 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
   @Override
   public void afterIteration(int numberOfprocessedRecords, long duration) {
     client.commit();
-    saveParameters("marctosolr.params.json", parameters, Map.of("numberOfprocessedRecords", numberOfprocessedRecords, "duration", duration));
+    logger.info(parameters.toString());
+    saveParameters(
+      "marctosolr.params.json",
+      parameters,
+      Map.of(
+        "numberOfprocessedRecords", numberOfprocessedRecords,
+        "duration", duration
+      )
+    );
   }
 
   @Override

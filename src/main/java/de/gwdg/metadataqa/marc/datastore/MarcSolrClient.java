@@ -9,6 +9,7 @@ import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.SolrInputDocument;
 import org.apache.solr.common.params.MapSolrParams;
+import org.apache.solr.common.util.NamedList;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -53,10 +54,14 @@ public class MarcSolrClient {
   public void index(SolrInputDocument document) {
     try {
       solrClient.add(document);
+      // logger.log(Level.INFO, document.getField("id").toString() + " indexed");
     } catch (BaseHttpSolrClient.RemoteSolrException | SolrServerException | IOException ex) {
       logger.log(Level.WARNING, "document", document);
       logger.log(Level.WARNING, "Commit exception", ex);
       throw new RuntimeException(ex);
+    } catch (Exception e) {
+      logger.log(Level.WARNING, "Other kind of commit exception", e);
+      throw new RuntimeException(e);
     }
   }
 
@@ -144,6 +149,18 @@ public class MarcSolrClient {
     } catch (SolrServerException | IOException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  public long getCount() {
+    try {
+      final QueryResponse response = solrClient.query(new MapSolrParams(Map.of(
+        "q", "*:*",
+        "rows", "0")));
+      return response.getResults().getNumFound();
+    } catch (SolrServerException | IOException e) {
+      logger.severe(e.getMessage());
+    }
+    return 0;
   }
 
   public boolean getTrimId() {

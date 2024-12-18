@@ -25,7 +25,7 @@ public class MarcToSolrParametersTest {
       assertFalse(parameters.doHelp());
 
       assertNull(parameters.getSolrUrl());
-      assertFalse(parameters.doCommit());
+      assertFalse(parameters.isDoCommit());
       assertNotNull(parameters.getSolrFieldType());
       assertEquals(SolrFieldType.MIXED, parameters.getSolrFieldType());
     } catch (ParseException e) {
@@ -61,7 +61,7 @@ public class MarcToSolrParametersTest {
     String[] arguments = new String[]{"--doCommit", "a-marc-file.mrc"};
     try {
       MarcToSolrParameters parameters = new MarcToSolrParameters(arguments);
-      assertTrue(parameters.doCommit());
+      assertTrue(parameters.isDoCommit());
     } catch (ParseException e) {
       e.printStackTrace();
     }

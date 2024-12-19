@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Path;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -207,6 +208,7 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
                                 SolrInputDocument document) {
     Counter<String> counter = new Counter<>();
     boolean isPica = bibliographicRecord.getSchemaType().equals(SchemaType.PICA);
+    Map<String, List<Integer>> subfields = new HashMap<>();
     for (DataField field : bibliographicRecord.getDatafields()) {
       String tag;
       if (field.getDefinition() != null) {
@@ -221,9 +223,15 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
         counter.count(safeTag);
 
       if (parameters.isIndexSubfieldCounts()) {
+        Counter<String> subfieldCounter = new Counter<>();
         for (MarcSubfield subfield : field.getSubfields()) {
           String safeSubfieldCode = DataFieldKeyGenerator.escape(subfield.getCode());
-          counter.count(safeTag + safeSubfieldCode);
+          subfieldCounter.count(safeTag + safeSubfieldCode);
+        }
+        for (Map.Entry<String, Integer> entry : subfieldCounter.entrySet()) {
+          if (!subfields.containsKey(entry.getKey()))
+            subfields.put(entry.getKey(), new ArrayList<>());
+          subfields.get(entry.getKey()).add(entry.getValue());
         }
       }
     }
@@ -231,6 +239,14 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
       document.addField(String.format(
         "%s%s_count_i",
         parameters.getFieldPrefix(), entry.getKey()), entry.getValue());
+    }
+
+    if (parameters.isIndexSubfieldCounts()) {
+      for (Map.Entry<String, List<Integer>> entry : subfields.entrySet()) {
+        document.addField(String.format(
+          "%s%s_count_is",
+          parameters.getFieldPrefix(), entry.getKey()), entry.getValue());
+      }
     }
   }
 

@@ -123,7 +123,7 @@ public class MarcToSolrParameters extends CommonParameters {
   }
 
   public String getFieldPrefix() {
-    return fieldPrefix;
+    return fieldPrefix != null ? fieldPrefix : "";
   }
 
   public void setFieldPrefix(String fieldPrefix) {

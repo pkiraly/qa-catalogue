@@ -15,9 +15,8 @@ echo "v2: '$VERSION'"
 if [[ -e build.sbt ]]; then
   rm build.sbt
 fi
-ln -s build-2.${VERSION}.tpl build.sbt
+ln -s "build-2.${VERSION}.tpl" build.sbt
 
 sbt clean compile package
 
 exit 0
-

@@ -55,17 +55,17 @@ filter_params() {
 # run validation
 do_validate() {
   GENERAL_PARAMS="--details --trimId --summary --format csv --defaultRecordType BOOKS"
-  OUTPUT_PARAMS="--outputDir ${OUTPUT_DIR} --detailsFileName issue-details.csv --summaryFileName issue-summary.csv"
+  OUTPUT_PARAMS="--outputDir $OUTPUT_DIR --detailsFileName issue-details.csv --summaryFileName issue-summary.csv"
   PARAMS=$(filter_params "validate")
   log "log file: ${LOG_DIR}/validate.log"
   run validate
-  ./validate ${GENERAL_PARAMS} ${OUTPUT_PARAMS} ${PARAMS} ${MARC_DIR}/$MASK 2> ${LOG_DIR}/validate.log
+  ./validate ${GENERAL_PARAMS} ${OUTPUT_PARAMS} ${PARAMS} "$MARC_DIR/$MASK" 2> "$LOG_DIR/validate.log"
 }
 
 do_prepare_solr() {
   log "log file: ${LOG_DIR}/solr.log"
   run prepare-solr
-  ./prepare-solr $NAME 2> ${LOG_DIR}/solr.log
+  ./prepare-solr "$NAME" 2> "$LOG_DIR/solr.log"
 }
 
 do_index() {
@@ -81,20 +81,20 @@ do_index() {
   # fi
   PARAMS="${PARAMS} --outputDir ${OUTPUT_DIR}"
 
-  ONLY_INDEX=$(echo ${PARAMS} | grep -c -P -e '--onlyIndex' || true)
+  ONLY_INDEX=$(echo "$PARAMS" | grep -c -P -e '--onlyIndex' || true)
   if [[ "${ONLY_INDEX}" == "0" ]]; then
     CORE=${NAME}_dev
   else
-    PARAMS=$(echo ${PARAMS} | sed -r 's/\s*--onlyIndex//')
+    PARAMS=$(echo "$PARAMS" | sed -r 's/\s*--onlyIndex//')
     CORE=${NAME}
   fi
-  ./index --core ${CORE} --file-path ${MARC_DIR} --file-mask $MASK ${PARAMS} --trimId 2>> ${LOG_DIR}/solr.log
+  ./index --core "$CORE" --file-path "$MARC_DIR" --file-mask "$MASK" ${PARAMS} --trimId 2>> "$LOG_DIR/solr.log"
 }
 
 do_postprocess_solr() {
   log "log file: ${LOG_DIR}/solr.log"
   run postprocess-solr
-  ./postprocess-solr $NAME 2>> ${LOG_DIR}/solr.log
+  ./postprocess-solr "$NAME" 2>> "$LOG_DIR/solr.log"
 }
 
 do_completeness() {
@@ -623,7 +623,7 @@ fatal() {
 
 # initialize environment, set default values
 # TODO: remove this because it's already done in ./qa-catalogue)
-NAME=${NAME:-$(basename $0 .sh)}
+NAME=${NAME:-$(basename "$0" .sh)}
 BASE_INPUT_DIR=${BASE_INPUT_DIR:-./input}
 BASE_OUTPUT_DIR=${BASE_OUTPUT_DIR:-./output}
 BASE_LOG_DIR=${BASE_LOG_DIR:-./logs}
@@ -664,22 +664,22 @@ done
 
 # check directories for processing commands
 if [[ "$datatask" = true ]]; then
-  ensure_dir $LOG_DIR
-  ensure_dir $OUTPUT_DIR
+  ensure_dir "$LOG_DIR"  
+  ensure_dir "$OUTPUT_DIR"
 
   log "input:  $MARC_DIR/$MASK"
   log "output: $OUTPUT_DIR"
   log "logs:   $LOG_DIR"
 
-  ls ${MARC_DIR}/${MASK} &> /dev/null || fatal "Missing input files: ${MARC_DIR}/${MASK}!\n"
+  ls "$MARC_DIR/$MASK" &> /dev/null || fatal "Missing input files: $MARC_DIR/$MASK!\n"
 
   if [[ -n "${UPDATE:-}" ]]; then
     log "update: $UPDATE"
-    echo "${UPDATE}" > "${OUTPUT_DIR}/last-update.csv"
+    echo "$UPDATE" > "$OUTPUT_DIR/last-update.csv"
   fi
 fi
 
-echo "tasks: ${tasks}"
+echo "tasks: $tasks"
 for task in ${tasks//,/ }; do
   case $task in
     validate)                 do_validate ; do_validate_sqlite ;;

@@ -17,6 +17,15 @@ log() {
   echo "$1"
 }
 
+# ensure there is a directory (possibly via symlink)
+ensure_dir() {
+  if [ -L "$1" ]; then
+    mkdir -p "$(realpath \"$1\")"
+  else
+    mkdir -p "$1"
+  fi
+}
+
 # define 'untrace' command to disable trace mode
 # remove all alias definitions
 unalias -a
@@ -233,7 +242,7 @@ do_pareto() {
 
   . ./common-variables
   if [[ "${WEB_DIR:-}" != "" ]]; then
-    mkdir -p $WEB_DIR/images
+    ensure_dir $WEB_DIR/images
     ln -s ${OUTPUT_DIR}/img $WEB_DIR/images/${NAME}
   fi
 }
@@ -456,7 +465,7 @@ EOF
 }
 
 do_export_schema_files() {
-  mkdir -p avram-schemas
+  ensure_dir -p avram-schemas
   run avram
 
   untrace
@@ -655,8 +664,8 @@ done
 
 # check directories for processing commands
 if [[ "$datatask" = true ]]; then
-  mkdir -p $LOG_DIR
-  mkdir -p $OUTPUT_DIR
+  ensure_dir $LOG_DIR
+  ensure_dir $OUTPUT_DIR
 
   log "input:  $MARC_DIR/$MASK"
   log "output: $OUTPUT_DIR"

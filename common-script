@@ -388,18 +388,18 @@ do_mysql() {
   # if [[ -e ${OUTPUT_DIR}/qa_catalogue.sqlite ]]; then
   #   rm ${OUTPUT_DIR}/qa_catalogue.sqlite
   # fi
-  mysql --defaults-extra-file=mysql.client.cnf ${NAME} -e "DROP TABLE IF EXISTS issue_details"
-  mysql --defaults-extra-file=mysql.client.cnf ${NAME} -e "DROP TABLE IF EXISTS issue_summary"
-  mysql --defaults-extra-file=mysql.client.cnf ${NAME} -e "DROP TABLE IF EXISTS issue_groups"
-  mysql --defaults-extra-file=mysql.client.cnf ${NAME} -e "DROP TABLE IF EXISTS id_groupid"
+  mysql --defaults-extra-file=mysql.client.cnf "$NAME" -e "DROP TABLE IF EXISTS issue_details"
+  mysql --defaults-extra-file=mysql.client.cnf "$NAME" -e "DROP TABLE IF EXISTS issue_summary"
+  mysql --defaults-extra-file=mysql.client.cnf "$NAME" -e "DROP TABLE IF EXISTS issue_groups"
+  mysql --defaults-extra-file=mysql.client.cnf "$NAME" -e "DROP TABLE IF EXISTS id_groupid"
 
-  HAS_GROUP_PARAM=$(echo ${TYPE_PARAMS} | grep -c -P -e '--groupBy [^-]' || true)
+  HAS_GROUP_PARAM=$(echo "$TYPE_PARAMS" | grep -c -P -e '--groupBy [^-]' || true)
   if [[ "${HAS_GROUP_PARAM}" == "0" ]]; then
     log "create DB structure"
-    mysql --defaults-extra-file=mysql.client.cnf ${NAME} < scripts/sqlite/qa_catalogue.mysql.sql
+    mysql --defaults-extra-file=mysql.client.cnf "$NAME" < scripts/sqlite/qa_catalogue.mysql.sql
   else
     log "create DB structure (grouped)"
-    mysql --defaults-extra-file=mysql.client.cnf ${NAME} < scripts/sqlite/qa_catalogue.grouped.mysql.sql
+    mysql --defaults-extra-file=mysql.client.cnf "$NAME" < scripts/sqlite/qa_catalogue.grouped.mysql.sql
   fi
 
   log "create importable files"
@@ -410,9 +410,9 @@ do_mysql() {
   # fi
 
   log "import issue details"
-  MYSQL_SEC_DIR=$(mysql --defaults-extra-file=mysql.client.cnf ${NAME} -e 'SHOW VARIABLES LIKE "secure_file_priv"\G' | grep 'Value:' | sed 's,\s*Value: ,,')
-  sudo cp ${OUTPUT_DIR}/issue-details-normalized.csv ${MYSQL_SEC_DIR}
-  mysql --defaults-extra-file=mysql.client.cnf ${NAME} -f << EOF
+  MYSQL_SEC_DIR=$(mysql --defaults-extra-file=mysql.client.cnf "$NAME" -e 'SHOW VARIABLES LIKE "secure_file_priv"\G' | grep 'Value:' | sed 's,\s*Value: ,,')
+  sudo cp ${OUTPUT_DIR}/issue-details-normalized.csv "$MYSQL_SEC_DIR"
+  mysql --defaults-extra-file=mysql.client.cnf "$NAME" -f << EOF
 LOAD DATA INFILE '${MYSQL_SEC_DIR}/issue-details-normalized.csv' 
 INTO TABLE issue_details
 FIELDS TERMINATED BY ',' 
@@ -423,8 +423,8 @@ EOF
   # sudo rm ${MYSQL_SEC_DIR}/issue-details-normalized.csv
 
   log "import issue summary"
-  sudo cp ${OUTPUT_DIR}/issue-summary.csv ${MYSQL_SEC_DIR}
-  mysql --defaults-extra-file=mysql.client.cnf ${NAME} -f << EOF
+  sudo cp "$OUTPUT_DIR/issue-summary.csv" "$MYSQL_SEC_DIR"
+  mysql --defaults-extra-file=mysql.client.cnf "$NAME" -f << EOF
 LOAD DATA INFILE '${MYSQL_SEC_DIR}/issue-summary.csv' 
 INTO TABLE issue_summary
 FIELDS TERMINATED BY ',' 
@@ -434,10 +434,10 @@ IGNORE 1 LINES;
 EOF
   # sudo rm ${MYSQL_SEC_DIR}/issue-summary.csv
 
-  if [[ "${HAS_GROUP_PARAM}" == "1" ]]; then
+  if [[ "$HAS_GROUP_PARAM" == "1" ]]; then
     log "import id_groupid"
-    sudo cp ${OUTPUT_DIR}/id-groupid.csv ${MYSQL_SEC_DIR}
-    sudo mysql --defaults-extra-file=mysql.client.cnf ${NAME} -f << EOF
+    sudo cp "$OUTPUT_DIR/id-groupid.csv" "$MYSQL_SEC_DIR"
+    sudo mysql --defaults-extra-file=mysql.client.cnf "$NAME" -f << EOF
 LOAD DATA INFILE '${MYSQL_SEC_DIR}/id-groupid.csv' 
 INTO TABLE id_groupid
 FIELDS TERMINATED BY ',' 
@@ -455,12 +455,12 @@ EOF
   #   rm ${OUTPUT_DIR}/id-groupid_noheader.csv
   # fi
 
-  if [[ "${HAS_GROUP_PARAM}" == "0" ]]; then
+  if [[ "$HAS_GROUP_PARAM" == "0" ]]; then
     log "index"
-    sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/modify-tables.sql &>> ${LOG_DIR}/mysql.log
+    sqlite3 "$OUTPUT_DIR/qa_catalogue.sqlite" < scripts/sqlite/modify-tables.sql &>> "$LOG_DIR/mysql.log"
   else
     log "index (grouped)"
-    mysql --defaults-extra-file=mysql.client.cnf ${NAME} < scripts/sqlite/modify-tables.grouped.mysql.sql &>> ${LOG_DIR}/mysql.log
+    mysql --defaults-extra-file=mysql.client.cnf "$NAME" < scripts/sqlite/modify-tables.grouped.mysql.sql &>> "$LOG_DIR/mysql.log"
   fi
 }
 
@@ -478,7 +478,7 @@ do_export_schema_files() {
 
 do_export_cli_parameters() {
   . ./common-variables
-  java -cp $JAR de.gwdg.metadataqa.marc.cli.CliParameterDefinitionsExporter \
+  java -cp "$JAR" de.gwdg.metadataqa.marc.cli.CliParameterDefinitionsExporter \
     | jq . > cli-parameter-definitions.json
   log "CLI parameters has been exported into cli-parameter-definitions.json"
 }
@@ -486,25 +486,25 @@ do_export_cli_parameters() {
 do_shacl4bib() {
   # note: SHACL specific parameters are missing here --shaclConfigurationFile, --shaclOutputType, --shaclOutputFile
   PARAMS=$(filter_params "shacl4bib")
-  log "log file: ${LOG_DIR}/shacl4bib.log"
+  log "log file: $LOG_DIR/shacl4bib.log"
 
   run shacl4bib
   ./shacl4bib --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${LOG_DIR}/shacl4bib.log
-  Rscript scripts/shacl4bib/shacl4bib.R ${OUTPUT_DIR}
+  Rscript scripts/shacl4bib/shacl4bib.R "$OUTPUT_DIR"
 
   log "import issue details"
   echo "DROP TABLE shacl;" > scripts/shacl4bib/shacl4bib.sql
-  head -1 ${OUTPUT_DIR}/shacl4bib.csv \
+  head -1 "$OUTPUT_DIR/shacl4bib.csv" \
     | sed 's/,/" VARCHAR(2), "/g' \
     | sed 's/^/CREATE TABLE shacl( "/' \
     | sed 's/id" VARCHAR(2)/id" VARCHAR(100)/' \
     | sed 's/$/" VARCHAR(2)\n);/' \
     | sed 's/,/,\n /g' >> scripts/shacl4bib/shacl4bib.sql
-  sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/shacl4bib/shacl4bib.sql
+  sqlite3 "$OUTPUT_DIR/qa_catalogue.sqlite" < scripts/shacl4bib/shacl4bib.sql
   rm scripts/shacl4bib/shacl4bib.sql
 
-  tail -n +2 ${OUTPUT_DIR}/shacl4bib.csv > ${OUTPUT_DIR}/shacl4bib-noheader.csv
-  sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
+  tail -n +2 "$OUTPUT_DIR/shacl4bib.csv" > "$OUTPUT_DIR/shacl4bib-noheader.csv"
+  sqlite3 "$OUTPUT_DIR/qa_catalogue.sqlite" << EOF
 .mode csv
 .import ${OUTPUT_DIR}/shacl4bib-noheader.csv shacl
 EOF
@@ -512,11 +512,11 @@ EOF
 }
 
 do_all_analyses() {
-  analysis_tasks=$(echo "${ANALYSES}" | tr , ' ')
+  analysis_tasks=$(echo "$ANALYSES" | tr , ' ')
   for task in $analysis_tasks; do
       declare -F "do_$task" > /dev/null || fatal "unknown analysis task: $task"
   done
-  for task in $(echo "${ANALYSES}" | tr , ' '); do
+  for task in $(echo "$ANALYSES" | tr , ' '); do
     do_$task
     echo "##"
     echo "## THE RESULT IS $?"
@@ -541,7 +541,7 @@ ME=$0
 cat <<END
 Run QA catalogue analyses
 
- ${ME} [VARIABLES] <COMMAND[,COMMAND...]>
+ $ME [VARIABLES] <COMMAND[,COMMAND...]>
 
 Commands:
   validate                   record validation
@@ -671,7 +671,8 @@ if [[ "$datatask" = true ]]; then
   log "output: $OUTPUT_DIR"
   log "logs:   $LOG_DIR"
 
-  ls "$MARC_DIR/$MASK" &> /dev/null || fatal "Missing input files: $MARC_DIR/$MASK!\n"
+  # shellcheck disable=SC2086
+  ls "$MARC_DIR/"$MASK &> /dev/null || fatal "Missing input files: $MARC_DIR/$MASK!\n"
 
   if [[ -n "${UPDATE:-}" ]]; then
     log "update: $UPDATE"

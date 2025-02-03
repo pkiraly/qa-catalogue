@@ -270,7 +270,8 @@ public class Validator extends AbstractValidator {
     DataFieldDefinition fieldDefinition = dao.getFieldDefinition();
     return new ValidationError(bibliographicRecord.getId(), fieldDefinition.getExtendedTag(),
         ValidationErrorType.FIELD_NONREPEATABLE,
-        String.format("there are %d instances", count),
+        // String.format("there are %d instances", count),
+        String.format("there are multiple instances", count),
         fieldDefinition.getDescriptionUrl()
     );
   }

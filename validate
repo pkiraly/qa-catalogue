@@ -1,7 +1,7 @@
 # Calling Validator
 . ./common-variables
 
-ME=$(basename $0)
+ME=$(basename "$0")
 
 show_usage() { # display help message
   cat <<EOF
@@ -66,8 +66,8 @@ LONG_OPTIONS="marcVersion:,help,nolog,limit:,offset:,id:,defaultRecordType:,fixA
 GETOPT=$(getopt \
   -o ${SHORT_OPTIONS} \
   --long ${LONG_OPTIONS} \
-  -n ${ME} -- "$@")
-eval set -- "${GETOPT}"
+  -n "$ME" -- "$@")
+eval set -- "$GETOPT"
 
 PARAMS=""
 HELP=0
@@ -122,6 +122,7 @@ fi
 
 CMD="/usr/bin/java -Xmx8g -cp $JAR de.gwdg.metadataqa.marc.cli.ValidatorCli"
 
-echo $CMD $PARAMS "$@"
+echo "$CMD" "$PARAMS" "$@"
 
+# shellcheck disable=SC2086
 $CMD $PARAMS "$@"

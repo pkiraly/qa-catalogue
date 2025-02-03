@@ -18,6 +18,7 @@ public class MarcToSolrParameters extends CommonParameters {
   private boolean isOptionSet = false;
   private int commitAt = DEFAULT_COMMIT_AT;
   private boolean indexFieldCounts = false;
+  private boolean indexSubfieldCounts = false;
   private String fieldPrefix = null;
 
   @Override
@@ -32,6 +33,7 @@ public class MarcToSolrParameters extends CommonParameters {
       options.addOption("C", "indexWithTokenizedField", false, "index data elements as tokenized field as well");
       options.addOption("D", "commitAt", true, "commit index after this number of records");
       options.addOption("E", "indexFieldCounts", false, "index the count of field instances");
+      options.addOption("G", "indexSubfieldCounts", false, "index the count of subfield instances");
       options.addOption("F", "fieldPrefix", true, "field prefix");
       isOptionSet = true;
     }
@@ -65,6 +67,9 @@ public class MarcToSolrParameters extends CommonParameters {
     if (cmd.hasOption("indexFieldCounts"))
       indexFieldCounts = true;
 
+    if (cmd.hasOption("indexSubfieldCounts"))
+      indexSubfieldCounts = true;
+
     if (cmd.hasOption("fieldPrefix"))
       fieldPrefix = cmd.getOptionValue("fieldPrefix");
   }
@@ -73,7 +78,7 @@ public class MarcToSolrParameters extends CommonParameters {
     return solrUrl;
   }
 
-  public boolean doCommit() {
+  public boolean isDoCommit() {
     return doCommit;
   }
 
@@ -97,11 +102,11 @@ public class MarcToSolrParameters extends CommonParameters {
     this.validationClient = validationClient;
   }
 
-  public boolean useEmbedded() {
+  public boolean isUseEmbedded() {
     return useEmbedded;
   }
 
-  public boolean indexWithTokenizedField() {
+  public boolean isIndexWithTokenizedField() {
     return indexWithTokenizedField;
   }
 
@@ -109,12 +114,16 @@ public class MarcToSolrParameters extends CommonParameters {
     return commitAt;
   }
 
-  public boolean indexFieldCounts() {
+  public boolean isIndexFieldCounts() {
     return indexFieldCounts;
   }
 
+  public boolean isIndexSubfieldCounts() {
+    return indexSubfieldCounts;
+  }
+
   public String getFieldPrefix() {
-    return fieldPrefix;
+    return fieldPrefix != null ? fieldPrefix : "";
   }
 
   public void setFieldPrefix(String fieldPrefix) {
@@ -130,6 +139,7 @@ public class MarcToSolrParameters extends CommonParameters {
     text += String.format("indexWithTokenizedField: %s%n", indexWithTokenizedField);
     text += String.format("commitAt: %s%n", commitAt);
     text += String.format("indexFieldCounts: %s%n", indexFieldCounts);
+    text += String.format("indexSubfieldCounts: %s%n", indexSubfieldCounts);
     text += String.format("fieldPrefix: %s%n", fieldPrefix);
     return text;
   }

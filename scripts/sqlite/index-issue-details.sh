@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
-#
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # calculate and store the aggregated number of instances and records
 # for issue types, categories and paths within each groups
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#
+set -ueo pipefail
 
 log() {
   echo "$(date +'%F %T')> $1"

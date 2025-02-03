@@ -143,7 +143,7 @@ public class ClassificationAnalysis extends QACli<ClassificationParameters> impl
     printClassificationsHistogram();
     printFrequencyExamples();
     printSchemaSubfieldsStatistics();
-    if (parameters.doCollectCollocations())
+    if (parameters.isDoCollectCollocations())
       printClassificationsCollocation();
     copySchemaFileToOutputDir();
     saveParameters("classifications.params.json", parameters, Map.of("numberOfprocessedRecords", numberOfprocessedRecords, "duration", duration));

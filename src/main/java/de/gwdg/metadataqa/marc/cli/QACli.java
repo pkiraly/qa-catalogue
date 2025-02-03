@@ -58,6 +58,7 @@ public abstract class QACli<T extends CommonParameters> {
     ObjectMapper mapper = new ObjectMapper();
     try {
       String json = mapper.writeValueAsString(parameters);
+      logger.info("json: " + json);
       Map<String, Object> configuration = mapper.readValue(json, new TypeReference<>(){});
       configuration.put("mqaf.version", de.gwdg.metadataqa.api.cli.Version.getVersion());
       configuration.put("qa-catalogue.version", de.gwdg.metadataqa.marc.cli.Version.getVersion());

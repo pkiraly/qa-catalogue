@@ -22,6 +22,7 @@ public class FormatterParameters extends CommonParameters {
   private boolean withId = false;
   private String separator = "\t";
   private String fileName = DEFAULT_FILE_NAME;
+  private List<String> ids;
 
   private boolean isOptionSet = false;
 
@@ -35,6 +36,7 @@ public class FormatterParameters extends CommonParameters {
       options.addOption("l", "selector", true, "selectors");
       options.addOption("w", "withId", false, "the generated CSV should contain record ID as first field");
       options.addOption("p", "separator", true, "separator between the parts (default: TAB)");
+      options.addOption("A", "ids", true, "list of identifiers separated by comma");
       options.addOption("e", "fileName", true, String.format("output file (default: %s)", DEFAULT_FILE_NAME));
       isOptionSet = true;
     }
@@ -80,6 +82,10 @@ public class FormatterParameters extends CommonParameters {
 
     if (cmd.hasOption("fileName"))
       fileName = cmd.getOptionValue("fileName");
+
+    if (cmd.hasOption("ids")) {
+      ids = List.of(cmd.getOptionValue("ids").split(","));
+    }
   }
 
   public String getFormat() {
@@ -126,6 +132,10 @@ public class FormatterParameters extends CommonParameters {
     return fileName;
   }
 
+  public List<String> getIds() {
+    return ids;
+  }
+
   @Override
   public String formatParameters() {
     String text = super.formatParameters();
@@ -135,6 +145,7 @@ public class FormatterParameters extends CommonParameters {
     text += String.format("withId: %s%n", withId);
     text += String.format("separator: %s%n", separator);
     text += String.format("outputFile: %s%n", fileName);
+    text += String.format("ids: %s%n", StringUtils.join(ids, ", "));
     return text;
   }
 

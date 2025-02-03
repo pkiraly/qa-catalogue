@@ -1,5 +1,7 @@
 package de.gwdg.metadataqa.marc.cli;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.TestUtils;
 import de.gwdg.metadataqa.marc.cli.parameters.MarcToSolrParameters;
@@ -234,6 +236,25 @@ public class MarcToSolrTest {
     }
 
     EmbeddedSolrClientFactory.shutDown();
+  }
+
+  @Test
+  public void jsonParameters() throws ParseException, JsonProcessingException {
+    String outputDir = TestUtils.getPath("output");
+    MarcToSolrParameters parameters = new MarcToSolrParameters(new String[]{
+      "--schemaType", "PICA",
+      "--marcFormat", "PICA_NORMALIZED",
+      "--outputDir", outputDir,
+      "--solrFieldType", "MIXED",
+      "--useEmbedded",
+      "--solrUrl", "http://localhost:8983/solr/k10plus_pica_grouped_dev",
+      "--solrForScoresUrl", "http://localhost:8983/solr/k10plus_pica_grouped_scores",
+      "--indexFieldCounts",
+      TestUtils.getPath("pica/pica-with-holdings-info.dat")
+    });
+    ObjectMapper mapper = new ObjectMapper();
+    String json = mapper.writeValueAsString(parameters);
+    System.err.println(json);
   }
 
   /**

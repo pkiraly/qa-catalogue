@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
-#
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Strores marc-elements.csv into SQLite
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#
+set -ueo pipefail
 
 log() {
   timestamp=`date +"%F %T"`

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 validate() {
-  npm run --silent avram -- -s $@
+  npm run --silent avram -- -s "$1"
 }
 
 validate avram-schemas/marc-schema.json

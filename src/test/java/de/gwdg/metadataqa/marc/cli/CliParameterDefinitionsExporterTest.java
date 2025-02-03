@@ -68,7 +68,7 @@ public class CliParameterDefinitionsExporterTest {
       assertEquals("the summary file name (provides a summary of issues, such as the number of instance and number of records having the particular issue)", firstItem.get("description"));
 
       assertTrue(parameters.containsKey("index"));
-      assertEquals(8, ((List) parameters.get("index")).size());
+      assertEquals(9, ((List) parameters.get("index")).size());
       firstItem = (Map) ((List) parameters.get("index")).get(0);
       assertEquals(4, firstItem.size());
       assertEquals("S", firstItem.get("short"));
@@ -125,7 +125,7 @@ public class CliParameterDefinitionsExporterTest {
       assertEquals("the report file name (default is serial-score.csv)", firstItem.get("description"));
 
       assertTrue(parameters.containsKey("formatter"));
-      assertEquals(7, ((List) parameters.get("formatter")).size());
+      assertEquals(8, ((List) parameters.get("formatter")).size());
       firstItem = (Map) ((List) parameters.get("formatter")).get(0);
       assertEquals(4, firstItem.size());
       assertEquals("l", firstItem.get("short"));

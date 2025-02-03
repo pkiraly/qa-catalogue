@@ -169,12 +169,15 @@ create_all_pictures <- function(dir, field, file_name) {
   csv_file <- sprintf('%s/%s', dir, file_name)
   print(paste('create_all_pictures from ', csv_file))
   df <- read_csv(csv_file, col_types = col_types)
+
+  print('the dataframe')
   print(df)
   df_summary <- df %>%
     group_by(documenttype) %>%
     summarise(count = n()) %>%
     mutate(machine_name = sub(' ', '-', tolower(documenttype)))
 
+  print('the summary frame')
   print(df_summary)
 
   nr_rows <- dim(df_summary)[1]
@@ -185,7 +188,13 @@ create_all_pictures <- function(dir, field, file_name) {
     picture <- create_plot(dir, field, row$documenttype)
 
     img_dir <- sprintf('%s/img', dir)
+    print(paste('saving to directory ', img_dir))
+
     if (!dir.exists(img_dir)) {
+      if (file.exists(img_dir)) {
+        file.remove(img_dir)
+      }
+      print(paste('creating directory ', img_dir))
       dir.create(img_dir)
     }
     ggsave(

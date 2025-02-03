@@ -91,7 +91,7 @@ public class ValidatorCliTest extends CliTestUtils {
       } else if (outputFile.equals("issue-summary.csv")) {
         assertEquals(58, lines.size());
         assertEquals("id,MarcPath,categoryId,typeId,type,message,url,instances,records", lines.get(0).trim());
-        assertTrue(lines.contains("20,036F$7,5,17,repetition of non-repeatable subfield,there are 2 instances,https://format.k10plus.de/k10plushelp.pl?cmd=kat&katalog=Standard&val=4180-4189,1,1"));
+        assertTrue(lines.contains("20,036F$7,5,17,repetition of non-repeatable subfield,there are multiple instances,https://format.k10plus.de/k10plushelp.pl?cmd=kat&katalog=Standard&val=4180-4189,1,1"));
         assertTrue(lines.contains("1,001@,3,9,undefined field,001@,,10,10"));
         assertTrue(lines.contains("2,001U,3,9,undefined field,001U,,10,10"));
         assertTrue(lines.contains("3,036F/01,3,9,undefined field,036F/01,,1,1"));

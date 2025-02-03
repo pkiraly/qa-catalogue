@@ -5,7 +5,7 @@
 . ./setdir.sh
 
 NAME=mokka
-TYPE_PARAMS="--marcxml --emptyLargeCollectors"
+TYPE_PARAMS="--marcxml --emptyLargeCollectors --indexWithTokenizedField"
 # TYPE_PARAMS="--marcVersion SZTE"
 MASK=all.xml.gz
 

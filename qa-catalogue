@@ -97,7 +97,7 @@ ENV_FILE:                 ${ENV_FILE:-}
 EOF
 
 # don't proceed if web configuration shall be updated but cannot do so
-if [[ ! -z "$WEB_CONFIG" ]]; then
+if [[ -n "$WEB_CONFIG" ]]; then
   if [[ ! -f "$WEB_CONFIG" ]]; then
     echo "web configuration file missing: $WEB_CONFIG" >&2
     exit 1
@@ -114,20 +114,17 @@ fail() {
   exit 1
 }
 
-echo ${1:-}
-exit
-
 # run actual analysis
-./common-script ${1:-} || fail
+./common-script "${1:-}" || fail
 
 # optionally update web configuration
-if [[ ! -z "$WEB_CONFIG" ]]; then
-  HAS_CATALOGUE=$(grep -cP '^\s*catalogue\s*=' $WEB_CONFIG || true)
-  if [[ $HAS_CATALOGUE == 1 ]]; then
-    grep -vP "^\s*catalogue\s*=" $WEB_CONFIG > /tmp/catalogue
-    mv /tmp/catalogue $WEB_CONFIG
+if [[ -n "$WEB_CONFIG" ]]; then
+  HAS_CATALOGUE=$(grep -cP '^\s*catalogue\s*=' "$WEB_CONFIG" || true)
+  if [[ "$HAS_CATALOGUE" == 1 ]]; then
+    grep -vP "^\s*catalogue\s*=" "$WEB_CONFIG" > /tmp/catalogue
+    mv /tmp/catalogue "$WEB_CONFIG"
   fi
-  echo "catalogue=$CATALOGUE" >> $WEB_CONFIG
+  echo "catalogue=$CATALOGUE" >> "$WEB_CONFIG"
 fi
 
 exit 0

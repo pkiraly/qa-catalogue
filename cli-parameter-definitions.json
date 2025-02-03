@@ -295,6 +295,12 @@
       "description": "index the count of field instances"
     },
     {
+      "short": "G",
+      "long": "indexSubfieldCounts",
+      "hasArg": false,
+      "description": "index the count of subfield instances"
+    },
+    {
       "short": "F",
       "long": "fieldPrefix",
       "hasArg": true,
@@ -426,6 +432,12 @@
       "long": "fileName",
       "hasArg": true,
       "description": "output file (default: extracted.csv)"
+    },
+    {
+      "short": "A",
+      "long": "ids",
+      "hasArg": true,
+      "description": "list of identifiers separated by comma"
     }
   ],
   "functional-analysis": [
@@ -462,6 +474,7 @@
       "description": "action: 'primary' (default), 'pairing'"
     }
   ],
+  "marc-history": [],
   "record-patterns": [
     {
       "short": "R",

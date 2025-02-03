@@ -165,7 +165,8 @@ public class DataFieldValidator extends AbstractValidator {
       SubfieldDefinition subfieldDefinition = entry.getKey();
       long count = entry.getValue();
       if (count > 1 && subfieldDefinition.getCardinality().equals(Cardinality.Nonrepeatable)) {
-        addError(subfieldDefinition, SUBFIELD_NONREPEATABLE, String.format("there are %d instances", count));
+        // addError(subfieldDefinition, SUBFIELD_NONREPEATABLE, String.format("there are %d instances", count));
+        addError(subfieldDefinition, SUBFIELD_NONREPEATABLE, String.format("there are multiple instances", count));
       }
     }
 

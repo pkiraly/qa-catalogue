@@ -360,7 +360,8 @@ EOF
   fi
 
   SOLR_FOR_SCORES_URL=$(echo $TYPE_PARAMS | grep -P -o --regexp='--solrForScoresUrl \K([^ ]+)' || true)
-  ONLY_INDEX=$(echo ${PARAMS} | grep -c -P -e '--onlyIndex' || true)
+  # FIXME: PARAMS is never set on command "validate-sqliate" (without "validate")
+  ONLY_INDEX=$(echo ${PARAMS:-} | grep -c -P -e '--onlyIndex' || true)
 
   if [[ "${HAS_GROUP_PARAM}" == "0" ]]; then
     log "index sqlite3"

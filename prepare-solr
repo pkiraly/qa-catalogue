@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
-#
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # create two Solr cores if the are not exist: <name>_1 and <name>_2
 # Theit physical location will remain <name>_1 and <name>_2, but they
 # will be accessible as <name> (for the current production)
 # and <name>_dev for the new version which is just in the creation.
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#
+set -ueo pipefail
 
 . ./solr-functions
 

@@ -13,8 +13,9 @@ TYPE_PARAMS="${TYPE_PARAMS} --ignorableFields 590,591,592,593,594,595,596,659,90
 TYPE_PARAMS="${TYPE_PARAMS} --indexWithTokenizedField"
 TYPE_PARAMS="${TYPE_PARAMS} --indexFieldCounts"
 
-SHACL_PARAMS="--shaclConfigurationFile /opt/shacl4bib/kbr-full.yaml"
-SHACL_PARAMS="${SHACL_PARAMS} --shaclOutputType STATUS"
+# TYPE_PARAMS="${TYPE_PARAMS} --shaclConfigurationFile /opt/shacl4bib/kbr-full.yaml"
+TYPE_PARAMS="${TYPE_PARAMS} --shaclConfigurationFile /home/qa_admin/git/data-validation-rules/kbr-full.yaml"
+TYPE_PARAMS="${TYPE_PARAMS} --shaclOutputType STATUS"
 
 MASK=${MASK:-kbr-*.gz}
 

@@ -42,6 +42,7 @@ public class Tag997 extends DataFieldDefinition {
       "h", "Rating2", "NR", // (text)
       "i", "Rating3", "NR", // (text)
       "t", "Document type", "NR", // (text)
+      "v", "inventory number", "NR", // (text)
       "*", "Link with identifier", "NR", // (number)
       "@", "Language of field", "NR",
       "#", "number/occurrence of field", "NR" // (number)
@@ -54,6 +55,7 @@ public class Tag997 extends DataFieldDefinition {
     getSubfield("h").setMqTag("rating2");
     getSubfield("i").setMqTag("rating3");
     getSubfield("t").setMqTag("documentType");
+    getSubfield("v").setMqTag("inventoryNumber");
     getSubfield("*").setMqTag("link");
     getSubfield("@").setMqTag("language");
     getSubfield("#").setMqTag("number");

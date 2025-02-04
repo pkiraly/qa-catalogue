@@ -5,15 +5,13 @@ SOLR_HOST=${SOLR_HOST:-http://localhost:${PORT:-8983}}
 check_core() {
   LOCAL_CORE=$1
   LOCAL_URL=$(printf "%s/solr/admin/cores?action=STATUS&core=%s" $SOLR_HOST $LOCAL_CORE)
-  CORE_EXISTS=$(curl -s "$LOCAL_URL" | jq .status | grep "\"$LOCAL_CORE\":" | grep -c -P '{$')
-  # use echo instead of return
-  echo $CORE_EXISTS
+  curl -s "$LOCAL_URL" | jq "if .status[]|keys|length>0 then 1 else 0 end"
 }
 
 create_core() {
   LOCAL_CORE=$1
   echo "creating Solr index: ${LOCAL_CORE} at $SOLR_HOST"
-  curl -s "$SOLR_HOST/solr/admin/cores?action=CREATE&name=$LOCAL_CORE&configSet=_default"
+  curl -s "$SOLR_HOST/solr/admin/cores?action=CREATE&name=$LOCAL_CORE&configSet=/opt/solr/server/solr/configsets/_default"
 }
 
 rename_core() {

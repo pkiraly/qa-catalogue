@@ -373,8 +373,8 @@ EOF
     fi
   else
     log "index (grouped)"
-    scripts/sqlite/index-issue-details.sh ${OUTPUT_DIR} ${NAME} ${HAS_GROUP_PARAM} ${ONLY_INDEX} ${SOLR_FOR_SCORES_URL}
-    scripts/sqlite/calculate-aggregated-numbers.grouped.sh ${OUTPUT_DIR} ${NAME} ${HAS_GROUP_PARAM} ${SOLR_FOR_SCORES_URL}
+    scripts/sqlite/index-issue-details.sh "$OUTPUT_DIR" "$NAME" "$HAS_GROUP_PARAM" "$ONLY_INDEX" "$SOLR_FOR_SCORES_URL"
+    scripts/sqlite/calculate-aggregated-numbers.grouped.sh "$OUTPUT_DIR" "$NAME" "$SOLR_FOR_SCORES_URL"
   fi
 }
 

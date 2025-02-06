@@ -9,14 +9,14 @@ PORT=8983
 
 . ./solr-functions
 
-ME=$(basename $0)
+ME=$(basename "$0")
 
 show_usage() { # display help message
   cat <<EOF
 QA catalogue Indexing MARC records with Solr
 
 usage:
- ${ME} [options] <files>
+ $ME [options] <files>
 
 options:
  -m, --marcVersion <arg>              MARC version ('OCLC' or 'DNB')
@@ -79,10 +79,10 @@ SHORT_OPTIONS="m:hnl:o:i:d:qabpxyt:rz:v:f:s:g:1:2:u:j:w:k:c:e:3:4:S:AT:BCD:EF:GZ
 LONG_OPTIONS="marcVersion:,help,nolog,limit:,offset:,id:,defaultRecordType:,fixAlephseq,fixAlma,fixKbr,alephseq,marcxml,lineSeparated,outputDir:,trimId,ignorableFields:,ignorableRecords:,marcFormat:,dataSource:,defaultEncoding:,alephseqLineType:,picaIdField:,picaSubfieldSeparator:,picaSchemaFile:,schemaType:,picaRecordType:,allowableRecords:,groupBy:,groupListFile:,solrForScoresUrl:,solrUrl:,doCommit,solrFieldType:,useEmbedded,indexWithTokenizedField,commitAt:,indexFieldCounts,fieldPrefix:,indexSubfieldCounts,core:,file-path:,file-mask:,purge,status,no-delete"
 
 GETOPT=$(getopt \
-  -o ${SHORT_OPTIONS} \
-  --long ${LONG_OPTIONS} \
-  -n ${ME} -- "$@")
-eval set -- "${GETOPT}"
+  -o "$SHORT_OPTIONS" \
+  --long "$LONG_OPTIONS" \
+  -n "$ME" -- "$@")
+eval set -- "$GETOPT"
 
 CORE=""
 FILE_PATH=0
@@ -146,37 +146,37 @@ while true ; do
   esac
 done
 
-if [[ $HELP -eq 1 ]]; then
+if [[ "$HELP" -eq 1 ]]; then
   show_usage
 fi
 
-if [[ $DO_STATUS -eq 1 ]]; then
+if [[ "$DO_STATUS" -eq 1 ]]; then
   status
   exit 0;
 fi
 
-if [[ "${SOLR_URL}" == "" ]]; then
-  SOLR_URL="${SOLR_HOST}/solr/${CORE}"
-  PARAMS="${PARAMS} --solrUrl ${SOLR_URL}"
+if [[ "$SOLR_URL" == "" ]]; then
+  SOLR_URL="$SOLR_HOST/solr/$CORE"
+  PARAMS="$PARAMS --solrUrl $SOLR_URL"
 else
     # HAS_GROUP_PARAM=$(echo ${TYPE_PARAMS} | grep -c -P -e '--groupBy [^-]' || true)
-  SOLR_HOST=$(echo $SOLR_URL | grep -oP "^https?://[^/]+" || true)
-  CORE=$(echo $SOLR_URL | grep -oP "[^/]+$" || true)
+  SOLR_HOST=$(echo "$SOLR_URL" | grep -oP "^https?://[^/]+" || true)
+  CORE=$(echo "$SOLR_URL" | grep -oP "[^/]+$" || true)
 fi
-echo "SOLR URL: ${SOLR_URL}"
-echo "SOLR HOST: ${SOLR_HOST}"
-echo "CORE: ${CORE}"
+echo "SOLR URL: $SOLR_URL"
+echo "SOLR HOST: $SOLR_HOST"
+echo "CORE: $CORE"
 
-if [[ "${DO_PURGE}" == "1" ]]; then
-  purge_and_exit ${CORE}
+if [[ "$DO_PURGE" == "1" ]]; then
+  purge_and_exit "$CORE"
 fi
 
-if [[ "${SKIP_DELETE}" == "0" ]]; then
-  purge_core $CORE
+if [[ "$SKIP_DELETE" == "0" ]]; then
+  purge_core "$CORE"
 fi
 
 echo "Start indexing"
-curl -s $SOLR_URL/update -H "Content-type: text/xml" --data-binary '<commit/>'
+curl -s "$SOLR_URL/update" -H "Content-type: text/xml" --data-binary '<commit/>'
 
 # cat <<EOT
 # running the command
@@ -208,8 +208,9 @@ CMD="/usr/bin/java -Xmx2g -cp $JAR de.gwdg.metadataqa.marc.cli.MarcToSolr"
 
 # echo $CMD $PARAMS "$@"
 # $CMD $PARAMS "$@"
-echo $CMD $PARAMS ${FILE_PATH}/${FILE_MASK}
-$CMD $PARAMS ${FILE_PATH}/${FILE_MASK}
+echo "$CMD $PARAMS ${FILE_PATH}/${FILE_MASK}"
+# shellcheck disable=SC2206
+$CMD $PARAMS "$FILE_PATH"/${FILE_MASK}
 
 # /usr/bin/java -cp $JAR de.gwdg.metadataqa.marc.cli.MarcToSolr \
 #   --solrUrl ${SOLR_DB_URL} --solrFieldType $solrFieldType \
@@ -221,9 +222,9 @@ $CMD $PARAMS ${FILE_PATH}/${FILE_MASK}
 #   ${FILE_PATH}/${FILE_MASK}
 
 echo "Start optimizing"
-optimize_core $CORE
+optimize_core "$CORE"
 
 echo "store field list to JSON file"
-store_fields ${SOLR_DB_URL} ${OUTPUT_DIR}
+store_fields "$SOLR_DB_URL" "$OUTPUT_DIR"
 
 echo "indexing DONE"

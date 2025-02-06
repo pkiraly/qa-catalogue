@@ -4,62 +4,57 @@ SOLR_HOST=${SOLR_HOST:-http://localhost:${PORT:-8983}}
 
 check_core() {
   LOCAL_CORE=$1
-  LOCAL_URL=$(printf "%s/solr/admin/cores?action=STATUS&core=%s" $SOLR_HOST $LOCAL_CORE)
-  CORE_EXISTS=$(curl -s "$LOCAL_URL" | jq .status | grep "\"$LOCAL_CORE\":" | grep -c -P '{$')
-  # use echo instead of return
-  echo $CORE_EXISTS
+  LOCAL_URL=$(printf "%s/solr/admin/cores?action=STATUS&core=%s" "$SOLR_HOST" "$LOCAL_CORE")
+  curl -s "$LOCAL_URL" | jq .status | grep "\"$LOCAL_CORE\":" | grep -c -P '{$'
 }
 
 create_core() {
   LOCAL_CORE=$1
-  echo "creating Solr index: ${LOCAL_CORE} at $SOLR_HOST"
+  echo "creating Solr index: $LOCAL_CORE at $SOLR_HOST"
   curl -s "$SOLR_HOST/solr/admin/cores?action=CREATE&name=$LOCAL_CORE&configSet=_default"
 }
 
 rename_core() {
   LOCAL_FROM=$1
   LOCAL_TO=$2
-
-  echo "rename Solr index: ${LOCAL_FROM} to ${LOCAL_TO}"
-  curl -s "$SOLR_HOST/solr/admin/cores?action=RENAME&core=${LOCAL_FROM}&other=${LOCAL_TO}"
+  echo "rename Solr index: $LOCAL_FROM to $LOCAL_TO"
+  curl -s "$SOLR_HOST/solr/admin/cores?action=RENAME&core=$LOCAL_FROM&other=$LOCAL_TO"
 }
 
 swap_cores() {
   LOCAL_FROM=$1
   LOCAL_TO=$2
-
-  echo "Swap Solr indexes ${LOCAL_FROM} and ${LOCAL_TO}"
-  curl -s "$SOLR_HOST/solr/admin/cores?action=SWAP&core=${LOCAL_FROM}&other=${LOCAL_TO}"
+  echo "Swap Solr indexes $LOCAL_FROM and $LOCAL_TO"
+  curl -s "$SOLR_HOST/solr/admin/cores?action=SWAP&core=$LOCAL_FROM&other=$LOCAL_TO"
 }
 
 prepare_schema() {
   LOCAL_CORE=$1
-  SCHEMA_URL="${SOLR_HOST}/api/cores/${LOCAL_CORE}/schema"
+  SCHEMA_URL="$SOLR_HOST/api/cores/$LOCAL_CORE/schema"
 
-  echo "prepare_schema ${LOCAL_CORE}"
+  echo "prepare_schema $LOCAL_CORE"
 
   HAS_PROPER_SNI=$(curl -is "$SCHEMA_URL/dynamicfields/*_sni" | grep -c '"type":"string_big"')
-  echo "Does ${LOCAL_CORE} have proper *_sni field definition? Answer: ${HAS_PROPER_SNI}"
-  if [[ $HAS_PROPER_SNI -eq 0 ]]; then
-
+  echo "Does $LOCAL_CORE have proper *_sni field definition? Answer: $HAS_PROPER_SNI"
+  if [[ "$HAS_PROPER_SNI" -eq 0 ]]; then
     HAS_FIELD=$(curl -is "$SCHEMA_URL/dynamicfields/*_sni" | head -1 | grep -c "200 OK")
-    echo "Does ${LOCAL_CORE} have  *_sni field definition? Answer: ${HAS_FIELD}"
+    echo "Does $LOCAL_CORE have  *_sni field definition? Answer: $HAS_FIELD"
     if [[ $HAS_FIELD -eq 1 ]]; then
-      echo "Delete *_sni field definition from ${LOCAL_CORE}."
+      echo "Delete *_sni field definition from $LOCAL_CORE."
       curl -X POST -H 'Content-type:application/json' --data-binary '{
         "delete-dynamic-field":{"name":"*_sni",}
-      }' $SCHEMA_URL
+      }' "$SCHEMA_URL"
     fi
 
     HAS_TYPE=$(curl -is "$SCHEMA_URL/fieldtypes/string_big" | head -1 | grep -c "200 OK")
-    if [[ $HAS_TYPE -eq 1 ]]; then
-      echo "Delete string_big field type definition from ${LOCAL_CORE}."
+    if [[ "$HAS_TYPE" -eq 1 ]]; then
+      echo "Delete string_big field type definition from $LOCAL_CORE."
       curl -X POST -H 'Content-type:application/json' --data-binary '{
         "delete-field-type":{"name":"string_big",}
-      }' $SCHEMA_URL
+      }' "$SCHEMA_URL"
     fi
 
-    echo "Create string_big field type definition in ${LOCAL_CORE}."
+    echo "Create string_big field type definition in $LOCAL_CORE."
     curl -X POST -H 'Content-type:application/json' --data-binary '{
       "add-field-type" : {
         "name":"string_big",
@@ -73,9 +68,9 @@ prepare_schema() {
           },
         }
       }
-    }' $SCHEMA_URL
+    }' "$SCHEMA_URL"
 
-    echo "Create *_sni dynamic field definition in ${LOCAL_CORE}."
+    echo "Create *_sni dynamic field definition in $LOCAL_CORE."
     curl -X POST -H 'Content-type:application/json' --data-binary '{
       "add-dynamic-field":{
         "name":"*_sni",
@@ -84,50 +79,50 @@ prepare_schema() {
         "indexed":false,
         "docValues":false,
         "multiValued":false,
-    }}' $SCHEMA_URL
+    }}' "$SCHEMA_URL"
   fi
 
   NUMBER_OF_COPY_FIELD=$(curl -is "$SCHEMA_URL/copyfields?source.fl=*_ss" | grep -c '"source":"\*_ss"')
-  echo "NUMBER_OF_COPY_FIELD: ${NUMBER_OF_COPY_FIELD}"
-  if [[ $NUMBER_OF_COPY_FIELD -eq 0 ]]; then
-    echo "add *_ss copyfield definition to ${LOCAL_CORE}"
+  echo "NUMBER_OF_COPY_FIELD: $NUMBER_OF_COPY_FIELD"
+  if [[ "$NUMBER_OF_COPY_FIELD" -eq 0 ]]; then
+    echo "add *_ss copyfield definition to $LOCAL_CORE"
     # add _ss
     # <copyField source="*_ss" dest="_text_"/>
     curl -X POST -H 'Content-type:application/json' --data-binary '{
       "add-copy-field":{
         "source":"*_ss",
         "dest":"_text_"
-    }}' $SCHEMA_URL
-  elif [[ $NUMBER_OF_COPY_FIELD -gt 1 ]]; then
-    while [[ $NUMBER_OF_COPY_FIELD -gt 1 ]]; do
+    }}' "$SCHEMA_URL"
+  elif [[ "$NUMBER_OF_COPY_FIELD" -gt 1 ]]; then
+    while [[ "$NUMBER_OF_COPY_FIELD" -gt 1 ]]; do
       echo "delete extra copy fields"
       curl -s -X POST -H 'Content-type:application/json' --data-binary '{
         "delete-copy-field":{ "source":"*_ss", "dest":"_text_" }
-      }' $SCHEMA_URL
+      }' "$SCHEMA_URL"
       NUMBER_OF_COPY_FIELD=$(curl -is "$SCHEMA_URL/copyfields?source.fl=*_ss" | grep -c '"source":"\*_ss"')
     done
   fi
 
   HAS_PROPER_TT=$(curl -is "$SCHEMA_URL/dynamicfields/*_tt" | grep -c '"type":"text_general"')
-  echo "Does ${LOCAL_CORE} have proper *_tt field definition? Answer: ${HAS_PROPER_TT}"
-  if [[ $HAS_PROPER_TT -eq 0 ]]; then
+  echo "Does $LOCAL_CORE have proper *_tt field definition? Answer: $HAS_PROPER_TT"
+  if [[ "$HAS_PROPER_TT" -eq 0 ]]; then
     # add _tt
     # <dynamicField name="*_tt" type="text_general" indexed="true" stored="false"/>
-    echo "Create *_tt dynamic field definition in ${LOCAL_CORE}."
+    echo "Create *_tt dynamic field definition in $LOCAL_CORE."
     curl -X POST -H 'Content-type:application/json' --data-binary '{
       "add-dynamic-field":{
         "name":"*_tt",
         "type":"text_general",
         "stored":false,
         "indexed":true,
-    }}' $SCHEMA_URL
+    }}' "$SCHEMA_URL"
   fi
 }
 
 status() {
-  echo "Solr index status at ${SOLR_HOST}"
+  echo "Solr index status at $SOLR_HOST"
   echo 
-  curl -s "${SOLR_HOST}/solr/admin/cores?action=STATUS" \
+  curl -s "$SOLR_HOST/solr/admin/cores?action=STATUS" \
     | jq . \
     | grep instanceDir \
     | head -1 \
@@ -136,24 +131,24 @@ status() {
     | xargs -I '@@' echo "Solr directory: @@"
 
   FORMAT="%-20s | %-15s | %10s | %10s | %19s\n"
-  printf "${FORMAT}" "core" "location" "nr of docs" "size" "last modified"
-  printf "${FORMAT}" "...................." "..............." ".........." ".........." "..................."
-  curl -s "${SOLR_HOST}/solr/admin/cores?action=STATUS" \
+  printf "$FORMAT" "core" "location" "nr of docs" "size" "last modified"
+  printf "$FORMAT" "...................." "..............." ".........." ".........." "..................."
+  curl -s "$SOLR_HOST/solr/admin/cores?action=STATUS" \
     | jq '.status[] | [.name, .instanceDir, .index.numDocs, .index.size, .index.lastModified]' \
     | sed -r 's,".*/server/solr/(.+)",\1,' \
     | paste - - - - - - - \
     | sed -r 's,(\[|]|\t|\,),,g' \
     | sed -r 's,([0-9])T([0-9]),\1 \2,g' \
     | sed -r 's,\.[0-9]{3}Z,,g' \
-    | xargs printf "${FORMAT}"
+    | xargs printf "$FORMAT"
   exit 1
 }
 
 purge_core() {
   LOCAL_CORE=$1
-  SOLR_DB_URL="${SOLR_HOST}/solr/${LOCAL_CORE}"
-  echo "Delete records in ${SOLR_DB_URL}"
-  curl -s $SOLR_DB_URL/update \
+  SOLR_DB_URL="$SOLR_HOST/solr/$LOCAL_CORE"
+  echo "Delete records in $SOLR_DB_URL"
+  curl -s "$SOLR_DB_URL/update" \
        -H "Content-type: text/xml" \
        --data-binary '<delete><query>*:*</query></delete>' \
        > /dev/null
@@ -161,8 +156,8 @@ purge_core() {
 
 optimize_core() {
   LOCAL_CORE=$1
-  SOLR_DB_URL="${SOLR_HOST}/solr/${LOCAL_CORE}"
-  echo "Optimizing ${SOLR_DB_URL}"
+  SOLR_DB_URL="$SOLR_HOST/solr/$LOCAL_CORE"
+  echo "Optimizing $SOLR_DB_URL"
   curl -s "$SOLR_DB_URL/update?optimize=true" \
        -H 'Content-type: text/xml' \
        --data-binary '<commit/>' \
@@ -171,9 +166,9 @@ optimize_core() {
 
 purge_and_exit() {
   LOCAL_CORE=$1
-  if [[ "$LOCAL_CORE" != "" ]]; then
-    purge_core $LOCAL_CORE
-    optimize_core $LOCAL_CORE
+  if [[ -n "$LOCAL_CORE" ]]; then
+    purge_core "$LOCAL_CORE"
+    optimize_core "$LOCAL_CORE"
   else
     echo "You should give the name with --core parameter"
   fi
@@ -183,21 +178,21 @@ purge_and_exit() {
 store_fields() {
   SOLR_URL=$1
   OUTPUT_DIR=$2
-  echo "Store fields into ${OUTPUT_DIR}/solr-fields.json"
-  echo "curl -s \"${SOLR_URL}/admin/luke?wt=json\" | jq '.fields | keys_unsorted'"
-  curl -s "${SOLR_URL}/admin/luke?wt=json" \
+  echo "Store fields into $OUTPUT_DIR/solr-fields.json"
+  echo "curl -s \"$SOLR_URL/admin/luke?wt=json\" | jq '.fields | keys_unsorted'"
+  curl -s "$SOLR_URL/admin/luke?wt=json" \
     | jq '.fields | keys_unsorted' \
-    > $OUTPUT_DIR/solr-fields.json
+    > "$OUTPUT_DIR/solr-fields.json"
 }
 
 extract_host() {
   URL=$1
-  HOST=$(echo ${URL} | grep -oP "^https?://[^/]+" || true)
-  echo ${HOST}
+  HOST=$(echo "$URL" | grep -oP "^https?://[^/]+" || true)
+  echo "$HOST"
 }
 
 extract_core() {
   URL=$1
-  CORE=$(echo ${URL} | grep -oP "[^/]+$" || true)
-  echo ${CORE};
+  CORE=$(echo "$URL" | grep -oP "[^/]+$" || true)
+  echo "$CORE"
 }

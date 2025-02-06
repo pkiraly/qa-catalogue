@@ -19,11 +19,11 @@ log() {
 
 # ensure there is a directory (possibly via symlink)
 ensure_dir() {
-  if [ -L "$1" ]; then
-    mkdir -p "$(realpath \"$1\")"
-  else
-    mkdir -p "$1"
+  DIR=$1
+  if [ -L "$DIR" ]; then
+    DIR=$(realpath "$1")
   fi
+  mkdir -p "$DIR"
 }
 
 # define 'untrace' command to disable trace mode
@@ -59,7 +59,8 @@ do_validate() {
   PARAMS=$(filter_params "validate")
   log "log file: ${LOG_DIR}/validate.log"
   run validate
-  ./validate ${GENERAL_PARAMS} ${OUTPUT_PARAMS} ${PARAMS} "$MARC_DIR/$MASK" 2> "$LOG_DIR/validate.log"
+  # shellcheck disable=SC2206
+  ./validate ${GENERAL_PARAMS} ${OUTPUT_PARAMS} ${PARAMS} "$MARC_DIR"/$MASK 2> "$LOG_DIR/validate.log"
 }
 
 do_prepare_solr() {
@@ -88,6 +89,7 @@ do_index() {
     PARAMS=$(echo "$PARAMS" | sed -r 's/\s*--onlyIndex//')
     CORE=${NAME}
   fi
+  # shellcheck disable=SC2206
   ./index --core "$CORE" --file-path "$MARC_DIR" --file-mask "$MASK" ${PARAMS} --trimId 2>> "$LOG_DIR/solr.log"
 }
 
@@ -101,120 +103,130 @@ do_completeness() {
   PARAMS=$(filter_params "completeness")
   log "log file: ${LOG_DIR}/completeness.log"
   run completeness
-  ./completeness --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${LOG_DIR}/completeness.log
+  # shellcheck disable=SC2206
+  ./completeness --defaultRecordType BOOKS ${PARAMS} --outputDir "$OUTPUT_DIR"/ "$MARC_DIR"/${MASK} 2> "$LOG_DIR/completeness.log"
 }
 
 do_completeness_sqlite() {
   run completeness_sqlite
 
   untrace
-  HAS_GROUP_PARAM=$(echo ${TYPE_PARAMS} | grep -c -P -e '--groupBy [^-]' || true)
-  bash scripts/sqlite/completeness.sqlite.sh ${OUTPUT_DIR} ${HAS_GROUP_PARAM}
+  HAS_GROUP_PARAM=$(echo "$TYPE_PARAMS" | grep -c -P -e '--groupBy [^-]' || true)
+  bash scripts/sqlite/completeness.sqlite.sh "$OUTPUT_DIR" "$HAS_GROUP_PARAM"
 }
 
 do_classifications() {
   PARAMS=$(filter_params "classifications")
   log "log file: ${LOG_DIR}/classifications.log"
   run classifications
-  ./classifications --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${LOG_DIR}/classifications.log
-  Rscript scripts/classifications/classifications-type.R ${OUTPUT_DIR}
+  # shellcheck disable=SC2206
+  ./classifications --defaultRecordType BOOKS ${PARAMS} --outputDir "$OUTPUT_DIR/" "$MARC_DIR"/${MASK} 2> "$LOG_DIR/classifications.log"
+  Rscript scripts/classifications/classifications-type.R "$OUTPUT_DIR"
 }
 
 do_authorities() {
   PARAMS=$(filter_params "authorities")
-  log "log file: ${LOG_DIR}/authorities.log"
+  log "log file: $LOG_DIR/authorities.log"
   run authorities
-  ./authorities --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${LOG_DIR}/authorities.log
+  # shellcheck disable=SC2206
+  ./authorities --defaultRecordType BOOKS ${PARAMS} --outputDir "$OUTPUT_DIR"/ "$MARC_DIR"/${MASK} 2> "$LOG_DIR/authorities.log"
 }
 
 do_tt_completeness() {
   PARAMS=$(filter_params "tt-completeness")
   log "log file: ${LOG_DIR}/tt-completeness.log"
   run tt-completeness
-  ./tt-completeness --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ --trimId ${MARC_DIR}/${MASK} 2> ${LOG_DIR}/tt-completeness.log
-  Rscript scripts/tt-histogram/tt-histogram.R ${OUTPUT_DIR} &>> ${LOG_DIR}/tt-completeness.log
+  # shellcheck disable=SC2206
+  ./tt-completeness --defaultRecordType BOOKS ${PARAMS} --outputDir "$OUTPUT_DIR"/ --trimId "$MARC_DIR"/${MASK} 2> "$LOG_DIR/tt-completeness.log"
+  Rscript scripts/tt-histogram/tt-histogram.R "$OUTPUT_DIR" &>> "${LOG_DIR}/tt-completeness.log"
 
   # for large files
-  # php scripts/tt-histogram/tt-histogram.php ${OUTPUT_DIR} &>> ${LOG_DIR}/tt-completeness.log
+  # php scripts/tt-histogram/tt-histogram.php "${OUTPUT_DIR}" &>> "${LOG_DIR}/tt-completeness.log"
 }
 
 do_shelf_ready_completeness() {
   PARAMS=$(filter_params "shelf-ready-completeness")
   log "log file: ${LOG_DIR}/shelf-ready-completeness.log"
   run shelf-ready-completeness
+  # shellcheck disable=SC2206
   ./shelf-ready-completeness \
     --defaultRecordType BOOKS \
     ${PARAMS} \
-    --outputDir ${OUTPUT_DIR}/ \
-    --trimId ${MARC_DIR}/${MASK} 2> ${LOG_DIR}/shelf-ready-completeness.log
+    --outputDir "$OUTPUT_DIR"/ \
+    --trimId "$MARC_DIR"/${MASK} 2> "$LOG_DIR/shelf-ready-completeness.log"
 
   # TODO: check if the file size is larger then 1G
   if [[ "$TYPE_PARAMS" =~ --emptyLargeCollectors ]]; then
     # for large files
-    php scripts/shelf-ready/shelf-ready-histogram.php ${OUTPUT_DIR} &>> ${LOG_DIR}/shelf-ready-completeness.log
+    php scripts/shelf-ready/shelf-ready-histogram.php "$OUTPUT_DIR" &>> "$LOG_DIR/shelf-ready-completeness.log"
   else
-    Rscript scripts/shelf-ready/shelf-ready-histogram.R ${OUTPUT_DIR} &>> ${LOG_DIR}/shelf-ready-completeness.log
+    Rscript scripts/shelf-ready/shelf-ready-histogram.R "$OUTPUT_DIR" &>> "$LOG_DIR/shelf-ready-completeness.log"
   fi
 }
 
 do_bl_classification() {
   PARAMS=$(filter_params "bk-classification")
-  log "log file: ${LOG_DIR}/bl-classification.log"
+  log "log file: $LOG_DIR/bl-classification.log"
   run bk-classification
+  # shellcheck disable=SC2206
   ./bl-classification \
     --defaultRecordType BOOKS \
     ${PARAMS} \
-    --outputDir ${OUTPUT_DIR}/ \
-    --trimId ${MARC_DIR}/${MASK} 2> ${LOG_DIR}/bl-classification.log
+    --outputDir "$OUTPUT_DIR"/ \
+    --trimId "$MARC_DIR"/${MASK} 2> "$LOG_DIR/bl-classification.log"
 }
 
 do_serial_score() {
   PARAMS=$(filter_params "serial-score")
-  log "log file: ${LOG_DIR}/serial-score.log"
+  log "log file: $LOG_DIR/serial-score.log"
   run serial-score
+  # shellcheck disable=SC2206
   ./serial-score --defaultRecordType BOOKS \
                  ${PARAMS} \
-                 --outputDir ${OUTPUT_DIR}/ \
-                 --trimId ${MARC_DIR}/${MASK} 2> ${LOG_DIR}/serial-score.log
+                 --outputDir "$OUTPUT_DIR"/ \
+                 --trimId "$MARC_DIR"/${MASK} 2> "$LOG_DIR/serial-score.log"
 
-  Rscript scripts/serial-score/serial-score-histogram.R ${OUTPUT_DIR} &>> ${LOG_DIR}/serial-score.log
+  Rscript scripts/serial-score/serial-score-histogram.R "$OUTPUT_DIR" &>> "$LOG_DIR/serial-score.log"
 }
 
 do_format() {
   run format
-  ./formatter --defaultRecordType BOOKS ${MARC_DIR}/${MASK}
+  # shellcheck disable=SC2206
+  ./formatter --defaultRecordType BOOKS "$MARC_DIR"/${MASK}
 }
 
 do_functional_analysis() {
   PARAMS=$(filter_params "functional-analysis")
-  log "log file: ${LOG_DIR}/functional-analysis.log"
+  log "log file: $LOG_DIR/functional-analysis.log"
   run functional-analysis
+  # shellcheck disable=SC2206
   ./functional-analysis --defaultRecordType BOOKS \
                         ${PARAMS} \
-                        --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${LOG_DIR}/functional-analysis.log
+                        --outputDir "$OUTPUT_DIR"/ "$MARC_DIR"/${MASK} 2> "$LOG_DIR/functional-analysis.log"
 }
 
 do_network_analysis() {
   PARAMS=$(filter_params "network-analysis")
-  log "log file: ${LOG_DIR}/network-analysis.log"
+  log "log file: $LOG_DIR/network-analysis.log"
   run network-analysis
+  # shellcheck disable=SC2206
   ./network-analysis --defaultRecordType BOOKS \
                      ${PARAMS} \
-                     --outputDir ${OUTPUT_DIR}/ \
-                     ${MARC_DIR}/${MASK} 2> ${LOG_DIR}/network-analysis.log
+                     --outputDir "$OUTPUT_DIR"/ \
+                     "$MARC_DIR"/${MASK} 2> "$LOG_DIR/network-analysis.log"
 
   # network.csv (concept, id) ->
   #   network-by-concepts.csv (concept, count, ids)
   #   network-by-record.csv (id, count, concepts)
   #   network-statistics.csv (type, total, single, multi)
-  Rscript scripts/network-transform.R ${OUTPUT_DIR} &>> ${LOG_DIR}/network-analysis.log
+  Rscript scripts/network-transform.R "$OUTPUT_DIR" &>> "$LOG_DIR/network-analysis.log"
 
   # network-by-concepts (concept, count, ids) ->
   #   network-pairs.csv (id1 id2)
   #   network-nodes.csv (id, id)
-  ./network-analysis --outputDir ${OUTPUT_DIR} \
+  ./network-analysis --outputDir "$OUTPUT_DIR" \
                      --action pairing \
-                     &>> ${LOG_DIR}/network-analysis.log
+                     &>> "$LOG_DIR/network-analysis.log"
 
   untrace
 
@@ -223,27 +235,27 @@ do_network_analysis() {
 
   log "ziping output"
   PWD=$(pdw)
-  cd ${OUTPUT_DIR}
+  cd "$OUTPUT_DIR"
   zip network-input network-nodes.csv network-nodes-???.csv network-pairs-???.csv network-by-concepts-tags.csv
-  cd $PWD
+  cd "$PWD"
 
   log "upload output"
-  scp ${OUTPUT_DIR}/network-input.zip pkiraly@roedel.etrap.eu:/roedel/pkiraly/network/input
+  scp "$OUTPUT_DIR/network-input.zip" pkiraly@roedel.etrap.eu:/roedel/pkiraly/network/input
 
   # spark-shell -I scripts/network.scala --conf spark.driver.metadata.qa.dir="${OUTPUT_DIR}"
   # ./network-export.sh ${OUTPUT_DIR}
 }
 
 do_pareto() {
-  log "log file: ${LOG_DIR}/pareto.log"
+  log "log file: $LOG_DIR/pareto.log"
   run pareto
-  Rscript scripts/pareto/frequency-range.R ${OUTPUT_DIR} &> ${LOG_DIR}/pareto.log
+  Rscript scripts/pareto/frequency-range.R "$OUTPUT_DIR" &> "$LOG_DIR/pareto.log"
   untrace
 
   . ./common-variables
   if [[ "${WEB_DIR:-}" != "" ]]; then
-    ensure_dir $WEB_DIR/images
-    ln -s ${OUTPUT_DIR}/img $WEB_DIR/images/${NAME}
+    ensure_dir "$WEB_DIR/images"
+    ln -s "$OUTPUT_DIR/img" "$WEB_DIR/images/$NAME"
   fi
 }
 
@@ -260,53 +272,54 @@ do_marc_history() {
   run marc-history
   ./formatter --selector "$SELECTOR" --defaultRecordType BOOKS ${PARAMS} --separator "," \
               --outputDir ${OUTPUT_DIR}/ --fileName "marc-history.csv" ${MARC_DIR}/${MASK} \
-              &> ${LOG_DIR}/marc-history.log
+              &> "$LOG_DIR/marc-history.log"
     # | grep -v '008~7-10,008~0-5' \
   
   untrace
-  tail -n +2 ${OUTPUT_DIR}/marc-history.csv \
+  tail -n +2 "$OUTPUT_DIR/marc-history.csv" \
     | sort \
     | uniq -c \
     | sed -r 's/([0-9]) ([0-9uc xwticrka])/\1,\2/' \
-    | sed 's, ,,g' > ${OUTPUT_DIR}/marc-history-grouped.csv
+    | sed 's, ,,g' > "$OUTPUT_DIR/marc-history-grouped.csv"
   set -x
 
-  Rscript scripts/marc-history/marc-history-grouped.R ${OUTPUT_DIR} &>> ${LOG_DIR}/marc-history.log
+  Rscript scripts/marc-history/marc-history-grouped.R "$OUTPUT_DIR" &>> "$LOG_DIR/marc-history.log"
 }
 
 do_record_patterns() {
   PARAMS=$(filter_params "record-patterns")
-  log "log file: ${LOG_DIR}/record-patterns.log"
+  log "log file: $LOG_DIR/record-patterns.log"
 
   run record-patterns
-  Rscript scripts/record-patterns/top-fields.R ${OUTPUT_DIR} &>> ${LOG_DIR}/top-fields.log
-  ./record-patterns --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} &> ${LOG_DIR}/record-patterns.log
+  Rscript scripts/record-patterns/top-fields.R "$OUTPUT_DIR" &>> "$LOG_DIR/top-fields.log"
+  # shellcheck disable=SC2086 
+  ./record-patterns --defaultRecordType BOOKS ${PARAMS} --outputDir "$OUTPUT_DIR/" ${MARC_DIR}/${MASK} &> "$LOG_DIR/record-patterns.log"
 
-  head -1 ${OUTPUT_DIR}/record-patterns.csv | sed -e 's/^/count,/' > ${OUTPUT_DIR}/record-patterns-grouped.csv
-  cat ${OUTPUT_DIR}/record-patterns.csv \
+  head -1 "$OUTPUT_DIR/record-patterns.csv" | sed -e 's/^/count,/' > "$OUTPUT_DIR/record-patterns-grouped.csv"
+  cat "$OUTPUT_DIR/record-patterns.csv" \
     | grep -v "\\$" \
     | sort \
     | uniq -c \
     | sort -n -r \
-    | sed -r 's/^ *([0-9]+) /\1,/' >> ${OUTPUT_DIR}/record-patterns-grouped.csv
+    | sed -r 's/^ *([0-9]+) /\1,/' >> "$OUTPUT_DIR/record-patterns-grouped.csv"
 }
 
 do_version_link() {
   run version-link
 
   untrace
-  if [[ "${VERSION:-}" != "" ]]; then
+  if [[ -n "${VERSION:-}" ]]; then
     OUTPUT_LINK=${BASE_OUTPUT_DIR}/${NAME}
-    if [[ -e ${OUTPUT_LINK} ]]; then
-      rm ${OUTPUT_LINK}
+    if [[ -e "$OUTPUT_LINK" ]]; then
+      rm "$OUTPUT_LINK"
     fi
-    ln -s ${OUTPUT_DIR} ${OUTPUT_LINK}
+    ln -s "$OUTPUT_DIR" "$OUTPUT_LINK"
   fi
 }
 
 do_validate_sqlite() {
   run "validate sqlite"
-  php scripts/sqlite/normalize-issue-details.php ${OUTPUT_DIR} &> ${LOG_DIR}/sqlite.log
+  php scripts/sqlite/normalize-issue-details.php "$OUTPUT_DIR" &> "$LOG_DIR/sqlite.log"
 
   untrace
 
@@ -315,61 +328,61 @@ do_validate_sqlite() {
   #   rm ${OUTPUT_DIR}/qa_catalogue.sqlite
   # fi
 
-  HAS_GROUP_PARAM=$(echo ${TYPE_PARAMS} | grep -c -P -e '--groupBy [^-]' || true)
-  if [[ "${HAS_GROUP_PARAM}" == "0" ]]; then
+  HAS_GROUP_PARAM=$(echo "$TYPE_PARAMS" | grep -c -P -e '--groupBy [^-]' || true)
+  if [[ "$HAS_GROUP_PARAM" == "0" ]]; then
     log "create DB structure"
-    sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/qa_catalogue.sqlite.sql
+    sqlite3 "$OUTPUT_DIR/qa_catalogue.sqlite" < scripts/sqlite/qa_catalogue.sqlite.sql
   else
     log "create DB structure (grouped)"
-    sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/qa_catalogue.grouped.sqlite.sql
+    sqlite3 "$OUTPUT_DIR/qa_catalogue.sqlite" < scripts/sqlite/qa_catalogue.grouped.sqlite.sql
   fi
 
   log "create importable files"
-  tail -n +2 ${OUTPUT_DIR}/issue-details-normalized.csv > ${OUTPUT_DIR}/issue-details-normalized_noheader.csv
-  tail -n +2 ${OUTPUT_DIR}/issue-summary.csv > ${OUTPUT_DIR}/issue-summary_noheader.csv
-  if [[ "${HAS_GROUP_PARAM}" == "1" ]]; then
-    tail -n +2 ${OUTPUT_DIR}/id-groupid.csv > ${OUTPUT_DIR}/id-groupid_noheader.csv
+  tail -n +2 "$OUTPUT_DIR/issue-details-normalized.csv" > "$OUTPUT_DIR/issue-details-normalized_noheader.csv"
+  tail -n +2 "$OUTPUT_DIR/issue-summary.csv" > "$OUTPUT_DIR/issue-summary_noheader.csv"
+  if [[ "$HAS_GROUP_PARAM" == "1" ]]; then
+    tail -n +2 "$OUTPUT_DIR/id-groupid.csv" > "$OUTPUT_DIR/id-groupid_noheader.csv"
   fi
 
   log "import issue details"
-  sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
+  sqlite3 "$OUTPUT_DIR/qa_catalogue.sqlite" << EOF
 .mode csv
-.import ${OUTPUT_DIR}/issue-details-normalized_noheader.csv issue_details
+.import $OUTPUT_DIR/issue-details-normalized_noheader.csv issue_details
 EOF
 
   log "import issue summary"
-  sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
+  sqlite3 "$OUTPUT_DIR/qa_catalogue.sqlite" << EOF
 .mode csv
-.import ${OUTPUT_DIR}/issue-summary_noheader.csv issue_summary
+.import $OUTPUT_DIR/issue-summary_noheader.csv issue_summary
 EOF
 
-  if [[ "${HAS_GROUP_PARAM}" == "1" ]]; then
+  if [[ "$HAS_GROUP_PARAM" == "1" ]]; then
     log "import id_groupid"
-    sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
+    sqlite3 "$OUTPUT_DIR/qa_catalogue.sqlite" << EOF
 .mode csv
-.import ${OUTPUT_DIR}/id-groupid_noheader.csv id_groupid
+.import $OUTPUT_DIR/id-groupid_noheader.csv id_groupid
 EOF
   fi
 
   log "delete importable files"
-  rm ${OUTPUT_DIR}/issue-details-normalized_noheader.csv
-  rm ${OUTPUT_DIR}/issue-details-normalized.csv
-  rm ${OUTPUT_DIR}/issue-summary_noheader.csv
-  if [[ "${HAS_GROUP_PARAM}" == "1" ]]; then
-    rm ${OUTPUT_DIR}/id-groupid_noheader.csv
+  rm "$OUTPUT_DIR/issue-details-normalized_noheader.csv"
+  rm "$OUTPUT_DIR/issue-details-normalized.csv"
+  rm "$OUTPUT_DIR/issue-summary_noheader.csv"
+  if [[ "$HAS_GROUP_PARAM" == "1" ]]; then
+    rm "$OUTPUT_DIR/id-groupid_noheader.csv"
   fi
 
-  SOLR_FOR_SCORES_URL=$(echo $TYPE_PARAMS | grep -P -o --regexp='--solrForScoresUrl \K([^ ]+)' || true)
+  SOLR_FOR_SCORES_URL=$(echo "$TYPE_PARAMS" | grep -P -o --regexp='--solrForScoresUrl \K([^ ]+)' || true)
   # FIXME: PARAMS is never set on command "validate-sqliate" (without "validate")
-  ONLY_INDEX=$(echo ${PARAMS:-} | grep -c -P -e '--onlyIndex' || true)
+  ONLY_INDEX=$(echo "${PARAMS:-}" | grep -c -P -e '--onlyIndex' || true)
 
-  if [[ "${HAS_GROUP_PARAM}" == "0" ]]; then
+  if [[ "$HAS_GROUP_PARAM" == "0" ]]; then
     log "index sqlite3"
-    sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite < scripts/sqlite/modify-tables.sql &>> ${LOG_DIR}/sqlite.log
-    if [[ "${SOLR_FOR_SCORES_URL}" != "" ]]; then
-      echo "index at ${SOLR_FOR_SCORES_URL}"
+    sqlite3 "$OUTPUT_DIR/qa_catalogue.sqlite" < scripts/sqlite/modify-tables.sql &>> "$LOG_DIR/sqlite.log"
+    if [[ -n "$SOLR_FOR_SCORES_URL" ]]; then
+      echo "index at $SOLR_FOR_SCORES_URL"
       # index id-groupid.csv and issue-details.csv
-      scripts/sqlite/index-issue-details.sh ${OUTPUT_DIR} ${NAME} ${HAS_GROUP_PARAM} ${ONLY_INDEX} ${SOLR_FOR_SCORES_URL}
+      scripts/sqlite/index-issue-details.sh "$OUTPUT_DIR" "$NAME" "$HAS_GROUP_PARAM" "$ONLY_INDEX" "$SOLR_FOR_SCORES_URL"
     fi
   else
     log "index (grouped)"
@@ -381,7 +394,7 @@ EOF
 do_mysql() {
   run mysql
 
-  php scripts/sqlite/normalize-issue-details.php ${OUTPUT_DIR} &> ${LOG_DIR}/mysql.log
+  php scripts/sqlite/normalize-issue-details.php "$OUTPUT_DIR" &> "$LOG_DIR/mysql.log"
 
   untrace
 
@@ -395,7 +408,7 @@ do_mysql() {
   mysql --defaults-extra-file=mysql.client.cnf "$NAME" -e "DROP TABLE IF EXISTS id_groupid"
 
   HAS_GROUP_PARAM=$(echo "$TYPE_PARAMS" | grep -c -P -e '--groupBy [^-]' || true)
-  if [[ "${HAS_GROUP_PARAM}" == "0" ]]; then
+  if [[ "$HAS_GROUP_PARAM" == "0" ]]; then
     log "create DB structure"
     mysql --defaults-extra-file=mysql.client.cnf "$NAME" < scripts/sqlite/qa_catalogue.mysql.sql
   else
@@ -412,21 +425,21 @@ do_mysql() {
 
   log "import issue details"
   MYSQL_SEC_DIR=$(mysql --defaults-extra-file=mysql.client.cnf "$NAME" -e 'SHOW VARIABLES LIKE "secure_file_priv"\G' | grep 'Value:' | sed 's,\s*Value: ,,')
-  sudo cp ${OUTPUT_DIR}/issue-details-normalized.csv "$MYSQL_SEC_DIR"
+  sudo cp "$OUTPUT_DIR/issue-details-normalized.csv" "$MYSQL_SEC_DIR"
   mysql --defaults-extra-file=mysql.client.cnf "$NAME" -f << EOF
-LOAD DATA INFILE '${MYSQL_SEC_DIR}/issue-details-normalized.csv' 
+LOAD DATA INFILE '$MYSQL_SEC_DIR/issue-details-normalized.csv' 
 INTO TABLE issue_details
 FIELDS TERMINATED BY ',' 
 ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 LINES;
 EOF
-  # sudo rm ${MYSQL_SEC_DIR}/issue-details-normalized.csv
+  # sudo rm $MYSQL_SEC_DIR/issue-details-normalized.csv
 
   log "import issue summary"
   sudo cp "$OUTPUT_DIR/issue-summary.csv" "$MYSQL_SEC_DIR"
   mysql --defaults-extra-file=mysql.client.cnf "$NAME" -f << EOF
-LOAD DATA INFILE '${MYSQL_SEC_DIR}/issue-summary.csv' 
+LOAD DATA INFILE '$MYSQL_SEC_DIR/issue-summary.csv' 
 INTO TABLE issue_summary
 FIELDS TERMINATED BY ',' 
 ENCLOSED BY '"'
@@ -490,7 +503,8 @@ do_shacl4bib() {
   log "log file: $LOG_DIR/shacl4bib.log"
 
   run shacl4bib
-  ./shacl4bib --defaultRecordType BOOKS ${PARAMS} --outputDir ${OUTPUT_DIR}/ ${MARC_DIR}/${MASK} 2> ${LOG_DIR}/shacl4bib.log
+  # shellcheck disable=SC2086
+  ./shacl4bib --defaultRecordType BOOKS ${PARAMS} --outputDir "$OUTPUT_DIR/" $MARC_DIR/$MASK 2> "$LOG_DIR/shacl4bib.log"
   Rscript scripts/shacl4bib/shacl4bib.R "$OUTPUT_DIR"
 
   log "import issue details"
@@ -507,7 +521,7 @@ do_shacl4bib() {
   tail -n +2 "$OUTPUT_DIR/shacl4bib.csv" > "$OUTPUT_DIR/shacl4bib-noheader.csv"
   sqlite3 "$OUTPUT_DIR/qa_catalogue.sqlite" << EOF
 .mode csv
-.import ${OUTPUT_DIR}/shacl4bib-noheader.csv shacl
+.import $OUTPUT_DIR/shacl4bib-noheader.csv shacl
 EOF
 
 }

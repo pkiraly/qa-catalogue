@@ -6,7 +6,7 @@ OUTPUT_DIR=network-analysis
 
 for arg in "$@"
 do
-  echo $arg
+  echo "$arg"
   case $arg in
     "--input")        INPUT_DIR=$2 && shift && shift ;;
     "--spark-output") SPARK_OUTPUT=$2 && shift && shift ;;
@@ -19,55 +19,55 @@ SPARK_OUTPUT: $SPARK_OUTPUT
 OUTPUT_DIR: $OUTPUT_DIR
 "
 
-mkdir -p $OUTPUT_DIR
+mkdir -p "$OUTPUT_DIR"
 
 while IFS="" read -r p || [ -n "$p" ]
 do
-  TAG=$(echo $p | sed 's/,.*$//')
+  TAG=${p//,.*/}
   if [[ "$TAG" == "tag" ]]; then
     TAG=all
   fi
-  echo $TAG
+  echo "$TAG"
   
   for TYPE in "components" "degrees" "pagerank" "qlink" "qlinkabs"; do 
     for SUBTYPE in "" "-histogram" "-stat"; do
       if [[ "${TYPE}${SUBTYPE}" != "qlink" && "${TYPE}${SUBTYPE}" != "qlinkabs" ]]; then
-        PREFIX=${TAG}-${TYPE}${SUBTYPE}
+        PREFIX="${TAG}-${TYPE}${SUBTYPE}"
         echo "PREFIX: $PREFIX"
-        cat $SPARK_OUTPUT/network-scores-${PREFIX}.csv.dir/*.csv \
+        cat "$SPARK_OUTPUT/network-scores-$PREFIX.csv.dir"/*.csv \
           | sed "s/^/$TAG,/" \
-          > $OUTPUT_DIR/network-scores-${PREFIX}.csv
+          > "$OUTPUT_DIR/network-scores-$PREFIX.csv"
       fi
     done
   done
   for TYPE in "density" "clustering-coefficient"; do 
-    PREFIX=${TAG}-${TYPE}
-    if [ -d $SPARK_OUTPUT/network-scores-${PREFIX}.csv.dir ]; then
+    PREFIX="$TAG-$TYPE"
+    if [ -d "$SPARK_OUTPUT/network-scores-$PREFIX.csv.dir" ]; then
       echo "PREFIX: $PREFIX"
-      cat $SPARK_OUTPUT/network-scores-${PREFIX}.csv.dir/*.csv \
+      cat "$SPARK_OUTPUT/network-scores-$PREFIX.csv.dir"/*.csv \
         | sed "s/^/$TAG,/" \
-        > $OUTPUT_DIR/network-scores-${PREFIX}.csv
+        > "$OUTPUT_DIR/network-scores-$PREFIX.csv"
     fi
   done
-done < $INPUT_DIR/network-by-concepts-tags.csv
+done < "$INPUT_DIR/network-by-concepts-tags.csv"
 
 # all,id,score
 
 echo "::: SECOND ROUND :::"
 while IFS="" read -r p || [ -n "$p" ]
 do
-  TAG=$(echo $p | sed 's/,.*$//')
+  TAG=${p//,.*/}
   if [[ "$TAG" == "tag" ]]; then
     TAG=all
   fi
-  echo $TAG
+  echo "$TAG"
   for TYPE in "components" "degrees" "pagerank" "qlink" "qlinkabs"; do 
     for SUBTYPE in "" "-histogram" "-stat"; do
-      PREFIX=${TYPE}${SUBTYPE}
+      PREFIX="${TYPE}${SUBTYPE}"
       if [[ "${TYPE}${SUBTYPE}" != "qlink" && "${TYPE}${SUBTYPE}" != "qlinkabs" ]]; then
         echo "PREFIX: $PREFIX"
-        if [[ $TAG == "all" && -e $OUTPUT_DIR/network-scores-${PREFIX}.csv ]]; then
-          rm $OUTPUT_DIR/network-scores-${PREFIX}.csv
+        if [[ "$TAG" == "all" && -e "$OUTPUT_DIR/network-scores-$PREFIX.csv" ]]; then
+          rm "$OUTPUT_DIR/network-scores-$PREFIX.csv"
         fi
 
         # 1. components
@@ -77,7 +77,7 @@ do
         # 5. network-scores-x-stat.csv
         # 6. degrees-histogram
         # 7. pagerank-histogram
-        cat $OUTPUT_DIR/network-scores-$TAG-${PREFIX}.csv \
+        cat "$OUTPUT_DIR/network-scores-$TAG-$PREFIX.csv" \
         | grep -v -P "^\d+,componentId,size$" \
         | sed 's/all,componentId,size/tag,componentId,size/' \
         | grep -v -P "^\d+,id,degree$" \
@@ -92,23 +92,23 @@ do
         | sed 's/all,degree,count/tag,degree,count/' \
         | grep -v -P "^\d+,score,count$" \
         | sed 's/all,score,count/tag,score,count/' \
-        >> $OUTPUT_DIR/network-scores-${PREFIX}.csv
-        rm $OUTPUT_DIR/network-scores-$TAG-${PREFIX}.csv
+        >> "$OUTPUT_DIR/network-scores-$PREFIX.csv"
+        rm "$OUTPUT_DIR/network-scores-$TAG-$PREFIX.csv"
       fi
     done
   done
 
   for TYPE in "density" "clustering-coefficient" "triCountGraph-stat"; do 
     # PREFIX=density
-    if [[ $TAG == "all" && -e $OUTPUT_DIR/network-scores-${TYPE}.csv ]]; then
-      rm $OUTPUT_DIR/network-scores-${TYPE}.csv
+    if [[ "$TAG" == "all" && -e "$OUTPUT_DIR/network-scores-$TYPE.csv" ]]; then
+      rm "$OUTPUT_DIR/network-scores-$TYPE.csv"
     fi
-    cat $OUTPUT_DIR/network-scores-$TAG-${TYPE}.csv \
+    cat "$OUTPUT_DIR/network-scores-$TAG-$TYPE.csv" \
         | grep -v -P "^\d+,records,links,density,avgDegree$" \
         | sed 's/all,records,links,density,avgDegree/tag,records,links,density,avgDegree/' \
         | grep -v -P "^\d+,average-clustering-coefficient$" \
         | sed 's/all,average-clustering-coefficient/tag,average-clustering-coefficient/' \
-        >> $OUTPUT_DIR/network-scores-${TYPE}.csv
-    rm $OUTPUT_DIR/network-scores-$TAG-${TYPE}.csv
+        >> "$OUTPUT_DIR/network-scores-$TYPE.csv"
+    rm "$OUTPUT_DIR/network-scores-$TAG-$TYPE.csv"
   done
-done < $INPUT_DIR/network-by-concepts-tags.csv
+done < "$INPUT_DIR/network-by-concepts-tags.csv"

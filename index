@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
-#####
 # Run Solr related tasks (index, get status information, purge a collection)
-#
-#
+set -ueo pipefail
 
 . ./common-variables
 PORT=8983

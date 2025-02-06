@@ -22,6 +22,7 @@ Options:
   -v --version    optional version number/date of the catalogue to compare changes
   -w --web-config update the specified configuration file of qa-catalogue-web
   -f --env-file   configuration file to override options
+  -l --logs       directory of log files (default: ./logs)
 
 EOF
   . ./common-script help
@@ -29,7 +30,7 @@ EOF
 }
 
 # parse command line options
-options=$(getopt -o a:c:d:i:m:n:o:p:s:u:v:w:f: --long analyses:,catalogue:,input-dir:,input:,mask:,name:,output:,params:,schema:,update:,version:,web-config:,env-file: -- "$@")
+options=$(getopt -o a:c:d:i:m:n:o:p:s:u:v:w:f:l: --long analyses:,catalogue:,input-dir:,input:,mask:,name:,output:,params:,schema:,update:,version:,web-config:,env-file:,logs: -- "$@")
 
 eval set -- "$options"
 
@@ -48,6 +49,7 @@ while true; do
     -v|--version) VERSION=$2 ; shift ;;
     -w|--web-config) WEB_CONFIG=$2 ; shift ;;
     -f|--env-file) ENV_FILE=$2 ; shift ;;
+    -l|--logs) BASE_LOG_DIR=$2 ; shift ;;
     --)
         shift
         break
@@ -66,6 +68,7 @@ fi
 # default values
 BASE_INPUT_DIR=${BASE_INPUT_DIR:-./input}
 BASE_OUTPUT_DIR=${BASE_OUTPUT_DIR:-./output}
+BASE_LOG_DIR=${BASE_LOG_DIR:-./logs}
 MASK=${MASK:-*}
 NAME=${NAME:-qa-catalogue}
 INPUT_DIR=${INPUT_DIR:-$NAME}
@@ -87,6 +90,7 @@ MARC_DIR                  ${MARC_DIR:-}
 MASK:                     ${MASK}
 NAME:                     ${NAME}
 BASE_OUTPUT_DIR (output): ${BASE_OUTPUT_DIR}
+BASE_LOG_DIR:             ${BASE_LOG_DIR}
 SCHEMA:                   ${SCHEMA}
 TYPE_PARAMS (params):     ${TYPE_PARAMS}
 UPDATE:                   ${UPDATE:-}

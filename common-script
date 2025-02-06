@@ -508,7 +508,7 @@ do_shacl4bib() {
   Rscript scripts/shacl4bib/shacl4bib.R "$OUTPUT_DIR"
 
   log "import issue details"
-  echo "DROP TABLE shacl;" > scripts/shacl4bib/shacl4bib.sql
+  echo "DROP TABLE IF EXISTS shacl;" > scripts/shacl4bib/shacl4bib.sql
   head -1 "$OUTPUT_DIR/shacl4bib.csv" \
     | sed 's/,/" VARCHAR(2), "/g' \
     | sed 's/^/CREATE TABLE shacl( "/' \

@@ -299,10 +299,12 @@ cp setdir.sh.template setdir.sh
 ```bash
 BASE_INPUT_DIR=your/path
 BASE_OUTPUT_DIR=your/path
+BASE_LOG_DIR==your/path
 ```
 
 * `BASE_INPUT_DIR` is the parent directory where your MARC records exists
 * `BASE_OUTPUT_DIR` is where the analysis results will be stored
+* `BASE_LOG_DIR` is where the analysis logs will be stored
 
 3. edit the library specific file
 
@@ -342,21 +344,22 @@ The following table summarizes the configuration variables. The script
 `qa-catalogue` can be used to set variables and execute analysis without a
 library specific configuration file:
 
-| variable          | `qa-catalogue`      | description                                                        | default                                                                                                                                                                                 |
-|-------------------|---------------------|--------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `ANALYSES`        | `-a`/`--analyses`   | which tasks to run with `all-analyses`                             | `validate, validate_sqlite, completeness, completeness_sqlite, classifications, authorities, tt_completeness, shelf_ready_completeness, serial_score, functional_analysis, pareto, marc_history` |
-|                   | `-c`/`--catalogue`  | display name of the catalogue                                      | `$NAME`                                                                                                                                                                                 |
-| `NAME`            | `-n`/`--name`       | name of the catalogue                                              | qa-catalogue                                                                                                                                                                            |
-| `BASE_INPUT_DIR`  | `-d`/`--input`      | parent directory of input file directories                         | `./input`                                                                                                                                                                               |
-| `INPUT_DIR`       | `-d`/`--input-dir`  | subdirectory of input directory to read files from                 |                                                                                                                                                                                         |
-| `BASE_OUTPUT_DIR` | `-o`/`--output`     | parent output directory                                            | `./output`                                                                                                                                                                              |
-| `MASK`            | `-m`/`--mask`       | a file mask which input files to process, e.g. `*.mrc`             | `*`                                                                                                                                                                                     |
-| `TYPE_PARAMS`     | `-p`/`--params`     | parameters to pass to individual tasks (see below)                 |                                                                                                                                                                                         |
-| `SCHEMA`          | `-s`/`--schema`     | record schema                                                      | `MARC21`                                                                                                                                                                                |
-| `UPDATE`          | `-u`/`--update`     | optional date of input files                                       |                                                                                                                                                                                         |
-| `VERSION`         | `-v`/`--version`    | optional version number/date of the catalogue to compare changes   |                                                                                                                                                                                         |
-| `WEB_CONFIG`      | `-w`/`--web-config` | update the specified configuration file of qa-catalogue-web        |                                                                                                                                                                                         |
-|                   | `-f`/`--env-file`| configuration file to load environment variables from (default: `.env`) |                                                                                                                                                                                         |
+| variable          | `qa-catalogue`      | description                                                             | default                                                                                                                                                                                          |
+|-------------------|---------------------|-------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `ANALYSES`        | `-a`/`--analyses`   | which tasks to run with `all-analyses`                                  | `validate, validate_sqlite, completeness, completeness_sqlite, classifications, authorities, tt_completeness, shelf_ready_completeness, serial_score, functional_analysis, pareto, marc_history` |
+|                   | `-c`/`--catalogue`  | display name of the catalogue                                           | `$NAME`                                                                                                                                                                                          |
+| `NAME`            | `-n`/`--name`       | name of the catalogue                                                   | qa-catalogue                                                                                                                                                                                     |
+| `BASE_INPUT_DIR`  | `-d`/`--input`      | parent directory of input file directories                              | `./input`                                                                                                                                                                                        |
+| `INPUT_DIR`       | `-d`/`--input-dir`  | subdirectory of input directory to read files from                      |                                                                                                                                                                                                  |
+| `BASE_OUTPUT_DIR` | `-o`/`--output`     | parent output directory                                                 | `./output`                                                                                                                                                                                       |
+| `BASE_LOG_DIR` | `-l`/`--logs`        | directory of log files                                                  | `./logs`                                                                                                                                                                                         |
+| `MASK`            | `-m`/`--mask`       | a file mask which input files to process, e.g. `*.mrc`                  | `*`                                                                                                                                                                                              |
+| `TYPE_PARAMS`     | `-p`/`--params`     | parameters to pass to individual tasks (see below)                      |                                                                                                                                                                                                  |
+| `SCHEMA`          | `-s`/`--schema`     | record schema                                                           | `MARC21`                                                                                                                                                                                         |
+| `UPDATE`          | `-u`/`--update`     | optional date of input files                                            |                                                                                                                                                                                                  |
+| `VERSION`         | `-v`/`--version`    | optional version number/date of the catalogue to compare changes        |                                                                                                                                                                                                  |
+| `WEB_CONFIG`      | `-w`/`--web-config` | update the specified configuration file of qa-catalogue-web             |                                                                                                                                                                                                  |
+|                   | `-f`/`--env-file`   | configuration file to load environment variables from (default: `.env`) |                                                                                                                                                                                                  |
 
 ## Detailed instructions
 

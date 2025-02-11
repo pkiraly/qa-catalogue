@@ -1,0 +1,54 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "QA Catalogue"
+  author: "Péter Király"
+  date: "2/11/2025"
+  chapters:
+    - index.qmd
+    #    - intro.qmd
+    - part: installation.qmd
+      chapters:
+      - quick-start-guide.qmd
+      - build.qmd
+      - download.qmd
+    - part: usage.qmd
+      chapters:
+      - validate.qmd
+      - formatter.qmd
+      - completeness.qmd
+      - thompson-traill-completeness.qmd
+      - shelf-ready-completeness.qmd
+      - serial-score-analysis.qmd
+      - FRBR-functional-requirements.qmd
+      - classification.qmd
+      - authority-name-analysis.qmd
+      - field-frequency-distribution.qmd
+      - generating-cataloguing-history-chart.qmd
+      - import-tables-to-SQLite.qmd
+      - indexing.qmd
+      - export-mapping-table.qmd
+      - Shacl4Bib.qmd
+  appendices:
+    - where-can-I-get-MARC-records.qmd
+    - handling-MARC-versions.qmd
+    - institutions-which-reportedly-use-this-tool.qmd
+    - supporters-and-sponsors.qmd
+    - special-build-process.qmd
+    - build-docker-image.qmd
+#    - apidoc.qmd
+#    - summary.qmd
+#    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt
+
+
+

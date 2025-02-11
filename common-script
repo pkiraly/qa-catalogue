@@ -507,7 +507,7 @@ do_shacl4bib() {
   ./shacl4bib --defaultRecordType BOOKS ${PARAMS} --outputDir "$OUTPUT_DIR/" $MARC_DIR/$MASK 2> "$LOG_DIR/shacl4bib.log"
   Rscript scripts/shacl4bib/shacl4bib.R "$OUTPUT_DIR"
 
-  log "import issue details"
+  log "import shacl details into SQLite"
   echo "DROP TABLE IF EXISTS shacl;" > scripts/shacl4bib/shacl4bib.sql
   head -1 "$OUTPUT_DIR/shacl4bib.csv" \
     | sed 's/,/" VARCHAR(2), "/g' \

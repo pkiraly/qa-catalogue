@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>4&nbsp; Validating MARC records – QA Catalogue</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./formatter.html" rel="next">
+<link href="./usage.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-405256a2c67200e9a40151fe6708e1ee.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./usage.html">Usage</a></li><li class="breadcrumb-item"><a href="./validate.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Validating MARC records</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">QA Catalogue</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./installation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Installation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./quick-start-guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Quick start guide</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./build.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Build</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./download.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Download</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./usage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Usage</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./validate.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Validating MARC records</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./formatter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Display one MARC record, or extract data elements from MARC records</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./completeness.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Completeness</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./thompson-traill-completeness.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Thompson-Traill completeness</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./shelf-ready-completeness.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Shelf-ready completeness</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./serial-score-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Serial score analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./FRBR-functional-requirements.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">FRBR functional requirement analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./classification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Classification analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./authority-name-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Authority name analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./field-frequency-distribution.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Field frequency distribution</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./generating-cataloguing-history-chart.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Generating cataloguing history chart</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./import-tables-to-SQLite.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Import tables to SQLite</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./indexing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Indexing bibliographic records with Solr</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./export-mapping-table.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Export mapping table</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Shacl4Bib.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Shacl4Bib</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./where-can-I-get-MARC-records.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Where can I get MARC records?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./handling-MARC-versions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Handling MARC versions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./institutions-which-reportedly-use-this-tool.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Institutions which reportedly use this tool</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./supporters-and-sponsors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">supporters-and-sponsors</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./special-build-process.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Special build process</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./build-docker-image.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Build Docker image</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./usage.html">Usage</a></li><li class="breadcrumb-item"><a href="./validate.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Validating MARC records</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Validating MARC records</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>It validates each records against the MARC21 standard, including those local defined field, which are selected by the MARC version parameter.</p>
+<p>The issues are classified into the following categories: record, control field, data field, indicator, subfield and their subtypes.</p>
+<p>There is an uncertainty in the issue detection. Almost all library catalogues have fields, which are not part of the MARC standard, neither that of their documentation about the locally defined fields (these documents are rarely available publicly, and even if they are available sometimes they do not cover all fields). So if the tool meets a field which are undefined, it is impossible to decide whether it is valid or invalid in a particular context. So in some places the tool reflects this uncertainty and provides two calculations, one which handles these fields as error, and another which handles these as valid fields.</p>
+<p>The tool detects the following issues:</p>
+<table id="issue-types">
+<thead>
+<tr>
+<th>
+machine name
+</th>
+<th>
+explanation
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2">
+<strong>record level issues</strong>
+</td>
+</tr>
+<tr>
+<td>
+<code>undetectableType</code>
+</td>
+<td>
+the document type is not detectable
+</td>
+</tr>
+<tr>
+<td>
+<code>invalidLinkage</code>
+</td>
+<td>
+the linkage in field 880 is invalid
+</td>
+</tr>
+<tr>
+<td>
+<code>ambiguousLinkage</code>
+</td>
+<td>
+the linkage in field 880 is ambiguous
+</td>
+</tr>
+<tr>
+<td colspan="2">
+<strong>control field position issues</strong>
+</td>
+</tr>
+<tr>
+<td>
+<code>obsoleteControlPosition</code>
+</td>
+<td>
+the code in the position is obsolete (it was valid in a previous version of MARC, but it is not valid now)
+</td>
+</tr>
+<tr>
+<td>
+<code>controlValueContainsInvalidCode</code>
+</td>
+<td>
+the code in the position is invalid
+</td>
+</tr>
+<tr>
+<td>
+<code>invalidValue</code>
+</td>
+<td>
+the position value is invalid
+</td>
+</tr>
+<tr>
+<td colspan="2">
+<strong>data field issues</strong>
+</td>
+</tr>
+<tr>
+<td>
+<code>missingSubfield</code>
+</td>
+<td>
+missing reference subfield (880$6)
+</td>
+</tr>
+<tr>
+<td>
+<code>nonrepeatableField</code>
+</td>
+<td>
+repetition of a non-repeatable field
+</td>
+</tr>
+<tr>
+<td>
+<code>undefinedField</code>
+</td>
+<td>
+the field is not defined in the specified MARC version(s)
+</td>
+</tr>
+<tr>
+<td colspan="2">
+<strong>indicator issues</strong>
+</td>
+</tr>
+<tr>
+<td>
+<code>obsoleteIndicator</code>
+</td>
+<td>
+the indicator value is obsolete (it was valid in a previous version of MARC, but not in the current version)
+</td>
+</tr>
+<tr>
+<td>
+<code>nonEmptyIndicator</code>
+</td>
+<td>
+indicator that should be empty is non-empty
+</td>
+</tr>
+<tr>
+<td>
+<code>invalidValue</code>
+</td>
+<td>
+the indicator value is invalid
+</td>
+</tr>
+<tr>
+<td colspan="2">
+<strong>subfield issues</strong>
+</td>
+</tr>
+<tr>
+<td>
+<code>undefinedSubfield</code>
+</td>
+<td>
+the subfield is undefined in the specified MARC version(s)
+</td>
+</tr>
+<tr>
+<td>
+<code>invalidLength</code>
+</td>
+<td>
+the length of the value is invalid
+</td>
+</tr>
+<tr>
+<td>
+<code>invalidReference</code>
+</td>
+<td>
+the reference to the classification vocabulary is invalid
+</td>
+</tr>
+<tr>
+<td>
+<code>patternMismatch</code>
+</td>
+<td>
+content does not match the patterns specified by the standard
+</td>
+</tr>
+<tr>
+<td>
+<code>nonrepeatableSubfield</code>
+</td>
+<td>
+repetition of a non-repeatable subfield
+</td>
+</tr>
+<tr>
+<td>
+<code>invalidISBN</code>
+</td>
+<td>
+invalid ISBN value
+</td>
+</tr>
+<tr>
+<td>
+<code>invalidISSN</code>
+</td>
+<td>
+invalid ISSN value
+</td>
+</tr>
+<tr>
+<td>
+<code>unparsableContent</code>
+</td>
+<td>
+the value of the subfield is not well-formed according to its specification
+</td>
+</tr>
+<tr>
+<td>
+<code>nullCode</code>
+</td>
+<td>
+null subfield code
+</td>
+</tr>
+<tr>
+<td>
+<code>invalidValue</code>
+</td>
+<td>
+invalid subfield value
+</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">java</span> <span class="at">-cp</span> <span class="va">$JAR</span> de.gwdg.metadataqa.marc.cli.Validator <span class="pp">[</span><span class="ss">options</span><span class="pp">]</span> <span class="op">&lt;</span>file<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>or with a bash script</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./validator</span> <span class="pp">[</span><span class="ss">options</span><span class="pp">]</span> <span class="op">&lt;</span>file<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>or</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">catalogues/</span><span class="op">&lt;</span>catalogue<span class="op">&gt;</span>.sh validate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>or</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./qa-catalogue</span> <span class="at">--params</span><span class="op">=</span><span class="st">"[options]"</span> validate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>options:</p>
+<ul>
+<li><a href="usage.html#general-parameters">general parameters</a></li>
+<li>granularity of the report
+<ul>
+<li><code>-S</code>, <code>--summary</code>: creating a summary report instead of record level reports</li>
+<li><code>-H</code>, <code>--details</code>: provides record level details of the issues</li>
+</ul></li>
+<li>output parameters:
+<ul>
+<li><code>-G &lt;file&gt;</code>, <code>--summaryFileName &lt;file&gt;</code>: the name of summary report the program produces. The file provides a summary of issues, such as the number of instance and number of records having the particular issue.</li>
+<li><code>-F &lt;file&gt;</code>, <code>--detailsFileName &lt;file&gt;</code>: the name of report the program produces. Default is <code>validation-report.txt</code>. If you use “stdout”, it won’t create file, but put results into the standard output.</li>
+<li><code>-R &lt;format&gt;</code>, <code>--format &lt;format&gt;</code>: format specification of the output. Possible values:
+<ul>
+<li><code>text</code> (default),</li>
+<li><code>tab-separated</code> or <code>tsv</code>,</li>
+<li><code>comma-separated</code> or <code>csv</code></li>
+</ul></li>
+</ul></li>
+<li><code>-W</code>, <code>--emptyLargeCollectors</code>: the output files are created during the process and not only at the end of it. It helps in memory management if the input is large, and it has lots of errors, on the other hand the output file will be segmented, which should be handled after the process.</li>
+<li><code>-T</code>, <code>--collectAllErrors</code>: collect all errors (useful only for validating small number of records). Default is turned off.</li>
+<li><code>-I &lt;types&gt;</code>, <code>--ignorableIssueTypes &lt;types&gt;</code>: comma separated list of issue types not to collect. The valid values are (for details see the <a href="#issue-types">issue types</a> table):
+<ul>
+<li><code>undetectableType</code>: undetectable type</li>
+<li><code>invalidLinkage</code>: invalid linkage</li>
+<li><code>ambiguousLinkage</code>: ambiguous linkage</li>
+<li><code>obsoleteControlPosition</code>: obsolete code</li>
+<li><code>controlValueContainsInvalidCode</code>: invalid code</li>
+<li><code>invalidValue</code>: invalid value</li>
+<li><code>missingSubfield</code>: missing reference subfield (880$6)</li>
+<li><code>nonrepeatableField</code>: repetition of non-repeatable field</li>
+<li><code>undefinedField</code>: undefined field</li>
+<li><code>obsoleteIndicator</code>: obsolete value</li>
+<li><code>nonEmptyIndicator</code>: non-empty indicator</li>
+<li><code>invalidValue</code>: invalid value</li>
+<li><code>undefinedSubfield</code>: undefined subfield</li>
+<li><code>invalidLength</code>: invalid length</li>
+<li><code>invalidReference</code>: invalid classification reference</li>
+<li><code>patternMismatch</code>: content does not match any patterns</li>
+<li><code>nonrepeatableSubfield</code>: repetition of non-repeatable subfield</li>
+<li><code>invalidISBN</code>: invalid ISBN</li>
+<li><code>invalidISSN</code>: invalid ISSN</li>
+<li><code>unparsableContent</code>: content is not well-formatted</li>
+<li><code>nullCode</code>: null subfield code</li>
+<li><code>invalidValue</code>: invalid value</li>
+</ul></li>
+</ul>
+<p>Outputs: * <code>count.csv</code>: the count of bibliographic records in the source dataset</p>
+<pre class="csv"><code>total
+1192536</code></pre>
+<ul>
+<li><code>issue-by-category.csv</code>: the counts of issues by categories. Columns:
+<ul>
+<li><code>id</code> the identifier of error category</li>
+<li><code>category</code> the name of the category</li>
+<li><code>instances</code> the number of instances of errors within the category (one record might have multiple instances of the same error)</li>
+<li><code>records</code> the number of records having at least one of the errors within the category</li>
+</ul></li>
+</ul>
+<pre class="csv"><code>id,category,instances,records
+2,control field,994241,313960
+3,data field,12,12
+4,indicator,5990,5041
+5,subfield,571,555</code></pre>
+<ul>
+<li><code>issue-by-type.csv</code>: the count of issues by types (subcategories).</li>
+</ul>
+<pre class="csv"><code>id,categoryId,category,type,instances,records
+5,2,control field,"invalid code",951,541
+6,2,control field,"invalid value",993290,313733
+8,3,data field,"repetition of non-repeatable field",12,12
+10,4,indicator,"obsolete value",1,1
+11,4,indicator,"non-empty indicator",33,32
+12,4,indicator,"invalid value",5956,5018
+13,5,subfield,"undefined subfield",48,48
+14,5,subfield,"invalid length",2,2
+15,5,subfield,"invalid classification reference",2,2
+16,5,subfield,"content does not match any patterns",286,275
+17,5,subfield,"repetition of non-repeatable subfield",123,120
+18,5,subfield,"invalid ISBN",5,3
+19,5,subfield,"invalid ISSN",105,105</code></pre>
+<ul>
+<li><code>issue-summary.csv</code>: details of individual issues including basic statistics</li>
+</ul>
+<pre class="csv"><code>id,MarcPath,categoryId,typeId,type,message,url,instances,records
+53,008/33-34 (008map33),2,5,invalid code,'b' in 'b ',https://www.loc.gov/marc/bibliographic/bd008p.html,1,1
+70,008/00-05 (008all00),2,5,invalid code,Invalid content: '2023  '. Text '2023  ' could not be parsed at index 4,https://www.loc.gov/marc/bibliographic/bd008a.html,1,1
+28,008/22-23 (008map22),2,6,invalid value,| ,https://www.loc.gov/marc/bibliographic/bd008p.html,12,12
+19,008/31 (008book31),2,6,invalid value, ,https://www.loc.gov/marc/bibliographic/bd008b.html,1,1
+17,008/29 (008book29),2,6,invalid value, ,https://www.loc.gov/marc/bibliographic/bd008b.html,1,1</code></pre>
+<ul>
+<li><code>issue-details.csv</code>: list of issues by record identifiers. It has two columns, the record identifier, and a complex string, which contains the number of occurrences of each individual issue concatenated by semicolon.</li>
+</ul>
+<pre class="csv"><code>recordId,errors
+99117335059205508,1:2;2:1;3:1
+99117335059305508,1:1
+99117335059405508,2:2
+99117335059505508,3:1</code></pre>
+<p><code>1:2;2:1;3:1</code> means that 3 different types of issues are occurred in the record, the firs issue which has issue ID 1 occurred twice, issue ID 2 which occurred once and issue ID 3, which occurred once. The issue IDs can be resolved from the <code>issue-summary.csv</code> file’s firs column.</p>
+<ul>
+<li><code>issue-details-normalized.csv</code>: the normalized version of the previous file</li>
+</ul>
+<pre class="csv"><code>id,errorId,instances
+99117335059205508,1,2
+99117335059205508,2,1
+99117335059205508,3,1
+99117335059305508,1,1
+99117335059405508,2,2
+99117335059505508,3,1</code></pre>
+<ul>
+<li><code>issue-total.csv</code>: the number of issue free records, and number of record having issues</li>
+</ul>
+<pre class="csv"><code>type,instances,records
+0,0,251
+1,1711,848
+2,413,275</code></pre>
+<p>where types are - 0: records without errors - 1: records with any kinds of errors - 2: records with errors excluding invalid field errors</p>
+<ul>
+<li><code>issue-collector.csv</code>: non normalized file of record ids per issues. This is the “inverse” of <code>issue-details.csv</code>, it tells you in which records a particular issue occurred.</li>
+</ul>
+<pre class="csv"><code>errorId,recordIds
+1,99117329355705508;99117328948305508;99117334968905508;99117335067705508;99117335176005508;...</code></pre>
+<ul>
+<li><code>validation.params.json</code>: the list of the actual parameters during the running of the validation</li>
+</ul>
+<p>An example with parameters used for analysing a PICA dataset. When the input is a complex expression it is displayed here in a parsed format. It also contains some metadata such as the versions of MQFA API and QA catalogue.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"args"</span><span class="fu">:</span><span class="ot">[</span><span class="st">"/path/to/input.dat"</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"marcVersion"</span><span class="fu">:</span><span class="st">"MARC21"</span><span class="fu">,</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"marcFormat"</span><span class="fu">:</span><span class="st">"PICA_NORMALIZED"</span><span class="fu">,</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"dataSource"</span><span class="fu">:</span><span class="st">"FILE"</span><span class="fu">,</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"limit"</span><span class="fu">:</span><span class="dv">-1</span><span class="fu">,</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"offset"</span><span class="fu">:</span><span class="dv">-1</span><span class="fu">,</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"id"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"defaultRecordType"</span><span class="fu">:</span><span class="st">"BOOKS"</span><span class="fu">,</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"alephseq"</span><span class="fu">:</span><span class="kw">false</span><span class="fu">,</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"marcxml"</span><span class="fu">:</span><span class="kw">false</span><span class="fu">,</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"lineSeparated"</span><span class="fu">:</span><span class="kw">false</span><span class="fu">,</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"trimId"</span><span class="fu">:</span><span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"outputDir"</span><span class="fu">:</span><span class="st">"/path/to/_output/k10plus_pica"</span><span class="fu">,</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"recordIgnorator"</span><span class="fu">:{</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"criteria"</span><span class="fu">:</span><span class="ot">[]</span><span class="fu">,</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"booleanCriteria"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"empty"</span><span class="fu">:</span><span class="kw">true</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"recordFilter"</span><span class="fu">:{</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"criteria"</span><span class="fu">:</span><span class="ot">[]</span><span class="fu">,</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"booleanCriteria"</span><span class="fu">:{</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"op"</span><span class="fu">:</span><span class="st">"AND"</span><span class="fu">,</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"children"</span><span class="fu">:</span><span class="ot">[</span></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>          <span class="dt">"op"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>          <span class="dt">"children"</span><span class="fu">:</span><span class="ot">[]</span><span class="fu">,</span></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>          <span class="dt">"value"</span><span class="fu">:{</span></span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>            <span class="dt">"path"</span><span class="fu">:{</span></span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>              <span class="dt">"path"</span><span class="fu">:</span><span class="st">"002@.0"</span><span class="fu">,</span></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>              <span class="dt">"tag"</span><span class="fu">:</span><span class="st">"002@"</span><span class="fu">,</span></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>              <span class="dt">"xtag"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>              <span class="dt">"occurrence"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>              <span class="dt">"subfields"</span><span class="fu">:{</span><span class="dt">"type"</span><span class="fu">:</span><span class="st">"SINGLE"</span><span class="fu">,</span><span class="dt">"input"</span><span class="fu">:</span><span class="st">"0"</span><span class="fu">,</span><span class="dt">"codes"</span><span class="fu">:</span><span class="ot">[</span><span class="st">"0"</span><span class="ot">]</span><span class="fu">},</span></span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>              <span class="dt">"subfieldCodes"</span><span class="fu">:</span><span class="ot">[</span><span class="st">"0"</span><span class="ot">]</span></span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>            <span class="fu">},</span></span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>            <span class="dt">"operator"</span><span class="fu">:</span><span class="st">"NOT_MATCH"</span><span class="fu">,</span></span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>            <span class="dt">"value"</span><span class="fu">:</span><span class="st">"^L"</span></span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>          <span class="fu">}</span></span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span><span class="dt">"op"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span><span class="dt">"children"</span><span class="fu">:</span><span class="ot">[]</span><span class="fu">,</span><span class="dt">"value"</span><span class="fu">:{</span><span class="dt">"path"</span><span class="fu">:{</span><span class="dt">"path"</span><span class="fu">:</span><span class="st">"002@.0"</span><span class="fu">,</span><span class="dt">"tag"</span><span class="fu">:</span><span class="st">"002@"</span><span class="fu">,</span><span class="dt">"xtag"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span><span class="dt">"occurrence"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span><span class="dt">"subfields"</span><span class="fu">:{</span><span class="dt">"type"</span><span class="fu">:</span><span class="st">"SINGLE"</span><span class="fu">,</span><span class="dt">"input"</span><span class="fu">:</span><span class="st">"0"</span><span class="fu">,</span><span class="dt">"codes"</span><span class="fu">:</span><span class="ot">[</span><span class="st">"0"</span><span class="ot">]</span><span class="fu">},</span><span class="dt">"subfieldCodes"</span><span class="fu">:</span><span class="ot">[</span><span class="st">"0"</span><span class="ot">]</span><span class="fu">},</span><span class="dt">"operator"</span><span class="fu">:</span><span class="st">"NOT_MATCH"</span><span class="fu">,</span><span class="dt">"value"</span><span class="fu">:</span><span class="st">"^..[iktN]"</span><span class="fu">}}</span><span class="ot">,</span></span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span><span class="dt">"op"</span><span class="fu">:</span><span class="st">"OR"</span><span class="fu">,</span><span class="dt">"children"</span><span class="fu">:</span><span class="ot">[</span><span class="fu">{</span><span class="dt">"op"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span><span class="dt">"children"</span><span class="fu">:</span><span class="ot">[]</span><span class="fu">,</span><span class="dt">"value"</span><span class="fu">:{</span><span class="dt">"path"</span><span class="fu">:{</span><span class="dt">"path"</span><span class="fu">:</span><span class="st">"002@.0"</span><span class="fu">,</span><span class="dt">"tag"</span><span class="fu">:</span><span class="st">"002@"</span><span class="fu">,</span><span class="dt">"xtag"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span><span class="dt">"occurrence"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span><span class="dt">"subfields"</span><span class="fu">:{</span><span class="dt">"type"</span><span class="fu">:</span><span class="st">"SINGLE"</span><span class="fu">,</span><span class="dt">"input"</span><span class="fu">:</span><span class="st">"0"</span><span class="fu">,</span><span class="dt">"codes"</span><span class="fu">:</span><span class="ot">[</span><span class="st">"0"</span><span class="ot">]</span><span class="fu">},</span><span class="dt">"subfieldCodes"</span><span class="fu">:</span><span class="ot">[</span><span class="st">"0"</span><span class="ot">]</span><span class="fu">},</span><span class="dt">"operator"</span><span class="fu">:</span><span class="st">"NOT_MATCH"</span><span class="fu">,</span><span class="dt">"value"</span><span class="fu">:</span><span class="st">"^.v"</span><span class="fu">}}</span><span class="ot">,</span><span class="fu">{</span><span class="dt">"op"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span><span class="dt">"children"</span><span class="fu">:</span><span class="ot">[]</span><span class="fu">,</span><span class="dt">"value"</span><span class="fu">:{</span><span class="dt">"path"</span><span class="fu">:{</span><span class="dt">"path"</span><span class="fu">:</span><span class="st">"021A.a"</span><span class="fu">,</span><span class="dt">"tag"</span><span class="fu">:</span><span class="st">"021A"</span><span class="fu">,</span><span class="dt">"xtag"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span><span class="dt">"occurrence"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span><span class="dt">"subfields"</span><span class="fu">:{</span><span class="dt">"type"</span><span class="fu">:</span><span class="st">"SINGLE"</span><span class="fu">,</span><span class="dt">"input"</span><span class="fu">:</span><span class="st">"a"</span><span class="fu">,</span><span class="dt">"codes"</span><span class="fu">:</span><span class="ot">[</span><span class="st">"a"</span><span class="ot">]</span><span class="fu">},</span><span class="dt">"subfieldCodes"</span><span class="fu">:</span><span class="ot">[</span><span class="st">"a"</span><span class="ot">]</span><span class="fu">},</span><span class="dt">"operator"</span><span class="fu">:</span><span class="st">"EXIST"</span><span class="fu">,</span><span class="dt">"value"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">}}</span><span class="ot">]</span><span class="fu">,</span><span class="dt">"value"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">}</span></span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"value"</span><span class="fu">:</span><span class="kw">null</span></span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"empty"</span><span class="fu">:</span><span class="kw">false</span></span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"ignorableFields"</span><span class="fu">:{</span></span>
+<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"fields"</span><span class="fu">:</span><span class="ot">[</span><span class="st">"001@"</span><span class="ot">,</span><span class="st">"001E"</span><span class="ot">,</span><span class="st">"001L"</span><span class="ot">,</span><span class="st">"001U"</span><span class="ot">,</span><span class="st">"001U"</span><span class="ot">,</span><span class="st">"001X"</span><span class="ot">,</span><span class="st">"001X"</span><span class="ot">,</span><span class="st">"002V"</span><span class="ot">,</span><span class="st">"003C"</span><span class="ot">,</span><span class="st">"003G"</span><span class="ot">,</span><span class="st">"003Z"</span><span class="ot">,</span><span class="st">"008G"</span><span class="ot">,</span><span class="st">"017N"</span><span class="ot">,</span><span class="st">"020F"</span><span class="ot">,</span><span class="st">"027D"</span><span class="ot">,</span><span class="st">"031B"</span><span class="ot">,</span><span class="st">"037I"</span><span class="ot">,</span><span class="st">"039V"</span><span class="ot">,</span><span class="st">"042@"</span><span class="ot">,</span><span class="st">"046G"</span><span class="ot">,</span><span class="st">"046T"</span><span class="ot">,</span><span class="st">"101@"</span><span class="ot">,</span><span class="st">"101E"</span><span class="ot">,</span><span class="st">"101U"</span><span class="ot">,</span><span class="st">"102D"</span><span class="ot">,</span><span class="st">"201E"</span><span class="ot">,</span><span class="st">"201U"</span><span class="ot">,</span><span class="st">"202D"</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"empty"</span><span class="fu">:</span><span class="kw">false</span></span>
+<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"stream"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"defaultEncoding"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"alephseqLineType"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"picaIdField"</span><span class="fu">:</span><span class="st">"003@$0"</span><span class="fu">,</span></span>
+<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"picaSubfieldSeparator"</span><span class="fu">:</span><span class="st">"$"</span><span class="fu">,</span></span>
+<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"picaSchemaFile"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"picaRecordTypeField"</span><span class="fu">:</span><span class="st">"002@$0"</span><span class="fu">,</span></span>
+<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"schemaType"</span><span class="fu">:</span><span class="st">"PICA"</span><span class="fu">,</span></span>
+<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"groupBy"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"detailsFileName"</span><span class="fu">:</span><span class="st">"issue-details.csv"</span><span class="fu">,</span></span>
+<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"summaryFileName"</span><span class="fu">:</span><span class="st">"issue-summary.csv"</span><span class="fu">,</span></span>
+<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"format"</span><span class="fu">:</span><span class="st">"COMMA_SEPARATED"</span><span class="fu">,</span></span>
+<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"ignorableIssueTypes"</span><span class="fu">:</span><span class="ot">[</span><span class="st">"FIELD_UNDEFINED"</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"pica"</span><span class="fu">:</span><span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb13-66"><a href="#cb13-66" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"replacementInControlFields"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb13-67"><a href="#cb13-67" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"marc21"</span><span class="fu">:</span><span class="kw">false</span><span class="fu">,</span></span>
+<span id="cb13-68"><a href="#cb13-68" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"mqaf.version"</span><span class="fu">:</span><span class="st">"0.9.2"</span><span class="fu">,</span></span>
+<span id="cb13-69"><a href="#cb13-69" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"qa-catalogue.version"</span><span class="fu">:</span><span class="st">"0.7.0-SNAPSHOT"</span></span>
+<span id="cb13-70"><a href="#cb13-70" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><code>id-groupid.csv</code>: the pairs of record identifiers - group identifiers.</li>
+</ul>
+<pre class="{csv}"><code>id,groupId
+010000011,0
+010000011,77
+010000011,2035
+010000011,70
+010000011,20</code></pre>
+<p>Currently, validation detects the following errors:</p>
+<p>Leader specific errors:</p>
+<ul>
+<li>Leader/[position] has an invalid value: ‘[value]’ (e.g.&nbsp;<code>Leader/19 (leader19) has an invalid value: '4'</code>)</li>
+</ul>
+<p>Control field specific errors:</p>
+<ul>
+<li>006/[position] ([name]) contains an invalid code: ‘[code]’ in ‘[value]’ (e.g.&nbsp;<code>006/01-05 (tag006book01) contains an invalid code: 'n' in '  n '</code>)</li>
+<li>006/[position] ([name]) has an invalid value: ‘[value]’ (e.g.&nbsp;<code>006/13 (tag006book13) has an invalid value: ' '</code>)</li>
+<li>007/[position] ([name]) contains an invalid code: ‘[code]’ in ‘[value]’</li>
+<li>007/[position] ([name]) has an invalid value: ‘[value]’ (e.g.&nbsp;<code>007/01 (tag007microform01) has an invalid value: ' '</code>)</li>
+<li>008/[position] ([name]) contains an invalid code: ‘[code]’ in ‘[value]’ (e.g.&nbsp;<code>008/18-22 (tag008book18) contains an invalid code: 'u' in 'u   '</code>)</li>
+<li>008/[position] ([name]) has an invalid value: ‘[value]’ (e.g.&nbsp;<code>008/06 (tag008all06) has an invalid value: ' '</code>)</li>
+</ul>
+<p>Data field specific errors</p>
+<ul>
+<li>Unhandled tag(s): [tags] (e.g.&nbsp;<code>Unhandled tag: 265</code>)</li>
+<li>[tag] is not repeatable, however there are [number] instances</li>
+<li>[tag] has invalid subfield(s): [subfield codes] (e.g.&nbsp;<code>110 has invalid subfield: s</code>)</li>
+<li>[tag]<span class="math inline">\([indicator] has invalid code: '[code]' (e.g. `110\)</span>ind1 has invalid code: ‘2’`)</li>
+<li>[tag]<span class="math inline">\([indicator] should be empty, it has '[code]' (e.g. `110\)</span>ind2 should be empty, it has ‘0’`)</li>
+<li>[tag]<span class="math inline">\([subfield code] is not repeatable, however there are [number] instances (e.g. `072\)</span>a is not repeatable, however there are 2 instances`)</li>
+<li>[tag]<span class="math inline">\([subfield code] has an invalid value: [value] (e.g. `046\)</span>a has an invalid value: ‘fb—–’`)</li>
+</ul>
+<p>Errors of specific fields:</p>
+<ul>
+<li>045<span class="math inline">\(a error in '[value]': length is not 4 char (e.g. `045\)</span>a error in ‘2209668’: length is not 4 char`)</li>
+<li>045$a error in ‘[value]’: ‘[part]’ does not match any patterns</li>
+<li>880 should have subfield $a</li>
+<li>880 refers to field [tag], which is not defined (e.g.&nbsp;<code>880 refers to field 590, which is not defined</code>)</li>
+</ul>
+<p>An example:</p>
+<pre><code>Error in '   00000034 ': 
+  110$ind1 has invalid code: '2'
+Error in '   00000056 ': 
+  110$ind1 has invalid code: '2'
+Error in '   00000057 ': 
+  082$ind1 has invalid code: ' '
+Error in '   00000086 ': 
+  110$ind1 has invalid code: '2'
+Error in '   00000119 ': 
+  700$ind1 has invalid code: '2'
+Error in '   00000234 ': 
+  082$ind1 has invalid code: ' '
+Errors in '   00000294 ': 
+  050$ind2 has invalid code: ' '
+  260$ind1 has invalid code: '0'
+  710$ind2 has invalid code: '0'
+  710$ind2 has invalid code: '0'
+  710$ind2 has invalid code: '0'
+  740$ind2 has invalid code: '1'
+Error in '   00000322 ': 
+  110$ind1 has invalid code: '2'
+Error in '   00000328 ': 
+  082$ind1 has invalid code: ' '
+Error in '   00000374 ': 
+  082$ind1 has invalid code: ' '
+Error in '   00000395 ': 
+  082$ind1 has invalid code: ' '
+Error in '   00000514 ': 
+  082$ind1 has invalid code: ' '
+Errors in '   00000547 ': 
+  100$ind2 should be empty, it has '0'
+  260$ind1 has invalid code: '0'
+Errors in '   00000571 ': 
+  050$ind2 has invalid code: ' '
+  100$ind2 should be empty, it has '0'
+  260$ind1 has invalid code: '0'
+...</code></pre>
+<!--
+#### some post processing usage examples
+
+After running the validation as tab separated file `validation-report.txt`
+
+get the number of errors:
+
+```bash
+wc -l validation-report.txt
+```
+
+get the number of records having errors
+
+```bash
+awk -F "\t" '{print $1}' validation-report.txt | uniq -c | wc -l
+```
+-->
+<section id="post-processing-validation-result-validate-sqlite" class="level4" data-number="4.0.0.1">
+<h4 data-number="4.0.0.1" class="anchored" data-anchor-id="post-processing-validation-result-validate-sqlite"><span class="header-section-number">4.0.0.1</span> post processing validation result (validate-sqlite)</h4>
+<p>Usage:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">catalogues/</span><span class="op">&lt;</span>catalogue<span class="op">&gt;</span>.sh validate-sqlite</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>or</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./qa-catalogue</span> <span class="at">--params</span><span class="op">=</span><span class="st">"[options]"</span> validate-sqlite</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>or</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./common-script</span> <span class="pp">[</span><span class="ss">options</span><span class="pp">]</span> validate-sqlite</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>[options] are the same as for validation</p>
+<section id="catalogue-for-a-single-library" class="level5" data-number="4.0.0.1.1">
+<h5 data-number="4.0.0.1.1" class="anchored" data-anchor-id="catalogue-for-a-single-library"><span class="header-section-number">4.0.0.1.1</span> Catalogue for a single library</h5>
+<p>If the data is <em>not</em> grouped by libraries (no <code>--groupBy &lt;path&gt;</code> parameter), it creates the following SQLite3 database structure and import some of the CSV files into it:</p>
+<p><code>issue_summary</code> table for the <code>issue-summary.csv</code>:</p>
+<p>It represents a particular type of error</p>
+<pre><code>id         INTEGER,  -- identifier of the error
+MarcPath   TEXT,     -- the location of the error in the bibliographic record
+categoryId INTEGER,  -- the identifier of the category of the error
+typeId     INTEGER,  -- the identifier of the type of the error
+type       TEXT,     -- the description of the type
+message    TEXT,     -- extra contextual information 
+url        TEXT,     -- the url of the definition of the data element
+instances  INTEGER,  -- the number of instances this error occured
+records    INTEGER   -- the number of records this error occured in</code></pre>
+<p><code>issue_details</code> table for the <code>issue-details.csv</code>:</p>
+<p>Each row represents how many instances of an error occur in a particular bibliographic record</p>
+<pre><code>id         TEXT,    -- the record identifier
+errorId    INTEGER, -- the error identifier (-&gt; issue_summary.id)
+instances  INTEGER  -- the number of instances of an error in the record</code></pre>
+</section>
+<section id="union-catalogue-for-multiple-libraries" class="level5" data-number="4.0.0.1.2">
+<h5 data-number="4.0.0.1.2" class="anchored" data-anchor-id="union-catalogue-for-multiple-libraries"><span class="header-section-number">4.0.0.1.2</span> Union catalogue for multiple libraries</h5>
+<p>If the dataset is a union catalogue, and the record contains a subfield for the libraries holding the item (there is <code>--groupBy &lt;path&gt;</code> parameter), it creates the following SQLite3 database structure and import some of the CSV files into it:</p>
+<p><code>issue_summary</code> table for the <code>issue-summary.csv</code> (it is similar to the other issue_summary table, but it has an extra <code>groupId</code> column)</p>
+<pre><code>groupId    INTEGER,
+id         INTEGER,
+MarcPath   TEXT,
+categoryId INTEGER,
+typeId     INTEGER,
+type       TEXT,
+message    TEXT,
+url        TEXT,
+instances  INTEGER,
+records    INTEGER</code></pre>
+<p><code>issue_details</code> table (same as the other <code>issue_details</code> table)</p>
+<pre><code>id         TEXT,
+errorId    INTEGER,
+instances  INTEGER</code></pre>
+<p><code>id_groupid</code> table for <code>id-groupid.csv</code>:</p>
+<pre><code>id         TEXT,
+groupId    INTEGER</code></pre>
+<p><code>issue_group_types</code> table contains statistics for the error types per groups.</p>
+<pre><code>groupId    INTEGER,
+typeId     INTEGER,
+records    INTEGER,
+instances  INTEGER</code></pre>
+<p><code>issue_group_categories</code> table contains statistics for the error categories per groups</p>
+<pre><code>groupId    INTEGER,
+categoryId INTEGER,
+records    INTEGER,
+instances  INTEGER</code></pre>
+<p><code>issue_group_paths</code> table contains statistics for the error types per paths per groups</p>
+<pre><code>groupId    INTEGER,
+typeId     INTEGER,
+path       TEXT,
+records    INTEGER,
+instances  INTEGER</code></pre>
+<p>For union catalogues it also creates an extra Solr index with the suffix <code>_validation</code>. It contains one Solr document for each bibliographic record with three fields: the record identifier, the list of group identifiers and the list of error identifiers (if any). This Solr index is needed for populating the <code>issue_group_types</code>, <code>issue_group_categories</code> and <code>issue_group_paths</code> tables. This index will be ingested into the main Solr index.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./usage.html" class="pagination-link" aria-label="Usage">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Usage</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./formatter.html" class="pagination-link" aria-label="Display one MARC record, or extract data elements from MARC records">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Display one MARC record, or extract data elements from MARC records</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

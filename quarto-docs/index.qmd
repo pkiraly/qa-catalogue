@@ -1,0 +1,44 @@
+# Introduction {.unnumbered}
+
+QA catalogue is a set of software packages for bibliographical record quality assessment. It reads MARC or PICA files (in different formats), analyses some  quality dimensions, and saves the results into CSV files. These CSV files could be used in different context, we provide a lightweight, web-based [user interface](#user-interface) for that. Some of the functionalities are available as a [web service](https://github.com/pkiraly/metadata-qa-marc-ws), so the validation could be built into a cataloguing/quality assessment workflow.
+
+<!--
+The following throws an error:
+
+  ! LaTeX Error: Cannot determine size of graphic in images/issues-v1.gif (no BoundingBox).
+  See the LaTeX manual or LaTeX Companion for explanation.
+  Type  H <return>  for immediate help.
+  l.229 ...n,height=4.16667in]{images/issues-v1.gif}
+
+![User interface](images/issues-v1.gif){width=938 height=638}
+Screenshot from the web UI of the QA catalogue
+-->
+
+::: {#fig-web-ui}
+
+```{=html}
+<div align="center">
+<iframe width="938" height="638" src="images/issues-v1.gif"></iframe>
+</div>
+```
+
+QA Catalogue's web user interface
+:::
+
+* For more info
+  * main project page: [Metadata Quality Assessment Framework](http://pkiraly.github.io)
+  * Validating 126 million MARC records at DATeCH 2019
+    [paper](https://doi.org/10.1145/3322905.3322929),
+    [slides](http://bit.ly/qa-datech2019),
+    [thesis chapter](https://doi.org/10.13140/RG.2.2.33177.77920)
+  * Empirical evaluation of library catalogues at SWIB 2019 [slides](http://bit.ly/qa-swib2019),
+    [paper in English](https://pro.europeana.eu/page/issue-15-swib-2019#empirical-evaluation-of-library-catalogues),
+    [paper in Spanish](https://universoabierto.org/2020/06/01/evaluacion-empirica-de-los-catalogos-de-las-bibliotecas/)
+  * quality assessment of Gent University Library catalogue (a running instance
+    of the dashboard): [http://gent.qa-catalogue.eu/](http://gent.qa-catalogue.eu/)
+  * <strong>new: QA catalogue mailing list</strong> https://listserv.gwdg.de/mailman/listinfo/qa-catalogue
+* If you would like to play with this project, but you don't have MARC21 please
+  to download some recordsets mentioned in
+  [Appendix I: Where can I get MARC records?](#datasources) of this document.
+
+[]: # See @knuth84 for additional discussion of literate programming.

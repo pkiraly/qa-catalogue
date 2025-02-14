@@ -6,11 +6,11 @@ repo-url: https://github.com/pkiraly/qa-catalogue
 book:
   title: "QA Catalogue"
   author: "Péter Király"
-  date: "2/11/2025"
+  date: "2025-02-14"
   chapters:
     - index.qmd
     #    - intro.qmd
-    - part: installation.qmd
+    - part: "Installation"
       chapters:
       - quick-start-guide.qmd
       - build.qmd
@@ -49,5 +49,6 @@ format:
   html:
     theme: cosmo
     highlight-style: kate
+    css: style.css
   #pdf:
   #  documentclass: scrreprt

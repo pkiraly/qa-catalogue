@@ -1,10 +1,9 @@
 ---
 title: "Build Docker image"
-format: html
 ---
 
 Build and test
-```{bash}
+```bash
 # create the Java library
 mvn clean install
 # create the docker base image
@@ -27,7 +26,7 @@ The `docker compose build` command has multiple `--build-arg` arguments to overr
 
 Using the current developer version:
 
-```{bash}
+```bash
 docker compose -f docker/build.yml build app \
   --build-arg QA_CATALOGUE_VERSION=0.8.0-SNAPSHOT \
   --build-arg QA_CATALOGUE_WEB_VERSION=develop \
@@ -36,7 +35,7 @@ docker compose -f docker/build.yml build app \
 
 Using a downloaded Solr package:
 
-```{bash}
+```bash
 # create link temporary
 mkdir download
 ln ~/Downloads/solr/solr-8.11.3.zip download/solr-8.11.3.zip
@@ -56,14 +55,14 @@ Then start the container with environment variable `IMAGE` set to
 For maintainers only:
 
 Upload to Docker Hub:
-```{bash}
+```bash
 docker tag metadata-qa-marc:latest pkiraly/metadata-qa-marc:latest
 docker login
 docker push pkiraly/metadata-qa-marc:latest
 ```
 
 Cleaning before and after:
-```{bash}
+```bash
 # stop running container
 docker stop $(docker ps --filter name=metadata-qa-marc -q)
 # remove container

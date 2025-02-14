@@ -1,6 +1,5 @@
 ---
 title: "Thompson-Traill completeness"
-format: html
 ---
 
 Kelly Thompson and Stacie Traill recently published their approach to calculate

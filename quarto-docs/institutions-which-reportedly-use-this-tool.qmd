@@ -1,6 +1,5 @@
 ---
 title: "Institutions which reportedly use this tool"
-format: html
 ---
 
 * [Universiteitsbibliotheek Gent](https://lib.ugent.be/), Gent, Belgium

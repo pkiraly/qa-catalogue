@@ -1,6 +1,5 @@
 ---
 title: "Quick start guide"
-format: html
 ---
 
 ## Installation

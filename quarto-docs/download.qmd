@@ -1,6 +1,5 @@
 ---
 title: "Download"
-format: html
 ---
 
 The released versions of the software is available from Maven Central

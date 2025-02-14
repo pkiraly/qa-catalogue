@@ -1,6 +1,5 @@
 ---
 title: "Display one MARC record, or extract data elements from MARC records"
-format: html
 ---
 
 ```bash

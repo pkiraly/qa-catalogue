@@ -1,6 +1,8 @@
 project:
   type: book
-#  output-dir: docs
+  output-dir: docs
+
+repo-url: https://github.com/pkiraly/qa-catalogue
 
 book:
   title: "QA Catalogue"
@@ -47,8 +49,6 @@ bibliography: references.bib
 format:
   html:
     theme: cosmo
-  pdf:
-    documentclass: scrreprt
-
-
-
+    highlight-style: kate
+  #pdf:
+  #  documentclass: scrreprt

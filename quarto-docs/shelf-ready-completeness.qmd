@@ -1,6 +1,5 @@
 ---
 title: "Shelf-ready completeness"
-format: html
 ---
 
 This analysis is the implementation of the following paper:

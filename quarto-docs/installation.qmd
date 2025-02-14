@@ -1,5 +1,4 @@
 ---
 title: "Installation"
-format: html
 ---
 

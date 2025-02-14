@@ -1,6 +1,5 @@
 ---
 title: "FRBR functional requirement analysis"
-format: html
 ---
 
 The Functional Requirements for Bibliographic Records (FRBR) document's main

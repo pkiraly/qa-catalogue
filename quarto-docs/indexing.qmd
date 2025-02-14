@@ -1,6 +1,5 @@
 ---
 title: "Indexing bibliographic records with Solr"
-format: html
 ---
 
 Run indexer:

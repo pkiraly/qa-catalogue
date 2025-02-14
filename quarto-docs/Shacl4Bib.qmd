@@ -1,6 +1,5 @@
 ---
 title: "Shacl4Bib"
-format: html
 ---
 
 since v0.7.0. Note: This is an experimental feature.
@@ -50,7 +49,7 @@ fields:
 
 The output contains an extra column, the record identifier, so it looks like something like this:
 
-```{csv}
+```csv
 id,040$a.minCount,040$a.pattern
 17529680,1,1
 18212975,1,1

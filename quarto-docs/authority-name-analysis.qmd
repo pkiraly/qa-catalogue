@@ -1,6 +1,5 @@
 ---
 title: "Authority name analysis"
-format: html
 ---
 
 It analyses the coverage of authority names (persons, organisations, events,

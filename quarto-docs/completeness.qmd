@@ -1,6 +1,5 @@
 ---
 title: "Completeness"
-format: html
 ---
 
 Counts basic statistics about the data elements available in the catalogue.
@@ -38,7 +37,7 @@ options:
 ## Output files:
 
 ### marc-elements.csv
-is list of MARC elements (field$subfield) and their occurrences in two ways as number or records, and number of instances. The columns in the file are: 
+is list of MARC elements (`field$subfield`) and their occurrences in two ways as number or records, and number of instances. The columns in the file are: 
 
   * `documenttype`: the document types found in the dataset. There is an extra document type: `all` representing all 
     records
@@ -91,7 +90,7 @@ Its columns:
 | all | 99 | unknown | unknown origin      | false | 778 |
 
 ### libraries.csv
-Lists the content of the 852$a (it is useful only if the catalog is an aggregated catalog). Its columns are:
+Lists the content of the `852$a` (it is useful only if the catalog is an aggregated catalog). Its columns are:
 
   * `library`: the code of a library
   * `count`: the number of records having a particular library code
@@ -229,7 +228,7 @@ This is the very same file what validation creates. Completeness creates it only
 
 The `completeness-sqlite` step (which is launched by the `completeness` step, but could be launched independently as  well) imports `marc-elements.csv` or `completeness-grouped-marc-elements.csv` file into `marc_elements` table. For the catalogues without the `--groupBy` parameter the `groupId` column will be filled by `0`. Its columns are:
 
-```{sql}
+```sql
 groupId             INTEGER,
 documenttype        TEXT,
 path                TEXT,

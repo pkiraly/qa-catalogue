@@ -1,6 +1,5 @@
 ---
 title: "Special build process"
-format: html
 ---
 
 "deployment" build (when deploying artifacts to Maven Central)

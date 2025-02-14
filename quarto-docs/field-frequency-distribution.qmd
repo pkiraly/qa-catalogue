@@ -1,6 +1,5 @@
 ---
 title: "Field frequency distribution"
-format: html
 ---
 
 This analysis reveals the relative importance of some fields. Pareto's

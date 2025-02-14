@@ -1,6 +1,5 @@
 ---
 title: "Serial score analysis"
-format: html
 ---
 
 These scores are calculated for each continuing resources (type of record

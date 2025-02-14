@@ -1,6 +1,5 @@
 ---
 title: "supporters-and-sponsors"
-format: html
 ---
 
 * [Gesellschaft für wissenschaftliche Datenverarbeitung mbH Göttingen (GWDG)](https://gwdg.de): Hardware, time for research

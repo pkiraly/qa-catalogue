@@ -1,6 +1,5 @@
 ---
 title: "Validating MARC records"
-format: html
 ---
 
 It validates each records against the MARC21 standard, including those local
@@ -20,119 +19,35 @@ which handles these fields as error, and another which handles these as valid fi
 
 The tool detects the following issues:
 
-<table id="issue-types">
-  <thead>
-    <tr>
-      <th>machine name</th>
-      <th>explanation</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td colspan="2"><strong>record level issues</strong></td>
-    </tr>
-    <tr>
-      <td><code>undetectableType</code></td>
-      <td>the document type is not detectable</td>
-    </tr>
-    <tr>
-      <td><code>invalidLinkage</code></td>
-      <td>the linkage in field 880 is invalid</td>
-    </tr>
-    <tr>
-      <td><code>ambiguousLinkage</code></td>
-      <td>the linkage in field 880 is ambiguous</td>
-    </tr>
-    <tr>
-      <td colspan="2"><strong>control field position issues</strong></td>
-    </tr>
-    <tr>
-      <td><code>obsoleteControlPosition</code></td>
-      <td>the code in the position is obsolete (it was valid in a previous version of MARC, but it is not valid now)</td>
-    </tr>
-    <tr>
-      <td><code>controlValueContainsInvalidCode</code></td>
-      <td>the code in the position is invalid</td>
-    </tr>
-    <tr>
-      <td><code>invalidValue</code></td>
-      <td>the position value is invalid</td>
-    </tr>
-    <tr>
-      <td colspan="2"><strong>data field issues</strong></td>
-    </tr>
-    <tr>
-      <td><code>missingSubfield</code></td>
-      <td>missing reference subfield (880$6)</td>
-    </tr>
-    <tr>
-      <td><code>nonrepeatableField</code></td>
-      <td>repetition of a non-repeatable field</td>
-    </tr>
-    <tr>
-      <td><code>undefinedField</code></td>
-      <td>the field is not defined in the specified MARC version(s)</td>
-    </tr>
-    <tr>
-      <td colspan="2"><strong>indicator issues</strong></td>
-    </tr>
-    <tr>
-      <td><code>obsoleteIndicator</code></td>
-      <td>the indicator value is obsolete (it was valid in a previous version of MARC, but not in the current version)</td>
-    </tr>
-    <tr>
-      <td><code>nonEmptyIndicator</code></td>
-      <td>indicator that should be empty is non-empty</td>
-    </tr>
-    <tr>
-      <td><code>invalidValue</code></td>
-      <td>the indicator value is invalid</td>
-    </tr>
-    <tr>
-      <td colspan="2"><strong>subfield issues</strong></td>
-    </tr>
-    <tr>
-      <td><code>undefinedSubfield</code></td>
-      <td>the subfield is undefined in the specified MARC version(s)</td>
-    </tr>
-    <tr>
-      <td><code>invalidLength</code></td>
-      <td>the length of the value is invalid</td>
-    </tr>
-    <tr>
-      <td><code>invalidReference</code></td>
-      <td>the reference to the classification vocabulary is invalid</td>
-    </tr>
-    <tr>
-      <td><code>patternMismatch</code></td>
-      <td>content does not match the patterns specified by the standard</td>
-    </tr>
-    <tr>
-      <td><code>nonrepeatableSubfield</code></td>
-      <td>repetition of a non-repeatable subfield</td>
-    </tr>
-    <tr>
-      <td><code>invalidISBN</code></td>
-      <td>invalid ISBN value</td>
-    </tr>
-    <tr>
-      <td><code>invalidISSN</code></td>
-      <td>invalid ISSN value</td>
-    </tr>
-    <tr>
-      <td><code>unparsableContent</code></td>
-      <td>the value of the subfield is not well-formed according to its specification</td>
-    </tr>
-    <tr>
-      <td><code>nullCode</code></td>
-      <td>null subfield code</td>
-    </tr>
-    <tr>
-      <td><code>invalidValue</code></td>
-      <td>invalid subfield value</td>
-    </tr>
-  </tbody>
-</table>
+| machine name                      | explanation                                                                                                  |
+|-----------------------------------|--------------------------------------------------------------------------------------------------------------|
+| **record level issues**           |                                                                                                              |
+| `undetectableType`                | the document type is not detectable                                                                          |
+| `invalidLinkage`                  | the linkage in field 880 is invalid                                                                          |
+| `ambiguousLinkage`                | the linkage in field 880 is ambiguous                                                                        |
+| **control field position issues** |                                                                                                              |
+| `obsoleteControlPosition`         | the code in the position is obsolete (it was valid in a previous version of MARC, but it is not valid now)   |
+| `controlValueContainsInvalidCode` | the code in the position is invalid                                                                          |
+| `invalidValue`                    | the position value is invalid                                                                                |
+| **data field issues**             |                                                                                                              |
+| `missingSubfield`                 | missing reference subfield (880$6)                                                                           |
+| `nonrepeatableField`              | repetition of a non-repeatable field                                                                         |
+| `undefinedField`                  | the field is not defined in the specified MARC version(s)                                                    |
+| **indicator issues**              |                                                                                                              |
+| `obsoleteIndicator`               | the indicator value is obsolete (it was valid in a previous version of MARC, but not in the current version) |
+| `nonEmptyIndicator`               | indicator that should be empty is non-empty                                                                  |
+| `invalidValue`                    | the indicator value is invalid                                                                               |
+| **subfield issues**               |                                                                                                              |
+| `undefinedSubfield`               | the subfield is undefined in the specified MARC version(s)                                                   |
+| `invalidLength`                   | the length of the value is invalid                                                                           |
+| `invalidReference`                | the reference to the classification vocabulary is invalid                                                    |
+| `patternMismatch`                 | content does not match the patterns specified by the standard                                                |
+| `nonrepeatableSubfield`           | repetition of a non-repeatable subfield                                                                      |
+| `invalidISBN`                     | invalid ISBN value                                                                                           |
+| `invalidISSN`                     | invalid ISSN value                                                                                           |
+| `unparsableContent`               | the value of the subfield is not well-formed according to its specification                                  |
+| `nullCode`                        | null subfield code                                                                                           |
+| `invalidValue`                    | invalid subfield value                                                                                       |
 
 Usage:
 
@@ -305,7 +220,7 @@ errorId,recordIds
 An example with parameters used for analysing a PICA dataset. When the input is a complex expression it is displayed 
 here in a parsed format. It also contains some metadata such as the versions of MQFA API and QA catalogue.
 
-```JSON
+```json
 {
   "args":["/path/to/input.dat"],
   "marcVersion":"MARC21",
@@ -380,7 +295,7 @@ here in a parsed format. It also contains some metadata such as the versions of 
 
 * `id-groupid.csv`: the pairs of record identifiers - group identifiers.
 
-```{csv}
+```csv
 id,groupId
 010000011,0
 010000011,77

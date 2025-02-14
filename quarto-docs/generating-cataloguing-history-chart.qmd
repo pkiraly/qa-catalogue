@@ -1,6 +1,5 @@
 ---
 title: "Generating cataloguing history chart"
-format: html
 ---
 
 This analysis is based on Benjamin Schmidt's blog post [A brief visual history

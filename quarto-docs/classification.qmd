@@ -1,6 +1,5 @@
 ---
 title: "Classification analysis"
-format: html
 ---
 
 It analyses the coverage of subject indexing/classification in the catalogue.

@@ -1,6 +1,5 @@
 ---
 title: "Where can I get MARC records?"
-format: html
 ---
 
 Here is a list of data sources I am aware of so far:

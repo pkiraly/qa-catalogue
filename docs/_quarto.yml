@@ -1,6 +1,5 @@
 project:
   type: book
-  output-dir: docs
 
 repo-url: https://github.com/pkiraly/qa-catalogue
 

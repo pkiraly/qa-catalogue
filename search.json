@@ -67,12 +67,12 @@
   {
     "objectID": "build.html",
     "href": "build.html",
-    "title": "2  Build",
+    "title": "2  Build from source",
     "section": "",
-    "text": "Prerequisites: Java 11 (I use OpenJDK), and Maven 3\n\nOptional step: clone and build the parent library, metadata-qa-api project:\n\ngit clone https://github.com/pkiraly/metadata-qa-api.git\ncd metadata-qa-api\nmvn clean install\ncd ..\n\nMandatory step: clone and build the current qa-catalogue project\n\ngit clone https://github.com/pkiraly/qa-catalogue.git\ncd metadata-qa-marc\nmvn clean install",
+    "text": "Prerequisites: Java 11 (I use OpenJDK), and Maven 3\nOptional step: clone and build the parent library, metadata-qa-api project:\ngit clone https://github.com/pkiraly/metadata-qa-api.git\ncd metadata-qa-api\nmvn clean install\ncd ..\nMandatory step: clone and build the current qa-catalogue project:\ngit clone https://github.com/pkiraly/qa-catalogue.git\ncd metadata-qa-marc\nmvn clean install",
     "crumbs": [
       "Installation",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Build</span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Build from source</span>"
     ]
   },
   {

@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Péter Király">
-<meta name="dcterms.date" content="2025-02-11">
 
-<title>QA Catalogue</title>
+<title>16&nbsp; Indexing bibliographic records with Solr – QA Catalogue</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -32,7 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./installation.html" rel="next">
+<link href="./export-mapping-table.html" rel="next">
+<link href="./import-tables-to-SQLite.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -82,7 +115,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Introduction</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./usage.html">Usage</a></li><li class="breadcrumb-item"><a href="./indexing.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Indexing bibliographic records with Solr</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -109,7 +142,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
   </div>
 </li>
@@ -225,7 +258,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./indexing.html" class="sidebar-item-text sidebar-link">
+  <a href="./indexing.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Indexing bibliographic records with Solr</span></span></a>
   </div>
 </li>
@@ -300,35 +333,28 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#solr-field-names" id="toc-solr-field-names" class="nav-link active" data-scroll-target="#solr-field-names"><span class="header-section-number">16.1</span> Solr field names</a>
+  <ul class="collapse">
+  <li><a href="#fixed-fields" id="toc-fixed-fields" class="nav-link" data-scroll-target="#fixed-fields"><span class="header-section-number">16.1.1</span> Fixed fields</a></li>
+  <li><a href="#mapped-fields" id="toc-mapped-fields" class="nav-link" data-scroll-target="#mapped-fields"><span class="header-section-number">16.1.2</span> Mapped fields</a></li>
+  </ul></li>
+  <li><a href="#index-preparation" id="toc-index-preparation" class="nav-link" data-scroll-target="#index-preparation"><span class="header-section-number">16.2</span> Index preparation</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./usage.html">Usage</a></li><li class="breadcrumb-item"><a href="./indexing.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Indexing bibliographic records with Solr</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">QA Catalogue</h1>
+<h1 class="title"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Indexing bibliographic records with Solr</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Péter Király </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">February 11, 2025</p>
-    </div>
-  </div>
   
     
   </div>
@@ -338,43 +364,168 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="introduction" class="level1 unnumbered">
-<h1 class="unnumbered">Introduction</h1>
-<p>QA catalogue is a set of software packages for bibliographical record quality assessment. It reads MARC or PICA files (in different formats), analyses some quality dimensions, and saves the results into CSV files. These CSV files could be used in different context, we provide a lightweight, web-based <a href="#user-interface">user interface</a> for that. Some of the functionalities are available as a <a href="https://github.com/pkiraly/metadata-qa-marc-ws">web service</a>, so the validation could be built into a cataloguing/quality assessment workflow.</p>
-<!--
-The following throws an error:
-
-  ! LaTeX Error: Cannot determine size of graphic in images/issues-v1.gif (no BoundingBox).
-  See the LaTeX manual or LaTeX Companion for explanation.
-  Type  H <return>  for immediate help.
-  l.229 ...n,height=4.16667in]{images/issues-v1.gif}
-
-![User interface](images/issues-v1.gif){width=938 height=638}
-Screenshot from the web UI of the QA catalogue
--->
-<div id="fig-web-ui" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-web-ui-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div align="center">
-<iframe width="938" height="638" src="images/issues-v1.gif"></iframe>
-</div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-web-ui-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: QA Catalogue’s web user interface
-</figcaption>
-</figure>
-</div>
+<p>Run indexer:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">java</span> <span class="at">-cp</span> <span class="va">$JAR</span> de.gwdg.metadataqa.marc.cli.MarcToSolr <span class="pp">[</span><span class="ss">options</span><span class="pp">]</span> <span class="pp">[</span><span class="ss">file</span><span class="pp">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>With script:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">catalogues/[catalogue].sh</span> all-solr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>or</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./qa-catalogue</span> <span class="at">--params</span><span class="op">=</span><span class="st">"[options]"</span> all-solr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>options:</p>
 <ul>
-<li>For more info
+<li><a href="usage.html#general-parameters">general parameters</a></li>
+<li><code>-S &lt;URL&gt;</code>, <code>--solrUrl &lt;URL&gt;</code>: the URL of Solr server including the core (e.g.&nbsp;http://localhost:8983/solr/loc)</li>
+<li><code>-A</code>, <code>--doCommit</code>: send commits to Solr regularly (not needed if you set up Solr as described below)</li>
+<li><code>-T &lt;type&gt;</code>, <code>--solrFieldType &lt;type&gt;</code>: a Solr field type, one of the predefined values. See examples below.
 <ul>
-<li>main project page: <a href="http://pkiraly.github.io">Metadata Quality Assessment Framework</a></li>
-<li>Validating 126 million MARC records at DATeCH 2019 <a href="https://doi.org/10.1145/3322905.3322929">paper</a>, <a href="http://bit.ly/qa-datech2019">slides</a>, <a href="https://doi.org/10.13140/RG.2.2.33177.77920">thesis chapter</a></li>
-<li>Empirical evaluation of library catalogues at SWIB 2019 <a href="http://bit.ly/qa-swib2019">slides</a>, <a href="https://pro.europeana.eu/page/issue-15-swib-2019#empirical-evaluation-of-library-catalogues">paper in English</a>, <a href="https://universoabierto.org/2020/06/01/evaluacion-empirica-de-los-catalogos-de-las-bibliotecas/">paper in Spanish</a></li>
-<li>quality assessment of Gent University Library catalogue (a running instance of the dashboard): <a href="http://gent.qa-catalogue.eu/">http://gent.qa-catalogue.eu/</a></li>
-<li><strong>new: QA catalogue mailing list</strong> https://listserv.gwdg.de/mailman/listinfo/qa-catalogue</li>
+<li><code>marc-tags</code> - the field names are MARC codes</li>
+<li><code>human-readable</code> - the field names are <a href="http://pkiraly.github.io/2017/09/24/mapping/">Self Descriptive MARC code</a></li>
+<li><code>mixed</code> - the field names are mixed of the above (e.g.&nbsp;<code>245a_Title_mainTitle</code>)</li>
 </ul></li>
-<li>If you would like to play with this project, but you don’t have MARC21 please to download some recordsets mentioned in <a href="#datasources">Appendix I: Where can I get MARC records?</a> of this document.</li>
+<li><code>-C</code>, <code>--indexWithTokenizedField</code>: index data elements as tokenized field as well (each bibliographical data elements will be indexed twice: once as a phrase (fields suffixed with <code>_ss</code>), and once as a bag of words (fields suffixed with <code>_txt</code>). [This parameter is available from v0.8.0]</li>
+<li><code>-D &lt;int&gt;</code>, <code>--commitAt &lt;int&gt;</code>: commit index after this number of records [This parameter is available from v0.8.0]</li>
+<li><code>-E</code>, <code>--indexFieldCounts</code>: index the count of field instances [This parameter is available from v0.8.0]</li>
+<li><code>-G</code>, <code>--indexSubfieldCounts</code>: index the count of subfield instances [This parameter is available from v0.8.0]</li>
+<li><code>-F</code>, <code>--fieldPrefix &lt;arg&gt;</code>: field prefix</li>
 </ul>
+<p>The <code>./index</code> file (which is used by <code>catalogues/[catalogue].sh</code> and <code>./qa-catalogue</code> scripts) has additional parameters: * <code>-Z &lt;core&gt;</code>, <code>--core &lt;core&gt;</code>: The index name (core). If not set it will be extracted from the <code>solrUrl</code> parameter * <code>-Y &lt;path&gt;</code>, <code>--file-path &lt;path&gt;</code>: File path * <code>-X &lt;mask&gt;</code>, <code>--file-mask &lt;mask&gt;</code>: File mask * <code>-W</code>, <code>--purge</code>: Purge index and exit * <code>-V</code>, <code>--status</code>: Show the status of index(es) and exit * <code>-U</code>, <code>--no-delete</code>: Do not delete documents in index before starting indexing (be default the script clears the index)</p>
+<section id="solr-field-names" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="solr-field-names"><span class="header-section-number">16.1</span> Solr field names</h2>
+<p>QA catalogue builds a Solr index which contains a) a set of fixed Solr fields that are the same for all bibliographic input, and b) Solr fields that depend on the field names of the metadata schema (MARC, PICA, UNIMARC etc.) - these fields should be mapped from metadata schema to dynamic Solr fields by an algorithm.</p>
+<section id="fixed-fields" class="level3" data-number="16.1.1">
+<h3 data-number="16.1.1" class="anchored" data-anchor-id="fixed-fields"><span class="header-section-number">16.1.1</span> Fixed fields</h3>
+<ul>
+<li><code>id</code>: the record ID. This comes from the identifier of the bibliographic record, so 001 for MARC21</li>
+<li><code>record_sni</code>: the JSON representation of the bibliographic record</li>
+<li><code>groupId_is</code>: the list of group IDs. The content comes from the data element specified by the <code>--groupBy</code> parameter split by commas (‘,’).</li>
+<li><code>errorId_is</code>: the list of error IDs that come from the result of the validation.</li>
+</ul>
+</section>
+<section id="mapped-fields" class="level3" data-number="16.1.2">
+<h3 data-number="16.1.2" class="anchored" data-anchor-id="mapped-fields"><span class="header-section-number">16.1.2</span> Mapped fields</h3>
+<p>The mapped fields are Solr fields that depend on the field names of the metadata schema. The final Solr field follows the pattern:</p>
+<p><field-prefix><mapped-value><field-suffix></field-suffix></mapped-value></field-prefix></p>
+<p>Field prefix:</p>
+<p>With <code>--fieldPrefix</code> parameter you can set a prefix that is applied to the variable fields. This might be needed because Solr has a limitation: field names start with a number can not be used in some Solr parameter, such as <code>fl</code> (field list selected to be retrieved from the index). Unfortunately bibliographic schemas use field names start with numbers. You can change a mapping parameter that produces a mapped value that resembles the BIBFRAME mapping of the MARC21 field, but not all field has such a human readable association.</p>
+<p>Field suffixes:</p>
+<ul>
+<li><code>*_sni</code>: not indexed, stored string fields – good for storing fields used for displaying information</li>
+<li><code>*_ss</code>: not parsed, stored, indexed string fields – good for display and facets</li>
+<li><code>*_tt</code>: parsed, not stored, indexed string fields – good for term searches (these fields will be availabe if <code>--indexWithTokenizedField</code> parameter is applied)</li>
+<li><code>*_is</code>: parsed, not stored, indexed integer fields – good for searching for numbers, such as error or group identifiers (these fields will be availabe if <code>--indexFieldCounts</code> parameter is applied)</li>
+</ul>
+<p>The mapped value</p>
+<p>With <code>--solrFieldType</code> you can select the algorithm that generates the mapped value. Right now there are three formats: * <code>marc-tags</code> - the field names are MARC codes (<code>245$a</code> → <code>245a</code>) * <code>human-readable</code> - the field names are <a href="http://pkiraly.github.io/2017/09/24/mapping/">Self Descriptive MARC code</a> (<code>245$a</code> → <code>Title_mainTitle</code>) * <code>mixed</code> - the field names are mixed of the above (e.g.&nbsp;<code>245a_Title_mainTitle</code>)</p>
+<section id="marc-tags-format" class="level4" data-number="16.1.2.1">
+<h4 data-number="16.1.2.1" class="anchored" data-anchor-id="marc-tags-format"><span class="header-section-number">16.1.2.1</span> “marc-tags” format</h4>
+<pre><code>"100a_ss":["Jung-Baek, Myong Ja"],
+"100ind1_ss":["Surname"],
+"245c_ss":["Vorgelegt von Myong Ja Jung-Baek."],
+"245ind2_ss":["No nonfiling characters"],
+"245a_ss":["S. Tret'jakov und China /"],
+"245ind1_ss":["Added entry"],
+"260c_ss":["1987."],
+"260b_ss":["Georg-August-Universität Göttingen,"],
+"260a_ss":["Göttingen :"],
+"260ind1_ss":["Not applicable/No information provided/Earliest available publisher"],
+"300a_ss":["141 p."],</code></pre>
+</section>
+<section id="human-readable-format" class="level4" data-number="16.1.2.2">
+<h4 data-number="16.1.2.2" class="anchored" data-anchor-id="human-readable-format"><span class="header-section-number">16.1.2.2</span> “human-readable” format</h4>
+<pre><code>"MainPersonalName_type_ss":["Surname"],
+"MainPersonalName_personalName_ss":["Jung-Baek, Myong Ja"],
+"Title_responsibilityStatement_ss":["Vorgelegt von Myong Ja Jung-Baek."],
+"Title_mainTitle_ss":["S. Tret'jakov und China /"],
+"Title_titleAddedEntry_ss":["Added entry"],
+"Title_nonfilingCharacters_ss":["No nonfiling characters"],
+"Publication_sequenceOfPublishingStatements_ss":["Not applicable/No information provided/Earliest available publisher"],
+"Publication_agent_ss":["Georg-August-Universität Göttingen,"],
+"Publication_place_ss":["Göttingen :"],
+"Publication_date_ss":["1987."],
+"PhysicalDescription_extent_ss":["141 p."],</code></pre>
+</section>
+<section id="mixed-format" class="level4" data-number="16.1.2.3">
+<h4 data-number="16.1.2.3" class="anchored" data-anchor-id="mixed-format"><span class="header-section-number">16.1.2.3</span> “mixed” format</h4>
+<pre><code>"100a_MainPersonalName_personalName_ss":["Jung-Baek, Myong Ja"],
+"100ind1_MainPersonalName_type_ss":["Surname"],
+"245a_Title_mainTitle_ss":["S. Tret'jakov und China /"],
+"245ind1_Title_titleAddedEntry_ss":["Added entry"],
+"245ind2_Title_nonfilingCharacters_ss":["No nonfiling characters"],
+"245c_Title_responsibilityStatement_ss":["Vorgelegt von Myong Ja Jung-Baek."],
+"260b_Publication_agent_ss":["Georg-August-Universität Göttingen,"],
+"260a_Publication_place_ss":["Göttingen :"],
+"260ind1_Publication_sequenceOfPublishingStatements_ss":["Not applicable/No information provided/Earliest available publisher"],
+"260c_Publication_date_ss":["1987."],
+"300a_PhysicalDescription_extent_ss":["141 p."],</code></pre>
+<p>A distinct project <a href="https://github.com/pkiraly/qa-catalogue-web">metadata-qa-marc-web</a>, provides a web application that utilizes to build this type of Solr index in number of ways (a facetted search interface, term lists, search for validation errors etc.)</p>
+</section>
+</section>
+</section>
+<section id="index-preparation" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="index-preparation"><span class="header-section-number">16.2</span> Index preparation</h2>
+<p>The tool uses different Solr indices (aka cores) to store information. In the following example we use <code>loc</code> as the name of our catalogue. There are two main indices: <code>loc</code> and <code>loc_dev</code>. <code>loc_dev</code> is the target of the index process, it will create it from scratch. During the proess <code>loc</code> is available and searchable. When the indexing has been successfully finished these two indices will be swaped, so the previous <code>loc</code> will become <code>loc_dev</code>, and the new index will be <code>loc</code>. The web user interface will always use the latest version (not the dev).</p>
+<p>Besides these two indices there is a third index that contains different kind of results of the analyses. At the time of writing it contains only the results of validation, but later it will cover other information as well. It can be set by the following parameter:</p>
+<ul>
+<li><code>-4</code>, <code>--solrForScoresUrl &lt;arg&gt;</code>: the URL of the Solr server used to store scores (it is populated in the <code>validate-sqlite</code> process which runs after validation)</li>
+</ul>
+<p>During the indexing process the content of this index is meged into the <code>_dev</code> index, so after a successfull end of the process this index is not needed anymore.</p>
+<p>In order to make the automation easier and still flexible there are some an auxilary commands:</p>
+<ul>
+<li><code>./qa-catalogue prepare-solr</code>: created these two indices, makes sure that their schemas contain the necessary fields</li>
+<li><code>./qa-catalogue index</code>: runs the indexing process</li>
+<li><code>./qa-catalogue postprocess-solr</code>: swap the two Solr cores (<name> and <name>_dev)</name></name></li>
+<li><code>./qa-catalogue all-solr</code>: runs all the three steps</li>
+</ul>
+<p>If you would like to maintain the Solr index yourself (e.g.&nbsp;because the Solr instance wuns in a cloud environment), you should skip <code>prepare-solr</code> and <code>postprocess-solr</code>, and run only <code>index</code>. For maintaining the schema you can find a minimal viable schema among the <a href="https://github.com/pkiraly/qa-catalogue/blob/main/src/test/resources/solr-test/configset/defaultConfigSet/conf/schema.xml">test resources</a></p>
+<p>You can set autocommit the following way in <code>solrconfig.xml</code> (inside Solr):</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode xml code-with-copy"><code class="sourceCode xml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">autoCommit</span>&gt;</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">maxTime</span>&gt;${solr.autoCommit.maxTime:15000}&lt;/<span class="kw">maxTime</span>&gt;</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">maxDocs</span>&gt;5000&lt;/<span class="kw">maxDocs</span>&gt;</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">openSearcher</span>&gt;true&lt;/<span class="kw">openSearcher</span>&gt;</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">autoCommit</span>&gt;</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">autoSoftCommit</span>&gt;</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">maxTime</span>&gt;${solr.autoSoftCommit.maxTime:-1}&lt;/<span class="kw">maxTime</span>&gt;</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">autoSoftCommit</span>&gt;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>It needs if you choose to disable QA catalogue to issue commit messages (see <code>--commitAt</code> parameter), which makes indexing faster.</p>
+<p>In schema.xml (or in Solr web interface) you should be sure that you have the following dynamic fields:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode xml code-with-copy"><code class="sourceCode xml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">dynamicField</span><span class="ot"> name=</span><span class="st">"*_ss"</span><span class="ot"> type=</span><span class="st">"strings"</span><span class="ot"> indexed=</span><span class="st">"true"</span><span class="ot"> stored=</span><span class="st">"true"</span>/&gt;</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">dynamicField</span><span class="ot"> name=</span><span class="st">"*_tt"</span><span class="ot"> type=</span><span class="st">"text_general"</span><span class="ot"> indexed=</span><span class="st">"true"</span><span class="ot"> stored=</span><span class="st">"false"</span>/&gt;</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">dynamicField</span><span class="ot"> name=</span><span class="st">"*_is"</span><span class="ot"> type=</span><span class="st">"pints"</span><span class="ot"> indexed=</span><span class="st">"true"</span><span class="ot"> stored=</span><span class="st">"true"</span> /&gt;</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">dynamicField</span><span class="ot"> name=</span><span class="st">"*_sni"</span><span class="ot"> type=</span><span class="st">"string_big"</span><span class="ot"> docValues=</span><span class="st">"false"</span><span class="ot"> multiValued=</span><span class="st">"false"</span><span class="ot"> indexed=</span><span class="st">"false"</span><span class="ot"> stored=</span><span class="st">"true"</span>/&gt;</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">copyField</span><span class="ot"> source=</span><span class="st">"*_ss"</span><span class="ot"> dest=</span><span class="st">"_text_"</span>/&gt;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>or use Solr API:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="va">NAME</span><span class="op">=</span>dnb</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="va">SOLR</span><span class="op">=</span>http://localhost:8983/solr/<span class="va">$NAME</span>/schema</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="ex">//</span> add copy field</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-X</span> POST <span class="at">-H</span> <span class="st">'Content-type:application/json'</span> <span class="at">--data-binary</span> <span class="st">'{</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="st">  "add-dynamic-field":{</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="st">     "name":"*_sni",</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="st">     "type":"string",</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="st">     "indexed":false,</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="st">     "stored":true}</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="st">}'</span> <span class="va">$SOLR</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-X</span> POST <span class="at">-H</span> <span class="st">'Content-type:application/json'</span> <span class="at">--data-binary</span> <span class="st">'{</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="st">  "add-copy-field":{</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="st">     "source":"*_ss",</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="st">     "dest":["_text_"]}</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="st">}'</span> <span class="va">$SOLR</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>See the <a href="https://github.com/pkiraly/qa-catalogue/blob/main/solr-functions">solr-functions</a> file for full code.</p>
+<p>QA catalogue has a helper scipt to get information about the status of Solr index (Solr URL, location, the list of cores, number of documents, size in the disk, and last modification):</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ./index <span class="at">--status</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Solr</span> index status at http://localhost:8983</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Solr</span> directory: /opt/solr-9.3.0/server/solr</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="ex">core</span>                 <span class="kw">|</span> <span class="ex">location</span>        <span class="kw">|</span> <span class="ex">nr</span> of docs <span class="kw">|</span>       <span class="fu">size</span> <span class="kw">|</span>       <span class="fu">last</span> modified</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="ex">....................</span> <span class="kw">|</span> <span class="ex">...............</span> <span class="kw">|</span> <span class="ex">..........</span> <span class="kw">|</span> <span class="ex">..........</span> <span class="kw">|</span> <span class="ex">...................</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="ex">nls</span>                  <span class="kw">|</span> <span class="ex">nls_1</span>           <span class="kw">|</span>     <span class="ex">403946</span> <span class="kw">|</span> <span class="ex">1002.22</span> MB <span class="kw">|</span> <span class="ex">2023-11-25</span> 21:59:39</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="ex">nls_dev</span>              <span class="kw">|</span> <span class="ex">nls_2</span>           <span class="kw">|</span>     <span class="ex">403943</span> <span class="kw">|</span>  <span class="ex">987.22</span> MB <span class="kw">|</span> <span class="ex">2023-11-11</span> 15:59:49</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="ex">nls_validation</span>       <span class="kw">|</span> <span class="ex">nls_validation</span>  <span class="kw">|</span>     <span class="ex">403946</span> <span class="kw">|</span>   <span class="ex">17.89</span> MB <span class="kw">|</span> <span class="ex">2023-11-25</span> 21:35:44</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="ex">yale</span>                 <span class="kw">|</span> <span class="ex">yale_2</span>          <span class="kw">|</span>    <span class="ex">2346976</span> <span class="kw">|</span>    <span class="ex">9.51</span> GB <span class="kw">|</span> <span class="ex">2023-11-11</span> 13:12:35</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="ex">yale_dev</span>             <span class="kw">|</span> <span class="ex">yale_1</span>          <span class="kw">|</span>    <span class="ex">2346976</span> <span class="kw">|</span>    <span class="ex">9.27</span> GB <span class="kw">|</span> <span class="ex">2023-11-11</span> 10:58:08</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
 </section>
@@ -799,10 +950,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./import-tables-to-SQLite.html" class="pagination-link" aria-label="Import tables to SQLite">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Import tables to SQLite</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./installation.html" class="pagination-link" aria-label="Installation">
-        <span class="nav-page-text">Installation</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./export-mapping-table.html" class="pagination-link" aria-label="Export mapping table">
+        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Export mapping table</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

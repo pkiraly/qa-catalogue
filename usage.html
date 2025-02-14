@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Péter Király">
-<meta name="dcterms.date" content="2025-02-11">
 
-<title>QA Catalogue</title>
+<title>Usage – QA Catalogue</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -32,7 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./installation.html" rel="next">
+<link href="./validate.html" rel="next">
+<link href="./download.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -70,6 +103,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -82,7 +144,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Introduction</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./usage.html">Usage</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -109,7 +171,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
   </div>
 </li>
@@ -144,7 +206,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./usage.html" class="sidebar-item-text sidebar-link">
+            <a href="./usage.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Usage</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -300,7 +362,15 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#helper-scripts" id="toc-helper-scripts" class="nav-link active" data-scroll-target="#helper-scripts">Helper scripts</a>
+  <ul class="collapse">
+  <li><a href="#run" id="toc-run" class="nav-link" data-scroll-target="#run">run</a></li>
+  <li><a href="#configuration" id="toc-configuration" class="nav-link" data-scroll-target="#configuration">configuration</a></li>
+  </ul></li>
+  <li><a href="#detailed-instructions" id="toc-detailed-instructions" class="nav-link" data-scroll-target="#detailed-instructions">Detailed instructions</a>
+  <ul class="collapse">
+  <li><a href="#general-parameters" id="toc-general-parameters" class="nav-link" data-scroll-target="#general-parameters">General parameters</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -309,26 +379,14 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">QA Catalogue</h1>
+<h1 class="title">Usage</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Péter Király </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">February 11, 2025</p>
-    </div>
-  </div>
   
     
   </div>
@@ -338,45 +396,286 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="introduction" class="level1 unnumbered">
-<h1 class="unnumbered">Introduction</h1>
-<p>QA catalogue is a set of software packages for bibliographical record quality assessment. It reads MARC or PICA files (in different formats), analyses some quality dimensions, and saves the results into CSV files. These CSV files could be used in different context, we provide a lightweight, web-based <a href="#user-interface">user interface</a> for that. Some of the functionalities are available as a <a href="https://github.com/pkiraly/metadata-qa-marc-ws">web service</a>, so the validation could be built into a cataloguing/quality assessment workflow.</p>
-<!--
-The following throws an error:
-
-  ! LaTeX Error: Cannot determine size of graphic in images/issues-v1.gif (no BoundingBox).
-  See the LaTeX manual or LaTeX Companion for explanation.
-  Type  H <return>  for immediate help.
-  l.229 ...n,height=4.16667in]{images/issues-v1.gif}
-
-![User interface](images/issues-v1.gif){width=938 height=638}
-Screenshot from the web UI of the QA catalogue
--->
-<div id="fig-web-ui" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-web-ui-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div align="center">
-<iframe width="938" height="638" src="images/issues-v1.gif"></iframe>
-</div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-web-ui-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: QA Catalogue’s web user interface
-</figcaption>
-</figure>
-</div>
+<section id="helper-scripts" class="level2">
+<h2 class="anchored" data-anchor-id="helper-scripts">Helper scripts</h2>
+<p>The tool comes with some bash helper scripts to run all these with default values. The generic scripts locate in the root directory and library specific configuration like scripts exist in the <code>catalogues</code> directory. You can find predefined scripts for several library catalogues (if you want to run it, first you have to configure it). All these scrips mainly contain configuration, and then it calls the central <code>common-script</code> which contains the functions.</p>
+<p>If you do not want to</p>
+<section id="run" class="level3">
+<h3 class="anchored" data-anchor-id="run">run</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">catalogues/[your</span> script] [command<span class="er">(</span><span class="ex">s</span><span class="kw">)</span><span class="ex">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>or</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./qa-catalogue</span> <span class="at">--params</span><span class="op">=</span><span class="st">"[options]"</span> [command<span class="er">(</span><span class="ex">s</span><span class="kw">)</span><span class="ex">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The following commands are supported:</p>
 <ul>
-<li>For more info
-<ul>
-<li>main project page: <a href="http://pkiraly.github.io">Metadata Quality Assessment Framework</a></li>
-<li>Validating 126 million MARC records at DATeCH 2019 <a href="https://doi.org/10.1145/3322905.3322929">paper</a>, <a href="http://bit.ly/qa-datech2019">slides</a>, <a href="https://doi.org/10.13140/RG.2.2.33177.77920">thesis chapter</a></li>
-<li>Empirical evaluation of library catalogues at SWIB 2019 <a href="http://bit.ly/qa-swib2019">slides</a>, <a href="https://pro.europeana.eu/page/issue-15-swib-2019#empirical-evaluation-of-library-catalogues">paper in English</a>, <a href="https://universoabierto.org/2020/06/01/evaluacion-empirica-de-los-catalogos-de-las-bibliotecas/">paper in Spanish</a></li>
-<li>quality assessment of Gent University Library catalogue (a running instance of the dashboard): <a href="http://gent.qa-catalogue.eu/">http://gent.qa-catalogue.eu/</a></li>
-<li><strong>new: QA catalogue mailing list</strong> https://listserv.gwdg.de/mailman/listinfo/qa-catalogue</li>
-</ul></li>
-<li>If you would like to play with this project, but you don’t have MARC21 please to download some recordsets mentioned in <a href="#datasources">Appendix I: Where can I get MARC records?</a> of this document.</li>
+<li><code>validate</code> – runs validation</li>
+<li><code>completeness</code> – runs completeness analysis</li>
+<li><code>classifications</code> – runs classification analysis</li>
+<li><code>authorities</code> – runs authorities analysis</li>
+<li><code>tt-completeness</code> – runs Thomson-Trail completeness analysis</li>
+<li><code>shelf-ready-completeness</code> – runs shelf-ready completeness analysis</li>
+<li><code>serial-score</code> – calculates the serial scores</li>
+<li><code>format</code> – runs formatting records</li>
+<li><code>functional-analysis</code> – runs functional analysis</li>
+<li><code>pareto</code> – runs pareto analysis</li>
+<li><code>marc-history</code> – generates cataloguing history chart</li>
+<li><code>prepare-solr</code> – prepare Solr index (you should already have Solr running, and index created)</li>
+<li><code>index</code> – runs indexing with Solr</li>
+<li><code>sqlite</code> – import tables to SQLite</li>
+<li><code>export-schema-files</code> – export schema files</li>
+<li><code>all-analyses</code> – run all default analysis tasks</li>
+<li><code>all-solr</code> – run all indexing tasks</li>
+<li><code>all</code> – run all tasks</li>
+<li><code>config</code> – show configuration of selected catalogue</li>
 </ul>
+<p>You can find information about these functionalities below this document.</p>
+</section>
+<section id="configuration" class="level3">
+<h3 class="anchored" data-anchor-id="configuration">configuration</h3>
+<ol type="1">
+<li>create the configuration file (setdir.sh)</li>
+</ol>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> setdir.sh.template setdir.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="2" type="1">
+<li>edit the file configuration file. Two lines are important here</li>
+</ol>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="va">BASE_INPUT_DIR</span><span class="op">=</span>your/path</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="va">BASE_OUTPUT_DIR</span><span class="op">=</span>your/path</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="va">BASE_LOG_DIR</span><span class="op">=</span>=your/path</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><code>BASE_INPUT_DIR</code> is the parent directory where your MARC records exists</li>
+<li><code>BASE_OUTPUT_DIR</code> is where the analysis results will be stored</li>
+<li><code>BASE_LOG_DIR</code> is where the analysis logs will be stored</li>
+</ul>
+<ol start="3" type="1">
+<li>edit the library specific file</li>
+</ol>
+<p>Here is an example file for analysing Library of Congress’ MARC records</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env bash</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">.</span> ./setdir.sh</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="va">NAME</span><span class="op">=</span>loc</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="va">MARC_DIR</span><span class="op">=</span><span class="va">${BASE_INPUT_DIR}</span>/loc/marc</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="va">MASK</span><span class="op">=</span><span class="pp">*</span>.mrc</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="bu">.</span> ./common-script</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Three variables are important here:</p>
+<ol type="1">
+<li><code>NAME</code> is a name for the output directory. The analysis result will land under <span class="math inline">\(BASE_OUTPUT_DIR/\)</span>NAME directory</li>
+<li><code>MARC_DIR</code> is the location of MARC files. All the files should be in the same directory</li>
+<li><code>MASK</code> is a file mask, such as <code>*.mrc</code>, <code>*.marc</code> or <code>*.dat.gz</code>. Files ending with <code>.gz</code> are uncompressed automatically.</li>
+</ol>
+<p>You can add here any other parameters this document mentioned at the description of individual command, wrapped in TYPE_PARAMS variable e.g.&nbsp;for the Deutche Nationalbibliothek’s config file, one can find this</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="va">TYPE_PARAMS</span><span class="op">=</span><span class="st">"--marcVersion DNB --marcxml"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This line sets the DNB’s MARC version (to cover fields defined within DNB’s MARC version), and XML as input format.</p>
+<p>The following table summarizes the configuration variables. The script <code>qa-catalogue</code> can be used to set variables and execute analysis without a library specific configuration file:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 23%">
+<col style="width: 63%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>variable</th>
+<th><code>qa-catalogue</code></th>
+<th>description</th>
+<th>default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>ANALYSES</code></td>
+<td><code>-a</code>/<code>--analyses</code></td>
+<td>which tasks to run with <code>all-analyses</code></td>
+<td><code>validate, validate_sqlite, completeness, completeness_sqlite, classifications, authorities, tt_completeness, shelf_ready_completeness, serial_score, functional_analysis, pareto, marc_history</code></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>-c</code>/<code>--catalogue</code></td>
+<td>display name of the catalogue</td>
+<td><code>$NAME</code></td>
+</tr>
+<tr class="odd">
+<td><code>NAME</code></td>
+<td><code>-n</code>/<code>--name</code></td>
+<td>name of the catalogue</td>
+<td>qa-catalogue</td>
+</tr>
+<tr class="even">
+<td><code>BASE_INPUT_DIR</code></td>
+<td><code>-d</code>/<code>--input</code></td>
+<td>parent directory of input file directories</td>
+<td><code>./input</code></td>
+</tr>
+<tr class="odd">
+<td><code>INPUT_DIR</code></td>
+<td><code>-d</code>/<code>--input-dir</code></td>
+<td>subdirectory of input directory to read files from</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>BASE_OUTPUT_DIR</code></td>
+<td><code>-o</code>/<code>--output</code></td>
+<td>parent output directory</td>
+<td><code>./output</code></td>
+</tr>
+<tr class="odd">
+<td><code>BASE_LOG_DIR</code></td>
+<td><code>-l</code>/<code>--logs</code></td>
+<td>directory of log files</td>
+<td><code>./logs</code></td>
+</tr>
+<tr class="even">
+<td><code>MASK</code></td>
+<td><code>-m</code>/<code>--mask</code></td>
+<td>a file mask which input files to process, e.g.&nbsp;<code>*.mrc</code></td>
+<td><code>*</code></td>
+</tr>
+<tr class="odd">
+<td><code>TYPE_PARAMS</code></td>
+<td><code>-p</code>/<code>--params</code></td>
+<td>parameters to pass to individual tasks (see below)</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>SCHEMA</code></td>
+<td><code>-s</code>/<code>--schema</code></td>
+<td>record schema</td>
+<td><code>MARC21</code></td>
+</tr>
+<tr class="odd">
+<td><code>UPDATE</code></td>
+<td><code>-u</code>/<code>--update</code></td>
+<td>optional date of input files</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>VERSION</code></td>
+<td><code>-v</code>/<code>--version</code></td>
+<td>optional version number/date of the catalogue to compare changes</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>WEB_CONFIG</code></td>
+<td><code>-w</code>/<code>--web-config</code></td>
+<td>update the specified configuration file of qa-catalogue-web</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>-f</code>/<code>--env-file</code></td>
+<td>configuration file to load environment variables from (default: <code>.env</code>)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="detailed-instructions" class="level2">
+<h2 class="anchored" data-anchor-id="detailed-instructions">Detailed instructions</h2>
+<p>We will use the same jar file in every command, so we save its path into a variable.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">JAR</span><span class="op">=</span>target/metadata-qa-marc-0.7.0-jar-with-dependencies.jar</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="general-parameters" class="level3">
+<h3 class="anchored" data-anchor-id="general-parameters">General parameters</h3>
+<p>Most of the analyses uses the following general parameters</p>
+<ul>
+<li><code>--schemaType &lt;type&gt;</code> metadata schema type. The supported types are:
+<ul>
+<li><code>MARC21</code></li>
+<li><code>PICA</code></li>
+<li><code>UNIMARC</code> (assessment of UNIMARC records are not yet supported, this parameter value is only reserved for future usage)</li>
+</ul></li>
+<li><code>-m &lt;version&gt;</code>, <code>--marcVersion &lt;version&gt;</code> specifies a MARC version. Currently, the supported versions are:
+<ul>
+<li><code>MARC21</code>, Library of Congress MARC21</li>
+<li><code>DNB</code>, the Deuthche Nationalbibliothek’s MARC version</li>
+<li><code>OCLC</code>, the OCLCMARC</li>
+<li><code>GENT</code>, fields available in the catalog of Gent University (Belgium)</li>
+<li><code>SZTE</code>, fields available in the catalog of Szegedi Tudományegyetem (Hungary)</li>
+<li><code>FENNICA</code>, fields available in the Fennica catalog of Finnish National Library</li>
+<li><code>NKCR</code>, fields available at the National Library of the Czech Republic</li>
+<li><code>BL</code>, fields available at the British Library</li>
+<li><code>MARC21NO</code>, fields available at the MARC21 profile for Norwegian public libraries</li>
+<li><code>UVA</code>, fields available at the University of Amsterdam Library</li>
+<li><code>B3KAT</code>, fields available at the B3Kat union catalogue of Bibliotheksverbundes Bayern (BVB) and Kooperativen Bibliotheksverbundes Berlin-Brandenburg (KOBV)</li>
+<li><code>KBR</code>, fields available at KBR, the national library of Belgium</li>
+<li><code>ZB</code>, fields available at Zentralbibliothek Zürich</li>
+<li><code>OGYK</code>, fields available at Országygyűlési Könyvtár, Budapest</li>
+</ul></li>
+<li><code>-n</code>, <code>--nolog</code> do not display log messages</li>
+<li>parameters to limit the validation:
+<ul>
+<li><code>-i [record ID]</code>, <code>--id [record ID]</code> validates only a single record having the specifies identifier (the content of 001)</li>
+<li><code>-l [number]</code>, <code>--limit [number]</code> validates only given number of records</li>
+<li><code>-o [number]</code>, <code>--offset [number]</code> starts validation at the given Nth record</li>
+<li><code>-z [list of tags]</code>, <code>--ignorableFields [list of tags]</code> do NOT validate the selected fields. The list should contain the tags separated by commas (<code>,</code>), e.g.&nbsp;<code>--ignorableFields A02,AQN</code></li>
+<li><code>-v [selector]</code>, <code>--ignorableRecords [selector]</code> do NOT validate the records which match the condition denoted by the selector. The selector is a test MARCspec string e.g. <code>--ignorableRecords STA$a=SUPPRESSED</code>. It ignores the records which has <code>STA</code> field with an <code>a</code> subfield with the value <code>SUPPRESSED</code>.</li>
+</ul></li>
+<li><code>-d [record type]</code>, <code>--defaultRecordType [record type]</code> the default record type to be used if the record’s type is undetectable. The record type is calculated from the combination of Leader/06 (Type of record) and Leader/07 (bibliographic level), however sometimes the combination doesn’t fit to the standard. In this case the tool will use the given record type. Possible values of the record type argument:
+<ul>
+<li>BOOKS</li>
+<li>CONTINUING_RESOURCES</li>
+<li>MUSIC</li>
+<li>MAPS</li>
+<li>VISUAL_MATERIALS</li>
+<li>COMPUTER_FILES</li>
+<li>MIXED_MATERIALS</li>
+</ul></li>
+<li>parameters to fix known issues before any analyses:
+<ul>
+<li><code>-q</code>, <code>--fixAlephseq</code> sometimes ALEPH export contains ‘^’ characters instead of spaces in control fields (006, 007, 008). This flag replaces them with spaces before the validation. It might occur in any input format.</li>
+<li><code>-a</code>, <code>--fixAlma</code> sometimes Alma export contains ‘#’ characters instead of spaces in control fields (006, 007, 008). This flag replaces them with spaces before the validation. It might occur in any input format.</li>
+<li><code>-b</code>, <code>--fixKbr</code> KBR’s export contains ‘#’ characters instead spaces in control fields (006, 007, 008). This flag replaces them with spaces before the validation. It might occur in any input format.</li>
+</ul></li>
+<li><code>-f &lt;format&gt;</code>, <code>--marcFormat &lt;format&gt;</code> The input format. Possible values are
+<ul>
+<li><code>ISO</code>: Binary (ISO 2709)</li>
+<li><code>XML</code>: MARCXML (shortcuts: <code>-x</code>, <code>--marcxml</code>)</li>
+<li><code>ALEPHSEQ</code>: Alephseq (shortcuts: <code>-p</code>, <code>--alephseq</code>)</li>
+<li><code>LINE_SEPARATED</code>: Line separated binary MARC where each line contains one record) (shortcuts: <code>-y</code>, <code>--lineSeparated</code>)</li>
+<li><code>MARC_LINE</code>: MARC Line is a line-separated format i.e.&nbsp;it is a text file, where each line is a distinct field, the same way as MARC records are usually displayed in the MARC21 standard documentation.</li>
+<li><code>MARCMAKER</code>: MARCMaker format</li>
+<li><code>PICA_PLAIN</code>: PICA plain (https://format.gbv.de/pica/plain) is a serialization format, that contains each fields in distinct row.</li>
+<li><code>PICA_NORMALIZED</code>: normalized PICA (https://format.gbv.de/pica/normalized) is a serialization format where each line is a separate record (by bytecode <code>0A</code>). Fields are terminated by bytecode 1E, and subfields are introduced by bytecode <code>1F</code>.</li>
+</ul></li>
+<li><code>-t &lt;directory&gt;</code>, <code>--outputDir &lt;directory&gt;</code> specifies the output directory where the files will be created</li>
+<li><code>-r</code>, <code>--trimId</code> remove spaces from the end of record IDs in the output files (some library system add padding spaces around field value 001 in exported files)</li>
+<li><code>-g &lt;encoding&gt;</code>, <code>--defaultEncoding &lt;encoding&gt;</code> specify a default encoding of the records. Possible values:
+<ul>
+<li><code>ISO-8859-1</code> or <code>ISO8859_1</code> or <code>ISO_8859_1</code></li>
+<li><code>UTF8</code> or <code>UTF-8</code></li>
+<li><code>MARC-8</code> or <code>MARC8</code></li>
+</ul></li>
+<li><code>-s &lt;datasource&gt;</code>, <code>--dataSource &lt;datasource&gt;</code> specify the type of data source. Possible values:
+<ul>
+<li><code>FILE</code>: reading from file</li>
+<li><code>STREAM</code>: reading from a Java data stream. It is not usable if you use the tool from the command line, only if you use it with its API.</li>
+</ul></li>
+<li><code>-c &lt;configuration&gt;</code>, <code>--allowableRecords &lt;configuration&gt;</code> if set, criteria which allows analysis of records. If the record does not met the criteria, it will be excluded. An individual criterium should be formed as a MarcSpec (for MARC21 records) or PicaFilter (for PICA records). Multiple criteria might be concatenated with logical operations: <code>&amp;&amp;</code> for AND, <code>||</code> for OR and <code>!</code> for not. One can use parentheses to group logical expressions. An example: <code>'002@.0 !~ "^L" &amp;&amp; 002@.0 !~ "^..[iktN]" &amp;&amp; (002@.0 !~ "^.v" || 021A.a?)'</code>. Since the criteria might form a complex phase containing spaces, the passing of which is problematic among multiple scripts, one can apply Base64 encoding. In this case add <code>base64:</code> prefix to the parameters, such as <code>base64:"$(echo '002@.0 !~ "^L" &amp;&amp; 002@.0 !~ "^..[iktN]" &amp;&amp; (002@.0 !~ "^.v" || 021A.a?)' | base64 -w 0)</code>.</li>
+<li><code>-1 &lt;type&gt;</code>, <code>--alephseqLineType &lt;type&gt;</code>, true, “Alephseq line type. The <code>type</code> could be
+<ul>
+<li><code>WITH_L</code>: the records’ AlephSeq lines contain an <code>L</code> string (e.g.&nbsp;<code>000000002 008   L 780804s1977^^^^enk||||||b||||001^0|eng||</code>)</li>
+<li><code>WITHOUT_L</code>: the records’ AlephSeq lines do not contai an <code>L</code> string (e.g.&nbsp;<code>000000002 008   780804s1977^^^^enk||||||b||||001^0|eng||</code>)</li>
+</ul></li>
+<li>PICA related parameters
+<ul>
+<li><code>-2 &lt;path&gt;</code>, <code>--picaIdField &lt;path&gt;</code> the record identifier</li>
+<li><code>-u &lt;char&gt;</code>, <code>--picaSubfieldSeparator &lt;char&gt;</code> the PICA subfield separator. subfield of PICA records. Default is <code>003@$0</code>. Default is <code>$</code>.</li>
+<li><code>-j &lt;file&gt;</code>, <code>--picaSchemaFile &lt;file&gt;</code> an Avram schema file, which describes the structure of PICA records</li>
+<li><code>-k &lt;path&gt;</code>, <code>--picaRecordType &lt;path&gt;</code> The PICA subfield which stores the record type information. Default is <code>002@$0</code>.</li>
+</ul></li>
+<li>Parameters for grouping analyses
+<ul>
+<li><code>-e &lt;path&gt;</code>, <code>--groupBy &lt;path&gt;</code> group the results by the value of this data element (e.g.&nbsp;the ILN of libraries holding the item). An example: <code>--groupBy 001@$0</code> where <code>001@$0</code> is the subfield containing the comma separated list of library ILN codes.</li>
+<li><code>-3 &lt;file&gt;</code>, <code>--groupListFile &lt;file&gt;</code> the file which contains a list of ILN codes</li>
+</ul></li>
+</ul>
+<p>The last argument of the commands are a list of files. It might contain any wildcard the operating system supports (’*‘,’?’, etc.).</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -799,10 +1098,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./download.html" class="pagination-link" aria-label="Download">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Download</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./installation.html" class="pagination-link" aria-label="Installation">
-        <span class="nav-page-text">Installation</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./validate.html" class="pagination-link" aria-label="Validating MARC records">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Validating MARC records</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

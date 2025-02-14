@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Péter Király">
-<meta name="dcterms.date" content="2025-02-11">
 
-<title>QA Catalogue</title>
+<title>10&nbsp; FRBR functional requirement analysis – QA Catalogue</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -32,7 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./installation.html" rel="next">
+<link href="./classification.html" rel="next">
+<link href="./serial-score-analysis.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -82,7 +115,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Introduction</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./usage.html">Usage</a></li><li class="breadcrumb-item"><a href="./FRBR-functional-requirements.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">FRBR functional requirement analysis</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -109,7 +142,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
   </div>
 </li>
@@ -189,7 +222,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./FRBR-functional-requirements.html" class="sidebar-item-text sidebar-link">
+  <a href="./FRBR-functional-requirements.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">FRBR functional requirement analysis</span></span></a>
   </div>
 </li>
@@ -300,35 +333,25 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#discovery-functions" id="toc-discovery-functions" class="nav-link active" data-scroll-target="#discovery-functions"><span class="header-section-number">10.1</span> Discovery functions</a></li>
+  <li><a href="#usage-functions" id="toc-usage-functions" class="nav-link" data-scroll-target="#usage-functions"><span class="header-section-number">10.2</span> Usage functions</a></li>
+  <li><a href="#management-functions" id="toc-management-functions" class="nav-link" data-scroll-target="#management-functions"><span class="header-section-number">10.3</span> Management functions</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./usage.html">Usage</a></li><li class="breadcrumb-item"><a href="./FRBR-functional-requirements.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">FRBR functional requirement analysis</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">QA Catalogue</h1>
+<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">FRBR functional requirement analysis</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Péter Király </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">February 11, 2025</p>
-    </div>
-  </div>
   
     
   </div>
@@ -338,43 +361,46 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="introduction" class="level1 unnumbered">
-<h1 class="unnumbered">Introduction</h1>
-<p>QA catalogue is a set of software packages for bibliographical record quality assessment. It reads MARC or PICA files (in different formats), analyses some quality dimensions, and saves the results into CSV files. These CSV files could be used in different context, we provide a lightweight, web-based <a href="#user-interface">user interface</a> for that. Some of the functionalities are available as a <a href="https://github.com/pkiraly/metadata-qa-marc-ws">web service</a>, so the validation could be built into a cataloguing/quality assessment workflow.</p>
-<!--
-The following throws an error:
-
-  ! LaTeX Error: Cannot determine size of graphic in images/issues-v1.gif (no BoundingBox).
-  See the LaTeX manual or LaTeX Companion for explanation.
-  Type  H <return>  for immediate help.
-  l.229 ...n,height=4.16667in]{images/issues-v1.gif}
-
-![User interface](images/issues-v1.gif){width=938 height=638}
-Screenshot from the web UI of the QA catalogue
--->
-<div id="fig-web-ui" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-web-ui-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div align="center">
-<iframe width="938" height="638" src="images/issues-v1.gif"></iframe>
-</div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-web-ui-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: QA Catalogue’s web user interface
-</figcaption>
-</figure>
-</div>
+<p>The Functional Requirements for Bibliographic Records (FRBR) document’s main part defines the primary and secondary entities which became famous as FRBR models. Years later Tom Delsey created a mapping between the 12 functions and the individual MARC elements.</p>
+<p>Tom Delsey (2002) <em>Functional analysis of the MARC 21 bibliographic and holdings formats. Tech. report</em>. Library of Congress, 2002. Prepared for the Network Development and MARC Standards Office Library of Congress. Second Revision: September 17, 2003. <a href="https://www.loc.gov/marc/marc-functional-analysis/original_source/analysis.pdf">https://www.loc.gov/marc/marc-functional-analysis/original_source/analysis.pdf</a>.</p>
+<p>This analysis shows how these functions are supported by the records. Low support means that only small portion of the fields support a function are available in the records, strong support on the contrary means lots of fields are available. The analyses calculate the support of 12 functions for each record, and returns summary statistics.</p>
+<p>It is an experimental feature because it turned out, that the mapping covers about 2000 elements (fields, subfields, indicators etc.), however on an average record there are max several hundred elements, which results that even in the best record has about 10-15% of the totality of the elements supporting a given function. So the tool doesn’t show you exact numbers, and the scale is not 0-100 but 0-[best score] which is different for every catalogue.</p>
+<p>The 12 functions:</p>
+<section id="discovery-functions" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="discovery-functions"><span class="header-section-number">10.1</span> Discovery functions</h2>
 <ul>
-<li>For more info
-<ul>
-<li>main project page: <a href="http://pkiraly.github.io">Metadata Quality Assessment Framework</a></li>
-<li>Validating 126 million MARC records at DATeCH 2019 <a href="https://doi.org/10.1145/3322905.3322929">paper</a>, <a href="http://bit.ly/qa-datech2019">slides</a>, <a href="https://doi.org/10.13140/RG.2.2.33177.77920">thesis chapter</a></li>
-<li>Empirical evaluation of library catalogues at SWIB 2019 <a href="http://bit.ly/qa-swib2019">slides</a>, <a href="https://pro.europeana.eu/page/issue-15-swib-2019#empirical-evaluation-of-library-catalogues">paper in English</a>, <a href="https://universoabierto.org/2020/06/01/evaluacion-empirica-de-los-catalogos-de-las-bibliotecas/">paper in Spanish</a></li>
-<li>quality assessment of Gent University Library catalogue (a running instance of the dashboard): <a href="http://gent.qa-catalogue.eu/">http://gent.qa-catalogue.eu/</a></li>
-<li><strong>new: QA catalogue mailing list</strong> https://listserv.gwdg.de/mailman/listinfo/qa-catalogue</li>
-</ul></li>
-<li>If you would like to play with this project, but you don’t have MARC21 please to download some recordsets mentioned in <a href="#datasources">Appendix I: Where can I get MARC records?</a> of this document.</li>
+<li>search (DiscoverySearch): Search for a resource corresponding to stated criteria (i.e., to search either a single entity or a set of entities using an attribute or relationship of the entity as the search criteria).</li>
+<li>identify (DiscoveryIdentify): Identify a resource (i.e., to confirm that the entity described or located corresponds to the entity sought, or to distinguish between two or more entities with similar characteristics).</li>
+<li>select (DiscoverySelect): Select a resource that is appropriate to the user’s needs (i.e., to choose an entity that meets the user’s requirements with respect to content, physical format, etc., or to reject an entity as being inappropriate to the user’s needs)</li>
+<li>obtain (DiscoveryObtain): Access a resource either physically or electronically through an online connection to a remote computer, and/or acquire a resource through purchase, licence, loan, etc.</li>
 </ul>
+</section>
+<section id="usage-functions" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="usage-functions"><span class="header-section-number">10.2</span> Usage functions</h2>
+<ul>
+<li>restrict (UseRestrict): Control access to or use of a resource (i.e., to restrict access to and/or use of an entity on the basis of proprietary rights, administrative policy, etc.).</li>
+<li>manage (UseManage): Manage a resource in the course of acquisition, circulation, preservation, etc.</li>
+<li>operate (UseOperate): Operate a resource (i.e., to open, display, play, activate, run, etc. an entity that requires specialized equipment, software, etc. for its operation).</li>
+<li>interpret (UseInterpret): Interpret or assess the information contained in a resource.</li>
+</ul>
+</section>
+<section id="management-functions" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="management-functions"><span class="header-section-number">10.3</span> Management functions</h2>
+<ul>
+<li>identify (ManagementIdentify): Identify a record, segment, field, or data element (i.e., to differentiate one logical data component from another).</li>
+<li>process (ManagementProcess): Process a record, segment, field, or data element (i.e., to add, delete, replace, output, etc. a logical data component by means of an automated process).</li>
+<li>sort (ManagementSort): Sort a field for purposes of alphabetic or numeric arrangement.</li>
+<li>display (ManagementDisplay): Display a field or data element (i.e., to display a field or data element with the appropriate print constant or as a tracing).</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">java</span> <span class="at">-cp</span> <span class="va">$JAR</span> de.gwdg.metadataqa.marc.cli.FunctionalAnalysis <span class="pp">[</span><span class="ss">options</span><span class="pp">]</span> <span class="op">&lt;</span>file<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>with a bash script</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./functional-analysis</span> <span class="pp">[</span><span class="ss">options</span><span class="pp">]</span> <span class="op">&lt;</span>file<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>or</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">catalogues/</span><span class="op">&lt;</span>catalogue<span class="op">&gt;</span>.sh functional-analysis</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>or</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./qa-catalogue</span> <span class="at">--params</span><span class="op">=</span><span class="st">"[options]"</span> functional-analysis</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>options: * <a href="usage.html#general-parameters">general parameters</a></p>
+<p>Output files: * <code>functional-analysis.csv</code>: the list of the 12 functions and their average count (number of support fields), and average score (percentage of all supporting fields available in the record) * <code>functional-analysis-mapping.csv</code>: the mapping of functions and data elements * <code>functional-analysis-histogram.csv</code>: the histogram of scores and count of records for each function (e.g.&nbsp;there are <em>x</em> number of records which has <em>j</em> score for function <em>a</em>)</p>
 
 
 </section>
@@ -799,10 +825,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./serial-score-analysis.html" class="pagination-link" aria-label="Serial score analysis">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Serial score analysis</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./installation.html" class="pagination-link" aria-label="Installation">
-        <span class="nav-page-text">Installation</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./classification.html" class="pagination-link" aria-label="Classification analysis">
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Classification analysis</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

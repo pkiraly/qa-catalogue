@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Péter Király">
-<meta name="dcterms.date" content="2025-02-11">
 
-<title>QA Catalogue</title>
+<title>Appendix B — Handling MARC versions – QA Catalogue</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -32,7 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./installation.html" rel="next">
+<link href="./institutions-which-reportedly-use-this-tool.html" rel="next">
+<link href="./where-can-I-get-MARC-records.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -82,7 +115,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Introduction</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./where-can-I-get-MARC-records.html">Appendices</a></li><li class="breadcrumb-item"><a href="./handling-MARC-versions.html"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Handling MARC versions</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -109,7 +142,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
   </div>
 </li>
@@ -260,7 +293,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./handling-MARC-versions.html" class="sidebar-item-text sidebar-link">
+  <a href="./handling-MARC-versions.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Handling MARC versions</span></span></a>
   </div>
 </li>
@@ -295,40 +328,22 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./where-can-I-get-MARC-records.html">Appendices</a></li><li class="breadcrumb-item"><a href="./handling-MARC-versions.html"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Handling MARC versions</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">QA Catalogue</h1>
+<h1 class="title">Appendix B — Handling MARC versions</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Péter Király </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">February 11, 2025</p>
-    </div>
-  </div>
   
     
   </div>
@@ -338,46 +353,97 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="introduction" class="level1 unnumbered">
-<h1 class="unnumbered">Introduction</h1>
-<p>QA catalogue is a set of software packages for bibliographical record quality assessment. It reads MARC or PICA files (in different formats), analyses some quality dimensions, and saves the results into CSV files. These CSV files could be used in different context, we provide a lightweight, web-based <a href="#user-interface">user interface</a> for that. Some of the functionalities are available as a <a href="https://github.com/pkiraly/metadata-qa-marc-ws">web service</a>, so the validation could be built into a cataloguing/quality assessment workflow.</p>
-<!--
-The following throws an error:
-
-  ! LaTeX Error: Cannot determine size of graphic in images/issues-v1.gif (no BoundingBox).
-  See the LaTeX manual or LaTeX Companion for explanation.
-  Type  H <return>  for immediate help.
-  l.229 ...n,height=4.16667in]{images/issues-v1.gif}
-
-![User interface](images/issues-v1.gif){width=938 height=638}
-Screenshot from the web UI of the QA catalogue
--->
-<div id="fig-web-ui" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-web-ui-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div align="center">
-<iframe width="938" height="638" src="images/issues-v1.gif"></iframe>
-</div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-web-ui-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: QA Catalogue’s web user interface
-</figcaption>
-</figure>
-</div>
+<p>The tool provides two levels of customization:</p>
 <ul>
-<li>For more info
-<ul>
-<li>main project page: <a href="http://pkiraly.github.io">Metadata Quality Assessment Framework</a></li>
-<li>Validating 126 million MARC records at DATeCH 2019 <a href="https://doi.org/10.1145/3322905.3322929">paper</a>, <a href="http://bit.ly/qa-datech2019">slides</a>, <a href="https://doi.org/10.13140/RG.2.2.33177.77920">thesis chapter</a></li>
-<li>Empirical evaluation of library catalogues at SWIB 2019 <a href="http://bit.ly/qa-swib2019">slides</a>, <a href="https://pro.europeana.eu/page/issue-15-swib-2019#empirical-evaluation-of-library-catalogues">paper in English</a>, <a href="https://universoabierto.org/2020/06/01/evaluacion-empirica-de-los-catalogos-de-las-bibliotecas/">paper in Spanish</a></li>
-<li>quality assessment of Gent University Library catalogue (a running instance of the dashboard): <a href="http://gent.qa-catalogue.eu/">http://gent.qa-catalogue.eu/</a></li>
-<li><strong>new: QA catalogue mailing list</strong> https://listserv.gwdg.de/mailman/listinfo/qa-catalogue</li>
-</ul></li>
-<li>If you would like to play with this project, but you don’t have MARC21 please to download some recordsets mentioned in <a href="#datasources">Appendix I: Where can I get MARC records?</a> of this document.</li>
+<li>project specific tags can be defined in their own Java package, such as these classes for Gent data: <a href="https://github.com/pkiraly/qa-catalogue/tree/master/src/main/java/de/gwdg/metadataqa/marc/definition/tags/genttags">de.gwdg.metadataqa.marc.definition.tags.genttags</a></li>
+<li>for existing tags one can use the API described below</li>
 </ul>
+<p>The different MARC versions has an identifier. This is defined in the code as an enumeration:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode java code-with-copy"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">enum</span> MarcVersion <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">MARC21</span><span class="op">(</span><span class="st">"MARC21"</span><span class="op">,</span> <span class="st">"MARC21"</span><span class="op">),</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">DNB</span><span class="op">(</span><span class="st">"DNB"</span><span class="op">,</span> <span class="st">"Deutsche Nationalbibliothek"</span><span class="op">),</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">OCLC</span><span class="op">(</span><span class="st">"OCLC"</span><span class="op">,</span> <span class="st">"OCLC"</span><span class="op">),</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">GENT</span><span class="op">(</span><span class="st">"GENT"</span><span class="op">,</span> <span class="st">"Universiteitsbibliotheek Gent"</span><span class="op">),</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">SZTE</span><span class="op">(</span><span class="st">"SZTE"</span><span class="op">,</span> <span class="st">"Szegedi Tudományegyetem"</span><span class="op">),</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">FENNICA</span><span class="op">(</span><span class="st">"FENNICA"</span><span class="op">,</span> <span class="st">"National Library of Finland"</span><span class="op">)</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="op">;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">...</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>When you add version specific modification, you have to use one of these values.</p>
+<ol type="1">
+<li>Defining version specific indicator codes:</li>
+</ol>
+<div class="sourceCode" id="cb2"><pre class="sourceCode java code-with-copy"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Indicator<span class="op">::</span><span class="fu">putVersionSpecificCodes</span><span class="op">(</span>MarcVersion<span class="op">,</span> <span class="bu">List</span><span class="op">&lt;</span>Code<span class="op">&gt;);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Code is a simple object, it has two property: code and label.</p>
+<p>example:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode java code-with-copy"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Tag024 <span class="kw">extends</span> DataFieldDefinition <span class="op">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>   <span class="kw">...</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>   ind1 <span class="op">=</span> <span class="kw">new</span> <span class="fu">Indicator</span><span class="op">(</span><span class="st">"Type of standard number or code"</span><span class="op">)</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>             <span class="op">.</span><span class="fu">setCodes</span><span class="op">(</span><span class="kw">...</span><span class="op">)</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>             <span class="op">.</span><span class="fu">putVersionSpecificCodes</span><span class="op">(</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                 MarcVersion<span class="op">.</span><span class="fu">SZTE</span><span class="op">,</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                 <span class="bu">Arrays</span><span class="op">.</span><span class="fu">asList</span><span class="op">(</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">new</span> <span class="fu">Code</span><span class="op">(</span><span class="st">" "</span><span class="op">,</span> <span class="st">"Not specified"</span><span class="op">)</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>                 <span class="op">)</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>             <span class="op">)</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>   <span class="kw">...</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="2" type="1">
+<li>Defining version specific subfields:</li>
+</ol>
+<div class="sourceCode" id="cb4"><pre class="sourceCode java code-with-copy"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>DataFieldDefinition<span class="op">::</span><span class="fu">putVersionSpecificSubfields</span><span class="op">(</span>MarcVersion<span class="op">,</span> <span class="bu">List</span><span class="op">&lt;</span>SubfieldDefinition<span class="op">&gt;)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>SubfieldDefinition contains a definition of a subfield. You can construct it with three String parameters: a code, a label and a cardinality code which denotes whether the subfield can be repeatable (“R”) or not (“NR”).</p>
+<p>example:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode java code-with-copy"><code class="sourceCode java"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Tag024 <span class="kw">extends</span> DataFieldDefinition <span class="op">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>   <span class="kw">...</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">putVersionSpecificSubfields</span><span class="op">(</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>      MarcVersion<span class="op">.</span><span class="fu">DNB</span><span class="op">,</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>      <span class="bu">Arrays</span><span class="op">.</span><span class="fu">asList</span><span class="op">(</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>         <span class="kw">new</span> <span class="fu">SubfieldDefinition</span><span class="op">(</span><span class="st">"9"</span><span class="op">,</span> <span class="st">"Standardnummer (mit Bindestrichen)"</span><span class="op">,</span> <span class="st">"NR"</span><span class="op">)</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>      <span class="op">)</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>   <span class="op">);</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="3" type="1">
+<li>Marking indicator codes as obsolete:</li>
+</ol>
+<div class="sourceCode" id="cb6"><pre class="sourceCode java code-with-copy"><code class="sourceCode java"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>Indicator<span class="op">::</span><span class="fu">setHistoricalCodes</span><span class="op">(</span><span class="bu">List</span><span class="op">&lt;</span><span class="bu">String</span><span class="op">&gt;)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The list should be pairs of code and description.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode java code-with-copy"><code class="sourceCode java"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Tag082 <span class="kw">extends</span> DataFieldDefinition <span class="op">{</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>   <span class="kw">...</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>   ind1 <span class="op">=</span> <span class="kw">new</span> <span class="fu">Indicator</span><span class="op">(</span><span class="st">"Type of edition"</span><span class="op">)</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">setCodes</span><span class="op">(</span><span class="kw">...</span><span class="op">)</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">setHistoricalCodes</span><span class="op">(</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                 <span class="st">" "</span><span class="op">,</span> <span class="st">"No edition information recorded (BK, MU, VM, SE) [OBSOLETE]"</span><span class="op">,</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"2"</span><span class="op">,</span> <span class="st">"Abridged NST version (BK, MU, VM, SE) [OBSOLETE]"</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>              <span class="op">)</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>   <span class="kw">...</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="4" type="1">
+<li>Marking subfields as obsolete:</li>
+</ol>
+<div class="sourceCode" id="cb8"><pre class="sourceCode java code-with-copy"><code class="sourceCode java"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>DataFieldDefinition<span class="op">::</span><span class="fu">setHistoricalSubfields</span><span class="op">(</span><span class="bu">List</span><span class="op">&lt;</span><span class="bu">String</span><span class="op">&gt;);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The list should be pairs of code and description.</p>
+<p><code>[Java} public class Tag020 extends DataFieldDefinition {    ...    setHistoricalSubfields(       "b", "Binding information (BK, MP, MU) [OBSOLETE]"    ); }</code></p>
+<p>If you create new a package for the new MArc version, you should register it to several places:</p>
+<ol type="a">
+<li>add a case into <code>src/main/java/de/gwdg/metadataqa/marc/Utils.java</code>:</li>
+</ol>
+<div class="sourceCode" id="cb9"><pre class="sourceCode java code-with-copy"><code class="sourceCode java"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">case</span> <span class="st">"zbtags"</span><span class="op">:</span>      version <span class="op">=</span> MarcVersion<span class="op">.</span><span class="fu">ZB</span><span class="op">;</span>      <span class="cf">break</span><span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="2" type="a">
+<li>add an item into enumeration at <code>src/main/java/de/gwdg/metadataqa/marc/definition/tags/TagCategory.java</code>:</li>
+</ol>
+<div class="sourceCode" id="cb10"><pre class="sourceCode java code-with-copy"><code class="sourceCode java"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ZB</span><span class="op">(</span><span class="dv">23</span><span class="op">,</span> <span class="st">"zbtags"</span><span class="op">,</span> <span class="st">"ZB"</span><span class="op">,</span> <span class="st">"Locally defined tags of the Zentralbibliothek Zürich"</span><span class="op">,</span> <span class="kw">false</span><span class="op">),</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="3" type="a">
+<li>modify the expected number of data elements at <code>src/test/java/de/gwdg/metadataqa/marc/utils/DataElementsStaticticsTest.java</code>:</li>
+</ol>
+<div class="sourceCode" id="cb11"><pre class="sourceCode java code-with-copy"><code class="sourceCode java"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">assertEquals</span><span class="op">(</span> <span class="dv">215</span><span class="op">,</span> statistics<span class="op">.</span><span class="fu">get</span><span class="op">(</span>DataElementType<span class="op">.</span><span class="fu">localFields</span><span class="op">));</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="4" type="a">
+<li>… and a <code>src/test/java/de/gwdg/metadataqa/marc/utils/MarcTagListerTest.java</code>:</li>
+</ol>
+<div class="sourceCode" id="cb12"><pre class="sourceCode java code-with-copy"><code class="sourceCode java"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">assertEquals</span><span class="op">(</span> <span class="dv">2</span><span class="op">,</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span> versionCounter2<span class="op">.</span><span class="fu">get</span><span class="op">(</span>MarcVersion<span class="op">.</span><span class="fu">ZB</span><span class="op">));</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">assertEquals</span><span class="op">(</span> <span class="dv">2</span><span class="op">,</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span> versionCounter<span class="op">.</span><span class="fu">get</span><span class="op">(</span><span class="st">"zbtags"</span><span class="op">));</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -799,10 +865,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./where-can-I-get-MARC-records.html" class="pagination-link" aria-label="Where can I get MARC records?">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Where can I get MARC records?</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./installation.html" class="pagination-link" aria-label="Installation">
-        <span class="nav-page-text">Installation</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./institutions-which-reportedly-use-this-tool.html" class="pagination-link" aria-label="Institutions which reportedly use this tool">
+        <span class="nav-page-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Institutions which reportedly use this tool</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

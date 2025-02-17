@@ -102,6 +102,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="style.css">
@@ -397,6 +400,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>-V</code>, <code>--advanced</code>: advanced mode (not yet implemented)</li>
 <li><code>-P</code>, <code>--onlyPackages</code>: only packages (not yet implemented)</li>
 </ul>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  A(Catalogue) --&gt; B[completeness]
+  B --&gt; C(marc-elements.csv)
+  B --&gt; D(packages.csv)
+  B --&gt; E(libraries.csv)
+  B --&gt; F(libraries003.csv)
+  B --&gt; G(completeness.params.json)
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 <section id="output-files" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="output-files"><span class="header-section-number">6.1</span> Output files:</h2>
 <section id="marc-elements.csv" class="level3" data-number="6.1.1">

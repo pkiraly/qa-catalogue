@@ -59,3 +59,6 @@ web-config
 
 # Node packages
 node_modules
+
+# HTML docs of Avram
+avram-schemas/*.html

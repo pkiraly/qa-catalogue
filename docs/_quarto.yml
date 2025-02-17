@@ -3,6 +3,10 @@ project:
 
 repo-url: https://github.com/pkiraly/qa-catalogue
 
+resources:
+  - avram-schemas/*.json
+  - avram-schemas/*.html
+
 book:
   title: "QA Catalogue"
   author: "Péter Király"

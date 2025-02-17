@@ -6,5 +6,8 @@
     "ajv": "^8.12.0",
     "ajv-formats": "^2.1.1",
     "avram": "^0.6.6"
+  },
+  "devDependencies": {
+    "ejs": "^3.1.10"
   }
 }

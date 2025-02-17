@@ -4,12 +4,14 @@ validate() {
   npm run --silent avram -- -s "$1"
 }
 
-validate avram-schemas/marc-schema.json
-validate src/main/resources/marc-schema.json
+validate avram-schemas/marc.json
+validate avram-schemas/unimarc.json
+validate avram-schemas/k10plus-title.json
+
+validate src/main/resources/marc-schema.json    # symlink
 validate src/main/resources/marc/authority-schema.avram.json
 validate src/main/resources/pica-schema.json
-validate src/main/resources/pica/avram-k10plus-title.json
-validate src/main/resources/unimarc/avram-unimarc.json
+
 validate src/test/resources/pica/schema/pica-schema-extra.json
 validate src/test/resources/pica/schema/pica-schema.json
 validate src/test/resources/unimarc/avram-unimarc.json

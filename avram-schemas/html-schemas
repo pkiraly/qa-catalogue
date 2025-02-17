@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -eu
+
+cd $(dirname $(readlink -f $0))
+
+tohtml() {
+    json="avram-schemas/$1"
+    html=$(basename ${1%.json}.html)
+    echo "$1 => $html"
+    npm run -s avram -- -d html "$json" | sed 's|avram-schemas/||' > "$html"
+}
+
+tohtml marc.json
+tohtml k10plus-title.json
+tohtml unimarc.json

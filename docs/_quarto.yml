@@ -7,6 +7,10 @@ book:
   title: "QA Catalogue"
   author: "Péter Király"
   date: "2025-02-14"
+  repo-actions:
+    - source
+    - edit
+    - issue
   chapters:
     - index.qmd
     #    - intro.qmd

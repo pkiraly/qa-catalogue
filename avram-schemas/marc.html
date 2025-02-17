@@ -1,10 +1,20 @@
 <html>
 <head>
 <style type="text/css">
+body {
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+}
 table {
   border-collapse: collapse;
   border-color: gray;  
   border: 1px solid #C1C7D0;
+}
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
 }
 td, th {
   border: 1px solid #C1C7D0;
@@ -15,34 +25,222 @@ th {
   background-color: #F4F5F7;
   text-align: left;
 }
+.help {
+  font-weight: default;
+  font-size: 80%;
+  vertical-align: super;
+}
 </style>
 </head>
 
 <body>
   <h1>MARC 21 Format for Bibliographic Data.</h1>
+  <p>MARC 21 Format for Bibliographic Data.</p>
   
-    <p><a href="https://www.loc.gov/marc/bibliographic/">https://www.loc.gov/marc/bibliographic/</a></p>
-  
-  
-    <p>MARC 21 Format for Bibliographic Data.</p>
-  
+  <p><a href="https://www.loc.gov/marc/bibliographic/">https://www.loc.gov/marc/bibliographic/</a></p>
   <p>
-    This table has been generated from an
+    This document has been generated from an
     <a href="https://format.gbv.de/schema/avram/specification">Avram Schema</a>.
     
       <a href="marc.json">download</a>
     
   </p>
+  <ul>
+    <li><a href="#fields">Fields</a></li>
+    
+      <li><a href="#codelists">Codelists</a><ul>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/marc/countries/countries_code.html">https://www.loc.gov/marc/countries/countries_code.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/marc/organizations/orgshome.html">https://www.loc.gov/marc/organizations/orgshome.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/standards/sourcelist/national-bibliography.html">https://www.loc.gov/standards/sourcelist/national-bibliography.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/standards/sourcelist/copyright-legal-deposit.html">https://www.loc.gov/standards/sourcelist/copyright-legal-deposit.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/standards/sourcelist/standard-identifier.html">https://www.loc.gov/standards/sourcelist/standard-identifier.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/standards/sourcelist/fingerprint.html">https://www.loc.gov/standards/sourcelist/fingerprint.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/standards/sourcelist/musical-incipit.html">https://www.loc.gov/standards/sourcelist/musical-incipit.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/standards/sourcelist/subject.html">https://www.loc.gov/standards/sourcelist/subject.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/standards/sourcelist/cartographic-data.html">https://www.loc.gov/standards/sourcelist/cartographic-data.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/marc/languages/language_code.html">https://www.loc.gov/marc/languages/language_code.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/standards/sourcelist/descriptive-conventions.html">https://www.loc.gov/standards/sourcelist/descriptive-conventions.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/standards/sourcelist/language.html">https://www.loc.gov/standards/sourcelist/language.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/standards/valuelist/marcauthen.html">https://www.loc.gov/standards/valuelist/marcauthen.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/marc/geoareas/">https://www.loc.gov/marc/geoareas/</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/standards/sourcelist/geographic-area.html">https://www.loc.gov/standards/sourcelist/geographic-area.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/standards/sourcelist/country.html">https://www.loc.gov/standards/sourcelist/country.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/standards/sourcelist/date-time.html">https://www.loc.gov/standards/sourcelist/date-time.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/standards/sourcelist/musical-composition.html">https://www.loc.gov/standards/sourcelist/musical-composition.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/marc/bibliographic/bd048.html">https://www.loc.gov/marc/bibliographic/bd048.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/standards/sourcelist/musical-instrumentation.html">https://www.loc.gov/standards/sourcelist/musical-instrumentation.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/standards/sourcelist/classification.html">https://www.loc.gov/standards/sourcelist/classification.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/standards/sourcelist/subject-category.html">https://www.loc.gov/standards/sourcelist/subject-category.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/standards/sourcelist/name-title.html">https://www.loc.gov/standards/sourcelist/name-title.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/marc/relators/relaterm.html">https://www.loc.gov/marc/relators/relaterm.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/standards/sourcelist/abbreviated-title.html">https://www.loc.gov/standards/sourcelist/abbreviated-title.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/standards/sourcelist/genre-form.html">https://www.loc.gov/standards/sourcelist/genre-form.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/standards/sourcelist/accessibility.html">https://www.loc.gov/standards/sourcelist/accessibility.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/standards/sourcelist/price-type.html">https://www.loc.gov/standards/sourcelist/price-type.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/standards/sourcelist/thematic-index.html">https://www.loc.gov/standards/sourcelist/thematic-index.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/standards/sourcelist/access-restriction.html">https://www.loc.gov/standards/sourcelist/access-restriction.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/standards/sourcelist/content-advice.html">https://www.loc.gov/standards/sourcelist/content-advice.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/standards/sourcelist/citation.html">https://www.loc.gov/standards/sourcelist/citation.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/marc/bibliographic/bd008a.html#6">https://www.loc.gov/marc/bibliographic/bd008a.html#6</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/marc/bibliographic/bd008b.html#23">https://www.loc.gov/marc/bibliographic/bd008b.html#23</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/standards/sourcelist/resource-action.html">https://www.loc.gov/standards/sourcelist/resource-action.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/standards/sourcelist/occupation.html">https://www.loc.gov/standards/sourcelist/occupation.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/standards/sourcelist/function.html">https://www.loc.gov/standards/sourcelist/function.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/standards/sourcelist/curriculum-objective.html">https://www.loc.gov/standards/sourcelist/curriculum-objective.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/standards/sourcelist/taxonomic.html">https://www.loc.gov/standards/sourcelist/taxonomic.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/marc/bibliographic/bdleader.html#6">https://www.loc.gov/marc/bibliographic/bdleader.html#6</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/marc/bibliographic/bdleader.html#17">https://www.loc.gov/marc/bibliographic/bdleader.html#17</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/standards/valuelist/electronaccess.html">https://www.loc.gov/standards/valuelist/electronaccess.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/standards/sourcelist/holding-scheme.html">https://www.loc.gov/standards/sourcelist/holding-scheme.html</a>
+          </li>
+        
+          <li>
+            <a href="#codelist-https://www.loc.gov/standards/sourcelist/format.html">https://www.loc.gov/standards/sourcelist/format.html</a>
+          </li>
+        
+      </ul></li>
+    
+    
+  </ul>
+  
+  <h2 id="fields">Fields</h2>
   <table>
     <thead>
       <tr>
         <th>Field</th>
-        <th>R?</th>
+        <th></th>
         
-        <th>SF</th>
-        <th>R?</th>
-        <th>Title</th>
-        <th>Remark</th>
+        <th>SF</th><th></th>
+        <th>Description</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -51,12 +249,16 @@ th {
           <td><b>
             001
           </b></td>
-          <td>NR</td>
+          <td><tt>0..1</tt></td>
           
-          <td></td>
-          <td></td>
-          <td><b>Control Number</b></td>
-          <td></td>
+          <td></td><td></td>
+          <td>
+            <b>Control Number</b>
+            
+          </td>
+          <td>
+  
+  </td>
         </tr>
         
       
@@ -64,12 +266,16 @@ th {
           <td><b>
             003
           </b></td>
-          <td>NR</td>
+          <td><tt>0..1</tt></td>
           
-          <td></td>
-          <td></td>
-          <td><b>Control Number Identifier</b></td>
-          <td></td>
+          <td></td><td></td>
+          <td>
+            <b>Control Number Identifier</b>
+            
+          </td>
+          <td>
+  
+  </td>
         </tr>
         
       
@@ -77,12 +283,16 @@ th {
           <td><b>
             005
           </b></td>
-          <td>NR</td>
+          <td><tt>0..1</tt></td>
           
-          <td></td>
-          <td></td>
-          <td><b>Date and Time of Latest Transaction</b></td>
-          <td></td>
+          <td></td><td></td>
+          <td>
+            <b>Date and Time of Latest Transaction</b>
+            
+          </td>
+          <td>
+  
+  </td>
         </tr>
         
       
@@ -90,12 +300,16 @@ th {
           <td><b>
             006
           </b></td>
-          <td>R</td>
+          <td><tt>0..*</tt></td>
           
-          <td></td>
-          <td></td>
-          <td><b>Additional Material Characteristics</b></td>
-          <td></td>
+          <td></td><td></td>
+          <td>
+            <b>Additional Material Characteristics</b>
+            
+          </td>
+          <td>
+  
+  </td>
         </tr>
         
       
@@ -103,12 +317,16 @@ th {
           <td><b>
             007
           </b></td>
-          <td>R</td>
+          <td><tt>0..*</tt></td>
           
-          <td></td>
-          <td></td>
-          <td><b>Physical Description</b></td>
-          <td></td>
+          <td></td><td></td>
+          <td>
+            <b>Physical Description</b>
+            
+          </td>
+          <td>
+  
+  </td>
         </tr>
         
       
@@ -116,12 +334,16 @@ th {
           <td><b>
             008
           </b></td>
-          <td>NR</td>
+          <td><tt>0..1</tt></td>
           
-          <td></td>
-          <td></td>
-          <td><b>General Information</b></td>
-          <td></td>
+          <td></td><td></td>
+          <td>
+            <b>General Information</b>
+            
+          </td>
+          <td>
+  
+  </td>
         </tr>
         
       
@@ -130,68 +352,76 @@ th {
             <a href="https://www.loc.gov/marc/bibliographic/bd010.html">010</a>
             
           </b></td>
-          <td>NR</td>
+          <td><tt>0..1</tt></td>
           
-          <td></td>
-          <td></td>
-          <td><b>Library of Congress Control Number</b></td>
-          <td></td>
+          <td></td><td></td>
+          <td>
+            <b>Library of Congress Control Number</b>
+            
+          </td>
+          <td>
+  
+  </td>
         </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$8</td>
-            <td>R</td>
-            <td>Field link and sequence number</td>
+            <td><b>$8</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Field link and sequence number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$a</td>
-            <td>NR</td>
-            <td>LC control number</td>
+            <td><b>$a</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              LC control number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$b</td>
-            <td>R</td>
-            <td>NUCMC control number</td>
+            <td><b>$b</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              NUCMC control number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$z</td>
-            <td>R</td>
-            <td>Canceled/invalid LC control number</td>
+            <td><b>$z</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Canceled/invalid LC control number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
       
@@ -200,124 +430,136 @@ th {
             <a href="https://www.loc.gov/marc/bibliographic/bd013.html">013</a>
             
           </b></td>
-          <td>R</td>
+          <td><tt>0..*</tt></td>
           
-          <td></td>
-          <td></td>
-          <td><b>Patent Control Information</b></td>
-          <td></td>
+          <td></td><td></td>
+          <td>
+            <b>Patent Control Information</b>
+            
+          </td>
+          <td>
+  
+  </td>
         </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$6</td>
-            <td>NR</td>
-            <td>Linkage</td>
+            <td><b>$6</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+              Linkage
               
             </td>
+            <td>pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$8</td>
-            <td>R</td>
-            <td>Field link and sequence number</td>
+            <td><b>$8</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Field link and sequence number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$a</td>
-            <td>NR</td>
-            <td>Number</td>
+            <td><b>$a</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$b</td>
-            <td>NR</td>
-            <td>Country</td>
+            <td><b>$b</b></td>
+            <td><tt>0..1</tt></td>
             <td>
+              Country
               
-              
-              0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>39<br>40<br>41<br>42<br>43<br>44<br>45<br>46<br>47<br>48<br>49<br>50<br>51<br>52<br>53<br>
             </td>
+            <td>
+  codes from <a href="https://www.loc.gov/marc/countries/countries_code.html">https://www.loc.gov/marc/countries/countries_code.html</a>
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$c</td>
-            <td>NR</td>
-            <td>Type of number</td>
+            <td><b>$c</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Type of number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$d</td>
-            <td>R</td>
-            <td>Date</td>
+            <td><b>$d</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Date
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$e</td>
-            <td>R</td>
-            <td>Status</td>
+            <td><b>$e</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Status
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$f</td>
-            <td>R</td>
-            <td>Party to document</td>
+            <td><b>$f</b></td>
+            <td><tt>0..*</tt></td>
             <td>
+              Party to document
               
-              
-              0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>39<br>40<br>41<br>42<br>43<br>44<br>45<br>46<br>47<br>48<br>49<br>50<br>51<br>
             </td>
+            <td>
+  codes from <a href="https://www.loc.gov/marc/organizations/orgshome.html">https://www.loc.gov/marc/organizations/orgshome.html</a>
+  </td>
           </tr>
         
       
@@ -326,96 +568,106 @@ th {
             <a href="https://www.loc.gov/marc/bibliographic/bd015.html">015</a>
             
           </b></td>
-          <td>R</td>
+          <td><tt>0..*</tt></td>
           
-          <td></td>
-          <td></td>
-          <td><b>National Bibliography Number</b></td>
-          <td></td>
+          <td></td><td></td>
+          <td>
+            <b>National Bibliography Number</b>
+            
+          </td>
+          <td>
+  
+  </td>
         </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$2</td>
-            <td>NR</td>
-            <td>Source</td>
+            <td><b>$2</b></td>
+            <td><tt>0..1</tt></td>
             <td>
+              Source
               
-              
-              0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>39<br>40<br>41<br>42<br>43<br>44<br>45<br>46<br>47<br>48<br>49<br>50<br>51<br>52<br>53<br>54<br>55<br>56<br>57<br>58<br>59<br>60<br>61<br>62<br>63<br>64<br>65<br>66<br>
             </td>
+            <td>
+  codes from <a href="https://www.loc.gov/standards/sourcelist/national-bibliography.html">https://www.loc.gov/standards/sourcelist/national-bibliography.html</a>
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$6</td>
-            <td>NR</td>
-            <td>Linkage</td>
+            <td><b>$6</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+              Linkage
               
             </td>
+            <td>pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$8</td>
-            <td>R</td>
-            <td>Field link and sequence number</td>
+            <td><b>$8</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Field link and sequence number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$a</td>
-            <td>R</td>
-            <td>National bibliography number</td>
+            <td><b>$a</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              National bibliography number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$q</td>
-            <td>R</td>
-            <td>Qualifying information</td>
+            <td><b>$q</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Qualifying information
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$z</td>
-            <td>R</td>
-            <td>Canceled/invalid national bibliography number</td>
+            <td><b>$z</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Canceled/invalid national bibliography number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
       
@@ -424,68 +676,76 @@ th {
             <a href="https://www.loc.gov/marc/bibliographic/bd016.html">016</a>
             
           </b></td>
-          <td>R</td>
+          <td><tt>0..*</tt></td>
           
-          <td></td>
-          <td></td>
-          <td><b>National Bibliographic Agency Control Number</b></td>
-          <td></td>
+          <td></td><td></td>
+          <td>
+            <b>National Bibliographic Agency Control Number</b>
+            
+          </td>
+          <td>
+  
+  </td>
         </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$2</td>
-            <td>NR</td>
-            <td>Source</td>
+            <td><b>$2</b></td>
+            <td><tt>0..1</tt></td>
             <td>
+              Source
               
-              
-              0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>39<br>40<br>41<br>42<br>43<br>44<br>45<br>46<br>47<br>48<br>49<br>50<br>51<br>
             </td>
+            <td>
+  codes from <a href="https://www.loc.gov/marc/organizations/orgshome.html">https://www.loc.gov/marc/organizations/orgshome.html</a>
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$8</td>
-            <td>R</td>
-            <td>Field link and sequence number</td>
+            <td><b>$8</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Field link and sequence number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$a</td>
-            <td>NR</td>
-            <td>Record control number</td>
+            <td><b>$a</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Record control number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$z</td>
-            <td>R</td>
-            <td>Canceled/invalid control number</td>
+            <td><b>$z</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Canceled/invalid control number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
       
@@ -494,124 +754,136 @@ th {
             <a href="https://www.loc.gov/marc/bibliographic/bd017.html">017</a>
             
           </b></td>
-          <td>R</td>
+          <td><tt>0..*</tt></td>
           
-          <td></td>
-          <td></td>
-          <td><b>Copyright or Legal Deposit Number</b></td>
-          <td></td>
+          <td></td><td></td>
+          <td>
+            <b>Copyright or Legal Deposit Number</b>
+            
+          </td>
+          <td>
+  
+  </td>
         </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$2</td>
-            <td>NR</td>
-            <td>Source</td>
+            <td><b>$2</b></td>
+            <td><tt>0..1</tt></td>
             <td>
+              Source
               
-              
-              0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>39<br>40<br>41<br>42<br>43<br>44<br>45<br>46<br>47<br>48<br>49<br>50<br>51<br>52<br>53<br>54<br>55<br>56<br>57<br>58<br>59<br>60<br>61<br>62<br>63<br>64<br>65<br>66<br>67<br>68<br>
             </td>
+            <td>
+  codes from <a href="https://www.loc.gov/standards/sourcelist/copyright-legal-deposit.html">https://www.loc.gov/standards/sourcelist/copyright-legal-deposit.html</a>
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$6</td>
-            <td>NR</td>
-            <td>Linkage</td>
+            <td><b>$6</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+              Linkage
               
             </td>
+            <td>pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$8</td>
-            <td>R</td>
-            <td>Field link and sequence number</td>
+            <td><b>$8</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Field link and sequence number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$a</td>
-            <td>R</td>
-            <td>Copyright or legal deposit number</td>
+            <td><b>$a</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Copyright or legal deposit number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$b</td>
-            <td>NR</td>
-            <td>Assigning agency</td>
+            <td><b>$b</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Assigning agency
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$d</td>
-            <td>NR</td>
-            <td>Date</td>
+            <td><b>$d</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Date
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$i</td>
-            <td>NR</td>
-            <td>Display text</td>
+            <td><b>$i</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Display text
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$z</td>
-            <td>R</td>
-            <td>Canceled/invalid copyright or legal deposit number</td>
+            <td><b>$z</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Canceled/invalid copyright or legal deposit number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
       
@@ -620,54 +892,61 @@ th {
             <a href="https://www.loc.gov/marc/bibliographic/bd018.html">018</a>
             
           </b></td>
-          <td>NR</td>
+          <td><tt>0..1</tt></td>
           
-          <td></td>
-          <td></td>
-          <td><b>Copyright Article-Fee Code</b></td>
-          <td></td>
+          <td></td><td></td>
+          <td>
+            <b>Copyright Article-Fee Code</b>
+            
+          </td>
+          <td>
+  
+  </td>
         </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$6</td>
-            <td>NR</td>
-            <td>Linkage</td>
+            <td><b>$6</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+              Linkage
               
             </td>
+            <td>pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$8</td>
-            <td>R</td>
-            <td>Field link and sequence number</td>
+            <td><b>$8</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Field link and sequence number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$a</td>
-            <td>NR</td>
-            <td>Copyright article-fee code</td>
+            <td><b>$a</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Copyright article-fee code
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
       
@@ -676,110 +955,121 @@ th {
             <a href="https://www.loc.gov/marc/bibliographic/bd020.html">020</a>
             
           </b></td>
-          <td>R</td>
+          <td><tt>0..*</tt></td>
           
-          <td></td>
-          <td></td>
-          <td><b>International Standard Book Number</b></td>
-          <td></td>
+          <td></td><td></td>
+          <td>
+            <b>International Standard Book Number</b>
+            
+          </td>
+          <td>
+  
+  </td>
         </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$6</td>
-            <td>NR</td>
-            <td>Linkage</td>
+            <td><b>$6</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+              Linkage
               
             </td>
+            <td>pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$8</td>
-            <td>R</td>
-            <td>Field link and sequence number</td>
+            <td><b>$8</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Field link and sequence number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$a</td>
-            <td>NR</td>
-            <td>International Standard Book Number</td>
+            <td><b>$a</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              International Standard Book Number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$b</td>
-            <td>NR</td>
-            <td>Binding information (BK, MP, MU) [OBSOLETE]</td>
+            <td><b>$b</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Binding information (BK, MP, MU) [OBSOLETE]
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$c</td>
-            <td>NR</td>
-            <td>Terms of availability</td>
+            <td><b>$c</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Terms of availability
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$q</td>
-            <td>R</td>
-            <td>Qualifying information</td>
+            <td><b>$q</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Qualifying information
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$z</td>
-            <td>R</td>
-            <td>Canceled/invalid ISBN</td>
+            <td><b>$z</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Canceled/invalid ISBN
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
       
@@ -788,180 +1078,196 @@ th {
             <a href="https://www.loc.gov/marc/bibliographic/bd022.html">022</a>
             
           </b></td>
-          <td>R</td>
+          <td><tt>0..*</tt></td>
           
-          <td></td>
-          <td></td>
-          <td><b>International Standard Serial Number</b></td>
-          <td></td>
+          <td></td><td></td>
+          <td>
+            <b>International Standard Serial Number</b>
+            
+          </td>
+          <td>
+  
+  </td>
         </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$0</td>
-            <td>NR</td>
-            <td>Authority record control number or standard number</td>
+            <td><b>$0</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              pattern: <code>^\((.{1,100})\)(.{1,100})$</code><br>
+              Authority record control number or standard number
               
             </td>
+            <td>pattern: <code>^\((.{1,100})\)(.{1,100})$</code><br>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$1</td>
-            <td>R</td>
-            <td>Real World Object URI</td>
+            <td><b>$1</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Real World Object URI
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$2</td>
-            <td>NR</td>
-            <td>Source</td>
+            <td><b>$2</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Source
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$6</td>
-            <td>NR</td>
-            <td>Linkage</td>
+            <td><b>$6</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+              Linkage
               
             </td>
+            <td>pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$8</td>
-            <td>R</td>
-            <td>Field link and sequence number</td>
+            <td><b>$8</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Field link and sequence number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$a</td>
-            <td>NR</td>
-            <td>International Standard Serial Number</td>
+            <td><b>$a</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              International Standard Serial Number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$b</td>
-            <td>NR</td>
-            <td>Form of issue [OBSOLETE] [CAN/MARC only]</td>
+            <td><b>$b</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Form of issue [OBSOLETE] [CAN/MARC only]
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$c</td>
-            <td>NR</td>
-            <td>Price [OBSOLETE] [CAN/MARC only]</td>
+            <td><b>$c</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Price [OBSOLETE] [CAN/MARC only]
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$l</td>
-            <td>NR</td>
-            <td>ISSN-L [OBSOLETE, 2023]. Subfield $l was made obsolete in favor of recording ISSN-L in field 023.</td>
+            <td><b>$l</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              ISSN-L [OBSOLETE, 2023]. Subfield $l was made obsolete in favor of recording ISSN-L in field 023.
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$m</td>
-            <td>NR</td>
-            <td>Canceled ISSN-L [OBSOLETE, 2023] Subfield $m was made obsolete in favor of recording canceled ISSN-L in field 023.</td>
+            <td><b>$m</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Canceled ISSN-L [OBSOLETE, 2023] Subfield $m was made obsolete in favor of recording canceled ISSN-L in field 023.
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$y</td>
-            <td>R</td>
-            <td>Incorrect ISSN</td>
+            <td><b>$y</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Incorrect ISSN
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$z</td>
-            <td>R</td>
-            <td>Canceled ISSN</td>
+            <td><b>$z</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Canceled ISSN
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
       
@@ -970,124 +1276,136 @@ th {
             <a href="https://www.loc.gov/marc/bibliographic/bd020.html">023</a>
             
           </b></td>
-          <td>R</td>
+          <td><tt>0..*</tt></td>
           
-          <td></td>
-          <td></td>
-          <td><b>Cluster ISSN</b></td>
-          <td></td>
+          <td></td><td></td>
+          <td>
+            <b>Cluster ISSN</b>
+            
+          </td>
+          <td>
+  
+  </td>
         </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$0</td>
-            <td>NR</td>
-            <td>Authority record control number or standard number</td>
+            <td><b>$0</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              pattern: <code>^\((.{1,100})\)(.{1,100})$</code><br>
+              Authority record control number or standard number
               
             </td>
+            <td>pattern: <code>^\((.{1,100})\)(.{1,100})$</code><br>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$1</td>
-            <td>R</td>
-            <td>Real World Object URI</td>
+            <td><b>$1</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Real World Object URI
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$2</td>
-            <td>NR</td>
-            <td>Source</td>
+            <td><b>$2</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Source
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$6</td>
-            <td>NR</td>
-            <td>Linkage</td>
+            <td><b>$6</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+              Linkage
               
             </td>
+            <td>pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$8</td>
-            <td>R</td>
-            <td>Field link and sequence number</td>
+            <td><b>$8</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Field link and sequence number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$a</td>
-            <td>NR</td>
-            <td>Cluster ISSN</td>
+            <td><b>$a</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Cluster ISSN
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$y</td>
-            <td>R</td>
-            <td>Incorrect Cluster ISSN</td>
+            <td><b>$y</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Incorrect Cluster ISSN
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$z</td>
-            <td>R</td>
-            <td>Canceled Cluster ISSN</td>
+            <td><b>$z</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Canceled Cluster ISSN
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
       
@@ -1096,138 +1414,151 @@ th {
             <a href="https://www.loc.gov/marc/bibliographic/bd024.html">024</a>
             
           </b></td>
-          <td>R</td>
+          <td><tt>0..*</tt></td>
           
-          <td></td>
-          <td></td>
-          <td><b>Other Standard Identifier</b></td>
-          <td></td>
+          <td></td><td></td>
+          <td>
+            <b>Other Standard Identifier</b>
+            
+          </td>
+          <td>
+  
+  </td>
         </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$2</td>
-            <td>NR</td>
-            <td>Source of number or code</td>
+            <td><b>$2</b></td>
+            <td><tt>0..1</tt></td>
             <td>
+              Source of number or code
               
-              
-              0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>39<br>40<br>41<br>42<br>43<br>44<br>45<br>46<br>47<br>48<br>49<br>50<br>51<br>52<br>53<br>54<br>55<br>56<br>57<br>58<br>59<br>60<br>61<br>62<br>63<br>64<br>
             </td>
+            <td>
+  codes from <a href="https://www.loc.gov/standards/sourcelist/standard-identifier.html">https://www.loc.gov/standards/sourcelist/standard-identifier.html</a>
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$6</td>
-            <td>NR</td>
-            <td>Linkage</td>
+            <td><b>$6</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+              Linkage
               
             </td>
+            <td>pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$8</td>
-            <td>R</td>
-            <td>Field link and sequence number</td>
+            <td><b>$8</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Field link and sequence number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$a</td>
-            <td>NR</td>
-            <td>Standard number or code</td>
+            <td><b>$a</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Standard number or code
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$b</td>
-            <td>NR</td>
-            <td>Additional codes following the standard number [OBSOLETE]</td>
+            <td><b>$b</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Additional codes following the standard number [OBSOLETE]
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$c</td>
-            <td>NR</td>
-            <td>Terms of availability</td>
+            <td><b>$c</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Terms of availability
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$d</td>
-            <td>NR</td>
-            <td>Additional codes following the standard number or code</td>
+            <td><b>$d</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Additional codes following the standard number or code
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$q</td>
-            <td>R</td>
-            <td>Qualifying information</td>
+            <td><b>$q</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Qualifying information
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$z</td>
-            <td>R</td>
-            <td>Canceled/invalid standard number or code</td>
+            <td><b>$z</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Canceled/invalid standard number or code
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
       
@@ -1236,40 +1567,46 @@ th {
             <a href="https://www.loc.gov/marc/bibliographic/bd025.html">025</a>
             
           </b></td>
-          <td>R</td>
+          <td><tt>0..*</tt></td>
           
-          <td></td>
-          <td></td>
-          <td><b>Overseas Acquisition Number</b></td>
-          <td></td>
+          <td></td><td></td>
+          <td>
+            <b>Overseas Acquisition Number</b>
+            
+          </td>
+          <td>
+  
+  </td>
         </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$8</td>
-            <td>R</td>
-            <td>Field link and sequence number</td>
+            <td><b>$8</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Field link and sequence number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$a</td>
-            <td>R</td>
-            <td>Overseas acquisition number</td>
+            <td><b>$a</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Overseas acquisition number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
       
@@ -1278,138 +1615,151 @@ th {
             <a href="https://www.loc.gov/marc/bibliographic/bd026.html">026</a>
             
           </b></td>
-          <td>R</td>
+          <td><tt>0..*</tt></td>
           
-          <td></td>
-          <td></td>
-          <td><b>Fingerprint Identifier</b></td>
-          <td></td>
+          <td></td><td></td>
+          <td>
+            <b>Fingerprint Identifier</b>
+            
+          </td>
+          <td>
+  
+  </td>
         </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$2</td>
-            <td>NR</td>
-            <td>Source</td>
+            <td><b>$2</b></td>
+            <td><tt>0..1</tt></td>
             <td>
+              Source
               
-              
-              0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>39<br>40<br>41<br>42<br>43<br>44<br>45<br>46<br>47<br>48<br>49<br>50<br>51<br>52<br>53<br>54<br>55<br>56<br>
             </td>
+            <td>
+  codes from <a href="https://www.loc.gov/standards/sourcelist/fingerprint.html">https://www.loc.gov/standards/sourcelist/fingerprint.html</a>
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$5</td>
-            <td>R</td>
-            <td>Institution to which field applies</td>
+            <td><b>$5</b></td>
+            <td><tt>0..*</tt></td>
             <td>
+              Institution to which field applies
               
-              
-              0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>39<br>40<br>41<br>42<br>43<br>44<br>45<br>46<br>47<br>48<br>49<br>50<br>51<br>
             </td>
+            <td>
+  codes from <a href="https://www.loc.gov/marc/organizations/orgshome.html">https://www.loc.gov/marc/organizations/orgshome.html</a>
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$6</td>
-            <td>NR</td>
-            <td>Linkage</td>
+            <td><b>$6</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+              Linkage
               
             </td>
+            <td>pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$8</td>
-            <td>R</td>
-            <td>Field link and sequence number</td>
+            <td><b>$8</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Field link and sequence number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$a</td>
-            <td>NR</td>
-            <td>First and second groups of characters</td>
+            <td><b>$a</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              First and second groups of characters
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$b</td>
-            <td>NR</td>
-            <td>Third and fourth groups of characters</td>
+            <td><b>$b</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Third and fourth groups of characters
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$c</td>
-            <td>NR</td>
-            <td>Date</td>
+            <td><b>$c</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Date
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$d</td>
-            <td>R</td>
-            <td>Number of volume or part</td>
+            <td><b>$d</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Number of volume or part
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$e</td>
-            <td>NR</td>
-            <td>Unparsed fingerprint</td>
+            <td><b>$e</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Unparsed fingerprint
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
       
@@ -1418,82 +1768,91 @@ th {
             <a href="https://www.loc.gov/marc/bibliographic/bd027.html">027</a>
             
           </b></td>
-          <td>R</td>
+          <td><tt>0..*</tt></td>
           
-          <td></td>
-          <td></td>
-          <td><b>Standard Technical Report Number</b></td>
-          <td></td>
+          <td></td><td></td>
+          <td>
+            <b>Standard Technical Report Number</b>
+            
+          </td>
+          <td>
+  
+  </td>
         </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$6</td>
-            <td>NR</td>
-            <td>Linkage</td>
+            <td><b>$6</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+              Linkage
               
             </td>
+            <td>pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$8</td>
-            <td>R</td>
-            <td>Field link and sequence number</td>
+            <td><b>$8</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Field link and sequence number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$a</td>
-            <td>NR</td>
-            <td>Standard technical report number</td>
+            <td><b>$a</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Standard technical report number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$q</td>
-            <td>R</td>
-            <td>Qualifying information</td>
+            <td><b>$q</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Qualifying information
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$z</td>
-            <td>R</td>
-            <td>Canceled/invalid number</td>
+            <td><b>$z</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Canceled/invalid number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
       
@@ -1502,82 +1861,91 @@ th {
             <a href="https://www.loc.gov/marc/bibliographic/bd028.html">028</a>
             
           </b></td>
-          <td>R</td>
+          <td><tt>0..*</tt></td>
           
-          <td></td>
-          <td></td>
-          <td><b>Publisher or Distributor Number</b></td>
-          <td></td>
+          <td></td><td></td>
+          <td>
+            <b>Publisher or Distributor Number</b>
+            
+          </td>
+          <td>
+  
+  </td>
         </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$6</td>
-            <td>NR</td>
-            <td>Linkage</td>
+            <td><b>$6</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+              Linkage
               
             </td>
+            <td>pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$8</td>
-            <td>R</td>
-            <td>Field link and sequence number</td>
+            <td><b>$8</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Field link and sequence number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$a</td>
-            <td>NR</td>
-            <td>Publisher or distributor number</td>
+            <td><b>$a</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Publisher or distributor number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$b</td>
-            <td>NR</td>
-            <td>Source</td>
+            <td><b>$b</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Source
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$q</td>
-            <td>R</td>
-            <td>Qualifying information</td>
+            <td><b>$q</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Qualifying information
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
       
@@ -1586,68 +1954,76 @@ th {
             <a href="https://www.loc.gov/marc/bibliographic/bd030.html">030</a>
             
           </b></td>
-          <td>R</td>
+          <td><tt>0..*</tt></td>
           
-          <td></td>
-          <td></td>
-          <td><b>CODEN Designation</b></td>
-          <td></td>
+          <td></td><td></td>
+          <td>
+            <b>CODEN Designation</b>
+            
+          </td>
+          <td>
+  
+  </td>
         </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$6</td>
-            <td>NR</td>
-            <td>Linkage</td>
+            <td><b>$6</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+              Linkage
               
             </td>
+            <td>pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$8</td>
-            <td>R</td>
-            <td>Field link and sequence number</td>
+            <td><b>$8</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Field link and sequence number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$a</td>
-            <td>NR</td>
-            <td>Publisher or distributor number</td>
+            <td><b>$a</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Publisher or distributor number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$z</td>
-            <td>R</td>
-            <td>Canceled/invalid CODEN</td>
+            <td><b>$z</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Canceled/invalid CODEN
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
       
@@ -1656,292 +2032,316 @@ th {
             <a href="https://www.loc.gov/marc/bibliographic/bd031.html">031</a>
             
           </b></td>
-          <td>R</td>
+          <td><tt>0..*</tt></td>
           
-          <td></td>
-          <td></td>
-          <td><b>Musical Incipits Information</b></td>
-          <td></td>
+          <td></td><td></td>
+          <td>
+            <b>Musical Incipits Information</b>
+            
+          </td>
+          <td>
+  
+  </td>
         </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$2</td>
-            <td>NR</td>
-            <td>System code</td>
+            <td><b>$2</b></td>
+            <td><tt>0..1</tt></td>
             <td>
+              System code
               
-              
-              0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>39<br>40<br>41<br>42<br>43<br>44<br>45<br>46<br>47<br>48<br>49<br>50<br>51<br>52<br>53<br>54<br>55<br>56<br>57<br>58<br>59<br>60<br>
             </td>
+            <td>
+  codes from <a href="https://www.loc.gov/standards/sourcelist/musical-incipit.html">https://www.loc.gov/standards/sourcelist/musical-incipit.html</a>
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$6</td>
-            <td>NR</td>
-            <td>Linkage</td>
+            <td><b>$6</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+              Linkage
               
             </td>
+            <td>pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$8</td>
-            <td>R</td>
-            <td>Field link and sequence number</td>
+            <td><b>$8</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Field link and sequence number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$a</td>
-            <td>NR</td>
-            <td>Number of work</td>
+            <td><b>$a</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Number of work
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$b</td>
-            <td>NR</td>
-            <td>Number of movement</td>
+            <td><b>$b</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Number of movement
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$c</td>
-            <td>NR</td>
-            <td>Number of excerpt</td>
+            <td><b>$c</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Number of excerpt
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$d</td>
-            <td>R</td>
-            <td>Caption or heading</td>
+            <td><b>$d</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Caption or heading
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$e</td>
-            <td>NR</td>
-            <td>Role</td>
+            <td><b>$e</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Role
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$g</td>
-            <td>NR</td>
-            <td>Clef</td>
+            <td><b>$g</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Clef
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$m</td>
-            <td>NR</td>
-            <td>Voice/instrument</td>
+            <td><b>$m</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Voice/instrument
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$n</td>
-            <td>NR</td>
-            <td>Key signature</td>
+            <td><b>$n</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Key signature
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$o</td>
-            <td>NR</td>
-            <td>Time signature</td>
+            <td><b>$o</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Time signature
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$p</td>
-            <td>NR</td>
-            <td>Musical notation</td>
+            <td><b>$p</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Musical notation
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$q</td>
-            <td>R</td>
-            <td>General note</td>
+            <td><b>$q</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              General note
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$r</td>
-            <td>NR</td>
-            <td>Key or mode</td>
+            <td><b>$r</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Key or mode
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$s</td>
-            <td>R</td>
-            <td>Coded validity note</td>
+            <td><b>$s</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Coded validity note
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$t</td>
-            <td>R</td>
-            <td>Text incipit</td>
+            <td><b>$t</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Text incipit
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$u</td>
-            <td>R</td>
-            <td>Uniform Resource Identifier</td>
+            <td><b>$u</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Uniform Resource Identifier
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$y</td>
-            <td>R</td>
-            <td>Link text</td>
+            <td><b>$y</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Link text
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$z</td>
-            <td>R</td>
-            <td>Public note</td>
+            <td><b>$z</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Public note
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
       
@@ -1950,68 +2350,76 @@ th {
             <a href="https://www.loc.gov/marc/bibliographic/bd032.html">032</a>
             
           </b></td>
-          <td>R</td>
+          <td><tt>0..*</tt></td>
           
-          <td></td>
-          <td></td>
-          <td><b>Postal Registration Number</b></td>
-          <td></td>
+          <td></td><td></td>
+          <td>
+            <b>Postal Registration Number</b>
+            
+          </td>
+          <td>
+  
+  </td>
         </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$6</td>
-            <td>NR</td>
-            <td>Linkage</td>
+            <td><b>$6</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+              Linkage
               
             </td>
+            <td>pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$8</td>
-            <td>R</td>
-            <td>Field link and sequence number</td>
+            <td><b>$8</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Field link and sequence number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$a</td>
-            <td>NR</td>
-            <td>Postal registration number</td>
+            <td><b>$a</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Postal registration number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$b</td>
-            <td>NR</td>
-            <td>Source agency assigning number</td>
+            <td><b>$b</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Source agency assigning number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
       
@@ -2020,152 +2428,166 @@ th {
             <a href="https://www.loc.gov/marc/bibliographic/bd033.html">033</a>
             
           </b></td>
-          <td>R</td>
+          <td><tt>0..*</tt></td>
           
-          <td></td>
-          <td></td>
-          <td><b>Date/Time and Place of an Event</b></td>
-          <td></td>
+          <td></td><td></td>
+          <td>
+            <b>Date/Time and Place of an Event</b>
+            
+          </td>
+          <td>
+  
+  </td>
         </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$0</td>
-            <td>R</td>
-            <td>Authority record control number</td>
+            <td><b>$0</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              pattern: <code>^\((.{1,100})\)(.{1,100})$</code><br>
+              Authority record control number
               
             </td>
+            <td>pattern: <code>^\((.{1,100})\)(.{1,100})$</code><br>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$1</td>
-            <td>R</td>
-            <td>Real World Object URI</td>
+            <td><b>$1</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Real World Object URI
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$2</td>
-            <td>R</td>
-            <td>Source of term</td>
+            <td><b>$2</b></td>
+            <td><tt>0..*</tt></td>
             <td>
+              Source of term
               
-              
-              0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>39<br>40<br>41<br>42<br>43<br>44<br>45<br>46<br>47<br>48<br>49<br>50<br>51<br>52<br>
             </td>
+            <td>
+  codes from <a href="https://www.loc.gov/standards/sourcelist/subject.html">https://www.loc.gov/standards/sourcelist/subject.html</a>
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$3</td>
-            <td>NR</td>
-            <td>Materials specified</td>
+            <td><b>$3</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Materials specified
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$6</td>
-            <td>NR</td>
-            <td>Linkage</td>
+            <td><b>$6</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+              Linkage
               
             </td>
+            <td>pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$8</td>
-            <td>R</td>
-            <td>Field link and sequence number</td>
+            <td><b>$8</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Field link and sequence number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$a</td>
-            <td>R</td>
-            <td>Formatted date/time</td>
+            <td><b>$a</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Formatted date/time
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$b</td>
-            <td>R</td>
-            <td>Geographic classification area code</td>
+            <td><b>$b</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Geographic classification area code
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$c</td>
-            <td>R</td>
-            <td>Geographic classification subarea code</td>
+            <td><b>$c</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Geographic classification subarea code
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$p</td>
-            <td>R</td>
-            <td>Place of event</td>
+            <td><b>$p</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Place of event
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
       
@@ -2174,362 +2596,391 @@ th {
             <a href="https://www.loc.gov/marc/bibliographic/bd034.html">034</a>
             
           </b></td>
-          <td>R</td>
+          <td><tt>0..*</tt></td>
           
-          <td></td>
-          <td></td>
-          <td><b>Coded Cartographic Mathematical Data</b></td>
-          <td></td>
+          <td></td><td></td>
+          <td>
+            <b>Coded Cartographic Mathematical Data</b>
+            
+          </td>
+          <td>
+  
+  </td>
         </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$0</td>
-            <td>R</td>
-            <td>Authority record control number or standard number</td>
+            <td><b>$0</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              pattern: <code>^\((.{1,100})\)(.{1,100})$</code><br>
+              Authority record control number or standard number
               
             </td>
+            <td>pattern: <code>^\((.{1,100})\)(.{1,100})$</code><br>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$1</td>
-            <td>R</td>
-            <td>Real World Object URI</td>
+            <td><b>$1</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Real World Object URI
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$2</td>
-            <td>NR</td>
-            <td>Source</td>
+            <td><b>$2</b></td>
+            <td><tt>0..1</tt></td>
             <td>
+              Source
               
-              
-              0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>39<br>40<br>41<br>42<br>43<br>44<br>45<br>46<br>47<br>48<br>49<br>50<br>51<br>52<br>53<br>54<br>55<br>56<br>57<br>58<br>59<br>60<br>61<br>62<br>
             </td>
+            <td>
+  codes from <a href="https://www.loc.gov/standards/sourcelist/cartographic-data.html">https://www.loc.gov/standards/sourcelist/cartographic-data.html</a>
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$3</td>
-            <td>NR</td>
-            <td>Materials specified</td>
+            <td><b>$3</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Materials specified
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$6</td>
-            <td>NR</td>
-            <td>Linkage</td>
+            <td><b>$6</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+              Linkage
               
             </td>
+            <td>pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$8</td>
-            <td>R</td>
-            <td>Field link and sequence number</td>
+            <td><b>$8</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Field link and sequence number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$a</td>
-            <td>NR</td>
-            <td>Category of scale</td>
+            <td><b>$a</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Category of scale
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$b</td>
-            <td>R</td>
-            <td>Constant ratio linear horizontal scale</td>
+            <td><b>$b</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Constant ratio linear horizontal scale
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$c</td>
-            <td>R</td>
-            <td>Constant ratio linear vertical scale</td>
+            <td><b>$c</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Constant ratio linear vertical scale
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$d</td>
-            <td>NR</td>
-            <td>Coordinates - westernmost longitude</td>
+            <td><b>$d</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Coordinates - westernmost longitude
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$e</td>
-            <td>NR</td>
-            <td>Coordinates - easternmost longitude</td>
+            <td><b>$e</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Coordinates - easternmost longitude
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$f</td>
-            <td>NR</td>
-            <td>Coordinates - northernmost latitude</td>
+            <td><b>$f</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Coordinates - northernmost latitude
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$g</td>
-            <td>NR</td>
-            <td>Coordinates - southernmost latitude</td>
+            <td><b>$g</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Coordinates - southernmost latitude
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$h</td>
-            <td>R</td>
-            <td>Angular scale</td>
+            <td><b>$h</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Angular scale
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$j</td>
-            <td>NR</td>
-            <td>Declination - northern limit</td>
+            <td><b>$j</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Declination - northern limit
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$k</td>
-            <td>NR</td>
-            <td>Declination - southern limit</td>
+            <td><b>$k</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Declination - southern limit
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$m</td>
-            <td>NR</td>
-            <td>Right ascension - eastern limit</td>
+            <td><b>$m</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Right ascension - eastern limit
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$n</td>
-            <td>NR</td>
-            <td>Right ascension - western limit</td>
+            <td><b>$n</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Right ascension - western limit
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$p</td>
-            <td>NR</td>
-            <td>Equinox</td>
+            <td><b>$p</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Equinox
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$r</td>
-            <td>NR</td>
-            <td>Distance from earth</td>
+            <td><b>$r</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Distance from earth
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$s</td>
-            <td>R</td>
-            <td>G-ring latitude</td>
+            <td><b>$s</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              G-ring latitude
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$t</td>
-            <td>R</td>
-            <td>G-ring longitude</td>
+            <td><b>$t</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              G-ring longitude
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$x</td>
-            <td>NR</td>
-            <td>Beginning date</td>
+            <td><b>$x</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Beginning date
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$y</td>
-            <td>NR</td>
-            <td>Ending date</td>
+            <td><b>$y</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Ending date
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$z</td>
-            <td>NR</td>
-            <td>Name of extraterrestrial body</td>
+            <td><b>$z</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Name of extraterrestrial body
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
       
@@ -2538,68 +2989,76 @@ th {
             <a href="https://www.loc.gov/marc/bibliographic/bd035.html">035</a>
             
           </b></td>
-          <td>R</td>
+          <td><tt>0..*</tt></td>
           
-          <td></td>
-          <td></td>
-          <td><b>System Control Number</b></td>
-          <td></td>
+          <td></td><td></td>
+          <td>
+            <b>System Control Number</b>
+            
+          </td>
+          <td>
+  
+  </td>
         </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$6</td>
-            <td>NR</td>
-            <td>Linkage</td>
+            <td><b>$6</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+              Linkage
               
             </td>
+            <td>pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$8</td>
-            <td>R</td>
-            <td>Field link and sequence number</td>
+            <td><b>$8</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Field link and sequence number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$a</td>
-            <td>NR</td>
-            <td>System control number</td>
+            <td><b>$a</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              pattern: <code>^\((.{1,100})\)(.{1,100})$</code><br>
+              System control number
               
             </td>
+            <td>pattern: <code>^\((.{1,100})\)(.{1,100})$</code><br>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$z</td>
-            <td>R</td>
-            <td>Canceled/invalid control number</td>
+            <td><b>$z</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Canceled/invalid control number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
       
@@ -2608,68 +3067,76 @@ th {
             <a href="https://www.loc.gov/marc/bibliographic/bd036.html">036</a>
             
           </b></td>
-          <td>R</td>
+          <td><tt>0..*</tt></td>
           
-          <td></td>
-          <td></td>
-          <td><b>Original Study Number for Computer Data Files</b></td>
-          <td></td>
+          <td></td><td></td>
+          <td>
+            <b>Original Study Number for Computer Data Files</b>
+            
+          </td>
+          <td>
+  
+  </td>
         </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$6</td>
-            <td>NR</td>
-            <td>Linkage</td>
+            <td><b>$6</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+              Linkage
               
             </td>
+            <td>pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$8</td>
-            <td>R</td>
-            <td>Field link and sequence number</td>
+            <td><b>$8</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Field link and sequence number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$a</td>
-            <td>NR</td>
-            <td>Original study number</td>
+            <td><b>$a</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Original study number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$b</td>
-            <td>NR</td>
-            <td>Source agency assigning number</td>
+            <td><b>$b</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Source agency assigning number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
       
@@ -2678,306 +3145,116 @@ th {
             <a href="https://www.loc.gov/marc/bibliographic/bd037.html">037</a>
             
           </b></td>
-          <td>R</td>
+          <td><tt>0..*</tt></td>
           
-          <td></td>
-          <td></td>
-          <td><b>Source of Acquisition</b></td>
-          <td></td>
+          <td></td><td></td>
+          <td>
+            <b>Source of Acquisition</b>
+            
+          </td>
+          <td>
+  
+  </td>
         </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$3</td>
-            <td>NR</td>
-            <td>Materials specified</td>
+            <td><b>$3</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Materials specified
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$5</td>
-            <td>R</td>
-            <td>Institution to which field applies</td>
+            <td><b>$5</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Institution to which field applies
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$6</td>
-            <td>NR</td>
-            <td>Linkage</td>
+            <td><b>$6</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+              Linkage
               
             </td>
+            <td>pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$8</td>
-            <td>R</td>
-            <td>Field link and sequence number</td>
+            <td><b>$8</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Field link and sequence number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$a</td>
-            <td>NR</td>
-            <td>Stock number</td>
+            <td><b>$a</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Stock number
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$b</td>
-            <td>NR</td>
-            <td>Source of stock number/acquisition</td>
+            <td><b>$b</b></td>
+            <td><tt>0..1</tt></td>
             <td>
-              
-              
+              Source of stock number/acquisition
               
             </td>
+            <td>
+  
+  </td>
           </tr>
         
           <tr>
             <td></td>
             <td></td>
             
-            <td>$c</td>
-            <td>R</td>
-            <td>Terms of availability</td>
+            <td><b>$c</b></td>
+            <td><tt>0..*</tt></td>
             <td>
-              
-              
+              Terms of availability
               
             </td>
-          </tr>
-        
-          <tr>
-            <td></td>
-            <td></td>
-            
-            <td>$f</td>
-            <td>R</td>
-            <td>Form of issue</td>
-            <td>
-              
-              
-              
-            </td>
-          </tr>
-        
-          <tr>
-            <td></td>
-            <td></td>
-            
-            <td>$g</td>
-            <td>R</td>
-            <td>Additional format characteristics</td>
-            <td>
-              
-              
-              
-            </td>
-          </tr>
-        
-          <tr>
-            <td></td>
-            <td></td>
-            
-            <td>$n</td>
-            <td>R</td>
-            <td>Note</td>
-            <td>
-              
-              
-              
-            </td>
-          </tr>
-        
-      
-        <tr>
-          <td><b>
-            <a href="https://www.loc.gov/marc/bibliographic/bd038.html">038</a>
-            
-          </b></td>
-          <td>NR</td>
           
-          <td></td>
-          <td></td>
-          <td><b>Record Content Licensor</b></td>
-          <td></td>
-        </tr>
-        
-          <tr>
-            <td></td>
-            <td></td>
-            
-            <td>$6</td>
-            <td>NR</td>
-            <td>Linkage</td>
-            <td>
-              
-              pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
-              
-            </td>
-          </tr>
-        
-          <tr>
-            <td></td>
-            <td></td>
-            
-            <td>$8</td>
-            <td>R</td>
-            <td>Field link and sequence number</td>
-            <td>
-              
-              
-              
-            </td>
-          </tr>
-        
-          <tr>
-            <td></td>
-            <td></td>
-            
-            <td>$a</td>
-            <td>NR</td>
-            <td>Record content licensor</td>
-            <td>
-              
-              
-              0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>39<br>40<br>41<br>42<br>43<br>44<br>45<br>46<br>47<br>48<br>49<br>50<br>51<br>
-            </td>
-          </tr>
-        
-      
-        <tr>
-          <td><b>
-            <a href="https://www.loc.gov/marc/bibliographic/bd040.html">040</a>
-            
-          </b></td>
-          <td>NR</td>
-          
-          <td></td>
-          <td></td>
-          <td><b>Cataloging Source</b></td>
-          <td></td>
-        </tr>
-        
-          <tr>
-            <td></td>
-            <td></td>
-            
-            <td>$6</td>
-            <td>NR</td>
-            <td>Linkage</td>
-            <td>
-              
-              pattern: <code>^(\d{3})-(\d{2})(?:/(.{2}))?(?:/(.{1,100}))?$</code><br>
-              
-            </td>
-          </tr>
-        
-          <tr>
-            <td></td>
-            <td></td>
-            
-            <td>$8</td>
-            <td>R</td>
-            <td>Field link and sequence number</td>
-            <td>
-              
-              
-              
-            </td>
-          </tr>
-        
-          <tr>
-            <td></td>
-            <td></td>
-            
-            <td>$a</td>
-            <td>NR</td>
-            <td>Original cataloging agency</td>
-            <td>
-              
-              
-              0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>39<br>40<br>41<br>42<br>43<br>44<br>45<br>46<br>47<br>48<br>49<br>50<br>51<br>
-            </td>
-          </tr>
-        
-          <tr>
-            <td></td>
-            <td></td>
-            
-            <td>$b</td>
-            <td>NR</td>
-            <td>Language of cataloging</td>
-            <td>
-              
-              
-              0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>39<br>40<br>41<br>42<br>43<br>44<br>45<br>46<br>47<br>48<br>49<br>50<br>51<br>52<br>
-            </td>
-          </tr>
-        
-          <tr>
-            <td></td>
-            <td></td>
-            
-            <td>$c</td>
-            <td>NR</td>
-            <td>Transcribing agency</td>
-            <td>
-              
-              
-              0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>39<br>40<br>41<br>42<br>43<br>44<br>45<br>46<br>47<br>48<br>49<br>50<br>51<br>
-            </td>
-          </tr>
-        
-          <tr>
-            <td></td>
-            <td></td>
-            
-            <td>$d</td>
-            <td>R</td>
-            <td>Modifying agency</td>
-            <td>
-              
-              
-              0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>39<br>40<br>41<br>42<br>43<br>44<br>45<br>46<br>47<br>48<br>49<br>50<br>51<br>
-            </td>
-          </tr>
-        
- 

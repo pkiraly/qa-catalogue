@@ -479,7 +479,7 @@ EOF
 }
 
 do_export_schema_files() {
-  ensure_dir -p avram-schemas
+  ensure_dir avram-schemas
   run avram
 
   untrace

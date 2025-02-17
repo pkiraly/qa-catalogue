@@ -114,7 +114,10 @@ public class MappingToJson {
       for (EncodedValue code : entry.getValue()) {
         addCodeOrRange(codes, code, false);
       }
-      codelists.put(url, codes);
+      Map<String, Object> codelist = new LinkedHashMap<>();
+      codelist.put("codes", codes);
+      codelist.put("url", url);
+      codelists.put(url, codelist);
     }
     mapping.put("codelists", codelists);
 

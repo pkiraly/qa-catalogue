@@ -34,7 +34,7 @@ book:
       - generating-cataloguing-history-chart.qmd
       - import-tables-to-SQLite.qmd
       - indexing.qmd
-      - export-mapping-table.qmd
+      - avram-schemas.qmd
       - Shacl4Bib.qmd
   appendices:
     - where-can-I-get-MARC-records.qmd

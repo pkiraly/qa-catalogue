@@ -1,0 +1,2602 @@
+<html>
+<head>
+<style type="text/css">
+table {
+  border-collapse: collapse;
+  border-color: gray;  
+  border: 1px solid #C1C7D0;
+}
+td, th {
+  border: 1px solid #C1C7D0;
+  vertical-align: top;
+  padding: 4px;
+}
+th {
+  background-color: #F4F5F7;
+  text-align: left;
+}
+</style>
+</head>
+
+<body>
+  <h1>UNIMARC Bibliographic Format</h1>
+  
+  
+  <p>
+    This table has been generated from an
+    <a href="https://format.gbv.de/schema/avram/specification">Avram Schema</a>.
+    
+      <a href="unimarc.json">download</a>
+    
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th>Field</th>
+        <th>R?</th>
+        
+        <th>SF</th>
+        <th>R?</th>
+        <th>Title</th>
+        <th>Remark</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+        <tr>
+          <td><b>
+            001
+          </b></td>
+          <td>NR</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>RECORD IDENTIFIER</b></td>
+          <td>required</td>
+        </tr>
+        
+      
+        <tr>
+          <td><b>
+            003
+          </b></td>
+          <td>NR</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>PERSISTENT RECORD IDENTIFIER</b></td>
+          <td></td>
+        </tr>
+        
+      
+        <tr>
+          <td><b>
+            005
+          </b></td>
+          <td>NR</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>VERSION IDENTIFIER</b></td>
+          <td></td>
+        </tr>
+        
+      
+        <tr>
+          <td><b>
+            010
+          </b></td>
+          <td>R</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>INTERNATIONAL STANDARD BOOK NUMBER</b></td>
+          <td></td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$6</td>
+            <td>NR</td>
+            <td>Interfield Linking Data</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>NR</td>
+            <td>Number (ISBN)</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$b</td>
+            <td>R</td>
+            <td>Qualification</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$d</td>
+            <td>NR</td>
+            <td>Terms of Availability and/or Price</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$z</td>
+            <td>R</td>
+            <td>Erroneous ISBN</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            011
+          </b></td>
+          <td>R</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>INTERNATIONAL STANDARD SERIAL NUMBER</b></td>
+          <td></td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>NR</td>
+            <td>Number (ISSN)</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$b</td>
+            <td>NR</td>
+            <td>Qualification</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$d</td>
+            <td>R</td>
+            <td>Terms of Availability and/or Price</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$f</td>
+            <td>NR</td>
+            <td>ISSN-L or linking ISSN</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$g</td>
+            <td>R</td>
+            <td>Cancelled ISSN-L</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$y</td>
+            <td>R</td>
+            <td>Cancelled ISSN</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$z</td>
+            <td>R</td>
+            <td>Erroneous ISSN or ISSN-L</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            012
+          </b></td>
+          <td>R</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>FINGERPRINT IDENTIFIER</b></td>
+          <td></td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$2</td>
+            <td>NR</td>
+            <td>Fingerprint System Code</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$5</td>
+            <td>NR</td>
+            <td>Institution and copy to which Field Applies</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>NR</td>
+            <td>Fingerprint</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            013
+          </b></td>
+          <td>R</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>INTERNATIONAL STANDARD MUSIC NUMBER</b></td>
+          <td></td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>NR</td>
+            <td>Number (ISMN)</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$b</td>
+            <td>NR</td>
+            <td>Qualification</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$d</td>
+            <td>NR</td>
+            <td>Terms of Availability and/or Price</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$z</td>
+            <td>R</td>
+            <td>Erroneous ISMN</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            014
+          </b></td>
+          <td>R</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>ARTICLE IDENTIFIER</b></td>
+          <td></td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$2</td>
+            <td>NR</td>
+            <td>System Code</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>NR</td>
+            <td>Article Identifier</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$z</td>
+            <td>R</td>
+            <td>Erroneous Article Identifier</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            015
+          </b></td>
+          <td>R</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>INTERNATIONAL STANDARD TECHNICAL REPORT NUMBER</b></td>
+          <td></td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>NR</td>
+            <td>Number (ISRN)</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$b</td>
+            <td>NR</td>
+            <td>Qualification</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$d</td>
+            <td>NR</td>
+            <td>Terms of Availability and/or Price</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$z</td>
+            <td>R</td>
+            <td>Cancelled/Invalid/Erroneous ISRN</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            016
+          </b></td>
+          <td>R</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>INTERNATIONAL STANDARD RECORDING CODE (ISRC)</b></td>
+          <td></td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>NR</td>
+            <td>Number (ISRC)</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$b</td>
+            <td>NR</td>
+            <td>Qualification</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$d</td>
+            <td>NR</td>
+            <td>Terms of Availability and/or Price [Obsolete]</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$z</td>
+            <td>R</td>
+            <td>Erroneous ISRC</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            017
+          </b></td>
+          <td>R</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>OTHER STANDARD IDENTIFIER</b></td>
+          <td></td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$2</td>
+            <td>NR</td>
+            <td>Source of code</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>NR</td>
+            <td>Standard Number</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$b</td>
+            <td>NR</td>
+            <td>Qualification</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$d</td>
+            <td>NR</td>
+            <td>Terms of Availability and/or Price</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$z</td>
+            <td>R</td>
+            <td>Erroneous Number or Code</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            018
+          </b></td>
+          <td>NR</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>[RESERVED]</b></td>
+          <td></td>
+        </tr>
+        
+      
+        <tr>
+          <td><b>
+            020
+          </b></td>
+          <td>R</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>NATIONAL BIBLIOGRAPHY NUMBER</b></td>
+          <td></td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>NR</td>
+            <td>Country Code</td>
+            <td>
+              
+              
+              0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$b</td>
+            <td>NR</td>
+            <td>Number</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$z</td>
+            <td>R</td>
+            <td>Erroneous number</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            021
+          </b></td>
+          <td>R</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>LEGAL DEPOSIT NUMBER</b></td>
+          <td></td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>NR</td>
+            <td>Country Code</td>
+            <td>
+              
+              
+              0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$b</td>
+            <td>NR</td>
+            <td>Number</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$z</td>
+            <td>R</td>
+            <td>Erroneous Number</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            022
+          </b></td>
+          <td>R</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>GOVERNMENT PUBLICATION NUMBER</b></td>
+          <td></td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>NR</td>
+            <td>Country Code</td>
+            <td>
+              
+              
+              0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$b</td>
+            <td>NR</td>
+            <td>Number</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$z</td>
+            <td>R</td>
+            <td>Erroneous Number</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            033
+          </b></td>
+          <td>R</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>OTHER SYSTEM PERSISTENT RECORD IDENTIFIER</b></td>
+          <td></td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>NR</td>
+            <td>Persistent Record Identifier</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$z</td>
+            <td>R</td>
+            <td>Cancelled or Invalid Persistent Record Identifier</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            035
+          </b></td>
+          <td>R</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>OTHER SYSTEM CONTROL NUMBERS</b></td>
+          <td></td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>NR</td>
+            <td>System Control Number</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$z</td>
+            <td>R</td>
+            <td>Cancelled or Invalid Control Number</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            036
+          </b></td>
+          <td>R</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>MUSIC INCIPIT</b></td>
+          <td></td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$2</td>
+            <td>NR</td>
+            <td>System code for musical notation</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>NR</td>
+            <td>Number of work</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$b</td>
+            <td>NR</td>
+            <td>Number of movement</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$c</td>
+            <td>NR</td>
+            <td>Number of incipit</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$d</td>
+            <td>NR</td>
+            <td>Voice/instrument</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$e</td>
+            <td>NR</td>
+            <td>Role</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$f</td>
+            <td>R</td>
+            <td>Movement caption/heading</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$g</td>
+            <td>NR</td>
+            <td>Key or mode</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$m</td>
+            <td>NR</td>
+            <td>Clef</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$n</td>
+            <td>NR</td>
+            <td>Key signature</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$o</td>
+            <td>NR</td>
+            <td>Time signature</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$p</td>
+            <td>NR</td>
+            <td>Musical notation</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$q</td>
+            <td>R</td>
+            <td>Comments (free text)</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$r</td>
+            <td>NR</td>
+            <td>Codified note</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$t</td>
+            <td>R</td>
+            <td>Text incipit</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$u</td>
+            <td>R</td>
+            <td>Uniform Resource Identifier</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$z</td>
+            <td>R</td>
+            <td>Language of text</td>
+            <td>
+              
+              
+              0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            040
+          </b></td>
+          <td>R</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>CODEN (SERIALS)</b></td>
+          <td></td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>NR</td>
+            <td>CODEN</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$z</td>
+            <td>R</td>
+            <td>Erroneous CODEN</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            071
+          </b></td>
+          <td>R</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>PUBLISHER&#39;S NUMBER</b></td>
+          <td></td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>NR</td>
+            <td>Publisher&#39;s Number</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$b</td>
+            <td>NR</td>
+            <td>Source</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$c</td>
+            <td>NR</td>
+            <td>Qualification</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$d</td>
+            <td>NR</td>
+            <td>Terms of availability and/or price</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$z</td>
+            <td>NR</td>
+            <td>Erroneous publisher&#39;s number</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            072
+          </b></td>
+          <td>R</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>UNIVERSAL PRODUCT CODE (UPC)</b></td>
+          <td></td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>NR</td>
+            <td>Standard Number</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$b</td>
+            <td>NR</td>
+            <td>Qualification</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$c</td>
+            <td>NR</td>
+            <td>Additional codes following standard number or code</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$d</td>
+            <td>NR</td>
+            <td>Terms of Availability and/or Price</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$z</td>
+            <td>R</td>
+            <td>Erroneous Number or Code</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            073
+          </b></td>
+          <td>R</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>INTERNATIONAL ARTICLE NUMBER (EAN)</b></td>
+          <td></td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>NR</td>
+            <td>Standard Number</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$b</td>
+            <td>NR</td>
+            <td>Qualification</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$c</td>
+            <td>NR</td>
+            <td>Additional codes following standard number or code</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$d</td>
+            <td>NR</td>
+            <td>Terms of Availability and/or Price</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$z</td>
+            <td>R</td>
+            <td>Erroneous Number or Code</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            100
+          </b></td>
+          <td>NR</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>GENERAL PROCESSING DATA</b></td>
+          <td>required</td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>NR</td>
+            <td>General Processing Data</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            101
+          </b></td>
+          <td>NR</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>LANGUAGE OF THE ITEM</b></td>
+          <td>required</td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>R</td>
+            <td>Language of Text, Soundtrack etc</td>
+            <td>
+              
+              
+              0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$b</td>
+            <td>R</td>
+            <td>Language of Intermediate Text when Item is Not Translated from Original</td>
+            <td>
+              
+              
+              0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$c</td>
+            <td>R</td>
+            <td>Language of Original Work</td>
+            <td>
+              
+              
+              0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$d</td>
+            <td>R</td>
+            <td>Language of Summary</td>
+            <td>
+              
+              
+              0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$e</td>
+            <td>R</td>
+            <td>Language of Contents Page</td>
+            <td>
+              
+              
+              0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$f</td>
+            <td>R</td>
+            <td>Language of Title Page if Different from Text</td>
+            <td>
+              
+              
+              0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$g</td>
+            <td>NR</td>
+            <td>Language of Title Proper if Not First Language of Text, Soundtrack, etc</td>
+            <td>
+              
+              
+              0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$h</td>
+            <td>R</td>
+            <td>Language of Libretto, etc</td>
+            <td>
+              
+              
+              0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$i</td>
+            <td>R</td>
+            <td>Language of Accompanying Material (Other than Summaries, Abstracts or Librettos)</td>
+            <td>
+              
+              
+              0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$j</td>
+            <td>R</td>
+            <td>Language of Subtitles</td>
+            <td>
+              
+              
+              0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            102
+          </b></td>
+          <td>NR</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>COUNTRY OF PUBLICATION OR PRODUCTlON</b></td>
+          <td></td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$2</td>
+            <td>R</td>
+            <td>Source of non-ISO code</td>
+            <td>
+              
+              
+              0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>R</td>
+            <td>Country of publication</td>
+            <td>
+              
+              
+              0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$b</td>
+            <td>R</td>
+            <td>Locality (non-ISO)</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$c</td>
+            <td>R</td>
+            <td>Locality (ISO)</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            105
+          </b></td>
+          <td>NR</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>CODED DATA FIELD: TEXTUAL MATERIAL, MONOGRAPHIC</b></td>
+          <td></td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>NR</td>
+            <td>Monograph Coded Data</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            106
+          </b></td>
+          <td>NR</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>CODED DATA FIELD: FORM OF ITEM</b></td>
+          <td></td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>NR</td>
+            <td>Form of item: Coded Data: Medium Designator</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            110
+          </b></td>
+          <td>NR</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>CODED DATA FIELD: CONTINUING RESOURCES</b></td>
+          <td></td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>NR</td>
+            <td>Continuing Resource Coded Data</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            111
+          </b></td>
+          <td>NR</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>CODED DATA FIELD: SERIALS – PHYSICAL ATTRIBUTES [OBSOLETE]</b></td>
+          <td></td>
+        </tr>
+        
+      
+        <tr>
+          <td><b>
+            115
+          </b></td>
+          <td>R</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>CODED DATA FIELDS: VISUAL PROJECTIONS, VIDEORECORDINGS AND MOTION PICTURES</b></td>
+          <td></td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>NR</td>
+            <td>Coded Data - General</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$b</td>
+            <td>NR</td>
+            <td>Motion Picture Coded Data - Archival</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            116
+          </b></td>
+          <td>R</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>CODED DATA FIELD: GRAPHICS</b></td>
+          <td></td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>NR</td>
+            <td>Coded Data for Graphics</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            117
+          </b></td>
+          <td>R</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>CODED DATA FIELD: THREE-DIMENSIONAL ARTEFACTS AND REALIA</b></td>
+          <td></td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>NR</td>
+            <td>Coded Data for Three-Dimensional Artefacts and Realia</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            120
+          </b></td>
+          <td>NR</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>CODED DATA FIELD: CARTOGRAPHIC MATERIALS - GENERAL</b></td>
+          <td>required</td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>NR</td>
+            <td>Cartographic Material Coded Data (General)</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            121
+          </b></td>
+          <td>NR</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>CODED DATA FIELD: CARTOGRAPHIC MATERIALS: PHYSICAL ATTRIBUTES</b></td>
+          <td></td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>NR</td>
+            <td>Cartographic Material Coded Data: Physical attributes (General)</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$b</td>
+            <td>NR</td>
+            <td>Aerial Photography and Remote Sensing Coded Data: Physical Attributes</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            122
+          </b></td>
+          <td>R</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>CODED DATA FIELD: TIME PERIOD OF ITEM CONTENT</b></td>
+          <td></td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>R</td>
+            <td>Time period, 9999 BC to present</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            123
+          </b></td>
+          <td>R</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>CODED DATA FIELD: CARTOGRAPHIC MATERIALS SCALE AND CO-ORDINATES</b></td>
+          <td>required</td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>NR</td>
+            <td>Type of Scale</td>
+            <td>
+              
+              
+              a<br>b<br>z<br>
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$b</td>
+            <td>R</td>
+            <td>Constant Ratio Linear Horizontal Scale</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$c</td>
+            <td>R</td>
+            <td>Constant Ratio Linear Vertical Scale</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$d</td>
+            <td>NR</td>
+            <td>Co-ordinates - Westernmost Longitude</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$e</td>
+            <td>NR</td>
+            <td>Co-ordinates - Easternmost Longitude</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$f</td>
+            <td>NR</td>
+            <td>Co-ordinates - Northernmost Latitude</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$g</td>
+            <td>NR</td>
+            <td>Coordinates - Southernmost Latitude</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$h</td>
+            <td>R</td>
+            <td>Angular Scale</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$i</td>
+            <td>NR</td>
+            <td>Declination - Northern Limit</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$j</td>
+            <td>NR</td>
+            <td>Declination - Southern Limit</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$k</td>
+            <td>NR</td>
+            <td>Right ascension - Eastern Limits</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$m</td>
+            <td>NR</td>
+            <td>Right ascension - Western Limits</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$n</td>
+            <td>NR</td>
+            <td>Equinox</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$o</td>
+            <td>NR</td>
+            <td>Epoch</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$p</td>
+            <td>NR</td>
+            <td>Planet</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            124
+          </b></td>
+          <td>NR</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>CODED DATA FIELD: CARTOGRAPHIC MATERIALS - SPECIFIC MATERIAL DESIGNATION ANALYSIS</b></td>
+          <td></td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>NR</td>
+            <td>Character of Image</td>
+            <td>
+              
+              
+              a<br>b<br>c<br>
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$b</td>
+            <td>R</td>
+            <td>Form of Cartographic Item</td>
+            <td>
+              
+              
+              a<br>b<br>c<br>d<br>e<br>f<br>g<br>h<br>i<br>j<br>z<br>
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$c</td>
+            <td>R</td>
+            <td>Presentation Technique for Photographic or Non-Photographic Image a</td>
+            <td>
+              
+              
+              a<br>ab<br>ac<br>ad<br>ae<br>af<br>ag<br>ah<br>ai<br>aj<br>ak<br>am<br>an<br>ao<br>ap<br>aq<br>ar<br>as<br>da<br>db<br>dc<br>dd<br>
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$d</td>
+            <td>R</td>
+            <td>Position of Platform for Photographic or Remote Sensing Image</td>
+            <td>
+              
+              
+              a<br>b<br>c<br>
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$e</td>
+            <td>R</td>
+            <td>Category of Satellite for Remote Sensing Image</td>
+            <td>
+              
+              
+              a<br>b<br>c<br>
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$f</td>
+            <td>R</td>
+            <td>Name of Satellite for Remote Sensing Image</td>
+            <td>
+              
+              
+              aa<br>ab<br>ac<br>ad<br>ae<br>ga<br>gb<br>gc<br>gd<br>ge<br>gf<br>gg<br>ma<br>mb<br>
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$g</td>
+            <td>R</td>
+            <td>Recording Technique for Remote Sensing Image</td>
+            <td>
+              
+              
+              aa<br>ab<br>ac<br>ad<br>av<br>da<br>dv<br>ga<br>gb<br>gc<br>
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            125
+          </b></td>
+          <td>NR</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>CODED DATA FIELD: SOUND RECORDINGS AND PRINTED MUSIC</b></td>
+          <td></td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>NR</td>
+            <td>Format of Notated Music</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$b</td>
+            <td>NR</td>
+            <td>Literary Text Indicator</td>
+            <td>
+              
+              
+              a<br>b<br>c<br>d<br>e<br>f<br>g<br>h<br>i<br>j<br>k<br>l<br>m<br>n<br>o<br>p<br>q<br>r<br>s<br>t<br>z<br>
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$c</td>
+            <td>NR</td>
+            <td>Multiple Musical Format</td>
+            <td>
+              
+              
+              a<br>b<br>c<br>d<br>e<br>f<br>g<br>h<br>i<br>j<br>k<br>l<br>n<br>o<br>p<br>u<br>x<br>z<br>#<br>
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            126
+          </b></td>
+          <td>NR</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>CODED DATA FIELD: SOUND RECORDINGS - PHYSICAL ATTRIBUTES</b></td>
+          <td></td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>NR</td>
+            <td>Sound Recording Coded Data (General)</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$b</td>
+            <td>NR</td>
+            <td>Sound Recording Coded Data (Detail)</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            127
+          </b></td>
+          <td>NR</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>CODED DATA FIELD: DURATION OF SOUND RECORDINGS AND PRINTED MUSIC</b></td>
+          <td></td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>R</td>
+            <td>Duration</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            128
+          </b></td>
+          <td>R</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>CODED DATA FIELD: FORM OF MUSICAL WORK AND KEY OR MODE</b></td>
+          <td></td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>R</td>
+            <td>Form of Musical Work</td>
+            <td>
+              
+              
+              abs<br>acc<br>acl<br>acm<br>agn<br>ai <br>ain<br>aka<br>ala<br>alb<br>all<br>alm<br>ame<br>an <br>ana<br>ane<br>ant<br>app<br>ar <br>ara<br>ari<br>ark<br>arn<br>ars<br>aub<br>azm<br>azs<br>azt<br>bac<br>bad<br>bag<br>bai<br>bal<br>bar<br>bat<br>bbp<br>bcs<br>bd <br>bde<br>bdi<br>bea<br>beg<br>ben<br>bfm<br>bg <br>bgk<br>bhn<br>bic<br>bkb<br>bkg<br>bkm<br>bl <br>blc<br>bll<br>blo<br>blt<br>bol<br>bou<br>bra<br>brg<br>brr<br>brt<br>bru<br>bsd<br>bst<br>bt <br>btd<br>bto<br>btq<br>bur<br>bwg<br>byc<br>cab<br>cac<br>cad<br>cal<br>can<br>cav<br>cb <br>cc <br>cch<br>ccl<br>ccn<br>cdg<br>cdo<br>cdt<br>cfr<br>cg <br>cga<br>ch <br>cha<br>chc<br>chh<br>chn<br>cho<br>chp<br>chr<br>chs<br>cht<br>chz<br>ckw<br>cl <br>cld<br>cli<br>cll<br>clu<br>cly<br>cmg<br>cmm<br>cmn<br>cmp<br>cn <br>cnd<br>cnl<br>cnr<br>cns<br>co <br>cob<br>cop<br>cou<br>cow<br>cp <br>cpl<br>cpm<br>cpr<br>cr <br>cra<br>cre<br>cri<br>crr<br>crt<br>cs <br>csa<br>cse<br>csg<br>csn<br>css<br>cst<br>csy<br>ct <br>ctc<br>ctd<br>ctf<br>ctg<br>cti<br>ctl<br>cto<br>ctp<br>cue<br>cy <br>cyd<br>cz <br>czn<br>czp<br>czs<br>czt<br>dbl<br>dec<br>des<br>dev<br>df <br>dia<br>dim<br>din<br>dix<br>dmk<br>dod<br>dox<br>drh<br>drs<br>dsg<br>dtr<br>due<br>dui<br>dv <br>eco<br>egl<br>ele<br>ely<br>ens<br>ent<br>enw<br>epo<br>ept<br>est<br>ext<br>fad<br>faf<br>far<br>fax<br>fea<br>fg <br>fin<br>fla<br>fls<br>fm <br>fmm<br>fnd<br>fnk<br>fns<br>fol<br>for<br>fox<br>frd<br>frj<br>fro<br>frs<br>fso<br>ft <br>fum<br>fur<br>fus<br>fvm<br>gai<br>gal<br>gas<br>gav<br>gch<br>gig<br>gle<br>glo<br>gm <br>gop<br>gos<br>gra<br>gre<br>gro<br>gym<br>gyp<br>hab<br>had<br>hal<br>hem<br>hip<br>hit<br>hoq<br>hpp<br>hrk<br>hum<br>hy <br>hym<br>idy<br>imp<br>imu<br>in <br>inc<br>ind<br>ing<br>inm<br>int<br>inv<br>iph<br>ipp<br>iru<br>itd<br>itn<br>itt<br>ivu<br>jep<br>jgg<br>jig<br>jot<br>jub<br>jus<br>jz <br>kld<br>kol<br>kra<br>kuj<br>kyr<br>lai<br>lam<br>lau<br>lby<br>lds<br>ldy<br>lec<br>les<br>lgu<br>li <br>lic<br>lid<br>lir<br>lmz<br>lnd<br>lod<br>lou<br>lty<br>lue<br>lyh<br>mat<br>maz<br>mmb<br>mc <br>mcc<br>md <br>mda<br>mdc<br>mds<br>mdy<br>mgg<br>mgs<br>mi <br>mim<br>mld<br>mlg<br>mls<br>mmd<br>mme<br>mmm<br>mmo<br>mng<br>mnh<br>mo <br>mod<br>mon<br>mor<br>mp <br>mph<br>mqu<br>mr <br>ms <br>msc<br>msq<br>mst<br>mtb<br>mth<br>mtp<br>mtz<br>mu <br>mum<br>mun<br>mus<br>mxx<br>mym<br>mz <br>nat<br>nau<br>nc <br>nen<br>noe<br>nom<br>non<br>nov<br>nry<br>ntz<br>nwa<br>nww<br>obk<br>oct<br>ode<br>ofd<br>off<br>ogm<br>ons<br>op <br>opb<br>opc<br>opf<br>opm<br>ops<br>opt<br>opu<br>or <br>ora<br>orm<br>ov <br>pad<br>pae<br>pbr<br>pch<br>pco<br>pdd<br>pdv<br>pdy<br>pev<br>pf <br>pg <br>pgl<br>phy<br>piv<br>plc<br>ple<br>plk<br>pll<br>plo<br>plr<br>pls<br>plt<br>plu<br>pm <br>pmk<br>pmm<br>pnk<br>po <br>pol<br>pot<br>pp <br>pph<br>ppo<br>prd<br>pre<br>prf<br>prg<br>prl<br>prm<br>pro<br>prt<br>prz<br>ps <br>psa<br>psd<br>psl<br>psr<br>pst<br>pt <br>ptn<br>ptt<br>pv <br>pzz<br>qdl<br>qua<br>qui<br>quo<br>rad<br>rao<br>rap<br>rc <br>rct<br>rd <br>rde<br>rdv<br>rdw<br>rec<br>ree<br>rej<br>rem<br>rer<br>res<br>rev<br>rg <br>rgg<br>rgl<br>rgr<br>rhb<br>rhl<br>ri <br>rig<br>ris<br>rit<br>rjk<br>rmc<br>rmy<br>rmz<br>rot<br>rp <br>rq <br>rsc<br>rsp<br>rtg<br>rtt<br>rue<br>rug<br>rum<br>sad<br>sae<br>sai<br>san<br>sar<br>scc<br>scd<br>sce<br>sch<br>scp<br>scs<br>sct<br>sdh<br>sdr<br>sep<br>seq<br>sev<br>sex<br>sft<br>sg <br>sgl<br>sha<br>shm<br>si <br>sic<br>ska<br>skt<br>sll<br>slq<br>sls<br>slt<br>smb<br>sml<br>sn <br>snd<br>snt<br>sol<br>sp <br>spi<br>sps<br>spt<br>sq <br>srb<br>srd<br>srm<br>srv<br>ssp<br>sss<br>st <br>ste<br>sth<br>sto<br>str<br>sts<br>stt<br>su <br>swi<br>sww<br>sy <br>syc<br>syd<br>sym<br>syo<br>tar<br>tc <br>tcn<br>tct<br>tdn<br>tem<br>ten<br>ter<br>tex<br>tfm<br>thr<br>ths<br>tir<br>tmb<br>tnc<br>tng<br>tod<br>tom<br>ton<br>tou<br>tra<br>trd<br>trg<br>tri<br>trl<br>trm<br>tro<br>trq<br>trs<br>trt<br>trz<br>ts <br>ttt<br>tum<br>tvo<br>two<br>vau<br>vir<br>vlc<br>vln<br>vlt<br>vly<br>vnz<br>voc<br>vol<br>vr <br>vra<br>vrg<br>vri<br>vrl<br>vrr<br>vrs<br>vsp<br>vvn<br>wem<br>wom<br>wsg<br>wz <br>yar<br>zam<br>zap<br>zar<br>zmb<br>zop<br>zor<br>zwi<br>zz <br>
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$b</td>
+            <td>R</td>
+            <td>[Obsolete] Instruments or Voices for Ensembles</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$c</td>
+            <td>R</td>
+            <td>[Obsolete] Instruments or Voices for Soloists</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$d</td>
+            <td>NR</td>
+            <td>Key or mode of Musical Work</td>
+            <td>
+              
+              
+              10<br>11<br>12<br>13<br>a<br>am<br>ab<br>abm<br>axm<br>b<br>01<br>02<br>03<br>04<br>05<br>06<br>07<br>08<br>09<br>zz<br>
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            130
+          </b></td>
+          <td>R</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>CODED DATA FIELD: MICROFORMS - PHYSICAL ATTRIBUTES</b></td>
+          <td></td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>NR</td>
+            <td>Microform Coded Data Physical Attributes</td>
+            <td>
+              
+              
+              
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td><b>
+            131
+          </b></td>
+          <td>NR</td>
+          
+          <td></td>
+          <td></td>
+          <td><b>CODED DATA FIELD: CARTOGRAPHIC MATERIALS: GEODETIC, GRID AND VERTICAL MEASUREMENT</b></td>
+          <td></td>
+        </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$a</td>
+            <td>R</td>
+            <td>Spheroid</td>
+            <td>
+              
+              
+              aa<br>ab<br>ac<br>ad<br>ae<br>af<br>ag<br>ah<br>ai<br>aj<br>ak<br>al<br>am<br>an<br>ao<br>ap<br>aq<br>ar<br>as<br>at<br>ba<br>bb<br>bc<br>bd<br>be<br>uu<br>zz<br>
+            </td>
+          </tr>
+        
+          <tr>
+            <td></td>
+            <td></td>
+            
+            <td>$b</td>
+            <td>R</td>
+            <td>Horizontal Datum</td>
+            <td>
+              
+              
+              aaa<br>aab<br>aac<br>aad<br>aae<br>aaf<br>aag<br>aah<br>aai<br>aaj<br>aak<br>aal<br>aam<br>aan<br>aao<br>aap<br>aaq<br>aar<br>aas<br>aat<br>aba<br>abb<br>abc<br>abd<br>abe<br>abf<br>abg<br>abh<br>abi<br>abj<br>abk<br>abl<br>abm<br>abn<br>abo<br>abp<br>abq<br>abr<br>abs<br>abt<br>aca<br>acb<br>acc<br>acd<br>ace<br>acf<br>acg<br>aci<br>acj<br>ack<br>acl<br>acm<br>acn<br>aco<br>acp<br>acq<br>acr<br>acs<br>act<br>ada<br>adb<br>adc<br>add<br>ade<br>adf<br>adg<br>adh<br>adi<br>adj<br>adk<br>adl<br>adm<br>adn<br>ado<br>adp<br>adq<br>adr<br>ads<br>adt<br>aea<br>aeb<br>aec<br>aed<br>aee<br>aef<br>aeg<br>aeh<br>aei<br>aej<br>aek<br>ael<br>aem<br>aen<br>aeo<br>aep<br>aeq<br>aer<br>aes<br>aet<br>afa<br>afb<br>afc<br>afd<br>afe<br>aff<br>afg<br>afh<br>afi<br>afj<br>afk<br>afl<br>afm<br>afn<br>afo<br>afp<br>afq<br>afr<br>afs<br>aft<br>aga<br>agb<br>agc<br>agd<br>age<br>agf<br>agg<br>agh<br>agi<br>agj<br>agk<br>agl<br>agm<br>agn<br>ago<br>agp<br>agq<br>agr<br>ags<br>agt<br>aha<br>ahb<br>ahc<br>ahd<br>ahe<br>ahf<br>ahg<br>ahh<br>ahi<br>ahj<br>ahk<br>ahl<br>ahm<br>ahn<br>aho<br>ahp<br>ahq<br>ahr<br>ahs<br>aht<br>aia<br>aib<br>aic<br>aid<br>aie<br>aif<br>aig<br>aih<br>aii<br>aij<br>aik<br>ail<br>aim<br>ain<br>aio<br>aip<br>aiq<br>air<br>ais<br>ait<br>aja<br>ajb<br>ajc<br>ajd<br>aje<br>ajf<br>ajg<br>ajh<br>aji<br>ajj<br>ajk<br>ajl<br>ajm<br>ajn<br>ajo<br>ajp<br>ajq<br>ajr<br>ajs<br>ajt<br>aka<br>akb<br>akc<br>akd<br>ake<br>akf<br>akg<br>akh<br>aki<br>akj<br>akk<br>akl<br>akm<br>akn<br>ako<br>akp<br>akq<br>akr<br>aks<br>akt<br>ala<br>alb<br>alc<br>ald<br>ale<br>alf<br>alg<br>alh<br>ali<br>alj<br>alk<br>all<br>alm<br>aln<br>alo<br>alp<br>alq<br>alr<br>als<br>alt<br>ama<br>amb<br>amc<br>amd<br>ame<br>amf<br>amg<br>amh<br>ami<br>amj<br>amk<br>aml<br>amm<br>amn<br>amo<br>amp<br>amq<br>amr<br>ams<br>amt<br>ana<br>anb<br>anc<br>and<br>ane<br>anf<br>ang<br>anh<br>ani<br>anj<br>ank<br>anl<br>anm<br>ann<br>ano<br>anp<br>anq<br>anr<br>ans<br>ant<br>aoa<br>aob<br>aoc<br>aod<br>aoe<br>aof<br>aog<br>aoh<br>aoi<br>aoj<br>aok<br>aol<br>aom<br>aon<br>aoo<br>aop<br>aoq<br>aor<br>aos<br>aot<br>apa<br>apb<br>apc<br>apd<br>ape<br>apf<br>apg<br>aph<br>api<br>apj<br>apk<br>apl<br>apm<br>apn<br>apo<br>app<br>apq<br>apr<br>aps<br>apt<br>aqa<br>aqb<br>aqc<br>aqd<br>aqe<br>aqf<br>aqg<br>aqh<br>aqi<br>aqj<br>aqk<br>aql<br>aqm<br>aqn<br>aqo<br>aqp<br>aqq<br>aqr<br>aqs<br>aqt<br>ara<br>arb<br>arc<br>ard<br>are<br>arf<br>arg<br>arh<br>ari<br>arj<br>ark<br>arl<br>arm<br>arn<br>aro<br>arp<br>arq<br>arr<br>ars<br>art<br>asa<br>asb<br>asc<br>asd<br>ase<br>asf<br>asg<br>ash<br>asi<br>asj<br>ask<br>asl<br>asm<br>asn<br>aso<br>asp<br>asq<br>asr<br>ass<br>ast<br>ata<br>atb<br>atc<br>atd<br>ate<br>atf<br>atg<br>ath<br>ati<br>atj<br>atk<br>atl<br>atm<br>atn<br>ato<br>atp<br>atq<br>atr<br>ats<br>att<br>baa<br>bab<br>bac<br>bad<br>bae<br>baf<br>bag<br>bah<br>bai<br>baj<br>bak<br>bal<br>bam<br>ban<br>bao<br>bap<br>baq<br>bar<br>bas<br>bat<br>bba<br>bbb<br>bbc<br>bbd<br>bbe<br>bbf<br>bbg<br>bbh<br>bbi<br>bbj<br>bbk<br>bbl<br>bbm<br>bbn<br>bbo<br>bbp<br>bbq<br>bbr<br>bbs<br>bbt<br>bca<br>bcb<br>bcc<br>bcd<br>bce<br>bcf<br>bcg<br>bch<br>bci<br>bcj<br>bck<br>bcl<br>bcm<br>bcn<br>bco<br>bcp<br>bcq<br>bcr<br>bcs<br>bct<br>bda<br>bdb<br>bdc<br>bdd<br>bde<br>bdf<br>bdg<br>bdh<br>bdi<br>bdk<br>bdl<br>bdm<br>bdn<br>bdo<br>bdp<br>bdq<br>bdr<br>bds<br>bdt<br>bea<br>beb<br>bec<br>bed<br>bee<br>bef<br>beg<br>beh<br>bei<br>bej<br>bek<br>bel<br>bem<br>ben<br>beo<br>bep<br>beq<br>ber<br>bes<br>bet<br>bfa<br>bfb<br>bfc<br>bfd<br>bfe<br>bff<br>bfg<br>bfh<br>bfi<br>bfj<br>bfk<br>bfl<br>bfm<br>bfn<br>bfo<br>bfp<br>bfq<br>bfr<br>bfs<br>bft<br>bga<br>bgb<br>bgc<br>bgd<br>bge<br>bgf<br>bgg<br>bgh<br>bgi<br>bgj<br>bgk<br>bgl<br>bgm<br>bgn<br>bgo<br>bgp<br>bgq<br>bgr<br>bgs<br>bgt<br>bha<br>bhb<br>bhc<br>bhd<br>bhe<br>bhf<br>bhg<br>bhh<br>bhi<br>bhj<br>bhk<br>bhl<br>bhm<br>bhn<br>bho<br>bhp<br>bhq<br>bhr<br>bhs<br>bht<br>bia<br>bib<br>bic<br>bid<br>bie<br>bif<br>big<br>bih<br>bii<br>bij<br>bik<br>bil<br>bim<br>bin<br>bio<br>bip<br>biq<br>bir<br>bis<br>bit<br>bja<br>bjb<br>bjc<br>bjd<br>bje<br>bjf<br>bjg<br>bjh<br>bji<br>bjj<br>bjk<br>bjl<br>bjm<br>bjn<br>bjo<br>bjp<br>bjq<br>bjr<br>bjs<br>bjt<br>bka<br>bkb<br>bkc<br>bkd<br>bke<br>bkf<br>bkg<br>bkh<br>bki<br>bkj<br>bkk<br>bkl<br>bkm<br>bkn<br>bko<br>bkp<br>bkq<br>bkr<br>bks<br>bkt<br>bla<br>blb<br>blc<br>bld<br>ble<br>blf<br>blg<br>blh<br>bli<br>blj<br>blk<br>bll<br>blm<br>bln<br>blo<br>blp<br>blq<br>blr<br>bls<br>blt<br>bma<br>bmb<br>bmc<br>bmd<br>bme<br>bmf<br>bmg<br>bmh<br>bmi<br>bmj<br>bmk<br>bml<br>bmm<br>bmn<br>bmo<br>bmp<br>bmq<br>bmr<br>bms<br>bmt<br>bna<br>bnb<br>bnc<br>bnd<br>bne<br>bnf<br>bng<br>bnh<br>bni<br>bnj<br>bnk<br>bnl<br>bnm<br>bnn<br>bno<br>bnp<br>bnq<br>bnr<br>bns<br>bnt<br>bnu<br>boa<br>bob<br>boc<br>bod<br>boe<br>bof<br>bog<br>boh<br>boi<br>boj<br>bok<br>bol<br>bom<br>bon<br>boo<br>bop<br>boq<br>bor<br>bos<br>bot<br>bpa<br>bpb<br>bpc<br>bpd<br>bpe<br>bpf<br>bpg<br>bph<br>bpi<br>bpj<br>bpk<br>bpl<br>bpm<br>bpn<br>bpo<br>bpp<br>bpq<br>bpr<br>bps<br>bpt<br>bqa<br>bqb<br>bqc<br>bqd<br>bqe<br>bqf<br>bqg<br>bqh<br>bqi<br>bqj<br>bqk<br>bql<br>bqm<br>bqn<br>bqo<br>bqr<br>bqs<br>bqt<br>bra<br>brb<br>brc<br>brd<br>bre<br>brf<br>brg<br>brh<br>bri<br>brj<br>brk<br>brl<br>brm<br>brn<br>bro<br>brp<br>brq<br>brs<br>brt<br>bsa<br>bsb<br>bsc<br>bsd<br>bse<br>bsf<br>bsg<br>bsh<br>bsi<br>bsj<br>bsk<br>bsl<br>bsm<br>bsn<br>bso<br>bsp<br>bsq<br>bsr<br>bss<br>bst<br>bta<br>btb<br>btc<br>btd<br>bte<br>btf<br>btg<br>bth<br>bti<br>btj<br>btk<br>btl<br>btm<br>btn<br>bto<br>btp<br>btq<br>btr<br>bts<br>btt<br>caa<br>cab<br>cac<br>cad<br>cae<br>caf<br>cag<br>cah<br>cai<br>caj<br>cak<br>cal<br>cam<br>can<br>cao<br>cap<br>caq<br>car<br>cas<br>cat<br>cba<br>cbb<br>cbc<br>cbd<br>cbe<br>cbf<br>cbg<br>cbh<br>cbi<br>cbj<br>cbk<br>cbl<br>cbm<br>cbn<br>cbo<br>cbp<br>cbq<br>cbr<br>cbs<br>cbt<br>cca<br>ccb<br>ccc<br>ccd<br>cce<br>ccf<br>ccg<br>cch<br>cci<br>ccj<br>cck<br>ccl<br>ccm<br>ccn<br>cco<br>ccp<br>ccq<br>ccr<br>ccs<br>cct<br>cda<br>cdb<br>cdc<br>cdd<br>cde<br>cdf<br>cdg<br>cdh<br>cdi<br>cdj<br>cdk<br>cdl<br>cdm<br>cdn<br>cdo<br>cdp<br>cdq<br>cdr<br>cds<br>cdt<br>cea<br>ceb<br>cec<br>ced<br>cee<br>cef<br>ceg<br>ceh<br>cei<br>cej<br>cek<br>cel<br>cem<br>cen<br>ceo<br>cep<br>ceq<br>cer<br>ces<br>cet<br>cfa<br>cfb<br>cfc<br>cfd<br>cfe<br>cff<br>cfg<br>cfh<br>cfi<br>cfj<br>cfk<br>cfl<br>cfm<br>cfn<br>cfo<br>cfp<br>cfq<br>cfr<br>cfs<br>cft<br>cga<br>cgb<br>cgc<br>cgd<br>cge<br>cgf<br>cgg<br>cgh<br>cgi<br>cgk<br>cgl<br>cg

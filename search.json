@@ -348,36 +348,25 @@
     ]
   },
   {
-    "objectID": "export-mapping-table.html",
-    "href": "export-mapping-table.html",
-    "title": "17  Export mapping table",
+    "objectID": "avram-schemas.html",
+    "href": "avram-schemas.html",
+    "title": "17  Avram Schemas",
     "section": "",
-    "text": "17.1 to Avram JSON\nSome background info: MARC21 structure in JSON.\nUsage:\nor\noptions:\nAn example output:\nThe script version generates 3 files, with different details: * avram-schemas/marc-schema.json * avram-schemas/marc-schema-with-solr.json * avram-schemas/marc-schema-with-solr-and-extensions.json\nTo validate these files install the Avram reference implementation in Node with npm ci and run:",
+    "text": "17.1 Export Java classes to MARC21 schemas\nThe definition of valid MARC21 in QA catalogue is partly hard-coded in form of Java classes. The Avram Schema format has been developed to encode information about MARC and related formats independent from implementations (see MARC21 structure in JSON for some historical background). The definition of PICA-based formats and UNIMARC has already been moved to Avram Schemas. Repository directory avram-schemas contains the following schema files:\nTo check schema files against the Avram specification. Install a node script with npm ci and run:\nTo generate HTML display of schema files (see Self Descriptive MARC code for an earlier version):\nThe script export-schema, implemented in de.gwdg.metadataqa.marc.cli.utils.MappingToJson can be used to export an Avram Schema for MARC21 from Java classes. Some additional, non-standard information is included on request.\nOptions:\nTo export the most used forms of the schema into into directory avram-schemas/, call:\nThe script version generates 3 files, with different details:",
     "crumbs": [
       "Usage",
-      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Export mapping table</span>"
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Avram Schemas</span>"
     ]
   },
   {
-    "objectID": "export-mapping-table.html#to-avram-json",
-    "href": "export-mapping-table.html#to-avram-json",
-    "title": "17  Export mapping table",
+    "objectID": "avram-schemas.html#export-java-classes-to-marc21-schemas",
+    "href": "avram-schemas.html#export-java-classes-to-marc21-schemas",
+    "title": "17  Avram Schemas",
     "section": "",
-    "text": "java -cp $JAR de.gwdg.metadataqa.marc.cli.utils.MappingToJson [options] &gt; avram-schema.json\n\n./qa-catalogue --params=\"[options]\" export-schema-files\n\n\ngeneral parameters\n-c, --withSubfieldCodelists: with subfield codelists\n-s, --withSelfDescriptiveCode: with self-descriptive codes\n-t &lt;type&gt;, --solrFieldType &lt;type&gt;: type of Solr fields, could be one of marc-tags, human-readable, or mixed\n-f, --withFrbrFunctions: with FRBR functions (see Tom Delsey: Functional analysis of the MARC 21 bibliographic and holdings formats. Tech. report, 2nd revision. Library of Congress, 2003.)\n-l, --withComplianceLevel: with compliance levels (national, minimal) (see National Level Full and Minimal Requirements. Library of Congress, 1999.)\n\n\n...\n\"010\":{\n  \"tag\":\"010\",\n  \"label\":\"Library of Congress Control Number\",\n  \"url\":\"https:\\/\\/www.loc.gov\\/marc\\/bibliographic\\/bd010.html\",\n  \"repeatable\":false,\n  \"compilance-level\":{\n    \"national\":\"Mandatory if applicable\",\n    \"minimal\":\"Mandatory if applicable\"\n  },\n  \"indicator1\":null,\n  \"indicator2\":null,\n  \"subfields\":{\n    \"a\":{\n      \"label\":\"LC control number\",\n      \"repeatable\":false,\n      \"frbr-functions\":[\n        \"Data Management\\/Identify\",\n        \"Data Management\\/Process\"\n      ],\n      \"compilance-level\":{\n        \"national\":\"Mandatory if applicable\",\n        \"minimal\":\"Mandatory if applicable\"\n      }\n    },\n    ...\n  }\n},\n\"013\":{\n  \"tag\":\"013\",\n  \"label\":\"Patent Control Information\",\n  \"url\":\"https:\\/\\/www.loc.gov\\/marc\\/bibliographic\\/bd013.html\",\n  \"repeatable\":true,\n  \"compilance-level\":{\"national\":\"Optional\"},\n  \"indicator1\":null,\n  \"indicator2\":null,\n  \"subfields\":{\n    ...\n    \"b\":{\n      \"label\":\"Country\",\n      \"repeatable\":false,\n      \"codelist\":{\n        \"name\":\"MARC Code List for Countries\",\n        \"url\":\"http:\\/\\/www.loc.gov\\/marc\\/countries\\/countries_code.html\",\n        \"codes\":{\n          \"aa\":{\"label\":\"Albania\"},\n          \"abc\":{\"label\":\"Alberta\"},\n          \"-ac\":{\"label\":\"Ashmore and Cartier Islands\"},\n          \"aca\":{\"label\":\"Australian Capital Territory\"},\n          ...\n        },\n        ...\n      },\n    },\n    ...\n  }\n},\n...\n\n\n./avram-schemas/validate-schemas",
+    "text": "-c, --withSubfieldCodelists: with subfield codelists\n-s, --withSelfDescriptiveCode: with self-descriptive codes\n-t &lt;type&gt;, --solrFieldType &lt;type&gt;: type of Solr fields, could be one of marc-tags, human-readable, or mixed\n-f, --withFrbrFunctions: with FRBR functions (see Tom Delsey: Functional analysis of the MARC 21 bibliographic and holdings formats. Tech. report, 2nd revision. Library of Congress, 2003.)\n-l, --withComplianceLevel: with compliance levels (national, minimal) (see National Level Full and Minimal Requirements. Library of Congress, 1999.)\n\n\n./qa-catalogue export-schema-files\n\n\navram-schemas/marc.json (valid Avram)\navram-schemas/marc-schema-with-solr.json\navram-schemas/marc-schema-with-solr-and-extensions.json\n\n\n\n\nListing 17.1: An excerpt of the MARC21 Avram Schema with extension compliance-level, frbr-functions, and code lists\n\n\n{\n\"010\":{\n  \"tag\":\"010\",\n  \"label\":\"Library of Congress Control Number\",\n  \"url\":\"https://www.loc.gov/marc/bibliographic/bd010.html\",\n  \"repeatable\":false,\n  \"compilance-level\":{\n    \"national\":\"Mandatory if applicable\",\n    \"minimal\":\"Mandatory if applicable\"\n  },\n  \"indicator1\":null,\n  \"indicator2\":null,\n  \"subfields\":{\n    \"a\":{\n      \"label\":\"LC control number\",\n      \"repeatable\":false,\n      \"frbr-functions\":[\n        \"Data Management/Identify\",\n        \"Data Management/Process\"\n      ],\n      \"compilance-level\":{\n        \"national\":\"Mandatory if applicable\",\n        \"minimal\":\"Mandatory if applicable\"\n      }\n    },\n    ...\n  }\n},\n\"013\":{\n  \"tag\":\"013\",\n  \"label\":\"Patent Control Information\",\n  \"url\":\"https://www.loc.gov/marc/bibliographic/bd013.html\",\n  \"repeatable\":true,\n  \"compilance-level\":{\"national\":\"Optional\"},\n  \"indicator1\":null,\n  \"indicator2\":null,\n  \"subfields\":{\n    \"b\":{\n      \"label\":\"Country\",\n      \"repeatable\":false,\n      \"codelist\":{\n        \"name\":\"MARC Code List for Countries\",\n        \"url\":\"http://www.loc.gov/marc/countries/countries_code.html\",\n        \"codes\":{\n          \"aa\":{\"label\":\"Albania\"},\n          \"abc\":{\"label\":\"Alberta\"},\n          \"-ac\":{\"label\":\"Ashmore and Cartier Islands\"},\n          \"aca\":{\"label\":\"Australian Capital Territory\"},",
     "crumbs": [
       "Usage",
-      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Export mapping table</span>"
-    ]
-  },
-  {
-    "objectID": "export-mapping-table.html#to-html",
-    "href": "export-mapping-table.html#to-html",
-    "title": "17  Export mapping table",
-    "section": "17.2 to HTML",
-    "text": "17.2 to HTML\nTo export the HTML table described at Self Descriptive MARC code\njava -cp $JAR de.gwdg.metadataqa.marc.cli.utils.MappingToHtml &gt; mapping.html",
-    "crumbs": [
-      "Usage",
-      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Export mapping table</span>"
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Avram Schemas</span>"
     ]
   },
   {

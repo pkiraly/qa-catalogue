@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>17&nbsp; Export mapping table – QA Catalogue</title>
+<title>17&nbsp; Avram Schemas – QA Catalogue</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -116,7 +116,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./usage.html">Usage</a></li><li class="breadcrumb-item"><a href="./export-mapping-table.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Export mapping table</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./usage.html">Usage</a></li><li class="breadcrumb-item"><a href="./avram-schemas.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Avram Schemas</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -265,8 +265,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./export-mapping-table.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Export mapping table</span></span></a>
+  <a href="./avram-schemas.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Avram Schemas</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -334,17 +334,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#to-avram-json" id="toc-to-avram-json" class="nav-link active" data-scroll-target="#to-avram-json"><span class="header-section-number">17.1</span> to Avram JSON</a></li>
-  <li><a href="#to-html" id="toc-to-html" class="nav-link" data-scroll-target="#to-html"><span class="header-section-number">17.2</span> to HTML</a></li>
+  <li><a href="#export-java-classes-to-marc21-schemas" id="toc-export-java-classes-to-marc21-schemas" class="nav-link active" data-scroll-target="#export-java-classes-to-marc21-schemas"><span class="header-section-number">17.1</span> Export Java classes to MARC21 schemas</a></li>
   </ul>
-</nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/pkiraly/qa-catalogue/blob/main/avram-schemas.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/pkiraly/qa-catalogue/edit/main/avram-schemas.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li><li><a href="https://github.com/pkiraly/qa-catalogue/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./usage.html">Usage</a></li><li class="breadcrumb-item"><a href="./export-mapping-table.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Export mapping table</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./usage.html">Usage</a></li><li class="breadcrumb-item"><a href="./avram-schemas.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Avram Schemas</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Export mapping table</span></h1>
+<h1 class="title"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Avram Schemas</span></h1>
 </div>
 
 
@@ -361,89 +360,122 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="to-avram-json" class="level2" data-number="17.1">
-<h2 data-number="17.1" class="anchored" data-anchor-id="to-avram-json"><span class="header-section-number">17.1</span> to Avram JSON</h2>
-<p>Some background info: <a href="http://pkiraly.github.io/2018/01/28/marc21-in-json/">MARC21 structure in JSON</a>.</p>
-<p>Usage:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">java</span> <span class="at">-cp</span> <span class="va">$JAR</span> de.gwdg.metadataqa.marc.cli.utils.MappingToJson <span class="pp">[</span><span class="ss">options</span><span class="pp">]</span> <span class="op">&gt;</span> avram-schema.json</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>or</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./qa-catalogue</span> <span class="at">--params</span><span class="op">=</span><span class="st">"[options]"</span> export-schema-files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>options:</p>
+<p>The definition of valid MARC21 in QA catalogue is partly hard-coded in form of Java classes. The <a href="https://format.gbv.de/schema/avram/specification">Avram Schema format</a> has been developed to encode information about MARC and related formats independent from implementations (see <a href="http://pkiraly.github.io/2018/01/28/marc21-in-json/">MARC21 structure in JSON</a> for some historical background). The definition of PICA-based formats and UNIMARC has already been moved to Avram Schemas. Repository directory <code>avram-schemas</code> contains the following schema files:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Format</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="./avram-schemas/marc.html">MARC21</a></td>
+<td><a href="./avram-schemas/marc.json">marc.json</a></td>
+</tr>
+<tr class="even">
+<td><a href="./avram-schemas/unimarc.html">UNIMARC</a></td>
+<td><a href="./avram-schemas/unimarc.json">unimarc.json</a></td>
+</tr>
+<tr class="odd">
+<td><a href="./avram-schemas/k10plus-title.html">K10plus PICA (title)</a></td>
+<td><a href="./avram-schemas/k10plus-title.json">k10plus-title.json</a></td>
+</tr>
+</tbody>
+</table>
+<p>To check schema files against the Avram specification. Install a node script with <code>npm ci</code> and run:</p>
+<pre><code>./avram-schemas/validate-schemas</code></pre>
+<p>To generate HTML display of schema files (see <a href="http://pkiraly.github.io/2017/09/24/mapping/">Self Descriptive MARC code</a> for an earlier version):</p>
+<pre><code>./avram-schemas/html-schemas</code></pre>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>See <a href="https://github.com/pkiraly/qa-catalogue/issues?q=is%3Aissue%20state%3Aopen%20label%3Aavram">issues related to Avram</a></p>
+</div>
+</div>
+<section id="export-java-classes-to-marc21-schemas" class="level2" data-number="17.1">
+<h2 data-number="17.1" class="anchored" data-anchor-id="export-java-classes-to-marc21-schemas"><span class="header-section-number">17.1</span> Export Java classes to MARC21 schemas</h2>
+<p>The script <code>export-schema</code>, implemented in <a href="https://github.com/pkiraly/qa-catalogue/blob/main/src/main/java/de/gwdg/metadataqa/marc/cli/utils/MappingToJson.java">de.gwdg.metadataqa.marc.cli.utils.MappingToJson</a> can be used to export an Avram Schema for MARC21 from Java classes. Some additional, non-standard information is included on request.</p>
+<p><strong>Options:</strong></p>
 <ul>
-<li><a href="usage.html#general-parameters">general parameters</a></li>
 <li><code>-c</code>, <code>--withSubfieldCodelists</code>: with subfield codelists</li>
 <li><code>-s</code>, <code>--withSelfDescriptiveCode</code>: with self-descriptive codes</li>
 <li><code>-t &lt;type&gt;</code>, <code>--solrFieldType &lt;type&gt;</code>: type of Solr fields, could be one of <code>marc-tags</code>, <code>human-readable</code>, or <code>mixed</code></li>
 <li><code>-f</code>, <code>--withFrbrFunctions</code>: with FRBR functions (see Tom Delsey: <a href="https://www.loc.gov/marc/marc-functional-analysis/original_source/analysis.pdf">Functional analysis of the MARC 21 bibliographic and holdings formats.</a> Tech. report, 2nd revision. Library of Congress, 2003.)</li>
 <li><code>-l</code>, <code>--withComplianceLevel</code>: with compliance levels (national, minimal) (see <a href="https://www.loc.gov/marc/bibliographic/nlr/nlr.html">National Level Full and Minimal Requirements.</a> Library of Congress, 1999.)</li>
 </ul>
-<p>An example output:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="er">...</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="er">"010":</span><span class="fu">{</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"tag"</span><span class="fu">:</span><span class="st">"010"</span><span class="fu">,</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"label"</span><span class="fu">:</span><span class="st">"Library of Congress Control Number"</span><span class="fu">,</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"url"</span><span class="fu">:</span><span class="st">"https:</span><span class="ch">\/\/</span><span class="st">www.loc.gov</span><span class="ch">\/</span><span class="st">marc</span><span class="ch">\/</span><span class="st">bibliographic</span><span class="ch">\/</span><span class="st">bd010.html"</span><span class="fu">,</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"repeatable"</span><span class="fu">:</span><span class="kw">false</span><span class="fu">,</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"compilance-level"</span><span class="fu">:{</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"national"</span><span class="fu">:</span><span class="st">"Mandatory if applicable"</span><span class="fu">,</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"minimal"</span><span class="fu">:</span><span class="st">"Mandatory if applicable"</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"indicator1"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"indicator2"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"subfields"</span><span class="fu">:{</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"a"</span><span class="fu">:{</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"label"</span><span class="fu">:</span><span class="st">"LC control number"</span><span class="fu">,</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"repeatable"</span><span class="fu">:</span><span class="kw">false</span><span class="fu">,</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"frbr-functions"</span><span class="fu">:</span><span class="ot">[</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Data Management</span><span class="ch">\/</span><span class="st">Identify"</span><span class="ot">,</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Data Management</span><span class="ch">\/</span><span class="st">Process"</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"compilance-level"</span><span class="fu">:{</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"national"</span><span class="fu">:</span><span class="st">"Mandatory if applicable"</span><span class="fu">,</span></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"minimal"</span><span class="fu">:</span><span class="st">"Mandatory if applicable"</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="er">...</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span><span class="er">,</span></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="er">"013":</span><span class="fu">{</span></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"tag"</span><span class="fu">:</span><span class="st">"013"</span><span class="fu">,</span></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"label"</span><span class="fu">:</span><span class="st">"Patent Control Information"</span><span class="fu">,</span></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"url"</span><span class="fu">:</span><span class="st">"https:</span><span class="ch">\/\/</span><span class="st">www.loc.gov</span><span class="ch">\/</span><span class="st">marc</span><span class="ch">\/</span><span class="st">bibliographic</span><span class="ch">\/</span><span class="st">bd013.html"</span><span class="fu">,</span></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"repeatable"</span><span class="fu">:</span><span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"compilance-level"</span><span class="fu">:{</span><span class="dt">"national"</span><span class="fu">:</span><span class="st">"Optional"</span><span class="fu">},</span></span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"indicator1"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"indicator2"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"subfields"</span><span class="fu">:{</span></span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    <span class="er">...</span></span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"b"</span><span class="fu">:{</span></span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"label"</span><span class="fu">:</span><span class="st">"Country"</span><span class="fu">,</span></span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"repeatable"</span><span class="fu">:</span><span class="kw">false</span><span class="fu">,</span></span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"codelist"</span><span class="fu">:{</span></span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"name"</span><span class="fu">:</span><span class="st">"MARC Code List for Countries"</span><span class="fu">,</span></span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"url"</span><span class="fu">:</span><span class="st">"http:</span><span class="ch">\/\/</span><span class="st">www.loc.gov</span><span class="ch">\/</span><span class="st">marc</span><span class="ch">\/</span><span class="st">countries</span><span class="ch">\/</span><span class="st">countries_code.html"</span><span class="fu">,</span></span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"codes"</span><span class="fu">:{</span></span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>          <span class="dt">"aa"</span><span class="fu">:{</span><span class="dt">"label"</span><span class="fu">:</span><span class="st">"Albania"</span><span class="fu">},</span></span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>          <span class="dt">"abc"</span><span class="fu">:{</span><span class="dt">"label"</span><span class="fu">:</span><span class="st">"Alberta"</span><span class="fu">},</span></span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>          <span class="dt">"-ac"</span><span class="fu">:{</span><span class="dt">"label"</span><span class="fu">:</span><span class="st">"Ashmore and Cartier Islands"</span><span class="fu">},</span></span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>          <span class="dt">"aca"</span><span class="fu">:{</span><span class="dt">"label"</span><span class="fu">:</span><span class="st">"Australian Capital Territory"</span><span class="fu">},</span></span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>          <span class="er">...</span></span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>        <span class="fu">},</span></span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>        <span class="er">...</span></span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
-<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>    <span class="er">...</span></span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
-<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span><span class="er">,</span></span>
-<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a><span class="er">...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The script version generates 3 files, with different details: * <code>avram-schemas/marc-schema.json</code> * <code>avram-schemas/marc-schema-with-solr.json</code> * <code>avram-schemas/marc-schema-with-solr-and-extensions.json</code></p>
-<p>To validate these files install the Avram reference implementation in Node with <code>npm ci</code> and run:</p>
-<pre><code>./avram-schemas/validate-schemas</code></pre>
-</section>
-<section id="to-html" class="level2" data-number="17.2">
-<h2 data-number="17.2" class="anchored" data-anchor-id="to-html"><span class="header-section-number">17.2</span> to HTML</h2>
-<p>To export the HTML table described at <a href="http://pkiraly.github.io/2017/09/24/mapping/">Self Descriptive MARC code</a></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">java</span> <span class="at">-cp</span> <span class="va">$JAR</span> de.gwdg.metadataqa.marc.cli.utils.MappingToHtml <span class="op">&gt;</span> mapping.html</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>To export the most used forms of the schema into into directory <a href="https://github.com/pkiraly/qa-catalogue/tree/main/avram-schemas"><code>avram-schemas/</code></a>, call:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./qa-catalogue</span> export-schema-files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The script version generates 3 files, with different details:</p>
+<ul>
+<li><code>avram-schemas/marc.json</code> (valid Avram)</li>
+<li><code>avram-schemas/marc-schema-with-solr.json</code></li>
+<li><code>avram-schemas/marc-schema-with-solr-and-extensions.json</code></li>
+</ul>
+<div id="lst-avram-example" class="listing quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-avram-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Listing&nbsp;17.1: An excerpt of the MARC21 Avram Schema with extension <code>compliance-level</code>, <code>frbr-functions</code>, and code lists
+</figcaption>
+<div aria-describedby="lst-avram-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="sourceCode" id="lst-avram-example"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="lst-avram-example-1"><a href="#lst-avram-example-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="lst-avram-example-2"><a href="#lst-avram-example-2" aria-hidden="true" tabindex="-1"></a><span class="dt">"010"</span><span class="fu">:{</span></span>
+<span id="lst-avram-example-3"><a href="#lst-avram-example-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"tag"</span><span class="fu">:</span><span class="st">"010"</span><span class="fu">,</span></span>
+<span id="lst-avram-example-4"><a href="#lst-avram-example-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"label"</span><span class="fu">:</span><span class="st">"Library of Congress Control Number"</span><span class="fu">,</span></span>
+<span id="lst-avram-example-5"><a href="#lst-avram-example-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"url"</span><span class="fu">:</span><span class="st">"https://www.loc.gov/marc/bibliographic/bd010.html"</span><span class="fu">,</span></span>
+<span id="lst-avram-example-6"><a href="#lst-avram-example-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"repeatable"</span><span class="fu">:</span><span class="kw">false</span><span class="fu">,</span></span>
+<span id="lst-avram-example-7"><a href="#lst-avram-example-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"compilance-level"</span><span class="fu">:{</span></span>
+<span id="lst-avram-example-8"><a href="#lst-avram-example-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"national"</span><span class="fu">:</span><span class="st">"Mandatory if applicable"</span><span class="fu">,</span></span>
+<span id="lst-avram-example-9"><a href="#lst-avram-example-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"minimal"</span><span class="fu">:</span><span class="st">"Mandatory if applicable"</span></span>
+<span id="lst-avram-example-10"><a href="#lst-avram-example-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="lst-avram-example-11"><a href="#lst-avram-example-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"indicator1"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
+<span id="lst-avram-example-12"><a href="#lst-avram-example-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"indicator2"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
+<span id="lst-avram-example-13"><a href="#lst-avram-example-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"subfields"</span><span class="fu">:{</span></span>
+<span id="lst-avram-example-14"><a href="#lst-avram-example-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"a"</span><span class="fu">:{</span></span>
+<span id="lst-avram-example-15"><a href="#lst-avram-example-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"label"</span><span class="fu">:</span><span class="st">"LC control number"</span><span class="fu">,</span></span>
+<span id="lst-avram-example-16"><a href="#lst-avram-example-16" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"repeatable"</span><span class="fu">:</span><span class="kw">false</span><span class="fu">,</span></span>
+<span id="lst-avram-example-17"><a href="#lst-avram-example-17" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"frbr-functions"</span><span class="fu">:</span><span class="ot">[</span></span>
+<span id="lst-avram-example-18"><a href="#lst-avram-example-18" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Data Management/Identify"</span><span class="ot">,</span></span>
+<span id="lst-avram-example-19"><a href="#lst-avram-example-19" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Data Management/Process"</span></span>
+<span id="lst-avram-example-20"><a href="#lst-avram-example-20" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span><span class="fu">,</span></span>
+<span id="lst-avram-example-21"><a href="#lst-avram-example-21" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"compilance-level"</span><span class="fu">:{</span></span>
+<span id="lst-avram-example-22"><a href="#lst-avram-example-22" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"national"</span><span class="fu">:</span><span class="st">"Mandatory if applicable"</span><span class="fu">,</span></span>
+<span id="lst-avram-example-23"><a href="#lst-avram-example-23" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"minimal"</span><span class="fu">:</span><span class="st">"Mandatory if applicable"</span></span>
+<span id="lst-avram-example-24"><a href="#lst-avram-example-24" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="lst-avram-example-25"><a href="#lst-avram-example-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
+<span id="lst-avram-example-26"><a href="#lst-avram-example-26" aria-hidden="true" tabindex="-1"></a>    <span class="er">...</span></span>
+<span id="lst-avram-example-27"><a href="#lst-avram-example-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="lst-avram-example-28"><a href="#lst-avram-example-28" aria-hidden="true" tabindex="-1"></a><span class="fu">},</span></span>
+<span id="lst-avram-example-29"><a href="#lst-avram-example-29" aria-hidden="true" tabindex="-1"></a><span class="dt">"013"</span><span class="fu">:{</span></span>
+<span id="lst-avram-example-30"><a href="#lst-avram-example-30" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"tag"</span><span class="fu">:</span><span class="st">"013"</span><span class="fu">,</span></span>
+<span id="lst-avram-example-31"><a href="#lst-avram-example-31" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"label"</span><span class="fu">:</span><span class="st">"Patent Control Information"</span><span class="fu">,</span></span>
+<span id="lst-avram-example-32"><a href="#lst-avram-example-32" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"url"</span><span class="fu">:</span><span class="st">"https://www.loc.gov/marc/bibliographic/bd013.html"</span><span class="fu">,</span></span>
+<span id="lst-avram-example-33"><a href="#lst-avram-example-33" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"repeatable"</span><span class="fu">:</span><span class="kw">true</span><span class="fu">,</span></span>
+<span id="lst-avram-example-34"><a href="#lst-avram-example-34" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"compilance-level"</span><span class="fu">:{</span><span class="dt">"national"</span><span class="fu">:</span><span class="st">"Optional"</span><span class="fu">},</span></span>
+<span id="lst-avram-example-35"><a href="#lst-avram-example-35" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"indicator1"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
+<span id="lst-avram-example-36"><a href="#lst-avram-example-36" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"indicator2"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
+<span id="lst-avram-example-37"><a href="#lst-avram-example-37" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"subfields"</span><span class="fu">:{</span></span>
+<span id="lst-avram-example-38"><a href="#lst-avram-example-38" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"b"</span><span class="fu">:{</span></span>
+<span id="lst-avram-example-39"><a href="#lst-avram-example-39" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"label"</span><span class="fu">:</span><span class="st">"Country"</span><span class="fu">,</span></span>
+<span id="lst-avram-example-40"><a href="#lst-avram-example-40" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"repeatable"</span><span class="fu">:</span><span class="kw">false</span><span class="fu">,</span></span>
+<span id="lst-avram-example-41"><a href="#lst-avram-example-41" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"codelist"</span><span class="fu">:{</span></span>
+<span id="lst-avram-example-42"><a href="#lst-avram-example-42" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"name"</span><span class="fu">:</span><span class="st">"MARC Code List for Countries"</span><span class="fu">,</span></span>
+<span id="lst-avram-example-43"><a href="#lst-avram-example-43" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"url"</span><span class="fu">:</span><span class="st">"http://www.loc.gov/marc/countries/countries_code.html"</span><span class="fu">,</span></span>
+<span id="lst-avram-example-44"><a href="#lst-avram-example-44" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"codes"</span><span class="fu">:{</span></span>
+<span id="lst-avram-example-45"><a href="#lst-avram-example-45" aria-hidden="true" tabindex="-1"></a>          <span class="dt">"aa"</span><span class="fu">:{</span><span class="dt">"label"</span><span class="fu">:</span><span class="st">"Albania"</span><span class="fu">},</span></span>
+<span id="lst-avram-example-46"><a href="#lst-avram-example-46" aria-hidden="true" tabindex="-1"></a>          <span class="dt">"abc"</span><span class="fu">:{</span><span class="dt">"label"</span><span class="fu">:</span><span class="st">"Alberta"</span><span class="fu">},</span></span>
+<span id="lst-avram-example-47"><a href="#lst-avram-example-47" aria-hidden="true" tabindex="-1"></a>          <span class="dt">"-ac"</span><span class="fu">:{</span><span class="dt">"label"</span><span class="fu">:</span><span class="st">"Ashmore and Cartier Islands"</span><span class="fu">},</span></span>
+<span id="lst-avram-example-48"><a href="#lst-avram-example-48" aria-hidden="true" tabindex="-1"></a>          <span class="dt">"aca"</span><span class="fu">:{</span><span class="dt">"label"</span><span class="fu">:</span><span class="st">"Australian Capital Territory"</span><span class="fu">},</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</figure>
+</div>
 
 
 </section>
@@ -883,4 +915,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-</body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/pkiraly/qa-catalogue/blob/main/avram-schemas.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/pkiraly/qa-catalogue/edit/main/avram-schemas.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li><li><a href="https://github.com/pkiraly/qa-catalogue/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

@@ -14,7 +14,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Set up Quarto
+      - name: Set up Quarto (Install Quarto)
         uses: quarto-dev/quarto-actions/setup@v2
 
       - name: Setup Node

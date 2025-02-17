@@ -34,6 +34,16 @@ options:
 * `-V`, `--advanced`: advanced mode (not yet implemented)
 * `-P`, `--onlyPackages`: only packages (not yet implemented)
 
+```{mermaid}
+flowchart LR
+  A(Catalogue) --> B[completeness]
+  B --> C(marc-elements.csv)
+  B --> D(packages.csv)
+  B --> E(libraries.csv)
+  B --> F(libraries003.csv)
+  B --> G(completeness.params.json)
+```
+
 ## Output files:
 
 ### marc-elements.csv

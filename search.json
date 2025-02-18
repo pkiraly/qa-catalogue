@@ -478,5 +478,27 @@
       "Appendices",
       "<span class='chapter-number'>F</span>  <span class='chapter-title'>Build Docker image</span>"
     ]
+  },
+  {
+    "objectID": "contributing.html",
+    "href": "contributing.html",
+    "title": "Appendix G — Contributing",
+    "section": "",
+    "text": "G.1 Documentation\nQA catalogue is developed in a git repository at https://github.com/pkiraly/qa-catalogue. Bug reports and feature requests are managed in the corresponding issue tracker.\nContribution is welcome at:\nThe documentation is build with quarto. It is published at https://pkiraly.github.io/qa-catalogue/ with every change on the main branch and on the docs branch.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>G</span>  <span class='chapter-title'>Contributing</span>"
+    ]
+  },
+  {
+    "objectID": "contributing.html#source-code",
+    "href": "contributing.html#source-code",
+    "title": "Appendix G — Contributing",
+    "section": "G.2 Source code",
+    "text": "G.2 Source code\nWe try to follow this git workflow:\n\nG.2.1 1st scenario: preparing the first pull request\nclone QA catalogue at https://github.com/pkiraly/qa-catalogue.git then\ngit clone https://github.com/YOUR_NAME/qa-catalogue.git qa-catalogue\ncd qa-catalogue\ncreate a new branch locally for the pull request (the name should reflect the ticket ID and title)\ngit checkout -b 123-COOL-FEATURE\nworking on the branch … then commit changes\ngit commit -am \"issue #123: explanation of changes\"\nupload the new branch to https://github.com/YOUR_NAME/qa-catalogue\ngit push -u origin 123-COOL-FEATURE\n… then create pull request at github.com/YOUR_NAME/qa-catalogue\n\n\nG.2.2 2nd scenario: preparing another pull request some month later\nregister the main QA catalogue repo\ngit remote add upstream https://github.com/pkiraly/qa-catalogue.git\n\ngit checkout main\nupdate local develop branch from https://github.com/pkiraly/qa-catalogue\ngit fetch upstream main\ngit rebase upstream/main\nupdate remote develop branch at https://github.com/YOUR_NAME/qa-catalogue\ngit push\ncreate a new branch locally for the pull request\ngit checkout -b 123-COOL-FEATURE\nwork on the branch and commit changes\ngit commit -am \"#123 explanation of changes\"\nupload the new branch to https://github.com/YOUR_NAME/qa-catalogue\ngit push -u origin 123-COOL-FEATURE\n… then create pull request at github.com/YOUR_NAME/qa-catalogue\n\n\nG.2.3 3rd scenario: synchronize your branch with main branch\ngit checkout main\nupdate local develop branch from https://github.com/pkiraly/qa-catalogue\ngit fetch upstream main\ngit rebase upstream/main\nupdate remote develop branch at https://github.com/YOUR_NAME/qa-catalogue\ngit push\nchange to the already existing feature branch\ngit checkout 123-COOL-FEATURE\nmerge changes of develop to the feature branch\ngit merge main\ncheck if there are conflicts, if there are follow the next command, otherwise skip to next block 1. fix the relevant files (including testing) 2. commit changes\ngit add &lt;fixed files&gt;\ngit commit\nupdate remote feature branch at https://github.com/YOUR_NAME/qa-catalogue\ngit push",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>G</span>  <span class='chapter-title'>Contributing</span>"
+    ]
   }
 ]

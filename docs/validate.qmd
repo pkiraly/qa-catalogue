@@ -130,7 +130,8 @@ flowchart LR
   B --> L(validation.params.json)
 ```
 
-Outputs:
+## Outputs:
+
 * `count.csv`: the count of bibliographic records in the source dataset
 ```csv
 total

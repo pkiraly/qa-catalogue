@@ -102,6 +102,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -570,6 +573,29 @@ window.Quarto = {
 <li><code>invalidValue</code>: invalid value</li>
 </ul></li>
 </ul>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  A(Catalogue) --&gt; B[validate]
+  B --&gt; C(count.csv)
+  B --&gt; D(issue-by-category.csv)
+  B --&gt; E(issue-by-type.csv)
+  B --&gt; F(issue-summary.csv)
+  B --&gt; G(issue-details.csv)
+  B --&gt; H(issue-details-normalized.csv)
+  B --&gt; I(issue-total.csv)
+  B --&gt; J(issue-collector.csv)
+  B --&gt; K(id-groupid.csv)
+  B --&gt; L(validation.params.json)
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 <p>Outputs: * <code>count.csv</code>: the count of bibliographic records in the source dataset</p>
 <pre class="csv"><code>total
 1192536</code></pre>

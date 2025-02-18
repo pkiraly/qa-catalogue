@@ -9,7 +9,7 @@ resources:
 
 book:
   title: "QA Catalogue"
-  author: "Péter Király"
+  author: "Péter Király, Jakob Voß"
   date: "2025-02-14"
   repo-actions:
     - source

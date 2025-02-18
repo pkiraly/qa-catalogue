@@ -133,6 +133,7 @@ flowchart LR
 ## Outputs:
 
 * `count.csv`: the count of bibliographic records in the source dataset
+
 ```csv
 total
 1192536

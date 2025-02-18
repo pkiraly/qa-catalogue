@@ -130,16 +130,21 @@ flowchart LR
   B --> L(validation.params.json)
 ```
 
-## Outputs:
+## Output files
 
-* `count.csv`: the count of bibliographic records in the source dataset
+### count.csv
+
+The count of bibliographic records in the source dataset
 
 ```csv
 total
 1192536
 ```
 
-* `issue-by-category.csv`: the counts of issues by categories. Columns:
+### issue-by-category.csv
+
+The counts of issues by categories. Columns:
+
   * `id` the identifier of error category
   * `category` the name of the category
   * `instances` the number of instances of errors within the category (one record might have multiple instances of the same error)
@@ -153,7 +158,9 @@ id,category,instances,records
 5,subfield,571,555
 ```
  
-* `issue-by-type.csv`: the count of issues by types (subcategories).
+### issue-by-type.csv
+
+The count of issues by types (subcategories).
 
 ```csv
 id,categoryId,category,type,instances,records
@@ -172,7 +179,9 @@ id,categoryId,category,type,instances,records
 19,5,subfield,"invalid ISSN",105,105
 ```
  
-* `issue-summary.csv`: details of individual issues including basic statistics
+### issue-summary.csv
+
+Details of individual issues including basic statistics
 
 ```csv
 id,MarcPath,categoryId,typeId,type,message,url,instances,records
@@ -183,8 +192,9 @@ id,MarcPath,categoryId,typeId,type,message,url,instances,records
 17,008/29 (008book29),2,6,invalid value, ,https://www.loc.gov/marc/bibliographic/bd008b.html,1,1
 ```
 
-* `issue-details.csv`: list of issues by record identifiers. It has two columns, the record identifier, and a 
-  complex string, which contains the number of occurrences of each individual issue concatenated by semicolon.
+### issue-details.csv
+
+List of issues by record identifiers. It has two columns, the record identifier, and a complex string, which contains the number of occurrences of each individual issue concatenated by semicolon.
 
 ```csv
 recordId,errors
@@ -198,7 +208,9 @@ recordId,errors
 occurred twice, issue ID 2 which occurred once and issue ID 3, which occurred once. The issue IDs can be resolved 
 from the `issue-summary.csv` file's firs column.
 
-* `issue-details-normalized.csv`: the normalized version of the previous file
+### issue-details-normalized.csv
+
+The normalized version of the previous file
 
 ```csv
 id,errorId,instances
@@ -210,7 +222,9 @@ id,errorId,instances
 99117335059505508,3,1
 ```
 
-* `issue-total.csv`: the number of issue free records, and number of record having issues
+### issue-total.csv
+
+The number of issue free records, and number of record having issues
 
 ```csv
 type,instances,records
@@ -224,7 +238,9 @@ where types are
 - 1: records with any kinds of errors
 - 2: records with errors excluding invalid field errors
 
-* `issue-collector.csv`: non normalized file of record ids per issues. This is the "inverse" of `issue-details.csv`, 
+### issue-collector.csv
+
+Non normalized file of record ids per issues. This is the "inverse" of `issue-details.csv`,
   it tells you in which records a particular issue occurred. 
 
 ```csv
@@ -232,7 +248,9 @@ errorId,recordIds
 1,99117329355705508;99117328948305508;99117334968905508;99117335067705508;99117335176005508;...
 ```
 
-* `validation.params.json`: the list of the actual parameters during the running of the validation
+### validation.params.json
+
+The list of the actual parameters during the running of the validation
 
 An example with parameters used for analysing a PICA dataset. When the input is a complex expression it is displayed 
 here in a parsed format. It also contains some metadata such as the versions of MQFA API and QA catalogue.
@@ -310,7 +328,9 @@ here in a parsed format. It also contains some metadata such as the versions of 
 }
 ```
 
-* `id-groupid.csv`: the pairs of record identifiers - group identifiers.
+### id-groupid.csv
+
+The pairs of record identifiers - group identifiers.
 
 ```csv
 id,groupId
@@ -321,7 +341,7 @@ id,groupId
 010000011,20
 ```
 
-Currently, validation detects the following errors:
+## validation detects the following errors:
 
 Leader specific errors:
 

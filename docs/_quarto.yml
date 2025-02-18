@@ -47,6 +47,7 @@ book:
     - supporters-and-sponsors.qmd
     - special-build-process.qmd
     - build-docker-image.qmd
+    - contributing.qmd
 #    - apidoc.qmd
 #    - summary.qmd
 #    - references.qmd

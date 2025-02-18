@@ -115,6 +115,21 @@ options:
   * `nullCode`: null subfield code
   * `invalidValue`: invalid value
 
+```{mermaid}
+flowchart LR
+  A(Catalogue) --> B[validate]
+  B --> C(count.csv)
+  B --> D(issue-by-category.csv)
+  B --> E(issue-by-type.csv)
+  B --> F(issue-summary.csv)
+  B --> G(issue-details.csv)
+  B --> H(issue-details-normalized.csv)
+  B --> I(issue-total.csv)
+  B --> J(issue-collector.csv)
+  B --> K(id-groupid.csv)
+  B --> L(validation.params.json)
+```
+
 Outputs:
 * `count.csv`: the count of bibliographic records in the source dataset
 ```csv

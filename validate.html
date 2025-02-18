@@ -372,7 +372,20 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#outputs" id="toc-outputs" class="nav-link active" data-scroll-target="#outputs"><span class="header-section-number">4.1</span> Outputs:</a></li>
+  <li><a href="#output-files" id="toc-output-files" class="nav-link active" data-scroll-target="#output-files"><span class="header-section-number">4.1</span> Output files</a>
+  <ul class="collapse">
+  <li><a href="#count.csv" id="toc-count.csv" class="nav-link" data-scroll-target="#count.csv"><span class="header-section-number">4.1.1</span> count.csv</a></li>
+  <li><a href="#issue-by-category.csv" id="toc-issue-by-category.csv" class="nav-link" data-scroll-target="#issue-by-category.csv"><span class="header-section-number">4.1.2</span> issue-by-category.csv</a></li>
+  <li><a href="#issue-by-type.csv" id="toc-issue-by-type.csv" class="nav-link" data-scroll-target="#issue-by-type.csv"><span class="header-section-number">4.1.3</span> issue-by-type.csv</a></li>
+  <li><a href="#issue-summary.csv" id="toc-issue-summary.csv" class="nav-link" data-scroll-target="#issue-summary.csv"><span class="header-section-number">4.1.4</span> issue-summary.csv</a></li>
+  <li><a href="#issue-details.csv" id="toc-issue-details.csv" class="nav-link" data-scroll-target="#issue-details.csv"><span class="header-section-number">4.1.5</span> issue-details.csv</a></li>
+  <li><a href="#issue-details-normalized.csv" id="toc-issue-details-normalized.csv" class="nav-link" data-scroll-target="#issue-details-normalized.csv"><span class="header-section-number">4.1.6</span> issue-details-normalized.csv</a></li>
+  <li><a href="#issue-total.csv" id="toc-issue-total.csv" class="nav-link" data-scroll-target="#issue-total.csv"><span class="header-section-number">4.1.7</span> issue-total.csv</a></li>
+  <li><a href="#issue-collector.csv" id="toc-issue-collector.csv" class="nav-link" data-scroll-target="#issue-collector.csv"><span class="header-section-number">4.1.8</span> issue-collector.csv</a></li>
+  <li><a href="#validation.params.json" id="toc-validation.params.json" class="nav-link" data-scroll-target="#validation.params.json"><span class="header-section-number">4.1.9</span> validation.params.json</a></li>
+  <li><a href="#id-groupid.csv" id="toc-id-groupid.csv" class="nav-link" data-scroll-target="#id-groupid.csv"><span class="header-section-number">4.1.10</span> id-groupid.csv</a></li>
+  </ul></li>
+  <li><a href="#validation-detects-the-following-errors" id="toc-validation-detects-the-following-errors" class="nav-link" data-scroll-target="#validation-detects-the-following-errors"><span class="header-section-number">4.2</span> validation detects the following errors:</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/pkiraly/qa-catalogue/blob/main/validate.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/pkiraly/qa-catalogue/edit/main/validate.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li><li><a href="https://github.com/pkiraly/qa-catalogue/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -602,30 +615,32 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<section id="outputs" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="outputs"><span class="header-section-number">4.1</span> Outputs:</h2>
-<ul>
-<li><code>count.csv</code>: the count of bibliographic records in the source dataset</li>
-</ul>
+<section id="output-files" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="output-files"><span class="header-section-number">4.1</span> Output files</h2>
+<section id="count.csv" class="level3" data-number="4.1.1">
+<h3 data-number="4.1.1" class="anchored" data-anchor-id="count.csv"><span class="header-section-number">4.1.1</span> count.csv</h3>
+<p>The count of bibliographic records in the source dataset</p>
 <pre class="csv"><code>total
 1192536</code></pre>
-<ul>
-<li><code>issue-by-category.csv</code>: the counts of issues by categories. Columns:
+</section>
+<section id="issue-by-category.csv" class="level3" data-number="4.1.2">
+<h3 data-number="4.1.2" class="anchored" data-anchor-id="issue-by-category.csv"><span class="header-section-number">4.1.2</span> issue-by-category.csv</h3>
+<p>The counts of issues by categories. Columns:</p>
 <ul>
 <li><code>id</code> the identifier of error category</li>
 <li><code>category</code> the name of the category</li>
 <li><code>instances</code> the number of instances of errors within the category (one record might have multiple instances of the same error)</li>
 <li><code>records</code> the number of records having at least one of the errors within the category</li>
-</ul></li>
 </ul>
 <pre class="csv"><code>id,category,instances,records
 2,control field,994241,313960
 3,data field,12,12
 4,indicator,5990,5041
 5,subfield,571,555</code></pre>
-<ul>
-<li><code>issue-by-type.csv</code>: the count of issues by types (subcategories).</li>
-</ul>
+</section>
+<section id="issue-by-type.csv" class="level3" data-number="4.1.3">
+<h3 data-number="4.1.3" class="anchored" data-anchor-id="issue-by-type.csv"><span class="header-section-number">4.1.3</span> issue-by-type.csv</h3>
+<p>The count of issues by types (subcategories).</p>
 <pre class="csv"><code>id,categoryId,category,type,instances,records
 5,2,control field,"invalid code",951,541
 6,2,control field,"invalid value",993290,313733
@@ -640,27 +655,30 @@ window.Quarto = {
 17,5,subfield,"repetition of non-repeatable subfield",123,120
 18,5,subfield,"invalid ISBN",5,3
 19,5,subfield,"invalid ISSN",105,105</code></pre>
-<ul>
-<li><code>issue-summary.csv</code>: details of individual issues including basic statistics</li>
-</ul>
+</section>
+<section id="issue-summary.csv" class="level3" data-number="4.1.4">
+<h3 data-number="4.1.4" class="anchored" data-anchor-id="issue-summary.csv"><span class="header-section-number">4.1.4</span> issue-summary.csv</h3>
+<p>Details of individual issues including basic statistics</p>
 <pre class="csv"><code>id,MarcPath,categoryId,typeId,type,message,url,instances,records
 53,008/33-34 (008map33),2,5,invalid code,'b' in 'b ',https://www.loc.gov/marc/bibliographic/bd008p.html,1,1
 70,008/00-05 (008all00),2,5,invalid code,Invalid content: '2023  '. Text '2023  ' could not be parsed at index 4,https://www.loc.gov/marc/bibliographic/bd008a.html,1,1
 28,008/22-23 (008map22),2,6,invalid value,| ,https://www.loc.gov/marc/bibliographic/bd008p.html,12,12
 19,008/31 (008book31),2,6,invalid value, ,https://www.loc.gov/marc/bibliographic/bd008b.html,1,1
 17,008/29 (008book29),2,6,invalid value, ,https://www.loc.gov/marc/bibliographic/bd008b.html,1,1</code></pre>
-<ul>
-<li><code>issue-details.csv</code>: list of issues by record identifiers. It has two columns, the record identifier, and a complex string, which contains the number of occurrences of each individual issue concatenated by semicolon.</li>
-</ul>
+</section>
+<section id="issue-details.csv" class="level3" data-number="4.1.5">
+<h3 data-number="4.1.5" class="anchored" data-anchor-id="issue-details.csv"><span class="header-section-number">4.1.5</span> issue-details.csv</h3>
+<p>List of issues by record identifiers. It has two columns, the record identifier, and a complex string, which contains the number of occurrences of each individual issue concatenated by semicolon.</p>
 <pre class="csv"><code>recordId,errors
 99117335059205508,1:2;2:1;3:1
 99117335059305508,1:1
 99117335059405508,2:2
 99117335059505508,3:1</code></pre>
 <p><code>1:2;2:1;3:1</code> means that 3 different types of issues are occurred in the record, the firs issue which has issue ID 1 occurred twice, issue ID 2 which occurred once and issue ID 3, which occurred once. The issue IDs can be resolved from the <code>issue-summary.csv</code> file’s firs column.</p>
-<ul>
-<li><code>issue-details-normalized.csv</code>: the normalized version of the previous file</li>
-</ul>
+</section>
+<section id="issue-details-normalized.csv" class="level3" data-number="4.1.6">
+<h3 data-number="4.1.6" class="anchored" data-anchor-id="issue-details-normalized.csv"><span class="header-section-number">4.1.6</span> issue-details-normalized.csv</h3>
+<p>The normalized version of the previous file</p>
 <pre class="csv"><code>id,errorId,instances
 99117335059205508,1,2
 99117335059205508,2,1
@@ -668,22 +686,25 @@ window.Quarto = {
 99117335059305508,1,1
 99117335059405508,2,2
 99117335059505508,3,1</code></pre>
-<ul>
-<li><code>issue-total.csv</code>: the number of issue free records, and number of record having issues</li>
-</ul>
+</section>
+<section id="issue-total.csv" class="level3" data-number="4.1.7">
+<h3 data-number="4.1.7" class="anchored" data-anchor-id="issue-total.csv"><span class="header-section-number">4.1.7</span> issue-total.csv</h3>
+<p>The number of issue free records, and number of record having issues</p>
 <pre class="csv"><code>type,instances,records
 0,0,251
 1,1711,848
 2,413,275</code></pre>
 <p>where types are - 0: records without errors - 1: records with any kinds of errors - 2: records with errors excluding invalid field errors</p>
-<ul>
-<li><code>issue-collector.csv</code>: non normalized file of record ids per issues. This is the “inverse” of <code>issue-details.csv</code>, it tells you in which records a particular issue occurred.</li>
-</ul>
+</section>
+<section id="issue-collector.csv" class="level3" data-number="4.1.8">
+<h3 data-number="4.1.8" class="anchored" data-anchor-id="issue-collector.csv"><span class="header-section-number">4.1.8</span> issue-collector.csv</h3>
+<p>Non normalized file of record ids per issues. This is the “inverse” of <code>issue-details.csv</code>, it tells you in which records a particular issue occurred.</p>
 <pre class="csv"><code>errorId,recordIds
 1,99117329355705508;99117328948305508;99117334968905508;99117335067705508;99117335176005508;...</code></pre>
-<ul>
-<li><code>validation.params.json</code>: the list of the actual parameters during the running of the validation</li>
-</ul>
+</section>
+<section id="validation.params.json" class="level3" data-number="4.1.9">
+<h3 data-number="4.1.9" class="anchored" data-anchor-id="validation.params.json"><span class="header-section-number">4.1.9</span> validation.params.json</h3>
+<p>The list of the actual parameters during the running of the validation</p>
 <p>An example with parameters used for analysing a PICA dataset. When the input is a complex expression it is displayed here in a parsed format. It also contains some metadata such as the versions of MQFA API and QA catalogue.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"args"</span><span class="fu">:</span><span class="ot">[</span><span class="st">"/path/to/input.dat"</span><span class="ot">]</span><span class="fu">,</span></span>
@@ -755,16 +776,20 @@ window.Quarto = {
 <span id="cb13-68"><a href="#cb13-68" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"mqaf.version"</span><span class="fu">:</span><span class="st">"0.9.2"</span><span class="fu">,</span></span>
 <span id="cb13-69"><a href="#cb13-69" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"qa-catalogue.version"</span><span class="fu">:</span><span class="st">"0.7.0-SNAPSHOT"</span></span>
 <span id="cb13-70"><a href="#cb13-70" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ul>
-<li><code>id-groupid.csv</code>: the pairs of record identifiers - group identifiers.</li>
-</ul>
+</section>
+<section id="id-groupid.csv" class="level3" data-number="4.1.10">
+<h3 data-number="4.1.10" class="anchored" data-anchor-id="id-groupid.csv"><span class="header-section-number">4.1.10</span> id-groupid.csv</h3>
+<p>The pairs of record identifiers - group identifiers.</p>
 <pre class="csv"><code>id,groupId
 010000011,0
 010000011,77
 010000011,2035
 010000011,70
 010000011,20</code></pre>
-<p>Currently, validation detects the following errors:</p>
+</section>
+</section>
+<section id="validation-detects-the-following-errors" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="validation-detects-the-following-errors"><span class="header-section-number">4.2</span> validation detects the following errors:</h2>
 <p>Leader specific errors:</p>
 <ul>
 <li>Leader/[position] has an invalid value: ‘[value]’ (e.g.&nbsp;<code>Leader/19 (leader19) has an invalid value: '4'</code>)</li>
@@ -850,8 +875,8 @@ get the number of records having errors
 awk -F "\t" '{print $1}' validation-report.txt | uniq -c | wc -l
 ```
 -->
-<section id="post-processing-validation-result-validate-sqlite" class="level4" data-number="4.1.0.1">
-<h4 data-number="4.1.0.1" class="anchored" data-anchor-id="post-processing-validation-result-validate-sqlite"><span class="header-section-number">4.1.0.1</span> post processing validation result (validate-sqlite)</h4>
+<section id="post-processing-validation-result-validate-sqlite" class="level4" data-number="4.2.0.1">
+<h4 data-number="4.2.0.1" class="anchored" data-anchor-id="post-processing-validation-result-validate-sqlite"><span class="header-section-number">4.2.0.1</span> post processing validation result (validate-sqlite)</h4>
 <p>Usage:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">catalogues/</span><span class="op">&lt;</span>catalogue<span class="op">&gt;</span>.sh validate-sqlite</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>or</p>
@@ -859,8 +884,8 @@ awk -F "\t" '{print $1}' validation-report.txt | uniq -c | wc -l
 <p>or</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./common-script</span> <span class="pp">[</span><span class="ss">options</span><span class="pp">]</span> validate-sqlite</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>[options] are the same as for validation</p>
-<section id="catalogue-for-a-single-library" class="level5" data-number="4.1.0.1.1">
-<h5 data-number="4.1.0.1.1" class="anchored" data-anchor-id="catalogue-for-a-single-library"><span class="header-section-number">4.1.0.1.1</span> Catalogue for a single library</h5>
+<section id="catalogue-for-a-single-library" class="level5" data-number="4.2.0.1.1">
+<h5 data-number="4.2.0.1.1" class="anchored" data-anchor-id="catalogue-for-a-single-library"><span class="header-section-number">4.2.0.1.1</span> Catalogue for a single library</h5>
 <p>If the data is <em>not</em> grouped by libraries (no <code>--groupBy &lt;path&gt;</code> parameter), it creates the following SQLite3 database structure and import some of the CSV files into it:</p>
 <p><code>issue_summary</code> table for the <code>issue-summary.csv</code>:</p>
 <p>It represents a particular type of error</p>
@@ -879,8 +904,8 @@ records    INTEGER   -- the number of records this error occured in</code></pre>
 errorId    INTEGER, -- the error identifier (-&gt; issue_summary.id)
 instances  INTEGER  -- the number of instances of an error in the record</code></pre>
 </section>
-<section id="union-catalogue-for-multiple-libraries" class="level5" data-number="4.1.0.1.2">
-<h5 data-number="4.1.0.1.2" class="anchored" data-anchor-id="union-catalogue-for-multiple-libraries"><span class="header-section-number">4.1.0.1.2</span> Union catalogue for multiple libraries</h5>
+<section id="union-catalogue-for-multiple-libraries" class="level5" data-number="4.2.0.1.2">
+<h5 data-number="4.2.0.1.2" class="anchored" data-anchor-id="union-catalogue-for-multiple-libraries"><span class="header-section-number">4.2.0.1.2</span> Union catalogue for multiple libraries</h5>
 <p>If the dataset is a union catalogue, and the record contains a subfield for the libraries holding the item (there is <code>--groupBy &lt;path&gt;</code> parameter), it creates the following SQLite3 database structure and import some of the CSV files into it:</p>
 <p><code>issue_summary</code> table for the <code>issue-summary.csv</code> (it is similar to the other issue_summary table, but it has an extra <code>groupId</code> column)</p>
 <pre><code>groupId    INTEGER,

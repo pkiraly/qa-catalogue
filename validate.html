@@ -367,8 +367,14 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#outputs" id="toc-outputs" class="nav-link active" data-scroll-target="#outputs"><span class="header-section-number">4.1</span> Outputs:</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/pkiraly/qa-catalogue/blob/main/validate.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/pkiraly/qa-catalogue/edit/main/validate.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li><li><a href="https://github.com/pkiraly/qa-catalogue/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -596,7 +602,11 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>Outputs: * <code>count.csv</code>: the count of bibliographic records in the source dataset</p>
+<section id="outputs" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="outputs"><span class="header-section-number">4.1</span> Outputs:</h2>
+<ul>
+<li><code>count.csv</code>: the count of bibliographic records in the source dataset</li>
+</ul>
 <pre class="csv"><code>total
 1192536</code></pre>
 <ul>
@@ -840,8 +850,8 @@ get the number of records having errors
 awk -F "\t" '{print $1}' validation-report.txt | uniq -c | wc -l
 ```
 -->
-<section id="post-processing-validation-result-validate-sqlite" class="level4" data-number="4.0.0.1">
-<h4 data-number="4.0.0.1" class="anchored" data-anchor-id="post-processing-validation-result-validate-sqlite"><span class="header-section-number">4.0.0.1</span> post processing validation result (validate-sqlite)</h4>
+<section id="post-processing-validation-result-validate-sqlite" class="level4" data-number="4.1.0.1">
+<h4 data-number="4.1.0.1" class="anchored" data-anchor-id="post-processing-validation-result-validate-sqlite"><span class="header-section-number">4.1.0.1</span> post processing validation result (validate-sqlite)</h4>
 <p>Usage:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">catalogues/</span><span class="op">&lt;</span>catalogue<span class="op">&gt;</span>.sh validate-sqlite</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>or</p>
@@ -849,8 +859,8 @@ awk -F "\t" '{print $1}' validation-report.txt | uniq -c | wc -l
 <p>or</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./common-script</span> <span class="pp">[</span><span class="ss">options</span><span class="pp">]</span> validate-sqlite</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>[options] are the same as for validation</p>
-<section id="catalogue-for-a-single-library" class="level5" data-number="4.0.0.1.1">
-<h5 data-number="4.0.0.1.1" class="anchored" data-anchor-id="catalogue-for-a-single-library"><span class="header-section-number">4.0.0.1.1</span> Catalogue for a single library</h5>
+<section id="catalogue-for-a-single-library" class="level5" data-number="4.1.0.1.1">
+<h5 data-number="4.1.0.1.1" class="anchored" data-anchor-id="catalogue-for-a-single-library"><span class="header-section-number">4.1.0.1.1</span> Catalogue for a single library</h5>
 <p>If the data is <em>not</em> grouped by libraries (no <code>--groupBy &lt;path&gt;</code> parameter), it creates the following SQLite3 database structure and import some of the CSV files into it:</p>
 <p><code>issue_summary</code> table for the <code>issue-summary.csv</code>:</p>
 <p>It represents a particular type of error</p>
@@ -869,8 +879,8 @@ records    INTEGER   -- the number of records this error occured in</code></pre>
 errorId    INTEGER, -- the error identifier (-&gt; issue_summary.id)
 instances  INTEGER  -- the number of instances of an error in the record</code></pre>
 </section>
-<section id="union-catalogue-for-multiple-libraries" class="level5" data-number="4.0.0.1.2">
-<h5 data-number="4.0.0.1.2" class="anchored" data-anchor-id="union-catalogue-for-multiple-libraries"><span class="header-section-number">4.0.0.1.2</span> Union catalogue for multiple libraries</h5>
+<section id="union-catalogue-for-multiple-libraries" class="level5" data-number="4.1.0.1.2">
+<h5 data-number="4.1.0.1.2" class="anchored" data-anchor-id="union-catalogue-for-multiple-libraries"><span class="header-section-number">4.1.0.1.2</span> Union catalogue for multiple libraries</h5>
 <p>If the dataset is a union catalogue, and the record contains a subfield for the libraries holding the item (there is <code>--groupBy &lt;path&gt;</code> parameter), it creates the following SQLite3 database structure and import some of the CSV files into it:</p>
 <p><code>issue_summary</code> table for the <code>issue-summary.csv</code> (it is similar to the other issue_summary table, but it has an extra <code>groupId</code> column)</p>
 <pre><code>groupId    INTEGER,
@@ -909,6 +919,7 @@ instances  INTEGER</code></pre>
 <p>For union catalogues it also creates an extra Solr index with the suffix <code>_validation</code>. It contains one Solr document for each bibliographic record with three fields: the record identifier, the list of group identifiers and the list of error identifiers (if any). This Solr index is needed for populating the <code>issue_group_types</code>, <code>issue_group_categories</code> and <code>issue_group_paths</code> tables. This index will be ingested into the main Solr index.</p>
 
 
+</section>
 </section>
 </section>
 
@@ -1347,4 +1358,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/pkiraly/qa-catalogue/blob/main/validate.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/pkiraly/qa-catalogue/edit/main/validate.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li><li><a href="https://github.com/pkiraly/qa-catalogue/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/pkiraly/qa-catalogue/blob/main/validate.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/pkiraly/qa-catalogue/edit/main/validate.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li><li><a href="https://github.com/pkiraly/qa-catalogue/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

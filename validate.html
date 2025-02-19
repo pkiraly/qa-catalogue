@@ -385,7 +385,13 @@ window.Quarto = {
   <li><a href="#validation.params.json" id="toc-validation.params.json" class="nav-link" data-scroll-target="#validation.params.json"><span class="header-section-number">4.1.9</span> validation.params.json</a></li>
   <li><a href="#id-groupid.csv" id="toc-id-groupid.csv" class="nav-link" data-scroll-target="#id-groupid.csv"><span class="header-section-number">4.1.10</span> id-groupid.csv</a></li>
   </ul></li>
-  <li><a href="#validation-detects-the-following-errors" id="toc-validation-detects-the-following-errors" class="nav-link" data-scroll-target="#validation-detects-the-following-errors"><span class="header-section-number">4.2</span> validation detects the following errors:</a></li>
+  <li><a href="#validation-errors" id="toc-validation-errors" class="nav-link" data-scroll-target="#validation-errors"><span class="header-section-number">4.2</span> Validation errors</a></li>
+  <li><a href="#postprocessing" id="toc-postprocessing" class="nav-link" data-scroll-target="#postprocessing"><span class="header-section-number">4.3</span> Postprocessing</a>
+  <ul class="collapse">
+  <li><a href="#catalogue-for-a-single-library" id="toc-catalogue-for-a-single-library" class="nav-link" data-scroll-target="#catalogue-for-a-single-library"><span class="header-section-number">4.3.1</span> Catalogue for a single library</a></li>
+  <li><a href="#union-catalogue-for-multiple-libraries" id="toc-union-catalogue-for-multiple-libraries" class="nav-link" data-scroll-target="#union-catalogue-for-multiple-libraries"><span class="header-section-number">4.3.2</span> Union catalogue for multiple libraries</a></li>
+  </ul></li>
+  <li><a href="#internals" id="toc-internals" class="nav-link" data-scroll-target="#internals"><span class="header-section-number">4.4</span> Internals</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/pkiraly/qa-catalogue/blob/main/validate.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/pkiraly/qa-catalogue/edit/main/validate.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li><li><a href="https://github.com/pkiraly/qa-catalogue/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -537,24 +543,25 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<p>Usage:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">java</span> <span class="at">-cp</span> <span class="va">$JAR</span> de.gwdg.metadataqa.marc.cli.Validator <span class="pp">[</span><span class="ss">options</span><span class="pp">]</span> <span class="op">&lt;</span>file<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>or with a bash script</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./validator</span> <span class="pp">[</span><span class="ss">options</span><span class="pp">]</span> <span class="op">&lt;</span>file<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>or</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">catalogues/</span><span class="op">&lt;</span>catalogue<span class="op">&gt;</span>.sh validate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>or</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./qa-catalogue</span> <span class="at">--params</span><span class="op">=</span><span class="st">"[options]"</span> validate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>options:</p>
+<dl>
+<dt>Usage</dt>
+<dd>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>  <span class="ex">./qa-catalogue</span> <span class="at">--params</span><span class="op">=</span><span class="st">"[options]"</span> validate</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># or</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">catalogues/</span><span class="op">&lt;</span>catalogue<span class="op">&gt;</span>.sh validate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</dd>
+<dt>Options</dt>
+<dd>
 <ul>
-<li><a href="usage.html#general-parameters">general parameters</a></li>
-<li>granularity of the report
+<li><a href="usage.html#general-parameters">general parameters</a>
 <ul>
-<li><code>-S</code>, <code>--summary</code>: creating a summary report instead of record level reports</li>
-<li><code>-H</code>, <code>--details</code>: provides record level details of the issues</li>
+<li>granularity of the report</li>
 </ul></li>
-<li>output parameters:
+<li><code>-S</code>, <code>--summary</code>: creating a summary report instead of record level reports</li>
+<li><code>-H</code>, <code>--details</code>: provides record level details of the issues
 <ul>
+<li>output parameters:</li>
+</ul></li>
 <li><code>-G &lt;file&gt;</code>, <code>--summaryFileName &lt;file&gt;</code>: the name of summary report the program produces. The file provides a summary of issues, such as the number of instance and number of records having the particular issue.</li>
 <li><code>-F &lt;file&gt;</code>, <code>--detailsFileName &lt;file&gt;</code>: the name of report the program produces. Default is <code>validation-report.txt</code>. If you use “stdout”, it won’t create file, but put results into the standard output.</li>
 <li><code>-R &lt;format&gt;</code>, <code>--format &lt;format&gt;</code>: format specification of the output. Possible values:
@@ -562,12 +569,10 @@ window.Quarto = {
 <li><code>text</code> (default),</li>
 <li><code>tab-separated</code> or <code>tsv</code>,</li>
 <li><code>comma-separated</code> or <code>csv</code></li>
-</ul></li>
-</ul></li>
 <li><code>-W</code>, <code>--emptyLargeCollectors</code>: the output files are created during the process and not only at the end of it. It helps in memory management if the input is large, and it has lots of errors, on the other hand the output file will be segmented, which should be handled after the process.</li>
 <li><code>-T</code>, <code>--collectAllErrors</code>: collect all errors (useful only for validating small number of records). Default is turned off.</li>
-<li><code>-I &lt;types&gt;</code>, <code>--ignorableIssueTypes &lt;types&gt;</code>: comma separated list of issue types not to collect. The valid values are (for details see the <a href="#issue-types">issue types</a> table):
-<ul>
+<li><code>-I &lt;types&gt;</code>, <code>--ignorableIssueTypes &lt;types&gt;</code>: comma separated list of issue types not to collect. The valid values are (for details see the <a href="#issue-types">issue types</a> table):</li>
+</ul></li>
 <li><code>undetectableType</code>: undetectable type</li>
 <li><code>invalidLinkage</code>: invalid linkage</li>
 <li><code>ambiguousLinkage</code>: ambiguous linkage</li>
@@ -590,8 +595,11 @@ window.Quarto = {
 <li><code>unparsableContent</code>: content is not well-formatted</li>
 <li><code>nullCode</code>: null subfield code</li>
 <li><code>invalidValue</code>: invalid value</li>
-</ul></li>
 </ul>
+</dd>
+</dl>
+<section id="output-files" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="output-files"><span class="header-section-number">4.1</span> Output files</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
 <div>
@@ -609,14 +617,17 @@ window.Quarto = {
   B --&gt; J(issue-collector.csv)
   B --&gt; K(id-groupid.csv)
   B --&gt; L(validation.params.json)
+  F -.-&gt; Q(qa_catalogue.sqlite)
+  G -.-&gt; Q
+  G -.-&gt; S(Solr)
+  K -.-&gt; S(Solr)
 </pre>
 </div>
 <p></p></figure><p></p>
 </div>
 </div>
 </div>
-<section id="output-files" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="output-files"><span class="header-section-number">4.1</span> Output files</h2>
+<p>Execution of the dotted lines requires <a href="#postprocessing">postprocessing</a>.</p>
 <section id="count.csv" class="level3" data-number="4.1.1">
 <h3 data-number="4.1.1" class="anchored" data-anchor-id="count.csv"><span class="header-section-number">4.1.1</span> count.csv</h3>
 <p>The count of bibliographic records in the source dataset</p>
@@ -706,76 +717,76 @@ window.Quarto = {
 <h3 data-number="4.1.9" class="anchored" data-anchor-id="validation.params.json"><span class="header-section-number">4.1.9</span> validation.params.json</h3>
 <p>The list of the actual parameters during the running of the validation</p>
 <p>An example with parameters used for analysing a PICA dataset. When the input is a complex expression it is displayed here in a parsed format. It also contains some metadata such as the versions of MQFA API and QA catalogue.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"args"</span><span class="fu">:</span><span class="ot">[</span><span class="st">"/path/to/input.dat"</span><span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"marcVersion"</span><span class="fu">:</span><span class="st">"MARC21"</span><span class="fu">,</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"marcFormat"</span><span class="fu">:</span><span class="st">"PICA_NORMALIZED"</span><span class="fu">,</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"dataSource"</span><span class="fu">:</span><span class="st">"FILE"</span><span class="fu">,</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"limit"</span><span class="fu">:</span><span class="dv">-1</span><span class="fu">,</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"offset"</span><span class="fu">:</span><span class="dv">-1</span><span class="fu">,</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"id"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"defaultRecordType"</span><span class="fu">:</span><span class="st">"BOOKS"</span><span class="fu">,</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"alephseq"</span><span class="fu">:</span><span class="kw">false</span><span class="fu">,</span></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"marcxml"</span><span class="fu">:</span><span class="kw">false</span><span class="fu">,</span></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"lineSeparated"</span><span class="fu">:</span><span class="kw">false</span><span class="fu">,</span></span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"trimId"</span><span class="fu">:</span><span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"outputDir"</span><span class="fu">:</span><span class="st">"/path/to/_output/k10plus_pica"</span><span class="fu">,</span></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"recordIgnorator"</span><span class="fu">:{</span></span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"criteria"</span><span class="fu">:</span><span class="ot">[]</span><span class="fu">,</span></span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"booleanCriteria"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"empty"</span><span class="fu">:</span><span class="kw">true</span></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"recordFilter"</span><span class="fu">:{</span></span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"criteria"</span><span class="fu">:</span><span class="ot">[]</span><span class="fu">,</span></span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"booleanCriteria"</span><span class="fu">:{</span></span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"op"</span><span class="fu">:</span><span class="st">"AND"</span><span class="fu">,</span></span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"children"</span><span class="fu">:</span><span class="ot">[</span></span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
-<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>          <span class="dt">"op"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
-<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>          <span class="dt">"children"</span><span class="fu">:</span><span class="ot">[]</span><span class="fu">,</span></span>
-<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>          <span class="dt">"value"</span><span class="fu">:{</span></span>
-<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>            <span class="dt">"path"</span><span class="fu">:{</span></span>
-<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>              <span class="dt">"path"</span><span class="fu">:</span><span class="st">"002@.0"</span><span class="fu">,</span></span>
-<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>              <span class="dt">"tag"</span><span class="fu">:</span><span class="st">"002@"</span><span class="fu">,</span></span>
-<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>              <span class="dt">"xtag"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
-<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>              <span class="dt">"occurrence"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
-<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>              <span class="dt">"subfields"</span><span class="fu">:{</span><span class="dt">"type"</span><span class="fu">:</span><span class="st">"SINGLE"</span><span class="fu">,</span><span class="dt">"input"</span><span class="fu">:</span><span class="st">"0"</span><span class="fu">,</span><span class="dt">"codes"</span><span class="fu">:</span><span class="ot">[</span><span class="st">"0"</span><span class="ot">]</span><span class="fu">},</span></span>
-<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>              <span class="dt">"subfieldCodes"</span><span class="fu">:</span><span class="ot">[</span><span class="st">"0"</span><span class="ot">]</span></span>
-<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>            <span class="fu">},</span></span>
-<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>            <span class="dt">"operator"</span><span class="fu">:</span><span class="st">"NOT_MATCH"</span><span class="fu">,</span></span>
-<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>            <span class="dt">"value"</span><span class="fu">:</span><span class="st">"^L"</span></span>
-<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>          <span class="fu">}</span></span>
-<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span><span class="dt">"op"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span><span class="dt">"children"</span><span class="fu">:</span><span class="ot">[]</span><span class="fu">,</span><span class="dt">"value"</span><span class="fu">:{</span><span class="dt">"path"</span><span class="fu">:{</span><span class="dt">"path"</span><span class="fu">:</span><span class="st">"002@.0"</span><span class="fu">,</span><span class="dt">"tag"</span><span class="fu">:</span><span class="st">"002@"</span><span class="fu">,</span><span class="dt">"xtag"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span><span class="dt">"occurrence"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span><span class="dt">"subfields"</span><span class="fu">:{</span><span class="dt">"type"</span><span class="fu">:</span><span class="st">"SINGLE"</span><span class="fu">,</span><span class="dt">"input"</span><span class="fu">:</span><span class="st">"0"</span><span class="fu">,</span><span class="dt">"codes"</span><span class="fu">:</span><span class="ot">[</span><span class="st">"0"</span><span class="ot">]</span><span class="fu">},</span><span class="dt">"subfieldCodes"</span><span class="fu">:</span><span class="ot">[</span><span class="st">"0"</span><span class="ot">]</span><span class="fu">},</span><span class="dt">"operator"</span><span class="fu">:</span><span class="st">"NOT_MATCH"</span><span class="fu">,</span><span class="dt">"value"</span><span class="fu">:</span><span class="st">"^..[iktN]"</span><span class="fu">}}</span><span class="ot">,</span></span>
-<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span><span class="dt">"op"</span><span class="fu">:</span><span class="st">"OR"</span><span class="fu">,</span><span class="dt">"children"</span><span class="fu">:</span><span class="ot">[</span><span class="fu">{</span><span class="dt">"op"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span><span class="dt">"children"</span><span class="fu">:</span><span class="ot">[]</span><span class="fu">,</span><span class="dt">"value"</span><span class="fu">:{</span><span class="dt">"path"</span><span class="fu">:{</span><span class="dt">"path"</span><span class="fu">:</span><span class="st">"002@.0"</span><span class="fu">,</span><span class="dt">"tag"</span><span class="fu">:</span><span class="st">"002@"</span><span class="fu">,</span><span class="dt">"xtag"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span><span class="dt">"occurrence"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span><span class="dt">"subfields"</span><span class="fu">:{</span><span class="dt">"type"</span><span class="fu">:</span><span class="st">"SINGLE"</span><span class="fu">,</span><span class="dt">"input"</span><span class="fu">:</span><span class="st">"0"</span><span class="fu">,</span><span class="dt">"codes"</span><span class="fu">:</span><span class="ot">[</span><span class="st">"0"</span><span class="ot">]</span><span class="fu">},</span><span class="dt">"subfieldCodes"</span><span class="fu">:</span><span class="ot">[</span><span class="st">"0"</span><span class="ot">]</span><span class="fu">},</span><span class="dt">"operator"</span><span class="fu">:</span><span class="st">"NOT_MATCH"</span><span class="fu">,</span><span class="dt">"value"</span><span class="fu">:</span><span class="st">"^.v"</span><span class="fu">}}</span><span class="ot">,</span><span class="fu">{</span><span class="dt">"op"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span><span class="dt">"children"</span><span class="fu">:</span><span class="ot">[]</span><span class="fu">,</span><span class="dt">"value"</span><span class="fu">:{</span><span class="dt">"path"</span><span class="fu">:{</span><span class="dt">"path"</span><span class="fu">:</span><span class="st">"021A.a"</span><span class="fu">,</span><span class="dt">"tag"</span><span class="fu">:</span><span class="st">"021A"</span><span class="fu">,</span><span class="dt">"xtag"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span><span class="dt">"occurrence"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span><span class="dt">"subfields"</span><span class="fu">:{</span><span class="dt">"type"</span><span class="fu">:</span><span class="st">"SINGLE"</span><span class="fu">,</span><span class="dt">"input"</span><span class="fu">:</span><span class="st">"a"</span><span class="fu">,</span><span class="dt">"codes"</span><span class="fu">:</span><span class="ot">[</span><span class="st">"a"</span><span class="ot">]</span><span class="fu">},</span><span class="dt">"subfieldCodes"</span><span class="fu">:</span><span class="ot">[</span><span class="st">"a"</span><span class="ot">]</span><span class="fu">},</span><span class="dt">"operator"</span><span class="fu">:</span><span class="st">"EXIST"</span><span class="fu">,</span><span class="dt">"value"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">}}</span><span class="ot">]</span><span class="fu">,</span><span class="dt">"value"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">}</span></span>
-<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"value"</span><span class="fu">:</span><span class="kw">null</span></span>
-<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
-<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"empty"</span><span class="fu">:</span><span class="kw">false</span></span>
-<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
-<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"ignorableFields"</span><span class="fu">:{</span></span>
-<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"fields"</span><span class="fu">:</span><span class="ot">[</span><span class="st">"001@"</span><span class="ot">,</span><span class="st">"001E"</span><span class="ot">,</span><span class="st">"001L"</span><span class="ot">,</span><span class="st">"001U"</span><span class="ot">,</span><span class="st">"001U"</span><span class="ot">,</span><span class="st">"001X"</span><span class="ot">,</span><span class="st">"001X"</span><span class="ot">,</span><span class="st">"002V"</span><span class="ot">,</span><span class="st">"003C"</span><span class="ot">,</span><span class="st">"003G"</span><span class="ot">,</span><span class="st">"003Z"</span><span class="ot">,</span><span class="st">"008G"</span><span class="ot">,</span><span class="st">"017N"</span><span class="ot">,</span><span class="st">"020F"</span><span class="ot">,</span><span class="st">"027D"</span><span class="ot">,</span><span class="st">"031B"</span><span class="ot">,</span><span class="st">"037I"</span><span class="ot">,</span><span class="st">"039V"</span><span class="ot">,</span><span class="st">"042@"</span><span class="ot">,</span><span class="st">"046G"</span><span class="ot">,</span><span class="st">"046T"</span><span class="ot">,</span><span class="st">"101@"</span><span class="ot">,</span><span class="st">"101E"</span><span class="ot">,</span><span class="st">"101U"</span><span class="ot">,</span><span class="st">"102D"</span><span class="ot">,</span><span class="st">"201E"</span><span class="ot">,</span><span class="st">"201U"</span><span class="ot">,</span><span class="st">"202D"</span><span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"empty"</span><span class="fu">:</span><span class="kw">false</span></span>
-<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
-<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"stream"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
-<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"defaultEncoding"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
-<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"alephseqLineType"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
-<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"picaIdField"</span><span class="fu">:</span><span class="st">"003@$0"</span><span class="fu">,</span></span>
-<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"picaSubfieldSeparator"</span><span class="fu">:</span><span class="st">"$"</span><span class="fu">,</span></span>
-<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"picaSchemaFile"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
-<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"picaRecordTypeField"</span><span class="fu">:</span><span class="st">"002@$0"</span><span class="fu">,</span></span>
-<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"schemaType"</span><span class="fu">:</span><span class="st">"PICA"</span><span class="fu">,</span></span>
-<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"groupBy"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
-<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"detailsFileName"</span><span class="fu">:</span><span class="st">"issue-details.csv"</span><span class="fu">,</span></span>
-<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"summaryFileName"</span><span class="fu">:</span><span class="st">"issue-summary.csv"</span><span class="fu">,</span></span>
-<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"format"</span><span class="fu">:</span><span class="st">"COMMA_SEPARATED"</span><span class="fu">,</span></span>
-<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"ignorableIssueTypes"</span><span class="fu">:</span><span class="ot">[</span><span class="st">"FIELD_UNDEFINED"</span><span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"pica"</span><span class="fu">:</span><span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb13-66"><a href="#cb13-66" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"replacementInControlFields"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
-<span id="cb13-67"><a href="#cb13-67" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"marc21"</span><span class="fu">:</span><span class="kw">false</span><span class="fu">,</span></span>
-<span id="cb13-68"><a href="#cb13-68" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"mqaf.version"</span><span class="fu">:</span><span class="st">"0.9.2"</span><span class="fu">,</span></span>
-<span id="cb13-69"><a href="#cb13-69" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"qa-catalogue.version"</span><span class="fu">:</span><span class="st">"0.7.0-SNAPSHOT"</span></span>
-<span id="cb13-70"><a href="#cb13-70" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"args"</span><span class="fu">:</span><span class="ot">[</span><span class="st">"/path/to/input.dat"</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"marcVersion"</span><span class="fu">:</span><span class="st">"MARC21"</span><span class="fu">,</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"marcFormat"</span><span class="fu">:</span><span class="st">"PICA_NORMALIZED"</span><span class="fu">,</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"dataSource"</span><span class="fu">:</span><span class="st">"FILE"</span><span class="fu">,</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"limit"</span><span class="fu">:</span><span class="dv">-1</span><span class="fu">,</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"offset"</span><span class="fu">:</span><span class="dv">-1</span><span class="fu">,</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"id"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"defaultRecordType"</span><span class="fu">:</span><span class="st">"BOOKS"</span><span class="fu">,</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"alephseq"</span><span class="fu">:</span><span class="kw">false</span><span class="fu">,</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"marcxml"</span><span class="fu">:</span><span class="kw">false</span><span class="fu">,</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"lineSeparated"</span><span class="fu">:</span><span class="kw">false</span><span class="fu">,</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"trimId"</span><span class="fu">:</span><span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"outputDir"</span><span class="fu">:</span><span class="st">"/path/to/_output/k10plus_pica"</span><span class="fu">,</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"recordIgnorator"</span><span class="fu">:{</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"criteria"</span><span class="fu">:</span><span class="ot">[]</span><span class="fu">,</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"booleanCriteria"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"empty"</span><span class="fu">:</span><span class="kw">true</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"recordFilter"</span><span class="fu">:{</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"criteria"</span><span class="fu">:</span><span class="ot">[]</span><span class="fu">,</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"booleanCriteria"</span><span class="fu">:{</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"op"</span><span class="fu">:</span><span class="st">"AND"</span><span class="fu">,</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"children"</span><span class="fu">:</span><span class="ot">[</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>          <span class="dt">"op"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>          <span class="dt">"children"</span><span class="fu">:</span><span class="ot">[]</span><span class="fu">,</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>          <span class="dt">"value"</span><span class="fu">:{</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>            <span class="dt">"path"</span><span class="fu">:{</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>              <span class="dt">"path"</span><span class="fu">:</span><span class="st">"002@.0"</span><span class="fu">,</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>              <span class="dt">"tag"</span><span class="fu">:</span><span class="st">"002@"</span><span class="fu">,</span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>              <span class="dt">"xtag"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>              <span class="dt">"occurrence"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>              <span class="dt">"subfields"</span><span class="fu">:{</span><span class="dt">"type"</span><span class="fu">:</span><span class="st">"SINGLE"</span><span class="fu">,</span><span class="dt">"input"</span><span class="fu">:</span><span class="st">"0"</span><span class="fu">,</span><span class="dt">"codes"</span><span class="fu">:</span><span class="ot">[</span><span class="st">"0"</span><span class="ot">]</span><span class="fu">},</span></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>              <span class="dt">"subfieldCodes"</span><span class="fu">:</span><span class="ot">[</span><span class="st">"0"</span><span class="ot">]</span></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>            <span class="fu">},</span></span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>            <span class="dt">"operator"</span><span class="fu">:</span><span class="st">"NOT_MATCH"</span><span class="fu">,</span></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>            <span class="dt">"value"</span><span class="fu">:</span><span class="st">"^L"</span></span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>          <span class="fu">}</span></span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span><span class="dt">"op"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span><span class="dt">"children"</span><span class="fu">:</span><span class="ot">[]</span><span class="fu">,</span><span class="dt">"value"</span><span class="fu">:{</span><span class="dt">"path"</span><span class="fu">:{</span><span class="dt">"path"</span><span class="fu">:</span><span class="st">"002@.0"</span><span class="fu">,</span><span class="dt">"tag"</span><span class="fu">:</span><span class="st">"002@"</span><span class="fu">,</span><span class="dt">"xtag"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span><span class="dt">"occurrence"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span><span class="dt">"subfields"</span><span class="fu">:{</span><span class="dt">"type"</span><span class="fu">:</span><span class="st">"SINGLE"</span><span class="fu">,</span><span class="dt">"input"</span><span class="fu">:</span><span class="st">"0"</span><span class="fu">,</span><span class="dt">"codes"</span><span class="fu">:</span><span class="ot">[</span><span class="st">"0"</span><span class="ot">]</span><span class="fu">},</span><span class="dt">"subfieldCodes"</span><span class="fu">:</span><span class="ot">[</span><span class="st">"0"</span><span class="ot">]</span><span class="fu">},</span><span class="dt">"operator"</span><span class="fu">:</span><span class="st">"NOT_MATCH"</span><span class="fu">,</span><span class="dt">"value"</span><span class="fu">:</span><span class="st">"^..[iktN]"</span><span class="fu">}}</span><span class="ot">,</span></span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span><span class="dt">"op"</span><span class="fu">:</span><span class="st">"OR"</span><span class="fu">,</span><span class="dt">"children"</span><span class="fu">:</span><span class="ot">[</span><span class="fu">{</span><span class="dt">"op"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span><span class="dt">"children"</span><span class="fu">:</span><span class="ot">[]</span><span class="fu">,</span><span class="dt">"value"</span><span class="fu">:{</span><span class="dt">"path"</span><span class="fu">:{</span><span class="dt">"path"</span><span class="fu">:</span><span class="st">"002@.0"</span><span class="fu">,</span><span class="dt">"tag"</span><span class="fu">:</span><span class="st">"002@"</span><span class="fu">,</span><span class="dt">"xtag"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span><span class="dt">"occurrence"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span><span class="dt">"subfields"</span><span class="fu">:{</span><span class="dt">"type"</span><span class="fu">:</span><span class="st">"SINGLE"</span><span class="fu">,</span><span class="dt">"input"</span><span class="fu">:</span><span class="st">"0"</span><span class="fu">,</span><span class="dt">"codes"</span><span class="fu">:</span><span class="ot">[</span><span class="st">"0"</span><span class="ot">]</span><span class="fu">},</span><span class="dt">"subfieldCodes"</span><span class="fu">:</span><span class="ot">[</span><span class="st">"0"</span><span class="ot">]</span><span class="fu">},</span><span class="dt">"operator"</span><span class="fu">:</span><span class="st">"NOT_MATCH"</span><span class="fu">,</span><span class="dt">"value"</span><span class="fu">:</span><span class="st">"^.v"</span><span class="fu">}}</span><span class="ot">,</span><span class="fu">{</span><span class="dt">"op"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span><span class="dt">"children"</span><span class="fu">:</span><span class="ot">[]</span><span class="fu">,</span><span class="dt">"value"</span><span class="fu">:{</span><span class="dt">"path"</span><span class="fu">:{</span><span class="dt">"path"</span><span class="fu">:</span><span class="st">"021A.a"</span><span class="fu">,</span><span class="dt">"tag"</span><span class="fu">:</span><span class="st">"021A"</span><span class="fu">,</span><span class="dt">"xtag"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span><span class="dt">"occurrence"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span><span class="dt">"subfields"</span><span class="fu">:{</span><span class="dt">"type"</span><span class="fu">:</span><span class="st">"SINGLE"</span><span class="fu">,</span><span class="dt">"input"</span><span class="fu">:</span><span class="st">"a"</span><span class="fu">,</span><span class="dt">"codes"</span><span class="fu">:</span><span class="ot">[</span><span class="st">"a"</span><span class="ot">]</span><span class="fu">},</span><span class="dt">"subfieldCodes"</span><span class="fu">:</span><span class="ot">[</span><span class="st">"a"</span><span class="ot">]</span><span class="fu">},</span><span class="dt">"operator"</span><span class="fu">:</span><span class="st">"EXIST"</span><span class="fu">,</span><span class="dt">"value"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">}}</span><span class="ot">]</span><span class="fu">,</span><span class="dt">"value"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">}</span></span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"value"</span><span class="fu">:</span><span class="kw">null</span></span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"empty"</span><span class="fu">:</span><span class="kw">false</span></span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"ignorableFields"</span><span class="fu">:{</span></span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"fields"</span><span class="fu">:</span><span class="ot">[</span><span class="st">"001@"</span><span class="ot">,</span><span class="st">"001E"</span><span class="ot">,</span><span class="st">"001L"</span><span class="ot">,</span><span class="st">"001U"</span><span class="ot">,</span><span class="st">"001U"</span><span class="ot">,</span><span class="st">"001X"</span><span class="ot">,</span><span class="st">"001X"</span><span class="ot">,</span><span class="st">"002V"</span><span class="ot">,</span><span class="st">"003C"</span><span class="ot">,</span><span class="st">"003G"</span><span class="ot">,</span><span class="st">"003Z"</span><span class="ot">,</span><span class="st">"008G"</span><span class="ot">,</span><span class="st">"017N"</span><span class="ot">,</span><span class="st">"020F"</span><span class="ot">,</span><span class="st">"027D"</span><span class="ot">,</span><span class="st">"031B"</span><span class="ot">,</span><span class="st">"037I"</span><span class="ot">,</span><span class="st">"039V"</span><span class="ot">,</span><span class="st">"042@"</span><span class="ot">,</span><span class="st">"046G"</span><span class="ot">,</span><span class="st">"046T"</span><span class="ot">,</span><span class="st">"101@"</span><span class="ot">,</span><span class="st">"101E"</span><span class="ot">,</span><span class="st">"101U"</span><span class="ot">,</span><span class="st">"102D"</span><span class="ot">,</span><span class="st">"201E"</span><span class="ot">,</span><span class="st">"201U"</span><span class="ot">,</span><span class="st">"202D"</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"empty"</span><span class="fu">:</span><span class="kw">false</span></span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"stream"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"defaultEncoding"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"alephseqLineType"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"picaIdField"</span><span class="fu">:</span><span class="st">"003@$0"</span><span class="fu">,</span></span>
+<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"picaSubfieldSeparator"</span><span class="fu">:</span><span class="st">"$"</span><span class="fu">,</span></span>
+<span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"picaSchemaFile"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"picaRecordTypeField"</span><span class="fu">:</span><span class="st">"002@$0"</span><span class="fu">,</span></span>
+<span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"schemaType"</span><span class="fu">:</span><span class="st">"PICA"</span><span class="fu">,</span></span>
+<span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"groupBy"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb10-61"><a href="#cb10-61" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"detailsFileName"</span><span class="fu">:</span><span class="st">"issue-details.csv"</span><span class="fu">,</span></span>
+<span id="cb10-62"><a href="#cb10-62" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"summaryFileName"</span><span class="fu">:</span><span class="st">"issue-summary.csv"</span><span class="fu">,</span></span>
+<span id="cb10-63"><a href="#cb10-63" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"format"</span><span class="fu">:</span><span class="st">"COMMA_SEPARATED"</span><span class="fu">,</span></span>
+<span id="cb10-64"><a href="#cb10-64" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"ignorableIssueTypes"</span><span class="fu">:</span><span class="ot">[</span><span class="st">"FIELD_UNDEFINED"</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb10-65"><a href="#cb10-65" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"pica"</span><span class="fu">:</span><span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb10-66"><a href="#cb10-66" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"replacementInControlFields"</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb10-67"><a href="#cb10-67" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"marc21"</span><span class="fu">:</span><span class="kw">false</span><span class="fu">,</span></span>
+<span id="cb10-68"><a href="#cb10-68" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"mqaf.version"</span><span class="fu">:</span><span class="st">"0.9.2"</span><span class="fu">,</span></span>
+<span id="cb10-69"><a href="#cb10-69" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"qa-catalogue.version"</span><span class="fu">:</span><span class="st">"0.7.0-SNAPSHOT"</span></span>
+<span id="cb10-70"><a href="#cb10-70" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="id-groupid.csv" class="level3" data-number="4.1.10">
 <h3 data-number="4.1.10" class="anchored" data-anchor-id="id-groupid.csv"><span class="header-section-number">4.1.10</span> id-groupid.csv</h3>
@@ -788,8 +799,9 @@ window.Quarto = {
 010000011,20</code></pre>
 </section>
 </section>
-<section id="validation-detects-the-following-errors" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="validation-detects-the-following-errors"><span class="header-section-number">4.2</span> validation detects the following errors:</h2>
+<section id="validation-errors" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="validation-errors"><span class="header-section-number">4.2</span> Validation errors</h2>
+<p>validation detects the following errors:</p>
 <p>Leader specific errors:</p>
 <ul>
 <li>Leader/[position] has an invalid value: ‘[value]’ (e.g.&nbsp;<code>Leader/19 (leader19) has an invalid value: '4'</code>)</li>
@@ -875,77 +887,94 @@ get the number of records having errors
 awk -F "\t" '{print $1}' validation-report.txt | uniq -c | wc -l
 ```
 -->
-<section id="post-processing-validation-result-validate-sqlite" class="level4" data-number="4.2.0.1">
-<h4 data-number="4.2.0.1" class="anchored" data-anchor-id="post-processing-validation-result-validate-sqlite"><span class="header-section-number">4.2.0.1</span> post processing validation result (validate-sqlite)</h4>
-<p>Usage:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">catalogues/</span><span class="op">&lt;</span>catalogue<span class="op">&gt;</span>.sh validate-sqlite</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>or</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./qa-catalogue</span> <span class="at">--params</span><span class="op">=</span><span class="st">"[options]"</span> validate-sqlite</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>or</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./common-script</span> <span class="pp">[</span><span class="ss">options</span><span class="pp">]</span> validate-sqlite</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>[options] are the same as for validation</p>
-<section id="catalogue-for-a-single-library" class="level5" data-number="4.2.0.1.1">
-<h5 data-number="4.2.0.1.1" class="anchored" data-anchor-id="catalogue-for-a-single-library"><span class="header-section-number">4.2.0.1.1</span> Catalogue for a single library</h5>
-<p>If the data is <em>not</em> grouped by libraries (no <code>--groupBy &lt;path&gt;</code> parameter), it creates the following SQLite3 database structure and import some of the CSV files into it:</p>
-<p><code>issue_summary</code> table for the <code>issue-summary.csv</code>:</p>
-<p>It represents a particular type of error</p>
-<pre><code>id         INTEGER,  -- identifier of the error
-MarcPath   TEXT,     -- the location of the error in the bibliographic record
-categoryId INTEGER,  -- the identifier of the category of the error
-typeId     INTEGER,  -- the identifier of the type of the error
-type       TEXT,     -- the description of the type
-message    TEXT,     -- extra contextual information 
-url        TEXT,     -- the url of the definition of the data element
-instances  INTEGER,  -- the number of instances this error occured
-records    INTEGER   -- the number of records this error occured in</code></pre>
-<p><code>issue_details</code> table for the <code>issue-details.csv</code>:</p>
-<p>Each row represents how many instances of an error occur in a particular bibliographic record</p>
-<pre><code>id         TEXT,    -- the record identifier
-errorId    INTEGER, -- the error identifier (-&gt; issue_summary.id)
-instances  INTEGER  -- the number of instances of an error in the record</code></pre>
 </section>
-<section id="union-catalogue-for-multiple-libraries" class="level5" data-number="4.2.0.1.2">
-<h5 data-number="4.2.0.1.2" class="anchored" data-anchor-id="union-catalogue-for-multiple-libraries"><span class="header-section-number">4.2.0.1.2</span> Union catalogue for multiple libraries</h5>
+<section id="postprocessing" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="postprocessing"><span class="header-section-number">4.3</span> Postprocessing</h2>
+<p>Postprocessing command <code>validate-sqlite</code> writes validation results into SQLite database file <code>qa_catalogue.sqlite</code> and into Solr index.</p>
+<dl>
+<dt>Usage</dt>
+<dd>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>  <span class="ex">./qa-catalogue</span> <span class="at">--params</span><span class="op">=</span><span class="st">"[options]"</span> validate-sqlite</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># or</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">catalogues/</span><span class="op">&lt;</span>catalogue<span class="op">&gt;</span>.sh validate-sqlite</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</dd>
+</dl>
+<p>Options are the same as for validation.</p>
+<section id="catalogue-for-a-single-library" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="catalogue-for-a-single-library"><span class="header-section-number">4.3.1</span> Catalogue for a single library</h3>
+<p>If the data is <em>not</em> grouped by libraries (no <code>--groupBy &lt;path&gt;</code> parameter), it creates the database tables <code>issue_summary</code> (with data from <code>issue-summary.csv</code>) and <code>issue_details</code> (with data from <code>issue-details.csv</code>) in <code>qa_catalogie.sqlite</code>:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="cf">BEGIN</span> <span class="kw">TRANSACTION</span>;</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">-- particular types of errors and how often they have been found</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> issue_summary;</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">NOT</span> <span class="kw">EXISTS</span> <span class="ot">"issue_summary"</span> (</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="ot">"id"</span>         <span class="dt">INTEGER</span>,  <span class="co">-- identifier of the error</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="ot">"MarcPath"</span>   TEXT,     <span class="co">-- the location of the error in the bibliographic record</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="ot">"categoryId"</span> <span class="dt">INTEGER</span>,  <span class="co">-- the identifier of the category of the error</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="ot">"typeId"</span>     <span class="dt">INTEGER</span>,  <span class="co">-- the identifier of the type of the error</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="ot">"type"</span>       TEXT,     <span class="co">-- the description of the type</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="ot">"message"</span>    TEXT,     <span class="co">-- extra contextual information </span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="ot">"url"</span>        TEXT,     <span class="co">-- the url of the definition of the data element</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="ot">"instances"</span>  <span class="dt">INTEGER</span>,  <span class="co">-- the number of instances this error occured</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  <span class="ot">"records"</span>    <span class="dt">INTEGER</span>   <span class="co">-- the number of records this error occured in</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="co">-- how many instances of an error occur in a particular bibliographic record</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> issue_details;</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">NOT</span> <span class="kw">EXISTS</span> <span class="ot">"issue_details"</span> (</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>  <span class="ot">"id"</span>         TEXT,    <span class="co">-- the record identifier</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>  <span class="ot">"errorId"</span>    <span class="dt">INTEGER</span>, <span class="co">-- the error identifier (-&gt; issue_summary.id)</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>  <span class="ot">"instances"</span>  <span class="dt">INTEGER</span>  <span class="co">-- the number of instances of an error in the record</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a><span class="kw">COMMIT</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The postprocessing also writes validation results into Solr index.</p>
+</section>
+<section id="union-catalogue-for-multiple-libraries" class="level3" data-number="4.3.2">
+<h3 data-number="4.3.2" class="anchored" data-anchor-id="union-catalogue-for-multiple-libraries"><span class="header-section-number">4.3.2</span> Union catalogue for multiple libraries</h3>
 <p>If the dataset is a union catalogue, and the record contains a subfield for the libraries holding the item (there is <code>--groupBy &lt;path&gt;</code> parameter), it creates the following SQLite3 database structure and import some of the CSV files into it:</p>
 <p><code>issue_summary</code> table for the <code>issue-summary.csv</code> (it is similar to the other issue_summary table, but it has an extra <code>groupId</code> column)</p>
-<pre><code>groupId    INTEGER,
-id         INTEGER,
-MarcPath   TEXT,
-categoryId INTEGER,
-typeId     INTEGER,
-type       TEXT,
-message    TEXT,
-url        TEXT,
-instances  INTEGER,
-records    INTEGER</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>groupId    <span class="dt">INTEGER</span>,</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="kw">id</span>         <span class="dt">INTEGER</span>,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>MarcPath   TEXT,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>categoryId <span class="dt">INTEGER</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>typeId     <span class="dt">INTEGER</span>,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span>       TEXT,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>message    TEXT,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>url        TEXT,</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="kw">instances</span>  <span class="dt">INTEGER</span>,</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>records    <span class="dt">INTEGER</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><code>issue_details</code> table (same as the other <code>issue_details</code> table)</p>
-<pre><code>id         TEXT,
-errorId    INTEGER,
-instances  INTEGER</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">id</span>         TEXT,</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>errorId    <span class="dt">INTEGER</span>,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="kw">instances</span>  <span class="dt">INTEGER</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><code>id_groupid</code> table for <code>id-groupid.csv</code>:</p>
-<pre><code>id         TEXT,
-groupId    INTEGER</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">id</span>         TEXT,</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>groupId    <span class="dt">INTEGER</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><code>issue_group_types</code> table contains statistics for the error types per groups.</p>
-<pre><code>groupId    INTEGER,
-typeId     INTEGER,
-records    INTEGER,
-instances  INTEGER</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>groupId    <span class="dt">INTEGER</span>,</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>typeId     <span class="dt">INTEGER</span>,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>records    <span class="dt">INTEGER</span>,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="kw">instances</span>  <span class="dt">INTEGER</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><code>issue_group_categories</code> table contains statistics for the error categories per groups</p>
-<pre><code>groupId    INTEGER,
-categoryId INTEGER,
-records    INTEGER,
-instances  INTEGER</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>groupId    <span class="dt">INTEGER</span>,</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>categoryId <span class="dt">INTEGER</span>,</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>records    <span class="dt">INTEGER</span>,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="kw">instances</span>  <span class="dt">INTEGER</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><code>issue_group_paths</code> table contains statistics for the error types per paths per groups</p>
-<pre><code>groupId    INTEGER,
-typeId     INTEGER,
-path       TEXT,
-records    INTEGER,
-instances  INTEGER</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>groupId    <span class="dt">INTEGER</span>,</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>typeId     <span class="dt">INTEGER</span>,</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>path       TEXT,</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>records    <span class="dt">INTEGER</span>,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="kw">instances</span>  <span class="dt">INTEGER</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>For union catalogues it also creates an extra Solr index with the suffix <code>_validation</code>. It contains one Solr document for each bibliographic record with three fields: the record identifier, the list of group identifiers and the list of error identifiers (if any). This Solr index is needed for populating the <code>issue_group_types</code>, <code>issue_group_categories</code> and <code>issue_group_paths</code> tables. This index will be ingested into the main Solr index.</p>
-
-
 </section>
 </section>
+<section id="internals" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="internals"><span class="header-section-number">4.4</span> Internals</h2>
+<p>The validate task internally calls script <code>validator</code> which calls <code>java -cp $JAR de.gwdg.metadataqa.marc.cli.Validator [options] &lt;file&gt;</code>.</p>
+
+
 </section>
 
 </main> <!-- /main -->

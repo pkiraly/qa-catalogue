@@ -1,50 +1,37 @@
----
-title: "Completeness"
----
+# Completeness
 
-Counts basic statistics about the data elements available in the catalogue.
+The completeness task counts data elements in the input records and creates basic statistics.
 
-Usage:
+Usage
+: ```bash
+  ./qa-catalogue --params="[options]" completeness
+  # or
+  catalogues/<catalogue>.sh completeness
+  ```
 
-```bash
-java -cp $JAR de.gwdg.metadataqa.marc.cli.Completeness [options] <file>
-```
-or with a bash script
-```bash
-./completeness [options] <file>
-```
-or
-```bash
-catalogues/<catalogue>.sh completeness
-```
-or
-```bash
-./qa-catalogue --params="[options]" completeness
-```
+Options
+: - [general parameters](#general-parameters)
+  - `-R <format>`, `--format <format>`: format specification of the output.
+    Possible values are: 
+    - `tab-separated` or `tsv`,
+    - `comma-separated` or `csv`,
+    - `text` or `txt`
+    - `json`
+  - `-V`, `--advanced`: advanced mode (not implemented yet)
+  - `-P`, `--onlyPackages`: only packages (not implemented yet)
 
-options:
-
-* [general parameters](#general-parameters)
-* `-R <format>`, `--format <format>`: format specification of the output.
-  Possible values are: 
-  * `tab-separated` or `tsv`,
-  * `comma-separated` or `csv`,
-  * `text` or `txt`
-  * `json`
-* `-V`, `--advanced`: advanced mode (not yet implemented)
-* `-P`, `--onlyPackages`: only packages (not yet implemented)
+## Output files
 
 ```{mermaid}
 flowchart LR
   A(Catalogue) --> B[completeness]
-  B --> C(marc-elements.csv)
-  B --> D(packages.csv)
-  B --> E(libraries.csv)
-  B --> F(libraries003.csv)
-  B --> G(completeness.params.json)
+  B ---> C(marc-elements.csv)
+  B ---> D(packages.csv)
+  B ---> E(libraries.csv)
+  B ---> F(libraries003.csv)
+  B ---> G(completeness.params.json)
+  C ---> H(qa_catalogue.sqlite)
 ```
-
-## Output files:
 
 ### marc-elements.csv
 is list of MARC elements (`field$subfield`) and their occurrences in two ways as number or records, and number of instances. The columns in the file are: 
@@ -234,23 +221,19 @@ This is available for union catalogues, containing the groups
 
 This is the very same file what validation creates. Completeness creates it only if it is not yet available.
 
-## post processing completeness result (completeness-sqlite) 
+### qa\_catalogue.sqlite
 
-The `completeness-sqlite` step (which is launched by the `completeness` step, but could be launched independently as  well) imports `marc-elements.csv` or `completeness-grouped-marc-elements.csv` file into `marc_elements` table. For the catalogues without the `--groupBy` parameter the `groupId` column will be filled by `0`. Its columns are:
+The contents of `marc-elements.csv` or `completeness-grouped-marc-elements.csv` is imported into `marc_elements` table of `qa_catalogue.sqlite`. For the catalogues without the `--groupBy` parameter the `groupId` column will be filled by `0`. The table definition is:
 
 ```sql
-groupId             INTEGER,
-documenttype        TEXT,
-path                TEXT,
-packageid           INTEGER,
-package             TEXT,
-tag                 TEXT,
-subfield            TEXT,
-number-of-record    INTEGER,
-number-of-instances INTEGER,
-min                 INTEGER,
-max                 INTEGER,
-mean                REAL,
-stddev              REAL,
-histogram           TEXT
+{{< include ../scripts/sqlite/marc-elements.sql >}}
 ```
+
+## Internals
+
+The completeness task conists of two steps:
+
+1. script `completeness` calls `java -cp $JAR de.gwdg.metadataqa.marc.cli.Completeness [options] <file>`
+2. import result into `qa_catalogue.sqlite`
+
+The second step can also be called independently as command `completeness-sqlite`.

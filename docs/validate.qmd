@@ -49,71 +49,61 @@ The tool detects the following issues:
 | `nullCode`                        | null subfield code                                                                                           |
 | `invalidValue`                    | invalid subfield value                                                                                       |
 
-Usage:
+Usage
+: ```bash
+  ./qa-catalogue --params="[options]" validate
+  # or
+  catalogues/<catalogue>.sh validate
+  ```
 
-```bash
-java -cp $JAR de.gwdg.metadataqa.marc.cli.Validator [options] <file>
-```
-or with a bash script
-```bash
-./validator [options] <file>
-```
-or
-```bash
-catalogues/<catalogue>.sh validate
-```
-or
-```bash
-./qa-catalogue --params="[options]" validate
-```
+Options
+: - [general parameters](#general-parameters)
+  - granularity of the report
+    - `-S`, `--summary`: creating a summary report instead of record level reports
+    - `-H`, `--details`: provides record level details of the issues
+  - output parameters:
+    - `-G <file>`, `--summaryFileName <file>`: the name of summary report the
+      program produces. The file provides a summary of issues, such as the
+      number of instance and number of records having the particular issue.
+    - `-F <file>`, `--detailsFileName <file>`: the name of report the program
+      produces. Default is `validation-report.txt`. If you use "stdout", it won't
+      create file, but put results into the standard output.
+    - `-R <format>`, `--format <format>`: format specification of the output. Possible values:
+      - `text` (default), 
+      - `tab-separated` or `tsv`,
+      - `comma-separated` or `csv`
+  - `-W`, `--emptyLargeCollectors`: the output files are created during the
+    process and not only at the end of it. It helps in memory  management if the
+    input is large, and it has lots of errors, on the other hand the output file
+    will be segmented, which should be handled after the process.
+  - `-T`, `--collectAllErrors`: collect all errors (useful only for validating
+    small number of records). Default is turned off.
+  - `-I <types>`, `--ignorableIssueTypes <types>`: comma separated list of issue
+    types not to collect. The valid values are (for details see the [issue types](#issue-types) table):
+    - `undetectableType`: undetectable type
+    - `invalidLinkage`: invalid linkage
+    - `ambiguousLinkage`: ambiguous linkage
+    - `obsoleteControlPosition`: obsolete code
+    - `controlValueContainsInvalidCode`: invalid code
+    - `invalidValue`: invalid value
+    - `missingSubfield`: missing reference subfield (880$6)
+    - `nonrepeatableField`: repetition of non-repeatable field
+    - `undefinedField`: undefined field
+    - `obsoleteIndicator`: obsolete value
+    - `nonEmptyIndicator`: non-empty indicator
+    - `invalidValue`: invalid value
+    - `undefinedSubfield`: undefined subfield
+    - `invalidLength`: invalid length
+    - `invalidReference`: invalid classification reference
+    - `patternMismatch`: content does not match any patterns
+    - `nonrepeatableSubfield`: repetition of non-repeatable subfield
+    - `invalidISBN`: invalid ISBN
+    - `invalidISSN`: invalid ISSN
+    - `unparsableContent`: content is not well-formatted
+    - `nullCode`: null subfield code
+    - `invalidValue`: invalid value
 
-options:
-
-* [general parameters](#general-parameters)
-* granularity of the report
-  * `-S`, `--summary`: creating a summary report instead of record level reports
-  * `-H`, `--details`: provides record level details of the issues
-* output parameters:
-  * `-G <file>`, `--summaryFileName <file>`: the name of summary report the
-    program produces. The file provides a summary of issues, such as the
-    number of instance and number of records having the particular issue.
-  * `-F <file>`, `--detailsFileName <file>`: the name of report the program
-    produces. Default is `validation-report.txt`. If you use "stdout", it won't
-    create file, but put results into the standard output.
-  * `-R <format>`, `--format <format>`: format specification of the output. Possible values:
-    * `text` (default), 
-    * `tab-separated` or `tsv`,
-    * `comma-separated` or `csv`
-* `-W`, `--emptyLargeCollectors`: the output files are created during the
-  process and not only at the end of it. It helps in memory  management if the
-  input is large, and it has lots of errors, on the other hand the output file
-  will be segmented, which should be handled after the process.
-* `-T`, `--collectAllErrors`: collect all errors (useful only for validating
-  small number of records). Default is turned off.
-* `-I <types>`, `--ignorableIssueTypes <types>`: comma separated list of issue
-  types not to collect. The valid values are (for details see the [issue types](#issue-types) table):
-  * `undetectableType`: undetectable type
-  * `invalidLinkage`: invalid linkage
-  * `ambiguousLinkage`: ambiguous linkage
-  * `obsoleteControlPosition`: obsolete code
-  * `controlValueContainsInvalidCode`: invalid code
-  * `invalidValue`: invalid value
-  * `missingSubfield`: missing reference subfield (880$6)
-  * `nonrepeatableField`: repetition of non-repeatable field
-  * `undefinedField`: undefined field
-  * `obsoleteIndicator`: obsolete value
-  * `nonEmptyIndicator`: non-empty indicator
-  * `invalidValue`: invalid value
-  * `undefinedSubfield`: undefined subfield
-  * `invalidLength`: invalid length
-  * `invalidReference`: invalid classification reference
-  * `patternMismatch`: content does not match any patterns
-  * `nonrepeatableSubfield`: repetition of non-repeatable subfield
-  * `invalidISBN`: invalid ISBN
-  * `invalidISSN`: invalid ISSN
-  * `unparsableContent`: content is not well-formatted
-  * `nullCode`: null subfield code
-  * `invalidValue`: invalid value
+## Output files
 
 ```{mermaid}
 flowchart LR
@@ -128,9 +118,13 @@ flowchart LR
   B --> J(issue-collector.csv)
   B --> K(id-groupid.csv)
   B --> L(validation.params.json)
+  F -.-> Q(qa_catalogue.sqlite)
+  G -.-> Q
+  G -.-> S(Solr)
+  K -.-> S(Solr)
 ```
 
-## Output files
+Execution of the dotted lines requires [postprocessing].
 
 ### count.csv
 
@@ -341,7 +335,9 @@ id,groupId
 010000011,20
 ```
 
-## validation detects the following errors:
+## Validation errors
+
+validation detects the following errors:
 
 Leader specific errors:
 
@@ -433,54 +429,31 @@ awk -F "\t" '{print $1}' validation-report.txt | uniq -c | wc -l
 ```
 -->
 
-#### post processing validation result (validate-sqlite)
+## Postprocessing
 
-Usage:
+Postprocessing command `validate-sqlite` writes validation results into SQLite database file `qa_catalogue.sqlite` and into Solr index.
 
-```bash
-catalogues/<catalogue>.sh validate-sqlite
-```
-or
-```bash
-./qa-catalogue --params="[options]" validate-sqlite
-```
-or
-```bash
-./common-script [options] validate-sqlite
-```
+Usage
+: ```bash
+  ./qa-catalogue --params="[options]" validate-sqlite
+  # or
+  catalogues/<catalogue>.sh validate-sqlite
+  ```
 
-[options] are the same as for validation
+Options are the same as for validation.
 
-##### Catalogue for a single library
-If the data is _not_ grouped by libraries (no `--groupBy <path>` parameter), it creates the following SQLite3 database 
-structure and import some of the CSV files into it:
+### Catalogue for a single library
+If the data is _not_ grouped by libraries (no `--groupBy <path>` parameter), it creates the database tables 
+`issue_summary` (with data from `issue-summary.csv`) and
+`issue_details` (with data from `issue-details.csv`) in `qa_catalogie.sqlite`:
 
-`issue_summary` table for the `issue-summary.csv`:
-
-It represents a particular type of error
-```
-id         INTEGER,  -- identifier of the error
-MarcPath   TEXT,     -- the location of the error in the bibliographic record
-categoryId INTEGER,  -- the identifier of the category of the error
-typeId     INTEGER,  -- the identifier of the type of the error
-type       TEXT,     -- the description of the type
-message    TEXT,     -- extra contextual information 
-url        TEXT,     -- the url of the definition of the data element
-instances  INTEGER,  -- the number of instances this error occured
-records    INTEGER   -- the number of records this error occured in
+```sql
+{{< include ../scripts/sqlite/qa_catalogue.sqlite.sql >}}
 ```
 
-`issue_details` table for the `issue-details.csv`:
+The postprocessing also writes validation results into Solr index.
 
-Each row represents how many instances of an error occur in a particular bibliographic record
-
-```
-id         TEXT,    -- the record identifier
-errorId    INTEGER, -- the error identifier (-> issue_summary.id)
-instances  INTEGER  -- the number of instances of an error in the record
-```
-
-##### Union catalogue for multiple libraries
+### Union catalogue for multiple libraries
 
 If the dataset is a union catalogue, and the record contains a subfield for the libraries holding the item (there is 
 `--groupBy <path>` parameter), it creates the following SQLite3 database structure and import some of the CSV files 
@@ -488,7 +461,7 @@ into it:
 
 `issue_summary` table for the `issue-summary.csv` (it is similar to the other issue_summary table, but it has an extra
 `groupId` column)
-```
+```sql
 groupId    INTEGER,
 id         INTEGER,
 MarcPath   TEXT,
@@ -502,20 +475,20 @@ records    INTEGER
 ```
 
 `issue_details` table (same as the other `issue_details` table)
-```
+```sql
 id         TEXT,
 errorId    INTEGER,
 instances  INTEGER
 ```
 
 `id_groupid` table for `id-groupid.csv`:
-```
+```sql
 id         TEXT,
 groupId    INTEGER
 ```
 
 `issue_group_types` table contains statistics for the error types per groups.
-```
+```sql
 groupId    INTEGER,
 typeId     INTEGER,
 records    INTEGER,
@@ -523,7 +496,7 @@ instances  INTEGER
 ```
 
 `issue_group_categories` table contains statistics for the error categories per groups
-```
+```sql
 groupId    INTEGER,
 categoryId INTEGER,
 records    INTEGER,
@@ -531,7 +504,7 @@ instances  INTEGER
 ```
 
 `issue_group_paths` table contains statistics for the error types per paths per groups
-```
+```sql
 groupId    INTEGER,
 typeId     INTEGER,
 path       TEXT,
@@ -540,4 +513,8 @@ instances  INTEGER
 ```
 
 For union catalogues it also creates an extra Solr index with the suffix `_validation`. It contains one Solr document  for each  bibliographic record with three fields: the record identifier, the list of group identifiers and the list  of error identifiers (if any). This Solr index is needed for populating the `issue_group_types`, `issue_group_categories` and `issue_group_paths` tables. This index will be ingested into the main Solr index.
+
+## Internals
+
+The validate task internally calls script `validator` which calls `java -cp $JAR de.gwdg.metadataqa.marc.cli.Validator [options] <file>`.
 

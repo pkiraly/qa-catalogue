@@ -112,7 +112,7 @@ do_completeness_sqlite() {
 
   untrace
   HAS_GROUP_PARAM=$(echo "$TYPE_PARAMS" | grep -c -P -e '--groupBy [^-]' || true)
-  bash scripts/sqlite/completeness.sqlite.sh "$OUTPUT_DIR" "$HAS_GROUP_PARAM"
+  ./scripts/sqlite/completeness.sqlite.sh "$OUTPUT_DIR" "$HAS_GROUP_PARAM"
 }
 
 do_classifications() {

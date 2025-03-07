@@ -2192,6 +2192,14 @@ Here is a list of data sources I am aware of so far:
 * University of Amsterdam Library &mdash; https://uba.uva.nl/en/support/open-data/data-sets-and-publication-channels/data-sets-and-publication-channels.html 2.7 million records, MARCXML, [PDDL](https://opendatacommons.org/licenses/pddl/)/[ODC-BY](https://opendatacommons.org/licenses/by/). Note: the record for books are not downloadable, only other document types. One should request them via the website.
 * Portugal National Library &mdash; https://opendata.bnportugal.gov.pt/downloads.htm. 1.13 million UNIMARC records in MARCXML, RDF XML, JSON, TURTLE and CSV formats. [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/)
 * National Library of Latvia National bibliography (2017–2020) &mdash; https://dati.lnb.lv/. 11K MARCXML records.
+* Open datasets of the Czech National Library &mdash; https://www.en.nkp.cz/about-us/professional-activities/open-data [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/)
+  * Czech National Bibliography &mdash; https://aleph.nkp.cz/data/cnb.xml.gz
+  * National Authority File &mdash; https://aleph.nkp.cz/data/aut.xml.gz
+  * Online Catalogue of the National Library of the Czech Republic &mdash; https://aleph.nkp.cz/data/nkc.xml.gz
+  * Union Catalogue of the Czech Republic &mdash; https://aleph.nkp.cz/data/skc.xml.gz
+  * Articles from Czech Newspapers, Periodicals and Proceedings &mdash; https://aleph.nkp.cz/data/anl.xml.gz
+  * Online Catalogue of the Slavonic Library &mdash; https://aleph.nkp.cz/data/slk.xml.gz
+* Estonian National Bibliography &mdash; as downloadable TSV or MARC21 via OAI-PMH https://digilab.rara.ee/en/datasets/estonian-national-bibliography/ [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/)
 
 Thanks, [Johann Rolschewski](https://github.com/jorol/), [Phú](https://twitter.com/herr_tu), and [Hugh Paterson III]
 (https://twitter.com/thejourneyler) for their help in collecting this list! Do you know some more data sources? Please let me know.

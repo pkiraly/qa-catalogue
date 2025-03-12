@@ -1,0 +1,86 @@
+format: MARC
+fields:
+  - name: 008/35-37
+    path: 008/35-37
+    rules:
+      - id: 00835-37
+        description: Language
+        minCount: 1
+  - name: 041/ind1
+    path: 041_1
+    rules:
+      - id: 041ind1
+        description: "Translation indication"
+        pattern: "^1$"
+  - name: 041$a
+    path: 041$a
+    rules:
+      - id: 041a
+        description: Language code of text
+        minCount: 1
+  - name: 041$h
+    path: 041$h
+    rules:
+      - id: 041h
+        description: Language code of original
+        minCount: 1
+  - name: 245$c
+    path: 245$c
+    rules:
+      - id: 245c
+        description: Statement of responsibility
+        pattern: "(ubersetzer|ubersetzung|translator|translated|transla|traduit|traducido|tradotto|metafrasmeno|perevedeno|nihongo|fanyi|vertalen|oversatta|prevoditi|traducir|tlumaczyc|prevezhdam|meklet|trad|traducere|cevir|prekladat|suomeksi|terjemahkan|prelozit|prijevod|eadar|traduction|traducao|traduire|traduccion|traduzione|translations|uberset\\.|ubers\\.|ubertr\\.|trans\\.|tr\\.|trad\\.|traduc\\.|metafr\\.|perev\\.|vert\\.|overs\\.|prev\\.|tlumac\\.|prevezh\\.|mekl\\.|cev\\.|prekl\\.|suom\\.|terj\\.|prel\\.|prij\\.|eadar\\.|transl\\.|Aus d\\.|Dt\\.)"
+  - name: 700$4
+    path: 700$4
+    rules:
+      - id: 7004
+        description: Authorized translator name
+        mqafPattern: 
+          pattern: "(translator|trl)"
+          scope: anyOf
+  - name: 500$a
+    path: 500$a
+    rules:
+      - id: 500a
+        description: Translator in note
+        # debug: true
+        mqafPattern: 
+          pattern: "(Translated by|translated by)"
+          scope: anyOf
+  - name: 240$a
+    path: 240$a
+    rules:
+      - id: 240a
+        description: Uniform title
+        minCount: 1
+  - name: 240$l
+    path: 240$l
+    rules:
+      - id: 240l
+        description: Language of a work
+        minCount: 1
+  - name: 765/ind2
+    path: 765/ind2
+    rules:
+      - id: 765ind2
+        description: Translation of
+        pattern: " "
+  - name: 765$t
+    path: 765$t
+    rules:
+      - id: 765t
+        description: Original title
+        minCount: 1
+  - name: 765$s
+    path: 765$s
+    rules:
+      - id: 765s
+        description: Uniform title of original
+        minCount: 1
+  - name: 765$d
+    path: 765$d
+    rules:
+      - id: 765d
+        description: "Place, publisher, and date of publication"
+        minCount: 1
+

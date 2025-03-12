@@ -1,0 +1,46 @@
+=LDR  01442cam a2200349 c 4500
+=001  bima0000013280
+=003  SpMaBN
+=005  20180517005035.5
+=008  960923s1834\\\\sp\\\\\|\||||\000\0\spa\\
+=016  7\$abimaBNE19969002269$zBNE19960002260$2SpMaBN
+=035  \\$a(OCoLC)828296191
+=040  \\$aSpMaBN$bspa$cSpMaBN$erdc$dSpMaBN
+=041  0\$aspa$alat
+=080  \\$a821.124$2summary
+=080  \\$a726.6(460.231 L.)
+=080  \\$a726.71(460.237 T.)
+=080  \\$a821.124(460.23)-193.6(082.2)
+=080  \\$a929.731(460.22):726.821
+=245  00$aEpitafios inéditos de personas reales que yacen en el monasterio de SS. Cruces, del orden del Císter, y en la antigua catedral de Lérida$cpublícalos Jaime Ripoll Vilamajor [sic]
+=260  \\$a[S.l.]$b[s.n.]$c1834$eVich$fPor Ignacio Valls
+=300  \\$a4 p.$c23 cm
+=336  \\$aTexto (visual)$2isbdcontent
+=337  \\$asin mediación$2isbdmedia
+=546  \\$aTexto en español y latín
+=594  \\$aTítulo tomado de la cabecera
+=610  27$aMonasterio de Santes Creus$2embne
+=610  27$aCatedral de Lleida$2embne
+=650  \7$aEpitafios latinos$zCataluña$2embne
+=651  \7$aAragón (Reino)$xReyes y soberanos$xSepulcros$2embne
+=700  1\$aRipoll y Vilamajó, Jaime$0http://datos.bne.es/resource/XX919455$1http://viaf.org/viaf/87846018/
+=856  41$uhttp://bdh-rd.bne.es/viewer.vm?id=0000105706&page=1$yBiblioteca Digital Hispánica
+=995  \\$aBiblioteca Nacional de España
+
+=LDR  00716nam a2200205 i 4500
+=001  bima0000033279
+=003  SpMaBN
+=005  20180120000000.7
+=008  900725q18401853mx\\\\\|\||||\000\p\spa\\
+=016  7\$abimaBNE20030369323$zIND9100181062$2SpMaBN
+=035  \\$a(OCoLC)776415062
+=040  \\$aSpMaBN$bspa$cA2$dSpMaBN
+=080  \\$a(72)
+=080  \\$a821.134.2(72)-14"18"
+=245  00$aConfesión del centralismo$h[Texto impreso]
+=260  \\$a[S.l.]$b[s.n.]$c[entre 1840 y 1853]$e[México, D.F.?]$fimp. por M. Quiroga
+=300  \\$a[2] p.$c32 cm
+=594  \\$aTítulo tomado de la cabecera
+=856  41$uhttp://bdh-rd.bne.es/viewer.vm?id=0000103275&page=1$yBiblioteca Digital Hispánica
+=995  \\$aBiblioteca Nacional de España
+

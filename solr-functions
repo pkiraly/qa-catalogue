@@ -2,8 +2,11 @@
 
 SOLR_HOST=${SOLR_HOST:-http://localhost:${PORT:-8983}}
 
+echo "SOLR_HOST: ${SOLR_HOST}"
+
 check_core() {
   LOCAL_CORE=$1
+  echo "checking $LOCAL_CORE"
   LOCAL_URL=$(printf "%s/solr/admin/cores?action=STATUS&core=%s" "$SOLR_HOST" "$LOCAL_CORE")
   curl -s "$LOCAL_URL" | jq .status | grep "\"$LOCAL_CORE\":" | grep -c -P '{$'
 }
@@ -196,3 +199,6 @@ extract_core() {
   CORE=$(echo "$URL" | grep -oP "[^/]+$" || true)
   echo "$CORE"
 }
+
+
+echo "END solr-functions"

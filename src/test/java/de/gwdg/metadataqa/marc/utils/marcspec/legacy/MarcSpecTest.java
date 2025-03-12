@@ -170,7 +170,6 @@ public class MarcSpecTest {
     assertThrows(IllegalArgumentException.class, () -> marcSpec.validate("004~-1"));
   }
 
-
   @Test
   public void testCharConsistency1() {
     MarcSpec marcSpec = new MarcSpec("650");

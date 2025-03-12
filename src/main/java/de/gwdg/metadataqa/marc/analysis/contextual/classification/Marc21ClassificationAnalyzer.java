@@ -88,7 +88,6 @@ public class Marc21ClassificationAnalyzer extends MarcClassificationAnalyzer {
 
   @Override
   public int process() {
-    logger.log(Level.INFO, "Classifying MARC21 record");
     var total = 0;
     schemasInRecord = new ArrayList<>();
 

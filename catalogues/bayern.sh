@@ -7,6 +7,8 @@
 NAME=bayern
 MARC_DIR=${BASE_INPUT_DIR}/bvb/marc
 TYPE_PARAMS="--marcxml --marcVersion B3KAT --emptyLargeCollectors"
+# index parameters
+TYPE_PARAMS="${TYPE_PARAMS} --indexWithTokenizedField --indexFieldCounts --indexSubfieldCounts"
 MASK=b3kat*.xml.gz
 
 . ./common-script

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 /**
@@ -15,6 +16,8 @@ import java.util.regex.Pattern;
  * https://github.com/MARCspec/php-marc-spec/blob/26f33207fbe2745c692a70a2832ca48cfc0d68e8/MarcSpec.php
  */
 public class MarcSpec implements SchemaSpec, Serializable {
+
+  private static final Logger logger = Logger.getLogger(MarcSpec.class.getCanonicalName());
 
   private static final Pattern fieldTagPattern = Pattern.compile("[X0-9]{3}|LDR");
   private static final Pattern hasSpacePattern = Pattern.compile("\\s");
@@ -33,6 +36,7 @@ public class MarcSpec implements SchemaSpec, Serializable {
   }
 
   public MarcSpec(String spec) {
+    logger.info("MarcSpec: " + spec);
     if (StringUtils.isNotBlank(spec))
       decode(spec);
   }

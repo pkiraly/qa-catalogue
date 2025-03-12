@@ -116,6 +116,15 @@ public class QAMarcReaderFactoryTest {
     assertEquals("987874829", reader.next().getControlNumber());
   }
 
+  @Test
+  public void getFileReader_marcmaker4() throws Exception {
+    MarcReader reader = QAMarcReaderFactory.getFileReader(MarcFormat.MARC_MAKER, TestUtils.getPath("marcmaker/04.marcmaker"));
+    assertTrue(reader.hasNext());
+    assertEquals("bima0000013280", reader.next().getControlNumber());
+    assertTrue(reader.hasNext());
+    assertEquals("bima0000033279", reader.next().getControlNumber());
+  }
+
   // PICA
 
   @Test

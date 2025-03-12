@@ -95,7 +95,7 @@ public class MarcMakerLine {
   }
 
   private void parse(String raw) {
-    if (raw.substring(0, 1).equals("=")) {
+    if (!raw.equals("") && raw.substring(0, 1).equals("=")) {
       tag = raw.substring(1, 4);
       //  marcRecord.setField(tag, content, marcVersion);
       if (tag.equals("LDR") || tag.equals("000")) {

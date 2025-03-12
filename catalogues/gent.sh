@@ -9,6 +9,8 @@ NAME=gent
 # MARC_DIR=${BASE_INPUT_DIR}/gent/marc/2019-06-05
 # MASK=*.mrc
 TYPE_PARAMS="--marcVersion GENT --alephseq"
+# index parameters
+TYPE_PARAMS="${TYPE_PARAMS} --indexWithTokenizedField --indexFieldCounts --indexSubfieldCounts"
 # MARC_DIR=${BASE_INPUT_DIR}/gent/marc/2020-05-27
 # MASK=*.export
 # MARC_DIR=${BASE_INPUT_DIR}/gent/marc/2021-01-02

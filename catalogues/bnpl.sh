@@ -6,7 +6,9 @@
 
 NAME=bnpl
 # TYPE_PARAMS="--marcVersion GENT"
-TYPE_PARAMS=" --emptyLargeCollectors --indexWithTokenizedField"
+TYPE_PARAMS=" --emptyLargeCollectors"
+# index parameters
+TYPE_PARAMS="${TYPE_PARAMS} --indexWithTokenizedField --indexFieldCounts --indexSubfieldCounts"
 MASK=bibs-all.marc.gz
 
 . ./common-script

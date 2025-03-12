@@ -8,9 +8,9 @@
 NAME=bnpt
 # TYPE_PARAMS="--marcVersion GENT"
 TYPE_PARAMS="--schemaType UNIMARC --marcxml --emptyLargeCollectors"
+# index parameters
+TYPE_PARAMS="${TYPE_PARAMS} --indexWithTokenizedField --indexFieldCounts --indexSubfieldCounts"
 TYPE_PARAMS="$TYPE_PARAMS --solrForScoresUrl http://localhost:8983/solr/bnpt_validation"
-TYPE_PARAMS="$TYPE_PARAMS --indexWithTokenizedField"
-TYPE_PARAMS="$TYPE_PARAMS --indexFieldCounts"
 
 MASK=bibliographics_*.xml
 

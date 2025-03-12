@@ -4,7 +4,9 @@
 
 . ./setdir.sh
 NAME=oszk
-TYPE_PARAMS="--emptyLargeCollectors --defaultEncoding UTF8 --indexWithTokenizedField"
+TYPE_PARAMS="--emptyLargeCollectors --defaultEncoding UTF8"
+# index parameters
+TYPE_PARAMS="${TYPE_PARAMS} --indexWithTokenizedField --indexFieldCounts --indexSubfieldCounts"
 MASK=OSZK_*.mrc.gz
 
 . ./common-script

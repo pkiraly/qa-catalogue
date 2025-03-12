@@ -5,7 +5,7 @@
 # will be accessible as <name> (for the current production)
 # and <name>_dev for the new version which is just in the creation.
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-set -ueo pipefail
+# set -ueo pipefail
 
 . ./solr-functions
 
@@ -16,6 +16,7 @@ CORE2=${DB}_2
 CORE_PROD=${DB}
 CORE_DEV=${DB}_dev
 
+echo "check_core()"
 PROD_EXISTS=$(check_core "$CORE_PROD")
 echo "$CORE_PROD exists: $PROD_EXISTS"
 if [[ $PROD_EXISTS != 1 ]]; then

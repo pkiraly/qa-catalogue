@@ -7,6 +7,8 @@
 NAME=nkp
 MARC_DIR=${BASE_INPUT_DIR}/nkp.cz/nkp
 TYPE_PARAMS="--marcxml --emptyLargeCollectors --marcVersion NKCR"
+# index parameters
+TYPE_PARAMS="${TYPE_PARAMS} --indexWithTokenizedField --indexFieldCounts --indexSubfieldCounts"
 MASK=cnb.xml.gz
 
 . ./common-script

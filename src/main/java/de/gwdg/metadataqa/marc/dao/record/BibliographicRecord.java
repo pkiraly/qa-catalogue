@@ -610,7 +610,6 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
 
   public abstract List<String> getAllowedControlFieldTags();
 
-
   public abstract Map<ShelfReadyFieldsBooks, Map<String, List<String>>> getShelfReadyMap();
 
   protected abstract List<String> getSubjectTags();

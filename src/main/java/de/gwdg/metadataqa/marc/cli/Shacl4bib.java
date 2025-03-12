@@ -11,6 +11,7 @@ import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.BibSelector;
 import de.gwdg.metadataqa.marc.cli.utils.BibSelectorFactory;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
+import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordFilter;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import org.apache.commons.cli.Options;
@@ -35,9 +36,11 @@ public class Shacl4bib extends QACli<Shacl4bibParameters> implements Bibliograph
   private File outputFile;
   private RuleCatalog ruleCatalog;
   private SchemaConfiguration schema;
+  private RecordFilter recordFilter;
 
   public Shacl4bib(String[] args) throws ParseException {
     parameters = new Shacl4bibParameters(args);
+    recordFilter = parameters.getRecordFilter();
     readyToProcess = true;
   }
 
@@ -115,12 +118,17 @@ public class Shacl4bib extends QACli<Shacl4bibParameters> implements Bibliograph
   }
 
   @Override
-  public void processRecord(BibliographicRecord marcRecord, int recordNumber) throws IOException {
-    BibSelector selector = BibSelectorFactory.create(schema.getFormat(), marcRecord);
+  public void processRecord(BibliographicRecord bibliographicRecord, int recordNumber) throws IOException {
+    if (!recordFilter.isAllowable(bibliographicRecord)) {
+      logger.info("ignoring " + bibliographicRecord.getId());
+      return;
+    }
+
+    BibSelector selector = BibSelectorFactory.create(schema.getFormat(), bibliographicRecord);
 
     if (selector != null) {
       List<Object> values = RuleCatalogUtils.extract(ruleCatalog, ruleCatalog.measure(selector));
-      values.add(0, marcRecord.getId(true));
+      values.add(0, bibliographicRecord.getId(true));
       printToFile(outputFile, CsvUtils.createCsvFromObjects(values));
     }
   }

@@ -488,6 +488,7 @@ public class CommonParameters implements Serializable {
 
   public void setRecordFilter(String allowableRecords) {
     this.recordFilter = RecordFilterFactory.create(schemaType, allowableRecords.trim());
+    System.err.println(this.recordFilter);
   }
 
   public InputStream getStream() {

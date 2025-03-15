@@ -98,7 +98,7 @@ public class FormatterTest extends CliTestUtils {
 
     assertTrue(file.exists());
     List<String> results = FileUtils.readLinesFromFile(file.getCanonicalPath());
-    List<String> expectedResults = List.of("010a$,101a$", "975-19-0787-X,tur", "0-395-67346-1,eng",
+    List<String> expectedResults = List.of("010$a,101$a", "975-19-0787-X,tur", "0-395-67346-1,eng",
       "973-95777-1-7,rum", "973-95795-6-6,ger", "2-203-60504-9,fre", "973-95988-2-X,rum", "4-87893-180-9,jpn",
       ",eng", "973-95056-3-5,rum", "2-501-01782-X,fre");
     assertEquals(expectedResults, results);

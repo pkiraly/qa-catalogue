@@ -6,9 +6,9 @@ import de.gwdg.metadataqa.marc.dao.MarcControlField;
 import de.gwdg.metadataqa.marc.dao.MarcLeader;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.utils.SchemaSpec;
-import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
+import de.gwdg.metadataqa.marc.utils.marcspec.MarcSpec;
+import de.gwdg.metadataqa.marc.utils.marcspec.MarcSpecExtractor;
 import de.gwdg.metadataqa.marc.utils.unimarc.UnimarcConverter;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -111,24 +111,39 @@ public abstract class MarcRecord extends BibliographicRecord {
 
   @Override
   public List<String> select(SchemaSpec schemaSpec) {
-    MarcSpec marcSpec = (MarcSpec) schemaSpec;
-
     List<String> results = new ArrayList<>();
-    if (marcSpec.getFieldTag().equals("LDR") && leader != null && StringUtils.isNotEmpty(leader.getContent())) {
-      return selectLeader(marcSpec);
-    }
+    /*
+    if (schemaSpec instanceof MarcSpec) {
+      MarcSpec marcSpec = (MarcSpec) schemaSpec;
 
-    if (controlfieldIndex.containsKey(marcSpec.getFieldTag())) {
-      return selectControlFields(marcSpec);
-    }
+      if (marcSpec.getFieldTag().equals("LDR") && leader != null && StringUtils.isNotEmpty(leader.getContent())) {
+        return selectLeader(marcSpec);
+      }
 
-    if (datafieldIndex.containsKey(marcSpec.getFieldTag())) {
-      return selectDatafields(marcSpec);
-    }
+      if (controlfieldIndex.containsKey(marcSpec.getFieldTag())) {
+        return selectControlFields(marcSpec);
+      }
+
+      if (datafieldIndex.containsKey(marcSpec.getFieldTag())) {
+        return selectDatafields(marcSpec);
+      }
+    } else if (schemaSpec instanceof MarcSpec2) {
+
+     */
+      MarcSpec marcSpec = (MarcSpec) schemaSpec;
+      Object result = MarcSpecExtractor.extract((MarcRecord) this, marcSpec);
+      if (result != null) {
+        if (result instanceof List)
+          results.addAll((List) result);
+        else if (result instanceof String)
+          results.add((String) result);
+      }
+    // }
 
     return results;
   }
 
+  /*
   protected List<String> selectLeader(MarcSpec selector) {
     List<String> selectedResults = new ArrayList<>();
     if (selector.hasRangeSelector()) {
@@ -156,5 +171,6 @@ public abstract class MarcRecord extends BibliographicRecord {
     }
     return selectedResults;
   }
+  */
 
 }

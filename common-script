@@ -263,7 +263,7 @@ do_marc_history() {
   if [ "${SCHEMA}" == "PICA" ]; then
     SELECTOR='011@$a;001A$0|extractPicaDate'
   else
-    SELECTOR="008~7-10;008~0-5"
+    SELECTOR="008/7-10;008/0-5"
   fi
 
   PARAMS=$(filter_params "marc-history")

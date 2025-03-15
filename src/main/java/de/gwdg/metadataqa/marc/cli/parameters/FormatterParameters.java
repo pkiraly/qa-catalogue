@@ -2,7 +2,7 @@ package de.gwdg.metadataqa.marc.cli.parameters;
 
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.utils.SchemaSpec;
-import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
+import de.gwdg.metadataqa.marc.utils.marcspec.MarcSpecParser;
 import de.gwdg.metadataqa.marc.utils.pica.path.PicaSpec;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.lang3.StringUtils;
@@ -71,7 +71,7 @@ public class FormatterParameters extends CommonParameters {
           selector.add(new PicaSpec(_rawSelector));
       } else {
         for (String _rawSelector : rawSelectors)
-          selector.add(new MarcSpec(_rawSelector));
+          selector.add(MarcSpecParser.parse(_rawSelector));
       }
     }
 

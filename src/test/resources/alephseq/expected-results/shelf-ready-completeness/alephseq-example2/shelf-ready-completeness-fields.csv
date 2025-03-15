@@ -1,8 +1,8 @@
 name,label,marcpath,score
-LDR06,"Type of record","LDR~06",38
-LDR07,"Bibliographic level","LDR~07",40
-LDR1718,"Encoding level and Descriptive cataloguing form","LDR~17-18",29
-TAG00600,"Additional characteristics","006~00",9
+LDR06,"Type of record","LDR/06",38
+LDR07,"Bibliographic level","LDR/07",40
+LDR1718,"Encoding level and Descriptive cataloguing form","LDR/17-18",29
+TAG00600,"Additional characteristics","006/00",9
 TAG010,"Library of Congress Control Number","010$a",6
 TAG015,"National Bibliography Number","015$a,015$2",5
 TAG020,"International Standard Book Number","020$a,020$z,020$q",45

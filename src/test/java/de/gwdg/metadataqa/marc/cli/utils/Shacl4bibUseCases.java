@@ -67,11 +67,14 @@ public class Shacl4bibUseCases {
 
   }
 
-  private String execute(String independent, String dependent, String pattern, Map<String, Object> config) {
+  private String execute(String independent,
+                         String dependent,
+                         String pattern,
+                         Map<String, Object> config) {
 
     RuleCatalog ruleCatalog = RuleCatalogUtils.create(prepareSchema(independent, dependent, pattern, config));
     ruleCatalog.setOutputType(RuleCheckingOutputType.BOTH);
-    System.err.println(ruleCatalog.getHeader());
+    // System.err.println(ruleCatalog.getHeader());
 
     MarcSpecSelector selector = new MarcSpecSelector(marcRecord);
     List<Object> values = RuleCatalogUtils.extract(ruleCatalog, ruleCatalog.measure(selector));

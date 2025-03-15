@@ -12,58 +12,50 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class MarcSpec2ExtractorTest {
+public class MarcSpecExtractorTest {
   @Test
   public void field_numeric() {
-    MarcSpec2 spec = MarcSpec2Parser.parse("080");
+    MarcSpec spec = MarcSpecParser.parse("080");
 
     Marc21Record marcRecord = new Marc21BibliographicRecord("u2407796");
     marcRecord.addDataField(new DataField(Tag080.getInstance(), " ", " ", "a", "821.124"));
 
-    Object extracted = MarcSpec2Extractor.extract(marcRecord, spec);
+    List<DataField> extracted = (List<DataField>) MarcSpecExtractor.extract(marcRecord, spec);
     assertEquals(ArrayList.class, extracted.getClass());
-    List<Object> fields1 = (List<Object>) extracted;
-    assertEquals(1, fields1.size());
-    assertEquals(DataField.class, fields1.get(0).getClass());
-    List<DataField> fields = (List<DataField>) extracted;
-    assertEquals(
-      "DataField{080, ind1=' ', ind2=' ', subfields=[MarcSubfield{code='a', value='821.124'}]}",
-      fields.get(0).toString());
+    assertEquals(1, extracted.size());
+    assertEquals(DataField.class, extracted.get(0).getClass());
+    assertEquals("821.124", extracted.get(0).getSubfield("a").get(0).getValue());
   }
 
   @Test
   public void field_pattern() {
-    MarcSpec2 spec = MarcSpec2Parser.parse("08.");
+    MarcSpec spec = MarcSpecParser.parse("08.");
 
     Marc21Record marcRecord = new Marc21BibliographicRecord("u2407796");
     marcRecord.addDataField(new DataField(Tag080.getInstance(), " ", " ", "a", "821.124"));
 
-    Object extracted = MarcSpec2Extractor.extract(marcRecord, spec);
+    Object extracted = MarcSpecExtractor.extract(marcRecord, spec);
     assertEquals(ArrayList.class, extracted.getClass());
-    List<Object> fields1 = (List<Object>) extracted;
+    List<DataField> fields1 = (List<DataField>) extracted;
     assertEquals(1, fields1.size());
     assertEquals(DataField.class, fields1.get(0).getClass());
     List<DataField> fields = (List<DataField>) extracted;
-    assertEquals(
-      "DataField{080, ind1=' ', ind2=' ', subfields=[MarcSubfield{code='a', value='821.124'}]}",
-      fields.get(0).toString());
+    assertEquals("821.124", fields.get(0).getSubfield("a").get(0).getValue());
   }
 
   @Test
   public void indicator() {
-    MarcSpec2 spec = MarcSpec2Parser.parse("080^1");
+    MarcSpec spec = MarcSpecParser.parse("080^1");
 
     Marc21Record marcRecord = new Marc21BibliographicRecord("u2407796");
     marcRecord.addDataField(new DataField(Tag080.getInstance(), " ", " ", "a", "821.124"));
 
-    Object extracted = MarcSpec2Extractor.extract(marcRecord, spec);
+    Object extracted = MarcSpecExtractor.extract(marcRecord, spec);
     assertEquals(ArrayList.class, extracted.getClass());
     List<Object> fields1 = (List<Object>) extracted;
     assertEquals(1, fields1.size());
     assertEquals(String.class, fields1.get(0).getClass());
     List<String> values = (List<String>) extracted;
-    assertEquals(
-      " ",
-      StringUtils.join(values, ", "));
+    assertEquals(" ", StringUtils.join(values, ", "));
   }
 }

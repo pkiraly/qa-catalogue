@@ -1,15 +1,16 @@
 package de.gwdg.metadataqa.marc.analysis.shelfready;
 
-import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
+import de.gwdg.metadataqa.marc.utils.marcspec.MarcSpec;
+import de.gwdg.metadataqa.marc.utils.marcspec.MarcSpecParser;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public enum ShelfReadyFieldsBooks {
-  LDR06("LDR~06", "Type of record", 38, "a", "language material"),
-  LDR07("LDR~07", "Bibliographic level", 40, "m", "monograph"),
-  LDR1718("LDR~17-18", "Encoding level and Descriptive cataloguing form", 29),
-  TAG00600("006~00", "Additional characteristics", 9, "m", "computer file"),
+  LDR06("LDR/6", "Type of record", 38, "a", "language material"),
+  LDR07("LDR/7", "Bibliographic level", 40, "m", "monograph"),
+  LDR1718("LDR/17-18", "Encoding level and Descriptive cataloguing form", 29),
+  TAG00600("006/0", "Additional characteristics", 9, "m", "computer file"),
   // ...
   TAG010("010$a", "Library of Congress Control Number", 6),
   TAG015("015$a,015$2", "National Bibliography Number", 5),
@@ -76,7 +77,7 @@ public enum ShelfReadyFieldsBooks {
   private void processMarcPath() {
     String[] marcPaths = this.marcPath.split(",");
     for (String path : marcPaths)
-      selectors.add(new MarcSpec(path));
+      selectors.add(MarcSpecParser.parse(path));
   }
 
   public String getMarcPath() {

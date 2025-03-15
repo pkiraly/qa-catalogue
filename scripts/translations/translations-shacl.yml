@@ -7,7 +7,7 @@ fields:
         description: Language
         minCount: 1
   - name: 041/ind1
-    path: 041_1
+    path: "041_1"
     rules:
       - id: 041ind1
         description: "Translation indication"
@@ -83,4 +83,3 @@ fields:
       - id: 765d
         description: "Place, publisher, and date of publication"
         minCount: 1
-

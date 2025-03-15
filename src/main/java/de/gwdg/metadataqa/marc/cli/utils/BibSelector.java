@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.cli.utils;
 
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
 import de.gwdg.metadataqa.api.model.selector.Selector;
+import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.dao.record.Marc21BibliographicRecord;
 import de.gwdg.metadataqa.marc.dao.record.PicaRecord;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public abstract class BibSelector implements Selector {
   protected final BibliographicRecord record;
@@ -36,8 +38,16 @@ public abstract class BibSelector implements Selector {
   protected List<XmlFieldInstance> transformTags(List<String> tags) {
     List<XmlFieldInstance> fieldList = new ArrayList<>();
     if (tags != null) {
-      for (String tag : tags) {
-        fieldList.add(new XmlFieldInstance(tag));
+      for (Object tag : tags) {
+        if (tag instanceof String)
+          fieldList.add(new XmlFieldInstance((String) tag));
+        else if (tag instanceof DataField) {
+          fieldList.add(new XmlFieldInstance(((DataField) tag)
+            .getSubfields()
+            .stream()
+            .map(e -> e.getValue())
+            .collect(Collectors.joining(", "))));
+        }
       }
     }
     return fieldList;

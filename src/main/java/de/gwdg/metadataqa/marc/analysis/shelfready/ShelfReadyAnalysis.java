@@ -3,7 +3,7 @@ package de.gwdg.metadataqa.marc.analysis.shelfready;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
-import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
+import de.gwdg.metadataqa.marc.utils.marcspec.MarcSpec;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -102,7 +102,6 @@ public class ShelfReadyAnalysis {
                                               ShelfReadyFieldsBooks category,
                                               Map.Entry<String, List<String>> fieldSelector) {
     String tag = fieldSelector.getKey();
-
     List<String> subfieldCodes = fieldSelector.getValue();
 
     double score;
@@ -147,11 +146,20 @@ public class ShelfReadyAnalysis {
   private static double getScoreWhenNoCodes(BibliographicRecord marcRecord, ShelfReadyFieldsBooks category) {
     double score = 0.0;
     // FIXME This implementation was copied from the old code and heavily refactored, but the logic is still completely the same.
-    //  It only takes the first selector of the category and checks if it's present in the record.
-    MarcSpec selector = category.getSelectors().get(0);
+    // It only takes the first selector of the category and checks if it's present in the record.
+    /*
+    MarcSpec2 selector = category.getSelectors().get(0);
     List<String> values = marcRecord.select(selector);
     if (!values.isEmpty()) {
       score += 1.0;
+    }
+     */
+    for (MarcSpec selector : category.getSelectors()) {
+      System.err.println(selector.encode());
+      List<String> values = marcRecord.select(selector);
+      if (!values.isEmpty()) {
+        score += 1.0;
+      }
     }
     return score;
   }

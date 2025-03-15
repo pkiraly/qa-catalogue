@@ -3,7 +3,8 @@ package de.gwdg.metadataqa.marc.cli.utils;
 import de.gwdg.metadataqa.api.json.DataElement;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
-import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
+import de.gwdg.metadataqa.marc.utils.marcspec.MarcSpec;
+import de.gwdg.metadataqa.marc.utils.marcspec.MarcSpecParser;
 
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +32,7 @@ public class MarcSpecSelector extends BibSelector {
 
   private MarcSpec getMarcSpec(String path) {
     if (!marcSpecs.containsKey(path))
-      marcSpecs.put(path, new MarcSpec(path));
+      marcSpecs.put(path, MarcSpecParser.parse(path));
     return marcSpecs.get(path);
   }
 }

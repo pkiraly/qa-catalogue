@@ -10,7 +10,8 @@ import de.gwdg.metadataqa.marc.definition.MarcFormat;
 import de.gwdg.metadataqa.marc.definition.controltype.Control007Category;
 import de.gwdg.metadataqa.marc.utils.QAMarcReaderFactory;
 import de.gwdg.metadataqa.marc.utils.ReadMarc;
-import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
+import de.gwdg.metadataqa.marc.utils.marcspec.MarcSpec;
+import de.gwdg.metadataqa.marc.utils.marcspec.MarcSpecParser;
 import org.junit.Test;
 import org.marc4j.MarcReader;
 import org.marc4j.marc.Record;
@@ -87,17 +88,17 @@ public class BibliographicRecordTest {
     Path path = FileUtils.getPath("general/0001-01.mrc");
     List<Record> records = ReadMarc.read(path.toString());
     BibliographicRecord marcRecord = MarcFactory.createFromMarc4j(records.get(0));
-    MarcSpec spec = new MarcSpec("008~0-5");
+    MarcSpec spec = MarcSpecParser.parse("008/0-5");
     List<String> results = marcRecord.select(spec);
     assertEquals(1, results.size());
     assertEquals("800108", results.get(0));
 
-    spec = new MarcSpec("008~7-10");
+    spec = MarcSpecParser.parse("008/7-10");
     results = marcRecord.select(spec);
     assertEquals(1, results.size());
     assertEquals("1899", results.get(0));
 
-    spec = new MarcSpec("008~0-1");
+    spec = MarcSpecParser.parse("008/0-1");
     results = marcRecord.select(spec);
     assertEquals(1, results.size());
     assertEquals("80", results.get(0));
@@ -158,5 +159,4 @@ public class BibliographicRecordTest {
     assertEquals("Az ítélet :", marcRecord.getDatafieldsByTag("245").get(0).getSubfield("a").get(0).getValue());
     assertEquals("[Följegyzések és dokumentumok néhány magyarországi református egyházi döntésről 1948 és 1998 között] :", marcRecord.getDatafieldsByTag("245").get(0).getSubfield("b").get(0).getValue());
   }
-
 }

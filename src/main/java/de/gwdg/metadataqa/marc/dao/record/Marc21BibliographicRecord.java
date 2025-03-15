@@ -108,10 +108,10 @@ public class Marc21BibliographicRecord extends Marc21Record {
 
   public static Map<ShelfReadyFieldsBooks, String> getRawShelfReadyMap() {
     Map<ShelfReadyFieldsBooks, String> raw = new LinkedHashMap<>();
-    raw.put(ShelfReadyFieldsBooks.LDR06, "LDR~06");
-    raw.put(ShelfReadyFieldsBooks.LDR07, "LDR~07");
-    raw.put(ShelfReadyFieldsBooks.LDR1718, "LDR~17-18");
-    raw.put(ShelfReadyFieldsBooks.TAG00600, "006~00");
+    raw.put(ShelfReadyFieldsBooks.LDR06, "LDR/06");
+    raw.put(ShelfReadyFieldsBooks.LDR07, "LDR/07");
+    raw.put(ShelfReadyFieldsBooks.LDR1718, "LDR/17-18");
+    raw.put(ShelfReadyFieldsBooks.TAG00600, "006/00");
     raw.put(ShelfReadyFieldsBooks.TAG010, "010$a");
     raw.put(ShelfReadyFieldsBooks.TAG015, "015$a,015$2");
     raw.put(ShelfReadyFieldsBooks.TAG020, "020$a,020$z,020$q");

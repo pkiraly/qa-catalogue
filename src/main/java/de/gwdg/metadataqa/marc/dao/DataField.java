@@ -186,6 +186,7 @@ public class DataField implements Extractable, Serializable {
   }
 
   public void indexSubfields() {
+    subfieldIndex.clear();
     for (MarcSubfield marcSubfield : subfields)
       indexSubfield(marcSubfield.getCode(), marcSubfield);
   }

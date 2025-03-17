@@ -95,7 +95,6 @@ public abstract class QACli<T extends CommonParameters> {
         printToFile(idCollectorFile, CsvUtils.createCsv(recordId, groupId));
   }
 
-
   public static Set<String> extractGroupIds(List<String> idLists) {
     Set<String> groupIds = new HashSet<>();
     groupIds.add(ALL);
@@ -205,6 +204,15 @@ public abstract class QACli<T extends CommonParameters> {
         throw new RuntimeException(e);
       }
       isJarModifiedTimeDetected = true;
+    }
+  }
+
+  protected void copyFileToOutputDir(String fileName) {
+    File source = new File(fileName);
+    try {
+      FileUtils.copyFileToDirectory(source, new File(parameters.getOutputDir()));
+    } catch (IOException e) {
+      logger.warning(e.getLocalizedMessage());
     }
   }
 }

@@ -514,5 +514,31 @@
       "hasArg": true,
       "description": "output type (STATUS: status only, SCORE: score only, BOTH: status and score"
     }
+  ],
+  "translations": [
+    {
+      "short": "C",
+      "long": "shaclConfigurationFile",
+      "hasArg": true,
+      "description": "specify the configuration file"
+    },
+    {
+      "short": "O",
+      "long": "shaclOutputFile",
+      "hasArg": true,
+      "description": "output file"
+    },
+    {
+      "short": "P",
+      "long": "shaclOutputType",
+      "hasArg": true,
+      "description": "output type (STATUS: status only, SCORE: score only, BOTH: status and score"
+    },
+    {
+      "short": "D",
+      "long": "translationDebugFailedRules",
+      "hasArg": true,
+      "description": "log values that are not matched with the specified rule ID"
+    }
   ]
 }

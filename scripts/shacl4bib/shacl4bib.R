@@ -5,15 +5,25 @@
 # the rows are the individual rules identified by their IDs
 library(tidyverse)
 
+# default output file and stat file
+outputFile <- 'shacl4bib.csv'
+statFile <- 'shacl4bib-stat.csv'
+
 args = commandArgs(trailingOnly=TRUE)
 if (length(args) == 0) {
   stop("At least one argument must be supplied (input file).n", call.=FALSE)
 } else if (length(args) == 1) {
-  # default output file
   outputDir <- args[1]
+} else if (length(args) == 2) {
+  outputDir <- args[1]
+  outputFile <- args[2]
+} else if (length(args) == 3) {
+  outputDir <- args[1]
+  outputFile <- args[2]
+  statFile <- args[3]
 }
 
-inputFile <- paste0(outputDir, '/shacl4bib.csv')
+inputFile <- paste0(outputDir, '/', outputFile)
 
 df <- read_csv(inputFile)
 columns <- names(df)
@@ -47,4 +57,4 @@ for (row in 1:length(columns)) {
 }
 df_stat
 
-write_csv(df_stat, paste0(outputDir, '/shacl4bib-stat.csv'))
+write_csv(df_stat, paste0(outputDir, '/', statFile))

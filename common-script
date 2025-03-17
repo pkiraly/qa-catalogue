@@ -526,6 +526,36 @@ EOF
 
 }
 
+do_translations() {
+  # note: SHACL specific parameters are missing here --shaclConfigurationFile, --shaclOutputType, --shaclOutputFile
+  PARAMS=$(filter_params "translations")
+  log "log file: $LOG_DIR/translations.log"
+
+  run translations
+  # shellcheck disable=SC2086
+  ./translations --defaultRecordType BOOKS ${PARAMS} --outputDir "$OUTPUT_DIR/" $MARC_DIR/$MASK \
+    2> "$LOG_DIR/translations.log"
+  Rscript scripts/shacl4bib/shacl4bib.R "$OUTPUT_DIR" translations.csv translations-stat.csv
+
+  log "import translations details into SQLite"
+  echo "DROP TABLE IF EXISTS translations;" > scripts/translations/translations.sql
+  head -1 "$OUTPUT_DIR/translations.csv" \
+    | sed 's/,/" VARCHAR(2), "/g' \
+    | sed 's/^/CREATE TABLE translations( "/' \
+    | sed 's/id" VARCHAR(2)/id" VARCHAR(100)/' \
+    | sed 's/$/" VARCHAR(2)\n);/' \
+    | sed 's/,/,\n /g' >> scripts/translations/translations.sql
+  sqlite3 "$OUTPUT_DIR/qa_catalogue.sqlite" < scripts/translations/translations.sql
+  rm scripts/translations/translations.sql
+
+  tail -n +2 "$OUTPUT_DIR/translations.csv" > "$OUTPUT_DIR/translations-noheader.csv"
+  sqlite3 "$OUTPUT_DIR/qa_catalogue.sqlite" << EOF
+.mode csv
+.import $OUTPUT_DIR/translations-noheader.csv translations
+EOF
+
+}
+
 do_all_analyses() {
   analysis_tasks=$(echo "$ANALYSES" | tr , ' ')
   for task in $analysis_tasks; do
@@ -580,7 +610,8 @@ Commands:
   postprocess-solr           postprocess indexing (swap NAME and NAME_dev indexes)
   export-schema-files        export schema files
   export-cli-parameters      export the parameters of the CLI components into a JSON file
-  shacl4bib                  run SHACL-like validation
+  shacl4bib                  SHACL-like validation
+  translations               translations analysis
   all-analyses               run all analytical tasks (or those set via ANALYSES)
   all-solr                   run all indexing tasks
   all                        run all tasks (analyses and indexing)
@@ -721,6 +752,7 @@ for task in ${tasks//,/ }; do
     export-schema-files)      do_export_schema_files ;;
     export-cli-parameters)    do_export_cli_parameters ;;
     shacl4bib)                do_shacl4bib ;;
+    translations)             do_translations ;;
     all-analyses)             do_all_analyses ;;
     all-solr)                 do_all_solr ;;
     all)                      do_all_analyses ; do_all_solr ;;

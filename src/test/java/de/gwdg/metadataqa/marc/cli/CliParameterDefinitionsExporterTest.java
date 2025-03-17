@@ -9,6 +9,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -28,13 +29,14 @@ public class CliParameterDefinitionsExporterTest {
     try {
       parameters = (LinkedHashMap) mapper.readValue(json, Object.class);
 
-      assertEquals(16, parameters.size());
+      assertEquals(17, parameters.size());
       assertEquals(
         Set.of(
           "common", "completeness", "validate", "index", "classifications",
           "authorities", "tt-completeness", "shelf-ready-completeness",
           "bl-classification", "serial-score", "formatter", "functional-analysis",
-          "network-analysis", "marc-history", "record-patterns", "shacl4bib"
+          "network-analysis", "marc-history", "record-patterns", "shacl4bib",
+          "translations"
         ),
         parameters.keySet());
 
@@ -166,6 +168,20 @@ public class CliParameterDefinitionsExporterTest {
       assertTrue(parameters.containsKey("shacl4bib"));
       assertEquals(3, ((List) parameters.get("shacl4bib")).size());
       firstItem = (Map) ((List) parameters.get("shacl4bib")).get(0);
+      assertEquals(4, firstItem.size());
+      assertEquals("C", firstItem.get("short"));
+      assertEquals("shaclConfigurationFile", firstItem.get("long"));
+      assertEquals(true, firstItem.get("hasArg"));
+      assertEquals("specify the configuration file", firstItem.get("description"));
+
+      assertTrue(parameters.containsKey("translations"));
+      assertEquals(4, ((List) parameters.get("translations")).size());
+      assertEquals(
+        "shaclConfigurationFile, shaclOutputFile, shaclOutputType, translationDebugFailedRules",
+        ((List<?>) parameters.get("translations")).stream()
+        .map(s -> ((Map<String, Object>) s).get("long").toString())
+        .collect(Collectors.joining(", ")));
+      firstItem = (Map) ((List) parameters.get("translations")).get(0);
       assertEquals(4, firstItem.size());
       assertEquals("C", firstItem.get("short"));
       assertEquals("shaclConfigurationFile", firstItem.get("long"));

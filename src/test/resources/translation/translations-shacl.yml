@@ -1,0 +1,172 @@
+format: MARC
+fields:
+  - name: 008/35-37
+    path: 008/35-37
+    rules:
+      - id: 00835-37
+        description: Language
+        minCount: 1
+  - name: 041/ind1
+    path: "041^1"
+    rules:
+      - id: 041ind1
+        description: "Translation indication"
+        pattern: "^1$"
+  - name: 041$a
+    path: 041$a
+    rules:
+      - id: 041a
+        description: Language code of text
+        minCount: 1
+  - name: 041$h
+    path: 041$h
+    rules:
+      - id: 041h
+        description: Language code of original
+        minCount: 1
+  - name: 245$c
+    path: 245$c
+    rules:
+      - id: 245c
+        description: Statement of responsibility
+        mqafPattern:
+          pattern:
+            - ubersetzer|ubersetzung
+            - uberset\\.
+            - ubers\\.
+            - ubertr\\.
+            - vert\\.
+            - translator|[Tt]ranslated|transla\\.
+            - translations
+            - "[Tt]radotto"
+            - "[Tt]raducere"
+            - "[Tt]raducido"
+            - "[Tt]raduction"
+            - "[Tt]raduit"
+            - "[Tt]raduzione"
+            - Traducción
+            - traducir
+            - trad\\.
+            - traducao
+            - traduire
+            - traduccion
+            - trans\\.
+            - transl\\.
+            - tr\\.
+            - trad\\.
+            - traduc\\.
+            - Tr\\. from
+            - "[Tt]radution"
+            - Tr\\. dal tedesco
+            - metafrasmeno
+            - nihongo
+            - fanyi
+            - vertalen
+            - tlumaczyc
+            - meklet
+            - cevir
+            - prekladat
+            - suomeksi
+            - suom\\.
+            - terjemahkan
+            - eadar
+            - Översättning
+            - Översättning
+            - Öfversättning
+            - Oversatt av
+            - oversat af
+            - oversatta
+            - overs\\.
+            - metafr\\.
+            - pereklav
+            - perevedeno
+            - "[Pp]erevod s nemet︠s︡kogo"
+            - perev\\.
+            - prekl\\.
+            - prelozit
+            - Přeložila
+            - Prěložil
+            - prel\\.
+            - prevoditi
+            - prevezhdam
+            - prevezh\\.
+            - prev\\.
+            - prijevod
+            - prij\\.
+            - tlumac\\.
+            - mekl\\.
+            - cev\\.
+            - terj\\.
+            - eadar\\.
+            - Aus d\\.
+            - Dt\\.
+            - Fordította|fordt́otta|Forditotta|Fordították
+            - "[Vv]ertaald door"
+            - Uit het duitsch
+            - Geautoriseerde vertaling
+            - Vertaling
+            - "[Ss]aksan kielestä suomentanut"
+            - Fran tyskan av
+            - Till? svenska av
+            - Tr\\. de l'allemand par
+          scope: anyOf
+  - name: 700$4
+    path: 700$4
+    rules:
+      - id: 7004
+        description: Authorized translator name
+        mqafPattern: 
+          pattern:
+            - "(translator|trl)"
+          scope: anyOf
+  - name: 500$a
+    path: 500$a
+    rules:
+      - id: 500a
+        description: Translator in note
+        # debug: true
+        mqafPattern: 
+          pattern:
+            - "[Tt]ranslated by"
+          scope: anyOf
+  # TODO: add
+  # 130 - Main Entry - Uniform Title
+  # 630 - Subject Added Entry - Uniform Title
+  # 730 - Added Entry - Uniform Title
+  # 830 - Series Added Entry - Uniform Title
+  - name: 240$a
+    path: 240$a
+    rules:
+      - id: 240a
+        description: Uniform title
+        minCount: 1
+  - name: 240$l
+    path: 240$l
+    rules:
+      - id: 240l
+        description: Language of a work
+        minCount: 1
+  - name: 765/ind2
+    path: 765^2
+    rules:
+      - id: 765ind2
+        description: Translation of
+        pattern: " "
+  - name: 765$t
+    path: 765$t
+    rules:
+      - id: 765t
+        description: Original title
+        minCount: 1
+  - name: 765$s
+    path: 765$s
+    rules:
+      - id: 765s
+        description: Uniform title of original
+        minCount: 1
+  - name: 765$d
+    path: 765$d
+    rules:
+      - id: 765d
+        description: "Place, publisher, and date of publication"
+        minCount: 1

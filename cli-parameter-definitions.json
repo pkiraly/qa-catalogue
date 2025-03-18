@@ -539,6 +539,18 @@
       "long": "translationDebugFailedRules",
       "hasArg": true,
       "description": "log values that are not matched with the specified rule ID"
+    },
+    {
+      "short": "E",
+      "long": "translationPlaceNameDictionaryDir",
+      "hasArg": true,
+      "description": "A directory where place-synonyms-normalized.csv and coords.csv are located (see https://github.com/pkiraly/place-names)"
+    },
+    {
+      "short": "F",
+      "long": "translationExport",
+      "hasArg": true,
+      "description": "The exported translations file"
     }
   ]
 }

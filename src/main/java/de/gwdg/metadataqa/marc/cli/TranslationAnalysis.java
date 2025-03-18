@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.cli;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.gwdg.metadataqa.api.configuration.SchemaConfiguration;
 import de.gwdg.metadataqa.api.interfaces.MetricResult;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
@@ -17,6 +18,7 @@ import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.cli.utils.ShaclUtils;
 import de.gwdg.metadataqa.marc.cli.utils.TranslationModel;
 import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordFilter;
+import de.gwdg.metadataqa.marc.cli.utils.placename.PlaceNameNormaliser;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import org.apache.commons.cli.Options;
@@ -48,6 +50,9 @@ public class TranslationAnalysis extends QACli<TranslationParameters>
   private Map<String, Long> failed;
   private Map<String, String> rulePathMap;
   private Map<String, File> debugFiles;
+  private PlaceNameNormaliser placeNameNormaliser;
+  private ObjectMapper mapper;
+  private File exportFile;
 
   public TranslationAnalysis(String[] args) throws ParseException {
     parameters = new TranslationParameters(args);
@@ -108,6 +113,16 @@ public class TranslationAnalysis extends QACli<TranslationParameters>
     header.add(0, "id");
     header.addAll(TranslationModel.header());
     printToFile(outputFile, CsvUtils.createCsv(header));
+
+    if (parameters.getTranslationPlaceNameDictionaryDir() != null)
+      placeNameNormaliser = new PlaceNameNormaliser(parameters.getTranslationPlaceNameDictionaryDir(), parameters.getOutputDir());
+
+    if (parameters.getTranslationExport() != null) {
+      exportFile = new File(parameters.getOutputDir(), parameters.getTranslationExport());
+      if (exportFile.exists())
+        exportFile.delete();
+      mapper = new ObjectMapper();
+    }
   }
 
   @Override
@@ -141,7 +156,7 @@ public class TranslationAnalysis extends QACli<TranslationParameters>
     if (selector != null) {
       List<MetricResult> results = ruleCatalog.measure(selector);
       Map<String, RuleCheckerOutput> resultMap = (Map<String, RuleCheckerOutput>) results.get(0).getResultMap();
-      TranslationModel model = new TranslationModel(resultMap);
+      TranslationModel model = new TranslationModel(resultMap, selector, placeNameNormaliser);
 
       List<String> debugIds = parameters.getDebugFailedRules();
       if (debugIds != null && !debugIds.isEmpty()) {
@@ -160,6 +175,13 @@ public class TranslationAnalysis extends QACli<TranslationParameters>
       values.addAll(model.values());
 
       printToFile(outputFile, CsvUtils.createCsvFromObjects(values));
+
+      if (model.isTranslation()) {
+        Map<String, Object> extracted = model.extract();
+        extracted.put("id", bibliographicRecord.getId());
+        if (exportFile != null && mapper != null)
+          printToFile(exportFile, mapper.writeValueAsString(extracted) + "\n");
+      }
     }
   }
 
@@ -181,6 +203,8 @@ public class TranslationAnalysis extends QACli<TranslationParameters>
       logger.log(Level.WARNING, "failed rules: {0}", report);
     copyFileToOutputDir(parameters.getShaclConfigurationFile());
     saveParameters("translation-analysis.params.json", parameters, Map.of("numberOfprocessedRecords", numberOfprocessedRecords, "duration", duration));
+
+    placeNameNormaliser.reportUnresolvedPlaceNames();
   }
 
   @Override

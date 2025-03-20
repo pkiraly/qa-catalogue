@@ -190,13 +190,13 @@
 		<dependency>
 			<groupId>org.apache.spark</groupId>
 			<artifactId>spark-core_2.13</artifactId>
-			<version>3.5.4</version>
+			<version>3.5.5</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.spark</groupId>
 			<artifactId>spark-sql_2.13</artifactId>
-			<version>3.5.4</version>
+			<version>3.5.5</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -208,7 +208,7 @@
 		<dependency>
 			<groupId>org.xerial</groupId>
 			<artifactId>sqlite-jdbc</artifactId>
-			<version>3.49.0.0</version>
+			<version>3.49.1.0</version>
 		</dependency>
 	</dependencies>
 

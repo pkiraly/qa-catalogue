@@ -3,15 +3,19 @@ package de.gwdg.metadataqa.marc.cli.utils;
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
 import de.gwdg.metadataqa.api.rule.RuleCheckerOutput;
 import de.gwdg.metadataqa.api.rule.RuleCheckingOutputStatus;
+import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.cli.utils.placename.PlaceName;
 import de.gwdg.metadataqa.marc.cli.utils.placename.PlaceNameNormaliser;
+import de.gwdg.metadataqa.marc.definition.general.codelist.LanguageCodes;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -19,6 +23,14 @@ import java.util.stream.Collectors;
  */
 public class TranslationModel {
   private static final Logger logger = Logger.getLogger(TranslationModel.class.getCanonicalName());
+
+  private static final Pattern yearPattern = Pattern.compile("^\\d{4}$");
+
+  private static Map<String, String> languageCodes = TranslationModel.toMap(List.of(
+    "jap", "Japanese", "fra", "French", "fr", "French", "hu", "Hungarian", "esp", "Spanish",
+    "srb", "Serbian"
+  ));
+
 
   private final BibSelector selector;
   private final Map<String, RuleCheckerOutput> resultMap;
@@ -72,6 +84,7 @@ public class TranslationModel {
     // System.err.println(extract("260$a"));
     extracted.put("author", extract("100$a"));
     extracted.put("publicationPlace", extract("260$a"));
+    extracted.put("publicationYear", extract("260$c"));
     return extracted;
   }
 
@@ -79,6 +92,8 @@ public class TranslationModel {
     List<XmlFieldInstance> instances = selector.get(path);
     if (path.equals("260$a")) {
       instances.addAll(selector.get("264$a"));
+    } else if (path.equals("260$c")) {
+      instances.addAll(selector.get("264$c"));
     } else if (path.equals("100$a") && instances.size() == 0) {
       instances.addAll(selector.get("245$c"));
     }
@@ -90,18 +105,19 @@ public class TranslationModel {
           if (value.contains(", "))
             extracted.addAll(Arrays.asList(value.split(", "))
               .stream()
-              .map(s -> s.trim().toLowerCase())
+              .map(s -> resultLanguageCode(s.trim().toLowerCase()))
               .collect(Collectors.toList()));
           else if (!value.contains(" ")) {
             if (value.length() > 3) {
               for (int i = 0; i < value.length(); i += 3) {
-                extracted.add(value.substring(i, i + 3).toLowerCase());
+                String abr = value.substring(i, i + 3).toLowerCase();
+                extracted.add(resultLanguageCode(abr));
               }
             } else {
-              extracted.add(value.toLowerCase());
+              extracted.add(resultLanguageCode(value.toLowerCase()));
             }
           } else {
-            logger.warning(path + " - Unhandled case: " + value);
+            logger.warning(path + " - Unhandled language: " + value);
           }
         }
       }
@@ -112,6 +128,7 @@ public class TranslationModel {
     } else {
       extracted = instances.stream()
         .map(XmlFieldInstance::getValue)
+        .map(s -> Normalizer.normalize(s, Normalizer.Form.NFKC))
         .collect(Collectors.toList());
       if (path.equals("240$l")) {
         extracted = extracted.stream()
@@ -119,9 +136,65 @@ public class TranslationModel {
           .collect(Collectors.toList());
       } else if (path.equals("260$a") && placeNameNormaliser != null) {
         return processPlaceName(extracted).stream().map(PlaceName::getCity).collect(Collectors.toList());
+      } else if (path.equals("260$c")) {
+        return processYear(extracted);
       }
     }
     return extracted;
+  }
+
+  private static String resultLanguageCode(String abbreviation) {
+    EncodedValue code = LanguageCodes.getInstance().getCode(abbreviation);
+    if (code != null) {
+      return code.getLabel();
+    } else if (languageCodes.containsKey(abbreviation)) {
+      return languageCodes.get(abbreviation);
+    } else {
+      return abbreviation;
+    }
+  }
+
+  private List<? extends Object> processYear(List<String> extracted) {
+    List<String> normalized = new ArrayList<>();
+    for (String s : extracted) {
+      if (!yearPattern.matcher(s).matches()) {
+        String original = s;
+        s = s.replaceAll("(\\d)\\.$", "$1");
+        s = s.replaceAll("^c(\\d)", "$1");
+        s = s.replaceAll("c(\\d{4})", "$1");
+        s = s.replaceAll("\\d{4} \\[(\\d{4})\\]$", "$1");
+        s = s.replaceAll("^\\[c?(\\d{4})\\]$", "$1");
+        s = s.replaceAll("^\\[(.*?)\\]\\.?$", "$1");
+        s = s.replaceAll("\\[(.*?)\\]", "$1");
+        s = s.replaceAll("\\((.*?)\\)", "$1");
+        s = s.replaceAll("\\[", "");
+        s = s.replaceAll("\\]", "");
+        s = s.replaceAll("^(ca\\.) ?", "");
+        s = s.replaceAll("^(copyright|cop\\.|©|czerwiec|listopad|janvier|lipiec|wrzesień|październik|marzec|luty|januari|mars|maart|juin|juli|styczeń|grudzień|druk|styczeń) ", "");
+        s = s.replaceAll("(\\d{4})\\?", "$1");
+        s = s.replaceAll("^(\\d{3})\\?", "$10");
+        s = s.replaceAll("-\\?$", "0");
+        s = s.replaceAll("^(\\d{3})-$", "$10");
+        s = s.replaceAll("^(\\d{4})-$", "$1");
+        s = s.replaceAll("^(\\d{4})-(\\d{2})$", "$1");
+        s = s.replaceAll("^.* i\\.e\\. (\\d{4})$", "$1");
+        s = s.replaceAll("Shōwa \\d+ (\\d{4})$", "$1");
+        if (Pattern.compile("^(\\d{4})-(\\d{4})$").matcher(s).matches()) {
+          normalized.addAll(Arrays.asList(s.split("-")));
+        } else if (Pattern.compile("^(\\d{4}), ?(\\d{4})$").matcher(s).matches()) {
+          normalized.addAll(Arrays.asList(s.split(", ?")));
+        } else if (s.equals("s.d.") || s.equals("n.d.")) {
+          //
+        } else if (yearPattern.matcher(s).matches()) {
+          normalized.add(s);
+        } else {
+          System.err.println("Unhandled case: " + original + " -> " + s);
+        }
+      } else {
+        normalized.add(s);
+      }
+    }
+    return normalized;
   }
 
   private List<PlaceName> processPlaceName(List<String> input) {
@@ -209,5 +282,13 @@ public class TranslationModel {
 
   public boolean isTranslation() {
     return translation;
+  }
+
+  private static Map<String, String> toMap(List<String> input) {
+    Map<String, String> map = new HashMap<>();
+    for (int i = 0; i < input.size(); i+=2) {
+      map.put(input.get(i), input.get(i+1));
+    }
+    return map;
   }
 }

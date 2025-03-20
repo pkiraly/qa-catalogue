@@ -147,7 +147,7 @@ public class TranslationAnalysis extends QACli<TranslationParameters>
                             int recordNumber)
       throws IOException {
     if (!recordFilter.isAllowable(bibliographicRecord)) {
-      logger.info("ignoring " + bibliographicRecord.getId());
+      // logger.info("ignoring " + bibliographicRecord.getId());
       return;
     }
 

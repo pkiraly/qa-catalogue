@@ -19,6 +19,7 @@ import de.gwdg.metadataqa.marc.cli.utils.ShaclUtils;
 import de.gwdg.metadataqa.marc.cli.utils.TranslationModel;
 import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordFilter;
 import de.gwdg.metadataqa.marc.cli.utils.placename.PlaceNameNormaliser;
+import de.gwdg.metadataqa.marc.cli.utils.translation.PublicationYearNormaliser;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import org.apache.commons.cli.Options;
@@ -53,6 +54,7 @@ public class TranslationAnalysis extends QACli<TranslationParameters>
   private PlaceNameNormaliser placeNameNormaliser;
   private ObjectMapper mapper;
   private File exportFile;
+  private PublicationYearNormaliser publicationYearNormaliser;
 
   public TranslationAnalysis(String[] args) throws ParseException {
     parameters = new TranslationParameters(args);
@@ -123,6 +125,8 @@ public class TranslationAnalysis extends QACli<TranslationParameters>
         exportFile.delete();
       mapper = new ObjectMapper();
     }
+
+    publicationYearNormaliser = new PublicationYearNormaliser(parameters.getOutputDir());
   }
 
   @Override
@@ -156,7 +160,7 @@ public class TranslationAnalysis extends QACli<TranslationParameters>
     if (selector != null) {
       List<MetricResult> results = ruleCatalog.measure(selector);
       Map<String, RuleCheckerOutput> resultMap = (Map<String, RuleCheckerOutput>) results.get(0).getResultMap();
-      TranslationModel model = new TranslationModel(resultMap, selector, placeNameNormaliser);
+      TranslationModel model = new TranslationModel(resultMap, selector, placeNameNormaliser, publicationYearNormaliser);
 
       List<String> debugIds = parameters.getDebugFailedRules();
       if (debugIds != null && !debugIds.isEmpty()) {
@@ -205,6 +209,7 @@ public class TranslationAnalysis extends QACli<TranslationParameters>
     saveParameters("translation-analysis.params.json", parameters, Map.of("numberOfprocessedRecords", numberOfprocessedRecords, "duration", duration));
 
     placeNameNormaliser.reportUnresolvedPlaceNames();
+    publicationYearNormaliser.reportUnresolvedYears();
   }
 
   @Override

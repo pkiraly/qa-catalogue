@@ -280,7 +280,7 @@ public class Shacl4bibTest extends CliTestUtils {
     MarcSpecSelector selector = new MarcSpecSelector(marcRecord);
     List<Object> values = RuleCatalogUtils.extract(ruleCatalog, ruleCatalog.measure(selector));
     assertEquals(List.of("245$b"), ruleCatalog.getHeader());
-    assertEquals("0", CsvUtils.createCsvFromObjects(values).trim());
+    assertEquals("NA", CsvUtils.createCsvFromObjects(values).trim());
   }
 
   @Test
@@ -316,6 +316,6 @@ public class Shacl4bibTest extends CliTestUtils {
     MarcSpecSelector selector = new MarcSpecSelector(marcRecord);
     List<Object> values = RuleCatalogUtils.extract(ruleCatalog, ruleCatalog.measure(selector));
     assertEquals(List.of("246$a"), ruleCatalog.getHeader());
-    assertEquals("0", CsvUtils.createCsvFromObjects(values).trim());
+    assertEquals("NA", CsvUtils.createCsvFromObjects(values).trim());
   }
 }

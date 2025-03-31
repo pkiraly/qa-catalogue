@@ -6,7 +6,9 @@ import de.gwdg.metadataqa.api.rule.RuleCheckingOutputStatus;
 import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.cli.utils.placename.PlaceName;
 import de.gwdg.metadataqa.marc.cli.utils.placename.PlaceNameNormaliser;
+import de.gwdg.metadataqa.marc.cli.utils.translation.PublicationYearNormaliser;
 import de.gwdg.metadataqa.marc.definition.general.codelist.LanguageCodes;
+import org.apache.commons.lang3.StringUtils;
 
 import java.text.Normalizer;
 import java.util.ArrayList;
@@ -35,6 +37,8 @@ public class TranslationModel {
   private final BibSelector selector;
   private final Map<String, RuleCheckerOutput> resultMap;
   private final PlaceNameNormaliser placeNameNormaliser;
+  private final PublicationYearNormaliser yearNormaliser;
+
 
   private boolean translation;
   private boolean translator;
@@ -50,10 +54,12 @@ public class TranslationModel {
    */
   public TranslationModel(Map<String, RuleCheckerOutput> resultMap,
                           BibSelector selector,
-                          PlaceNameNormaliser placeNameNormaliser) {
+                          PlaceNameNormaliser placeNameNormaliser,
+                          PublicationYearNormaliser yearNormaliser) {
     this.resultMap = resultMap;
     this.selector = selector;
     this.placeNameNormaliser = placeNameNormaliser;
+    this.yearNormaliser = yearNormaliser;
     evaluate();
   }
 
@@ -102,6 +108,7 @@ public class TranslationModel {
       for (XmlFieldInstance instance : instances) {
         String value = instance.getValue();
         if (value != null) {
+          value = value.trim();
           if (value.contains(", "))
             extracted.addAll(Arrays.asList(value.split(", "))
               .stream()
@@ -110,14 +117,17 @@ public class TranslationModel {
           else if (!value.contains(" ")) {
             if (value.length() > 3) {
               for (int i = 0; i < value.length(); i += 3) {
-                String abr = value.substring(i, i + 3).toLowerCase();
+                int end = i + 3;
+                String abr = (value.length() >= end)
+                  ? value.substring(i, end).toLowerCase()
+                  : value.substring(i).toLowerCase();
                 extracted.add(resultLanguageCode(abr));
               }
             } else {
               extracted.add(resultLanguageCode(value.toLowerCase()));
             }
           } else {
-            logger.warning(path + " - Unhandled language: " + value);
+            logger.warning(String.format("%s - Unhandled language: '%s'", path, value));
           }
         }
       }
@@ -135,9 +145,22 @@ public class TranslationModel {
           .map(s -> s.replaceAll("\\.$", ""))
           .collect(Collectors.toList());
       } else if (path.equals("260$a") && placeNameNormaliser != null) {
-        return processPlaceName(extracted).stream().map(PlaceName::getCity).collect(Collectors.toList());
-      } else if (path.equals("260$c")) {
-        return processYear(extracted);
+        List<PlaceName> placeNames = processPlaceName(extracted);
+        if (placeNames.isEmpty()) {
+          return new ArrayList<>();
+        } else {
+          for (PlaceName p : placeNames) {
+            if (p == null || p.getCity() == null) {
+              logger.warning(String.format("%s - null in place name: '%s'", path, StringUtils.join(extracted, "' -- '")));
+            }
+          }
+          return placeNames.stream()
+            .filter(s -> s.getCity() != null)
+            .map(PlaceName::getCity)
+            .collect(Collectors.toList());
+        }
+      } else if (path.equals("260$c") && yearNormaliser != null) {
+        return yearNormaliser.processYear(extracted);
       }
     }
     return extracted;
@@ -152,49 +175,6 @@ public class TranslationModel {
     } else {
       return abbreviation;
     }
-  }
-
-  private List<? extends Object> processYear(List<String> extracted) {
-    List<String> normalized = new ArrayList<>();
-    for (String s : extracted) {
-      if (!yearPattern.matcher(s).matches()) {
-        String original = s;
-        s = s.replaceAll("(\\d)\\.$", "$1");
-        s = s.replaceAll("^c(\\d)", "$1");
-        s = s.replaceAll("c(\\d{4})", "$1");
-        s = s.replaceAll("\\d{4} \\[(\\d{4})\\]$", "$1");
-        s = s.replaceAll("^\\[c?(\\d{4})\\]$", "$1");
-        s = s.replaceAll("^\\[(.*?)\\]\\.?$", "$1");
-        s = s.replaceAll("\\[(.*?)\\]", "$1");
-        s = s.replaceAll("\\((.*?)\\)", "$1");
-        s = s.replaceAll("\\[", "");
-        s = s.replaceAll("\\]", "");
-        s = s.replaceAll("^(ca\\.) ?", "");
-        s = s.replaceAll("^(copyright|cop\\.|©|czerwiec|listopad|janvier|lipiec|wrzesień|październik|marzec|luty|januari|mars|maart|juin|juli|styczeń|grudzień|druk|styczeń) ", "");
-        s = s.replaceAll("(\\d{4})\\?", "$1");
-        s = s.replaceAll("^(\\d{3})\\?", "$10");
-        s = s.replaceAll("-\\?$", "0");
-        s = s.replaceAll("^(\\d{3})-$", "$10");
-        s = s.replaceAll("^(\\d{4})-$", "$1");
-        s = s.replaceAll("^(\\d{4})-(\\d{2})$", "$1");
-        s = s.replaceAll("^.* i\\.e\\. (\\d{4})$", "$1");
-        s = s.replaceAll("Shōwa \\d+ (\\d{4})$", "$1");
-        if (Pattern.compile("^(\\d{4})-(\\d{4})$").matcher(s).matches()) {
-          normalized.addAll(Arrays.asList(s.split("-")));
-        } else if (Pattern.compile("^(\\d{4}), ?(\\d{4})$").matcher(s).matches()) {
-          normalized.addAll(Arrays.asList(s.split(", ?")));
-        } else if (s.equals("s.d.") || s.equals("n.d.")) {
-          //
-        } else if (yearPattern.matcher(s).matches()) {
-          normalized.add(s);
-        } else {
-          System.err.println("Unhandled case: " + original + " -> " + s);
-        }
-      } else {
-        normalized.add(s);
-      }
-    }
-    return normalized;
   }
 
   private List<PlaceName> processPlaceName(List<String> input) {

@@ -4,9 +4,12 @@ import de.gwdg.metadataqa.api.model.XmlFieldInstance;
 import de.gwdg.metadataqa.api.rule.RuleCheckerOutput;
 import de.gwdg.metadataqa.api.rule.RuleCheckingOutputStatus;
 import de.gwdg.metadataqa.marc.EncodedValue;
+import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.cli.utils.placename.PlaceName;
 import de.gwdg.metadataqa.marc.cli.utils.placename.PlaceNameNormaliser;
 import de.gwdg.metadataqa.marc.cli.utils.translation.PublicationYearNormaliser;
+import de.gwdg.metadataqa.marc.dao.DataField;
+import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.general.codelist.LanguageCodes;
 import org.apache.commons.lang3.StringUtils;
 
@@ -38,7 +41,7 @@ public class TranslationModel {
   private final Map<String, RuleCheckerOutput> resultMap;
   private final PlaceNameNormaliser placeNameNormaliser;
   private final PublicationYearNormaliser yearNormaliser;
-
+  private final MarcVersion marcVersion;
 
   private boolean translation;
   private boolean translator;
@@ -51,15 +54,18 @@ public class TranslationModel {
    * @param resultMap           The results of the measurement
    * @param selector            The data object that contains selected data elements of the bib record
    * @param placeNameNormaliser
+   * @param marcVersion
    */
   public TranslationModel(Map<String, RuleCheckerOutput> resultMap,
                           BibSelector selector,
                           PlaceNameNormaliser placeNameNormaliser,
-                          PublicationYearNormaliser yearNormaliser) {
+                          PublicationYearNormaliser yearNormaliser,
+                          MarcVersion marcVersion) {
     this.resultMap = resultMap;
     this.selector = selector;
     this.placeNameNormaliser = placeNameNormaliser;
     this.yearNormaliser = yearNormaliser;
+    this.marcVersion = marcVersion;
     evaluate();
   }
 
@@ -95,7 +101,12 @@ public class TranslationModel {
   }
 
   private List<? extends Object> extract(String path) {
-    List<XmlFieldInstance> instances = selector.get(path);
+    List<XmlFieldInstance> instances = new ArrayList<>();
+    if (path.equals("100$a") && marcVersion == MarcVersion.HUNMARC) {
+      instances = getAuthorsFromHunmarc();
+    } else {
+      instances = selector.get(path);
+    }
     if (path.equals("260$a")) {
       instances.addAll(selector.get("264$a"));
     } else if (path.equals("260$c")) {
@@ -164,6 +175,36 @@ public class TranslationModel {
       }
     }
     return extracted;
+  }
+
+  private List<XmlFieldInstance> getAuthorsFromHunmarc() {
+    // System.err.println(selector.getClass());
+    List<String> names = new ArrayList<>();
+    MarcSpecSelector mSelector = (MarcSpecSelector) selector;
+    for (Object f : mSelector.extract("100")) {
+      StringBuilder name = new StringBuilder();
+      DataField field = (DataField) f;
+      List<MarcSubfield> a = field.getSubfield("a");
+      if (a != null && !a.isEmpty()) {
+        if (a.size() == 1) {
+          name.append(a.get(0).getValue());
+        } else {
+          logger.warning("Multiple 100$a: " + a);
+        }
+      }
+      List<MarcSubfield> j = field.getSubfield("j");
+      if (j != null && !j.isEmpty()) {
+        name.append(" ").append(j.get(0).getValue());
+        if (j.size() > 1) {
+          logger.warning("Multiple 100$j: " + j);
+        }
+      }
+      if (name.length() > 0) {
+        // logger.info(String.format("a: '%s', j: '%s' -> '%s'", a.toString(), j.toString(), name.toString()));
+        names.add(name.toString());
+      }
+    }
+    return new ArrayList<>();
   }
 
   private static String resultLanguageCode(String abbreviation) {

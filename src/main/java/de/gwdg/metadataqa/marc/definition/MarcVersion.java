@@ -15,7 +15,9 @@ public enum MarcVersion {
   B3KAT(   "B3KAT",    "B3Kat union catalogue of Bibliotheksverbundes Bayern (BVB) and Kooperativen Bibliotheksverbundes Berlin-Brandenburg (KOBV)"),
   KBR(     "KBR",      "KBR"),
   ZB(      "ZB",       "Zentralbibliothek Zürich"),
-  OGYK(    "OGYK",     "Országygyűlési Könyvtár, Budapest");
+  OGYK(    "OGYK",     "Országygyűlési Könyvtár, Budapest"),
+  HUNMARC( "HUNMARC",  "Hungarian MARC"),
+  ;
 
   String code;
   String label;

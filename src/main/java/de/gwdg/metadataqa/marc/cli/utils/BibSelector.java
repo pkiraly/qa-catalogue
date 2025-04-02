@@ -102,4 +102,8 @@ public abstract class BibSelector implements Selector {
   public String getContent() {
     return null;
   }
+
+  public BibliographicRecord getRecord() {
+    return record;
+  }
 }

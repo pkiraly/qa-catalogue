@@ -72,7 +72,7 @@ public class MarcTagListerTest {
     List<MarcVersion> testedVersions = List.of(
       MarcVersion.MARC21, MarcVersion.DNB, MarcVersion.FENNICA, MarcVersion.GENT, MarcVersion.NKCR, MarcVersion.OCLC,
       MarcVersion.SZTE, MarcVersion.KBR, MarcVersion.ZB, MarcVersion.BL, MarcVersion.MARC21NO, MarcVersion.UVA,
-      MarcVersion.B3KAT, MarcVersion.OGYK,
+      MarcVersion.B3KAT, MarcVersion.OGYK, MarcVersion.HUNMARC,
       MarcVersion.UNIMARC // special case
     );
     for (MarcVersion version : MarcVersion.values()) {

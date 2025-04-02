@@ -32,8 +32,14 @@ public class PublicationYearNormaliser {
   public List<String> processYear(List<String> extracted) {
     List<String> normalized = new ArrayList<>();
     for (String s : extracted) {
+      s = s.trim();
       if (!yearPattern.matcher(s).matches()) {
         String original = s;
+        s = s.replaceAll("^(?:sierpień|kwiecień|grudzień|febrer|février|maj|junio|July|septiembre|ottobre|octobre|Oktober|octubre de) (\\d{4})\\.?$", "$1");
+        s = s.replaceAll("^dr\\.? ?(\\d{4})\\.?$", "$1"); // druk
+        s = s.replaceAll("^(\\d{4}) :$", "$1");
+        s = s.replaceAll("^(\\d{4})\\]\\.$", "$1");
+        s = s.replaceAll("^\\d{4} \\[(\\d{4})\\]\\.?$", "$1");
         s = s.replaceAll("(\\d)\\.$", "$1");
         s = s.replaceAll("^c(\\d)", "$1");
         s = s.replaceAll("c(\\d{4})", "$1");
@@ -53,7 +59,7 @@ public class PublicationYearNormaliser {
         s = s.replaceAll("^(\\d{4})-$", "$1");
         s = s.replaceAll("^(\\d{4})-(\\d{2})$", "$1");
         s = s.replaceAll("^.* i\\.e\\. (\\d{4})$", "$1");
-        s = s.replaceAll("Shōwa \\d+ (\\d{4})$", "$1");
+        s = s.replaceAll("^(?:Shōwa|Shōwa|Minguo|Taishō) \\d+ (\\d{4})\\.?$", "$1");
         s = s.replaceAll("^(\\d{4}), cop\\. \\d{4}$", "$1");
         s = s.replaceAll("^\\d{4} !(\\d{4})$", "$1");
         s = s.replaceAll("^cop\\. ?(\\d{4})$", "$1");

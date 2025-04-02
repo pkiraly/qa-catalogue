@@ -160,7 +160,7 @@ public class TranslationAnalysis extends QACli<TranslationParameters>
     if (selector != null) {
       List<MetricResult> results = ruleCatalog.measure(selector);
       Map<String, RuleCheckerOutput> resultMap = (Map<String, RuleCheckerOutput>) results.get(0).getResultMap();
-      TranslationModel model = new TranslationModel(resultMap, selector, placeNameNormaliser, publicationYearNormaliser);
+      TranslationModel model = new TranslationModel(resultMap, selector, placeNameNormaliser, publicationYearNormaliser, parameters.getMarcVersion());
 
       List<String> debugIds = parameters.getDebugFailedRules();
       if (debugIds != null && !debugIds.isEmpty()) {

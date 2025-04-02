@@ -117,18 +117,31 @@ public class PlaceNameNormaliser {
     output = output.replaceAll("^\\[(.+)$", "$1");
     output = output.replaceAll("^(.+)\\]$", "$1");
     output = output.replaceAll(" \\[etc\\.$", "");
-    output = output.replaceAll(", Calif\\.$", ", CA");
-    output = output.replaceAll(", California$", ", CA");
-    output = output.replaceAll(", (Conn\\.|Connecticut)$", ", CT");
-    output = output.replaceAll(", N\\. ?Y\\.$", ", NY");
-    output = output.replaceAll(", N\\. ?J\\.$", ", NJ");
-    output = output.replaceAll(", Massachusetts$", ", MA");
+    output = output.replaceAll(", (\\[?Ark\\.)$", ", AR");
     output = output.replaceAll(", Arizona$", ", AZ");
-    output = output.replaceAll(", Pa\\.$", ", PA");
-    output = output.replaceAll(", Ill\\.$", ", IL");
-    output = output.replaceAll(", Illinois$", ", IL");
+    output = output.replaceAll(", (\\[?D\\.C\\.)$", ", DC");
+    output = output.replaceAll(", \\[?Calif\\.$", ", CA");
+    output = output.replaceAll(", California$", ", CA");
+    output = output.replaceAll(", (\\[?Colo\\.)$", ", CO");
+    output = output.replaceAll(", (Conn\\.|Connecticut)$", ", CT");
+    output = output.replaceAll(", (\\[?Fla\\.)$", ", FL");
+    output = output.replaceAll(", \\[?(Illinois|Ill\\.)$", ", IL");
+    output = output.replaceAll(", Ind\\.$", ", IN");
+    output = output.replaceAll(", (\\[?Kans\\.)$", ", KS");
+    output = output.replaceAll(", (Massachusetts|\\[?Mass\\.)$", ", MA");
+    output = output.replaceAll(", (Michigan)$", ", MI");
+    output = output.replaceAll(", (Maryland|Md\\.)$", ", MD");
+    output = output.replaceAll(", (Minn\\.)$", ", MN");
+    output = output.replaceAll(", (\\[?Mt\\.)$", ", MT");
+    output = output.replaceAll(", (\\[?Nebr\\.)$", ", NE");
+    output = output.replaceAll(", (N\\. ?J\\.|New Jersey)$", ", NJ");
+    output = output.replaceAll(", \\[?N\\. ?Y\\.$", ", NY");
+    output = output.replaceAll(", \\[?Pa\\.$", ", PA");
     output = output.replaceAll(", Texas$", ", TX");
-    output = output.replaceAll(", Maryland$", ", MD");
+    output = output.replaceAll(", \\[?Va\\.$", ", VA");
+    output = output.replaceAll(", Vermont$", ", VT");
+    output = output.replaceAll(", Washington$", ", WA");
+
     return output;
   }
 

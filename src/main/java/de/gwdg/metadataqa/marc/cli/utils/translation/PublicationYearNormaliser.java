@@ -30,59 +30,65 @@ public class PublicationYearNormaliser {
   }
 
   public List<String> processYear(List<String> extracted) {
-    List<String> normalized = new ArrayList<>();
-    for (String s : extracted) {
-      s = s.trim();
-      if (!yearPattern.matcher(s).matches()) {
-        String original = s;
-        s = s.replaceAll("^(?:sierpień|kwiecień|grudzień|febrer|février|maj|junio|July|septiembre|ottobre|octobre|Oktober|octubre de) (\\d{4})\\.?$", "$1");
-        s = s.replaceAll("^dr\\.? ?(\\d{4})\\.?$", "$1"); // druk
-        s = s.replaceAll("^(\\d{4}) :$", "$1");
-        s = s.replaceAll("^(\\d{4})\\]\\.$", "$1");
-        s = s.replaceAll("^\\d{4} \\[(\\d{4})\\]\\.?$", "$1");
-        s = s.replaceAll("(\\d)\\.$", "$1");
-        s = s.replaceAll("^c(\\d)", "$1");
-        s = s.replaceAll("c(\\d{4})", "$1");
-        s = s.replaceAll("\\d{4} \\[(\\d{4})\\]$", "$1");
-        s = s.replaceAll("^\\[c?(\\d{4})\\]$", "$1");
-        s = s.replaceAll("^\\[(.*?)\\]\\.?$", "$1");
-        s = s.replaceAll("\\[(.*?)\\]", "$1");
-        s = s.replaceAll("\\((.*?)\\)", "$1");
-        s = s.replaceAll("\\[", "");
-        s = s.replaceAll("\\]", "");
-        s = s.replaceAll("^(ca\\.) ?", "");
-        s = s.replaceAll("^(copyright|cop\\.|©|czerwiec|listopad|janvier|lipiec|wrzesień|październik|marzec|luty|januari|mars|maart|juin|juli|styczeń|grudzień|druk|styczeń) ", "");
-        s = s.replaceAll("(\\d{4})\\?", "$1");
-        s = s.replaceAll("^(\\d{3})\\?", "$10");
-        s = s.replaceAll("-\\?$", "0");
-        s = s.replaceAll("^(\\d{3})-$", "$10");
-        s = s.replaceAll("^(\\d{4})-$", "$1");
-        s = s.replaceAll("^(\\d{4})-(\\d{2})$", "$1");
-        s = s.replaceAll("^.* i\\.e\\. (\\d{4})$", "$1");
-        s = s.replaceAll("^(?:Shōwa|Shōwa|Minguo|Taishō) \\d+ (\\d{4})\\.?$", "$1");
-        s = s.replaceAll("^(\\d{4}), cop\\. \\d{4}$", "$1");
-        s = s.replaceAll("^\\d{4} !(\\d{4})$", "$1");
-        s = s.replaceAll("^cop\\. ?(\\d{4})$", "$1");
-        s = s.replaceAll("^ca ?(\\d{4})$", "$1");
-        s = s.replaceAll("^(\\d{4}) (k\\.|körül)$", "$1");
-        if (Pattern.compile("^(\\d{4})-(\\d{4})$").matcher(s).matches()) {
-          normalized.addAll(Arrays.asList(s.split("-")));
-        } else if (Pattern.compile("^(\\d{4}), ?(\\d{4})$").matcher(s).matches()) {
-          normalized.addAll(Arrays.asList(s.split(", ?")));
-        } else if (s.equals("s.d.") || s.equals("n.d.") || s.equals("s.a.")) {
+    List<String> normalizedYears = new ArrayList<>();
+    for (String original : extracted) {
+      if (!yearPattern.matcher(original).matches()) {
+        String normalized = normalizeYear(original);
+        if (Pattern.compile("^(\\d{4})-(\\d{4})$").matcher(normalized).matches()) {
+          normalizedYears.addAll(Arrays.asList(normalized.split("-")));
+        } else if (Pattern.compile("^(\\d{4}), ?(\\d{4})$").matcher(normalized).matches()) {
+          normalizedYears.addAll(Arrays.asList(normalized.split(", ?")));
+        } else if (normalized.equals("s.d.") || normalized.equals("n.d.") || normalized.equals("s.a.")) {
           //
-        } else if (yearPattern.matcher(s).matches()) {
-          normalized.add(s);
+        } else if (yearPattern.matcher(normalized).matches()) {
+          normalizedYears.add(normalized);
         } else {
-          String key = String.format("'%s' -> '%s'", original, s);
+          String key = String.format("'%s' -> '%s'", original, normalized);
           unresolvedYears.put(key, unresolvedYears.getOrDefault(key, 0) + 1);
           // System.err.println("Unhandled case: " + original + " -> " + s);
         }
       } else {
-        normalized.add(s);
+        normalizedYears.add(original);
       }
     }
-    return normalized;
+    return normalizedYears;
+  }
+
+  public static String normalizeYear(String year) {
+    year = year.trim();
+
+    year = year.replaceAll("^(?:sierpień|kwiecień|grudzień|febrer|février|maj|junio|July|septiembre|ottobre|octobre|Oktober|octubre de) (\\d{4})\\.?$", "$1");
+    year = year.replaceAll("^dr\\.? ?(\\d{4})\\.?$", "$1"); // druk
+    year = year.replaceAll("^(\\d{4}) :$", "$1");
+    year = year.replaceAll("^(\\d{4})\\]\\.$", "$1");
+    year = year.replaceAll("^\\d{4} \\[(\\d{4})\\]\\.?$", "$1");
+    year = year.replaceAll("(\\d)\\.$", "$1");
+    year = year.replaceAll("^c(\\d)", "$1");
+    year = year.replaceAll("c(\\d{4})", "$1");
+    year = year.replaceAll("\\d{4} \\[(\\d{4})\\]$", "$1");
+    year = year.replaceAll("^\\[c?(\\d{4})\\]$", "$1");
+    year = year.replaceAll("^\\[(.*?)\\]\\.?$", "$1");
+    year = year.replaceAll("\\[(.*?)\\]", "$1");
+    year = year.replaceAll("\\((.*?)\\)", "$1");
+    year = year.replaceAll("\\[", "");
+    year = year.replaceAll("\\]", "");
+    year = year.replaceAll("^(ca\\.) ?", "");
+    year = year.replaceAll("^(copyright|cop\\.|©|czerwiec|listopad|janvier|lipiec|wrzesień|październik|marzec|luty|januari|mars|maart|juin|juli|styczeń|grudzień|druk|styczeń) ", "");
+    year = year.replaceAll("(\\d{4})\\?", "$1");
+    year = year.replaceAll("^(\\d{3})\\?", "$10");
+    year = year.replaceAll("-\\?$", "0");
+    year = year.replaceAll("^(\\d{3})-$", "$10");
+    year = year.replaceAll("^(\\d{4})-$", "$1");
+    year = year.replaceAll("^(\\d{4})-(\\d{2})$", "$1");
+    year = year.replaceAll("^.* i\\.e\\. (\\d{4})$", "$1");
+    year = year.replaceAll("^(?:Shōwa|Shōwa|Minguo|Taishō) \\d+ (\\d{4})\\.?$", "$1");
+    year = year.replaceAll("^(\\d{4}), cop\\. \\d{4}$", "$1");
+    year = year.replaceAll("^\\d{4} !(\\d{4})$", "$1");
+    year = year.replaceAll("^cop\\. ?(\\d{4})$", "$1");
+    year = year.replaceAll("^ca ?(\\d{4})$", "$1");
+    year = year.replaceAll("^(\\d{4}) (k\\.|körül)$", "$1");
+
+    return year;
   }
 
   public void reportUnresolvedYears() {

@@ -20,6 +20,6 @@ TYPE_PARAMS="${TYPE_PARAMS} --translationDebugFailedRules 245c,7004"
 TYPE_PARAMS="${TYPE_PARAMS} --translationPlaceNameDictionaryDir ${QAC_ROOT}/../pkiraly/place-names/data"
 TYPE_PARAMS="${TYPE_PARAMS} --translationExport translations-export.jsonld"
 
-MASK=kb_*.xml
+MASK=kb_*.xml.gz
 
 . ./common-script

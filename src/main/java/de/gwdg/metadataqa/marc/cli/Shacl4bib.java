@@ -63,6 +63,7 @@ public class Shacl4bib extends QACli<Shacl4bibParameters>
       System.exit(0);
     }
     RecordIterator iterator = new RecordIterator(processor);
+    iterator.setProcessWithErrors(processor.getParameters().getProcessRecordsWithoutId());
     iterator.start();
   }
 
@@ -102,8 +103,8 @@ public class Shacl4bib extends QACli<Shacl4bibParameters>
   }
 
   @Override
-  public void processRecord(BibliographicRecord marcRecord, int recordNumber, List<ValidationError> errors) throws IOException {
-    // do nothing
+  public void processRecord(BibliographicRecord bibliographicRecord, int recordNumber, List<ValidationError> errors) throws IOException {
+    processRecord(bibliographicRecord, recordNumber);
   }
 
   @Override

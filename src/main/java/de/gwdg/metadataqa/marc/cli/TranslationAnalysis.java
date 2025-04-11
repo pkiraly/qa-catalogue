@@ -80,6 +80,7 @@ public class TranslationAnalysis extends QACli<TranslationParameters>
       System.exit(0);
     }
     RecordIterator iterator = new RecordIterator(processor);
+    iterator.setProcessWithErrors(processor.getParameters().getProcessRecordsWithoutId());
     iterator.start();
   }
 
@@ -143,7 +144,7 @@ public class TranslationAnalysis extends QACli<TranslationParameters>
   public void processRecord(BibliographicRecord bibliographicRecord,
                             int recordNumber,
                             List<ValidationError> errors) throws IOException {
-    // do nothing
+    processRecord(bibliographicRecord, recordNumber);
   }
 
   @Override

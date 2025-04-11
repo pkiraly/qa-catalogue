@@ -1,6 +1,6 @@
+#!/usr/bin/env bash
 # Calling completeness
 . ./common-variables
-
 
 ME=$(basename $0)
 
@@ -42,6 +42,7 @@ options:
  -e, --groupBy <arg>                group the results by the value of this data element (e.g. the ILN of  library)
  -3, --groupListFile <arg>          the file which contains a list of ILN codes
  -4, --solrForScoresUrl <arg>       the URL of the Solr server used to store scores
+ -5, --processRecordsWithoutId      process the record even it does not have an identifier
  -R, --format <arg>                 specify a format
  -V, --advanced                     advanced mode (not yet implemented)
  -P, --onlyPackages                 only packages (not yet implemented)
@@ -56,8 +57,8 @@ if [ $# -eq 0 ]; then
   show_usage
 fi
 
-SHORT_OPTIONS="m:hnl:o:i:d:qabpxyt:rz:v:f:s:g:1:2:u:j:w:k:c:e:3:4:R:VP"
-LONG_OPTIONS="marcVersion:,help,nolog,limit:,offset:,id:,defaultRecordType:,fixAlephseq,fixAlma,fixKbr,alephseq,marcxml,lineSeparated,outputDir:,trimId,ignorableFields:,ignorableRecords:,marcFormat:,dataSource:,defaultEncoding:,alephseqLineType:,picaIdField:,picaSubfieldSeparator:,picaSchemaFile:,schemaType:,picaRecordType:,allowableRecords:,groupBy:,groupListFile:,solrForScoresUrl:,format:,advanced,onlyPackages"
+SHORT_OPTIONS="m:hnl:o:i:d:qabpxyt:rz:v:f:s:g:1:2:u:j:w:k:c:e:3:4:5R:VP"
+LONG_OPTIONS="marcVersion:,help,nolog,limit:,offset:,id:,defaultRecordType:,fixAlephseq,fixAlma,fixKbr,alephseq,marcxml,lineSeparated,outputDir:,trimId,ignorableFields:,ignorableRecords:,marcFormat:,dataSource:,defaultEncoding:,alephseqLineType:,picaIdField:,picaSubfieldSeparator:,picaSchemaFile:,schemaType:,picaRecordType:,allowableRecords:,groupBy:,groupListFile:,solrForScoresUrl:,processRecordsWithoutId,format:,advanced,onlyPackages"
 
 GETOPT=$(getopt \
   -o ${SHORT_OPTIONS} \
@@ -99,6 +100,7 @@ while true ; do
     -e|--groupBy)                PARAMS="$PARAMS --groupBy $2" ;               shift 2 ;;
     -3|--groupListFile)          PARAMS="$PARAMS --groupListFile $2" ;         shift 2 ;;
     -4|--solrForScoresUrl)       PARAMS="$PARAMS --solrForScoresUrl $2" ;      shift 2 ;;
+    -5|--processRecordsWithoutId) PARAMS="$PARAMS --processRecordsWithoutId" ; shift   ;;
     -R|--format)                 PARAMS="$PARAMS --format $2" ;                shift 2 ;;
     -V|--advanced)               PARAMS="$PARAMS --advanced" ;                 shift   ;;
     -P|--onlyPackages)           PARAMS="$PARAMS --onlyPackages" ;             shift   ;;

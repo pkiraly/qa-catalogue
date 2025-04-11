@@ -22,6 +22,8 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.marc4j.MarcException;
 import org.marc4j.MarcReader;
 import org.marc4j.marc.Record;
+import org.marc4j.marc.VariableField;
+import org.marc4j.marc.impl.ControlFieldImpl;
 
 import java.io.FileInputStream;
 import java.nio.file.Path;
@@ -179,14 +181,12 @@ public class RecordIterator {
       return;
     }
 
-    if (marc4jRecord.getControlNumber() == null) {
+    if (marc4jRecord.getControlNumber() == null && !processWithErrors) {
       logger.log(Level.SEVERE, "No record number at {0}, last known ID: {1}", new Object[]{recordNumber, lastKnownId});
       if (marc4jRecord.getLeader() != null) {
         logger.severe(marc4jRecord::toString);
       }
-      if (!processWithErrors) {
-        return;
-      }
+      return;
     } else {
       lastKnownId = marc4jRecord.getControlNumber();
     }
@@ -196,6 +196,9 @@ public class RecordIterator {
     }
 
     try {
+      if (processWithErrors && marc4jRecord != null && marc4jRecord.getControlNumberField() == null)
+          marc4jRecord.addVariableField(new ControlFieldImpl("001", "qac" + recordNumber));
+
       processor.processRecord(marc4jRecord, recordNumber);
 
       // Transform the marc4j record to a bibliographic record

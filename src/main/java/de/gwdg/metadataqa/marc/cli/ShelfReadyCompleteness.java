@@ -77,6 +77,7 @@ public class ShelfReadyCompleteness extends QACli<ShelfReadyCompletenessParamete
     }
 
     RecordIterator iterator = new RecordIterator(processor);
+    iterator.setProcessWithErrors(processor.getParameters().getProcessRecordsWithoutId());
     iterator.start();
   }
 
@@ -119,19 +120,19 @@ public class ShelfReadyCompleteness extends QACli<ShelfReadyCompletenessParamete
   }
 
   @Override
-  public void processRecord(BibliographicRecord marcRecord, int recordNumber, List<ValidationError> errors) throws IOException {
-    // do nothing
+  public void processRecord(BibliographicRecord bibliographicRecord, int recordNumber, List<ValidationError> errors) throws IOException {
+    processRecord(bibliographicRecord, recordNumber);
   }
 
   @Override
-  public void processRecord(BibliographicRecord marcRecord, int recordNumber) {
-    if (parameters.getRecordIgnorator().isIgnorable(marcRecord))
+  public void processRecord(BibliographicRecord bibliographicRecord, int recordNumber) {
+    if (parameters.getRecordIgnorator().isIgnorable(bibliographicRecord))
       return;
 
-    List<Double> scores = ShelfReadyAnalysis.getScores(marcRecord);
+    List<Double> scores = ShelfReadyAnalysis.getScores(bibliographicRecord);
     String id = parameters.getTrimId()
-              ? marcRecord.getId().trim()
-              : marcRecord.getId();
+              ? bibliographicRecord.getId().trim()
+              : bibliographicRecord.getId();
 
     List<String> scoresToString = new ArrayList<>();
     for (Double score : scores)

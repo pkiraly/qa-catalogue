@@ -42,7 +42,7 @@ public class CliParameterDefinitionsExporterTest {
 
       assertTrue(parameters.containsKey("common"));
       assertEquals(ArrayList.class, parameters.get("common").getClass());
-      assertEquals(30, ((List) parameters.get("common")).size());
+      assertEquals(31, ((List) parameters.get("common")).size());
 
       firstItem = (Map) ((List) parameters.get("common")).get(0);
       assertEquals(4, firstItem.size());

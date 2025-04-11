@@ -105,6 +105,7 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
       }
 
       RecordIterator iterator = new RecordIterator(processor);
+      iterator.setProcessWithErrors(processor.getParameters().getProcessRecordsWithoutId());
       iterator.start();
       System.exit(0);
     } catch(Exception e) {
@@ -124,8 +125,8 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
   }
 
   @Override
-  public void processRecord(BibliographicRecord marcRecord, int recordNumber, List<ValidationError> errors) throws IOException {
-    // do nothing
+  public void processRecord(BibliographicRecord bibliographicRecord, int recordNumber, List<ValidationError> errors) throws IOException {
+    processRecord(bibliographicRecord, recordNumber);
   }
 
   @Override

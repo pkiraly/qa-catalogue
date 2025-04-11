@@ -69,6 +69,7 @@ public class CommonParameters implements Serializable {
   private String groupBy;
   private String groupListFile;
   private String solrForScoresUrl;
+  private Boolean processRecordsWithoutId = false;
 
   protected void setOptions() {
     if (!isOptionSet) {
@@ -103,7 +104,7 @@ public class CommonParameters implements Serializable {
       options.addOption("e", "groupBy", true, "group the results by the value of this data element (e.g. the ILN of  library)");
       options.addOption("3", "groupListFile", true, "the file which contains a list of ILN codes");
       options.addOption("4", "solrForScoresUrl", true, "the URL of the Solr server used to store scores");
-
+      options.addOption("5", "processRecordsWithoutId", false, "process the record even it does not have an identifier");
       isOptionSet = true;
     }
   }
@@ -146,6 +147,7 @@ public class CommonParameters implements Serializable {
     readGroupBy();
     readGroupListFile();
     readSolrForScoresUrl();
+    readProcessRecordsWithoutId();
 
     args = cmd.getArgs();
   }
@@ -261,6 +263,11 @@ public class CommonParameters implements Serializable {
   private void readMarcVersion() throws ParseException {
     if (cmd.hasOption("marcVersion"))
       setMarcVersion(cmd.getOptionValue("marcVersion"));
+  }
+
+  private void readProcessRecordsWithoutId() {
+    if (cmd.hasOption("processRecordsWithoutId"))
+      processRecordsWithoutId = true;
   }
 
   private void setAlephseqLineType(String alephseqLineTypeInput) throws ParseException {
@@ -563,6 +570,14 @@ public class CommonParameters implements Serializable {
     return solrForScoresUrl;
   }
 
+  public Boolean getProcessRecordsWithoutId() {
+    return processRecordsWithoutId;
+  }
+
+  public void setProcessRecordsWithoutId(Boolean processRecordsWithoutId) {
+    this.processRecordsWithoutId = processRecordsWithoutId;
+  }
+
   public String formatParameters() {
     String text = "";
     text += String.format("schemaType: %s%n", schemaType);
@@ -594,6 +609,7 @@ public class CommonParameters implements Serializable {
     text += String.format("groupBy: %s%n", groupBy);
     text += String.format("groupListFile: %s%n", groupListFile);
     text += String.format("solrForScoresUrl: %s%n", solrForScoresUrl);
+    text += String.format("processRecordsWithoutId: %s%n", processRecordsWithoutId);
 
     return text;
   }

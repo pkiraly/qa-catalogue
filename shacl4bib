@@ -41,6 +41,7 @@ options:
  -e, --groupBy <arg>                 group the results by the value of this data element (e.g. the ILN of  library)
  -3, --groupListFile <arg>           the file which contains a list of ILN codes
  -4, --solrForScoresUrl <arg>        the URL of the Solr server used to store scores
+ -5, --processRecordsWithoutId      process the record even it does not have an identifier
  -C, --shaclConfigurationFile <arg>  specify the configuration file
  -O, --shaclOutputFile <arg>         output file
  -P, --shaclOutputType <arg>         output type (STATUS: status only, SCORE: score only, BOTH: status and score
@@ -55,8 +56,8 @@ if [ $# -eq 0 ]; then
   show_usage
 fi
 
-SHORT_OPTIONS="m:hnl:o:i:d:qabpxyt:rz:v:f:s:g:1:2:u:j:w:k:c:e:3:4:C:O:P:"
-LONG_OPTIONS="marcVersion:,help,nolog,limit:,offset:,id:,defaultRecordType:,fixAlephseq,fixAlma,fixKbr,alephseq,marcxml,lineSeparated,outputDir:,trimId,ignorableFields:,ignorableRecords:,marcFormat:,dataSource:,defaultEncoding:,alephseqLineType:,picaIdField:,picaSubfieldSeparator:,picaSchemaFile:,schemaType:,picaRecordType:,allowableRecords:,groupBy:,groupListFile:,solrForScoresUrl:,shaclConfigurationFile:,shaclOutputFile:,shaclOutputType:"
+SHORT_OPTIONS="m:hnl:o:i:d:qabpxyt:rz:v:f:s:g:1:2:u:j:w:k:c:e:3:4:5C:O:P:"
+LONG_OPTIONS="marcVersion:,help,nolog,limit:,offset:,id:,defaultRecordType:,fixAlephseq,fixAlma,fixKbr,alephseq,marcxml,lineSeparated,outputDir:,trimId,ignorableFields:,ignorableRecords:,marcFormat:,dataSource:,defaultEncoding:,alephseqLineType:,picaIdField:,picaSubfieldSeparator:,picaSchemaFile:,schemaType:,picaRecordType:,allowableRecords:,groupBy:,groupListFile:,solrForScoresUrl:,processRecordsWithoutId,shaclConfigurationFile:,shaclOutputFile:,shaclOutputType:"
 
 GETOPT=$(getopt \
   -o ${SHORT_OPTIONS} \
@@ -98,6 +99,7 @@ while true ; do
     -e|--groupBy)                 PARAMS="$PARAMS --groupBy $2" ;                shift 2 ;;
     -3|--groupListFile)           PARAMS="$PARAMS --groupListFile $2" ;          shift 2 ;;
     -4|--solrForScoresUrl)        PARAMS="$PARAMS --solrForScoresUrl $2" ;       shift 2 ;;
+    -5|--processRecordsWithoutId)  PARAMS="$PARAMS --processRecordsWithoutId" ;    shift   ;;
     -C|--shaclConfigurationFile)  PARAMS="$PARAMS --shaclConfigurationFile $2" ; shift 2 ;;
     -O|--shaclOutputFile)         PARAMS="$PARAMS --shaclOutputFile $2" ;        shift 2 ;;
     -P|--shaclOutputType)         PARAMS="$PARAMS --shaclOutputType $2" ;        shift 2 ;;

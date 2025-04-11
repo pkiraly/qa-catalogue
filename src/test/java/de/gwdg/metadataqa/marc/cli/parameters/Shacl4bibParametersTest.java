@@ -71,6 +71,7 @@ public class Shacl4bibParametersTest {
           "groupBy: null\n" +
           "groupListFile: null\n" +
           "solrForScoresUrl: null\n" +
+          "processRecordsWithoutId: false\n" +
           "shaclConfigurationFile: shacl.cnf\n" +
           "shaclOutputFile: shacl.csv\n" +
           "shaclOutputType: STATUS\n";

@@ -142,6 +142,7 @@ public class FormatterParameters extends CommonParameters {
     text += String.format("format: %s%n", format);
     text += String.format("countNr: %s%n", countNr);
     text += String.format("search: %s%n", search);
+    text += String.format("selector: %s%n", selector);
     text += String.format("withId: %s%n", withId);
     text += String.format("separator: %s%n", separator);
     text += String.format("outputFile: %s%n", fileName);

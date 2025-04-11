@@ -249,7 +249,8 @@ public class CommonParametersTest {
         "alephseqLineType: null\n" +
         "groupBy: null\n" +
         "groupListFile: null\n" +
-        "solrForScoresUrl: null\n";
+        "solrForScoresUrl: null\n" +
+        "processRecordsWithoutId: false\n";
       expected = expected.replaceAll("\n", System.lineSeparator());
       assertEquals(expected, parameters.formatParameters());
     } catch (ParseException e) {

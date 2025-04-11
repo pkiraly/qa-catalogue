@@ -80,6 +80,7 @@ public class ThompsonTraillCompleteness extends QACli<ThompsonTraillCompleteness
     }
 
     RecordIterator iterator = new RecordIterator(processor);
+    iterator.setProcessWithErrors(processor.getParameters().getProcessRecordsWithoutId());
     iterator.start();
   }
 
@@ -115,8 +116,8 @@ public class ThompsonTraillCompleteness extends QACli<ThompsonTraillCompleteness
   }
 
   @Override
-  public void processRecord(BibliographicRecord marcRecord, int recordNumber, List<ValidationError> errors) throws IOException {
-    // do nothing
+  public void processRecord(BibliographicRecord bibliographicRecord, int recordNumber, List<ValidationError> errors) throws IOException {
+    processRecord(bibliographicRecord, recordNumber);
   }
 
   @Override

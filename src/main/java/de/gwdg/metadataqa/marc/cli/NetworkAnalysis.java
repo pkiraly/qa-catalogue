@@ -67,6 +67,7 @@ public class NetworkAnalysis extends QACli<NetworkParameters> implements Bibliog
         System.exit(0);
       }
       RecordIterator iterator = new RecordIterator(processor);
+      iterator.setProcessWithErrors(processor.getParameters().getProcessRecordsWithoutId());
       iterator.start();
     }
   }
@@ -82,18 +83,18 @@ public class NetworkAnalysis extends QACli<NetworkParameters> implements Bibliog
   }
 
   @Override
-  public void processRecord(BibliographicRecord marcRecord, int recordNumber, List<ValidationError> errors) throws IOException {
-    // do nothing
+  public void processRecord(BibliographicRecord bibliographicRecord, int recordNumber, List<ValidationError> errors) throws IOException {
+    processRecord(bibliographicRecord, recordNumber);
   }
 
   @Override
-  public void processRecord(BibliographicRecord marcRecord, int recordNumber) throws IOException {
-    if (parameters.getRecordIgnorator().isIgnorable(marcRecord))
+  public void processRecord(BibliographicRecord bibliographicRecord, int recordNumber) throws IOException {
+    if (parameters.getRecordIgnorator().isIgnorable(bibliographicRecord))
       return;
 
-    NetworkAnalyzer analyzer = new NetworkAnalyzer(marcRecord);
+    NetworkAnalyzer analyzer = new NetworkAnalyzer(bibliographicRecord);
     Set<DataField> collector = analyzer.process();
-    orphans.add(marcRecord.getId(true));
+    orphans.add(bibliographicRecord.getId(true));
 
     if (collector.isEmpty()) {
       return;

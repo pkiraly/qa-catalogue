@@ -70,6 +70,7 @@ public class AuthorityAnalysis extends QACli<ValidatorParameters> implements Bib
       System.exit(0);
     }
     var iterator = new RecordIterator(processor);
+    iterator.setProcessWithErrors(processor.getParameters().getProcessRecordsWithoutId());
     iterator.start();
   }
 
@@ -84,8 +85,8 @@ public class AuthorityAnalysis extends QACli<ValidatorParameters> implements Bib
   }
 
   @Override
-  public void processRecord(BibliographicRecord marcRecord, int recordNumber, List<ValidationError> errors) throws IOException {
-    // do nothing
+  public void processRecord(BibliographicRecord bibliographicRecord, int recordNumber, List<ValidationError> errors) throws IOException {
+    processRecord(bibliographicRecord, recordNumber);
   }
 
   @Override

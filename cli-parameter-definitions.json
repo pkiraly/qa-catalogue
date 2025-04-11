@@ -179,6 +179,12 @@
       "long": "solrForScoresUrl",
       "hasArg": true,
       "description": "the URL of the Solr server used to store scores"
+    },
+    {
+      "short": "5",
+      "long": "processRecordsWithoutId",
+      "hasArg": false,
+      "description": "process the record even it does not have an identifier"
     }
   ],
   "completeness": [

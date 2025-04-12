@@ -211,6 +211,7 @@ public class TranslationAnalysis extends QACli<TranslationParameters>
 
     placeNameNormaliser.reportUnresolvedPlaceNames();
     publicationYearNormaliser.reportUnresolvedYears();
+    publicationYearNormaliser.reportPatterns();
   }
 
   @Override

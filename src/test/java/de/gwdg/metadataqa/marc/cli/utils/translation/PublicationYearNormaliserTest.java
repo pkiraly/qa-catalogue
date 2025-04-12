@@ -16,16 +16,82 @@ public class PublicationYearNormaliserTest {
     // expect_equal("17--?]", "1700");
     // expect_equal("[17--?]", "1700");
     // expect_equal("[1690 or later]", "1690");
-    // expect_equal("18--]", "1800");
+    expect_equal("18--]", "1800");
     expect_equal("183-]", "1830");
+    expect_equal("[18??]", "1800");
+    expect_equal("[19??]", "1900");
+  }
+
+  @Test
+  public void copyright() {
+    expect_equal("copyright  2019.", "2019");
+    expect_equal("[©2019].", "2019");
+    expect_equal("℗ 2019.", "2019");
+  }
+
+  @Test
+  public void month() {
+    expect_equal("druk janvier 2016.", "2016");
+    expect_equal("enero de 2020.", "2020");
+    expect_equal("februari 2020.", "2020");
+    expect_equal("druk février 2020.", "2020");
+    expect_equal("marzo de 2019.", "2019");
+    expect_equal("druk mars 2016.", "2016");
+    expect_equal("avril 2016.", "2016");
+    expect_equal("abril de 2017.", "2017");
+    expect_equal("mai 2019.", "2019");
+    expect_equal("mayo de 2011.", "2011");
+    expect_equal("juny 2019.", "2019");
+    expect_equal("junio de 2019.", "2019");
+    expect_equal("julio de 2019.", "2019");
+    expect_equal("agosto de 2017.", "2017");
+    expect_equal("août 2019.", "2019");
+    expect_equal("septembre 2017.", "2017");
+    expect_equal("druk settembre 2019.", "2019");
+    expect_equal("druk novembre 2019.", "2019");
+    expect_equal("diciembre de 2017.", "2017");
+    expect_equal("druk décembre 2018.", "2018");
+  }
+
+  @Test
+  public void roman() {
+    expect_equal("MDCCLXXX. [1780]", "1780");
+    expect_equal("M.DC.XXI. [1621]", "1621");
+    expect_equal("MCMXXXVII [1937]", "1937");
+    expect_equal("anno M.DC.XX. [1620]", "1620");
+    expect_equal("an. Dom. MDCCII. [1702]", "1702");
+    expect_equal("annô MDCCXLIV. [1744]", "1744");
   }
 
   @Test
   public void name() {
+    expect_equal("[ok. 2019].", "2019");
+    expect_equal("Shō 15 [1940].", "1940");
+    expect_equal("min kuo 76 [1987]", "1987"); // Taiwan
+    expect_equal("Min kuo 4 [1915]", "1915"); // Taiwan
+    expect_equal("Min-kuo 21 [1932]", "1932"); // Taiwan
+    expect_equal("Meiji 40 [1907]", "1907"); // Taiwan
     // expect_equal("1798. (price one dollar)", "1798");
     expect_equal("1776.", "1776");
     // expect_equal("[1768.]", "1768");
     // expect_equal("[-1768]", "1768");
+    expect_equal("1524]", "1524");
+    expect_equal("1524?]", "1524");
+    expect_equal("[1524?]", "1524");
+    expect_equal("[1993] ", "1993");
+    expect_equal("an. 1719", "1719");
+    expect_equal("2015[!2017]", "2017");
+    expect_equal("ccop. 2006", "2006");
+    expect_equal("cp. 2006", "2006");
+    expect_equal("anno 1799", "1799");
+  }
+
+  @Test
+  public void hungarian() {
+    expect_equal("[1936 után]", "1936");
+    expect_equal("[1914 előtt]", "1914");
+    expect_equal("1782 eszt.", "1782");
+    expect_equal("1785. esztend.", "1785");
   }
 
   //  @Test
@@ -41,9 +107,6 @@ public class PublicationYearNormaliserTest {
     // expect_equal("-1768")$till, 1768");
     // expect_equal("-1776.")$till, 1776");
 
-    expect_equal("1524]", "1524");
-    expect_equal("1524?]", "1524");
-    expect_equal("[1524?]", "1524");
     expect_equal("--1524.---", "1524");
     expect_equal("[ca. 1618]", "1618");
 

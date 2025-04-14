@@ -237,4 +237,33 @@ public class Utils {
       ? DurationFormatUtils.formatDuration(duration, "d'd' HH:mm:ss", true)
       : DurationFormatUtils.formatDuration(duration, "HH:mm:ss", true);
   }
+
+  /**
+   * The solution is taken from Shreedhar A
+   * https://medium.com/@ac.shreedhar/roman-to-integer-in-java-97566dd2656d
+   * @param roman
+   * @return
+   */
+  public static String romanToInt(String roman) {
+    roman = roman.replaceAll("[ ,\\.]", "").toUpperCase();
+    Map<Character, Integer> map = new HashMap<>();
+    map.put('I', 1);
+    map.put('V', 5);
+    map.put('X', 10);
+    map.put('L', 50);
+    map.put('C', 100);
+    map.put('D', 500);
+    map.put('M', 1000);
+
+    int result = 0;
+    for(int i = 0; i < roman.length(); i++){
+      if(i > 0 && map.get(roman.charAt(i)) > map.get(roman.charAt(i-1))) {
+        result += map.get(roman.charAt(i)) - 2 * map.get(roman.charAt(i-1));
+
+      } else {
+        result += map.get(roman.charAt(i));
+      }
+    }
+    return String.valueOf(result);
+  }
 }

@@ -2200,6 +2200,7 @@ Here is a list of data sources I am aware of so far:
   * Articles from Czech Newspapers, Periodicals and Proceedings &mdash; https://aleph.nkp.cz/data/anl.xml.gz
   * Online Catalogue of the Slavonic Library &mdash; https://aleph.nkp.cz/data/slk.xml.gz
 * Estonian National Bibliography &mdash; as downloadable TSV or MARC21 via OAI-PMH https://digilab.rara.ee/en/datasets/estonian-national-bibliography/ [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/)
+* A bibliographic dataset of the Danish Royal Library (Det Kgl. Bibliotek) including Danish monographs from approx. 1600-1900. &mdash; https://loar.kb.dk/handle/1902/49107 849K records, MARCXML, [PDM 1.0](http://creativecommons.org/publicdomain/mark/1.0/)
 
 Thanks, [Johann Rolschewski](https://github.com/jorol/), [Phú](https://twitter.com/herr_tu), and [Hugh Paterson III]
 (https://twitter.com/thejourneyler) for their help in collecting this list! Do you know some more data sources? Please let me know.

@@ -61,6 +61,12 @@ public class PublicationYearNormaliserTest {
     expect_equal("anno M.DC.XX. [1620]", "1620");
     expect_equal("an. Dom. MDCCII. [1702]", "1702");
     expect_equal("annô MDCCXLIV. [1744]", "1744");
+
+    expect_equal("MDCCXCV.", "1795");
+    expect_equal("M.DCCXCV.", "1795");
+    expect_equal("M.D.CCXCV.", "1795");
+    expect_equal("M D CCXCV.", "1795");
+    expect_equal("M,D,CCXCV", "1795");
   }
 
   @Test
@@ -84,6 +90,26 @@ public class PublicationYearNormaliserTest {
     expect_equal("ccop. 2006", "2006");
     expect_equal("cp. 2006", "2006");
     expect_equal("anno 1799", "1799");
+
+    expect_equal("[ca. 1618]", "1618");
+    expect_equal("MDCCLXVIII. [1768]", "1768");
+    expect_equal("MDCCLXVIII. 1768", "1768");
+
+    expect_equal("August 5, 1799.", "1799");
+    expect_equal("1726[1727]", "1727");
+
+    expect_equal("May 27, 1643.", "1643");
+    expect_equal("Iune 8, 1642.", "1642");
+
+    expect_equal("168[5].", "1685");
+    expect_equal("166[1].", "1661");
+    expect_equal("164[2]", "1642");
+    expect_equal("16[99]", "1699");
+    expect_equal("16[65?]", "1665");
+    expect_equal("[1930!]", "1930");
+    expect_equal("1348", "1348");
+    expect_equal("[18]91", "1891");
+
   }
 
   @Test
@@ -94,7 +120,7 @@ public class PublicationYearNormaliserTest {
     expect_equal("1785. esztend.", "1785");
   }
 
-  //  @Test
+  // @Test
   public void normalizedYears() {
     expect_equal("1741-1810.", "1741");
     // expect_equal("1741-1810.")$till, 1810");
@@ -108,10 +134,6 @@ public class PublicationYearNormaliserTest {
     // expect_equal("-1776.")$till, 1776");
 
     expect_equal("--1524.---", "1524");
-    expect_equal("[ca. 1618]", "1618");
-
-    expect_equal("MDCCLXVIII. [1768]", "1768");
-    expect_equal("MDCCLXVIII. 1768", "1768");
 
     // expect_equal("active 1781.")$till, 1781");
 
@@ -132,12 +154,8 @@ public class PublicationYearNormaliserTest {
     expect_equal("re-printed in the year, 1689]", "1689");
     expect_equal("M.DC.XXVII [1627, i.e. 1628]", "1628");
     expect_equal("Re-printed in the year, 1689]", "1689");
-    expect_equal("August 5, 1799.", "1799");
-    expect_equal("1726[1727]", "1727");
     expect_equal("1726[7]", "1727");
 
-    expect_equal("May 27, 1643.", "1643");
-    expect_equal("Iune 8, 1642.", "1642");
     expect_equal("Anno M.DC.XVIII [1618, i.e. 1619]", "1619");
     expect_equal("27 Octob. 1643.", "1643");
     expect_equal("1797-98.", "1797");
@@ -220,17 +238,12 @@ public class PublicationYearNormaliserTest {
     expect_equal("1689 [i.e. 1689-1690]", "1689");
     // expect_equal("1689 [i.e. 1689-1690]")$till, 1690");
     expect_equal("1688 [i.e., 1689, New Style].", "1689");
-    expect_equal("168[5].", "1685");
     expect_equal("1679 [i.e. 1679-1680]", "1679");
     // expect_equal("1679 [i.e. 1679-1680]")$till, 1680");
     expect_equal("166[5?]]", "1665");
-    expect_equal("166[1].", "1661");
     expect_equal("1642. Novemb, 5.", "1642");
     expect_equal("1642. June, 23.", "1642");
     expect_equal("1642 [Dec. 20]", "1642");
-    expect_equal("164[2]", "1642");
-    expect_equal("16[99]", "1699");
-    expect_equal("16[65?]", "1665");
     expect_equal("1577. March, 7.", "1577");
     expect_equal("(1602.)", "1602");
     expect_equal("An. Dom. M.DC.XLII. [i.e. 1643-1645]", "1643");
@@ -343,15 +356,10 @@ public class PublicationYearNormaliserTest {
     expect_equal("1921-1922;1921-1922;1922", "1921");
     // expect_equal("1921-1922;1921-1922;1922")$till, 1922");
 
-    expect_equal("[18]91", "1891");
-
     expect_equal("[19]75-[19]76", "1975");
     // expect_equal("[19]75-[19]76")$till, 1976");
 
     expect_equal("[1901.']", "1901");
-    expect_equal("[1930!]", "1930");
-
-    expect_equal("1348", "1348");
 
     expect_equal("1781:1-13", "1781");
 
@@ -389,11 +397,6 @@ public class PublicationYearNormaliserTest {
     expect_equal("God' 1 (1914/1915), n:o 1-god' 3 (1916/1917), n:o 3. ", "1914");
     // expect_equal("God' 1 (1914/1915), n:o 1-god' 3 (1916/1917), n:o 3. ")$till, 1917");
 
-    expect_equal("MDCCXCV.", "1795");
-    expect_equal("M.DCCXCV.", "1795");
-    expect_equal("M.D.CCXCV.", "1795");
-    expect_equal("M D CCXCV.", "1795");
-    expect_equal("M,D,CCXCV", "1795");
     expect_equal("Printed Anno M. DC. XL.", "1640");
     expect_equal("Printed by S. Green and sold by Samuel Phillips,1̂689.", "1689");
     expect_equal("Printed for Thomas Guy,1̂689. ", "1689");
@@ -403,7 +406,6 @@ public class PublicationYearNormaliserTest {
     expect_equal("in the yeare of our Lorde God. 1.5.4.6]", "1546");
     expect_equal("Anno Domini. 1.5.5.4. 24. Iulij]", "1554");
     expect_equal("Anno Domini 169[0].", "1690");
-
   }
 
   private void expect_equal(String actual, String expected) {

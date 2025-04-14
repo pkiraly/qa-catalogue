@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.cli.utils.translation;
 
+import de.gwdg.metadataqa.marc.Utils;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -74,12 +75,15 @@ public class PublicationYearNormaliser {
     year = year.replaceAll(" +", " ");
 
     // roman
-    year = year.replaceAll("^(?:(?:anno|annô|an\\. Dom\\.|a|im Jahr|gedruckt im Jahr,|an\\.|anno Christi) )?(?:M[MDCLXVI\\.]+)\\.? \\[(\\d{4})\\]$", "$1");
+    year = year.replaceAll("^(?:(?:anno|annô|an\\. Dom\\.|a|im Jahr|gedruckt im Jahr,|an\\.|anno Christi) )?(?:M[MDCLXVI\\.]+)\\.? \\[?(\\d{4})\\]?$", "$1");
     // year = year.replaceAll("^(?:M[MDCLXVI\\.]+)\\. \\[(\\d{4})\\]$", "$1");
 
-    year = year.replaceAll("^\\[?(?:sierpień|kwiecień|grudzień|druk janvier|January|enero de|gennaio|febrer|février|druk février|februari|febrer de|febrero de|Fevrouários|febreiro,|druk febbraio|marzo de|druk mars|març del|março|druk marzo|März|avril|abril|abril de|april|druk aprile|Aprílios|druk avril|April|maj|mai|mayo de|Mai|druk mai|druk mayo de|maggio|mei|druk maggio|junio|junio de|juny|juni|druk juin|junho|juny del|junho de|July|julio de|luglio|julho|july|ioúlios|juliol,|agosto de|août|septembre|septiembre|settembre|druk settembre|September|septiembre de|september|setembro de|setembre de|ottobre|octobre|Oktober|octubre de|octubre|outubro|oktober|October|druk octobre|druk ottobre|november|druk novembre|novembre|noviembre de|noviembre|diciembre de|druk décembre|Dezember|december|dicembre|décembre|dezembro|December|druk Dekémvrio toû|ok\\.|an\\.|aōa\\.|año de|Im Jahr) (\\d{4})\\]?\\.?$", "$1");
+    year = year.replaceAll("^\\[?(?:druk )?(?:janvier|January|enero de|gennaio|febrer|février|février|februari|febrer de|febrero de|Fevrouários|febreiro,|febbraio|marzo de|mars|març del|março|marzo|März|avril|abril|abril de|april|aprile|Aprílios|avril|April|maj|mai|mayo de|Mai|mai|mayo de|maggio|mei|maggio|May|junio|junio de|juny|juni|juin|junho|juny del|junho de|Iune|July|julio de|luglio|julho|july|ioúlios|juliol,|agosto de|août|August|septembre|septiembre|settembre|settembre|September|septiembre de|september|setembro de|setembre de|ottobre|octobre|Oktober|octubre de|octubre|outubro|oktober|October|octobre|ottobre|november|novembre|novembre|noviembre de|noviembre|diciembre de|décembre|Dezember|december|dicembre|décembre|dezembro|December|Dekémvrio toû)(?: \\d{1,2},?)? (\\d{4})\\]?\\.?$", "$1");
 
-    year = year.replaceAll("^\\d{4}\\[!(\\d{4})\\]$", "$1");
+    year = year.replaceAll("^\\[?(?:sierpień|kwiecień|grudzień|ok\\.|an\\.|aōa\\.|año de|Im Jahr) (\\d{4})\\]?\\.?$", "$1");
+
+    year = year.replaceAll("^\\d{4}\\[!?(\\d{4})\\]$", "$1");
+    year = year.replaceAll("^(\\d{3})\\[(\\d)\\]\\.?$", "$1$2");
 
     year = year.replaceAll("^dr\\.? ?(\\d{4})\\.?$", "$1"); // druk
     year = year.replaceAll("^(\\d{4}) :$", "$1");
@@ -89,7 +93,7 @@ public class PublicationYearNormaliser {
     year = year.replaceAll("^\\[?(?:©|c|℗|ccop\\.|cp\\.|cop|copyright,|copyright ©|op\\.|copryright|copyrright|copyrighr) ?(\\d{4})\\]?\\.?", "$1");
     year = year.replaceAll("c(\\d{4})", "$1");
     year = year.replaceAll("\\d{4} \\[(\\d{4})\\]$", "$1");
-    year = year.replaceAll("^\\[c?(\\d{4})\\]$", "$1");
+    year = year.replaceAll("^\\[c?!?(\\d{4})!?\\]$", "$1");
     year = year.replaceAll("^\\[(.*?)\\]\\.?$", "$1");
     year = year.replaceAll("\\[(.*?)\\]", "$1");
     year = year.replaceAll("\\((.*?)\\)", "$1");
@@ -116,6 +120,9 @@ public class PublicationYearNormaliser {
     // Hungarian
     year = year.replaceAll("^(\\d{4})\\.? (k\\.|körül|után|előtt|eszt\\.|esztend\\.)$", "$1");
 
+    if (Pattern.compile("^(?:M[MDCLXVI ,\\.]+)\\.?$").matcher(year).matches()) {
+      year = Utils.romanToInt(year);
+    }
     return year;
   }
 

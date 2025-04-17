@@ -17,8 +17,13 @@ import java.util.Map;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import static de.gwdg.metadataqa.marc.cli.utils.placename.PlaceNameNormaliser.status.RESOLVED;
+import static de.gwdg.metadataqa.marc.cli.utils.placename.PlaceNameNormaliser.status.UNRESOLVED;
+
 public class PlaceNameNormaliser {
   private static final Logger logger = Logger.getLogger(PlaceNameNormaliser.class.getCanonicalName());
+
+  enum status {RESOLVED, UNRESOLVED;}
   public static final String UNRESOLVED_PLACE_NAMES_FILE = "translations-unresolved-place-names.txt";
 
   /*
@@ -28,6 +33,7 @@ public class PlaceNameNormaliser {
     "Berkeley, CA", "Philadelphia, PA", "'s-Gravenhage", "São Paulo", "Kentfield, CA", "Avon, CN"
   );
    */
+  public static final List<String> UNKNOWN_PLACE_NAMES = List.of("Miejsce nieznane", "S.l.", "S.I.", "s.l.", "s.l", "S. l.", "S. I.", "n.p.", "s.n.");
 
   private final String translationPlaceNameDictionaryDir;
   private final String outputDir;
@@ -36,8 +42,10 @@ public class PlaceNameNormaliser {
   private Map<String, List<String>> synonyms;
 
   private Map<String, Integer> unresolvedPlaceNames = new HashMap<>();
+  private Map<status, Integer> statistics = new HashMap<>();
 
-  public PlaceNameNormaliser(String translationPlaceNameDictionaryDir, String outputDir) {
+  public PlaceNameNormaliser(String translationPlaceNameDictionaryDir,
+                             String outputDir) {
     this.translationPlaceNameDictionaryDir = translationPlaceNameDictionaryDir;
     this.outputDir = outputDir;
     coords = new HashMap<>();
@@ -74,12 +82,15 @@ public class PlaceNameNormaliser {
   public void reportUnresolvedPlaceNames() {
     if (unresolvedPlaceNames.isEmpty())
       return;
+    String summary = String.format("resolved: %d, unresolved: %d\n", statistics.get(RESOLVED), statistics.get(UNRESOLVED));
     String content = unresolvedPlaceNames.entrySet().stream()
       .sorted((o1, o2) -> o2.getValue().compareTo(o1.getValue()))
       .map(e -> e.getKey() + ": " + e.getValue())
       .collect(Collectors.joining("\n"));
 
     try {
+
+      FileUtils.writeStringToFile(new File(outputDir, UNRESOLVED_PLACE_NAMES_FILE), summary, StandardCharsets.UTF_8, false);
       FileUtils.writeStringToFile(new File(outputDir, UNRESOLVED_PLACE_NAMES_FILE), content, StandardCharsets.UTF_8, true);
     } catch (IOException e) {
       throw new RuntimeException(e);
@@ -111,50 +122,76 @@ public class PlaceNameNormaliser {
 
   public String clean(String input) {
     String output = input;
+    // UTF-8 normalizer
     output = Normalizer.normalize(output, Normalizer.Form.NFKC);
-    output = output.replaceAll("\\s*[,:;]\\s*$", "");
+    output = output.trim();
+
+    // generic
+    output = output.replaceAll("\\s*[,:;]+\\s*$", "");
     output = output.replaceAll("^\\[(.+)\\]$", "$1");
     output = output.replaceAll("^\\[(.+)$", "$1");
     output = output.replaceAll("^(.+)\\]$", "$1");
+    output = output.replaceAll(",$", "");
+    output = output.replaceAll("\\?$", "");
+    output = output.replaceAll(" \\.\\.\\.$", "");
     output = output.replaceAll(" \\[etc\\.$", "");
+    output = output.replaceAll(", cop\\.$", "");
+
+    // States
     output = output.replaceAll(", (\\[?Ark\\.)$", ", AR");
     output = output.replaceAll(", Arizona$", ", AZ");
     output = output.replaceAll(", (\\[?D\\.C\\.)$", ", DC");
-    output = output.replaceAll(", \\[?Calif\\.$", ", CA");
-    output = output.replaceAll(", California$", ", CA");
-    output = output.replaceAll(", (\\[?Colo\\.)$", ", CO");
-    output = output.replaceAll(", (Conn\\.|Connecticut)$", ", CT");
-    output = output.replaceAll(", (\\[?Fla\\.)$", ", FL");
-    output = output.replaceAll(", \\[?(Illinois|Ill\\.)$", ", IL");
-    output = output.replaceAll(", Ind\\.$", ", IN");
+    output = output.replaceAll(", (California|\\[?Calif\\.|Calif)$", ", CA");
+    output = output.replaceAll(", (\\[?Colo\\.)$", ", CO");         // Colorado
+    output = output.replaceAll(", (Conn\\.|Connecticut|CT, USA)$", ", CT"); // Connecticut
+    output = output.replaceAll(", (\\[?Fla\\.)$", ", FL");          // Florida
+    output = output.replaceAll(", (Ga\\.)$", ", GA");               // Georgia
+    output = output.replaceAll(", \\[?(Illinois|Ill\\.\\.?)$", ", IL");
+    output = output.replaceAll(", (Ind\\.|Indiana)$", ", IN"); // Indiana
     output = output.replaceAll(", (\\[?Kans\\.)$", ", KS");
-    output = output.replaceAll(", (Massachusetts|\\[?Mass\\.)$", ", MA");
-    output = output.replaceAll(", (Michigan)$", ", MI");
-    output = output.replaceAll(", (Maryland|Md\\.)$", ", MD");
-    output = output.replaceAll(", (Minn\\.)$", ", MN");
-    output = output.replaceAll(", (\\[?Mt\\.)$", ", MT");
+    output = output.replaceAll(", (La\\.)$", ", LA");               // Louisiana
+    output = output.replaceAll(", (Massachusetts|\\[?Mass\\.|Ma\\.)$", ", MA"); // Massachusetts
+    output = output.replaceAll(", (Michigan|Mich\\.)$", ", MI");
+    output = output.replaceAll(", (Maryland|Md\\.|M\\.d\\.)$", ", MD");
+    output = output.replaceAll(", (Minn\\.|Minnesota)$", ", MN");
+    output = output.replaceAll(", (Miss\\.|Missouri)$", ", MO");            // Missouri
+    output = output.replaceAll(", (\\[?Mt\\.|Mont\\.|Mo\\.)$", ", MT");
     output = output.replaceAll(", (\\[?Nebr\\.)$", ", NE");
     output = output.replaceAll(", (N\\. ?J\\.|New Jersey)$", ", NJ");
-    output = output.replaceAll(", \\[?N\\. ?Y\\.$", ", NY");
-    output = output.replaceAll(", \\[?Pa\\.$", ", PA");
-    output = output.replaceAll(", Texas$", ", TX");
-    output = output.replaceAll(", \\[?Va\\.$", ", VA");
-    output = output.replaceAll(", Vermont$", ", VT");
-    output = output.replaceAll(", Washington$", ", WA");
+    output = output.replaceAll(", (\\[?N\\. ?Y\\.|N\\.Y|New York, USA)$", ", NY");
+    output = output.replaceAll(", (Ohio)$", ", OH");
+    output = output.replaceAll(", (Oklahoma)$", ", OK");
+    output = output.replaceAll(", (Oreg\\.|Oregon)$", ", OR");     // Oregon
+    output = output.replaceAll(", (\\[?Pa\\.|Pa|Pennsylvania)$", ", PA"); // Pennsylvania
+    output = output.replaceAll(", (S\\.C\\.|SC\\.)$", ", SC");
+    output = output.replaceAll(", (Tenn\\.)$", ", TN");            // Tennessee
+    output = output.replaceAll(", (Texas|Tex\\.)$", ", TX");
+    output = output.replaceAll(", (Virginia|\\[?Va\\.)$", ", VA"); // Virginia
+    output = output.replaceAll(", (Vermont|Vt\\.)$", ", VT");      // Vermont
+    output = output.replaceAll(", (Washington|Wash\\.)$", ", WA"); // Washington
+    output = output.replaceAll(", (Wis\\.|Wisc\\.)$", ", WI");
+    output = output.replaceAll(", \\[Vic\\.$", ", Vic.");   // Victoria
+
+    if (UNKNOWN_PLACE_NAMES.contains(output))
+      output = "UNKNOWN";
 
     return output;
   }
 
   public List<PlaceName> resolve(String originalNameForm) {
     if (coords.containsKey(originalNameForm)) {
+      statistics.put(RESOLVED, statistics.computeIfAbsent(RESOLVED, k -> 0) + 1);
       return List.of(coords.get(originalNameForm));
     }
     List<PlaceName> placeNames = new ArrayList<>();
+    boolean resolved = false;
     if (synonyms.containsKey(originalNameForm)) {
+      statistics.put(RESOLVED, statistics.computeIfAbsent(RESOLVED, k -> 0) + 1);
       for (String synonym : synonyms.get(originalNameForm)) {
         placeNames.add(coords.get(synonym));
       }
     } else {
+      statistics.put(UNRESOLVED, statistics.computeIfAbsent(UNRESOLVED, k -> 0) + 1);
       unresolvedPlaceNames.computeIfAbsent(originalNameForm, k -> 0);
       unresolvedPlaceNames.put(originalNameForm, unresolvedPlaceNames.get(originalNameForm)+1);
       // logger.info("Unresolved place name: " + originalNameForm);

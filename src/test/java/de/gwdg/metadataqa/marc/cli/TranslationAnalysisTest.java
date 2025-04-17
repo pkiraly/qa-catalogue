@@ -5,6 +5,7 @@ import de.gwdg.metadataqa.marc.TestUtils;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.cli.utils.placename.PlaceNameNormaliser;
 import org.apache.commons.cli.ParseException;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -79,12 +80,13 @@ public class TranslationAnalysisTest extends CliTestUtils {
         assertEquals("id,00835-37,041ind1,041a,041h,245c,7004,500a,240a,240l,765t,765s,765d,translator,sourceLanguage,targetLanguage,originalTitle,originalPublication,translation", lines.get(0).trim());
         assertEquals("15552,1,1,1,0,1,NA,0,1,0,0,0,0,1,0,1,1,0,1", lines.get(1).trim());
       } else if (outputFile.equals(PlaceNameNormaliser.UNRESOLVED_PLACE_NAMES_FILE)) {
+        // System.err.println(StringUtils.join(lines, "\n"));
         assertEquals(5, lines.size());
-        assertEquals("Arnheim: 1", lines.get(0).trim());
-        assertEquals("United States: 1", lines.get(1).trim());
-        assertEquals("S.l.: 1", lines.get(2).trim());
-        assertEquals("University, Ala.: 1", lines.get(3).trim());
-        assertEquals("n.p.: 1", lines.get(4).trim());
+        assertEquals("resolved: 290, unresolved: 5", lines.get(0).trim());
+        assertEquals("UNKNOWN: 2", lines.get(1).trim());
+        assertEquals("Arnheim: 1", lines.get(2).trim());
+        assertEquals("United States: 1", lines.get(3).trim());
+        assertEquals("University, Ala.: 1", lines.get(4).trim());
       }
     }
 

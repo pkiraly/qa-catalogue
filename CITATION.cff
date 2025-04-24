@@ -41,6 +41,10 @@ authors:
     family-names: Hemme
     affiliation: ZBW
     orcid: 'https://orcid.org/0000-0001-7754-782X'
+  - given-names: Tu
+    family-names: Phu
+  - given-names: Gegić
+    family-names: Haris
 identifiers:
   - type: url
     value: 'https://github.com/pkiraly/qa-catalogue'

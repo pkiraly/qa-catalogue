@@ -27,6 +27,7 @@ authors:
   - given-names: Dan Michael O.
     family-names: Heggø
     affiliation: Biblioteksentralen
+    orcid: 'https://orcid.org/0000-0002-6189-5958'
   - given-names: Tuomo
     family-names: Virolainen
     affiliation: Siili One
@@ -42,7 +43,9 @@ authors:
     affiliation: ZBW
     orcid: 'https://orcid.org/0000-0001-7754-782X'
   - given-names: Tu
-    family-names: Phu
+    family-names: Phú
+    affiliation: Staats- und Universitätsbibliothek Hamburg Carl von Ossietzky
+    orcid: 'https://orcid.org/0000-0002-1768-9890'
   - given-names: Gegić
     family-names: Haris
 identifiers:

@@ -7,6 +7,7 @@ import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.cli.utils.placename.PlaceName;
 import de.gwdg.metadataqa.marc.cli.utils.placename.PlaceNameNormaliser;
+import de.gwdg.metadataqa.marc.cli.utils.translation.ContributorNormaliser;
 import de.gwdg.metadataqa.marc.cli.utils.translation.PublicationYearNormaliser;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
@@ -42,6 +43,7 @@ public class TranslationModel {
   private final PlaceNameNormaliser placeNameNormaliser;
   private final PublicationYearNormaliser yearNormaliser;
   private final MarcVersion marcVersion;
+  private final ContributorNormaliser contributorNormaliser;
 
   private boolean translation;
   private boolean translator;
@@ -60,11 +62,13 @@ public class TranslationModel {
                           BibSelector selector,
                           PlaceNameNormaliser placeNameNormaliser,
                           PublicationYearNormaliser yearNormaliser,
+                          ContributorNormaliser contributorNormaliser,
                           MarcVersion marcVersion) {
     this.resultMap = resultMap;
     this.selector = selector;
     this.placeNameNormaliser = placeNameNormaliser;
     this.yearNormaliser = yearNormaliser;
+    this.contributorNormaliser = contributorNormaliser;
     this.marcVersion = marcVersion;
     evaluate();
   }
@@ -112,6 +116,7 @@ public class TranslationModel {
     } else if (path.equals("260$c")) {
       instances.addAll(selector.get("264$c"));
     } else if (path.equals("100$a") && instances.size() == 0) {
+      contributorNormaliser.process(selector.get("245$c"));
       instances.addAll(selector.get("245$c"));
     }
     List<String> extracted = new ArrayList<>();

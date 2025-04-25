@@ -32,11 +32,11 @@ fields:
         mqafPattern:
           pattern:
             - ubersetzer|ubersetzung
-            - uberset\\.
-            - ubers\\.
-            - ubertr\\.
-            - vert\\.
-            - translator|[Tt]ranslated|transla\\.
+            - uberset\.
+            - ubers\.
+            - ubertr\.
+            - vert\.
+            - translator|[Tt]ranslated|transla\.
             - translations
             - "[Tt]radotto"
             - "[Tt]raducere"
@@ -50,14 +50,14 @@ fields:
             - traducao
             - traduire
             - traduccion
-            - trans\\.
-            - transl\\.
-            - tr\\.
-            - trad\\.
-            - traduc\\.
-            - Tr\\. from
+            - trans\.
+            - transl\.
+            - tr\.
+            - trad\.
+            - traduc\.
+            - Tr\. from
             - "[Tt]radution"
-            - Tr\\. dal tedesco
+            - Tr\. dal tedesco
             - metafrasmeno
             - nihongo
             - fanyi
@@ -67,7 +67,7 @@ fields:
             - cevir
             - prekladat
             - suomeksi
-            - suom\\.
+            - suom\.
             - terjemahkan
             - eadar
             - Översättning
@@ -76,31 +76,34 @@ fields:
             - Oversatt av
             - oversat af
             - oversatta
-            - overs\\.
-            - metafr\\.
+            - overs\.
+            - metafr\.
             - pereklav
             - perevedeno
             - "[Pp]erevod s nemet︠s︡kogo"
-            - perev\\.
-            - prekl\\.
+            - perev\.
+            - prekl\.
             - prelozit
             - Přeložila
             - Prěložil
-            - prel\\.
+            - prel\.
             - prevoditi
             - prevezhdam
-            - prevezh\\.
-            - prev\\.
+            - prevezh\.
+            - prev\.
             - prijevod
-            - prij\\.
-            - tlumac\\.
-            - mekl\\.
-            - cev\\.
-            - terj\\.
-            - eadar\\.
-            - Aus d\\.
-            - Dt\\.
+            - prij\.
+            - tlumac\.
+            - mekl\.
+            - cev\.
+            - terj\.
+            - eadar\.
+            - Aus d\.
+            - Dt\.
+            # Hungarian
             - Fordította|fordt́otta|Forditotta|Fordították
+            - "[Ff]ord\\."
+            - "[Áá]td\\."
             - "[Vv]ertaald door"
             - Uit het duitsch
             - Geautoriseerde vertaling
@@ -108,7 +111,7 @@ fields:
             - "[Ss]aksan kielestä suomentanut"
             - Fran tyskan av
             - Till? svenska av
-            - Tr\\. de l'allemand par
+            - Tr\. de l'allemand par
           scope: anyOf
   - name: 700$4
     path: 700$4

@@ -19,6 +19,7 @@ import de.gwdg.metadataqa.marc.cli.utils.ShaclUtils;
 import de.gwdg.metadataqa.marc.cli.utils.TranslationModel;
 import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordFilter;
 import de.gwdg.metadataqa.marc.cli.utils.placename.PlaceNameNormaliser;
+import de.gwdg.metadataqa.marc.cli.utils.translation.ContributorNormaliser;
 import de.gwdg.metadataqa.marc.cli.utils.translation.PublicationYearNormaliser;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
@@ -55,6 +56,7 @@ public class TranslationAnalysis extends QACli<TranslationParameters>
   private ObjectMapper mapper;
   private File exportFile;
   private PublicationYearNormaliser publicationYearNormaliser;
+  private ContributorNormaliser contributorNormaliser;
 
   public TranslationAnalysis(String[] args) throws ParseException {
     parameters = new TranslationParameters(args);
@@ -128,6 +130,10 @@ public class TranslationAnalysis extends QACli<TranslationParameters>
     }
 
     publicationYearNormaliser = new PublicationYearNormaliser(parameters.getOutputDir());
+    contributorNormaliser = new ContributorNormaliser(
+      parameters.getOutputDir(),
+      schema.asSchema().getPathByLabel("245$c").getRules().get(0).getMqafPattern().getCompiledPattern()
+    );
   }
 
   @Override
@@ -161,7 +167,7 @@ public class TranslationAnalysis extends QACli<TranslationParameters>
     if (selector != null) {
       List<MetricResult> results = ruleCatalog.measure(selector);
       Map<String, RuleCheckerOutput> resultMap = (Map<String, RuleCheckerOutput>) results.get(0).getResultMap();
-      TranslationModel model = new TranslationModel(resultMap, selector, placeNameNormaliser, publicationYearNormaliser, parameters.getMarcVersion());
+      TranslationModel model = new TranslationModel(resultMap, selector, placeNameNormaliser, publicationYearNormaliser, contributorNormaliser, parameters.getMarcVersion());
 
       List<String> debugIds = parameters.getDebugFailedRules();
       if (debugIds != null && !debugIds.isEmpty()) {
@@ -212,6 +218,7 @@ public class TranslationAnalysis extends QACli<TranslationParameters>
     placeNameNormaliser.reportUnresolvedPlaceNames();
     publicationYearNormaliser.reportUnresolvedYears();
     publicationYearNormaliser.reportPatterns();
+    contributorNormaliser.reportUnresolvedContributors();
   }
 
   @Override

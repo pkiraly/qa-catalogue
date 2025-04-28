@@ -17,11 +17,24 @@ env:
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
+
+    # This property sets two dockerfiles, and target images
+    # the properties will be used by steps meta and push
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - dockerfile: ./Dockerfile
+            image: ghcr.io/pkiraly/qa-catalogue
+          - dockerfile: ./Dockerfile-slim
+            image: ghcr.io/pkiraly/qa-catalogue-slim
+
     # Sets the permissions granted to the `GITHUB_TOKEN` for the actions in this job.
     permissions:
       contents: read
       packages: write
-      #
+
+    # steps to take
     steps:
       - name: Check out the repository
         uses: actions/checkout@v4
@@ -54,7 +67,8 @@ jobs:
         id: meta
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          # images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ matrix.image }}
 
       # This step uses the `docker/build-push-action` action to build the image, based on your repository's
       # `Dockerfile`.
@@ -66,9 +80,11 @@ jobs:
       # It uses the `tags` and `labels` parameters to tag and label the image with the output from the
       # "meta" step.
       - name: Build and push Docker image
+        id: push
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
         with:
           context: .
+          file: ${{ matrix.dockerfile }}
           push: true
           # tags: user/app:latest
           tags: ${{ steps.meta.outputs.tags }}

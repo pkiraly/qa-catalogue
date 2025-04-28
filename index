@@ -156,6 +156,7 @@ if [[ "$DO_STATUS" -eq 1 ]]; then
 fi
 
 if [[ "$SOLR_URL" == "" ]]; then
+  # SOLR_URL="${SOLR_BASE_URL}/solr/${CORE}"
   SOLR_URL="$SOLR_HOST/solr/$CORE"
   PARAMS="$PARAMS --solrUrl $SOLR_URL"
 else
@@ -165,6 +166,7 @@ else
 fi
 echo "SOLR URL: $SOLR_URL"
 echo "SOLR HOST: $SOLR_HOST"
+echo "SOLR BASE_URL: ${SOLR_BASE_URL}"
 echo "CORE: $CORE"
 
 if [[ "$DO_PURGE" == "1" ]]; then

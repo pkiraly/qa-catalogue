@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+
+# SOLR_BASE_URL=${SOLR_PROTOCOL:-http}://${SOLR_HOST:-localhost}:${SOLR_PORT:-8983}
 SOLR_HOST=${SOLR_HOST:-http://localhost:${PORT:-8983}}
 
 echo "SOLR_HOST: ${SOLR_HOST}"

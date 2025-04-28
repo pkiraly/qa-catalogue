@@ -39,7 +39,7 @@ services:
       - ./${OUTPUT:-output}:/opt/qa-catalogue/marc/output
       - ./${LOGS:-logs}:/opt/qa-catalogue/marc/logs
       - ./catalogues:/opt/qa-catalogue/catalogues
-      - ./${WEBBCONFIG:-web-config}:/var/www/html/qa-catalogue/config
+#      - ./${WEBBCONFIG:-web-config}:/var/www/html/qa-catalogue/web-config
       - /etc/timezone:/etc/timezone:ro    # Sync timezone
       - /etc/localtime:/etc/localtime:ro  # Sync localtime
     # ports:

@@ -142,11 +142,19 @@
             <fileMode>0755</fileMode>
         </file>
         <file>
+            <source>shacl4bib</source>
+            <fileMode>0755</fileMode>
+        </file>
+        <file>
             <source>shelf-ready-completeness</source>
             <fileMode>0755</fileMode>
         </file>
         <file>
             <source>solr-functions</source>
+            <fileMode>0755</fileMode>
+        </file>
+        <file>
+            <source>translations</source>
             <fileMode>0755</fileMode>
         </file>
         <file>
@@ -175,6 +183,9 @@
         </file>
         <file>
             <source>setdir.sh.template</source>
+        </file>
+        <file>
+            <source>cli-parameter-definitions.json</source>
         </file>
     </files>
 </assembly>

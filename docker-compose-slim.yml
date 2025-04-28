@@ -30,13 +30,14 @@ services:
       solr:
         condition: service_healthy
     # image: ${IMAGE:-pkiraly/metadata-qa-marc}
-    image: ${IMAGE:-ghcr.io/pkiraly/qa-catalogue:main}
+    image: ${IMAGE:-ghcr.io/pkiraly/qa-catalogue-slim:main}
     build:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ./${INPUT:-input}:/opt/qa-catalogue/input
-      - ./${OUTPUT:-output}:/opt/qa-catalogue/output
+      - ./${INPUT:-input}:/opt/qa-catalogue/marc/input
+      - ./${OUTPUT:-output}:/opt/qa-catalogue/marc/output
+      - ./${LOGS:-logs}:/opt/qa-catalogue/marc/logs
       - ./catalogues:/opt/qa-catalogue/catalogues
       - ./${WEBBCONFIG:-web-config}:/var/www/html/qa-catalogue/config
       - /etc/timezone:/etc/timezone:ro    # Sync timezone

@@ -63,9 +63,9 @@ RUN cd /opt \
  && mv qa-catalogue-${QA_CATALOGUE_VERSION} qa-catalogue \
  && mkdir -p /opt/qa-catalogue/marc/input /opt/qa-catalogue/marc/output /opt/qa-catalogue/marc/logs \
  && mv /opt/qa-catalogue/setdir.sh.template /opt/qa-catalogue/setdir.sh \
- && sed -i.bak 's,(BASE_INPUT_DIR=)./input,$1/opt/qa-catalogue/marc/input,' /opt/qa-catalogue/setdir.sh \
- && sed -i.bak 's,(BASE_OUTPUT_DIR=)./output,$1/opt/qa-catalogue/marc/output,' /opt/qa-catalogue/setdir.sh \
- && sed -i.bak 's,(BASE_LOG_DIR=)./logs,$1/opt/qa-catalogue/marc/logs,' /opt/qa-catalogue/setdir.sh
+ && sed -i.bak 's,\(BASE_INPUT_DIR=\)./input,\1/opt/qa-catalogue/marc/input,' /opt/qa-catalogue/setdir.sh \
+ && sed -i.bak 's,\(BASE_OUTPUT_DIR=\)./output,\1/opt/qa-catalogue/marc/output,' /opt/qa-catalogue/setdir.sh \
+ && sed -i.bak 's,\(BASE_LOG_DIR=\)./logs,\1/opt/qa-catalogue/marc/logs,' /opt/qa-catalogue/setdir.sh
 
 # init process supervisor
 RUN echo "install supervisor" \

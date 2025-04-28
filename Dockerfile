@@ -61,9 +61,9 @@ RUN cd /opt \
  && mv qa-catalogue-${QA_CATALOGUE_VERSION} qa-catalogue \
  && mkdir -p /opt/qa-catalogue/marc/input /opt/qa-catalogue/marc/output /opt/qa-catalogue/marc/logs \
  && mv /opt/qa-catalogue/setdir.sh.template /opt/qa-catalogue/setdir.sh \
- && sed -i.bak 's,BASE_INPUT_DIR=./input,BASE_INPUT_DIR=/opt/qa-catalogue/marc/input,' /opt/qa-catalogue/setdir.sh \
- && sed -i.bak 's,BASE_OUTPUT_DIR=./output,BASE_OUTPUT_DIR=/opt/qa-catalogue/marc/output,' /opt/qa-catalogue/setdir.sh \
- && sed -i.bak 's,BASE_LOG_DIR=./logs,BASE_LOG_DIR=/opt/qa-catalogue/marc/logs,' /opt/qa-catalogue/setdir.sh
+ && sed -i.bak 's,\(BASE_INPUT_DIR=\)./input,\1/opt/qa-catalogue/marc/input,' /opt/qa-catalogue/setdir.sh \
+ && sed -i.bak 's,\(BASE_OUTPUT_DIR=\)./output,\1/opt/qa-catalogue/marc/output,' /opt/qa-catalogue/setdir.sh \
+ && sed -i.bak 's,\(BASE_LOG_DIR=\)./logs,\1/opt/qa-catalogue/marc/logs,' /opt/qa-catalogue/setdir.sh
 
 # install web application
 RUN apt-get update \

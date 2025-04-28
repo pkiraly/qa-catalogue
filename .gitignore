@@ -31,6 +31,7 @@ scala/project
 scala/target
 scripts/cli-generator/*.sh.txt
 metadata-qa-api/
+solr-data/
 
 # default input and output base directory
 input

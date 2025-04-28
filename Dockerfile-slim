@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 LABEL maintainer="Péter Király <pkiraly@gwdg.de>, Ákos Takács <rimelek@rimelek.hu>, Jakob Voß <jakob.voss@gbv.de>"
 
@@ -29,6 +29,7 @@ RUN apt-get update \
  && apt-get install -y --no-install-recommends \
       # install basic OS tools
       apt-utils \
+      build-essential \
       nano \
       jq \
       curl \
@@ -73,9 +74,10 @@ RUN echo "install supervisor" \
  && apt-get update \
  && apt-get install -y --no-install-recommends supervisor \
  && mkdir -p /var/log/supervisor \
+ && apt-get --assume-yes autoremove \
  && rm -rf /var/lib/apt/lists/*
 
-COPY docker/supervisord.conf /etc/
+COPY docker/supervisord-slim.conf /etc/supervisord.conf
 
 WORKDIR /opt/qa-catalogue
 

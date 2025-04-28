@@ -63,7 +63,7 @@ RUN cd /opt \
  && mv /opt/qa-catalogue/setdir.sh.template /opt/qa-catalogue/setdir.sh \
  && sed -i.bak 's,BASE_INPUT_DIR=./input,BASE_INPUT_DIR=/opt/qa-catalogue/marc/input,' /opt/qa-catalogue/setdir.sh \
  && sed -i.bak 's,BASE_OUTPUT_DIR=./output,BASE_OUTPUT_DIR=/opt/qa-catalogue/marc/output,' /opt/qa-catalogue/setdir.sh \
- && sed -i.bak 's,BASE_LOG_DIR=./log,BASE_LOG_DIR=/opt/qa-catalogue/marc/logs,' /opt/qa-catalogue/setdir.sh
+ && sed -i.bak 's,BASE_LOG_DIR=./logs,BASE_LOG_DIR=/opt/qa-catalogue/marc/logs,' /opt/qa-catalogue/setdir.sh
 
 # install web application
 RUN apt-get update \

@@ -150,24 +150,22 @@ if [[ "$HELP" -eq 1 ]]; then
   show_usage
 fi
 
-if [[ "$DO_STATUS" -eq 1 ]]; then
-  status
-  exit 0;
-fi
-
 if [[ "$SOLR_URL" == "" ]]; then
-  # SOLR_URL="${SOLR_BASE_URL}/solr/${CORE}"
   SOLR_URL="$SOLR_HOST/solr/$CORE"
   PARAMS="$PARAMS --solrUrl $SOLR_URL"
 else
-    # HAS_GROUP_PARAM=$(echo ${TYPE_PARAMS} | grep -c -P -e '--groupBy [^-]' || true)
+  # HAS_GROUP_PARAM=$(echo ${TYPE_PARAMS} | grep -c -P -e '--groupBy [^-]' || true)
   SOLR_HOST=$(echo "$SOLR_URL" | grep -oP "^https?://[^/]+" || true)
   CORE=$(echo "$SOLR_URL" | grep -oP "[^/]+$" || true)
 fi
 echo "SOLR URL: $SOLR_URL"
 echo "SOLR HOST: $SOLR_HOST"
-echo "SOLR BASE_URL: ${SOLR_BASE_URL}"
 echo "CORE: $CORE"
+
+if [[ "$DO_STATUS" -eq 1 ]]; then
+  status
+  exit 0;
+fi
 
 if [[ "$DO_PURGE" == "1" ]]; then
   purge_and_exit "$CORE"
@@ -180,48 +178,11 @@ fi
 echo "Start indexing"
 curl -s "$SOLR_URL/update" -H "Content-type: text/xml" --data-binary '<commit/>'
 
-# cat <<EOT
-# running the command
-# ---BEGIN
-# /usr/bin/java -cp $JAR de.gwdg.metadataqa.marc.cli.MarcToSolr \
-#   --solrUrl ${SOLR_DB_URL} \
-#   --solrFieldType $solrFieldType \
-#   --defaultRecordType $defaultRecordType \
-#   --marcVersion $marcVersion \
-#   ${VALIDATION_PARAMS} \
-#   $limit \
-#   $trimId \
-#   $marcxml \
-#   $alephseq \
-#   $ignorableRecords \
-#   $defaultEncoding \
-#   $alephseqLineType \
-#   $schemaType \
-#   $marcFormat \
-#   $ignorableFields \
-#   $groupBy \
-#   $outputDir \
-#   $PARAMS \
-#   ${FILE_PATH}/${FILE_MASK}
-# ---END
-# EOT
-
 CMD="/usr/bin/java -Xmx2g -cp $JAR de.gwdg.metadataqa.marc.cli.MarcToSolr"
 
-# echo $CMD $PARAMS "$@"
-# $CMD $PARAMS "$@"
 echo "$CMD $PARAMS ${FILE_PATH}/${FILE_MASK}"
 # shellcheck disable=SC2206
 $CMD $PARAMS "$FILE_PATH"/${FILE_MASK}
-
-# /usr/bin/java -cp $JAR de.gwdg.metadataqa.marc.cli.MarcToSolr \
-#   --solrUrl ${SOLR_DB_URL} --solrFieldType $solrFieldType \
-#   --defaultRecordType $defaultRecordType \
-#   --marcVersion $marcVersion \
-#   ${VALIDATION_PARAMS} \
-#   $limit $trimId $marcxml $alephseq $ignorableRecords $defaultEncoding $alephseqLineType $schemaType \
-#   $marcFormat $ignorableFields $groupBy $outputDir $PARAMS \
-#   ${FILE_PATH}/${FILE_MASK}
 
 echo "Start optimizing"
 optimize_core "$CORE"

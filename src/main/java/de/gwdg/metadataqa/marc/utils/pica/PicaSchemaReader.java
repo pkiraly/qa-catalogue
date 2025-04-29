@@ -72,6 +72,9 @@ public class PicaSchemaReader {
     } else if (new File("src/main/resources/pica/avram-k10plus-title.json").exists()) {
       logger.info("default file");
       schemaFile = Paths.get("src/main/resources/pica/avram-k10plus-title.json").toAbsolutePath().toString();
+    } else if (new File("avram-schemas/k10plus-title.json").exists()) {
+      logger.info("from avram-schemas directory");
+      schemaFile = Paths.get("avram-schemas/k10plus-title.json").toAbsolutePath().toString();
     }
 
     if (schemaFile != null && new File(schemaFile).exists()) {

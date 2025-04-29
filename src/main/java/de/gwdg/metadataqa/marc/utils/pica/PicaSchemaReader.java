@@ -81,12 +81,12 @@ public class PicaSchemaReader {
       logger.info("read from resource");
       ClassLoader classLoader = PicaSchemaReader.class.getClassLoader();
       URL resource = classLoader.getResource("pica/avram-k10plus-title.json");
-      logger.info("Resource's URL is " + resource.toString());
       if (resource != null) {
+        logger.info("Resource's URL is " + resource.toString());
         InputStream schemaStream = classLoader.getResourceAsStream("pica/avram-k10plus-title.json");
         picaSchemaManager = PicaSchemaReader.createSchema(schemaStream);
       } else {
-        logger.info("resource is null");
+        logger.info("resource is null, Avram schema is not available this way");
         new IllegalStateException("Avram schema is not available");
       }
     }

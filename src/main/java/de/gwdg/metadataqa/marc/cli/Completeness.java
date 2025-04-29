@@ -104,7 +104,6 @@ public class Completeness extends QACli<CompletenessParameters> implements Bibli
 
   @Override
   public void processRecord(BibliographicRecord bibliographicRecord, int recordNumber) throws IOException {
-    logger.info("processRecord");
     if (!recordFilter.isAllowable(bibliographicRecord))
       return;
 

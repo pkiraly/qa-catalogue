@@ -155,7 +155,6 @@ public class ShelfReadyAnalysis {
     }
      */
     for (MarcSpec selector : category.getSelectors()) {
-      System.err.println(selector.encode());
       List<String> values = marcRecord.select(selector);
       if (!values.isEmpty()) {
         score += 1.0;

@@ -5,7 +5,7 @@
 # will be accessible as <name> (for the current production)
 # and <name>_dev for the new version which is just in the creation.
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# set -ueo pipefail
+set -ueo pipefail
 
 . ./solr-functions
 

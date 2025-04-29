@@ -52,6 +52,7 @@ RUN apt-get update \
       lsof \
       # php \
       php \
+      php-curl \
  && apt-get --assume-yes autoremove \
  && rm -rf /var/lib/apt/lists/*
 

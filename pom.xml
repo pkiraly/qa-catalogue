@@ -186,19 +186,6 @@
 			<artifactId>commons-cli</artifactId>
 			<version>1.9.0</version>
 		</dependency>
-		<!-- -->
-		<dependency>
-			<groupId>org.apache.spark</groupId>
-			<artifactId>spark-core_2.13</artifactId>
-			<version>3.5.5</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.spark</groupId>
-			<artifactId>spark-sql_2.13</artifactId>
-			<version>3.5.5</version>
-			<scope>provided</scope>
-		</dependency>
 		<dependency>
 			<groupId>com.opencsv</groupId>
 			<artifactId>opencsv</artifactId>

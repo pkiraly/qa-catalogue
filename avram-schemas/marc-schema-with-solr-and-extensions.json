@@ -15931,7 +15931,7 @@
     },
     "084": {
       "tag": "084",
-      "label": "Other Classificaton Number",
+      "label": "Other Classification Number",
       "url": "https://www.loc.gov/marc/bibliographic/bd084.html",
       "repeatable": true,
       "solr": "Classification",

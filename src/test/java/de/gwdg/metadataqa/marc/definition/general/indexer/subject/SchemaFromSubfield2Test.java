@@ -10,7 +10,7 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 
 /**
- * 084: Other Classificaton Number (https://www.loc.gov/marc/bibliographic/bd084.html)
+ * 084: Other Classification Number (https://www.loc.gov/marc/bibliographic/bd084.html)
  */
 public class SchemaFromSubfield2Test extends SubjectIndexerTest {
 

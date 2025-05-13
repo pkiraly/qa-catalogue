@@ -98,7 +98,7 @@ public class MarclineReaderTest {
       "Language code of text/sound track or separate title: German\n" +
       "[044: Country of Publishing/Producing Entity Code]\n" +
       "ISO country code: XA-DE\n" +
-      "[084: Other Classificaton Number]\n" +
+      "[084: Other Classification Number]\n" +
       "Classification number: 58.55\n" +
       "Number source: Basisklassifikation\n" +
       "[245: Title Statement]\n" +

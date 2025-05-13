@@ -57,7 +57,7 @@ public class Marc21ClassificationAnalyzer extends MarcClassificationAnalyzer {
    * Consists of tags of  fields which have the subfield 2 which states the classification source (schema).
    */
   private static final List<String> fieldsWithSubfield2 = Arrays.asList(
-    "084", // Other Classificaton Number
+    "084", // Other Classification Number
     "654", // Subject Added Entry - Faceted Topical Terms
     "658", // Index Term - Curriculum Objective
     "662"  // Subject Added Entry - Hierarchical Place Name

@@ -557,6 +557,12 @@
       "long": "translationExport",
       "hasArg": true,
       "description": "The exported translations file"
+    },
+    {
+      "short": "G",
+      "long": "translationConfigurationFile",
+      "hasArg": true,
+      "description": "specify the configuration file"
     }
   ]
 }

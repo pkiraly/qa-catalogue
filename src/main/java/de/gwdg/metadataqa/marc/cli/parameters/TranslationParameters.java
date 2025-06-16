@@ -12,6 +12,7 @@ public class TranslationParameters extends Shacl4bibParameters {
 
   // default values
   protected static final String DEFAULT_TRANSLATION_OUTPUT_FILE = "translations.csv";
+  private String translationConfigurationFile;
   // private String translationOutputFile = DEFAULT_TRANSLATION_OUTPUT_FILE;
   private List<String> debugFailedRules;
   private String translationPlaceNameDictionaryDir;
@@ -26,6 +27,7 @@ public class TranslationParameters extends Shacl4bibParameters {
       options.addOption("D", "translationDebugFailedRules", true, "log values that are not matched with the specified rule ID");
       options.addOption("E", "translationPlaceNameDictionaryDir", true, "A directory where place-synonyms-normalized.csv and coords.csv are located (see https://github.com/pkiraly/place-names)");
       options.addOption("F", "translationExport", true, "The exported translations file");
+      options.addOption("G", "translationConfigurationFile", true, "specify the configuration file");
     }
   }
 
@@ -53,6 +55,9 @@ public class TranslationParameters extends Shacl4bibParameters {
 
     if (cmd.hasOption("translationExport"))
       translationExport = cmd.getOptionValue("translationExport");
+
+    if (cmd.hasOption("translationConfigurationFile"))
+      translationConfigurationFile = cmd.getOptionValue("translationConfigurationFile");
   }
 
   public List<String> getDebugFailedRules() {
@@ -78,6 +83,10 @@ public class TranslationParameters extends Shacl4bibParameters {
     return translationExport;
   }
 
+  public String getTranslationConfigurationFile() {
+    return translationConfigurationFile;
+  }
+
   @Override
   public String formatParameters() {
     String text = super.formatParameters();
@@ -85,6 +94,7 @@ public class TranslationParameters extends Shacl4bibParameters {
     text += String.format("translationDebugFailedRules: %s%n", getDebugFailedRules());
     text += String.format("translationPlaceNameDictionaryDir: %s%n", getTranslationPlaceNameDictionaryDir());
     text += String.format("translationExport: %s%n", getTranslationExport());
+    text += String.format("translationConfigurationFile: %s%n", getTranslationConfigurationFile());
     return text;
   }
 }

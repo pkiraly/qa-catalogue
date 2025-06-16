@@ -11,7 +11,7 @@ TYPE_PARAMS="${TYPE_PARAMS} --indexWithTokenizedField --indexFieldCounts --index
 QAC_ROOT=$(realpath $(dirname ${0})/..)
 
 # SHACL
-TYPE_PARAMS="${TYPE_PARAMS} --shaclConfigurationFile ${QAC_ROOT}/src/test/resources/translation/translations-shacl.yml"
+TYPE_PARAMS="${TYPE_PARAMS} --translationConfigurationFile ${QAC_ROOT}/src/test/resources/translation/translations-shacl.yml"
 TYPE_PARAMS="${TYPE_PARAMS} --shaclOutputType STATUS"
 TYPE_PARAMS="${TYPE_PARAMS} --shaclOutputFile translations.csv"
 

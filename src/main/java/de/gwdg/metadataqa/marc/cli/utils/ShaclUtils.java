@@ -22,9 +22,9 @@ public class ShaclUtils  {
    * @return
    * @param <T>
    */
-  public static <T extends Shacl4bibParameters> SchemaConfiguration setupSchema(T parameters) {
+  public static <T extends Shacl4bibParameters> SchemaConfiguration setupSchema(String shaclConfigurationFile) {
     SchemaConfiguration schema = null;
-    String shaclConfigurationFile = parameters.getShaclConfigurationFile();
+    // String shaclConfigurationFile = parameters.getShaclConfigurationFile();
     try {
       if (shaclConfigurationFile.endsWith(".json"))
         schema = ConfigurationReader.readSchemaJson(shaclConfigurationFile);

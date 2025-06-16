@@ -96,7 +96,7 @@ public class TranslationAnalysis extends QACli<TranslationParameters>
     logger.info(parameters.formatParameters());
     outputFile = new File(parameters.getOutputDir(), parameters.getShaclOutputFile());
 
-    schema = ShaclUtils.setupSchema(parameters);
+    schema = ShaclUtils.setupSchema(parameters.getTranslationConfigurationFile());
     ruleCatalog = ShaclUtils.setupRuleCatalog(schema, parameters);
     rulePathMap = ShaclUtils.createRulePathMap(schema);
     failed = new HashMap<>();
@@ -120,7 +120,10 @@ public class TranslationAnalysis extends QACli<TranslationParameters>
     printToFile(outputFile, CsvUtils.createCsv(header));
 
     if (parameters.getTranslationPlaceNameDictionaryDir() != null)
-      placeNameNormaliser = new PlaceNameNormaliser(parameters.getTranslationPlaceNameDictionaryDir(), parameters.getOutputDir());
+      placeNameNormaliser = new PlaceNameNormaliser(
+        parameters.getTranslationPlaceNameDictionaryDir(),
+        parameters.getOutputDir()
+      );
 
     if (parameters.getTranslationExport() != null) {
       exportFile = new File(parameters.getOutputDir(), parameters.getTranslationExport());
@@ -212,7 +215,7 @@ public class TranslationAnalysis extends QACli<TranslationParameters>
           .collect(Collectors.joining(", "));
     if (!report.isEmpty())
       logger.log(Level.WARNING, "failed rules: {0}", report);
-    copyFileToOutputDir(parameters.getShaclConfigurationFile());
+    copyFileToOutputDir(parameters.getTranslationConfigurationFile());
     saveParameters("translation-analysis.params.json", parameters, Map.of("numberOfprocessedRecords", numberOfprocessedRecords, "duration", duration));
 
     placeNameNormaliser.reportUnresolvedPlaceNames();

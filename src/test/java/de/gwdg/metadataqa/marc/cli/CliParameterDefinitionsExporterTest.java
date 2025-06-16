@@ -175,9 +175,9 @@ public class CliParameterDefinitionsExporterTest {
       assertEquals("specify the configuration file", firstItem.get("description"));
 
       assertTrue(parameters.containsKey("translations"));
-      assertEquals(6, ((List) parameters.get("translations")).size());
+      assertEquals(7, ((List) parameters.get("translations")).size());
       assertEquals(
-        "shaclConfigurationFile, shaclOutputFile, shaclOutputType, translationDebugFailedRules, translationPlaceNameDictionaryDir, translationExport",
+        "shaclConfigurationFile, shaclOutputFile, shaclOutputType, translationDebugFailedRules, translationPlaceNameDictionaryDir, translationExport, translationConfigurationFile",
         ((List<?>) parameters.get("translations")).stream()
         .map(s -> ((Map<String, Object>) s).get("long").toString())
         .collect(Collectors.joining(", ")));

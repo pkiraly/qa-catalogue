@@ -55,7 +55,7 @@ public class TranslationAnalysisTest extends CliTestUtils {
       "--marcxml",
       "--defaultEncoding", "UTF8",
       "--outputDir", outputDir,
-      "--shaclConfigurationFile", TestUtils.getPath("translation/translations-shacl.yml"),
+      "--translationConfigurationFile", TestUtils.getPath("translation/translations-shacl.yml"),
       "--shaclOutputFile", "translations.csv",
       "--translationDebugFailedRules", "245c,7004",
       "--translationPlaceNameDictionaryDir", TestUtils.getPath("translation"),

@@ -77,7 +77,7 @@ public class Shacl4bib extends QACli<Shacl4bibParameters>
     logger.info(parameters.formatParameters());
     outputFile = new File(parameters.getOutputDir(), parameters.getShaclOutputFile());
 
-    schema = ShaclUtils.setupSchema(parameters);
+    schema = ShaclUtils.setupSchema(parameters.getShaclConfigurationFile());
     ruleCatalog = ShaclUtils.setupRuleCatalog(schema, parameters);
 
     if (outputFile.exists()) {

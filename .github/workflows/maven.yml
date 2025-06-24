@@ -46,7 +46,8 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      - name: Build and analyze with Sonar
+      - name: Build and analyze with SonarCloud (https://sonarcloud.io/summary/new_code?id=pkiraly_qa-catalogue)
+        if: ${{ github.actor != 'dependabot[bot]' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -54,12 +55,14 @@ jobs:
 
       # coverage report: https://app.codecov.io/gh/pkiraly/metadata-qa-marc
       - name: Pubish code coverage at codecov.io
+        if: ${{ github.actor != 'dependabot[bot]' }}
         uses: codecov/codecov-action@v4
         with:
           file: ./**/target/site/jacoco/jacoco.xml
           name: codecov
 
-      # COVERALL_REPO_TOKEN is available as the TOKEN variable at https://coveralls.io/github/pkiraly/metadata-qa-marc
+      # COVERALL_REPO_TOKEN is available as the TOKEN variable at https://coveralls.io/github/pkiraly/qa-catalogue
       # coverage report: https://coveralls.io/github/pkiraly/metadata-qa-marc
       - name: Coveralls Coverage Report Submission
+        if: ${{ github.actor != 'dependabot[bot]' }}
         run: mvn coveralls:report -DrepoToken=${{ secrets.COVERALL_REPO_TOKEN }}

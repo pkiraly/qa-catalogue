@@ -56,8 +56,8 @@ if [ $# -eq 0 ]; then
   show_usage
 fi
 
-SHORT_OPTIONS="m:hnl:o:i:d:qabpxyt:rz:v:f:s:g:1:2:u:j:w:k:c:e:3:4:5C:O:P:D:E:F:"
-LONG_OPTIONS="marcVersion:,help,nolog,limit:,offset:,id:,defaultRecordType:,fixAlephseq,fixAlma,fixKbr,alephseq,marcxml,lineSeparated,outputDir:,trimId,ignorableFields:,ignorableRecords:,marcFormat:,dataSource:,defaultEncoding:,alephseqLineType:,picaIdField:,picaSubfieldSeparator:,picaSchemaFile:,schemaType:,picaRecordType:,allowableRecords:,groupBy:,groupListFile:,solrForScoresUrl:,processRecordsWithoutId,shaclConfigurationFile:,shaclOutputFile:,shaclOutputType:,translationDebugFailedRules:,translationPlaceNameDictionaryDir:,translationExport:"
+SHORT_OPTIONS="m:hnl:o:i:d:qabpxyt:rz:v:f:s:g:1:2:u:j:w:k:c:e:3:4:5C:O:P:D:E:F:G:"
+LONG_OPTIONS="marcVersion:,help,nolog,limit:,offset:,id:,defaultRecordType:,fixAlephseq,fixAlma,fixKbr,alephseq,marcxml,lineSeparated,outputDir:,trimId,ignorableFields:,ignorableRecords:,marcFormat:,dataSource:,defaultEncoding:,alephseqLineType:,picaIdField:,picaSubfieldSeparator:,picaSchemaFile:,schemaType:,picaRecordType:,allowableRecords:,groupBy:,groupListFile:,solrForScoresUrl:,processRecordsWithoutId,shaclConfigurationFile:,shaclOutputFile:,shaclOutputType:,translationDebugFailedRules:,translationPlaceNameDictionaryDir:,translationExport:,translationConfigurationFile:"
 
 GETOPT=$(getopt \
   -o ${SHORT_OPTIONS} \
@@ -107,6 +107,7 @@ while true ; do
     -D|--translationDebugFailedRules) PARAMS="$PARAMS --translationDebugFailedRules $2" ; shift 2 ;;
     -E|--translationPlaceNameDictionaryDir) PARAMS="$PARAMS --translationPlaceNameDictionaryDir $2" ; shift 2 ;;
     -F|--translationExport)       PARAMS="$PARAMS --translationExport $2" ; shift 2 ;;
+    -G|--translationConfigurationFile) PARAMS="$PARAMS --translationConfigurationFile $2" ; shift 2 ;;
     --) shift ; break ;;
     *) echo "Internal error!: $1" ; exit 1 ;;
   esac

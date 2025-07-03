@@ -54,6 +54,7 @@ public class PicaXmlParser {
       reader = spf.newSAXParser().getXMLReader();
       reader.setFeature("http://xml.org/sax/features/namespaces", true);
       reader.setFeature("http://xml.org/sax/features/namespace-prefixes", true);
+      reader.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
       reader.setContentHandler(handler);
       reader.parse(input);
     } catch (final Exception e) {

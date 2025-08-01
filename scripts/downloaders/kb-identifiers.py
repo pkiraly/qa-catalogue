@@ -29,8 +29,8 @@ def write_output(output, i, directory):
 #                http://services.kb.nl/mdo/oai?verb=ListIdentifiers&set=GGC&metadataPrefix=mdoall
 sickle = Sickle('http://services.kb.nl/mdo/oai', max_retries=4)
 
-header = '<?xml version="1.0" encoding="utf8"?>' + "\n" + '<records>' + "\n" 
-footer = '</records>'
+header = '<?xml version="1.0" encoding="utf8"?>' + "\n" + '<collection>' + "\n"
+footer = '</collection>'
 
 output = []
 prev_token = None

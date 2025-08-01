@@ -21,8 +21,8 @@ namespaces = {
     'marc21': 'http://www.loc.gov/MARC21/slim'
 }
 sickle = Sickle('http://services.kb.nl/mdo/oai', max_retries=4)
-header = '<?xml version="1.0" encoding="utf8"?>' + "\n" + '<records>' + "\n"
-footer = '</records>'
+header = '<?xml version="1.0" encoding="utf8"?>' + "\n" + '<collection>' + "\n"
+footer = '</collection>'
 
 def write_output(output, i, directory):
     """Writes MARC records to file"""

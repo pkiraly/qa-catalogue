@@ -25,8 +25,8 @@ def write_output(output, i, dir):
 
 sickle = Sickle('https://eu02.alma.exlibrisgroup.com/view/oai/43ACC_ONB/request', max_retries=4)
 
-header = '<?xml version="1.0" encoding="utf8"?>' + "\n" + '<records>' + "\n"
-footer = '</records>'
+header = '<?xml version="1.0" encoding="utf8"?>' + "\n" + '<collection>' + "\n"
+footer = '</collection>'
 
 output = []
 i = 0

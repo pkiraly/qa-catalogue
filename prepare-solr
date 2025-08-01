@@ -7,7 +7,7 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 set -ueo pipefail
 
-. ./solr-functions
+source ./solr-functions
 
 DB=$1
 

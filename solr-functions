@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 # SOLR_BASE_URL=${SOLR_PROTOCOL:-http}://${SOLR_HOST:-localhost}:${SOLR_PORT:-8983}
 SOLR_HOST=${SOLR_HOST:-http://localhost:${PORT:-8983}}
 
@@ -8,9 +7,10 @@ echo "SOLR_HOST: ${SOLR_HOST}"
 
 check_core() {
   LOCAL_CORE=$1
-  # echo "checking $LOCAL_CORE"
+  # echo "LOCAL_CORE: $LOCAL_CORE"
   LOCAL_URL=$(printf "%s/solr/admin/cores?action=STATUS&core=%s" "$SOLR_HOST" "$LOCAL_CORE")
-  curl -s "$LOCAL_URL" | jq .status | grep "\"$LOCAL_CORE\":" | grep -c -P '{$'
+  RESULT=$(curl -s "$LOCAL_URL" | jq .status | grep "\"$LOCAL_CORE\":" | grep -c -P '{$')
+  echo $RESULT
 }
 
 create_core() {

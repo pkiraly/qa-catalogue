@@ -18,9 +18,9 @@ SOLR_FOR_SCORES_URL=${5:-}
 log "OUTPUT_DIR: ${OUTPUT_DIR}"
 
 if [[ -f $(pwd)/solr-functions ]]; then
-  . ./solr-functions
+  source ./solr-functions
 else
-  . ./../../solr-functions
+  source ./../../solr-functions
 fi
 
 if [ -z "$SOLR_FOR_SCORES_URL" ]; then

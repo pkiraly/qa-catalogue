@@ -66,7 +66,7 @@ do_validate() {
 do_prepare_solr() {
   log "log file: ${LOG_DIR}/solr.log"
   run prepare-solr
-  ./prepare-solr "$NAME" 2> "$LOG_DIR/solr.log"
+  ./prepare-solr "$NAME" &> "$LOG_DIR/solr.log"
 }
 
 do_index() {

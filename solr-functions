@@ -9,28 +9,28 @@ check_core() {
   LOCAL_CORE=$1
   # echo "LOCAL_CORE: $LOCAL_CORE"
   LOCAL_URL=$(printf "%s/solr/admin/cores?action=STATUS&core=%s" "$SOLR_HOST" "$LOCAL_CORE")
-  RESULT=$(curl -s "$LOCAL_URL" | jq .status | grep "\"$LOCAL_CORE\":" | grep -c -P '{$')
+  RESULT=$(curl -sS "$LOCAL_URL" | jq .status | grep "\"$LOCAL_CORE\":" | grep -c -P '{$')
   echo $RESULT
 }
 
 create_core() {
   LOCAL_CORE=$1
   echo "creating Solr index: $LOCAL_CORE at $SOLR_HOST"
-  curl -s "$SOLR_HOST/solr/admin/cores?action=CREATE&name=$LOCAL_CORE&configSet=_default"
+  curl -sS "$SOLR_HOST/solr/admin/cores?action=CREATE&name=$LOCAL_CORE&configSet=_default"
 }
 
 rename_core() {
   LOCAL_FROM=$1
   LOCAL_TO=$2
   echo "rename Solr index: $LOCAL_FROM to $LOCAL_TO"
-  curl -s "$SOLR_HOST/solr/admin/cores?action=RENAME&core=$LOCAL_FROM&other=$LOCAL_TO"
+  curl -sS "$SOLR_HOST/solr/admin/cores?action=RENAME&core=$LOCAL_FROM&other=$LOCAL_TO"
 }
 
 swap_cores() {
   LOCAL_FROM=$1
   LOCAL_TO=$2
   echo "Swap Solr indexes $LOCAL_FROM and $LOCAL_TO"
-  curl -s "$SOLR_HOST/solr/admin/cores?action=SWAP&core=$LOCAL_FROM&other=$LOCAL_TO"
+  curl -sS "$SOLR_HOST/solr/admin/cores?action=SWAP&core=$LOCAL_FROM&other=$LOCAL_TO"
 }
 
 prepare_schema() {
@@ -39,10 +39,10 @@ prepare_schema() {
 
   echo "prepare_schema $LOCAL_CORE"
 
-  HAS_PROPER_SNI=$(curl -is "$SCHEMA_URL/dynamicfields/*_sni" | grep -c '"type":"string_big"')
+  HAS_PROPER_SNI=$(curl -isS "$SCHEMA_URL/dynamicfields/*_sni" | grep -c '"type":"string_big"')
   echo "Does $LOCAL_CORE have proper *_sni field definition? Answer: $HAS_PROPER_SNI"
   if [[ "$HAS_PROPER_SNI" -eq 0 ]]; then
-    HAS_FIELD=$(curl -is "$SCHEMA_URL/dynamicfields/*_sni" | head -1 | grep -c "200 OK")
+    HAS_FIELD=$(curl -isS "$SCHEMA_URL/dynamicfields/*_sni" | head -1 | grep -c "200 OK")
     echo "Does $LOCAL_CORE have  *_sni field definition? Answer: $HAS_FIELD"
     if [[ $HAS_FIELD -eq 1 ]]; then
       echo "Delete *_sni field definition from $LOCAL_CORE."
@@ -51,7 +51,7 @@ prepare_schema() {
       }' "$SCHEMA_URL"
     fi
 
-    HAS_TYPE=$(curl -is "$SCHEMA_URL/fieldtypes/string_big" | head -1 | grep -c "200 OK")
+    HAS_TYPE=$(curl -isS "$SCHEMA_URL/fieldtypes/string_big" | head -1 | grep -c "200 OK")
     if [[ "$HAS_TYPE" -eq 1 ]]; then
       echo "Delete string_big field type definition from $LOCAL_CORE."
       curl -X POST -H 'Content-type:application/json' --data-binary '{
@@ -87,7 +87,7 @@ prepare_schema() {
     }}' "$SCHEMA_URL"
   fi
 
-  NUMBER_OF_COPY_FIELD=$(curl -is "$SCHEMA_URL/copyfields?source.fl=*_ss" | grep -c '"source":"\*_ss"')
+  NUMBER_OF_COPY_FIELD=$(curl -isS "$SCHEMA_URL/copyfields?source.fl=*_ss" | grep -c '"source":"\*_ss"')
   echo "NUMBER_OF_COPY_FIELD: $NUMBER_OF_COPY_FIELD"
   if [[ "$NUMBER_OF_COPY_FIELD" -eq 0 ]]; then
     echo "add *_ss copyfield definition to $LOCAL_CORE"
@@ -104,11 +104,11 @@ prepare_schema() {
       curl -s -X POST -H 'Content-type:application/json' --data-binary '{
         "delete-copy-field":{ "source":"*_ss", "dest":"_text_" }
       }' "$SCHEMA_URL"
-      NUMBER_OF_COPY_FIELD=$(curl -is "$SCHEMA_URL/copyfields?source.fl=*_ss" | grep -c '"source":"\*_ss"')
+      NUMBER_OF_COPY_FIELD=$(curl -isS "$SCHEMA_URL/copyfields?source.fl=*_ss" | grep -c '"source":"\*_ss"')
     done
   fi
 
-  HAS_PROPER_TT=$(curl -is "$SCHEMA_URL/dynamicfields/*_tt" | grep -c '"type":"text_general"')
+  HAS_PROPER_TT=$(curl -isS "$SCHEMA_URL/dynamicfields/*_tt" | grep -c '"type":"text_general"')
   echo "Does $LOCAL_CORE have proper *_tt field definition? Answer: $HAS_PROPER_TT"
   if [[ "$HAS_PROPER_TT" -eq 0 ]]; then
     # add _tt
@@ -127,7 +127,7 @@ prepare_schema() {
 status() {
   echo "Solr index status at $SOLR_HOST"
   echo 
-  curl -s "$SOLR_HOST/solr/admin/cores?action=STATUS" \
+  curl -sS "$SOLR_HOST/solr/admin/cores?action=STATUS" \
     | jq . \
     | grep instanceDir \
     | head -1 \
@@ -138,7 +138,7 @@ status() {
   FORMAT="%-20s | %-15s | %10s | %10s | %19s\n"
   printf "$FORMAT" "core" "location" "nr of docs" "size" "last modified"
   printf "$FORMAT" "...................." "..............." ".........." ".........." "..................."
-  curl -s "$SOLR_HOST/solr/admin/cores?action=STATUS" \
+  curl -sS "$SOLR_HOST/solr/admin/cores?action=STATUS" \
     | jq '.status[] | [.name, .instanceDir, .index.numDocs, .index.size, .index.lastModified]' \
     | sed -r 's,".*/server/solr/(.+)",\1,' \
     | paste - - - - - - - \
@@ -153,7 +153,7 @@ purge_core() {
   LOCAL_CORE=$1
   SOLR_DB_URL="$SOLR_HOST/solr/$LOCAL_CORE"
   echo "Delete records in $SOLR_DB_URL"
-  curl -s "$SOLR_DB_URL/update" \
+  curl -sS "$SOLR_DB_URL/update" \
        -H "Content-type: text/xml" \
        --data-binary '<delete><query>*:*</query></delete>' \
        > /dev/null
@@ -163,7 +163,7 @@ optimize_core() {
   LOCAL_CORE=$1
   SOLR_DB_URL="$SOLR_HOST/solr/$LOCAL_CORE"
   echo "Optimizing $SOLR_DB_URL"
-  curl -s "$SOLR_DB_URL/update?optimize=true" \
+  curl -sS "$SOLR_DB_URL/update?optimize=true" \
        -H 'Content-type: text/xml' \
        --data-binary '<commit/>' \
        > /dev/null
@@ -184,8 +184,7 @@ store_fields() {
   SOLR_URL=$1
   OUTPUT_DIR=$2
   echo "Store fields into $OUTPUT_DIR/solr-fields.json"
-  echo "curl -s \"$SOLR_URL/admin/luke?wt=json\" | jq '.fields | keys_unsorted'"
-  curl -s "$SOLR_URL/admin/luke?wt=json" \
+  curl -sS "$SOLR_URL/admin/luke?wt=json" \
     | jq '.fields | keys_unsorted' \
     > "$OUTPUT_DIR/solr-fields.json"
 }
@@ -201,5 +200,3 @@ extract_core() {
   CORE=$(echo "$URL" | grep -oP "[^/]+$" || true)
   echo "$CORE"
 }
-
-# echo "END solr-functions"

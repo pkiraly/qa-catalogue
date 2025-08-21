@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags76x;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.general.codelist.OrganizationCodes;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.Tag76xSubfield7PositionsGenerator;
@@ -197,7 +198,8 @@ public class Tag787 extends DataFieldDefinition {
       .setCompilanceLevels("O");
 
     getSubfield("5")
-      .setMqTag("institution");
+      .setMqTag("institution")
+      .setCodeList(OrganizationCodes.getInstance());
 
     getSubfield("6")
       .setBibframeTag("linkage")

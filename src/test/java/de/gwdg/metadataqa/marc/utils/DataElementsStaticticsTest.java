@@ -14,10 +14,10 @@ public class DataElementsStaticticsTest {
     assertEquals("There should be 212 defined control field positions",  212, statistics.get(DataElementType.controlFieldPositions));
     assertEquals("There should be 230 defined fields in MARC core",  230, statistics.get(DataElementType.coreFields));
     assertEquals("There should be 186 defined indicators in MARC core",  186, statistics.get(DataElementType.coreIndicators));
-    assertEquals("There should be 2688 defined subfields in MARC core", 2688, statistics.get(DataElementType.coreSubfields));
+    assertEquals("There should be 2694 defined subfields in MARC core", 2694, statistics.get(DataElementType.coreSubfields));
     assertEquals("There should be 228 defined locally defined fields",  228, statistics.get(DataElementType.localFields));
     assertEquals("There should be 30 defined locally defined indicators",   30, statistics.get(DataElementType.localIndicators));
     assertEquals("There should be 1808 defined locally defined subfields", 1808, statistics.get(DataElementType.localSubfields));
-    assertEquals("There should be 5388 defined data elements", 5388, statistics.total());
+    assertEquals("There should be 5394 defined data elements", 5394, statistics.total());
   }
 }

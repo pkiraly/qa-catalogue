@@ -47,6 +47,7 @@ public class Tag508 extends DataFieldDefinition {
 
     setSubfieldsWithCardinality(
       "a", "Creation/production credits note", "NR",
+      "3", "Materials specified", "NR",
       "6", "Linkage", "NR",
       "7", "Data provenance", "R",
       "8", "Field link and sequence number", "R"
@@ -58,6 +59,8 @@ public class Tag508 extends DataFieldDefinition {
       .setMqTag("rdf:value")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect)
       .setCompilanceLevels("M");
+
+    getSubfield("3").setMqTag("materialsSpecified");
 
     getSubfield("6")
       .setBibframeTag("linkage")

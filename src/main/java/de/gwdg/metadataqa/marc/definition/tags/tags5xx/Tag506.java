@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags5xx;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.AccessRestrictionTermSourceCodes;
@@ -65,6 +66,8 @@ public class Tag506 extends DataFieldDefinition {
       "g", "Availability date", "R",
       "q", "Supplying agency", "NR",
       "u", "Uniform Resource Identifier", "R",
+      "0", "Authority record control number or standard number", "R",
+      "1", "Real World Object URI", "R",
       "2", "Source of term", "NR",
       "3", "Materials specified", "NR",
       "5", "Institution to which field applies", "NR",
@@ -115,6 +118,13 @@ public class Tag506 extends DataFieldDefinition {
       .setMqTag("uri")
       .setFrbrFunctions(DiscoveryObtain)
       .setCompilanceLevels("O");
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber")
+      .setContentParser(RecordControlNumberParser.getInstance());
+
+    getSubfield("1")
+      .setMqTag("realWorldObjectUri");
 
     getSubfield("2")
       .setMqTag("source")

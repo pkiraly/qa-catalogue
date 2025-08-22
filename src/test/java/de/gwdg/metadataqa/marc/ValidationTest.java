@@ -1,11 +1,5 @@
 package de.gwdg.metadataqa.marc;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.analysis.validator.Validator;
 import de.gwdg.metadataqa.marc.analysis.validator.ValidatorConfiguration;
@@ -13,9 +7,11 @@ import de.gwdg.metadataqa.marc.dao.Control003;
 import de.gwdg.metadataqa.marc.dao.Control005;
 import de.gwdg.metadataqa.marc.dao.Control008;
 import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.Leader;
-import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
+import de.gwdg.metadataqa.marc.dao.Marc21Leader;
+import de.gwdg.metadataqa.marc.dao.MarcLeader;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
+import de.gwdg.metadataqa.marc.dao.record.Marc21BibliographicRecord;
+import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.tags.oclctags.Tag090;
 import de.gwdg.metadataqa.marc.definition.tags.sztetags.Tag596;
@@ -29,6 +25,12 @@ import de.gwdg.metadataqa.marc.definition.tags.tags84x.Tag880;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormat;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorFormatter;
 import org.junit.Test;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -56,11 +58,11 @@ public class ValidationTest {
 
   @Test
   public void test246_6() throws URISyntaxException, IOException {
-    BibliographicRecord marcRecord = new Marc21Record("u2407796");
-    marcRecord.setLeader(new Leader("00860cam a22002774a 45 0"));
+    Marc21Record marcRecord = new Marc21BibliographicRecord("u2407796");
+    marcRecord.setLeader(new Marc21Leader("00860cam a22002774a 45 0"));
     marcRecord.setControl003(new Control003("SIRSI"));
     marcRecord.setControl005(new Control005("20080331162830.0"));
-    marcRecord.setControl008(new Control008("070524s2007    cc a          001 0 chi", Leader.Type.BOOKS));
+    marcRecord.setControl008(new Control008("070524s2007    cc a          001 0 chi", MarcLeader.Type.BOOKS));
 
     List<DataField> fields = Arrays.asList(
       new DataField(Tag010.getInstance(), " ", " ", "a", "  2007929507"),
@@ -96,7 +98,7 @@ public class ValidationTest {
 
     for (DataField field : fields) {
       marcRecord.addDataField(field);
-      field.setMarcRecord(marcRecord);
+      field.setBibliographicRecord(marcRecord);
     }
 
     Validator validator = new Validator(new ValidatorConfiguration().withMarcVersion(MarcVersion.GENT).withDoSummary(false));

@@ -1,0 +1,28 @@
+---
+title: "Import tables to SQLite"
+---
+
+This is just a helper function which imports the results of validation into
+SQLite3 database.
+
+The prerequisite of this step is to run validation first, since it uses the
+files produced there. If you run validation with `catalogues/<catalogue>.sh` or
+`./qa-catalogue` scripts, this importing step is already covered there.
+
+Usage:
+```bash
+catalogues/[catalogue].sh sqlite
+```
+or
+```bash
+./qa-catalogue --params="[options]" sqlite
+```
+
+options:
+
+* [general parameters](#general-parameters)
+
+Output:
+
+* `qa_catalogue.sqlite`: the SQLite3 database with 3 tables: `issue_details`,
+`issue_groups`, and `issue_summary`.

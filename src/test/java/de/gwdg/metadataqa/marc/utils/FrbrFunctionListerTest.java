@@ -1,5 +1,7 @@
 package de.gwdg.metadataqa.marc.utils;
 
+import de.gwdg.metadataqa.marc.analysis.functional.FrbrFunctionLister;
+import de.gwdg.metadataqa.marc.analysis.functional.Marc21FrbrFunctionLister;
 import de.gwdg.metadataqa.marc.definition.FRBRFunction;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import org.junit.Test;
@@ -13,8 +15,8 @@ public class FrbrFunctionListerTest {
 
   @Test
   public void testGetMarcPathByfunction() {
-    FrbrFunctionLister lister = new FrbrFunctionLister(MarcVersion.MARC21);
-    Map<FRBRFunction, List<String>> functions = lister.getMarcPathByFunction();
+    FrbrFunctionLister lister = new Marc21FrbrFunctionLister(MarcVersion.MARC21);
+    Map<FRBRFunction, List<String>> functions = lister.getPathByFunction();
     assertEquals(12,  functions.size());
     assertEquals(455, functions.get(FRBRFunction.DiscoveryObtain).size());
     assertEquals(464, functions.get(FRBRFunction.DiscoverySearch).size());

@@ -1,9 +1,8 @@
 package de.gwdg.metadataqa.marc.analysis;
 
+import de.gwdg.metadataqa.marc.analysis.shelfready.ShelfReadyFieldsBooks;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
@@ -13,7 +12,7 @@ public class ShelfReadyFieldsBooksTest {
   @Test
   public void test() {
     assertEquals(2, ShelfReadyFieldsBooks.TAG015.getSelectors().size());
-    assertEquals("015", ShelfReadyFieldsBooks.TAG015.getSelectors().get(0).getFieldTag());
+    assertEquals("015", ShelfReadyFieldsBooks.TAG015.getSelectors().get(0).getTag());
     assertEquals(5, ShelfReadyFieldsBooks.TAG015.getScore());
     assertEquals("National Bibliography Number", ShelfReadyFieldsBooks.TAG015.getLabel());
     assertEquals("015$a,015$2", ShelfReadyFieldsBooks.TAG015.getMarcPath());

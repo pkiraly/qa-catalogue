@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
+# Biblioteka Narodowa (Polish National Library)
+# https://bn.org.pl/
 
 . ./setdir.sh
 
 NAME=bnpl
 # TYPE_PARAMS="--marcVersion GENT"
 TYPE_PARAMS=" --emptyLargeCollectors"
-MARC_DIR=${BASE_INPUT_DIR}/bnpl
+# index parameters
+TYPE_PARAMS="${TYPE_PARAMS} --indexWithTokenizedField --indexFieldCounts --indexSubfieldCounts"
 MASK=bibs-all.marc.gz
 
 . ./common-script

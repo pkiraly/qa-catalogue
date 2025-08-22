@@ -2,26 +2,33 @@ package de.gwdg.metadataqa.marc.cli.utils;
 
 import de.gwdg.metadataqa.api.model.XmlFieldInstance;
 import de.gwdg.metadataqa.api.model.selector.Selector;
+import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
-import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
+import de.gwdg.metadataqa.marc.dao.record.Marc21BibliographicRecord;
 import de.gwdg.metadataqa.marc.dao.record.PicaRecord;
+import de.gwdg.metadataqa.marc.dao.record.UnimarcRecord;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public abstract class BibSelector implements Selector {
   protected final BibliographicRecord record;
   private boolean isMarc21 = false;
   private boolean isPica = false;
+  private boolean isUnimarc = false;
 
   public BibSelector(BibliographicRecord record) {
     if (record != null) {
       this.record = record;
-      if (record instanceof Marc21Record) {
+      if (record instanceof Marc21BibliographicRecord) {
         isMarc21 = true;
       } else if (record instanceof PicaRecord) {
         isPica = true;
+      } else if (record instanceof UnimarcRecord) {
+        isUnimarc = true;
       }
     } else {
       throw new IllegalArgumentException("Only BibliographicRecord object as Argument");
@@ -31,13 +38,20 @@ public abstract class BibSelector implements Selector {
   protected List<XmlFieldInstance> transformTags(List<String> tags) {
     List<XmlFieldInstance> fieldList = new ArrayList<>();
     if (tags != null) {
-      for (String tag : tags) {
-        fieldList.add(new XmlFieldInstance(tag));
+      for (Object tag : tags) {
+        if (tag instanceof String)
+          fieldList.add(new XmlFieldInstance((String) tag));
+        else if (tag instanceof DataField) {
+          fieldList.add(new XmlFieldInstance(((DataField) tag)
+            .getSubfields()
+            .stream()
+            .map(e -> e.getValue())
+            .collect(Collectors.joining(", "))));
+        }
       }
     }
     return fieldList;
   }
-
 
   @Override
   public Object read(String path, Object jsonFragment) {
@@ -46,12 +60,12 @@ public abstract class BibSelector implements Selector {
 
   @Override
   public List get(String address, String path, Object jsonFragment) {
-    return null;
+    return Collections.emptyList();
   }
 
   @Override
   public List get(String address, String path, Object jsonFragment, Class clazz) {
-    return null;
+    return Collections.emptyList();
   }
 
   @Override
@@ -76,16 +90,20 @@ public abstract class BibSelector implements Selector {
 
   @Override
   public Map<String, List> getCache() {
-    return null;
+    return Collections.emptyMap();
   }
 
   @Override
   public Map<String, Object> getFragmentCache() {
-    return null;
+    return Collections.emptyMap();
   }
 
   @Override
   public String getContent() {
     return null;
+  }
+
+  public BibliographicRecord getRecord() {
+    return record;
   }
 }

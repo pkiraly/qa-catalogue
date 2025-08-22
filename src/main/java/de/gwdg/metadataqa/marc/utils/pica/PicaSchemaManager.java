@@ -1,11 +1,16 @@
 package de.gwdg.metadataqa.marc.utils.pica;
 
+import de.gwdg.metadataqa.marc.utils.marcreader.SchemaManager;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PicaSchemaManager {
+public class PicaSchemaManager implements SchemaManager, Serializable {
+
+  private static final long serialVersionUID = -2944103213221378653L;
   Map<String, PicaFieldDefinition> directory = new HashMap<>();
   Map<String, List<String>> tagIndex = new HashMap<>();
 
@@ -31,6 +36,7 @@ public class PicaSchemaManager {
     }
   }
 
+  @Override
   public PicaFieldDefinition lookup(String searchTerm) {
     if (directory.containsKey(searchTerm))
       return directory.get(searchTerm);
@@ -53,6 +59,8 @@ public class PicaSchemaManager {
     if (tagIndex.containsKey(tag)) {
       for (String id : tagIndex.get(tag)) {
         var candidate = directory.get(id);
+        if (occurrence.equals("00"))
+          return candidate;
         if (candidate.inRange(occurrence))
           return candidate;
       }
@@ -60,6 +68,7 @@ public class PicaSchemaManager {
     return null;
   }
 
+  @Override
   public int size() {
     return directory.size();
   }

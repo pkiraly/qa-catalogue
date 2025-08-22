@@ -1,0 +1,73 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: QA Catalogue
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Péter
+    family-names: Király
+    email: pkiraly@gwdg.de
+    affiliation: GWDG
+    orcid: 'https://orcid.org/0000-0002-8749-4597'
+  - given-names: Jakob
+    family-names: Voß
+    affiliation: Verbundzentrale des GBV (VZG)
+    orcid: 'https://orcid.org/0000-0002-7613-4123'
+  - given-names: Ákos
+    family-names: Takács
+    affiliation: E-Group ICT Software
+  - given-names: Radek
+    family-names: Svetlik
+  - given-names: Jean Michel
+    family-names: Nzi Mba
+  - given-names: Dan Michael O.
+    family-names: Heggø
+    affiliation: Biblioteksentralen
+    orcid: 'https://orcid.org/0000-0002-6189-5958'
+  - given-names: Tuomo
+    family-names: Virolainen
+    affiliation: Siili One
+  - given-names: Johann
+    family-names: Rolschewski
+    affiliation: Staatsbibliothek zu Berlin
+  - given-names: Mat
+    family-names: Kelly
+    affiliation: Drexel University
+    orcid: 'https://orcid.org/0000-0002-0236-7389'
+  - given-names: Felix
+    family-names: Hemme
+    affiliation: ZBW
+    orcid: 'https://orcid.org/0000-0001-7754-782X'
+  - given-names: Tu
+    family-names: Phú
+    affiliation: Staats- und Universitätsbibliothek Hamburg Carl von Ossietzky
+    orcid: 'https://orcid.org/0000-0002-1768-9890'
+  - given-names: Gegić
+    family-names: Haris
+identifiers:
+  - type: url
+    value: 'https://github.com/pkiraly/qa-catalogue'
+    description: Code repository
+  - type: doi
+    value: 10.5281/zenodo.8159388
+    description: Release v0.7.0
+repository-code: 'https://github.com/pkiraly/qa-catalogue'
+url: 'https://pkiraly.github.io/qa-catalogue/'
+repository-artifact: >-
+  https://mvnrepository.com/artifact/de.gwdg.metadataqa/qa-catalogue/0.7.0
+abstract: >-
+  A metadata quality assessment tool for library catalogue
+  records (MARC, PICA, UNIMARC)
+keywords:
+  - metadata
+  - library catalogue
+  - quality assessment
+  - code4lib
+  - MARC21
+  - PICA
+  - UNIMARC
+license: GPL-3.0

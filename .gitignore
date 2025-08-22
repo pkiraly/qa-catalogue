@@ -31,6 +31,7 @@ scala/project
 scala/target
 scripts/cli-generator/*.sh.txt
 metadata-qa-api/
+solr-data/
 
 # default input and output base directory
 input
@@ -50,3 +51,15 @@ setdir.sh
 .settings
 
 /target/
+
+# environment variables
+.env
+
+# used as Docker volume
+web-config
+
+# Node packages
+node_modules
+
+# HTML docs of Avram
+avram-schemas/*.html

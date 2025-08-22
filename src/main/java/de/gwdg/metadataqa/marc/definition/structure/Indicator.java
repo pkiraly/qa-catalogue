@@ -45,13 +45,16 @@ public class Indicator {
   }
 
   public String getIndexTag() {
-    if (indexTag == null) {
-      if (mqTag != null)
-        indexTag = mqTag;
-      else if (bibframeTag != null)
-        indexTag = bibframeTag.replace("/", "");
-      else
-        indexTag = indicatorFlag;
+    if (indexTag != null) {
+      return indexTag;
+    }
+
+    if (mqTag != null) {
+      indexTag = mqTag;
+    } else if (bibframeTag != null) {
+      indexTag = bibframeTag.replace("/", "");
+    } else {
+      indexTag = indicatorFlag;
     }
     return indexTag;
   }
@@ -63,6 +66,7 @@ public class Indicator {
 
   public Indicator setCodes(List<EncodedValue> codes) {
     this.codes = codes;
+    indexCodes();
     return this;
   }
 
@@ -106,31 +110,42 @@ public class Indicator {
   }
 
   public boolean exists() {
-    return label != null && !label.equals("");
+    return label != null && !label.isEmpty();
   }
 
   public List<EncodedValue> getCodes() {
     return codes;
   }
 
+  /**
+   * Get the EncodedValue for a given code string.
+   * E.g. "a" -> EncodedValue("a", "Description")
+   * @param codeString The code string to look up
+   * @return The EncodedValue for the given code string or null if not found
+   */
   public EncodedValue getCode(String codeString) {
-    if (codeIndex.containsKey(codeString))
+    if (codeIndex.containsKey(codeString)) {
       return codeIndex.get(codeString);
+    }
 
     for (Range range : getRanges().keySet()) {
-      if (range.isValid(codeString))
+      if (range.isValid(codeString)) {
         return ranges.get(range);
+      }
     }
 
     return null;
   }
 
   public boolean hasCode(String code) {
-    if (codeIndex.containsKey(code))
+    if (codeIndex.containsKey(code)) {
       return true;
+    }
+
     for (Range range : getRanges().keySet()) {
-      if (range.isValid(code))
+      if (range.isValid(code)) {
         return true;
+      }
     }
 
     return false;
@@ -150,7 +165,7 @@ public class Indicator {
     return ranges;
   }
 
-  private void indexCodes() {
+  public void indexCodes() {
     codeIndex = new LinkedHashMap<>();
     for (EncodedValue code : codes) {
       codeIndex.put(code.getCode(), code);
@@ -194,13 +209,19 @@ public class Indicator {
   }
 
   public boolean isVersionSpecificCode(MarcVersion marcVersion, String code) {
-    if (versionSpecificCodes != null
-        && !versionSpecificCodes.isEmpty()
-        && versionSpecificCodes.containsKey(marcVersion)
-        && !versionSpecificCodes.get(marcVersion).isEmpty())
-      for (EncodedValue versionSpecificCode : versionSpecificCodes.get(marcVersion))
-        if (versionSpecificCode.getCode().equals(code))
-          return true;
+    if (versionSpecificCodes == null
+      || versionSpecificCodes.isEmpty()
+      || !versionSpecificCodes.containsKey(marcVersion)
+      || versionSpecificCodes.get(marcVersion).isEmpty()) {
+      return false;
+    }
+
+    for (EncodedValue versionSpecificCode : versionSpecificCodes.get(marcVersion)) {
+      if (versionSpecificCode.getCode().equals(code)) {
+        return true;
+      }
+    }
+
     return false;
   }
 

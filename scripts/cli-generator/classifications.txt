@@ -1,1 +1,1 @@
-      options.addOption("A", "collectCollocations", false, "collect collocatiion of schemas");
+      options.addOption("A", "collectCollocations", false, "collect collocation of schemas");

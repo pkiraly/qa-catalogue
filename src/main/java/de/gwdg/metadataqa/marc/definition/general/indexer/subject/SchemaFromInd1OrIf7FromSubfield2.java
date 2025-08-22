@@ -1,41 +1,33 @@
 package de.gwdg.metadataqa.marc.definition.general.indexer.subject;
 
-import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.MarcSubfield;
-import de.gwdg.metadataqa.marc.definition.general.indexer.FieldIndexer;
-import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGenerator;
+import de.gwdg.metadataqa.marc.dao.DataField;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class SchemaFromInd1OrIf7FromSubfield2 extends SubjectIndexer implements FieldIndexer {
+public class SchemaFromInd1OrIf7FromSubfield2 extends SchemaIndicatorExtractor {
 
   @Override
-  public Map<String, List<String>> index(DataField dataField,
-                                         DataFieldKeyGenerator keyGenerator) {
-    Map<String, List<String>> indexEntries = new HashMap<>();
-    String schemaCode = dataField.getInd1();
-    String schemaAbbreviation;
-    if (schemaCode.equals("7")) {
+  protected String getSchemaAbbreviation(String indicatorSchemaCode, DataField dataField) {
+    if (indicatorSchemaCode.equals("7")) {
       List<MarcSubfield> subfield2s = dataField.getSubfield("2");
-      if (subfield2s == null || subfield2s.isEmpty())
-        return indexEntries;
-
-      schemaAbbreviation = subfield2s.get(0).getValue();
-    } else {
-      try {
-        schemaAbbreviation = ClassificationSchemes.getInstance().resolve(dataField.resolveInd1());
-      } catch (IllegalArgumentException e) {
-        schemaAbbreviation = dataField.getInd1().equals(" ") ? "" : dataField.getInd1();
+      if (subfield2s == null || subfield2s.isEmpty()) {
+        return null;
       }
+
+      return subfield2s.get(0).getValue();
     }
 
-    KeyValuesExtractor extractor = new KeyValuesExtractor(dataField, keyGenerator, schemaAbbreviation).invoke();
-    if (extractor.hadSuccess())
-      indexEntries.put(extractor.getKey(), extractor.getValues());
+    try {
+      return ClassificationSchemes.getInstance().resolve(dataField.resolveInd1());
+    } catch (IllegalArgumentException e) {
+      return indicatorSchemaCode.equals(" ") ? "" : indicatorSchemaCode;
+    }
+  }
 
-    return indexEntries;
+  @Override
+  protected String getIndicatorSchemaCode(DataField dataField) {
+    return dataField.getInd1();
   }
 
   private static SchemaFromInd1OrIf7FromSubfield2 uniqueInstance;

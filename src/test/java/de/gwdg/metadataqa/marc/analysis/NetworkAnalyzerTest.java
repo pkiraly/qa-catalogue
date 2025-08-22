@@ -1,8 +1,8 @@
 package de.gwdg.metadataqa.marc.analysis;
 
 import de.gwdg.metadataqa.api.util.FileUtils;
-import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.MarcFactory;
+import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +29,7 @@ public class NetworkAnalyzerTest {
   @Test
   public void process() {
     NetworkAnalyzer analyzer = new NetworkAnalyzer(marcRecord);
-    Set<DataField> collector = analyzer.process(1);
+    Set<DataField> collector = analyzer.process();
     assertEquals(5, collector.size());
     assertEquals(
       Arrays.asList("084", "655", "710", "810", "810"),

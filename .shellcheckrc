@@ -1,0 +1,5 @@
+# Don't use variables in the printf format string
+disable=SC2059
+
+# Useless cat
+disable=SC2002

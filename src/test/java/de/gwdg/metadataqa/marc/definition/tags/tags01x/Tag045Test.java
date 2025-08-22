@@ -2,7 +2,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags01x;
 
 import de.gwdg.metadataqa.marc.analysis.validator.SubfieldValidator;
 import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
+import de.gwdg.metadataqa.marc.dao.record.Marc21BibliographicRecord;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import org.junit.Test;
@@ -21,7 +21,7 @@ public class Tag045Test {
 
   @Test
   public void testCStH() {
-    BibliographicRecord marcRecord = new Marc21Record("test");
+    BibliographicRecord marcRecord = new Marc21BibliographicRecord("test");
 
     List<String> values = Arrays.asList(
       "d7d9",
@@ -39,7 +39,7 @@ public class Tag045Test {
     List<String> badValues = Arrays.asList("0-0-", "2209668", "a-cc---", "d1764", "n-us---", "q1", "v v");
     for (String value : values) {
       DataField field = new DataField(tag, " ", " ", "a", value);
-      field.setMarcRecord(marcRecord);
+      field.setBibliographicRecord(marcRecord);
       MarcSubfield subfield = field.getSubfield("a").get(0);
       SubfieldValidator validator = new SubfieldValidator();
       if (badValues.contains(value))

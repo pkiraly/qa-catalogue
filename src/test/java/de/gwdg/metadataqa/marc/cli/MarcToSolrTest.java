@@ -1,12 +1,16 @@
 package de.gwdg.metadataqa.marc.cli;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.gwdg.metadataqa.marc.MarcFactory;
+import de.gwdg.metadataqa.marc.TestUtils;
 import de.gwdg.metadataqa.marc.cli.parameters.MarcToSolrParameters;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.Leader;
-import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
+import de.gwdg.metadataqa.marc.dao.Marc21Leader;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
+import de.gwdg.metadataqa.marc.dao.record.Marc21BibliographicRecord;
+import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 import de.gwdg.metadataqa.marc.datastore.EmbeddedSolrClientFactory;
 import de.gwdg.metadataqa.marc.definition.MarcFormat;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
@@ -38,7 +42,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
-import static de.gwdg.metadataqa.marc.cli.CliTestUtils.getPath;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -47,12 +50,12 @@ public class MarcToSolrTest {
 
   @Test
   public void testVersionSpecificSubfield() {
-    BibliographicRecord marcRecord = new Marc21Record("010000011");
-    marcRecord.setLeader(new Leader("00860cam a22002774a 45 0"));
+    Marc21Record marcRecord = new Marc21BibliographicRecord("010000011");
+    marcRecord.setLeader(new Marc21Leader("00860cam a22002774a 45 0"));
     marcRecord.addDataField(new DataField(Tag787.getInstance(), " ", " ","@", "japan"));
     Map<String, List<String>> solr = marcRecord.getKeyValuePairs(SolrFieldType.MIXED, false, MarcVersion.KBR);
     assertTrue(solr.containsKey("787x40_RelatedTo_language_KBR"));
-    assertEquals(Arrays.asList("japan"), solr.get("787x40_RelatedTo_language_KBR"));
+    assertEquals(List.of("japan"), solr.get("787x40_RelatedTo_language_KBR"));
   }
 
   @Test
@@ -78,7 +81,7 @@ public class MarcToSolrTest {
 
     PicaPath groupBy = PicaPathParser.parse("001@$0");
     PicaGroupIndexer groupIndexer = new PicaGroupIndexer().setPicaPath(groupBy);
-    for (DataField field : bibliographicRecord.getDatafield(groupBy.getTag()))
+    for (DataField field : bibliographicRecord.getDatafieldsByTag(groupBy.getTag()))
       field.addFieldIndexer(groupIndexer);
 
     Map<String, List<String>> map = bibliographicRecord.getKeyValuePairs(SolrFieldType.MIXED, true, MarcVersion.MARC21);
@@ -93,17 +96,9 @@ public class MarcToSolrTest {
   }
 
   @Test
-  public void name() {
-    assertEquals(-1, "a".compareTo("b"));
-    assertEquals(0, "a".compareTo("a"));
-    assertEquals(1, "b".compareTo("a"));
-    assertEquals(-1, "b".compareTo("c"));
-  }
-
-  @Test
-  public void run0() {
+  public void runEmbeddedSolr() {
     try {
-      String outputDir = getPath("src/test/resources/output");
+      String outputDir = TestUtils.getPath("output");
       MarcToSolrParameters params = new MarcToSolrParameters(new String[]{
         "--schemaType", "PICA",
         "--marcFormat", "PICA_NORMALIZED",
@@ -112,7 +107,7 @@ public class MarcToSolrTest {
         "--useEmbedded",
         "--solrUrl", "http://localhost:8983/solr/k10plus_pica_grouped_dev",
         "--solrForScoresUrl", "http://localhost:8983/solr/k10plus_pica_grouped_scores",
-        getPath("src/test/resources/pica/pica-with-holdings-info.dat")
+        TestUtils.getPath("pica/pica-with-holdings-info.dat")
       });
       EmbeddedSolrServer mainClient = EmbeddedSolrClientFactory.getClient(coreFromUrl(params.getSolrUrl()));
       EmbeddedSolrServer validationClient = EmbeddedSolrClientFactory.getClient(coreFromUrl(params.getSolrForScoresUrl()));
@@ -149,6 +144,117 @@ public class MarcToSolrTest {
     }
 
     EmbeddedSolrClientFactory.shutDown();
+  }
+
+  @Test
+  public void runEmbeddedSolr_with_fieldPrefix() {
+    try {
+      String outputDir = TestUtils.getPath("output");
+      MarcToSolrParameters params = new MarcToSolrParameters(new String[]{
+        "--schemaType", "PICA",
+        "--marcFormat", "PICA_NORMALIZED",
+        "--outputDir", outputDir,
+        "--solrFieldType", "MIXED",
+        "--fieldPrefix", "q",
+        "--useEmbedded",
+        "--solrUrl", "http://localhost:8983/solr/k10plus_pica_grouped_dev",
+        "--solrForScoresUrl", "http://localhost:8983/solr/k10plus_pica_grouped_scores",
+        TestUtils.getPath("pica/pica-with-holdings-info.dat")
+      });
+      EmbeddedSolrServer mainClient = EmbeddedSolrClientFactory.getClient(coreFromUrl(params.getSolrUrl()));
+      EmbeddedSolrServer validationClient = EmbeddedSolrClientFactory.getClient(coreFromUrl(params.getSolrForScoresUrl()));
+      params.setMainClient(mainClient);
+      params.setValidationClient(validationClient);
+
+      Map<String, SolrInputDocument> validation = new HashMap<>();
+      List<String> ids = List.of("010000011", "01000002X", "010000038", "010000054", "010000070", "010000089", "010000127", "010000151", "010000178", "010000194");
+      for (String id : ids) {
+        SolrInputDocument document = new SolrInputDocument();
+        document.addField("id", id);
+        document.addField("groupId_is", getNRandomNumbers(5, 1, 10));
+        document.addField("errorId_is", getNRandomNumbers(5, 10, 20));
+        validation.put(id, document);
+        validationClient.add(document);
+      }
+      validationClient.commit();
+
+      MarcToSolr processor = new MarcToSolr(params);
+      RecordIterator iterator = new RecordIterator(processor);
+      iterator.start();
+      assertEquals("done", iterator.getStatus());
+
+      final QueryResponse response = mainClient.query(new MapSolrParams(Map.of("q", "*:*")));
+      final SolrDocumentList documents = response.getResults();
+      assertNotNull(documents);
+      assertEquals(10, documents.getNumFound());
+      for (SolrDocument doc : documents) {
+        SolrInputDocument intention = validation.get(doc.get("id"));
+        assertEquals(intention.getFieldValues("groupId_is"), doc.getFieldValues("groupId_is"));
+        for (String fieldName : doc.getFieldNames()) {
+          if (!fieldName.equals("id") && !fieldName.endsWith("_sni") && !fieldName.endsWith("_is")) {
+            assertTrue(
+              String.format("fieldName '%s' should start with '%s'", fieldName, params.getFieldPrefix()),
+              fieldName.startsWith(params.getFieldPrefix())
+            );
+          }
+        }
+      }
+    } catch (ParseException | SolrServerException | IOException e) {
+      throw new RuntimeException(e);
+    }
+
+    EmbeddedSolrClientFactory.shutDown();
+  }
+
+  @Test
+  public void unimarc_withEmbeddedSolr() {
+    try {
+      String outputDir = TestUtils.getPath("output");
+      MarcToSolrParameters params = new MarcToSolrParameters(new String[]{
+        "--schemaType", "UNIMARC",
+        "--outputDir", outputDir,
+        "--solrFieldType", "human-readable",
+        "--useEmbedded",
+        "--solrUrl", "http://localhost:8983/solr/unimarc",
+        TestUtils.getPath("unimarc/serial.bnr.1993.mrc")
+      });
+
+      EmbeddedSolrServer mainClient = EmbeddedSolrClientFactory.getClient(coreFromUrl(params.getSolrUrl()));
+      params.setMainClient(mainClient);
+
+      MarcToSolr processor = new MarcToSolr(params);
+      RecordIterator iterator = new RecordIterator(processor);
+      iterator.start();
+      assertEquals("done", iterator.getStatus());
+
+      final QueryResponse response = mainClient.query(new MapSolrParams(Map.of("q", "*:*")));
+      final SolrDocumentList documents = response.getResults();
+      assertNotNull(documents);
+      assertEquals(11, documents.getNumFound());
+    } catch (ParseException | SolrServerException | IOException e) {
+      throw new RuntimeException(e);
+    }
+
+    EmbeddedSolrClientFactory.shutDown();
+  }
+
+  @Test
+  public void jsonParameters() throws ParseException, JsonProcessingException {
+    String outputDir = TestUtils.getPath("output");
+    MarcToSolrParameters parameters = new MarcToSolrParameters(new String[]{
+      "--schemaType", "PICA",
+      "--marcFormat", "PICA_NORMALIZED",
+      "--outputDir", outputDir,
+      "--solrFieldType", "MIXED",
+      "--useEmbedded",
+      "--solrUrl", "http://localhost:8983/solr/k10plus_pica_grouped_dev",
+      "--solrForScoresUrl", "http://localhost:8983/solr/k10plus_pica_grouped_scores",
+      "--indexFieldCounts",
+      TestUtils.getPath("pica/pica-with-holdings-info.dat")
+    });
+    ObjectMapper mapper = new ObjectMapper();
+    String json = mapper.writeValueAsString(parameters);
+    System.err.println(json);
   }
 
   /**

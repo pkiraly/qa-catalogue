@@ -3,7 +3,8 @@
 . ./setdir.sh
 
 NAME=toronto
-MARC_DIR=${BASE_INPUT_DIR}/toronto
+# index parameters
+TYPE_PARAMS="${TYPE_PARAMS} --indexWithTokenizedField --indexFieldCounts --indexSubfieldCounts"
 MASK=*.mrc
 
 . ./common-script

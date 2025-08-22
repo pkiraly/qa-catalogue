@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
-#
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # calculate and store the aggregated number of instances and records 
 # for issue types, categories and paths within each groups
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#
+set -ueo pipefail
 
 log() {
   echo "$(date +'%F %T')> $1"
@@ -12,8 +11,9 @@ log() {
 
 OUTPUT_DIR=$1
 NAME=$2
+SOLR_FOR_SCORES_URL=${3:-}
 
-log "OUTPUT_DIR: ${OUTPUT_DIR}"
+log "OUTPUT_DIR: $OUTPUT_DIR"
 
 if [[ -f $(pwd)/solr-functions ]]; then
   . ./solr-functions
@@ -21,63 +21,51 @@ else
   . ./../../solr-functions
 fi
 
-SOLR_CORE=${NAME}_validation
-
-log "create Solr core"
-
-CORE_EXISTS=$(check_core $SOLR_CORE)
-log "$SOLR_CORE exists: $CORE_EXISTS"
-if [[ $CORE_EXISTS != 1 ]]; then
-  echo "Create Solr core '$SOLR_CORE'"
-  create_core $SOLR_CORE
-  prepare_schema $SOLR_CORE
+if [ -z "$SOLR_FOR_SCORES_URL" ]; then
+  SOLR_CORE="${NAME}_validation"
 else
-  purge_core $SOLR_CORE
+  SOLR_HOST=$(extract_host "$SOLR_FOR_SCORES_URL")
+  SOLR_CORE=$(extract_core "$SOLR_FOR_SCORES_URL")
 fi
-
-log "populate Solr core"
-
-php scripts/sqlite/validation-result-indexer.php ${OUTPUT_DIR} $SOLR_CORE
-
-optimize_core $SOLR_CORE
+log "using Solr at $SOLR_HOST/$SOLR_CORE"
 
 log "calculate numbers"
 
 # creating
-# ${OUTPUT_DIR}/issue-grouped-types.csv
-# ${OUTPUT_DIR}/issue-grouped-categories.csv
-# ${OUTPUT_DIR}/issue-grouped-paths.csv
-Rscript scripts/sqlite/qa_catalogue.grouping.R ${OUTPUT_DIR} $SOLR_CORE
+# $OUTPUT_DIR/issue-grouped-types.csv
+# $OUTPUT_DIR/issue-grouped-categories.csv
+# $OUTPUT_DIR/issue-grouped-paths.csv
+Rscript scripts/sqlite/qa_catalogue.grouping.R "$OUTPUT_DIR" "$SOLR_HOST" "$SOLR_CORE"
 
 log "import issue_grouped_types"
-tail -n +2 ${OUTPUT_DIR}/issue-grouped-types.csv > ${OUTPUT_DIR}/issue-grouped-types-noheader.csv
-sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
+tail -n +2 "$OUTPUT_DIR/issue-grouped-types.csv" > "$OUTPUT_DIR/issue-grouped-types-noheader.csv"
+sqlite3 "$OUTPUT_DIR/qa_catalogue.sqlite" << EOF
 .mode csv
-.import ${OUTPUT_DIR}/issue-grouped-types-noheader.csv issue_grouped_types
+.import $OUTPUT_DIR/issue-grouped-types-noheader.csv issue_grouped_types
 
 EOF
-rm ${OUTPUT_DIR}/issue-grouped-types-noheader.csv
+rm "$OUTPUT_DIR/issue-grouped-types-noheader.csv"
 
 log "import issue_grouped_categories"
-tail -n +2 ${OUTPUT_DIR}/issue-grouped-categories.csv > ${OUTPUT_DIR}/issue-grouped-categories-noheader.csv
-sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
+tail -n +2 "$OUTPUT_DIR/issue-grouped-categories.csv" > "$OUTPUT_DIR/issue-grouped-categories-noheader.csv"
+sqlite3 "$OUTPUT_DIR/qa_catalogue.sqlite" << EOF
 .mode csv
-.import ${OUTPUT_DIR}/issue-grouped-categories-noheader.csv issue_grouped_categories
+.import $OUTPUT_DIR/issue-grouped-categories-noheader.csv issue_grouped_categories
 EOF
 
-rm ${OUTPUT_DIR}/issue-grouped-categories-noheader.csv
+rm "$OUTPUT_DIR/issue-grouped-categories-noheader.csv"
 
 log "import issue_grouped_paths"
-tail -n +2 ${OUTPUT_DIR}/issue-grouped-paths.csv > ${OUTPUT_DIR}/issue-grouped-paths-noheader.csv
-sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
+tail -n +2 "$OUTPUT_DIR/issue-grouped-paths.csv" > "$OUTPUT_DIR/issue-grouped-paths-noheader.csv"
+sqlite3 "$OUTPUT_DIR/qa_catalogue.sqlite" << EOF
 .mode csv
-.import ${OUTPUT_DIR}/issue-grouped-paths-noheader.csv issue_grouped_paths
+.import $OUTPUT_DIR/issue-grouped-paths-noheader.csv issue_grouped_paths
 EOF
 
-rm ${OUTPUT_DIR}/issue-grouped-paths-noheader.csv
+rm "$OUTPUT_DIR/issue-grouped-paths-noheader.csv"
 
 log "index sqlite tables"
-sqlite3 ${OUTPUT_DIR}/qa_catalogue.sqlite << EOF
+sqlite3 "$OUTPUT_DIR/qa_catalogue.sqlite" << EOF
 CREATE INDEX IF NOT EXISTS "types_groupId" ON issue_grouped_types ("groupId");
 CREATE INDEX IF NOT EXISTS "types_typeId" ON issue_grouped_types ("typeId");
 CREATE INDEX IF NOT EXISTS "categories_groupId" ON issue_grouped_categories ("groupId");

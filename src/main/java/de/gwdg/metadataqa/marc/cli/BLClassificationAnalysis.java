@@ -14,8 +14,8 @@ import org.marc4j.marc.Record;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
@@ -106,8 +106,12 @@ public class BLClassificationAnalysis extends QACli<CommonParameters> implements
     // printFields();
 
     output = new File(parameters.getOutputDir(), BL_CLASSIFIER_FILE);
-    if (output.exists() && !output.delete())
-      logger.severe("Deletion of " + output.getAbsolutePath() + " was unsuccessful!");
+    if (output.exists())
+      try {
+        Files.delete(output.toPath());
+      } catch (IOException e) {
+        logger.log(Level.SEVERE, "The output file ({}) has not been deleted", output.getAbsolutePath());
+      }
   }
 
   @Override

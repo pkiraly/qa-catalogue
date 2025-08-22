@@ -4,7 +4,7 @@ import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefiniti
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
 
 public class PositionalControlFieldKeyGenerator {
-  private String tag;
+  private final String tag;
   private String mqTag;
   private SolrFieldType type;
   private boolean isLeader = false;

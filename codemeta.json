@@ -1,0 +1,135 @@
+{
+    "@context": "https://w3id.org/codemeta/3.0",
+    "type": "SoftwareSourceCode",
+    "author": [
+        {
+            "id": "https://orcid.org/0000-0002-8749-4597",
+            "type": "Person",
+            "affiliation": {
+                "type": "Organization",
+                "name": "[object Object]"
+            },
+            "familyName": "Király",
+            "givenName": "Péter"
+        },
+        {
+            "id": "https://orcid.org/0000-0002-7613-4123",
+            "type": "Person",
+            "affiliation": {
+                "type": "Organization",
+                "name": "[object Object]"
+            },
+            "familyName": "Voß",
+            "givenName": "Jakob"
+        },
+        {
+            "id": "_:author_3",
+            "type": "Person",
+            "affiliation": {
+                "type": "Organization",
+                "name": "[object Object]"
+            },
+            "familyName": "Takács",
+            "givenName": "Ákos"
+        },
+        {
+            "id": "_:author_4",
+            "type": "Person",
+            "familyName": "Svetlik",
+            "givenName": "Radek"
+        },
+        {
+            "id": "_:author_5",
+            "type": "Person",
+            "familyName": "Nzi Mba",
+            "givenName": "Jean Michel"
+        },
+        {
+            "id": "https://orcid.org/0000-0002-6189-5958",
+            "type": "Person",
+            "affiliation": {
+                "type": "Organization",
+                "name": "[object Object]"
+            },
+            "familyName": "Heggø",
+            "givenName": "Dan Michael O."
+        },
+        {
+            "id": "_:author_7",
+            "type": "Person",
+            "affiliation": {
+                "type": "Organization",
+                "name": "[object Object]"
+            },
+            "familyName": "Virolainen",
+            "givenName": "Tuomo"
+        },
+        {
+            "id": "_:author_8",
+            "type": "Person",
+            "affiliation": {
+                "type": "Organization",
+                "name": "[object Object]"
+            },
+            "familyName": "Rolschewski",
+            "givenName": "Johann"
+        },
+        {
+            "id": "https://orcid.org/0000-0002-0236-7389",
+            "type": "Person",
+            "affiliation": {
+                "type": "Organization",
+                "name": "[object Object]"
+            },
+            "familyName": "Kelly",
+            "givenName": "Mat"
+        },
+        {
+            "id": "https://orcid.org/0000-0001-7754-782X",
+            "type": "Person",
+            "affiliation": {
+                "type": "Organization",
+                "name": "[object Object]"
+            },
+            "familyName": "Hemme",
+            "givenName": "Felix"
+        },
+        {
+            "id": "https://orcid.org/0000-0002-1768-9890",
+            "type": "Person",
+            "affiliation": {
+                "type": "Organization",
+                "name": "[object Object]"
+            },
+            "familyName": "Phú",
+            "givenName": "Tu"
+        },
+        {
+            "id": "_:author_12",
+            "type": "Person",
+            "familyName": "Haris",
+            "givenName": "Gegić"
+        }
+    ],
+    "codeRepository": "https://github.com/pkiraly/qa-catalogue",
+    "description": "A metadata quality assessment tool for library catalogue records (MARC, PICA, UNIMARC)",
+    "identifier": "https://doi.org/10.5281/zenodo.8159388",
+    "keywords": [
+        "metadata",
+        "library catalogue",
+        "quality assessment",
+        "code4lib",
+        "MARC21",
+        "PICA",
+        "UNIMARC"
+    ],
+    "license": "https://spdx.org/licenses/GPL-3.0",
+    "name": "QA Catalogue",
+    "programmingLanguage": [
+        "Java",
+        "R",
+        "PHP"
+    ],
+    "runtimePlatform": "JVM",
+    "issueTracker": "https://github.com/pkiraly/qa-catalogue/issues"
+}

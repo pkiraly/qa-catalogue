@@ -1,0 +1,22 @@
+---
+title: Build from source
+---
+
+Prerequisites: Java 11 (I use OpenJDK), and Maven 3
+
+Optional step: clone and build the parent library, metadata-qa-api project:
+
+```bash
+git clone https://github.com/pkiraly/metadata-qa-api.git
+cd metadata-qa-api
+mvn clean install
+cd ..
+```
+
+**Mandatory step**: clone and build the current qa-catalogue project:
+
+```bash
+git clone https://github.com/pkiraly/qa-catalogue.git
+cd metadata-qa-marc
+mvn clean install
+```

@@ -3,12 +3,12 @@
 OUTPUT_DIR=$1
 
 download() {
-  NAME=$1
-  if [[ -d ${OUTPUT_DIR}/${NAME}.csv.dir ]]; then
-    echo "downloading ${NAME}.csv ..."
-    cat ${OUTPUT_DIR}/${NAME}.csv.dir/part-* > ${OUTPUT_DIR}/${NAME}.csv
-    rm -rf ${OUTPUT_DIR}/${NAME}.csv.dir
-    wc -l ${OUTPUT_DIR}/${NAME}.csv
+  NAME=$1  
+  if [[ -d "$OUTPUT_DIR/$NAME.csv.dir" ]]; then
+    echo "downloading $NAME.csv ..."
+    cat "$OUTPUT_DIR/$NAME".csv.dir/part-* > "$OUTPUT_DIR/$NAME.csv"
+    rm -rf "$OUTPUT_DIR/$NAME.csv.dir"
+    wc -l "$OUTPUT_DIR/$NAME.csv"
   fi
 }
 

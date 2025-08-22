@@ -1,0 +1,35 @@
+name,label,marcpath,score
+LDR06,"Type of record","LDR~06",38
+LDR07,"Bibliographic level","LDR~07",40
+LDR1718,"Encoding level and Descriptive cataloguing form","LDR~17-18",29
+TAG00600,"Additional characteristics","",9
+TAG010,"Library of Congress Control Number","",6
+TAG015,"National Bibliography Number","015$a,015$b,015$c",5
+TAG020,"International Standard Book Number","020$a,020$z,020$b",45
+TAG035,"System Control Number","035$a,035$z",19
+TAG040,"Cataloguing source data","801",29
+TAG041,"Language code","041$a,041$d,041$h",31
+TAG050,"Library of Congress Call Number","680$a,680b",13
+TAG082,"Dewey Decimal Classification Number","676$a,676$v",28
+TAG1XX,"Subject Headings","700$a,710$a",44
+TAG240,"Uniform Title","500$a,500$m,500$h,500$i",34
+TAG245,"Title Statement","200$a,200$d,200$h,200$i,200$f",44
+TAG246,"Varying Form of Title","510$a,510$e,510$h,510$i",39
+TAG250,"Edition Statement","205$a",44
+TAG264,"Publication, Copyright etc.","214$a,214$c,214$d",45
+TAG300,"Physical Description","215$a,215$c,215$d",43
+TAG336,"Content term(s) e.g. text, still image","181$a",35
+TAG337,"Media term e.g. unmediated or computer","182$a",35
+TAG338,"Carrier term e.g. volume or online resource","183$a",34
+TAG490,"Series Statement(s)","225$a,225$v",40
+TAG500,"General note(s)","300$a",30
+TAG504,"Bibliography note","320$a",19
+TAG505,"Contents note","327$a,327$b",14
+TAG520,"Summary note(s)","330$a",11
+TAG546,"Language note(s)","",19
+TAG588,"Source of descriptive metadata","",4
+TAG6XX,"Subject Headings","600$a,601$a,606$a,607$a,608$a,610$a,617$a,630$a,631$a,632$a",44
+TAG7XX,"Added Entity Name/Title Heading(s) APP(s)","620$a,701$a,702$a,711$a,712$a,721$a,722$a,730$a",44
+TAG776,"Additional Physical format(s)","452$a",12
+TAG856,"Electronic access URL","856$u",9
+TAG8XX,"Series Heading(s) (traced) AAP(s) (if applicable)","410$a",32

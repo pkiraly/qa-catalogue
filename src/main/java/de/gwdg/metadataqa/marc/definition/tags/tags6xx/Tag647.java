@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.definition.tags.tags6xx;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
+import de.gwdg.metadataqa.marc.definition.general.codelist.RelatorCodes;
 import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
@@ -10,6 +11,8 @@ import de.gwdg.metadataqa.marc.definition.SourceSpecificationType;
 import de.gwdg.metadataqa.marc.definition.general.parser.LinkageParser;
 
 import java.util.Arrays;
+
+import static de.gwdg.metadataqa.marc.definition.FRBRFunction.DiscoveryIdentify;
 
 /**
  * Subject Added Entry - Named Event
@@ -55,6 +58,7 @@ public class Tag647 extends DataFieldDefinition {
       "a", "Named event", "NR",
       "c", "Location of named event", "R",
       "d", "Date of named event", "NR",
+      "e", "Relator term", "R",
       "g", "Miscellaneous information", "R",
       "v", "Form subdivision", "R",
       "x", "General subdivision", "R",
@@ -64,6 +68,7 @@ public class Tag647 extends DataFieldDefinition {
       "1", "Real World Object URI", "R",
       "2", "Source of heading or term", "NR",
       "3", "Materials specified", "NR",
+      "4", "Relationship", "R",
       "6", "Linkage", "NR",
       "8", "Field link and sequence number", "R"
     );
@@ -78,6 +83,9 @@ public class Tag647 extends DataFieldDefinition {
 
     getSubfield("d")
       .setMqTag("date");
+
+    getSubfield("e")
+      .setMqTag("relatorTerm");
 
     getSubfield("g")
       .setMqTag("miscellaneous");
@@ -106,6 +114,10 @@ public class Tag647 extends DataFieldDefinition {
 
     getSubfield("3")
       .setMqTag("materialsSpecified");
+
+    getSubfield("4")
+      .setMqTag("relationship")
+      .setCodeList(RelatorCodes.getInstance());
 
     getSubfield("6")
       .setBibframeTag("linkage");

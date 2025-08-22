@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class DataFieldDefinition implements BibliographicFieldDefinition, Serializable {
+
+  private static final long serialVersionUID = 4422093591547118076L;
   protected String tag;
   protected String bibframeTag;
   protected String mqTag;
@@ -45,14 +47,17 @@ public abstract class DataFieldDefinition implements BibliographicFieldDefinitio
   }
 
   public String getIndexTag() {
-    if (indexTag == null) {
-      if (mqTag != null)
-        indexTag = mqTag;
-      else if (bibframeTag != null)
-        indexTag = bibframeTag.replace("/", "");
-      else
-        indexTag = tag;
+    if (indexTag != null) {
+      return indexTag;
     }
+    if (mqTag != null) {
+      indexTag = mqTag;
+    } else if (bibframeTag != null) {
+      indexTag = bibframeTag.replace("/", "");
+    } else {
+      indexTag = tag;
+    }
+
     return indexTag;
   }
 
@@ -107,15 +112,18 @@ public abstract class DataFieldDefinition implements BibliographicFieldDefinitio
     subfields = new LinkedList<>();
     for (int i = 0; i < input.length; i += 3) {
       String code = input[i];
-      String label = input[i + 1];
-      String cardinality = input[i + 2];
-      SubfieldDefinition definition = new SubfieldDefinition(code, label, cardinality);
+      String subfieldLabel = input[i + 1];
+      String subfieldCardinality = input[i + 2];
+      SubfieldDefinition definition = new SubfieldDefinition(code, subfieldLabel, subfieldCardinality);
       definition.setParent(this);
       subfields.add(definition);
     }
     indexSubfields();
   }
 
+  /**
+   * Populates the subfield index hash map. The key is the subfield code.
+   */
   protected void indexSubfields() {
     for (SubfieldDefinition subfield : subfields) {
       subfieldIndex.put(subfield.getCode(), subfield);
@@ -148,11 +156,6 @@ public abstract class DataFieldDefinition implements BibliographicFieldDefinitio
     return descriptionUrl;
   }
 
-  /**
-   *
-   * @param code
-   * @return The subfield definition or null
-   */
   public SubfieldDefinition getSubfield(String code) {
     return subfieldIndex.getOrDefault(code, null);
   }
@@ -179,23 +182,29 @@ public abstract class DataFieldDefinition implements BibliographicFieldDefinitio
   }
 
   public boolean isVersionSpecificSubfields(MarcVersion marcVersion, String code) {
-    if (versionSpecificSubfields != null
-      && !versionSpecificSubfields.isEmpty()
-      && versionSpecificSubfields.containsKey(marcVersion)
-      && !versionSpecificSubfields.get(marcVersion).isEmpty()) {
-      for (SubfieldDefinition subfieldDefinition : versionSpecificSubfields.get(marcVersion)) {
-        if (subfieldDefinition.getCode().equals(code))
-          return true;
+    if (versionSpecificSubfields == null
+      || versionSpecificSubfields.isEmpty()
+      || !versionSpecificSubfields.containsKey(marcVersion)
+      || versionSpecificSubfields.get(marcVersion).isEmpty()) {
+      return false;
+    }
+
+    for (SubfieldDefinition subfieldDefinition : versionSpecificSubfields.get(marcVersion)) {
+      if (subfieldDefinition.getCode().equals(code)) {
+        return true;
       }
     }
     return false;
   }
 
-  public SubfieldDefinition getVersionSpecificSubfield(MarcVersion marcVersion, String code) {
-    if (isVersionSpecificSubfields(marcVersion, code)) {
-      for (SubfieldDefinition subfieldDefinition : versionSpecificSubfields.get(marcVersion)) {
-        if (subfieldDefinition.getCode().equals(code))
-          return subfieldDefinition;
+  public SubfieldDefinition getVersionSpecificDefinition(MarcVersion marcVersion, String code) {
+    if (!isVersionSpecificSubfields(marcVersion, code)) {
+      return null;
+    }
+
+    for (SubfieldDefinition subfieldDefinition : versionSpecificSubfields.get(marcVersion)) {
+      if (subfieldDefinition.getCode().equals(code)) {
+        return subfieldDefinition;
       }
     }
     return null;

@@ -3,8 +3,8 @@ package de.gwdg.metadataqa.marc.definition.tags.tags5xx;
 import de.gwdg.metadataqa.marc.analysis.validator.Validator;
 import de.gwdg.metadataqa.marc.analysis.validator.ValidatorConfiguration;
 import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.Leader;
-import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
+import de.gwdg.metadataqa.marc.dao.Marc21Leader;
+import de.gwdg.metadataqa.marc.dao.record.Marc21BibliographicRecord;
 import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import org.junit.Test;
@@ -17,8 +17,8 @@ public class Tag533Test {
 
   @Test
   public void test_valid() {
-    BibliographicRecord marcRecord = new Marc21Record("000714573");
-    marcRecord.setLeader(new Leader("01168cam a2200325 a 4500"));
+    Marc21Record marcRecord = new Marc21BibliographicRecord("000714573");
+    marcRecord.setLeader(new Marc21Leader("01168cam a2200325 a 4500"));
     DataField field = new DataField(Tag533.getInstance(), " ", " ",
       "a", "Microfilm.",
       "b", "Washington, D.C. :",
@@ -27,7 +27,7 @@ public class Tag533Test {
       "e", "1 microfilm reel ; 35 mm.",
       "7", "s1990    dcun a"
     );
-    field.setMarcRecord(marcRecord);
+    field.setBibliographicRecord(marcRecord);
     marcRecord.addDataField(field);
     Validator validator = new Validator(new ValidatorConfiguration().withMarcVersion(MarcVersion.MARC21));
     boolean isValid = validator.validate(marcRecord);
@@ -37,8 +37,8 @@ public class Tag533Test {
 
   @Test
   public void test_invalid() {
-    BibliographicRecord marcRecord = new Marc21Record("000714573");
-    marcRecord.setLeader(new Leader("01168cam a2200325 a 4500"));
+    Marc21Record marcRecord = new Marc21BibliographicRecord("000714573");
+    marcRecord.setLeader(new Marc21Leader("01168cam a2200325 a 4500"));
     DataField field = new DataField(Tag533.getInstance(), " ", " ",
       "a", "Microfilm.",
       "b", "Washington, D.C. :",
@@ -47,7 +47,7 @@ public class Tag533Test {
       "e", "1 microfilm reel ; 35 mm.",
       "7", "s1990    dcunaa"
     );
-    field.setMarcRecord(marcRecord);
+    field.setBibliographicRecord(marcRecord);
     marcRecord.addDataField(field);
     Validator validator = new Validator(new ValidatorConfiguration().withMarcVersion(MarcVersion.MARC21));
     boolean isValid = validator.validate(marcRecord);

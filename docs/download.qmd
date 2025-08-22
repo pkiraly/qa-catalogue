@@ -1,0 +1,25 @@
+---
+title: "Download"
+---
+
+The released versions of the software is available from Maven Central
+repository. The stable releases (currently 0.6.0) is available from all Maven
+repos, while the developer version (*-SNAPSHOT) is available only from the 
+[Sonatype Maven repository](https://oss.sonatype.org/content/repositories/snapshots/de/gwdg/metadataqa/metadata-qa-marc/0.5.0/).
+What you need to select is the file `metadata-qa-marc-0.6.0-jar-with-dependencies.jar`. 
+
+Be aware that no automation exists for creating a current developer version as
+nightly build, so there is a chance that the latest features are not available
+in this version. If you want to use the latest version, do build it.
+
+Since the jar file doesn't contain the helper scripts, you might also consider
+downloading them from this GitHub repository:
+
+```bash
+wget https://raw.githubusercontent.com/pkiraly/qa-catalogue/master/common-script
+wget https://raw.githubusercontent.com/pkiraly/qa-catalogue/master/validator
+wget https://raw.githubusercontent.com/pkiraly/qa-catalogue/master/formatter
+wget https://raw.githubusercontent.com/pkiraly/qa-catalogue/master/tt-completeness
+```
+
+You should adjust `common-script` to point to the jar file you just downloaded.

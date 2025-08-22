@@ -19,43 +19,65 @@
             <includes>
                 <include>classifications/classifications-type.R</include>
 
+                <include>marc-history/marc-history.R</include>
                 <include>marc-history/marc-history-grouped.R</include>
 
                 <include>pareto/frequency-range.R</include>
                 <include>pareto/frequency-range-per-types.R</include>
 
+                <!-- TODO: check these files
                 <include>record-patterns/record-patterns.R</include>
                 <include>record-patterns/top-fields.R</include>
+                -->
 
                 <include>serial-score/serial-score-histogram.R</include>
+
+                <include>shacl4bib/shacl4bib.R</include>
 
                 <include>shelf-ready/shelf-ready-histogram.php</include>
                 <include>shelf-ready/shelf-ready-histogram.R</include>
 
+                <include>sqlite/calculate-aggregated-numbers.grouped.sh</include>
+                <include>sqlite/completeness.sqlite.sh</include>
+                <include>sqlite/create-database.R</include>
+                <include>sqlite/index-issue-details.sh</include>
+                <include>sqlite/marc-elements.sql</include>
+                <include>sqlite/modify-tables.grouped.sqlite.sql</include>
                 <include>sqlite/modify-tables.sql</include>
                 <include>sqlite/normalize-issue-details.php</include>
-                <include>sqlite/qa_catalogue.sqlite.sql</include>
-                <include>sqlite/completeness.sqlite.sh</include>
                 <include>sqlite/qa_catalogue.grouped.sqlite.sql</include>
-                <include>sqlite/calculate-aggregated-numbers.grouped.sh</include>
                 <include>sqlite/qa_catalogue.grouping.R</include>
-                <include>sqlite/validation-result-indexer.php</include>
+                <include>sqlite/qa_catalogue.sqlite.sql</include>
+                <include>sqlite/solr-copy-ids-from-validation.php</include>
+                <include>sqlite/validation-result-indexer-grouped.php</include>
+                <include>sqlite/validation-result-indexer-simple.php</include>
 
                 <include>timeline/timeline.R</include>
                 <include>timeline/timeline.sh</include>
 
+                <include>translations/translations-shacl.yml</include>
+
                 <include>tt-histogram/tt-histogram.php</include>
                 <include>tt-histogram/tt-histogram.R</include>
                 <include>tt-histogram/tt-histogram-from-no-ids.R</include>
+
+                <include>utils/parameter-filter.php</include>
             </includes>
             <outputDirectory>scripts</outputDirectory>
         </fileSet>
         <fileSet>
-            <directory>marc-schema</directory>
+            <directory>avram-schemas</directory>
             <includes>
                 <include>*.*</include>
             </includes>
-            <outputDirectory>marc-schema</outputDirectory>
+            <outputDirectory>avram-schemas</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>catalogues</directory>
+            <includes>
+                <include>*.*</include>
+            </includes>
+            <outputDirectory>catalogues</outputDirectory>
         </fileSet>
     </fileSets>
     <files>
@@ -120,11 +142,19 @@
             <fileMode>0755</fileMode>
         </file>
         <file>
+            <source>shacl4bib</source>
+            <fileMode>0755</fileMode>
+        </file>
+        <file>
             <source>shelf-ready-completeness</source>
             <fileMode>0755</fileMode>
         </file>
         <file>
             <source>solr-functions</source>
+            <fileMode>0755</fileMode>
+        </file>
+        <file>
+            <source>translations</source>
             <fileMode>0755</fileMode>
         </file>
         <file>
@@ -153,6 +183,9 @@
         </file>
         <file>
             <source>setdir.sh.template</source>
+        </file>
+        <file>
+            <source>cli-parameter-definitions.json</source>
         </file>
     </files>
 </assembly>

@@ -1,0 +1,520 @@
+---
+title: "Validating MARC records"
+---
+
+It validates each records against the MARC21 standard, including those local
+defined field, which are selected by the MARC version parameter. 
+
+The issues are classified into the following categories: record, control field,
+data field, indicator, subfield and their subtypes.
+
+There is an uncertainty in the issue detection. Almost all library catalogues
+have fields, which are not part of the MARC standard, neither that of their
+documentation about the locally defined fields (these documents are rarely
+available publicly, and even if they are available sometimes they do not cover
+all fields). So if the tool meets a field which are undefined, it is impossible
+to decide whether it is valid or invalid in a particular context. So in some
+places the tool reflects this uncertainty and provides two calculations, one
+which handles these fields as error, and another which handles these as valid fields.
+
+The tool detects the following issues:
+
+| machine name                      | explanation                                                                                                  |
+|-----------------------------------|--------------------------------------------------------------------------------------------------------------|
+| **record level issues**           |                                                                                                              |
+| `undetectableType`                | the document type is not detectable                                                                          |
+| `invalidLinkage`                  | the linkage in field 880 is invalid                                                                          |
+| `ambiguousLinkage`                | the linkage in field 880 is ambiguous                                                                        |
+| **control field position issues** |                                                                                                              |
+| `obsoleteControlPosition`         | the code in the position is obsolete (it was valid in a previous version of MARC, but it is not valid now)   |
+| `controlValueContainsInvalidCode` | the code in the position is invalid                                                                          |
+| `invalidValue`                    | the position value is invalid                                                                                |
+| **data field issues**             |                                                                                                              |
+| `missingSubfield`                 | missing reference subfield (880$6)                                                                           |
+| `nonrepeatableField`              | repetition of a non-repeatable field                                                                         |
+| `undefinedField`                  | the field is not defined in the specified MARC version(s)                                                    |
+| **indicator issues**              |                                                                                                              |
+| `obsoleteIndicator`               | the indicator value is obsolete (it was valid in a previous version of MARC, but not in the current version) |
+| `nonEmptyIndicator`               | indicator that should be empty is non-empty                                                                  |
+| `invalidValue`                    | the indicator value is invalid                                                                               |
+| **subfield issues**               |                                                                                                              |
+| `undefinedSubfield`               | the subfield is undefined in the specified MARC version(s)                                                   |
+| `invalidLength`                   | the length of the value is invalid                                                                           |
+| `invalidReference`                | the reference to the classification vocabulary is invalid                                                    |
+| `patternMismatch`                 | content does not match the patterns specified by the standard                                                |
+| `nonrepeatableSubfield`           | repetition of a non-repeatable subfield                                                                      |
+| `invalidISBN`                     | invalid ISBN value                                                                                           |
+| `invalidISSN`                     | invalid ISSN value                                                                                           |
+| `unparsableContent`               | the value of the subfield is not well-formed according to its specification                                  |
+| `nullCode`                        | null subfield code                                                                                           |
+| `invalidValue`                    | invalid subfield value                                                                                       |
+
+Usage
+: ```bash
+  ./qa-catalogue --params="[options]" validate
+  # or
+  catalogues/<catalogue>.sh validate
+  ```
+
+Options
+: - [general parameters](#general-parameters)
+  - granularity of the report
+    - `-S`, `--summary`: creating a summary report instead of record level reports
+    - `-H`, `--details`: provides record level details of the issues
+  - output parameters:
+    - `-G <file>`, `--summaryFileName <file>`: the name of summary report the
+      program produces. The file provides a summary of issues, such as the
+      number of instance and number of records having the particular issue.
+    - `-F <file>`, `--detailsFileName <file>`: the name of report the program
+      produces. Default is `validation-report.txt`. If you use "stdout", it won't
+      create file, but put results into the standard output.
+    - `-R <format>`, `--format <format>`: format specification of the output. Possible values:
+      - `text` (default), 
+      - `tab-separated` or `tsv`,
+      - `comma-separated` or `csv`
+  - `-W`, `--emptyLargeCollectors`: the output files are created during the
+    process and not only at the end of it. It helps in memory  management if the
+    input is large, and it has lots of errors, on the other hand the output file
+    will be segmented, which should be handled after the process.
+  - `-T`, `--collectAllErrors`: collect all errors (useful only for validating
+    small number of records). Default is turned off.
+  - `-I <types>`, `--ignorableIssueTypes <types>`: comma separated list of issue
+    types not to collect. The valid values are (for details see the [issue types](#issue-types) table):
+    - `undetectableType`: undetectable type
+    - `invalidLinkage`: invalid linkage
+    - `ambiguousLinkage`: ambiguous linkage
+    - `obsoleteControlPosition`: obsolete code
+    - `controlValueContainsInvalidCode`: invalid code
+    - `invalidValue`: invalid value
+    - `missingSubfield`: missing reference subfield (880$6)
+    - `nonrepeatableField`: repetition of non-repeatable field
+    - `undefinedField`: undefined field
+    - `obsoleteIndicator`: obsolete value
+    - `nonEmptyIndicator`: non-empty indicator
+    - `invalidValue`: invalid value
+    - `undefinedSubfield`: undefined subfield
+    - `invalidLength`: invalid length
+    - `invalidReference`: invalid classification reference
+    - `patternMismatch`: content does not match any patterns
+    - `nonrepeatableSubfield`: repetition of non-repeatable subfield
+    - `invalidISBN`: invalid ISBN
+    - `invalidISSN`: invalid ISSN
+    - `unparsableContent`: content is not well-formatted
+    - `nullCode`: null subfield code
+    - `invalidValue`: invalid value
+
+## Output files
+
+```{mermaid}
+flowchart LR
+  A(Catalogue) --> B[validate]
+  B --> C(count.csv)
+  B --> D(issue-by-category.csv)
+  B --> E(issue-by-type.csv)
+  B --> F(issue-summary.csv)
+  B --> G(issue-details.csv)
+  B --> H(issue-details-normalized.csv)
+  B --> I(issue-total.csv)
+  B --> J(issue-collector.csv)
+  B --> K(id-groupid.csv)
+  B --> L(validation.params.json)
+  F -.-> Q(qa_catalogue.sqlite)
+  G -.-> Q
+  G -.-> S(Solr)
+  K -.-> S(Solr)
+```
+
+Execution of the dotted lines requires [postprocessing].
+
+### count.csv
+
+The count of bibliographic records in the source dataset
+
+```csv
+total
+1192536
+```
+
+### issue-by-category.csv
+
+The counts of issues by categories. Columns:
+
+  * `id` the identifier of error category
+  * `category` the name of the category
+  * `instances` the number of instances of errors within the category (one record might have multiple instances of the same error)
+  * `records` the number of records having at least one of the errors within the category
+
+```csv
+id,category,instances,records
+2,control field,994241,313960
+3,data field,12,12
+4,indicator,5990,5041
+5,subfield,571,555
+```
+ 
+### issue-by-type.csv
+
+The count of issues by types (subcategories).
+
+```csv
+id,categoryId,category,type,instances,records
+5,2,control field,"invalid code",951,541
+6,2,control field,"invalid value",993290,313733
+8,3,data field,"repetition of non-repeatable field",12,12
+10,4,indicator,"obsolete value",1,1
+11,4,indicator,"non-empty indicator",33,32
+12,4,indicator,"invalid value",5956,5018
+13,5,subfield,"undefined subfield",48,48
+14,5,subfield,"invalid length",2,2
+15,5,subfield,"invalid classification reference",2,2
+16,5,subfield,"content does not match any patterns",286,275
+17,5,subfield,"repetition of non-repeatable subfield",123,120
+18,5,subfield,"invalid ISBN",5,3
+19,5,subfield,"invalid ISSN",105,105
+```
+ 
+### issue-summary.csv
+
+Details of individual issues including basic statistics
+
+```csv
+id,MarcPath,categoryId,typeId,type,message,url,instances,records
+53,008/33-34 (008map33),2,5,invalid code,'b' in 'b ',https://www.loc.gov/marc/bibliographic/bd008p.html,1,1
+70,008/00-05 (008all00),2,5,invalid code,Invalid content: '2023  '. Text '2023  ' could not be parsed at index 4,https://www.loc.gov/marc/bibliographic/bd008a.html,1,1
+28,008/22-23 (008map22),2,6,invalid value,| ,https://www.loc.gov/marc/bibliographic/bd008p.html,12,12
+19,008/31 (008book31),2,6,invalid value, ,https://www.loc.gov/marc/bibliographic/bd008b.html,1,1
+17,008/29 (008book29),2,6,invalid value, ,https://www.loc.gov/marc/bibliographic/bd008b.html,1,1
+```
+
+### issue-details.csv
+
+List of issues by record identifiers. It has two columns, the record identifier, and a complex string, which contains the number of occurrences of each individual issue concatenated by semicolon.
+
+```csv
+recordId,errors
+99117335059205508,1:2;2:1;3:1
+99117335059305508,1:1
+99117335059405508,2:2
+99117335059505508,3:1
+```
+
+`1:2;2:1;3:1` means that 3 different types of issues are occurred in the record, the firs issue which has issue ID 1 
+occurred twice, issue ID 2 which occurred once and issue ID 3, which occurred once. The issue IDs can be resolved 
+from the `issue-summary.csv` file's firs column.
+
+### issue-details-normalized.csv
+
+The normalized version of the previous file
+
+```csv
+id,errorId,instances
+99117335059205508,1,2
+99117335059205508,2,1
+99117335059205508,3,1
+99117335059305508,1,1
+99117335059405508,2,2
+99117335059505508,3,1
+```
+
+### issue-total.csv
+
+The number of issue free records, and number of record having issues
+
+```csv
+type,instances,records
+0,0,251
+1,1711,848
+2,413,275
+```
+
+where types are
+- 0: records without errors
+- 1: records with any kinds of errors
+- 2: records with errors excluding invalid field errors
+
+### issue-collector.csv
+
+Non normalized file of record ids per issues. This is the "inverse" of `issue-details.csv`,
+  it tells you in which records a particular issue occurred. 
+
+```csv
+errorId,recordIds
+1,99117329355705508;99117328948305508;99117334968905508;99117335067705508;99117335176005508;...
+```
+
+### validation.params.json
+
+The list of the actual parameters during the running of the validation
+
+An example with parameters used for analysing a PICA dataset. When the input is a complex expression it is displayed 
+here in a parsed format. It also contains some metadata such as the versions of MQFA API and QA catalogue.
+
+```json
+{
+  "args":["/path/to/input.dat"],
+  "marcVersion":"MARC21",
+  "marcFormat":"PICA_NORMALIZED",
+  "dataSource":"FILE",
+  "limit":-1,
+  "offset":-1,
+  "id":null,
+  "defaultRecordType":"BOOKS",
+  "alephseq":false,
+  "marcxml":false,
+  "lineSeparated":false,
+  "trimId":true,
+  "outputDir":"/path/to/_output/k10plus_pica",
+  "recordIgnorator":{
+    "criteria":[],
+    "booleanCriteria":null,
+    "empty":true
+  },
+  "recordFilter":{
+    "criteria":[],
+    "booleanCriteria":{
+      "op":"AND",
+      "children":[
+        {
+          "op":null,
+          "children":[],
+          "value":{
+            "path":{
+              "path":"002@.0",
+              "tag":"002@",
+              "xtag":null,
+              "occurrence":null,
+              "subfields":{"type":"SINGLE","input":"0","codes":["0"]},
+              "subfieldCodes":["0"]
+            },
+            "operator":"NOT_MATCH",
+            "value":"^L"
+          }
+        },
+        {"op":null,"children":[],"value":{"path":{"path":"002@.0","tag":"002@","xtag":null,"occurrence":null,"subfields":{"type":"SINGLE","input":"0","codes":["0"]},"subfieldCodes":["0"]},"operator":"NOT_MATCH","value":"^..[iktN]"}},
+        {"op":"OR","children":[{"op":null,"children":[],"value":{"path":{"path":"002@.0","tag":"002@","xtag":null,"occurrence":null,"subfields":{"type":"SINGLE","input":"0","codes":["0"]},"subfieldCodes":["0"]},"operator":"NOT_MATCH","value":"^.v"}},{"op":null,"children":[],"value":{"path":{"path":"021A.a","tag":"021A","xtag":null,"occurrence":null,"subfields":{"type":"SINGLE","input":"a","codes":["a"]},"subfieldCodes":["a"]},"operator":"EXIST","value":null}}],"value":null}
+      ],
+      "value":null
+    },
+    "empty":false
+  },
+  "ignorableFields":{
+    "fields":["001@","001E","001L","001U","001U","001X","001X","002V","003C","003G","003Z","008G","017N","020F","027D","031B","037I","039V","042@","046G","046T","101@","101E","101U","102D","201E","201U","202D"],
+    "empty":false
+  },
+  "stream":null,
+  "defaultEncoding":null,
+  "alephseqLineType":null,
+  "picaIdField":"003@$0",
+  "picaSubfieldSeparator":"$",
+  "picaSchemaFile":null,
+  "picaRecordTypeField":"002@$0",
+  "schemaType":"PICA",
+  "groupBy":null,
+  "detailsFileName":"issue-details.csv",
+  "summaryFileName":"issue-summary.csv",
+  "format":"COMMA_SEPARATED",
+  "ignorableIssueTypes":["FIELD_UNDEFINED"],
+  "pica":true,
+  "replacementInControlFields":null,
+  "marc21":false,
+  "mqaf.version":"0.9.2",
+  "qa-catalogue.version":"0.7.0-SNAPSHOT"
+}
+```
+
+### id-groupid.csv
+
+The pairs of record identifiers - group identifiers.
+
+```csv
+id,groupId
+010000011,0
+010000011,77
+010000011,2035
+010000011,70
+010000011,20
+```
+
+## Validation errors
+
+validation detects the following errors:
+
+Leader specific errors:
+
+* Leader/[position] has an invalid value: '[value]' (e.g. `Leader/19 (leader19) has an invalid value: '4'`)
+
+Control field specific errors:
+
+* 006/[position] ([name]) contains an invalid code: '[code]' in '[value]' (e.g. ` 006/01-05 (tag006book01) contains an invalid code: 'n' in '  n '`)
+* 006/[position] ([name]) has an invalid value: '[value]' (e.g. `006/13 (tag006book13) has an invalid value: ' '`)
+* 007/[position] ([name]) contains an invalid code: '[code]' in '[value]'
+* 007/[position] ([name]) has an invalid value: '[value]' (e.g. `007/01 (tag007microform01) has an invalid value: ' '`)
+* 008/[position] ([name]) contains an invalid code: '[code]' in '[value]' (e.g. `008/18-22 (tag008book18) contains an invalid code: 'u' in 'u   '`)
+* 008/[position] ([name]) has an invalid value: '[value]' (e.g. `008/06 (tag008all06) has an invalid value: ' '`)
+
+Data field specific errors
+
+* Unhandled tag(s): [tags] (e.g. `Unhandled tag: 265`)
+* [tag] is not repeatable, however there are [number] instances
+* [tag] has invalid subfield(s): [subfield codes] (e.g. `110 has invalid subfield: s`)
+* [tag]$[indicator] has invalid code: '[code]' (e.g. `110$ind1 has invalid code: '2'`)
+* [tag]$[indicator] should be empty, it has '[code]' (e.g. `110$ind2 should be empty, it has '0'`)
+* [tag]$[subfield code] is not repeatable, however there are [number] instances (e.g. `072$a is not repeatable, however there are 2 instances`)
+* [tag]$[subfield code] has an invalid value: [value] (e.g. `046$a has an invalid value: 'fb-----'`)
+
+Errors of specific fields:
+
+* 045$a error in '[value]': length is not 4 char (e.g. `045$a error in '2209668': length is not 4 char`)
+* 045$a error in '[value]': '[part]' does not match any patterns
+* 880 should have subfield $a
+* 880 refers to field [tag], which is not defined (e.g. `880 refers to field 590, which is not defined`)
+
+An example:
+
+```
+Error in '   00000034 ': 
+  110$ind1 has invalid code: '2'
+Error in '   00000056 ': 
+  110$ind1 has invalid code: '2'
+Error in '   00000057 ': 
+  082$ind1 has invalid code: ' '
+Error in '   00000086 ': 
+  110$ind1 has invalid code: '2'
+Error in '   00000119 ': 
+  700$ind1 has invalid code: '2'
+Error in '   00000234 ': 
+  082$ind1 has invalid code: ' '
+Errors in '   00000294 ': 
+  050$ind2 has invalid code: ' '
+  260$ind1 has invalid code: '0'
+  710$ind2 has invalid code: '0'
+  710$ind2 has invalid code: '0'
+  710$ind2 has invalid code: '0'
+  740$ind2 has invalid code: '1'
+Error in '   00000322 ': 
+  110$ind1 has invalid code: '2'
+Error in '   00000328 ': 
+  082$ind1 has invalid code: ' '
+Error in '   00000374 ': 
+  082$ind1 has invalid code: ' '
+Error in '   00000395 ': 
+  082$ind1 has invalid code: ' '
+Error in '   00000514 ': 
+  082$ind1 has invalid code: ' '
+Errors in '   00000547 ': 
+  100$ind2 should be empty, it has '0'
+  260$ind1 has invalid code: '0'
+Errors in '   00000571 ': 
+  050$ind2 has invalid code: ' '
+  100$ind2 should be empty, it has '0'
+  260$ind1 has invalid code: '0'
+...
+```
+
+<!--
+#### some post processing usage examples
+
+After running the validation as tab separated file `validation-report.txt`
+
+get the number of errors:
+
+```bash
+wc -l validation-report.txt
+```
+
+get the number of records having errors
+
+```bash
+awk -F "\t" '{print $1}' validation-report.txt | uniq -c | wc -l
+```
+-->
+
+## Postprocessing
+
+Postprocessing command `validate-sqlite` writes validation results into SQLite database file `qa_catalogue.sqlite` and into Solr index.
+
+Usage
+: ```bash
+  ./qa-catalogue --params="[options]" validate-sqlite
+  # or
+  catalogues/<catalogue>.sh validate-sqlite
+  ```
+
+Options are the same as for validation.
+
+### Catalogue for a single library
+If the data is _not_ grouped by libraries (no `--groupBy <path>` parameter), it creates the database tables 
+`issue_summary` (with data from `issue-summary.csv`) and
+`issue_details` (with data from `issue-details.csv`) in `qa_catalogie.sqlite`:
+
+```sql
+{{< include ../scripts/sqlite/qa_catalogue.sqlite.sql >}}
+```
+
+The postprocessing also writes validation results into Solr index.
+
+### Union catalogue for multiple libraries
+
+If the dataset is a union catalogue, and the record contains a subfield for the libraries holding the item (there is 
+`--groupBy <path>` parameter), it creates the following SQLite3 database structure and import some of the CSV files 
+into it:
+
+`issue_summary` table for the `issue-summary.csv` (it is similar to the other issue_summary table, but it has an extra
+`groupId` column)
+```sql
+groupId    INTEGER,
+id         INTEGER,
+MarcPath   TEXT,
+categoryId INTEGER,
+typeId     INTEGER,
+type       TEXT,
+message    TEXT,
+url        TEXT,
+instances  INTEGER,
+records    INTEGER
+```
+
+`issue_details` table (same as the other `issue_details` table)
+```sql
+id         TEXT,
+errorId    INTEGER,
+instances  INTEGER
+```
+
+`id_groupid` table for `id-groupid.csv`:
+```sql
+id         TEXT,
+groupId    INTEGER
+```
+
+`issue_group_types` table contains statistics for the error types per groups.
+```sql
+groupId    INTEGER,
+typeId     INTEGER,
+records    INTEGER,
+instances  INTEGER
+```
+
+`issue_group_categories` table contains statistics for the error categories per groups
+```sql
+groupId    INTEGER,
+categoryId INTEGER,
+records    INTEGER,
+instances  INTEGER
+```
+
+`issue_group_paths` table contains statistics for the error types per paths per groups
+```sql
+groupId    INTEGER,
+typeId     INTEGER,
+path       TEXT,
+records    INTEGER,
+instances  INTEGER
+```
+
+For union catalogues it also creates an extra Solr index with the suffix `_validation`. It contains one Solr document  for each  bibliographic record with three fields: the record identifier, the list of group identifiers and the list  of error identifiers (if any). This Solr index is needed for populating the `issue_group_types`, `issue_group_categories` and `issue_group_paths` tables. This index will be ingested into the main Solr index.
+
+## Internals
+
+The validate task internally calls script `validator` which calls `java -cp $JAR de.gwdg.metadataqa.marc.cli.Validator [options] <file>`.
+

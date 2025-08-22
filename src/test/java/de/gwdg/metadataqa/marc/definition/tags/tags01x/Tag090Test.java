@@ -4,8 +4,9 @@ import de.gwdg.metadataqa.marc.analysis.validator.DataFieldValidator;
 import de.gwdg.metadataqa.marc.analysis.validator.ValidatorConfiguration;
 import de.gwdg.metadataqa.marc.dao.Control001;
 import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
+import de.gwdg.metadataqa.marc.dao.record.Marc21BibliographicRecord;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
+import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.tags.oclctags.Tag090;
 import de.gwdg.metadataqa.marc.model.validation.ValidationErrorType;
@@ -19,10 +20,10 @@ public class Tag090Test {
 
   @Test
   public void testVersionSpecificSubfield() {
-    BibliographicRecord marcRecord = new Marc21Record("test");
+    BibliographicRecord marcRecord = new Marc21BibliographicRecord("test");
 
     DataField field = new DataField(Tag090.getInstance(), " ", " ", "n", "sm");
-    field.setMarcRecord(marcRecord);
+    field.setBibliographicRecord(marcRecord);
 
     DataFieldValidator validator = new DataFieldValidator();
     assertFalse("090$n should be invalid in normal case", validator.validate(field));
@@ -33,11 +34,11 @@ public class Tag090Test {
 
   @Test
   public void testVersionSpecificSubfieldWithWrongValue() {
-    BibliographicRecord marcRecord = new Marc21Record();
+    Marc21Record marcRecord = new Marc21BibliographicRecord();
     marcRecord.setControl001(new Control001("test"));
 
     DataField field = new DataField(Tag090.getInstance(), " ", " ", "n", "sk");
-    field.setMarcRecord(marcRecord);
+    field.setBibliographicRecord(marcRecord);
 
     DataFieldValidator validator = new DataFieldValidator(new ValidatorConfiguration().withMarcVersion(MarcVersion.DNB));
     assertFalse("090$n value sk should be invalid in DNB.", validator.validate(field));

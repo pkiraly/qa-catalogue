@@ -1,0 +1,261 @@
+---
+title: "Usage"
+---
+
+## Helper scripts
+
+The tool comes with some bash helper scripts to run all these with default
+values. The generic scripts locate in the root directory and library specific
+configuration like scripts exist in the `catalogues` directory. You can find
+predefined scripts for several library catalogues (if you want to run it, first
+you have to configure it). All these scrips mainly contain configuration, and
+then it calls the central `common-script` which contains the functions.
+
+If you do not want to 
+
+### run
+
+```bash
+catalogues/[your script] [command(s)]
+```
+or
+```bash
+./qa-catalogue --params="[options]" [command(s)]
+```
+
+The following commands are supported:
+
+* `validate` -- runs validation
+* `completeness` -- runs completeness analysis
+* `classifications` -- runs classification analysis
+* `authorities` -- runs authorities analysis
+* `tt-completeness` -- runs Thomson-Trail completeness analysis
+* `shelf-ready-completeness` -- runs shelf-ready completeness analysis
+* `serial-score` -- calculates the serial scores
+* `format` -- runs formatting records
+* `functional-analysis` -- runs functional analysis
+* `pareto` -- runs pareto analysis
+* `marc-history` -- generates cataloguing history chart
+* `prepare-solr` -- prepare Solr index (you should already have Solr running, and index created)
+* `index` -- runs indexing with Solr
+* `sqlite` -- import tables to SQLite
+* `export-schema-files` -- export schema files
+* `all-analyses` -- run all default analysis tasks
+* `all-solr` -- run all indexing tasks
+* `all` -- run all tasks
+* `config` -- show configuration of selected catalogue
+
+You can find information about these functionalities below this document.
+
+### configuration
+
+1. create the configuration file (setdir.sh)
+```bash
+cp setdir.sh.template setdir.sh
+```
+
+2. edit the file configuration file. Two lines are important here
+
+```bash
+BASE_INPUT_DIR=your/path
+BASE_OUTPUT_DIR=your/path
+BASE_LOG_DIR==your/path
+```
+
+* `BASE_INPUT_DIR` is the parent directory where your MARC records exists
+* `BASE_OUTPUT_DIR` is where the analysis results will be stored
+* `BASE_LOG_DIR` is where the analysis logs will be stored
+
+3. edit the library specific file
+
+Here is an example file for analysing Library of Congress' MARC records
+
+```bash
+#!/usr/bin/env bash
+
+. ./setdir.sh
+
+NAME=loc
+MARC_DIR=${BASE_INPUT_DIR}/loc/marc
+MASK=*.mrc
+
+. ./common-script
+```
+Three variables are important here:
+
+1. `NAME` is a name for the output directory. The analysis result will land
+   under $BASE_OUTPUT_DIR/$NAME directory
+2. `MARC_DIR` is the location of MARC files. All the files should be in the
+   same directory
+3. `MASK` is a file mask, such as `*.mrc`, `*.marc` or `*.dat.gz`. Files ending with `.gz` are uncompressed automatically.
+
+You can add here any other parameters this document mentioned at the description
+of individual command, wrapped in TYPE_PARAMS variable e.g. for the Deutche
+Nationalbibliothek's config file, one can find this
+
+```bash
+TYPE_PARAMS="--marcVersion DNB --marcxml"
+```
+
+This line sets the DNB's MARC version (to cover fields defined within DNB's
+MARC version), and XML as input format.
+
+The following table summarizes the configuration variables. The script
+`qa-catalogue` can be used to set variables and execute analysis without a
+library specific configuration file:
+
+| variable          | `qa-catalogue`      | description                                                             | default                                                                                                                                                                                          |
+|-------------------|---------------------|-------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `ANALYSES`        | `-a`/`--analyses`   | which tasks to run with `all-analyses`                                  | `validate, validate_sqlite, completeness, completeness_sqlite, classifications, authorities, tt_completeness, shelf_ready_completeness, serial_score, functional_analysis, pareto, marc_history` |
+|                   | `-c`/`--catalogue`  | display name of the catalogue                                           | `$NAME`                                                                                                                                                                                          |
+| `NAME`            | `-n`/`--name`       | name of the catalogue                                                   | qa-catalogue                                                                                                                                                                                     |
+| `BASE_INPUT_DIR`  | `-d`/`--input`      | parent directory of input file directories                              | `./input`                                                                                                                                                                                        |
+| `INPUT_DIR`       | `-d`/`--input-dir`  | subdirectory of input directory to read files from                      |                                                                                                                                                                                                  |
+| `BASE_OUTPUT_DIR` | `-o`/`--output`     | parent output directory                                                 | `./output`                                                                                                                                                                                       |
+| `BASE_LOG_DIR` | `-l`/`--logs`        | directory of log files                                                  | `./logs`                                                                                                                                                                                         |
+| `MASK`            | `-m`/`--mask`       | a file mask which input files to process, e.g. `*.mrc`                  | `*`                                                                                                                                                                                              |
+| `TYPE_PARAMS`     | `-p`/`--params`     | parameters to pass to individual tasks (see below)                      |                                                                                                                                                                                                  |
+| `SCHEMA`          | `-s`/`--schema`     | record schema                                                           | `MARC21`                                                                                                                                                                                         |
+| `UPDATE`          | `-u`/`--update`     | optional date of input files                                            |                                                                                                                                                                                                  |
+| `VERSION`         | `-v`/`--version`    | optional version number/date of the catalogue to compare changes        |                                                                                                                                                                                                  |
+| `WEB_CONFIG`      | `-w`/`--web-config` | update the specified configuration file of qa-catalogue-web             |                                                                                                                                                                                                  |
+|                   | `-f`/`--env-file`   | configuration file to load environment variables from (default: `.env`) |                                                                                                                                                                                                  |
+
+## Detailed instructions
+
+We will use the same jar file in every command, so we save its path into a variable.
+
+```bash
+export JAR=target/metadata-qa-marc-0.7.0-jar-with-dependencies.jar
+```
+
+### General parameters
+
+Most of the analyses uses the following general parameters
+
+* `--schemaType <type>` metadata schema type. The supported types are:
+  * `MARC21`
+  * `PICA`
+  * `UNIMARC` (assessment of UNIMARC records are not yet supported, this
+    parameter value is only reserved for future usage)
+* `-m <version>`, `--marcVersion <version>` specifies a MARC version.
+  Currently, the supported versions are:
+  * `MARC21`, Library of Congress MARC21
+  * `DNB`, the Deuthche Nationalbibliothek's MARC version
+  * `OCLC`, the OCLCMARC
+  * `GENT`, fields available in the catalog of Gent University (Belgium)
+  * `SZTE`, fields available in the catalog of Szegedi Tudományegyetem (Hungary)
+  * `FENNICA`, fields available in the Fennica catalog of Finnish National Library
+  * `NKCR`, fields available at the National Library of the Czech Republic
+  * `BL`, fields available at the British Library
+  * `MARC21NO`, fields available at the MARC21 profile for Norwegian public libraries
+  * `UVA`, fields available at the University of Amsterdam Library
+  * `B3KAT`, fields available at the B3Kat union catalogue of Bibliotheksverbundes Bayern (BVB)
+     and Kooperativen Bibliotheksverbundes Berlin-Brandenburg (KOBV)
+  * `KBR`, fields available at KBR, the national library of Belgium
+  * `ZB`, fields available at Zentralbibliothek Zürich
+  * `OGYK`, fields available at Országygyűlési Könyvtár, Budapest
+* `-n`, `--nolog` do not display log messages
+* parameters to limit the validation:
+  * `-i [record ID]`, `--id [record ID]` validates only a single record
+    having the specifies identifier (the content of 001)
+  * `-l [number]`, `--limit [number]` validates only given number of
+    records
+  * `-o [number]`, `--offset [number]` starts validation at the given
+    Nth record
+  * `-z [list of tags]`, `--ignorableFields [list of tags]` do NOT
+    validate the selected fields. The list should contain the tags
+    separated by commas (`,`), e.g. `--ignorableFields A02,AQN`
+  * `-v [selector]`, `--ignorableRecords [selector]` do NOT validate
+    the records which match the condition denoted by the selector.
+    The selector is a test MARCspec string e.g.
+    `--ignorableRecords STA$a=SUPPRESSED`. It ignores the records which
+    has `STA` field with an `a` subfield with the value `SUPPRESSED`.
+* `-d [record type]`, `--defaultRecordType [record type]` the default record
+  type to be used if the record's type is undetectable. The record type is
+  calculated from the combination of Leader/06 (Type of record) and Leader/07
+  (bibliographic level), however sometimes the combination doesn't fit to the
+  standard. In this case the tool will use the given record type. Possible 
+  values of the record type argument:
+  * BOOKS
+  * CONTINUING_RESOURCES
+  * MUSIC
+  * MAPS
+  * VISUAL_MATERIALS
+  * COMPUTER_FILES
+  * MIXED_MATERIALS
+* parameters to fix known issues before any analyses:
+  * `-q`, `--fixAlephseq` sometimes ALEPH export contains '^' characters
+    instead of spaces in control fields (006, 007, 008). This flag replaces
+    them with spaces before the validation. It might occur in any input format.
+  * `-a`, `--fixAlma` sometimes Alma export contains '#' characters instead of
+    spaces in control fields (006, 007, 008). This flag replaces them with
+    spaces before the validation. It might occur in any input format.
+  * `-b`, `--fixKbr` KBR's export contains '#' characters instead spaces in
+    control fields (006, 007, 008). This flag replaces them with spaces before
+    the validation. It might occur in any input format.
+* `-f <format>`, `--marcFormat <format>` The input format. Possible values are
+  * `ISO`: Binary (ISO 2709)
+  * `XML`: MARCXML (shortcuts: `-x`, `--marcxml`)
+  * `ALEPHSEQ`: Alephseq (shortcuts: `-p`, `--alephseq`)
+  * `LINE_SEPARATED`: Line separated binary MARC where each line contains one
+    record) (shortcuts: `-y`, `--lineSeparated`)
+  * `MARC_LINE`: MARC Line is a line-separated format i.e. it is a text file, where
+    each line is a distinct field, the same way as MARC records are usually
+    displayed in the MARC21 standard documentation.
+  * `MARCMAKER`: MARCMaker format
+  * `PICA_PLAIN`: PICA plain (https://format.gbv.de/pica/plain) is a 
+    serialization format, that contains each fields in distinct row.
+  * `PICA_NORMALIZED`: normalized PICA (https://format.gbv.de/pica/normalized)
+    is a serialization format where each line is a separate record (by bytecode
+    `0A`). Fields are terminated by bytecode 1E, and subfields are introduced
+    by bytecode `1F`.
+* `-t <directory>`, `--outputDir <directory>` specifies the output directory
+  where the files will be created
+* `-r`, `--trimId` remove spaces from the end of record IDs in the output files
+  (some library system add padding 
+  spaces around field value 001 in exported files)
+* `-g <encoding>`, `--defaultEncoding <encoding>` specify a default encoding of
+  the records. Possible values:
+  * `ISO-8859-1` or `ISO8859_1` or `ISO_8859_1`
+  * `UTF8` or `UTF-8`
+  * `MARC-8` or `MARC8`
+* `-s <datasource>`, `--dataSource <datasource>` specify the type of data 
+  source. Possible values:
+  * `FILE`: reading from file
+  * `STREAM`: reading from a Java data stream. It is not usable if you use the
+    tool from the command line, only if 
+    you use it with its API.
+* `-c <configuration>`, `--allowableRecords <configuration>` if set, criteria
+  which allows analysis of records. If the record does not met the criteria, it
+  will be excluded. An individual criterium should be formed as a MarcSpec (for
+  MARC21 records) or PicaFilter (for PICA records). Multiple criteria might be 
+  concatenated with logical operations: `&&` for AND, `||` for OR and `!` for 
+  not. One can use parentheses to group logical expressions. An example: 
+  `'002@.0 !~ "^L" && 002@.0 !~ "^..[iktN]" && (002@.0 !~ "^.v" || 021A.a?)'`. 
+  Since the criteria might form a complex phase containing spaces, the passing
+  of which is problematic among multiple scripts, one can apply Base64 encoding.
+  In this case add `base64:` prefix to the parameters, such as
+  `base64:"$(echo '002@.0 !~ "^L" && 002@.0 !~ "^..[iktN]" && (002@.0 !~ "^.v" || 021A.a?)' | base64 -w 0)`.
+* `-1 <type>`, `--alephseqLineType <type>`, true, "Alephseq line type. The `type` could be
+  * `WITH_L`: the records' AlephSeq lines contain an `L ` string
+    (e.g. `000000002 008   L 780804s1977^^^^enk||||||b||||001^0|eng||`)
+  * `WITHOUT_L`: the records' AlephSeq lines do not contai an `L ` string
+    (e.g. `000000002 008   780804s1977^^^^enk||||||b||||001^0|eng||`)
+* PICA related parameters
+  * `-2 <path>`, `--picaIdField <path>` the record identifier
+  * `-u <char>`, `--picaSubfieldSeparator <char>` the PICA subfield separator.
+    subfield of PICA records. Default is `003@$0`.
+    Default is `$`.
+  * `-j <file>`, `--picaSchemaFile <file>` an Avram schema file, which describes
+    the structure of PICA records
+  * `-k <path>`, `--picaRecordType <path>` The PICA subfield which stores the
+    record type information. Default is `002@$0`.
+* Parameters for grouping analyses
+  * `-e <path>`, `--groupBy <path>` group the results by the value of this data 
+    element (e.g. the ILN of libraries holding the item). An example: `--groupBy 001@$0`
+    where `001@$0` is the subfield containing the comma separated list of library ILN codes.
+  * `-3 <file>`, `--groupListFile <file>` the file which contains a list of ILN codes
+
+The last argument of the commands are a list of files. It might contain any 
+wildcard the operating system supports ('*', '?', etc.).

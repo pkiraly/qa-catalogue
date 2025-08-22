@@ -18,8 +18,8 @@ import org.marc4j.marc.Record;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
@@ -70,6 +70,7 @@ public class DataElements implements BibliographicInputProcessor, Serializable {
       System.exit(0);
     }
     RecordIterator iterator = new RecordIterator(processor);
+    iterator.setProcessWithErrors(processor.getParameters().getProcessRecordsWithoutId());
     iterator.start();
   }
 
@@ -84,16 +85,16 @@ public class DataElements implements BibliographicInputProcessor, Serializable {
   }
 
   @Override
-  public void processRecord(BibliographicRecord marcRecord, int recordNumber, List<ValidationError> errors) throws IOException {
-    // do nothing
+  public void processRecord(BibliographicRecord bibliographicRecord, int recordNumber, List<ValidationError> errors) throws IOException {
+    processRecord(bibliographicRecord, recordNumber);
   }
 
   @Override
-  public void processRecord(BibliographicRecord marcRecord, int recordNumber) throws IOException {
-    if (parameters.getRecordIgnorator().isIgnorable(marcRecord))
+  public void processRecord(BibliographicRecord bibliographicRecord, int recordNumber) throws IOException {
+    if (parameters.getRecordIgnorator().isIgnorable(bibliographicRecord))
       return;
 
-    printToFile(outputFile, StringUtils.join(dataElementCounter.count(marcRecord), ",") + "\n");
+    printToFile(outputFile, StringUtils.join(dataElementCounter.count(bibliographicRecord), ",") + "\n");
   }
 
   @Override
@@ -104,8 +105,13 @@ public class DataElements implements BibliographicInputProcessor, Serializable {
     packageCounter.put("all", new TreeMap<>());
     dataElementCounter = new DataElementCounter(parameters.getOutputDir(), "top-fields.txt", DataElementCounter.Basis.EXISTENCE);
     outputFile = new File(parameters.getOutputDir(), "record-patterns.csv");
-    if (outputFile.exists() && !outputFile.delete())
-      logger.severe("Deletion of " + outputFile.getAbsolutePath() + " was unsuccessful!");
+    if (outputFile.exists()) {
+      try {
+        Files.delete(outputFile.toPath());
+      } catch (IOException e) {
+        logger.log(Level.SEVERE, "The output file ({}) has not been deleted", outputFile.getAbsolutePath());
+      }
+    }
     printToFile(outputFile, dataElementCounter.getHeader() + "\n");
   }
 

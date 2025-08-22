@@ -1,0 +1,48 @@
+---
+title: "Where can I get MARC records?"
+---
+
+Here is a list of data sources I am aware of so far:
+
+## United States of America
+* Library of Congress &mdash; [https://www.loc.gov/cds/products/marcDist.php](https://www.loc.gov/cds/products/marcDist.php). MARC21 (UTF-8 and MARC8 encoding), MARCXML formats, open access. Alternative access point: [https://www.loc.gov/collections/selected-datasets/?fa=contributor:library+of+congress.+cataloging+distribution+service](https://www.loc.gov/collections/selected-datasets/?fa=contributor:library+of+congress.+cataloging+distribution+service).
+* Harvard University Library &mdash; [https://library.harvard.edu/open-metadata](https://library.harvard.edu/open-metadata). MARC21 format, [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/). Institution specific features are documented [here](http://library.harvard.edu/sites/default/files/news_uploaded/Harvard_Library_Bibliographic_Dataset_Documentation.pdf)
+* Columbia University Library &mdash; [https://library.columbia.edu/bts/clio-data.html](https://library.columbia.edu/bts/clio-data.html). 10M records, MARC21 and MARCXML format, [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/).
+* University of Michigan Library &mdash; [https://www.lib.umich.edu/open-access-bibliographic-records](https://www.lib.umich.edu/open-access-bibliographic-records). 1,3M records, MARC21 and MARCXML formats, [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/).
+* University of Pennsylvania Libraries &mdash; [https://www.library.upenn.edu/collections/digital-projects/open-data-penn-libraries](https://www.library.upenn.edu/collections/digital-projects/open-data-penn-libraries). Two datasets are available:
+  1. [Catalog records created by Penn Libraries](http://ered.library.upenn.edu/data/opendata/pau.zip) 572K records, MARCXML format, [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/),
+  2. [Catalog records derived from other sources](http://ered.library.upenn.edu/data/opendata/npau.zip), 6.5M records, MARCXML format, Open Data Commons [ODC-BY](https://opendatacommons.org/licenses/by/), use in accordance with the OCLC [community norms](https://www.oclc.org/worldcat/community/record-use/policy/community-norms.en.html).
+* Yale University &mdash; [https://guides.library.yale.edu/c.php?g=923429](https://guides.library.yale.edu/c.php?g=923429). Three datasets are available:
+  1. Yale-originated records: 1.47M records, MARC21 format, [CC0](https://creativecommons.org/publicdomain/zero/1.0/)
+  2. WorldCat-derived records: 6.16M records, MARC21 format, [ODC-BY](https://www.opendatacommons.org/licenses/by/1.0/)
+  3. Other records (MARC21), independent of Yale and WorldCat, where sharing is permitted. 404K records, MARC21 format.
+* National Library of Medicine (NLM) catalogue records &mdash; [https://www.nlm.nih.gov/databases/download/catalog.html](https://www.nlm.nih.gov/databases/download/catalog.html). 4.2 million records, NLMXML, MARCXML and MARC21 formats. [NLM Terms and Conditions](https://www.nlm.nih.gov/databases/download/terms_and_conditions.html)
+
+## Germany
+* Deutsche Nationalbibliothek &mdash; [https://www.dnb.de/DE/Professionell/Metadatendienste/Datenbezug/Gesamtabzuege/gesamtabzuege_node.html](https://www.dnb.de/DE/Professionell/Metadatendienste/Datenbezug/Gesamtabzuege/gesamtabzuege_node.html) (note: the records are provided in utf-8 decomposed). 23.9M records, MARC21 and MARCXML format, [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/).
+* Bibliotheksverbundes Bayern &mdash; [https://www.bib-bvb.de/web/b3kat/open-data](https://www.bib-bvb.de/web/b3kat/open-data). 27M records, MARCXML format, [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/).
+* Leibniz-Informationszentrum Technik und Naturwissenschaften Universitätsbibliothek (TIB) &mdash; [https://www.tib.eu/de/forschung-entwicklung/entwicklung/open-data](https://www.tib.eu/de/forschung-entwicklung/entwicklung/open-data). (no download link, use OAI-PMH instead) Dublin Core, MARC21, MARCXML, [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/).
+* K10plus-Verbunddatenbank (K10plus union catalogue of Bibliotheksservice-Zentrum Baden Würtemberg (BSZ) and Gemensamer Bibliotheksverbund (GBV)) &mdash; [https://swblod.bsz-bw.de/od/](https://swblod.bsz-bw.de/od/). 87M records, MARCXML format, [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/).
+
+## Others
+* Universiteitsbibliotheek Gent &mdash; [https://lib.ugent.be/info/exports](https://lib.ugent.be/info/exports). Weekly data dump in Aleph Sequential 
+  format. It contains some Aleph fields above the standard MARC21 fields. [ODC ODbL](https://opendatacommons.org/licenses/odbl/).
+* Toronto Public Library &mdash; [https://opendata.tplcs.ca/](https://opendata.tplcs.ca/). 2.5 million MARC21 records, [Open Data Policy](http://www.torontopubliclibrary.ca/terms-of-use/library-policies/open-data.jsp)
+* Répertoire International des Sources Musicales &mdash; [https://opac.rism.info/index.php?id=8&id=8&L=1](https://opac.rism.info/index.php?id=8&id=8&L=1). 800K records, MARCXML, RDF/XML, [CC-BY](https://creativecommons.org/licenses/by/4.0/).
+* ETH-Bibliothek (Swiss Federal Institute of Technology in Zurich) &mdash; [http://www.library.ethz.ch/ms/Open-Data-an-der-ETH-Bibliothek/Downloads](http://www.library.ethz.ch/ms/Open-Data-an-der-ETH-Bibliothek/Downloads). 2.5M records, MARCXML format.
+* British library &mdash; [http://www.bl.uk/bibliographic/datafree.html#m21z3950](http://www.bl.uk/bibliographic/datafree.html#m21z3950) (no download link, use z39.50 instead after asking for permission). MARC21, usage will be strictly for non-commercial purposes.
+* Talis &mdash; [https://archive.org/details/talis_openlibrary_contribution](https://archive.org/details/talis_openlibrary_contribution). 5.5 million MARC21 records contributed by Talis to Open Library under the [ODC PDDL](https://opendatacommons.org/licenses/pddl/).
+* Oxford Medicine Online (the catalogue of medicine books published by Oxford University Press) &mdash; [https://oxfordmedicine.com/page/67/](https://oxfordmedicine.com/page/67/). 1790 MARC21 records. 
+* Fennica &mdash; the Finnish National Bibliography provided by the Finnish National Library &mdash; [http://data.nationallibrary.fi/download/](http://data.nationallibrary.fi/download/). 1 million  records, MARCXML, [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/).
+* Biblioteka Narodawa (Polish National Library) &mdash; [https://data.bn.org.pl/databases](https://data.bn.org.pl/databases). 6.5 million MARC21 records. 
+* Magyar Nemzeti Múzeum (Hungarian National Library) &mdash; [https://mnm.hu/hu/kozponti-konyvtar/nyilt-bibliografiai-adatok](https://mnm.hu/hu/kozponti-konyvtar/nyilt-bibliografiai-adatok), 67K records, MARC21, HUNMARC, BIBFRAME, [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/)
+* University of Amsterdam Library &mdash; [https://uba.uva.nl/en/support/open-data/data-sets-and-publication-channels/data-sets-and-publication-channels.html](https://uba.uva.nl/en/support/open-data/data-sets-and-publication-channels/data-sets-and-publication-channels.html), 2.7 million records, MARCXML, [PDDL](https://opendatacommons.org/licenses/pddl/)/[ODC-BY](https://opendatacommons.org/licenses/by/). Note: the record for books are not downloadable, only other document types. One should request them via the website.
+* Portugal National Library &mdash; [https://opendata.bnportugal.gov.pt/downloads.htm](https://opendata.bnportugal.gov.pt/downloads.htm). 1.13 million UNIMARC records in MARCXML, RDF XML, JSON, TURTLE and CSV formats. [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/)
+* National Library of Latvia National bibliography (2017–2020) &mdash; [https://dati.lnb.lv/](https://dati.lnb.lv/). 11K MARCXML records.
+
+Thanks, [Johann Rolschewski](https://github.com/jorol/), [Phú](https://twitter.com/herr_tu), and [Hugh Paterson III](https://twitter.com/thejourneyler) for their help in collecting this list! Do you know some more data sources? Please let me know.
+
+There are two more datasource worth mention, however they do not provide MARC records, but derivatives:
+
+* [Linked Open British National Bibliography](https://data.bl.uk/lodbnb/) 3.2M book records in N-Triplets and RDF/XML format, CC0 license
+* [Linked data of Bibliothèque nationale de France](http://data.bnf.fr/semanticweb). N3, NT and RDF/XML formats, [Licence Ouverte/Open Licence](http://data.bnf.fr/docs/Licence-Ouverte-Open-Licence-ENG.pdf)

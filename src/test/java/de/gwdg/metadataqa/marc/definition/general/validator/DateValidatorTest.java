@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc.definition.general.validator;
 
 import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
+import de.gwdg.metadataqa.marc.dao.record.Marc21BibliographicRecord;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.definition.tags.tags01x.Tag020;
@@ -27,9 +27,9 @@ public class DateValidatorTest {
   }
 
   private MarcSubfield createMarcSubfield(String value) {
-    BibliographicRecord marcRecord = new Marc21Record("test");
+    BibliographicRecord marcRecord = new Marc21BibliographicRecord("test");
     DataField field = new DataField(Tag020.getInstance(), " ", " ", "a", value);
-    field.setMarcRecord(marcRecord);
+    field.setBibliographicRecord(marcRecord);
 
     return field.getSubfield("a").get(0);
   }

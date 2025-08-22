@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
+# Creates a timeline
+# There are two ways of operation
+# - incremental: it checks only the most recently created directory
+# - overall: it checks all directories
+# the mode is decided automatically based on whether or not `history.sqlite` file exists
+# If you would like to start over, delete this file.
 
-. $(dirname $0)/../../setdir.sh
+. $(dirname "$0")/../../setdir.sh
 
 options=$(getopt -o n:f:s:e: --long name:,frequency:,start:,end: -- "$@")
 [ $? -eq 0 ] || {
@@ -9,7 +15,6 @@ options=$(getopt -o n:f:s:e: --long name:,frequency:,start:,end: -- "$@")
 }
 eval set -- "$options"
 
-MARC_DIR=${BASE_INPUT_DIR}
 NAME=
 # NAME=metadata-qa
 FREQUENCY=weekly
@@ -26,16 +31,16 @@ while true; do
   shift
 done
 
-echo "$0 name: ${NAME}, frequency: ${FREQUENCY}, start: ${START}, end: ${END}"
+echo "$0 name: $NAME, frequency: $FREQUENCY, start: $START, end: $END"
 
-HISTORICAL=${BASE_OUTPUT_DIR}/_historical/${NAME}
-mkdir -p $HISTORICAL
+HISTORICAL="$BASE_OUTPUT_DIR/_historical/$NAME"
+mkdir -p "$HISTORICAL"
 
 IS_INCREMENTAL=0
-if [[ -e ${HISTORICAL}/history.sqlite ]]; then
+if [[ -e "$HISTORICAL/history.sqlite" ]]; then
   IS_INCREMENTAL=1
 fi
-echo "historical: ${HISTORICAL}"
+echo "historical: $HISTORICAL"
 echo "is incremental: ${IS_INCREMENTAL}"
 if [[ $IS_INCREMENTAL = 0 ]]; then
   echo "IS NOT INCREMENTAL"
@@ -53,21 +58,18 @@ for CSV_FILE in $CSVS; do
 done
 
 echo "initialize CSV files with header"
-if [[ $IS_INCREMENTAL = 0 ]]; then
-  echo "version,total,processed" > ${HISTORICAL}/count.csv
-  echo "version,type,instances,records" > ${HISTORICAL}/issue-total.csv
-  echo "version,id,category,instances,records" > ${HISTORICAL}/issue-by-category.csv
-  echo "version,id,categoryId,category,type,instances,records" > ${HISTORICAL}/issue-by-type.csv
-fi
-
-if [[ $IS_INCREMENTAL = 0 ]]; then
-  FILES=$(ls ${HISTORICAL})
+if [[ "$IS_INCREMENTAL" = 0 ]]; then
+  echo "version,total,processed" > "$HISTORICAL/count.csv"
+  echo "version,type,instances,records" > "$HISTORICAL/issue-total.csv"
+  echo "version,id,category,instances,records" > "$HISTORICAL/issue-by-category.csv"
+  echo "version,id,categoryId,category,type,instances,records" > "$HISTORICAL/issue-by-type.csv"
+  FILES=$(ls "$HISTORICAL")
 else
-  FILES=$(ls -lt ${HISTORICAL} | grep "^l" | awk '{print $9}' | head -1)
+  FILES=$(ls -lt "$HISTORICAL" | grep "^l" | awk '{print $9}' | head -1)
 fi
 
 echo "files: "
-echo $FILES
+echo "$FILES"
 
 for DIR in $FILES; do
   if [[ "$START" != "" && "$DIR" < "$START" ]]; then
@@ -107,38 +109,38 @@ for DIR in $FILES; do
   fi
 done
 
-if [[ $IS_INCREMENTAL = 0 && -f ${HISTORICAL}/history.sqlite ]]; then
-  rm ${HISTORICAL}/history.sqlite
+if [[ "$IS_INCREMENTAL" = 0 && -f "$HISTORICAL/history.sqlite" ]]; then
+  rm "$HISTORICAL/history.sqlite"
 fi
-sqlite3 ${HISTORICAL}/history.sqlite << EOF
+sqlite3 "$HISTORICAL/history.sqlite" << EOF
 .mode csv
-.import ${HISTORICAL}/count.csv count
-.import ${HISTORICAL}/issue-total.csv issue_total
-.import ${HISTORICAL}/issue-by-category.csv issue_category
-.import ${HISTORICAL}/issue-by-type.csv issue_type
+.import $HISTORICAL/count.csv count
+.import $HISTORICAL/issue-total.csv issue_total
+.import $HISTORICAL/issue-by-category.csv issue_category
+.import $HISTORICAL/issue-by-type.csv issue_type
 EOF
 
-sqlite3 ${HISTORICAL}/history.sqlite << EOF
+sqlite3 "$HISTORICAL/history.sqlite" << EOF
 .headers on
 .separator ,
-.output ${HISTORICAL}/timeline-by-category.csv
-SELECT id, category, version, ROUND((records * 1.0 / processed) * 100, 2) AS percent 
-  FROM issue_category 
-  JOIN count USING(version) 
+.output $HISTORICAL/timeline-by-category.csv
+SELECT id, category, version, ROUND((records * 1.0 / processed) * 100, 2) AS percent
+  FROM issue_category
+  JOIN count USING(version)
   ORDER BY id, version;
 
-.output ${HISTORICAL}/timeline-by-type.csv
-SELECT category, type, version, ROUND((records * 1.0 / processed) * 100, 2) AS percent 
+.output $HISTORICAL/timeline-by-type.csv
+SELECT category, type, version, ROUND((records * 1.0 / processed) * 100, 2) AS percent
   FROM issue_type
-  JOIN count USING(version) 
+  JOIN count USING(version)
 EOF
 
 echo "Rscript $(dirname $0)/timeline.R ${HISTORICAL} $FREQUENCY"
-Rscript $(dirname $0)/timeline.R ${HISTORICAL} $FREQUENCY
-ACTUAL_DIR=$(ls -la ${HISTORICAL}/ | grep -P '^l' | tail -1 | awk '{print $NF}')
+Rscript $(dirname $0)/timeline.R "${HISTORICAL}" "$FREQUENCY"
+ACTUAL_DIR=$(ls -la "${HISTORICAL}/" | grep -P '^l' | tail -1 | awk '{print $NF}')
 if [[ "${ACTUAL_DIR:0:2}" == ".." ]]; then
-  ACTUAL_DIR=$(realpath ${HISTORICAL}/${ACTUAL_DIR})
+  ACTUAL_DIR=$(realpath "$HISTORICAL/$ACTUAL_DIR")
 fi
-echo "copy timeline-by-category.png to ${ACTUAL_DIR}"
-mv ${HISTORICAL}/timeline-by-category.png ${ACTUAL_DIR}/img
-mv ${HISTORICAL}/timeline-by-type-*.png ${ACTUAL_DIR}/img
+echo "copy timeline-by-category.png to $ACTUAL_DIR"
+mv "$HISTORICAL"/timeline-by-category.png "$ACTUAL_DIR/img"
+mv "$HISTORICAL"/timeline-by-type-*.png "$ACTUAL_DIR/img"

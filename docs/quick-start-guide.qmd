@@ -1,0 +1,116 @@
+---
+title: "Quick start guide"
+---
+
+## Installation
+
+See `INSTALL.md` for dependencies.
+
+1. `wget https://github.com/pkiraly/metadata-qa-marc/releases/download/v0.6.0/metadata-qa-marc-0.6.0-release.zip`
+2. `unzip metadata-qa-marc-0.6.0-release.zip`
+3. `cd metadata-qa-marc-0.6.0/`
+
+## Configuration
+
+Either use the script `qa-catalogue` or create configuration files:
+
+4. `cp setdir.sh.template setdir.sh`
+
+Change the input and output base directories in `setdir.sh`. Local directories `input/` and `output/` will be used by
+default. Files of each catalogue are in a subdirectory of theses base directories:
+
+5. Create configuration based on some existing config files:
+ * `cp catalogues/loc.sh catalogues/[abbreviation-of-your-library].sh`
+ * edit `catalogues/[abbreviation-of-your-library].sh according` to [configuration guide](#configuration-1)
+
+## With Docker
+
+*A more detailed instruction how to use qa-catalogue with Docker can be found [in the wiki](https://github.com/pkiraly/qa-catalogue/wiki/Docker)* 
+
+A Docker image bundling qa-catalogue with all of its dependencies and the web
+interface [qa-catalogue-web] is made available:
+
+- continuously via GitHub as [`ghcr.io/pkiraly/qa-catalogue`](https://github.com/pkiraly/qa-catalogue/pkgs/container/qa-catalogue)
+
+- and for releases via Docker Hub as [`pkiraly/metadata-qa-marc`](https://hub.docker.com/r/pkiraly/metadata-qa-marc)
+
+To download, configure and start an image in a new container the file
+[docker-compose.yml](docker-compose.yml) is needed in the current directory. It
+can be configured with the following environment variables:
+
+- `IMAGE`: which Docker image to download and run. By default the latest
+   image from Docker Hub is used (`pkiraly/metadata-qa-marc`). Alternatives include
+
+   - `IMAGE=ghcr.io/pkiraly/qa-catalogue:main` for most recent image from GitHub packages
+   - `IMAGE=metadata-qa-marc` if you have locally [build the Docker image](#appendix-vi-build-docker-image)
+
+- `CONTAINER`: the name of the docker container. Default: `metadata-qa-marc`.
+
+- `INPUT`: Base directory to put your bibliographic record files in subdirectories of.
+   Set to `./input` by default, so record files are expected to be in `input/$NAME`.
+
+- `OUTPUT`: Base directory to put result of qa-catalogue in subdirectory of.
+   Set to `./output` by default, so files are put in `output/$NAME`.
+
+- `WEBCONFIG`: directory to expose configuration of [qa-catalogue-web]. Set to
+  `./web-config` by default. If using non-default configuration for data analysis
+  (for instance PICA instead of MARC) then you likely need to adjust configuration
+  of the web interface as well. This directory should contain a configuration file
+  `configuration.cnf`.
+
+- `WEBPORT`: port to expose the web interface. For instance `WEBPORT=9000` will
+   make it available at <http://localhost:9000/> instead of <http://localhost/>.
+
+- `SOLRPORT`: port to expose Solr to. Default: `8983`.
+
+Environment variables can be set on command line or be put in local file `.env`, e.g.: 
+
+```bash
+WEBPORT=9000 docker compose up -d
+```
+
+or
+
+```bash
+docker compose --env-file config.env up -d
+```
+
+When the application has been started this way, run analyses with script
+[`./docker/qa-catalogue`](docker/qa-catalogue) the same ways as script
+`./qa-catalogue` is called when not using Docker (see [usage](#usage) for
+details). The following example uses parameters for Gent university library
+catalogue:
+
+```bash
+./docker/qa-catalogue \
+  --params "--marcVersion GENT --alephseq" \
+  --mask "rug01.export" \
+  --catalogue gent \
+  all
+```
+
+[qa-catalogue-web]: https://github.com/pkiraly/qa-catalogue-web
+
+Now you can reach the web interface ([qa-catalogue-web]) at
+<http://localhost:80/> (or at another port as configured with
+environment variable `WEBPORT`). To further modify appearance of the interface,
+create [templates](https://github.com/pkiraly/qa-catalogue-web/?tab=readme-ov-file#customization)
+in your `WEBCONFIG` directory and/or create a file `configuration.cnf` in
+this directory to extend [UI configuration](https://github.com/pkiraly/qa-catalogue-web/?tab=readme-ov-file#configuration) without having to restart the Docker container. 
+
+This example works under Linux. Windows users should consult the 
+[Docker on Windows](https://github.com/pkiraly/qa-catalogue/wiki/Docker-on-Windows) wiki page.
+Other useful [Docker commands](https://github.com/pkiraly/qa-catalogue/wiki/Docker-commands)
+at QA catalogue's wiki.
+
+Everything else should work the same way as in other environments, so follow the next sections.
+
+## Use
+
+```bash
+catalogues/[abbreviation-of-your-library].sh all-analyses
+catalogues/[abbreviation-of-your-library].sh all-solr
+```
+
+For a catalogue with around 1 million record the first command will take 5-10
+minutes, the later 1-2 hours.

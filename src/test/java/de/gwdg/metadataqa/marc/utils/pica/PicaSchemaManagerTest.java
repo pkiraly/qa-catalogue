@@ -1,5 +1,6 @@
 package de.gwdg.metadataqa.marc.utils.pica;
 
+import de.gwdg.metadataqa.marc.TestUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,7 +15,7 @@ public class PicaSchemaManagerTest {
 
   @Before
   public void setUp() throws Exception {
-    schema = PicaSchemaReader.createSchema(getPath("pica/schema/k10plus.json"));
+    schema = PicaSchemaReader.createSchema(TestUtils.getPath("pica/schema/k10plus.json"));
   }
 
   @Test
@@ -47,9 +48,5 @@ public class PicaSchemaManagerTest {
   public void lookup_datafield_null() {
     PicaDataField dataField = new PicaDataField("201A", "01");
     assertNull(schema.lookup(dataField));
-  }
-
-  private String getPath(String fileName) {
-    return Paths.get("src/test/resources/" + fileName).toAbsolutePath().toString();
   }
 }

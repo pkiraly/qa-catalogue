@@ -1,0 +1,239 @@
+# Completeness
+
+The completeness task counts data elements in the input records and creates basic statistics.
+
+Usage
+: ```bash
+  ./qa-catalogue --params="[options]" completeness
+  # or
+  catalogues/<catalogue>.sh completeness
+  ```
+
+Options
+: - [general parameters](#general-parameters)
+  - `-R <format>`, `--format <format>`: format specification of the output.
+    Possible values are: 
+    - `tab-separated` or `tsv`,
+    - `comma-separated` or `csv`,
+    - `text` or `txt`
+    - `json`
+  - `-V`, `--advanced`: advanced mode (not implemented yet)
+  - `-P`, `--onlyPackages`: only packages (not implemented yet)
+
+## Output files
+
+```{mermaid}
+flowchart LR
+  A(Catalogue) --> B[completeness]
+  B ---> C(marc-elements.csv)
+  B ---> D(packages.csv)
+  B ---> E(libraries.csv)
+  B ---> F(libraries003.csv)
+  B ---> G(completeness.params.json)
+  C ---> H(qa_catalogue.sqlite)
+```
+
+### marc-elements.csv
+is list of MARC elements (`field$subfield`) and their occurrences in two ways as number or records, and number of instances. The columns in the file are: 
+
+  * `documenttype`: the document types found in the dataset. There is an extra document type: `all` representing all 
+    records
+  * `path`: the notation of the data element
+  * `packageid` and `package`: each path belongs to one package, such as `Control Fields`, and each package has an 
+    internal identifier.
+  * `tag`: the label of tag
+  * `subfield`: the label of subfield
+  * `number-of-record`: means how many records they are available,
+  * `number-of-instances`: means how many instances are there in total (some records might contain more than one 
+    instances, while others don't have them at all)
+  * `min`, `max`, `mean`, `stddev` the minimum, maximum, mean and standard deviation of the number of instances per 
+    record (as floating point numbers)
+  * `histogram`: the histogram of the instances (`1=1; 2=1` means: a single instance is available in one record, two 
+    instances are available in one record)
+
+
+| documenttype | path | packageid | package | tag | subfield | number-of-record | number-of-instances | min | max | mean | stddev | histogram |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| all | leader23 | 0 | Control Fields | Leader | Undefined | 1099 | 1099 | 1 | 1 | 1.0 | 0.0 | 1=1099 |
+| all | leader22 | 0 | Control Fields | Leader | Length of the implementation-defined portion | 1099 | 1099 | 1 | 1 | 1.0 | 0.0 | 1=1099 |
+| all | leader21 | 0 | Control Fields | Leader | Length of the starting-character-position portion | 1099 | 1099 | 1 | 1 | 1.0 | 0.0 | 1=1099 |
+| all | 110\$a | 2 | Main Entry | Main Entry - Corporate Name | Corporate name or jurisdiction name as entry element | 4 | 4 | 1 | 1 | 1.0 | 0.0 | 1=4 |
+| all | 340\$b | 5 | Physical Description | Physical Medium | Dimensions | 2 | 3 | 1 | 2 | 1.5 | 0.3535533905932738 | 1=1; 2=1 |
+| all | 363\$a | 5 | Physical Description | Normalized Date and Sequential Designation | First level of enumeration | 1 | 1 | 1 | 1 | 1.0 | 0.0 | 1=1 |
+| all | 340\$a | 5 | Physical Description | Physical Medium | Material base and configuration | 2 | 3 | 1 | 2 | 1.5 | 0.3535533905932738 | 1=1; 2=1 |
+
+### packages.csv
+The completeness of packages (packages are groups of tags)
+
+Its columns:
+
+  * `documenttype`: the document type of the record
+  * `packageid`: the identifier of the package
+  * `name`: name of the package
+  * `label`: label of the package
+  * `iscoretag`: does the package belong to the Library of Congress MARC standard
+  * `count`: the number of records having at least one data element from this package
+
+| documenttype | packageid | name | label               | iscoretag | count |
+| --- | --- | --- |---------------------| --- | --- |
+| all | 1 | 01X-09X | Numbers and Code    | true | 1099 |
+| all | 2 | 1XX | Main Entry          | true | 816 |
+| all | 6 | 4XX | Series Statement    | true | 358 |
+| all | 5 | 3XX | Physical Description | true | 715 |
+| all | 8 | 6XX | Subject Access      | true | 514 |
+| all | 4 | 25X-28X | Edition, Imprint  | true | 1096 |
+| all | 7 | 5XX | Note                | true | 354 |
+| all | 0 | 00X | Control Fields      | true | 1099 |
+| all | 99 | unknown | unknown origin      | false | 778 |
+
+### libraries.csv
+Lists the content of the `852$a` (it is useful only if the catalog is an aggregated catalog). Its columns are:
+
+  * `library`: the code of a library
+  * `count`: the number of records having a particular library code
+
+| library | count |
+| --- | --- |
+| "00Mf" | 713 |
+| "British Library" | 525 |
+| "Inserted article about the fires from the Courant after the title page." | 1 |
+| "National Library of Scotland" | 310 |
+| "StEdNL" | 1 |
+| "UkOxU" | 33 |
+
+### libraries003.csv
+
+List the content of the 003 (it is useful only if the catalog is an aggregated catalog). Its columns are:
+
+  * `library`: the code of a library
+  * `count`: the number of records having a particular library code
+
+| library | count |
+| --- | --- |
+| "103861" | 1 |
+| "BA-SaUP" | 143 |
+| "BoCbLA" | 25 |
+| "CStRLIN" | 110 |
+| "DLC" | 3 |
+
+### completeness.params.json
+
+The list of the actual parameters in analysis.
+
+An example with parameters used for analysing a MARC dataset. When the input is a complex expression it is displayed here in a parsed format. It also contains some metadata such as the versions of MQFA API and QA catalogue.
+
+```json
+{
+  "args":["/path/to/input.xml.gz"],
+  "marcVersion":"MARC21",
+  "marcFormat":"XML",
+  "dataSource":"FILE",
+  "limit":-1,
+  "offset":-1,
+  "id":null,
+  "defaultRecordType":"BOOKS",
+  "alephseq":false,
+  "marcxml":true,
+  "lineSeparated":false,
+  "trimId":false,
+  "outputDir":"/path/to/_output/",
+  "recordIgnorator":{
+    "conditions":null,
+    "empty":true
+  },
+  "recordFilter":{
+    "conditions":null,
+    "empty":true
+  },
+  "ignorableFields":{
+    "fields":null,
+    "empty":true
+  },
+  "stream":null,
+  "defaultEncoding":null,
+  "alephseqLineType":null,
+  "picaIdField":"003@$0",
+  "picaSubfieldSeparator":"$",
+  "picaSchemaFile":null,
+  "picaRecordTypeField":"002@$0",
+  "schemaType":"MARC21",
+  "groupBy":null,
+  "groupListFile":null,
+  "format":"COMMA_SEPARATED",
+  "advanced":false,
+  "onlyPackages":false,
+  "replacementInControlFields":"#",
+  "marc21":true,
+  "pica":false,
+  "mqaf.version":"0.9.2",
+  "qa-catalogue.version":"0.7.0"
+}
+```
+
+## Output files for union catalogues
+
+For union catalogues the `marc-elements.csv` and `packages.csv` have a special version.
+
+### completeness-grouped-marc-elements.csv
+
+The same as `marc-elements.csv` but with an extra element `groupId`
+
+  * `groupId`: the library identifier available in the data element specified by the `--groupBy` parameter. `0` has a special meaning: all libraries
+
+| groupId | documenttype | path | packageid | package | tag | subfield | number-of-record | number-of-instances | min | max | mean | stddev | histogram |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 350 | all | 044K$9 | 50 | PICA+ bibliographic description | "Schlagwortfolgen (GBV, SWB, K10plus)" | PPN | 1 | 1 | 1 | 1 | 1.0 | 0.0 | 1=1 |
+| 350 | all | 044K$7 | 50 | PICA+ bibliographic description | "Schlagwortfolgen (GBV, SWB, K10plus)" | Vorläufiger Link | 1 | 1 | 1 | 1 | 1.0 | 0.0 | 1=1 |
+
+### completeness-grouped-packages.csv
+The same as `packages.csv` but with an extra element `group`
+
+  * `group`: the library identifier available in the data element specified by the `--groupBy` parameter. `0` has a special meaning: all libraries
+
+| group | documenttype                                         | packageid | name | label | iscoretag | count |
+| --- |------------------------------------------------------| --- | --- | --- | --- | --- |
+| 0 | Druckschriften (einschließlich Bildbänden)           | 50 | 0... | PICA+ bibliographic description | false | 987 |
+| 0 | Druckschriften (einschließlich Bildbänden)           | 99 | unknown | unknown origin | false | 3 |
+| 0 | Medienkombination                                    | 50 | 0... | PICA+ bibliographic description | false | 1 |
+| 0 | Mikroform                                            | 50 | 0... | PICA+ bibliographic description | false | 11 |
+| 0 | Tonträger, Videodatenträger, Bildliche Darstellungen | 50 | 0... | PICA+ bibliographic description | false | 1 |
+| 0 | all                                                  | 50 | 0... | PICA+ bibliographic description | false | 1000 |
+| 0 | all                                                  | 99 | unknown | unknown origin | false | 3 |
+| 100 | Druckschriften (einschließlich Bildbänden)           | 50 | 0... | PICA+ bibliographic description | false | 20 |
+| 100 | Medienkombination                                    | 50 | 0... | PICA+ bibliographic description | false | 1 |
+
+### completeness-groups.csv
+This is available for union catalogues, containing the groups
+
+  * `id`: the group identifier
+  * `group`: the name of the library
+  * `count`: the number of records from the particular library
+
+| id | group | count |
+| --- | --- | --- |
+| 0 | all | 1000 |
+| 100 | Otto-von-Guericke-Universität, Universitätsbibliothek Magdeburg [DE-Ma9] | 21 |
+| 1003 | Kreisarchäologie Rotenburg [DE-MUS-125322...] | 1 |
+| 101 | Otto-von-Guericke-Universität, Universitätsbibliothek, Medizinische Zentralbibliothek (MZB), Magdeburg [DE-Ma14...] | 6 |
+| 1012 | Mariengymnasium Jever [DE-Je1] | 19 |
+
+### id-groupid.csv
+
+This is the very same file what validation creates. Completeness creates it only if it is not yet available.
+
+### qa\_catalogue.sqlite
+
+The contents of `marc-elements.csv` or `completeness-grouped-marc-elements.csv` is imported into `marc_elements` table of `qa_catalogue.sqlite`. For the catalogues without the `--groupBy` parameter the `groupId` column will be filled by `0`. The table definition is:
+
+```sql
+{{< include ../scripts/sqlite/marc-elements.sql >}}
+```
+
+## Internals
+
+The completeness task conists of two steps:
+
+1. script `completeness` calls `java -cp $JAR de.gwdg.metadataqa.marc.cli.Completeness [options] <file>`
+2. import result into `qa_catalogue.sqlite`
+
+The second step can also be called independently as command `completeness-sqlite`.

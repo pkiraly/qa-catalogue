@@ -1,0 +1,48 @@
+---
+title: "Authority name analysis"
+---
+
+It analyses the coverage of authority names (persons, organisations, events,
+uniform titles) in the catalogue. It checks specific fields, which might have
+authority names, and provides details about how and which schemes have been
+applied.
+
+```bash
+java -cp $JAR de.gwdg.metadataqa.marc.cli.AuthorityAnalysis [options] <file>
+```
+with a bash script
+```bash
+./authorities [options] <file>
+```
+or
+```bash
+catalogues/<catalogue>.sh authorities
+```
+or
+```bash
+./qa-catalogue --params="[options]" authorities
+```
+
+options:
+
+* [general parameters](#general-parameters)
+* `-w`, `--emptyLargeCollectors`: empty large collectors periodically. It is a
+  memory optimization parameter, turn it on if you run into a memory problem
+
+The output is a set of files:
+
+* `authorities-by-records.csv`: general overview of how many records has any
+  authority names
+* `authorities-by-schema.csv`: which authority names schemas are available in
+  the catalogues (such as ISNI, Gemeinsame Normdatei etc.) and where they are
+  referred
+* `authorities-histogram.csv`: a frequency distribution of the number of
+  authority names available in records (x records have 0 authority names, y
+  records have 1 authority name, z records have 2 authority names etc.)
+* `authorities-frequency-examples.csv`: examples for particular distributions
+  (one record ID which has 0 authority name, one which has 1 authority name,
+  etc.)
+* `authorities-by-schema-subfields.csv`: the distribution of subfields of those
+  fields, which contains authority names information. It gives you a background
+  that what other contextual information behind the authority names are
+  available (such as the version of the authority name scheme)

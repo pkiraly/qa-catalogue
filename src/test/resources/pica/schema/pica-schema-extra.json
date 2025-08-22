@@ -32,7 +32,6 @@
         },
         "a": {
           "code": "a",
-          "pica3": null,
           "label": "Schlagwort",
           "repeatable": false,
           "modified": "2019-11-27 09:39:59"
@@ -97,14 +96,12 @@
         },
         "a": {
           "code": "a",
-          "pica3": null,
           "label": "Familienname",
           "repeatable": false,
           "modified": "2019-11-26 12:57:28"
         },
         "d": {
           "code": "d",
-          "pica3": null,
           "label": "Vorname(n)",
           "repeatable": false,
           "modified": "2019-11-26 12:57:39"
@@ -198,7 +195,6 @@
       "subfields": {
         "a": {
           "code": "a",
-          "pica3": null,
           "label": "Neuanlagedatum",
           "repeatable": false,
           "modified": "2019-12-03 11:58:08"
@@ -222,7 +218,6 @@
       "subfields": {
         "0": {
           "code": "0",
-          "pica3": null,
           "label": "Datum (TT-MM-JJ)",
           "repeatable": false,
           "modified": "2019-11-20 13:32:55"
@@ -246,7 +241,6 @@
       "subfields": {
         "0": {
           "code": "0",
-          "pica3": null,
           "label": "Exemplarproduktionsnummer",
           "repeatable": false,
           "modified": "2019-12-02 09:34:41"
@@ -299,7 +293,7 @@
       "modified": "2018-09-04 15:53:19",
       "subfields": {
         "S": {"code": "S", "pica3": "|...|", "label": "Indikator für Datentausch", "repeatable": false, "modified": "2019-11-29 11:37:46"},
-        "u": {"code": "u", "pica3": null, "label": "URL", "repeatable": false, "modified": "2020-01-23 09:52:11"},
+        "u": {"code": "u", "label": "URL", "repeatable": false, "modified": "2020-01-23 09:52:11"},
         "m": {"code": "m", "pica3": "m", "label": "Kennzeichnung des Produzenten/Lieferanten der Online-Ressource (Verbund-ISIL)", "repeatable": true, "modified": "2019-11-25 09:48:35"},
         "n": {"code": "n", "pica3": "n", "label": "Kennzeichnung des Produzenten/Lieferanten der Online-Ressource (Bibliothek, Institution oder Verlag)", "repeatable": true, "modified": "2019-11-25 09:48:44"},
         "q": {"code": "q", "pica3": "q", "label": "Elektronischer Dateiformattyp (MIME-Typ)", "repeatable": false, "modified": "2019-11-25 09:48:55"},
@@ -323,7 +317,7 @@
       "repeatable": false,
       "modified": "2018-09-07 11:29:27",
       "subfields": {
-        "0": {"code": "0", "pica3": null, "label": "Datum (TT-MM-JJ)", "repeatable": false, "modified": "2018-09-07 11:28:57"},
+        "0": {"code": "0", "label": "Datum (TT-MM-JJ)", "repeatable": false, "modified": "2018-09-07 11:28:57"},
         "t": {"code": "t", "pica3": "Blank", "label": "Uhrzeit", "repeatable": false, "modified": "2018-09-07 11:28:57"}
       }
     },
@@ -336,9 +330,9 @@
       "modified": "2018-09-07 11:54:33",
       "subfields": {
         "9": {"code": "9", "pica3": "!...!", "label": "PPN", "repeatable": false, "modified": "2018-09-07 11:28:57"},
-        "8": {"code": "8", "pica3": null, "label": "Expansion", "repeatable": false, "modified": "2018-09-07 11:28:57"},
+        "8": {"code": "8", "label": "Expansion", "repeatable": false, "modified": "2018-09-07 11:28:57"},
         "7": {"code": "7", "pica3": "7", "label": "Vorläufiger Link", "repeatable": false, "modified": "2018-09-07 11:28:57"},
-        "a": {"code": "a", "pica3": null, "label": "Kennzeichen", "repeatable": false, "modified": "2018-09-07 11:28:57"}
+        "a": {"code": "a", "label": "Kennzeichen", "repeatable": false, "modified": "2018-09-07 11:28:57"}
       }
     },
     "044K/00-09": {
@@ -352,7 +346,7 @@
         "9": {"code": "9", "pica3": "!...!", "label": "PPN", "repeatable": false, "modified": "2019-11-29 13:06:00"},
         "8": {"code": "8", "pica3": "--", "label": "Expansion", "repeatable": false, "modified": "2019-11-29 13:06:05"},
         "7": {"code": "7", "pica3": "7", "label": "Vorläufiger Link", "repeatable": false, "modified": "2019-11-29 13:06:22"},
-        "a": {"code": "a", "pica3": null, "label": "Schlagwort", "repeatable": false, "modified": "2019-11-29 13:06:32"},
+        "a": {"code": "a", "label": "Schlagwort", "repeatable": false, "modified": "2019-11-29 13:06:32"},
         "z": {"code": "z", "pica3": "|z|", "label": "Zeitschlagwort", "repeatable": false, "modified": "2019-11-29 13:06:42"},
         "g": {"code": "g", "pica3": "|g|", "label": "Geografikum (mit Jahreszahlen)", "repeatable": false, "modified": "2019-11-29 13:06:56"},
         "A": {"code": "A", "pica3": "A", "label": "Quelle", "repeatable": true, "modified": "2019-11-29 13:07:03"}
@@ -368,7 +362,7 @@
       "subfields": {
         "T": {"code": "T", "pica3": "T", "label": "Feldzuordnung", "repeatable": false, "modified": "2019-11-29 13:39:38"},
         "U": {"code": "U", "pica3": "U...%%", "label": "Schriftcode", "repeatable": false, "modified": "2019-11-29 13:39:43"},
-        "a": {"code": "a", "pica3": null, "label": "Gesamttitel", "repeatable": false, "modified": "2019-11-28 11:00:53"},
+        "a": {"code": "a", "label": "Gesamttitel", "repeatable": false, "modified": "2019-11-28 11:00:53"},
         "h": {"code": "h", "pica3": "h", "label": "Verantwortlichkeitsangabe", "repeatable": false, "modified": "2019-11-29 10:10:35"},
         "l": {"code": "l", "pica3": "l", "label": "Zählung in der Hauptreihe", "repeatable": false, "modified": "2019-11-28 11:01:08"},
         "p": {"code": "p", "pica3": "p", "label": "Zählung, Titel der Unterreihe", "repeatable": true, "modified": "2019-11-28 11:01:25"},
@@ -390,7 +384,7 @@
         "9": {"code": "9", "pica3": "!...!", "label": "PPN", "repeatable": false, "modified": "2017-09-14 13:08:59"},
         "8": {"code": "8", "pica3": "--", "label": "Expansion", "repeatable": false, "modified": "2019-04-26 13:48:39"},
         "7": {"code": "7", "pica3": "7", "label": "Vorläufiger Link", "repeatable": false, "modified": "2017-09-14 13:08:59"},
-        "a": {"code": "a", "pica3": null, "label": "Schlagwort", "repeatable": false, "modified": "2017-09-14 13:08:59"},
+        "a": {"code": "a", "label": "Schlagwort", "repeatable": false, "modified": "2017-09-14 13:08:59"},
         "f": {"code": "f", "pica3": "f", "label": "Permutationsmuster", "repeatable": true, "modified": "2017-09-14 13:08:59"}
       }
     },
@@ -405,7 +399,7 @@
         "9": {"code": "9", "pica3": "!...!", "label": "PPN", "repeatable": false, "modified": "2019-11-26 14:39:26"},
         "8": {"code": "8", "pica3": "--", "label": "Expansion", "repeatable": false, "modified": "2019-11-29 12:44:10"},
         "7": {"code": "7", "pica3": "7", "label": "Vorläufiger Link", "repeatable": false, "modified": "2019-11-26 14:39:04"},
-        "a": {"code": "a", "pica3": null, "label": "Schlagwort", "repeatable": false, "modified": "2019-11-26 14:40:15"},
+        "a": {"code": "a", "label": "Schlagwort", "repeatable": false, "modified": "2019-11-26 14:40:15"},
         "z": {"code": "z", "pica3": "|z|", "label": "Zeitschlagwort", "repeatable": false, "modified": "2019-11-26 14:41:07"},
         "g": {"code": "g", "pica3": "|g|", "label": "Geografikum (mit Jahreszahlen)", "repeatable": false, "modified": "2019-11-26 14:41:17"},
         "A": {"code": "A", "pica3": "A", "label": "Quelle", "repeatable": true, "modified": "2019-11-29 12:44:05"}
@@ -421,7 +415,7 @@
       "subfields": {
         "T": {"code": "T", "pica3": "T", "label": "Feldzuordnung", "repeatable": false, "modified": "2019-11-29 13:45:26"},
         "U": {"code": "U", "pica3": "U...%%", "label": "Schriftcode", "repeatable": false, "modified": "2019-11-29 13:45:31"},
-        "i": {"code": "i", "pica3": null, "label": "Einleitende Wendung", "repeatable": false, "modified": "2019-11-29 10:43:38"},
+        "i": {"code": "i", "label": "Einleitende Wendung", "repeatable": false, "modified": "2019-11-29 10:43:38"},
         "n": {"code": "n", "pica3": "n", "label": "Materialart, zeitliche Gültigkeit der Beziehung", "repeatable": false, "modified": "2019-11-29 11:01:31"},
         "7": {"code": "7", "pica3": "7", "label": "Vorläufiger Link", "repeatable": false, "modified": "2019-11-29 10:46:26"},
         "9": {"code": "9", "pica3": "!...!", "label": "PPN", "repeatable": false, "modified": "2019-11-29 10:43:58"},
@@ -487,7 +481,7 @@
         "9": {"code": "9", "pica3": "!...!", "label": "PPN", "repeatable": false, "modified": "2019-11-21 14:40:01"},
         "8": {"code": "8", "pica3": "--", "label": "Expansion der Notation und Klassenbenennung", "repeatable": false, "modified": "2019-11-29 12:48:01"},
         "7": {"code": "7", "pica3": "7", "label": "Vorläufiger Link", "repeatable": false, "modified": "2019-11-29 12:48:06"},
-        "a": {"code": "a", "pica3": null, "label": "Notation (unverknüpft)", "repeatable": false, "modified": "2019-11-29 12:48:16"},
+        "a": {"code": "a", "label": "Notation (unverknüpft)", "repeatable": false, "modified": "2019-11-29 12:48:16"},
         "A": {"code": "A", "pica3": "A", "label": "Quelle", "repeatable": true, "modified": "2019-11-21 14:40:41"}
       }
     },
@@ -501,7 +495,7 @@
       "subfields": {
         "T": {"code": "T", "pica3": "T", "label": "Feldzuordnung ", "repeatable": false, "modified": "2019-11-29 13:42:02"},
         "U": {"code": "U", "pica3": "U...%%", "label": "Schriftcode ", "repeatable": false, "modified": "2019-11-29 13:42:06"},
-        "a": {"code": "a", "pica3": null, "label": "Inhaltliche Zusammenfassung", "repeatable": false, "modified": "2019-11-28 08:34:24"}
+        "a": {"code": "a", "label": "Inhaltliche Zusammenfassung", "repeatable": false, "modified": "2019-11-28 08:34:24"}
       }
     },
     "036F/00": {
@@ -532,7 +526,7 @@
         "T": {"code": "T", "pica3": "T", "label": "Feldzuordnung", "repeatable": false, "modified": "2020-02-11 11:12:20"},
         "U": {"code": "U", "pica3": "U...%%", "label": "Schriftcode", "repeatable": false, "modified": "2020-02-11 11:12:32"},
         "i": {"code": "i", "pica3": "...&&", "label": "In RDA-Sätzen nicht zugelassen", "repeatable": false, "modified": "2019-11-29 10:28:38"},
-        "a": {"code": "a", "pica3": null, "label": "Haupttitel des Teilwerks", "repeatable": false, "modified": "2019-11-28 08:41:52"},
+        "a": {"code": "a", "label": "Haupttitel des Teilwerks", "repeatable": false, "modified": "2019-11-28 08:41:52"},
         "d": {"code": "d", "pica3": "d", "label": "Titelzusatz zum Teilwerk", "repeatable": false, "modified": "2019-11-28 08:42:08"},
         "f": {"code": "f", "pica3": "f", "label": "Paralleltitel des Teilwerks", "repeatable": true, "modified": "2019-11-28 08:42:27"},
         "h": {"code": "h", "pica3": "h", "label": "Verantwortlichkeitsangabe", "repeatable": false, "modified": "2020-02-11 11:14:14"},
@@ -552,7 +546,7 @@
       "modified": "2018-05-25 11:52:32",
       "subfields": {
         "e": {"code": "e", "pica3": "[...]", "label": "Angabe der zugrunde liegenden DDC-Ausgabe", "repeatable": false, "modified": "2019-11-29 12:48:52"},
-        "a": {"code": "a", "pica3": null, "label": "Synthetische Notation bzw. Klassenbenennung", "repeatable": false, "modified": "2020-02-17 11:02:22"},
+        "a": {"code": "a", "label": "Synthetische Notation bzw. Klassenbenennung", "repeatable": false, "modified": "2020-02-17 11:02:22"},
         "c": {"code": "c", "pica3": "-G--", "label": "Grundnotation DDC", "repeatable": false, "modified": "2019-11-29 12:49:02"},
         "d": {"code": "d", "pica3": "-H--", "label": "Notationen anderer Haupttafeln", "repeatable": true, "modified": "2019-11-29 12:49:07"},
         "f": {"code": "f", "pica3": "-T1--", "label": "Notation aus Hilfstafel T1", "repeatable": true, "modified": "2019-11-29 12:49:12"},
@@ -578,7 +572,7 @@
       "subfields": {
         "T": {"code": "T", "pica3": "T", "label": "Feldzuordnung ", "repeatable": false, "modified": "2019-11-29 13:47:31"},
         "U": {"code": "U", "pica3": "U...%%", "label": "Schriftcode ", "repeatable": false, "modified": "2019-11-29 13:47:37"},
-        "a": {"code": "a", "pica3": null, "label": "Schlagwort", "repeatable": false, "modified": "2019-11-29 13:13:05"},
+        "a": {"code": "a", "label": "Schlagwort", "repeatable": false, "modified": "2019-11-29 13:13:05"},
         "9": {"code": "9", "pica3": "!...!", "label": "PPN", "repeatable": false, "modified": "2019-11-29 13:12:34"},
         "8": {"code": "8", "pica3": "--", "label": "Expansion", "repeatable": false, "modified": "2019-11-29 13:12:41"},
         "7": {"code": "7", "pica3": "7", "label": "Vorläufiger Link", "repeatable": false, "modified": "2019-11-29 13:12:49"},
@@ -601,7 +595,7 @@
         "U": {"code": "U", "pica3": "U...%%", "label": "In RDA-Sätzen nicht zugelassen", "repeatable": false, "modified": "2019-11-29 13:29:01"},
         "e": {"code": "e", "pica3": "#...#", "label": "In RDA-Sätzen nicht zugelassen", "repeatable": false, "modified": "2019-11-28 14:58:20"},
         "P": {"code": "P", "pica3": "P", "label": "In RDA-Sätzen nicht zugelassen", "repeatable": false, "modified": "2019-11-26 13:03:10"},
-        "a": {"code": "a", "pica3": null, "label": "In RDA-Sätzen nicht zugelassen", "repeatable": false, "modified": "2019-11-26 13:03:18"},
+        "a": {"code": "a", "label": "In RDA-Sätzen nicht zugelassen", "repeatable": false, "modified": "2019-11-26 13:03:18"},
         "d": {"code": "d", "pica3": ",_", "label": "In RDA-Sätzen nicht zugelassen", "repeatable": false, "modified": "2019-11-26 13:03:36"},
         "c": {"code": "c", "pica3": "c", "label": "In RDA-Sätzen nicht zugelassen", "repeatable": false, "modified": "2019-11-26 13:03:47"},
         "n": {"code": "n", "pica3": "n", "label": "In RDA-Sätzen nicht zugelassen", "repeatable": false, "modified": "2019-11-26 13:03:59"},
@@ -625,7 +619,7 @@
       "subfields": {
         "T": {"code": "T", "pica3": "T", "label": "Feldzuordnung", "repeatable": false, "modified": "2020-01-21 12:43:18"},
         "U": {"code": "U", "pica3": "U...%%", "label": "Schriftcode", "repeatable": false, "modified": "2020-01-21 12:43:27"},
-        "i": {"code": "i", "pica3": null, "label": "Einleitende Wendung", "repeatable": false, "modified": "2020-01-21 12:46:52"},
+        "i": {"code": "i", "label": "Einleitende Wendung", "repeatable": false, "modified": "2020-01-21 12:46:52"},
         "n": {"code": "n", "pica3": "n", "label": "Zeitliche Gültigkeit der Beziehung", "repeatable": false, "modified": "2020-01-21 12:47:22"},
         "7": {"code": "7", "pica3": "7", "label": "Vorläufiger Link", "repeatable": false, "modified": "2020-01-21 12:47:56"},
         "9": {"code": "9", "pica3": "!...!", "label": "PPN", "repeatable": false, "modified": "2020-01-21 12:48:18"},
@@ -654,7 +648,7 @@
       "subfields": {
         "T": {"code": "T", "pica3": "T", "label": "Feldzuordnung", "repeatable": false, "modified": "2019-11-29 13:45:56"},
         "U": {"code": "U", "pica3": "U...%%", "label": "Schriftcode", "repeatable": false, "modified": "2019-11-29 13:46:01"},
-        "i": {"code": "i", "pica3": null, "label": "Konkordanzangaben", "repeatable": false, "modified": "2019-11-29 10:56:22"},
+        "i": {"code": "i", "label": "Konkordanzangaben", "repeatable": false, "modified": "2019-11-29 10:56:22"},
         "7": {"code": "7", "pica3": "7", "label": "Vorläufiger Link", "repeatable": false, "modified": "2019-11-29 10:56:32"},
         "9": {"code": "9", "pica3": "!...!", "label": "PPN", "repeatable": false, "modified": "2019-11-29 10:56:43"},
         "8": {"code": "8", "pica3": "--", "label": "Expansion", "repeatable": false, "modified": "2019-11-29 10:56:48"},
@@ -676,7 +670,7 @@
       "repeatable": true,
       "modified": "2019-12-18 09:35:26",
       "subfields": {
-        "0": {"code": "0", "pica3": null, "label": "ISBN", "repeatable": false, "modified": "2019-08-07 15:00:42"},
+        "0": {"code": "0", "label": "ISBN", "repeatable": false, "modified": "2019-08-07 15:00:42"},
         "f": {"code": "f", "pica3": "f", "label": "Kommentar zur ISBN, Einbandart, Lieferbedingungen und/oder Preis", "repeatable": false, "modified": "2019-08-07 15:00:54"}
       }
     },
@@ -688,7 +682,7 @@
       "repeatable": true,
       "modified": "2020-01-23 12:58:03",
       "subfields": {
-        "a": {"code": "a", "pica3": null, "label": "Exemplarbezogener Kommentar (benutzerrelevante Hinweise)", "repeatable": true, "modified": "2020-01-23 12:59:22"}
+        "a": {"code": "a", "label": "Exemplarbezogener Kommentar (benutzerrelevante Hinweise)", "repeatable": true, "modified": "2020-01-23 12:59:22"}
       }
     },
     "201D/001-999": {
@@ -699,7 +693,7 @@
       "repeatable": false,
       "modified": "2019-08-16 21:15:27",
       "subfields": {
-        "0": {"code": "0", "pica3": null, "label": "ELN und Datum (TT-MM-JJ)", "repeatable": false, "modified": "2019-12-02 09:37:23"}
+        "0": {"code": "0", "label": "ELN und Datum (TT-MM-JJ)", "repeatable": false, "modified": "2019-12-02 09:37:23"}
       }
     },
     "039E": {
@@ -713,7 +707,7 @@
         "T": {"code": "T", "pica3": "T", "label": "Feldzuordnung", "repeatable": false, "modified": "2019-11-29 13:45:42"},
         "U": {"code": "U", "pica3": "U...%%", "label": "Schriftcode", "repeatable": false, "modified": "2019-11-29 13:45:46"},
         "b": {"code": "b", "pica3": "|...|", "label": "Codierte Angabe für die Art der Vorgänger-Nachfolge-Beziehung", "repeatable": false, "modified": "2019-11-29 10:49:19"},
-        "i": {"code": "i", "pica3": null, "label": "Einleitende Wendung", "repeatable": false, "modified": "2019-11-29 10:49:51"},
+        "i": {"code": "i", "label": "Einleitende Wendung", "repeatable": false, "modified": "2019-11-29 10:49:51"},
         "n": {"code": "n", "pica3": "n", "label": "Zeitliche Gültigkeit der Beziehung", "repeatable": false, "modified": "2019-11-29 10:52:14"},
         "7": {"code": "7", "pica3": "7", "label": "Vorläufiger Link", "repeatable": false, "modified": "2019-11-29 10:50:03"},
         "9": {"code": "9", "pica3": "!...!", "label": "PPN", "repeatable": false, "modified": "2019-11-29 10:50:13"},
@@ -740,7 +734,7 @@
       "modified": "2018-08-09 09:45:04",
       "subfields": {
         "S": {"code": "S", "pica3": "|...|", "label": "Indikator für Datentausch", "repeatable": false, "modified": "2019-11-29 11:39:04"},
-        "u": {"code": "u", "pica3": null, "label": "URL", "repeatable": false, "modified": "2020-01-23 09:52:39"},
+        "u": {"code": "u", "label": "URL", "repeatable": false, "modified": "2020-01-23 09:52:39"},
         "m": {"code": "m", "pica3": "m", "label": "Kennzeichnung des Produzenten/Lieferanten der Online-Ressource (Verbund-ISIL)", "repeatable": true, "modified": "2019-11-25 09:46:16"},
         "n": {"code": "n", "pica3": "n", "label": "Kennzeichnung des Produzenten/Lieferanten der Online-Ressource (Bibliothek, Institution oder Verlag)", "repeatable": true, "modified": "2019-11-25 09:46:26"},
         "q": {"code": "q", "pica3": "q", "label": "Elektronischer Dateiformattyp (MIME-Typ)", "repeatable": false, "modified": "2019-11-25 09:46:37"},
@@ -777,7 +771,7 @@
       "modified": "2018-10-29 14:48:40",
       "subfields": {
         "S": {"code": "S", "pica3": "|...|", "label": "Indikator für Datentausch", "repeatable": false, "modified": "2019-11-29 11:35:31"},
-        "u": {"code": "u", "pica3": null, "label": "URL", "repeatable": false, "modified": "2020-01-23 09:51:47"},
+        "u": {"code": "u", "label": "URL", "repeatable": false, "modified": "2020-01-23 09:51:47"},
         "m": {"code": "m", "pica3": "m", "label": "Kennzeichnung des Produzenten/Lieferanten der Online-Ressource (Verbund-ISIL)", "repeatable": true, "modified": "2019-11-29 11:35:42"},
         "n": {"code": "n", "pica3": "n", "label": "Kennzeichnung des Produzenten/Lieferanten der Online-Ressource (Bibliothek, Institution oder Verlag)", "repeatable": true, "modified": "2019-11-29 11:35:46"},
         "q": {"code": "q", "pica3": "q", "label": "Elektronischer Dateiformattyp (MIME-Typ)", "repeatable": false, "modified": "2019-11-29 11:35:51"},
@@ -801,7 +795,7 @@
       "repeatable": true,
       "modified": "2019-02-08 10:52:32",
       "subfields": {
-        "a": {"code": "a", "pica3": null, "label": "Abrufzeichen exemplarspezifisch", "repeatable": false, "modified": "2019-12-02 09:52:58"}
+        "a": {"code": "a", "label": "Abrufzeichen exemplarspezifisch", "repeatable": false, "modified": "2019-12-02 09:52:58"}
       }
     },
     "220B": {
@@ -812,7 +806,7 @@
       "repeatable": true,
       "modified": "2018-08-09 08:45:43",
       "subfields": {
-        "a": {"code": "a", "pica3": null, "label": "Exemplarbezogener Kommentar (bibliotheksinterne Hinweise)", "repeatable": false, "modified": "2019-11-20 14:10:22"}
+        "a": {"code": "a", "label": "Exemplarbezogener Kommentar (bibliotheksinterne Hinweise)", "repeatable": false, "modified": "2019-11-20 14:10:22"}
       }
     },
     "231@": {
@@ -855,7 +849,7 @@
       "repeatable": false,
       "modified": "2019-03-19 12:55:43",
       "subfields": {
-        "a": {"code": "a", "pica3": null, "label": "Bearbeitungshinweis zur Titelaufnahme aus Fremddaten", "repeatable": false, "modified": "2019-11-27 09:43:38"}
+        "a": {"code": "a", "label": "Bearbeitungshinweis zur Titelaufnahme aus Fremddaten", "repeatable": false, "modified": "2019-11-27 09:43:38"}
       }
     },
     "039C": {
@@ -868,7 +862,7 @@
       "subfields": {
         "T": {"code": "T", "pica3": "T", "label": "Feldzuordnung", "repeatable": false, "modified": "2020-01-21 14:42:17"},
         "U": {"code": "U", "pica3": "U...%%", "label": "Schriftcode", "repeatable": false, "modified": "2020-01-21 14:42:28"},
-        "i": {"code": "i", "pica3": null, "label": "Einleitende Wendung", "repeatable": false, "modified": "2020-01-21 14:43:23"},
+        "i": {"code": "i", "label": "Einleitende Wendung", "repeatable": false, "modified": "2020-01-21 14:43:23"},
         "n": {"code": "n", "pica3": "n", "label": "Zeitliche Gültigkeit der Beziehung", "repeatable": false, "modified": "2020-01-21 14:43:32"},
         "7": {"code": "7", "pica3": "7", "label": "Vorläufiger Link", "repeatable": false, "modified": "2020-01-21 14:43:42"},
         "9": {"code": "9", "pica3": "!...!", "label": "PPN", "repeatable": false, "modified": "2020-01-21 14:43:50"},
@@ -922,9 +916,9 @@
       "modified": "2018-09-07 11:54:33",
       "subfields": {
         "9": {"code": "9", "pica3": "!...!", "label": "PPN", "repeatable": false, "modified": "2018-09-07 11:28:57"},
-        "8": {"code": "8", "pica3": null, "label": "Expansion", "repeatable": false, "modified": "2018-09-07 11:28:57"},
+        "8": {"code": "8", "label": "Expansion", "repeatable": false, "modified": "2018-09-07 11:28:57"},
         "7": {"code": "7", "pica3": "7", "label": "Vorläufiger Link", "repeatable": false, "modified": "2018-09-07 11:28:57"},
-        "a": {"code": "a", "pica3": null, "label": "Notation", "repeatable": false, "modified": "2018-09-07 11:28:57"}
+        "a": {"code": "a", "label": "Notation", "repeatable": false, "modified": "2018-09-07 11:28:57"}
       }
     },
     "030F": {
@@ -937,7 +931,7 @@
       "subfields": {
         "T": {"code": "T", "pica3": "$T", "label": "Feldzuordnung ", "repeatable": false, "modified": "2017-12-11 21:49:29"},
         "U": {"code": "U", "pica3": "$U...%%", "label": "Schriftcode ", "repeatable": false, "modified": "2017-09-14 13:52:42"},
-        "a": {"code": "a", "pica3": null, "label": "Konferenz", "repeatable": false, "modified": "2018-07-19 11:24:31"},
+        "a": {"code": "a", "label": "Konferenz", "repeatable": false, "modified": "2018-07-19 11:24:31"},
         "b": {"code": "b", "pica3": "b", "label": "Untergeordnete Einheit", "repeatable": false, "modified": "2018-07-06 14:54:15"},
         "j": {"code": "j", "pica3": "n", "label": "Konferenzzählung", "repeatable": false, "modified": "2018-07-06 14:54:15"},
         "k": {"code": "k", "pica3": "c", "label": "Konferenzort", "repeatable": false, "modified": "2018-07-19 11:25:44"},
@@ -953,7 +947,7 @@
       "modified": "2020-02-11 10:45:04",
       "subfields": {
         "g": {"code": "g", "pica3": "#...#", "label": "Sortierhilfe", "repeatable": false, "modified": "2019-11-20 13:53:42"},
-        "a": {"code": "a", "pica3": null, "label": "Bestandsangabe, inkl. Moving Wall-Angaben bei elektron. Zss.", "repeatable": false, "modified": "2019-11-20 14:09:19"}
+        "a": {"code": "a", "label": "Bestandsangabe, inkl. Moving Wall-Angaben bei elektron. Zss.", "repeatable": false, "modified": "2019-11-20 14:09:19"}
       }
     },
     "032C": {
@@ -966,7 +960,7 @@
       "subfields": {
         "T": {"code": "T", "pica3": "T", "label": "Feldzuordnung ", "repeatable": false, "modified": "2019-11-29 13:33:47"},
         "U": {"code": "U", "pica3": "U...%%", "label": "Schriftcode ", "repeatable": false, "modified": "2019-11-29 13:33:51"},
-        "a": {"code": "a", "pica3": null, "label": "Ausgabevermerk der Sekundärform", "repeatable": false, "modified": "2019-11-28 08:32:39"}
+        "a": {"code": "a", "label": "Ausgabevermerk der Sekundärform", "repeatable": false, "modified": "2019-11-28 08:32:39"}
       }
     },
     "039M": {
@@ -979,7 +973,7 @@
       "subfields": {
         "T": {"code": "T", "pica3": "T", "label": "Feldzuordnung", "repeatable": false, "modified": "2019-11-29 13:46:10"},
         "U": {"code": "U", "pica3": "U...%%", "label": "Schriftcode", "repeatable": false, "modified": "2019-11-29 13:46:15"},
-        "i": {"code": "i", "pica3": null, "label": "Einleitende Wendung", "repeatable": false, "modified": "2019-11-25 13:01:01"},
+        "i": {"code": "i", "label": "Einleitende Wendung", "repeatable": false, "modified": "2019-11-25 13:01:01"},
         "n": {"code": "n", "pica3": "n", "label": "Sprache, zeitliche Gültigkeit der Beziehung", "repeatable": false, "modified": "2019-11-25 13:01:14"},
         "7": {"code": "7", "pica3": "7", "label": "Vorläufiger Link", "repeatable": false, "modified": "2019-11-25 13:05:24"},
         "9": {"code": "9", "pica3": "!...!", "label": "PPN", "repeatable": false, "modified": "2019-11-25 13:05:53"},
@@ -1007,7 +1001,7 @@
       "subfields": {
         "T": {"code": "T", "pica3": "T", "label": "Feldzuordnung ", "repeatable": false, "modified": "2019-11-29 13:44:36"},
         "U": {"code": "U", "pica3": "U...%%", "label": "Schriftcode ", "repeatable": false, "modified": "2019-11-29 13:44:40"},
-        "a": {"code": "a", "pica3": null, "label": "Anmerkung zur Reproduktion", "repeatable": false, "modified": "2019-11-28 08:33:24"}
+        "a": {"code": "a", "label": "Anmerkung zur Reproduktion", "repeatable": false, "modified": "2019-11-28 08:33:24"}
       }
     },
     "036D/00": {
@@ -1037,7 +1031,7 @@
       "modified": "2018-08-27 14:47:52",
       "subfields": {
         "i": {"code": "i", "pica3": "[...]", "label": "Einleitender Kommentar", "repeatable": false, "modified": "2019-11-29 13:15:59"},
-        "a": {"code": "a", "pica3": null, "label": "Text", "repeatable": false, "modified": "2019-11-29 13:16:03"}
+        "a": {"code": "a", "label": "Text", "repeatable": false, "modified": "2019-11-29 13:16:03"}
       }
     },
     "020I": {
@@ -1049,7 +1043,7 @@
       "modified": "2018-08-27 14:47:39",
       "subfields": {
         "i": {"code": "i", "pica3": "[...]", "label": "Einleitender Kommentar", "repeatable": false, "modified": "2019-11-29 13:15:23"},
-        "a": {"code": "a", "pica3": null, "label": "Text", "repeatable": false, "modified": "2019-11-29 13:15:30"}
+        "a": {"code": "a", "label": "Text", "repeatable": false, "modified": "2019-11-29 13:15:30"}
       }
     },
     "036C/00": {
@@ -1062,7 +1056,7 @@
       "subfields": {
         "T": {"code": "T", "pica3": "T", "label": "Feldzuordnung", "repeatable": false, "modified": "2019-11-29 13:38:55"},
         "U": {"code": "U", "pica3": "U...%%", "label": "Schriftcode", "repeatable": false, "modified": "2019-11-29 13:39:00"},
-        "a": {"code": "a", "pica3": null, "label": "Haupttitel", "repeatable": false, "modified": "2019-12-06 12:24:03"},
+        "a": {"code": "a", "label": "Haupttitel", "repeatable": false, "modified": "2019-12-06 12:24:03"},
         "e": {"code": "e", "pica3": "e", "label": "In RDA-Sätzen nicht zugelassen", "repeatable": true, "modified": "2019-11-29 09:24:33"},
         "d": {"code": "d", "pica3": "d", "label": "Titelzusatz  bzw. paralleler Titelzusatz", "repeatable": true, "modified": "2019-12-06 12:30:53"},
         "f": {"code": "f", "pica3": "f", "label": "Paralleltitel", "repeatable": true, "modified": "2019-12-20 11:38:52"},
@@ -1078,7 +1072,7 @@
       "repeatable": false,
       "modified": "2019-03-04 21:42:30",
       "subfields": {
-        "a": {"code": "a", "pica3": null, "label": "Jahr (Anfang) in Sortierform", "repeatable": false, "modified": "2019-11-28 14:08:44"},
+        "a": {"code": "a", "label": "Jahr (Anfang) in Sortierform", "repeatable": false, "modified": "2019-11-28 14:08:44"},
         "b": {"code": "b", "pica3": "b", "label": "Jahr (Ende) in Sortierform", "repeatable": false, "modified": "2019-11-28 14:08:52"},
         "n": {"code": "n", "pica3": "n", "label": "Datum in Vorlageform", "repeatable": false, "modified": "2019-07-31 13:48:08"}
       }
@@ -1091,7 +1085,7 @@
       "repeatable": true,
       "modified": "2018-09-05 12:28:34",
       "subfields": {
-        "0": {"code": "0", "pica3": null, "label": "ID-Nummer", "repeatable": false, "modified": "2018-09-05 14:01:57"}
+        "0": {"code": "0", "label": "ID-Nummer", "repeatable": false, "modified": "2018-09-05 14:01:57"}
       }
     },
     "033B/01": {
@@ -1117,7 +1111,7 @@
       "modified": "2018-05-25 11:52:32",
       "subfields": {
         "e": {"code": "e", "pica3": "[...]", "label": "Angabe der zugrunde liegenden DDC-Ausgabe", "repeatable": false, "modified": "2019-11-29 12:48:52"},
-        "a": {"code": "a", "pica3": null, "label": "Synthetische Notation bzw. Klassenbenennung", "repeatable": false, "modified": "2020-02-17 11:02:22"},
+        "a": {"code": "a", "label": "Synthetische Notation bzw. Klassenbenennung", "repeatable": false, "modified": "2020-02-17 11:02:22"},
         "c": {"code": "c", "pica3": "-G--", "label": "Grundnotation DDC", "repeatable": false, "modified": "2019-11-29 12:49:02"},
         "d": {"code": "d", "pica3": "-H--", "label": "Notationen anderer Haupttafeln", "repeatable": true, "modified": "2019-11-29 12:49:07"},
         "f": {"code": "f", "pica3": "-T1--", "label": "Notation aus Hilfstafel T1", "repeatable": true, "modified": "2019-11-29 12:49:12"},
@@ -1154,7 +1148,7 @@
       "modified": "2018-05-25 11:52:32",
       "subfields": {
         "e": {"code": "e", "pica3": "[...]", "label": "Angabe der zugrunde liegenden DDC-Ausgabe", "repeatable": false, "modified": "2019-11-29 12:48:52"},
-        "a": {"code": "a", "pica3": null, "label": "Synthetische Notation bzw. Klassenbenennung", "repeatable": false, "modified": "2020-02-17 11:02:22"},
+        "a": {"code": "a", "label": "Synthetische Notation bzw. Klassenbenennung", "repeatable": false, "modified": "2020-02-17 11:02:22"},
         "c": {"code": "c", "pica3": "-G--", "label": "Grundnotation DDC", "repeatable": false, "modified": "2019-11-29 12:49:02"},
         "d": {"code": "d", "pica3": "-H--", "label": "Notationen anderer Haupttafeln", "repeatable": true, "modified": "2019-11-29 12:49:07"},
         "f": {"code": "f", "pica3": "-T1--", "label": "Notation aus Hilfstafel T1", "repeatable": true, "modified": "2019-11-29 12:49:12"},
@@ -1178,7 +1172,7 @@
       "repeatable": true,
       "modified": "2017-09-12 08:26:50",
       "subfields": {
-        "a": {"code": "a", "pica3": null, "label": "Akzessionsnummer", "repeatable": false, "modified": "2019-11-20 13:44:22"}
+        "a": {"code": "a", "label": "Akzessionsnummer", "repeatable": false, "modified": "2019-11-20 13:44:22"}
       }
     },
     "025@": {
@@ -1191,7 +1185,7 @@
       "subfields": {
         "T": {"code": "T", "pica3": "T", "label": "In RDA-Sätzen nicht zugelassen", "repeatable": false, "modified": "2019-11-29 13:31:35"},
         "U": {"code": "U", "pica3": "U...%%", "label": "In RDA-Sätzen nicht zugelassen", "repeatable": false, "modified": "2019-11-29 13:31:39"},
-        "a": {"code": "a", "pica3": null, "label": "In RDA-Sätzen nicht zugelassen", "repeatable": false, "modified": "2019-11-28 10:55:52"},
+        "a": {"code": "a", "label": "In RDA-Sätzen nicht zugelassen", "repeatable": false, "modified": "2019-11-28 10:55:52"},
         "A": {"code": "A", "pica3": "A", "label": "In RDA-Sätzen nicht zugelassen", "repeatable": false, "modified": "2019-11-28 15:52:04"}
       }
     },
@@ -1203,7 +1197,7 @@
       "repeatable": false,
       "modified": "2020-02-06 13:14:46",
       "subfields": {
-        "0": {"code": "0", "pica3": null, "label": "Lokale Identifikationsnummer anderer Systeme (GBV: Lieferantenkürzel und Bestellnr.)", "repeatable": false, "modified": "2019-11-20 13:37:01"}
+        "0": {"code": "0", "label": "Lokale Identifikationsnummer anderer Systeme (GBV: Lieferantenkürzel und Bestellnr.)", "repeatable": false, "modified": "2019-11-20 13:37:01"}
       }
     },
     "201A": {
@@ -1214,7 +1208,7 @@
       "repeatable": false,
       "modified": "2019-11-04 10:03:13",
       "subfields": {
-        "0": {"code": "0", "pica3": null, "label": "Datum der Ersterfassung", "repeatable": false, "modified": "2019-11-20 13:34:52"}
+        "0": {"code": "0", "label": "Datum der Ersterfassung", "repeatable": false, "modified": "2019-11-20 13:34:52"}
       }
     },
     "028G": {
@@ -1229,7 +1223,7 @@
         "U": {"code": "U", "pica3": "U...%%", "label": "Schriftcode ", "repeatable": false, "modified": "2019-11-29 13:29:40"},
         "e": {"code": "e", "pica3": "#...#", "label": "In RDA-Sätzen nicht zugelassen", "repeatable": false, "modified": "2019-11-28 15:03:54"},
         "P": {"code": "P", "pica3": "P", "label": "Persönlicher Name", "repeatable": false, "modified": "2019-11-28 15:04:06"},
-        "a": {"code": "a", "pica3": null, "label": "Familienname", "repeatable": false, "modified": "2019-11-28 15:04:13"},
+        "a": {"code": "a", "label": "Familienname", "repeatable": false, "modified": "2019-11-28 15:04:13"},
         "d": {"code": "d", "pica3": ",_", "label": "Vorname(n)", "repeatable": false, "modified": "2019-11-28 15:04:20"},
         "c": {"code": "c", "pica3": "c", "label": "Präfix (wenn nicht erstes Element des bevorzugten Namens)", "repeatable": false, "modified": "2019-11-28 15:04:28"},
         "n": {"code": "n", "pica3": "n", "label": "Zählung", "repeatable": false, "modified": "2019-11-28 15:04:35"},
@@ -1253,7 +1247,7 @@
       "repeatable": false,
       "modified": "2017-11-24 12:22:54",
       "subfields": {
-        "0": {"code": "0", "pica3": null, "label": "Swets-Nummer", "repeatable": false, "modified": "2019-11-28 13:32:22"}
+        "0": {"code": "0", "label": "Swets-Nummer", "repeatable": false, "modified": "2019-11-28 13:32:22"}
       }
     },
     "026C": {
@@ -1266,7 +1260,7 @@
       "subfields": {
         "T": {"code": "T", "pica3": "T", "label": "Feldzuordnung ", "repeatable": false, "modified": "2019-11-29 13:31:49"},
         "U": {"code": "U", "pica3": "U...%%", "label": "Schriftcode ", "repeatable": false, "modified": "2019-11-29 13:31:54"},
-        "a": {"code": "a", "pica3": null, "label": "Kurztitel nach DIN 1502", "repeatable": false, "modified": "2019-11-28 11:32:47"}
+        "a": {"code": "a", "label": "Kurztitel nach DIN 1502", "repeatable": false, "modified": "2019-11-28 11:32:47"}
       }
     },
     "033N": {
@@ -1293,7 +1287,7 @@
       "subfields": {
         "T": {"code": "T", "pica3": "T", "label": "Feldzuordnung", "repeatable": false, "modified": "2019-11-29 13:46:23"},
         "U": {"code": "U", "pica3": "U...%%", "label": "Schriftcode", "repeatable": false, "modified": "2019-11-29 13:46:27"},
-        "i": {"code": "i", "pica3": null, "label": "Einleitende Wendung", "repeatable": false, "modified": "2019-11-29 11:02:08"},
+        "i": {"code": "i", "label": "Einleitende Wendung", "repeatable": false, "modified": "2019-11-29 11:02:08"},
         "n": {"code": "n", "pica3": "n", "label": "Zeitliche Gültigkeit der Beziehung", "repeatable": false, "modified": "2019-11-29 11:02:16"},
         "7": {"code": "7", "pica3": "7", "label": "Vorläufiger Link", "repeatable": false, "modified": "2019-11-29 11:02:25"},
         "9": {"code": "9", "pica3": "!...!", "label": "PPN", "repeatable": false, "modified": "2019-11-29 11:02:38"},

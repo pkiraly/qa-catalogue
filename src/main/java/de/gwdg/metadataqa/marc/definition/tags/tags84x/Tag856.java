@@ -166,7 +166,7 @@ public class Tag856 extends DataFieldDefinition {
       .setCompilanceLevels("A");
 
     getSubfield("r")
-      .setMqTag("use");
+      .setMqTag("useAndReproductionRights");
 
     getSubfield("s")
       .setMqTag("fileSize")
@@ -243,7 +243,7 @@ public class Tag856 extends DataFieldDefinition {
       "k", "Password [OBSOLETE, 2020]", // "NR",
       "l", "Logon [OBSOLETE, 2020]", // "NR",
       "n", "Name of location of host [OBSOLETE, 2020]", // "NR",
-      "r", "Settings [OBSOLETE, 2020]", // "NR",
+      // "r", "Settings [OBSOLETE, 2020]", // "NR",
       "t", "Terminal emulation [OBSOLETE, 2020]"//, "R",
     );
   }

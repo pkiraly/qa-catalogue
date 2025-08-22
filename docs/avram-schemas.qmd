@@ -1,0 +1,102 @@
+# Avram Schemas
+
+The definition of valid MARC21 in QA catalogue is partly hard-coded in form of Java classes. The [Avram Schema format](https://format.gbv.de/schema/avram/specification) has been developed to encode information about MARC and related formats independent from implementations (see [MARC21 structure in JSON](http://pkiraly.github.io/2018/01/28/marc21-in-json/) for some historical background). The definition of PICA-based formats and UNIMARC has already been moved to Avram Schemas. Repository directory `avram-schemas` contains the following schema files:
+
+
+| Format | File |
+|--------|------|
+| [MARC21](./avram-schemas/marc.html) | [marc.json](./avram-schemas/marc.json)
+| [UNIMARC](./avram-schemas/unimarc.html) | [unimarc.json](./avram-schemas/unimarc.json)
+| [K10plus PICA (title)](./avram-schemas/k10plus-title.html) | [k10plus-title.json](./avram-schemas/k10plus-title.json)
+
+To check schema files against the Avram specification. Install a node script with `npm ci` and run:
+
+	./avram-schemas/validate-schemas
+
+To generate HTML display of schema files (see [Self Descriptive MARC code](http://pkiraly.github.io/2017/09/24/mapping/) for an earlier version):
+
+	./avram-schemas/html-schemas
+
+:::{.callout-note}
+See [issues related to Avram](https://github.com/pkiraly/qa-catalogue/issues?q=is%3Aissue%20state%3Aopen%20label%3Aavram)
+:::
+
+## Export Java classes to MARC21 schemas
+
+The script `export-schema`, implemented in [de.gwdg.metadataqa.marc.cli.utils.MappingToJson](https://github.com/pkiraly/qa-catalogue/blob/main/src/main/java/de/gwdg/metadataqa/marc/cli/utils/MappingToJson.java) can be used to export an Avram Schema for MARC21 from Java classes. Some additional, non-standard information is included on request.
+
+**Options:**
+
+- `-c`, `--withSubfieldCodelists`: with subfield codelists
+- `-s`, `--withSelfDescriptiveCode`: with self-descriptive codes
+- `-t <type>`, `--solrFieldType <type>`: type of Solr fields, could be one of `marc-tags`, `human-readable`, or `mixed`
+- `-f`, `--withFrbrFunctions`: with FRBR functions (see Tom Delsey: [Functional analysis of the MARC 21 bibliographic and holdings formats.](https://www.loc.gov/marc/marc-functional-analysis/original_source/analysis.pdf) Tech. report, 2nd revision. Library of Congress, 2003.)
+- `-l`, `--withComplianceLevel`: with compliance levels (national, minimal) (see [National Level Full and Minimal Requirements.](https://www.loc.gov/marc/bibliographic/nlr/nlr.html) Library of Congress, 1999.)
+
+To export the most used forms of the schema into into directory [`avram-schemas/`](https://github.com/pkiraly/qa-catalogue/tree/main/avram-schemas), call:
+
+
+```bash
+./qa-catalogue export-schema-files
+```
+
+The script version generates 3 files, with different details:
+
+- `avram-schemas/marc.json` (valid Avram)
+- `avram-schemas/marc-schema-with-solr.json`
+- `avram-schemas/marc-schema-with-solr-and-extensions.json`
+
+::: {#lst-avram-example}
+```json
+{
+"010":{
+  "tag":"010",
+  "label":"Library of Congress Control Number",
+  "url":"https://www.loc.gov/marc/bibliographic/bd010.html",
+  "repeatable":false,
+  "compilance-level":{
+    "national":"Mandatory if applicable",
+    "minimal":"Mandatory if applicable"
+  },
+  "indicator1":null,
+  "indicator2":null,
+  "subfields":{
+    "a":{
+      "label":"LC control number",
+      "repeatable":false,
+      "frbr-functions":[
+        "Data Management/Identify",
+        "Data Management/Process"
+      ],
+      "compilance-level":{
+        "national":"Mandatory if applicable",
+        "minimal":"Mandatory if applicable"
+      }
+    },
+    ...
+  }
+},
+"013":{
+  "tag":"013",
+  "label":"Patent Control Information",
+  "url":"https://www.loc.gov/marc/bibliographic/bd013.html",
+  "repeatable":true,
+  "compilance-level":{"national":"Optional"},
+  "indicator1":null,
+  "indicator2":null,
+  "subfields":{
+    "b":{
+      "label":"Country",
+      "repeatable":false,
+      "codelist":{
+        "name":"MARC Code List for Countries",
+        "url":"http://www.loc.gov/marc/countries/countries_code.html",
+        "codes":{
+          "aa":{"label":"Albania"},
+          "abc":{"label":"Alberta"},
+          "-ac":{"label":"Ashmore and Cartier Islands"},
+          "aca":{"label":"Australian Capital Territory"},
+```
+
+An excerpt of the MARC21 Avram Schema with extension `compliance-level`, `frbr-functions`, and code lists
+:::

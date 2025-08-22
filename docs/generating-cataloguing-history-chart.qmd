@@ -1,0 +1,23 @@
+---
+title: "Generating cataloguing history chart"
+---
+
+This analysis is based on Benjamin Schmidt's blog post [A brief visual history
+of MARC cataloging at the Library of Congress.](http://sappingattention.blogspot.com/2017/05/a-brief-visual-history-of-marc.html) (Tuesday, May 16, 2017).
+
+It produces a chart where the Y-axis is based on the "date entered on file"
+data element that indicates the date the MARC record was created (008/00-05),
+the X-axis is based on "Date 1" element (008/07-10).
+
+Usage:
+```bash
+catalogues/[catalogue].sh marc-history
+```
+or
+```bash
+./qa-catalogue --params="[options]" marc-history
+```
+
+options:
+
+* [general parameters](#general-parameters)

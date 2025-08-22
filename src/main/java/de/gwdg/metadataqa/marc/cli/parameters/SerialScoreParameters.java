@@ -19,6 +19,10 @@ public class SerialScoreParameters extends CommonParameters {
     }
   }
 
+  public SerialScoreParameters() {
+    super();
+  }
+
   public SerialScoreParameters(String[] arguments) throws ParseException {
     super(arguments);
 

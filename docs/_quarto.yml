@@ -1,0 +1,63 @@
+project:
+  type: book
+
+repo-url: https://github.com/pkiraly/qa-catalogue
+
+resources:
+  - avram-schemas/*.json
+  - avram-schemas/*.html
+
+book:
+  title: "QA Catalogue"
+  author: "Péter Király, Jakob Voß"
+  date: "2025-02-14"
+  repo-actions:
+    - source
+    - edit
+    - issue
+  chapters:
+    - index.qmd
+    #    - intro.qmd
+    - part: "Installation"
+      chapters:
+      - quick-start-guide.qmd
+      - build.qmd
+      - download.qmd
+    - part: usage.qmd
+      chapters:
+      - validate.qmd
+      - formatter.qmd
+      - completeness.qmd
+      - thompson-traill-completeness.qmd
+      - shelf-ready-completeness.qmd
+      - serial-score-analysis.qmd
+      - FRBR-functional-requirements.qmd
+      - classification.qmd
+      - authority-name-analysis.qmd
+      - field-frequency-distribution.qmd
+      - generating-cataloguing-history-chart.qmd
+      - import-tables-to-SQLite.qmd
+      - indexing.qmd
+      - avram-schemas.qmd
+      - Shacl4Bib.qmd
+  appendices:
+    - where-can-I-get-MARC-records.qmd
+    - handling-MARC-versions.qmd
+    - institutions-which-reportedly-use-this-tool.qmd
+    - supporters-and-sponsors.qmd
+    - special-build-process.qmd
+    - build-docker-image.qmd
+    - contributing.qmd
+#    - apidoc.qmd
+#    - summary.qmd
+#    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+    highlight-style: kate
+    css: style.css
+  #pdf:
+  #  documentclass: scrreprt

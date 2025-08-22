@@ -78,7 +78,7 @@ public class Control007Test {
       validator.getValidationErrors().get(0).getMarcPath());
     assertEquals("c",
       validator.getValidationErrors().get(0).getMessage());
-    assertEquals("hasInvalidValue",
+    assertEquals("invalidValue",
       validator.getValidationErrors().get(0).getType().getCode());
     assertEquals(ValidationErrorType.CONTROL_POSITION_INVALID_VALUE,
       validator.getValidationErrors().get(0).getType());
@@ -89,7 +89,7 @@ public class Control007Test {
       validator.getValidationErrors().get(1).getMarcPath());
     assertEquals(" ",
       validator.getValidationErrors().get(1).getMessage());
-    assertEquals("hasInvalidValue",
+    assertEquals("invalidValue",
       validator.getValidationErrors().get(1).getType().getCode());
     assertEquals(ValidationErrorType.CONTROL_POSITION_INVALID_VALUE,
       validator.getValidationErrors().get(1).getType());
@@ -809,7 +809,7 @@ public class Control007Test {
       validator.getValidationErrors().get(0).getMarcPath());
     assertEquals(" ",
       validator.getValidationErrors().get(0).getMessage());
-    assertEquals("hasInvalidValue",
+    assertEquals("invalidValue",
       validator.getValidationErrors().get(0).getType().getCode());
     assertEquals(ValidationErrorType.CONTROL_POSITION_INVALID_VALUE,
       validator.getValidationErrors().get(0).getType());
@@ -820,7 +820,7 @@ public class Control007Test {
       validator.getValidationErrors().get(1).getMarcPath());
     assertEquals(" ",
       validator.getValidationErrors().get(1).getMessage());
-    assertEquals("hasInvalidValue",
+    assertEquals("invalidValue",
       validator.getValidationErrors().get(1).getType().getCode());
     assertEquals(ValidationErrorType.CONTROL_POSITION_INVALID_VALUE,
       validator.getValidationErrors().get(1).getType());
@@ -831,7 +831,7 @@ public class Control007Test {
       validator.getValidationErrors().get(2).getMarcPath());
     assertEquals(" ",
       validator.getValidationErrors().get(2).getMessage());
-    assertEquals("hasInvalidValue",
+    assertEquals("invalidValue",
       validator.getValidationErrors().get(2).getType().getCode());
     assertEquals(ValidationErrorType.CONTROL_POSITION_INVALID_VALUE,
       validator.getValidationErrors().get(2).getType());

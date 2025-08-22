@@ -13,36 +13,41 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Check out the repository
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
 
-      - name: Set up JDK 11
-        uses: actions/setup-java@v3
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
         with:
-          java-version: '11'
+          java-version: '17'
           distribution: 'adopt'
 
       - name: Build with Maven
         run: mvn -B package --file pom.xml
 
       - name: Cache SonarCloud packages
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
 
       - name: Cache Maven packages
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      - name: Build and analyze with Sonar
+      - name: Build and analyze with SonarCloud (https://sonarcloud.io/summary/new_code?id=pkiraly_qa-catalogue)
+        if: ${{ github.actor != 'dependabot[bot]' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -50,12 +55,14 @@ jobs:
 
       # coverage report: https://app.codecov.io/gh/pkiraly/metadata-qa-marc
       - name: Pubish code coverage at codecov.io
-        uses: codecov/codecov-action@v3
+        if: ${{ github.actor != 'dependabot[bot]' }}
+        uses: codecov/codecov-action@v4
         with:
           file: ./**/target/site/jacoco/jacoco.xml
           name: codecov
 
-      # COVERALL_REPO_TOKEN is available as the TOKEN variable at https://coveralls.io/github/pkiraly/metadata-qa-marc
+      # COVERALL_REPO_TOKEN is available as the TOKEN variable at https://coveralls.io/github/pkiraly/qa-catalogue
       # coverage report: https://coveralls.io/github/pkiraly/metadata-qa-marc
       - name: Coveralls Coverage Report Submission
+        if: ${{ github.actor != 'dependabot[bot]' }}
         run: mvn coveralls:report -DrepoToken=${{ secrets.COVERALL_REPO_TOKEN }}

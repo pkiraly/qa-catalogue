@@ -3,7 +3,7 @@ package de.gwdg.metadataqa.marc.utils.alephseq;
 import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.Leader;
+import de.gwdg.metadataqa.marc.dao.MarcLeader;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.utils.marcreader.MarcMakerReader;
@@ -36,11 +36,11 @@ public class MarcMakerReaderTest {
     if (reader.hasNext())
       marc4jRecord = reader.next();
     assertNotNull(marc4jRecord);
-    BibliographicRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, Leader.Type.BOOKS, MarcVersion.GENT, "^");
+    BibliographicRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, MarcLeader.Type.BOOKS, MarcVersion.GENT, "^");
     assertNotNull(marcRecord);
 
     assertEquals("987874829", marcRecord.getId());
-    List<DataField> fields = marcRecord.getDatafield("022");
+    List<DataField> fields = marcRecord.getDatafieldsByTag("022");
     assertNotNull(fields);
     assertEquals(1, fields.size());
     DataField field = fields.get(0);
@@ -65,11 +65,11 @@ public class MarcMakerReaderTest {
     if (reader.hasNext())
       marc4jRecord = reader.next();
     assertNotNull(marc4jRecord);
-    BibliographicRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, Leader.Type.BOOKS, MarcVersion.GENT, "^");
+    BibliographicRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, MarcLeader.Type.BOOKS, MarcVersion.GENT, "^");
     assertNotNull(marcRecord);
 
     assertEquals("0123456789", marcRecord.getId());
-    List<DataField> fields = marcRecord.getDatafield("245");
+    List<DataField> fields = marcRecord.getDatafieldsByTag("245");
     assertNotNull(fields);
     assertEquals(1, fields.size());
     DataField field = fields.get(0);
@@ -94,11 +94,11 @@ public class MarcMakerReaderTest {
     if (reader.hasNext())
       marc4jRecord = reader.next();
     assertNotNull(marc4jRecord);
-    BibliographicRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, Leader.Type.BOOKS, MarcVersion.GENT, "^");
+    BibliographicRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, MarcLeader.Type.BOOKS, MarcVersion.GENT, "^");
     assertNotNull(marcRecord);
 
     assertEquals("rb1993000850", marcRecord.getId());
-    List<DataField> fields = marcRecord.getDatafield("505");
+    List<DataField> fields = marcRecord.getDatafieldsByTag("505");
     assertEquals(
       " 1. Everlasting -- 2. Jump start -- 3. The urge to merge -- 4. Split decision -- 5. When I fall in love -- 6. Pink Cadillac -- 7. I live for your love -- 8. In my reality.",
       fields.get(0).getSubfield("a").get(0).getValue());

@@ -5,12 +5,14 @@ import org.apache.commons.cli.ParseException;
 
 public class Shacl4bibParameters extends CommonParameters {
 
-  private static final String DEFAULT_SHACL_OUTPUT_FILE = "shacl4bib.csv";
-  private static final RuleCheckingOutputType DEFAULT_SHACL_OUTPUT_TYPE = RuleCheckingOutputType.STATUS;
-  private boolean isOptionSet = false;
-  private String shaclConfigurationFile;
-  private String shaclOutputFile = DEFAULT_SHACL_OUTPUT_FILE;
-  private RuleCheckingOutputType shaclOutputType = DEFAULT_SHACL_OUTPUT_TYPE;
+  // default settings
+  protected static final String DEFAULT_SHACL_OUTPUT_FILE = "shacl4bib.csv";
+  protected static final RuleCheckingOutputType DEFAULT_SHACL_OUTPUT_TYPE = RuleCheckingOutputType.STATUS;
+
+  protected boolean isOptionSet = false;
+  protected String shaclConfigurationFile;
+  protected String shaclOutputFile = DEFAULT_SHACL_OUTPUT_FILE;
+  protected RuleCheckingOutputType shaclOutputType = DEFAULT_SHACL_OUTPUT_TYPE;
 
   protected void setOptions() {
     if (!isOptionSet) {
@@ -54,9 +56,9 @@ public class Shacl4bibParameters extends CommonParameters {
   @Override
   public String formatParameters() {
     String text = super.formatParameters();
-    text += String.format("shaclConfigurationFile: %s%n", shaclConfigurationFile);
-    text += String.format("shaclOutputFile: %s%n", shaclOutputFile);
-    text += String.format("shaclOutputType: %s%n", shaclOutputType);
+    text += String.format("shaclConfigurationFile: %s%n", getShaclConfigurationFile());
+    text += String.format("shaclOutputFile: %s%n", getShaclOutputFile());
+    text += String.format("shaclOutputType: %s%n", getShaclOutputType());
     return text;
  }
 }

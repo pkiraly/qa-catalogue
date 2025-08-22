@@ -1,25 +1,18 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.api.calculator.output.MetricCollector;
-import de.gwdg.metadataqa.api.calculator.output.OutputCollector;
-import de.gwdg.metadataqa.api.configuration.ConfigurationReader;
-import de.gwdg.metadataqa.api.configuration.SchemaConfiguration;
 import de.gwdg.metadataqa.api.configuration.schema.Rule;
-import de.gwdg.metadataqa.api.interfaces.MetricResult;
 import de.gwdg.metadataqa.api.json.DataElement;
 import de.gwdg.metadataqa.api.rule.RuleCatalog;
-import de.gwdg.metadataqa.api.rule.RuleCheckingOutputType;
 import de.gwdg.metadataqa.api.schema.BaseSchema;
 import de.gwdg.metadataqa.api.schema.Schema;
-import de.gwdg.metadataqa.api.util.CompressionLevel;
 import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.CsvUtils;
 import de.gwdg.metadataqa.marc.RuleCatalogUtils;
-import de.gwdg.metadataqa.marc.cli.utils.BibSelector;
+import de.gwdg.metadataqa.marc.TestUtils;
 import de.gwdg.metadataqa.marc.cli.utils.MarcSpecSelector;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
+import de.gwdg.metadataqa.marc.dao.record.Marc21BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.tags.tags20x.Tag245;
 import de.gwdg.metadataqa.marc.definition.tags.tags3xx.Tag300;
 import org.apache.commons.cli.ParseException;
@@ -43,8 +36,8 @@ public class Shacl4bibTest extends CliTestUtils {
 
   @Before
   public void setUp() throws Exception {
-    inputFile = getPath("src/test/resources/alephseq/alephseq-example3.txt");
-    outputDir = getPath("src/test/resources/output");
+    inputFile = TestUtils.getPath("alephseq/alephseq-example3.txt");
+    outputDir = TestUtils.getPath("output");
     outputFiles = Arrays.asList(
       "shacl.csv"
     );
@@ -59,7 +52,7 @@ public class Shacl4bibTest extends CliTestUtils {
       "--marcVersion", "GENT",
       "--alephseq",
       "--outputDir", outputDir,
-      "--shaclConfigurationFile", getPath("src/test/resources/shacl/kbr-small.yaml"),
+      "--shaclConfigurationFile", TestUtils.getPath("shacl/kbr-small.yaml"),
       "--shaclOutputFile", "shacl.csv",
       inputFile
     });
@@ -87,7 +80,7 @@ public class Shacl4bibTest extends CliTestUtils {
       "--marcVersion", "GENT",
       "--alephseq",
       "--outputDir", outputDir,
-      "--shaclConfigurationFile", getPath("src/test/resources/shacl/kbr-small.yaml"),
+      "--shaclConfigurationFile", TestUtils.getPath("shacl/kbr-small.yaml"),
       "--shaclOutputFile", "shacl.csv",
       inputFile
     });
@@ -113,7 +106,7 @@ public class Shacl4bibTest extends CliTestUtils {
       "--marcVersion", "GENT",
       "--alephseq",
       "--outputDir", outputDir,
-      "--shaclConfigurationFile", getPath("src/test/resources/shacl/kbr-small.json"),
+      "--shaclConfigurationFile", TestUtils.getPath("shacl/kbr-small.json"),
       "--shaclOutputFile", "shacl.csv",
       inputFile
     });
@@ -146,7 +139,7 @@ public class Shacl4bibTest extends CliTestUtils {
 
   @Test
   public void testField_without_subfield() {
-    Marc21Record marcRecord = new Marc21Record("u2407796");
+    Marc21BibliographicRecord marcRecord = new Marc21BibliographicRecord("u2407796");
     marcRecord.addDataField(new DataField(Tag245.getInstance(),"0", "0",
       "6", "880-01",
       "a", "iPhone the Bible wan jia sheng jing."
@@ -157,57 +150,172 @@ public class Shacl4bibTest extends CliTestUtils {
     RuleCatalog ruleCatalog = RuleCatalogUtils.create(schema);
 
     MarcSpecSelector selector = new MarcSpecSelector(marcRecord);
-    assertEquals("880-01 iPhone the Bible wan jia sheng jing.", selector.extract("245").get(0));
+    Object extracted = selector.extract("245");
+    List<DataField> fields = (List<DataField>) extracted;
+    assertEquals("DataField{245, ind1='0', ind2='0', subfields=[MarcSubfield{code='6', value='880-01'}, MarcSubfield{code='a', value='iPhone the Bible wan jia sheng jing.'}]}", fields.get(0).toString());
     List<Object> values = RuleCatalogUtils.extract(ruleCatalog, ruleCatalog.measure(selector));
     assertEquals("1", CsvUtils.createCsvFromObjects(values).trim());
   }
 
   @Test
   public void testField_depends_on_existing_fiels() {
-    Marc21Record marcRecord = new Marc21Record("u2407796");
+    Marc21BibliographicRecord marcRecord = new Marc21BibliographicRecord("u2407796");
     marcRecord.addDataField(new DataField(Tag245.getInstance(),"0", "0",
-            "6", "880-01",
-            "a", "iPhone the Bible wan jia sheng jing."
+      "6", "880-01",
+      "a", "iPhone the Bible wan jia sheng jing."
     ));
     marcRecord.addDataField(new DataField(Tag300.getInstance()," ", " ",
-            "a", "tIII, 83 Bl.",
-            "b", "graph. Darst."
+      "a", "tIII, 83 Bl.",
+      "b", "graph. Darst."
     ));
 
     Schema schema = new BaseSchema()
-      .addField(new DataElement("245", "245").setRule(List.of(new Rule().withId("245").withMinCount(1).withHidden(true))))
-      .addField(new DataElement("300a", "300$a").setRule(List.of(new Rule().withId("300$a").withAnd(
+      .addField(new DataElement("245", "245")
+        .setRule(List.of(new Rule().withId("245").withMinCount(1).withHidden(true))))
+      .addField(new DataElement("300a", "300$a")
+        .setRule(List.of(new Rule().withId("300$a").withAnd(
               List.of(new Rule().withDependencies(List.of("245")), new Rule().withMinCount(1))
       ))))
     ;
     RuleCatalog ruleCatalog = RuleCatalogUtils.create(schema);
 
     MarcSpecSelector selector = new MarcSpecSelector(marcRecord);
-    assertEquals("880-01 iPhone the Bible wan jia sheng jing.", selector.extract("245").get(0));
+    Object extracted = selector.extract("245");
+    List<DataField> fields = (List<DataField>) extracted;
+    assertEquals("DataField{245, ind1='0', ind2='0', subfields=[MarcSubfield{code='6', value='880-01'}, MarcSubfield{code='a', value='iPhone the Bible wan jia sheng jing.'}]}", fields.get(0).toString());
     List<Object> values = RuleCatalogUtils.extract(ruleCatalog, ruleCatalog.measure(selector));
-    System.err.println(ruleCatalog.getHeader());
+    assertEquals(List.of("300$a"), ruleCatalog.getHeader());
     assertEquals("1", CsvUtils.createCsvFromObjects(values).trim());
   }
 
   @Test
   public void testField_fail_if_depends_on_nonexisting_field() {
-    Marc21Record marcRecord = new Marc21Record("u2407796");
-    marcRecord.addDataField(new DataField(Tag245.getInstance(),"0", "0", "6", "880-01", "a", "iPhone the Bible wan jia sheng jing."));
-    marcRecord.addDataField(new DataField(Tag300.getInstance()," ", " ", "a", "tIII, 83 Bl.", "b", "graph. Darst."));
+    Marc21BibliographicRecord marcRecord = new Marc21BibliographicRecord("u2407796");
+    marcRecord.addDataField(new DataField(Tag245.getInstance(),"0", "0",
+      "6", "880-01", "a", "iPhone the Bible wan jia sheng jing."));
+    marcRecord.addDataField(new DataField(Tag300.getInstance()," ", " ",
+      "a", "tIII, 83 Bl.", "b", "graph. Darst."));
 
     Schema schema = new BaseSchema()
-            .addField(new DataElement("245", "245").setRule(List.of(new Rule().withId("245").withMinCount(1).withHidden(true))))
-            .addField(new DataElement("100", "100").setRule(List.of(new Rule().withId("100").withMinCount(1).withHidden(true))))
-            .addField(new DataElement("300a", "300$a").setRule(List.of(new Rule().withId("300$a").withAnd(
+      .addField(new DataElement("245", "245").setRule(List.of(new Rule().withId("245").withMinCount(1).withHidden(true))))
+      .addField(new DataElement("100", "100").setRule(List.of(new Rule().withId("100").withMinCount(1).withHidden(true))))
+      .addField(new DataElement("300a", "300$a").setRule(List.of(new Rule().withId("300$a").withAnd(
                     List.of(new Rule().withDependencies(List.of("100")), new Rule().withMinCount(1))
-            ))))
-            ;
+      ))))
+    ;
     RuleCatalog ruleCatalog = RuleCatalogUtils.create(schema);
 
     MarcSpecSelector selector = new MarcSpecSelector(marcRecord);
-    assertEquals("880-01 iPhone the Bible wan jia sheng jing.", selector.extract("245").get(0));
+    Object extracted = selector.extract("245");
+    List<DataField> list = (List<DataField>) extracted;
+    assertEquals("DataField{245, ind1='0', ind2='0', subfields=[MarcSubfield{code='6', value='880-01'}, MarcSubfield{code='a', value='iPhone the Bible wan jia sheng jing.'}]}",
+      list.get(0).toString());
     List<Object> values = RuleCatalogUtils.extract(ruleCatalog, ruleCatalog.measure(selector));
-    System.err.println(ruleCatalog.getHeader());
+    assertEquals(List.of("300$a"), ruleCatalog.getHeader());
     assertEquals("0", CsvUtils.createCsvFromObjects(values).trim());
+  }
+
+  @Test
+  public void both_independent_and_dependent_exist() {
+    Marc21BibliographicRecord marcRecord = new Marc21BibliographicRecord("u2407796");
+    marcRecord.addDataField(new DataField(Tag245.getInstance(),"0", "0",
+      "6", "880-01", "a", "iPhone the Bible wan jia sheng jing."));
+
+    Schema schema = new BaseSchema()
+      .addField(new DataElement("245", "245")
+        .addRule(
+          new Rule()
+            .withId("245")
+            .withMinCount(1)
+            .withHidden(true)
+        ))
+      .addField(new DataElement("245$a", "245$a")
+        .addRule(
+          new Rule()
+            .withId("245$a")
+            .withAnd(
+              List.of(
+                new Rule().withDependencies(List.of("245")),
+                new Rule().withMinCount(1)
+              )
+            )
+        ))
+      ;
+    RuleCatalog ruleCatalog = RuleCatalogUtils.create(schema);
+
+    MarcSpecSelector selector = new MarcSpecSelector(marcRecord);
+    List<Object> values = RuleCatalogUtils.extract(ruleCatalog, ruleCatalog.measure(selector));
+    assertEquals(List.of("245$a"), ruleCatalog.getHeader());
+    assertEquals("1", CsvUtils.createCsvFromObjects(values).trim());
+  }
+
+  @Test
+  public void independent_exists_and_dependent_does_not_exist() {
+    Marc21BibliographicRecord marcRecord = new Marc21BibliographicRecord("u2407796");
+    marcRecord.addDataField(new DataField(Tag245.getInstance(),"0", "0",
+      "6", "880-01", "a", "iPhone the Bible wan jia sheng jing."));
+
+    Schema schema = new BaseSchema()
+      .addField(new DataElement("245", "245")
+        .addRule(
+          new Rule()
+            .withId("245")
+            .withMinCount(1)
+            .withHidden(true)
+        ))
+      .addField(new DataElement("245$b", "245$b")
+        .addRule(
+          new Rule()
+            .withId("245$b")
+            .withAnd(
+              List.of(
+                new Rule().withDependencies(List.of("245")),
+                new Rule().withMinCount(1)
+              )
+            )
+        ))
+      ;
+    RuleCatalog ruleCatalog = RuleCatalogUtils.create(schema);
+
+    MarcSpecSelector selector = new MarcSpecSelector(marcRecord);
+    List<Object> values = RuleCatalogUtils.extract(ruleCatalog, ruleCatalog.measure(selector));
+    assertEquals(List.of("245$b"), ruleCatalog.getHeader());
+    assertEquals("NA", CsvUtils.createCsvFromObjects(values).trim());
+  }
+
+  @Test
+  public void testField_fail_if_depends_on_nonexisting_field3() {
+    Marc21BibliographicRecord marcRecord = new Marc21BibliographicRecord("u2407796");
+    marcRecord.addDataField(new DataField(Tag245.getInstance(),"0", "0",
+      "6", "880-01", "a", "iPhone the Bible wan jia sheng jing."));
+
+    Schema schema = new BaseSchema()
+      .addField(new DataElement("246", "246")
+        .addRule(
+          new Rule()
+            .withId("246")
+            .withMinCount(1)
+            .withHidden(true)
+            .withDebug(true)
+        ))
+      .addField(new DataElement("246$a", "246$a")
+        .addRule(
+          new Rule()
+            .withId("246$a")
+            .withAnd(
+              List.of(
+                new Rule().withDependencies(List.of("246")).withDebug(true),
+                new Rule().withMinCount(1).withDebug(true)
+              )
+            )
+            .withDebug(true)
+        ))
+      ;
+    RuleCatalog ruleCatalog = RuleCatalogUtils.create(schema);
+
+    MarcSpecSelector selector = new MarcSpecSelector(marcRecord);
+    List<Object> values = RuleCatalogUtils.extract(ruleCatalog, ruleCatalog.measure(selector));
+    assertEquals(List.of("246$a"), ruleCatalog.getHeader());
+    assertEquals("NA", CsvUtils.createCsvFromObjects(values).trim());
   }
 }

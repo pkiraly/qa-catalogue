@@ -2,6 +2,7 @@ package de.gwdg.metadataqa.marc.definition.tags.tags5xx;
 
 import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
+import de.gwdg.metadataqa.marc.definition.general.parser.RecordControlNumberParser;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.definition.general.codelist.AccessRestrictionTermSourceCodes;
@@ -53,10 +54,12 @@ public class Tag540 extends DataFieldDefinition {
       "b", "Jurisdiction", "NR",
       "c", "Authorization", "NR",
       "d", "Authorized users", "NR",
-      "f", "Use and reproduction rights", "R",
+      "f", "Standardized terminology for use and reproduction rights", "R",
       "g", "Availability date", "R",
       "q", "Supplying agency", "NR",
       "u", "Uniform Resource Identifier", "R",
+      "0", "Authority record control number or standard number", "R",
+      "1", "Real World Object URI", "R",
       "2", "Source of term", "NR",
       "3", "Materials specified", "NR",
       "5", "Institution to which field applies", "NR",
@@ -100,6 +103,13 @@ public class Tag540 extends DataFieldDefinition {
       .setBibframeTag("rdfs:label").setMqTag("uri")
       .setFrbrFunctions(DiscoverySelect)
       .setCompilanceLevels("O");
+
+    getSubfield("0")
+      .setMqTag("authorityRecordControlNumber")
+      .setContentParser(RecordControlNumberParser.getInstance());
+
+    getSubfield("1")
+      .setMqTag("realWorldObjectUri");
 
     getSubfield("2")
       .setMqTag("source");

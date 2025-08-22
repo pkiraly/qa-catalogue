@@ -3,7 +3,8 @@
 . ./setdir.sh
 
 NAME=rism
-MARC_DIR=${BASE_INPUT_DIR}/rism
+# index parameters
+TYPE_PARAMS="${TYPE_PARAMS} --indexWithTokenizedField --indexFieldCounts --indexSubfieldCounts"
 MASK=*.mrc
 
 . ./common-script

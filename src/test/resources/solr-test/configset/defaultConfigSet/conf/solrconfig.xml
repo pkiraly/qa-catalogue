@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <config>
-  <luceneMatchVersion>8.8.1</luceneMatchVersion>
+  <luceneMatchVersion>9.11</luceneMatchVersion>
   <indexConfig>
     <useCompoundFile>${useCompoundFile:false}</useCompoundFile>
     <lockType>${solr.lock.type:single}</lockType>
   </indexConfig>
-  <dataDir>${solr.data.dir:data}</dataDir>
-  <directoryFactory name="DirectoryFactory" class="${solr.directoryFactory:solr.RAMDirectoryFactory}"/>
+  <dataDir>${solr.data.dir:}</dataDir>
+
+  <directoryFactory name="DirectoryFactory"
+                    class="solr.MMapDirectoryFactory">
+    <bool name="preload">true</bool>
+  </directoryFactory>
+
   <schemaFactory class="ClassicIndexSchemaFactory"/>
 
   <updateHandler class="solr.DirectUpdateHandler2">

@@ -5,6 +5,7 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.sax.TransformerHandler;
@@ -49,9 +50,11 @@ public class PicaXmlParser {
     final SAXParserFactory spf = SAXParserFactory.newInstance();
     XMLReader reader = null;
     try {
+      spf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
       reader = spf.newSAXParser().getXMLReader();
       reader.setFeature("http://xml.org/sax/features/namespaces", true);
       reader.setFeature("http://xml.org/sax/features/namespace-prefixes", true);
+      reader.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
       reader.setContentHandler(handler);
       reader.parse(input);
     } catch (final Exception e) {

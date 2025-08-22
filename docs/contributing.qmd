@@ -1,0 +1,120 @@
+# Contributing
+
+QA catalogue is developed in a git repository at <https://github.com/pkiraly/qa-catalogue>. Bug reports and feature requests are managed in [the corresponding issue tracker](https://github.com/pkiraly/qa-catalogue/issues).
+
+Contribution is welcome at:
+
+- discussion of features in the issue tracker or mailing list
+- [documentation](#documentation)
+- [source code](#source-code)
+
+## Documentation
+
+The documentation is build with quarto. It is published at <https://pkiraly.github.io/qa-catalogue/> with every change on the `main` branch and on the `docs` branch.
+
+## Source code
+
+We try to follow this git workflow:
+
+### 1st scenario: preparing the first pull request
+
+clone QA catalogue at https://github.com/pkiraly/qa-catalogue.git then
+
+```
+git clone https://github.com/YOUR_NAME/qa-catalogue.git qa-catalogue
+cd qa-catalogue
+```
+
+create a new branch locally for the pull request (the name should reflect the ticket ID and title)
+```
+git checkout -b 123-COOL-FEATURE
+```
+
+working on the branch ... then commit changes
+```
+git commit -am "issue #123: explanation of changes"
+```
+
+upload the new branch to https://github.com/YOUR_NAME/qa-catalogue
+```
+git push -u origin 123-COOL-FEATURE
+```
+
+... then create pull request at github.com/YOUR_NAME/qa-catalogue
+
+### 2nd scenario: preparing another pull request some month later
+register the main QA catalogue repo
+```
+git remote add upstream https://github.com/pkiraly/qa-catalogue.git
+
+git checkout main
+```
+
+update local develop branch from https://github.com/pkiraly/qa-catalogue
+```
+git fetch upstream main
+git rebase upstream/main
+```
+
+update remote develop branch at https://github.com/YOUR_NAME/qa-catalogue
+```
+git push
+```
+
+create a new branch locally for the pull request
+```
+git checkout -b 123-COOL-FEATURE
+```
+
+work on the branch and commit changes
+```
+git commit -am "#123 explanation of changes"
+```
+
+upload the new branch to https://github.com/YOUR_NAME/qa-catalogue
+```
+git push -u origin 123-COOL-FEATURE
+```
+
+... then create pull request at github.com/YOUR_NAME/qa-catalogue
+
+### 3rd scenario: synchronize your branch with main branch
+```
+git checkout main
+```
+
+update local develop branch from https://github.com/pkiraly/qa-catalogue
+```
+git fetch upstream main
+git rebase upstream/main
+```
+
+update remote develop branch at https://github.com/YOUR_NAME/qa-catalogue
+```
+git push
+```
+
+change to the already existing feature branch
+```
+git checkout 123-COOL-FEATURE
+```
+
+merge changes of develop to the feature branch
+```
+git merge main
+```
+
+check if there are conflicts, if there are follow the next command, otherwise skip to next block
+1. fix the relevant files (including testing)
+2. commit changes
+```
+git add <fixed files>
+git commit
+```
+
+update remote feature branch at https://github.com/YOUR_NAME/qa-catalogue
+```
+git push
+```
+
+

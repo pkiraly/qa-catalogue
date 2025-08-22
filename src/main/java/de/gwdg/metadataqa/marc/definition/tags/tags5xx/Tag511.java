@@ -60,6 +60,7 @@ public class Tag511 extends DataFieldDefinition {
 
     setSubfieldsWithCardinality(
       "a", "Participant or performer note", "NR",
+      "3", "Materials specified", "NR",
       "6", "Linkage", "NR",
       "8", "Field link and sequence number", "R"
     );
@@ -70,6 +71,8 @@ public class Tag511 extends DataFieldDefinition {
       .setMqTag("rdf:value")
       .setFrbrFunctions(DiscoveryIdentify, DiscoverySelect)
       .setCompilanceLevels("M");
+
+    getSubfield("3").setMqTag("materialsSpecified");
 
     getSubfield("6")
       .setBibframeTag("linkage")

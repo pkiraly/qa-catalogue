@@ -1,0 +1,112 @@
+# Used to start the base image with `docker compose up -d`
+# variables
+# backend
+# CLI_IMAGE: the backend Docker image (ghcr.io/pkiraly/qa-catalogue-slim:main)
+# CLI_CONTAINER: the name of backend Docker container (qa-catalogue)
+# INPUT: the input directory where bibliographical records take place
+# OUTPUT: the output directory of the process
+# LOGS: the directory where logs will take place
+#
+# frontend
+# WEB_IMAGE: the frontend Docker image (ghcr.io/pkiraly/qa-catalogue-web:main)
+# WEB_CONTAINER: the name of frontend Docker container
+# BASE_OUTPUT_DIR
+# WEB_PORT: the port where the frontend can be accessed
+# WEB_CONFIG: the directory where web config take place
+#
+# Solr
+# SOLR_CONTAINER: the name of Solr Docker container (qa-catalogue-solr)
+# SOLR_PROTOCOL: the Solr internet protocol (http)
+# SOLR_DOMAIN: the Solr domain (solr)
+# SOLR_PORT: the Solr port (8983)
+# SOLR_DATA: the local directory on the host where Solr data wil be stored (./solr-data)
+# SOLR_ENTRY: the directory where the Solr initialisation scripts take place (./docker/solr-entrypoint)
+
+services:
+
+  solr:
+    image: solr:9.6.1
+    ports:
+      - "${SOLR_PORT:-8983}:8983"
+    volumes:
+      # Create directory up front with the right permissions, eg.:
+      # mkdir ./solr-data && sudo chown -R 8983:8983 ./solr-data && sudo chmod -R 777 ./solr-data
+      - ${SOLR_DATA:-./solr-data}:/var/solr/data
+      - ${SOLR_ENTRY:-./docker/solr-entrypoint}:/docker-entrypoint-initdb.d
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl -s http://localhost:8983",
+        ]
+      interval: 10s
+      timeout: 10s
+      retries: 120
+    restart: on-failure
+    container_name: ${SOLR_CONTAINER:-qa-catalogue-solr}
+    networks:
+      - qa-catalogue-backend
+
+  cli:
+    depends_on:
+      solr:
+        condition: service_healthy
+    # image: ${IMAGE:-pkiraly/metadata-qa-marc}
+    image: ${CLI_IMAGE:-ghcr.io/pkiraly/qa-catalogue-slim:main}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./${INPUT:-input}:/opt/qa-catalogue/marc/input
+      - ./${OUTPUT:-output}:/opt/qa-catalogue/marc/output
+      - ./${LOGS:-logs}:/opt/qa-catalogue/marc/logs
+      - ./catalogues:/opt/qa-catalogue/catalogues
+      - ./${WEB_CONFIG:-web-config}:/opt/qa-catalogue/web-config
+      #      - ./${WEB_CONFIG:-web-config}:/var/www/html/qa-catalogue/web-config
+      - /etc/timezone:/etc/timezone:ro    # Sync timezone
+      - /etc/localtime:/etc/localtime:ro  # Sync localtime
+      # ports:
+      #- "${WEB_PORT:-80}:80"       # qa-catalogue-web
+      #- "${SOLR_PORT:-8983}:8983"  # Solr
+    environment:
+      # SOLR_PROTOCOL: ${SOLR_PROTOCOL:-http}
+      # SOLR_DOMAIN: ${SOLR_DOMAIN:-solr}
+      # SOLR_PORT: ${SOLR_PORT:-8983}
+      # SOLR_HOST: "${SOLR_PROTOCOL}://${SOLR_DOMAIN}:${SOLR_PORT}"
+      # SOLR_BASE_URL: "http://solr:8983"
+      SOLR_HOST: "http://solr:8983"
+
+    container_name: ${CLI_CONTAINER:-qa-catalogue}
+    networks:
+      - qa-catalogue-backend
+
+  app:
+    image: ${WEB_IMAGE:-ghcr.io/pkiraly/qa-catalogue-web:main}
+    volumes:
+      - ./${OUTPUT:-output}:/var/www/html/metadata-qa
+      # - ./${CONFIG:-config}:/var/www/html/config
+      - ./${WEB_CONFIG:-web-config}:/var/www/html/config
+      - /etc/timezone:/etc/timezone:ro    # Sync timezone
+      - /etc/localtime:/etc/localtime:ro  # Sync localtime
+    ports:
+      - ${WEB_PORT:-90}:80
+    environment:
+      IS_DOCKERIZED: true
+      SOLR_PROTOCOL: ${SOLR_PROTOCOL:-http}
+      SOLR_DOMAIN: ${SOLR_DOMAIN:-solr}
+      SOLR_PORT: ${SOLR_PORT:-8983}
+      SOLR_HOST: "${SOLR_PROTOCOL}://${SOLR_DOMAIN}:${SOLR_PORT}"
+    container_name: ${WEB_CONTAINER:-qa-catalogue-web}
+    networks:
+      - qa-catalogue-backend
+    depends_on:
+      solr:
+        condition: service_healthy
+    # qa-catalogue (backend) and Solr must be on the same network (but may also be non-Docker!)
+    # extra_hosts:
+    #   - qa-catalogue-solr-host:host-gateway
+
+networks:
+  qa-catalogue-backend:
+    name: qa-catalogue-backend
+#    external: true

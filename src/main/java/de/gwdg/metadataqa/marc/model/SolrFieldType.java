@@ -7,16 +7,18 @@ public enum SolrFieldType {
   MIXED("mixed"),
   ;
 
-  private String type;
+  private final String type;
 
   SolrFieldType(String type) {
     this.type = type;
   }
 
   public static SolrFieldType byCode(String code) {
-    for (SolrFieldType type : values())
-      if (type.type.equalsIgnoreCase(code))
+    for (SolrFieldType type : values()) {
+      if (type.type.equalsIgnoreCase(code)) {
         return type;
+      }
+    }
     return null;
   }
 

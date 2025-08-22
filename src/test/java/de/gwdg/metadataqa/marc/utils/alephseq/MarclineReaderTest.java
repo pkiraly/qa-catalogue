@@ -3,10 +3,10 @@ package de.gwdg.metadataqa.marc.utils.alephseq;
 import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.Leader;
 import de.gwdg.metadataqa.marc.dao.MarcControlField;
+import de.gwdg.metadataqa.marc.dao.MarcLeader;
 import de.gwdg.metadataqa.marc.dao.MarcPositionalControlField;
-import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
+import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.utils.marcreader.MarclineReader;
 import org.junit.Test;
@@ -41,11 +41,11 @@ public class MarclineReaderTest {
     if (reader.hasNext())
       marc4jRecord = reader.next();
     assertNotNull(marc4jRecord);
-    BibliographicRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, Leader.Type.BOOKS, MarcVersion.GENT, "^");
+    Marc21Record marcRecord = (Marc21Record) MarcFactory.createFromMarc4j(marc4jRecord, MarcLeader.Type.BOOKS, MarcVersion.GENT, "^");
     assertNotNull(marcRecord);
 
     assertEquals("010000011", marcRecord.getId());
-    List<DataField> fields = marcRecord.getDatafield("035");
+    List<DataField> fields = marcRecord.getDatafieldsByTag("035");
     assertNotNull(fields);
     assertEquals(3, fields.size());
     DataField field = fields.get(0);
@@ -98,7 +98,7 @@ public class MarclineReaderTest {
       "Language code of text/sound track or separate title: German\n" +
       "[044: Country of Publishing/Producing Entity Code]\n" +
       "ISO country code: XA-DE\n" +
-      "[084: Other Classificaton Number]\n" +
+      "[084: Other Classification Number]\n" +
       "Classification number: 58.55\n" +
       "Number source: Basisklassifikation\n" +
       "[245: Title Statement]\n" +
@@ -262,6 +262,7 @@ public class MarclineReaderTest {
       "2: 77\n" +
       "1: 01\n" +
       "a: 86.539\n";
+    expected = expected.replace("\n", System.lineSeparator());
     assertEquals(expected, formatted);
 
     formatted = marcRecord.formatAsMarc();
@@ -401,6 +402,7 @@ public class MarclineReaderTest {
       "985_2: 77\n" +
       "985_1: 01\n" +
       "985_a: 86.539\n";
+    expected = expected.replace("\n", System.lineSeparator());
     assertEquals(expected, formatted);
 
     Map<String, List<String>> pairs = marcRecord.getKeyValuePairs();
@@ -430,7 +432,7 @@ public class MarclineReaderTest {
     if (reader.hasNext())
       marc4jRecord = reader.next();
     assertNotNull(marc4jRecord);
-    BibliographicRecord marcRecord = MarcFactory.createFromMarc4j(marc4jRecord, Leader.Type.BOOKS, MarcVersion.GENT, "#");
+    Marc21Record marcRecord = (Marc21Record) MarcFactory.createFromMarc4j(marc4jRecord, MarcLeader.Type.BOOKS, MarcVersion.GENT, "#");
     assertNotNull(marcRecord);
     assertEquals("tu   ", marcRecord.getControl007().get(0).getContent());
   }

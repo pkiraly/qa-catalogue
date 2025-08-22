@@ -1,14 +1,13 @@
 #!/usr/bin/env bash
-#
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # create two Solr cores if the are not exist: <name>_1 and <name>_2
 # Theit physical location will remain <name>_1 and <name>_2, but they
 # will be accessible as <name> (for the current production)
 # and <name>_dev for the new version which is just in the creation.
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#
+set -ueo pipefail
 
-. ./solr-functions
+source ./solr-functions
 
 DB=$1
 
@@ -17,25 +16,26 @@ CORE2=${DB}_2
 CORE_PROD=${DB}
 CORE_DEV=${DB}_dev
 
-PROD_EXISTS=$(check_core $CORE_PROD)
+echo "check_core()"
+PROD_EXISTS=$(check_core "$CORE_PROD")
 echo "$CORE_PROD exists: $PROD_EXISTS"
 if [[ $PROD_EXISTS != 1 ]]; then
   echo "Create Solr core '$CORE1'"
-  create_core $CORE1
-  prepare_schema $CORE1
-  rename_core $CORE1 $CORE_PROD
+  create_core "$CORE1"
+  prepare_schema "$CORE1"
+  rename_core "$CORE1" "$CORE_PROD"
 fi
 
-DEV_EXISTS=$(check_core $CORE_DEV)
+DEV_EXISTS=$(check_core "$CORE_DEV")
 echo "$CORE_DEV exists: $DEV_EXISTS"
 if [[ $DEV_EXISTS != 1 ]]; then
   echo "Create Solr core '$CORE2'"
-  create_core $CORE2
-  prepare_schema $CORE2
-  rename_core $CORE2 $CORE_DEV
+  create_core "$CORE2"
+  prepare_schema "$CORE2"
+  rename_core "$CORE2" "$CORE_DEV"
 fi
 
 echo "Prepare schema"
-prepare_schema $CORE_DEV
+prepare_schema "$CORE_DEV"
 
 echo "Solr preparation DONE"

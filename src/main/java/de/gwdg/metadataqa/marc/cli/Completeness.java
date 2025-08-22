@@ -2,8 +2,8 @@ package de.gwdg.metadataqa.marc.cli;
 
 import de.gwdg.metadataqa.marc.CsvUtils;
 import de.gwdg.metadataqa.marc.Utils;
-import de.gwdg.metadataqa.marc.analysis.completeness.CompletenessDAO;
 import de.gwdg.metadataqa.marc.analysis.GroupSelector;
+import de.gwdg.metadataqa.marc.analysis.completeness.CompletenessDAO;
 import de.gwdg.metadataqa.marc.analysis.completeness.RecordCompleteness;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.CompletenessParameters;
@@ -83,6 +83,7 @@ public class Completeness extends QACli<CompletenessParameters> implements Bibli
       System.exit(0);
     }
     RecordIterator iterator = new RecordIterator(processor);
+    iterator.setProcessWithErrors(processor.getParameters().getProcessRecordsWithoutId());
     iterator.start();
   }
 
@@ -98,7 +99,7 @@ public class Completeness extends QACli<CompletenessParameters> implements Bibli
 
   @Override
   public void processRecord(BibliographicRecord marcRecord, int recordNumber, List<ValidationError> errors) throws IOException {
-    // do nothing
+    processRecord(marcRecord, recordNumber);
   }
 
   @Override
@@ -397,7 +398,7 @@ public class Completeness extends QACli<CompletenessParameters> implements Bibli
       tagLabel = tagHierarchy.getTagLabel();
       subfieldLabel = tagHierarchy.getSubfieldLabel();
     } else {
-      logger.severe("Key can not be found in the TagHierarchy: " + marcPathLabel);
+      logger.severe(() -> "Key can not be found in the TagHierarchy: " + marcPathLabel);
     }
 
     // Integer cardinality = entry.getValue();

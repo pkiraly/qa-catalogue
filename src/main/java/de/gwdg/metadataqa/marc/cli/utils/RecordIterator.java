@@ -1,11 +1,11 @@
 package de.gwdg.metadataqa.marc.cli.utils;
 
+import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.Utils;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
-import de.gwdg.metadataqa.marc.dao.Leader;
-import de.gwdg.metadataqa.marc.MarcFactory;
-import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
+import de.gwdg.metadataqa.marc.dao.MarcLeader;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.DataSource;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
@@ -14,13 +14,16 @@ import de.gwdg.metadataqa.marc.utils.marcreader.AlephseqMarcReader;
 import de.gwdg.metadataqa.marc.utils.marcreader.ErrorAwareReader;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaManager;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaReader;
+import de.gwdg.metadataqa.marc.utils.unimarc.UnimarcSchemaManager;
+import de.gwdg.metadataqa.marc.utils.unimarc.UnimarcSchemaReader;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
-import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.marc4j.MarcException;
 import org.marc4j.MarcReader;
 import org.marc4j.marc.Record;
+import org.marc4j.marc.VariableField;
+import org.marc4j.marc.impl.ControlFieldImpl;
 
 import java.io.FileInputStream;
 import java.nio.file.Path;
@@ -44,11 +47,13 @@ public class RecordIterator {
   private CommonParameters parameters;
   private String replacementInControlFields;
   private MarcVersion marcVersion;
-  private Leader.Type defaultRecordType;
+  private MarcLeader.Type defaultRecordType;
   private DecimalFormat decimalFormat;
+  // this schema attribute could be merged with the UNIMARC one
   private PicaSchemaManager picaSchema;
+  private UnimarcSchemaManager unimarcSchema;
   private String status = "waits";
-  private boolean processWithEroors = false;
+  private boolean processWithErrors = false;
   private long start;
 
   public RecordIterator(BibliographicInputProcessor processor) {
@@ -57,7 +62,6 @@ public class RecordIterator {
   }
 
   public void start() {
-
     start = System.currentTimeMillis();
     processor.beforeIteration();
     parameters = processor.getParameters();
@@ -66,9 +70,8 @@ public class RecordIterator {
     defaultRecordType = parameters.getDefaultRecordType();
     replacementInControlFields = parameters.getReplacementInControlFields();
     decimalFormat = new DecimalFormat();
-    if (parameters.isPica()) {
-      picaSchema = PicaSchemaReader.createSchemaManager(parameters.getPicaSchemaFile());
-    }
+
+    setupSchema();
 
     if (processor.getParameters().doLog())
       logger.info("marcVersion: " + marcVersion.getCode() + ", " + marcVersion.getLabel());
@@ -89,13 +92,11 @@ public class RecordIterator {
       }
     }
 
-    long end = System.currentTimeMillis();
-    processor.afterIteration(recordNumber, (end - start));
+    long duration = System.currentTimeMillis() - start;
+    processor.afterIteration(recordNumber, duration);
 
-    long duration = (end - start) / 1000;
     if (parameters.doLog())
-      logger.log(Level.INFO, "Bye! It took: " + Utils.formatDuration(end - start));
-      // logger.log(Level.INFO, "Bye! It took: " + LocalTime.MIN.plusSeconds(duration).format(DateTimeFormatter.ofPattern("d HH:mm:ss")));
+      logger.log(Level.INFO, "Bye! It took: {0}", Utils.formatDuration(duration));
 
     status = "done";
   }
@@ -105,7 +106,7 @@ public class RecordIterator {
     String fileName = path.getFileName().toString();
 
     if (processor.getParameters().doLog())
-      logger.info("processing: " + fileName);
+      logger.log(Level.INFO, "processing: {0}", fileName);
 
     try {
       processor.fileOpened(path);
@@ -119,90 +120,126 @@ public class RecordIterator {
         logger.severe(ex.toString());
       System.exit(1);
     } catch (Exception ex) {
-      if (processor.getParameters().doLog()) {
-        logger.severe("Other exception: " + ex.toString());
+      if (!processor.getParameters().doLog()) {
+        logger.log(Level.SEVERE, "error in processFile()", ex);
+        // System.exit(1);
+      }
 
-        for (StackTraceElement element : ex.getStackTrace()) {
+      logger.severe("Other exception: " + ex);
+      ex.printStackTrace();
+
+      for (StackTraceElement element : ex.getStackTrace()) {
+        // logger.severe(element.toString());
+        System.err.println(element.toString());
+      }
+      Throwable exa = ex;
+      while (exa.getCause() != null) {
+        logger.severe("cause");
+        exa = exa.getCause();
+        for (StackTraceElement element : exa.getStackTrace()) {
           System.err.println(element.toString());
         }
-        Throwable exa = ex;
-        while (exa.getCause() != null) {
-          System.err.println("cause");
-          exa = exa.getCause();
-          for (StackTraceElement element : exa.getStackTrace()) {
-            System.err.println(element.toString());
-          }
-        }
       }
-      logger.log(Level.SEVERE, "start", ex);
-      System.exit(1);
+      // logger.log(Level.SEVERE, "start2", ex);
+      // System.exit(1);
     }
   }
 
   private void processContent(MarcReader reader, String fileName) {
-    while (reader.hasNext()) {
-      if (!processor.readyToProcess())
-        break;
-
-      IteratorResponse iteratorResponse = getNextMarc4jRecord(recordNumber, lastKnownId, reader);
-      recordNumber++;
-      if (iteratorResponse.getMarc4jRecord() == null)
-        continue;
-
-      if (isUnderOffset(processor.getParameters().getOffset(), recordNumber))
-        continue;
-
-      if (isOverLimit(processor.getParameters().getLimit(), recordNumber))
-        break;
-
-      if (iteratorResponse.getMarc4jRecord().getControlNumber() == null) {
-        logger.severe("No record number at " + recordNumber + ", last known ID: " + lastKnownId);
-        if (iteratorResponse.getMarc4jRecord().getLeader() != null)
-          System.err.println(iteratorResponse.getMarc4jRecord());
-        if (!processWithEroors)
-          continue;
-      } else {
-        lastKnownId = iteratorResponse.getMarc4jRecord().getControlNumber();
-      }
-
-      if (skipRecord(iteratorResponse.getMarc4jRecord()))
-        continue;
-
-      try {
-        processor.processRecord(iteratorResponse.getMarc4jRecord(), recordNumber);
-
-        BibliographicRecord bibliographicRecord = iteratorResponse.hasBlockingError()
-                                                ? null
-                                                : transformMarcRecord(iteratorResponse.getMarc4jRecord());
-        try {
-          if (processWithEroors)
-            processor.processRecord(bibliographicRecord, recordNumber, iteratorResponse.getErrors());
-          else
-            if (bibliographicRecord != null)
-              processor.processRecord(bibliographicRecord, recordNumber);
-        } catch(Exception e) {
-          logger.log(Level.SEVERE, "start", e);
+    try {
+      while (reader.hasNext()) {
+        if (!processor.readyToProcess()
+          || isOverLimit(processor.getParameters().getLimit(), recordNumber)) {
+          break;
         }
 
-        if (recordNumber % 100000 == 0 && processor.getParameters().doLog())
-          logger.log(Level.INFO, "{0}/{1} ({2})", new Object[]{
-            fileName,
-            decimalFormat.format(recordNumber),
-            (bibliographicRecord != null ? bibliographicRecord.getId() : "unknown")});
-      } catch (IllegalArgumentException e) {
-        extracted(recordNumber, iteratorResponse.getMarc4jRecord(), e, "Error (illegal argument) with record '%s'. %s");
-      } catch (Exception e) {
-        e.printStackTrace();
-        extracted(recordNumber, iteratorResponse.getMarc4jRecord(), e, "Error (general) with record '%s'. %s");
+        try {
+          IteratorResponse iteratorResponse = getNextMarc4jRecord(recordNumber, lastKnownId, reader);
+          recordNumber++;
+          processIteratorResponse(iteratorResponse, fileName);
+        } catch (MarcException ex) {
+          logger.log(Level.SEVERE, "catched MarcException", ex);
+        } catch (Exception ex) {
+          logger.log(Level.SEVERE, "catched Exception", ex);
+        }
       }
+    } catch (MarcException ex) {
+      String msg = String.format("Error during processing the file content." +
+          " File: %s, last known record number: %s, last known record identifier: %s",
+        fileName, recordNumber, lastKnownId);
+      logger.log(Level.SEVERE, msg, ex);
+    }
+  }
+
+  private void processIteratorResponse(IteratorResponse iteratorResponse, String fileName) {
+    Record marc4jRecord = iteratorResponse.getMarc4jRecord();
+    if (marc4jRecord == null) {
+      return;
+    }
+
+    if (isUnderOffset(processor.getParameters().getOffset(), recordNumber)) {
+      return;
+    }
+
+    if (marc4jRecord.getControlNumber() == null && !processWithErrors) {
+      logger.log(Level.SEVERE, "No record number at {0}, last known ID: {1}", new Object[]{recordNumber, lastKnownId});
+      if (marc4jRecord.getLeader() != null) {
+        logger.severe(marc4jRecord::toString);
+      }
+      return;
+    } else {
+      lastKnownId = marc4jRecord.getControlNumber();
+    }
+
+    if (skipRecord(iteratorResponse.getMarc4jRecord())) {
+      return;
+    }
+
+    try {
+      if (processWithErrors && marc4jRecord != null && marc4jRecord.getControlNumberField() == null)
+          marc4jRecord.addVariableField(new ControlFieldImpl("001", "qac" + recordNumber));
+
+      processor.processRecord(marc4jRecord, recordNumber);
+
+      // Transform the marc4j record to a bibliographic record
+      BibliographicRecord bibliographicRecord = iteratorResponse.hasBlockingError()
+        ? null
+        : transformMarcRecord(marc4jRecord);
+
+      try {
+        if (processWithErrors) {
+          processor.processRecord(bibliographicRecord, recordNumber, iteratorResponse.getErrors());
+        } else if (bibliographicRecord != null) {
+          processor.processRecord(bibliographicRecord, recordNumber);
+        }
+      } catch(Exception e) {
+        logger.log(Level.SEVERE, "Problem occured at processor.processRecord()", e);
+        e.printStackTrace();
+      }
+
+      if (recordNumber % 100000 == 0 && processor.getParameters().doLog()) {
+        logger.log(Level.INFO, "{0}/{1} ({2})", new Object[]{
+          fileName,
+          decimalFormat.format(recordNumber),
+          (bibliographicRecord != null ? bibliographicRecord.getId() : "unknown")});
+      }
+
+    } catch (IllegalArgumentException e) {
+      extracted(recordNumber, marc4jRecord, e, "Error (illegal argument) with record '%s'. %s");
+    } catch (Exception e) {
+      e.printStackTrace();
+      extracted(recordNumber, marc4jRecord, e, "Error (general) with record '%s'. %s");
     }
   }
 
   private BibliographicRecord transformMarcRecord(Record marc4jRecord) {
-    if (parameters.getSchemaType().equals(SchemaType.MARC21))
+    if (parameters.getSchemaType().equals(SchemaType.MARC21)) {
       return MarcFactory.createFromMarc4j(marc4jRecord, defaultRecordType, marcVersion, replacementInControlFields);
-    else
+    } else if (parameters.getSchemaType().equals(SchemaType.PICA)) {
       return MarcFactory.createPicaFromMarc4j(marc4jRecord, picaSchema);
+    } else {
+      return MarcFactory.createUnimarcFromMarc4j(marc4jRecord, defaultRecordType, unimarcSchema);
+    }
   }
 
   private MarcReader getMarcFileReader(CommonParameters parameters, Path path) throws Exception {
@@ -221,7 +258,7 @@ public class RecordIterator {
     return marcReader;
   }
 
-  private MarcReader getMarcStreamReader(CommonParameters parameters) throws Exception {
+  private MarcReader getMarcStreamReader(CommonParameters parameters) {
     return QAMarcReaderFactory.getStreamReader(parameters.getMarcFormat(), parameters.getStream(), parameters);
   }
 
@@ -241,7 +278,7 @@ public class RecordIterator {
       logger.severe(msg);
     } catch (Exception e) {
       response.addError(lastKnownId, e.getLocalizedMessage());
-      logger.log(Level.SEVERE, "start", e);
+      logger.log(Level.SEVERE, "error in getNextMarc4jRecord()", e);
     }
     return response;
   }
@@ -253,10 +290,10 @@ public class RecordIterator {
 
   private void extracted(int i, Record marc4jRecord, Exception e, String message) {
     if (marc4jRecord.getControlNumber() == null)
-      logger.severe("No record number at " + i);
+      logger.log(Level.SEVERE, "No record number at {0}", i);
     if (processor.getParameters().doLog())
-      logger.severe(String.format(message, marc4jRecord.getControlNumber(), e.getMessage()));
-    logger.log(Level.SEVERE, "start", e);
+      logger.log(Level.SEVERE, String.format(message, marc4jRecord.getControlNumber(), e.getMessage()));
+    logger.log(Level.SEVERE, "error in extracted()", e);
   }
 
   private static boolean isOverLimit(int limit, int i) {
@@ -273,12 +310,28 @@ public class RecordIterator {
       opions);
   }
 
+  private void setupSchema() {
+    // This should probably be moved to a factory of some sort if the schema managers, field definitions and field
+    // implementations get refactored in a way that they inherit from common interfaces.
+    // That's a bit of a long shot though, so for now we'll just keep it here.
+    if (parameters.isPica()) {
+      picaSchema = PicaSchemaReader.createSchemaManager(parameters.getPicaSchemaFile());
+    } else if (parameters.isUnimarc()) {
+      UnimarcSchemaReader unimarcSchemaReader = new UnimarcSchemaReader();
+      String schemaFilePath = parameters.getPicaSchemaFile();
+      if (schemaFilePath == null) {
+        schemaFilePath = "src/main/resources/unimarc/avram-unimarc.json";
+      }
+      unimarcSchema = unimarcSchemaReader.createSchema(schemaFilePath);
+    }
+  }
+
   public String getStatus() {
     return status;
   }
 
-  public void setProcessWithEroors(boolean processWithEroors) {
-    this.processWithEroors = processWithEroors;
+  public void setProcessWithErrors(boolean processWithErrors) {
+    this.processWithErrors = processWithErrors;
   }
 
   public long getStart() {

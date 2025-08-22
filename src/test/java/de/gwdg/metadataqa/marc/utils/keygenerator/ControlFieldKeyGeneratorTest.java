@@ -1,7 +1,7 @@
 package de.gwdg.metadataqa.marc.utils.keygenerator;
 
 import de.gwdg.metadataqa.marc.dao.Control008;
-import de.gwdg.metadataqa.marc.dao.Leader;
+import de.gwdg.metadataqa.marc.dao.MarcLeader;
 import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008all00;
 import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008all06;
 import de.gwdg.metadataqa.marc.definition.controlpositions.tag008.Tag008all07;
@@ -30,7 +30,7 @@ public class ControlFieldKeyGeneratorTest {
 
   Control008 field = new Control008(
     "981123p19981996enkmun   efhi           d",
-    Leader.Type.BOOKS
+    MarcLeader.Type.BOOKS
   );
 
   @Test

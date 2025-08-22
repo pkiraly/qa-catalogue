@@ -1,0 +1,141 @@
+---
+title: "Handling MARC versions"
+---
+
+The tool provides two levels of customization: 
+
+* project specific tags can be defined in their own Java package, such as these
+  classes for Gent data: [de.gwdg.metadataqa.marc.definition.tags.genttags](https://github.com/pkiraly/qa-catalogue/tree/master/src/main/java/de/gwdg/metadataqa/marc/definition/tags/genttags)
+* for existing tags one can use the API described below
+
+The different MARC versions has an identifier. This is defined in the code as an enumeration:
+
+
+```java
+public enum MarcVersion {
+  MARC21("MARC21", "MARC21"),
+  DNB("DNB", "Deutsche Nationalbibliothek"),
+  OCLC("OCLC", "OCLC"),
+  GENT("GENT", "Universiteitsbibliotheek Gent"),
+  SZTE("SZTE", "Szegedi Tudományegyetem"),
+  FENNICA("FENNICA", "National Library of Finland")
+  ;
+  ...
+}
+```
+
+When you add version specific modification, you have to use one of these values.
+
+
+1. Defining version specific indicator codes:
+
+```java
+Indicator::putVersionSpecificCodes(MarcVersion, List<Code>);
+```
+
+Code is a simple object, it has two property: code and label.
+
+example:
+
+```java
+public class Tag024 extends DataFieldDefinition {
+   ...
+   ind1 = new Indicator("Type of standard number or code")
+             .setCodes(...)
+             .putVersionSpecificCodes(
+                 MarcVersion.SZTE,
+                 Arrays.asList(
+                    new Code(" ", "Not specified")
+                 )
+             )
+   ...
+}
+```
+
+2. Defining version specific subfields:
+
+```java
+DataFieldDefinition::putVersionSpecificSubfields(MarcVersion, List<SubfieldDefinition>)
+```
+
+SubfieldDefinition contains a definition of a subfield. You can construct it
+with three String parameters: a code, a label and a cardinality code which
+denotes whether the subfield can be repeatable ("R") or not ("NR").
+
+example:
+
+```java
+public class Tag024 extends DataFieldDefinition {
+   ...
+   putVersionSpecificSubfields(
+      MarcVersion.DNB,
+      Arrays.asList(
+         new SubfieldDefinition("9", "Standardnummer (mit Bindestrichen)", "NR")
+      )
+   );
+}
+```
+
+3. Marking indicator codes as obsolete:
+```java
+Indicator::setHistoricalCodes(List<String>)
+```
+
+The list should be pairs of code and description.
+
+```java
+public class Tag082 extends DataFieldDefinition {
+   ...
+   ind1 = new Indicator("Type of edition")
+              .setCodes(...)
+              .setHistoricalCodes(
+                 " ", "No edition information recorded (BK, MU, VM, SE) [OBSOLETE]",
+                 "2", "Abridged NST version (BK, MU, VM, SE) [OBSOLETE]"
+              )
+   ...
+}
+```
+
+4. Marking subfields as obsolete:
+
+```java
+DataFieldDefinition::setHistoricalSubfields(List<String>);
+```
+The list should be pairs of code and description.
+
+```[Java}
+public class Tag020 extends DataFieldDefinition {
+   ...
+   setHistoricalSubfields(
+      "b", "Binding information (BK, MP, MU) [OBSOLETE]"
+   );
+}
+```
+
+If you create new a package for the new MArc version, you should register it to several places:
+
+a. add a case into `src/main/java/de/gwdg/metadataqa/marc/Utils.java`:
+
+```java
+case "zbtags":      version = MarcVersion.ZB;      break;
+```
+
+b. add an item into enumeration at `src/main/java/de/gwdg/metadataqa/marc/definition/tags/TagCategory.java`:
+
+```java
+ZB(23, "zbtags", "ZB", "Locally defined tags of the Zentralbibliothek Zürich", false),
+```
+
+c. modify the expected number of data elements at `src/test/java/de/gwdg/metadataqa/marc/utils/DataElementsStaticticsTest.java`:
+
+```java
+assertEquals( 215, statistics.get(DataElementType.localFields));
+```
+
+d. ... and a `src/test/java/de/gwdg/metadataqa/marc/utils/MarcTagListerTest.java`:
+
+```java
+assertEquals( 2, (int) versionCounter2.get(MarcVersion.ZB));
+assertEquals( 2, (int) versionCounter.get("zbtags"));
+```
+

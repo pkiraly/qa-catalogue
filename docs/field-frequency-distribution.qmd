@@ -1,0 +1,34 @@
+---
+title: "Field frequency distribution"
+---
+
+This analysis reveals the relative importance of some fields. Pareto's
+distribution is a kind of power law distribution, and Pareto-rule of 80-20
+rules states that 80% of outcomes are due to 20% of causes. In catalogue
+outcome is the total occurrences of the data element, causes are individual
+data elements. In catalogues some data elements occurs much more frequently
+then others. This analyses highlights the distribution of the data elements:
+whether it is similar to Pareto's distribution or not.
+
+It produces charts for each document type and one for the whole catalogue
+showing the field frequency patterns. Each chart shows a line which is the
+function of field frequency: on the X-axis you can see the subfields ordered
+by the frequency (how many times a given subfield occurred in the whole
+catalogue). They are ordered by frequency from the most frequent top 1% to the
+least frequent 1% subfields. The Y-axis represents the cumulative occurrence
+(from 0% to 100%).
+
+Before running it you should first run the completeness calculation.
+
+With a bash script
+```bash
+catalogues/[catalogue].sh pareto
+```
+or
+```bash
+./qa-catalogue --params="[options]" pareto
+```
+
+options:
+
+* [general parameters](#general-parameters)

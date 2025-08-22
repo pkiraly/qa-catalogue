@@ -1,15 +1,15 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
-import de.gwdg.metadataqa.marc.analysis.ThompsonTraillFields;
-import de.gwdg.metadataqa.marc.analysis.ThompsonTraillAnalysis;
+import de.gwdg.metadataqa.marc.analysis.thompsontraill.Marc21ThompsonTraillAnalysis;
+import de.gwdg.metadataqa.marc.analysis.thompsontraill.PicaThompsonTraillAnalysis;
+import de.gwdg.metadataqa.marc.analysis.thompsontraill.ThompsonTraillAnalysis;
+import de.gwdg.metadataqa.marc.analysis.thompsontraill.ThompsonTraillFields;
+import de.gwdg.metadataqa.marc.analysis.thompsontraill.UnimarcThompsonTraillAnalysis;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.ThompsonTraillCompletenessParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
-import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
-import de.gwdg.metadataqa.marc.dao.record.PicaRecord;
-import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
@@ -18,10 +18,10 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.marc4j.marc.Record;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -49,11 +49,15 @@ public class ThompsonTraillCompleteness extends QACli<ThompsonTraillCompleteness
   private final Options options;
   private final boolean readyToProcess;
   private File output = null;
+  private ThompsonTraillAnalysis thompsonTraillAnalysis;
 
   public ThompsonTraillCompleteness(String[] args) throws ParseException {
     parameters = new ThompsonTraillCompletenessParameters(args);
-    System.err.println("tt().marcxml: " + parameters.isMarcxml());
+    logger.info("tt().marcxml: " + parameters.isMarcxml());
     options = parameters.getOptions();
+    // Create a ThompsonTraillAnalysis object based on the schema type
+    setThompsonTraillAnalysis();
+
     readyToProcess = true;
   }
 
@@ -62,12 +66,12 @@ public class ThompsonTraillCompleteness extends QACli<ThompsonTraillCompleteness
     try {
       processor = new ThompsonTraillCompleteness(args);
     } catch (ParseException e) {
-      System.err.println("ERROR. " + e.getLocalizedMessage());
+      logger.severe("ERROR. " + e.getLocalizedMessage());
       System.exit(1);
     }
 
     if (processor.getParameters().getArgs().length < 1) {
-      System.err.println("Please provide a MARC file name!");
+      logger.severe("Please provide a MARC file name!");
       System.exit(1);
     }
     if (processor.getParameters().doHelp()) {
@@ -76,6 +80,7 @@ public class ThompsonTraillCompleteness extends QACli<ThompsonTraillCompleteness
     }
 
     RecordIterator iterator = new RecordIterator(processor);
+    iterator.setProcessWithErrors(processor.getParameters().getProcessRecordsWithoutId());
     iterator.start();
   }
 
@@ -86,18 +91,23 @@ public class ThompsonTraillCompleteness extends QACli<ThompsonTraillCompleteness
 
   @Override
   public void beforeIteration() {
-    logger.info(parameters.formatParameters());
+    logger.info(() -> parameters.formatParameters());
     printFields();
 
     output = new File(parameters.getOutputDir(), parameters.getFileName());
-    if (output.exists() && !output.delete())
-      logger.severe("Deletion of " + output.getAbsolutePath() + " was unsuccessful!");
-
-    print(createRow(ThompsonTraillAnalysis.getHeader()));
+    if (output.exists()) {
+      try {
+        Files.delete(output.toPath());
+      } catch (IOException e) {
+        logger.log(Level.SEVERE, "The output file ({}) has not been deleted", output.getAbsolutePath());
+      }
+    }
+    print(createRow(thompsonTraillAnalysis.getHeader()));
   }
 
   @Override
   public void fileOpened(Path path) {
+    // do nothing
   }
 
   @Override
@@ -106,8 +116,8 @@ public class ThompsonTraillCompleteness extends QACli<ThompsonTraillCompleteness
   }
 
   @Override
-  public void processRecord(BibliographicRecord marcRecord, int recordNumber, List<ValidationError> errors) throws IOException {
-    // do nothing
+  public void processRecord(BibliographicRecord bibliographicRecord, int recordNumber, List<ValidationError> errors) throws IOException {
+    processRecord(bibliographicRecord, recordNumber);
   }
 
   @Override
@@ -115,10 +125,11 @@ public class ThompsonTraillCompleteness extends QACli<ThompsonTraillCompleteness
     if (parameters.getRecordIgnorator().isIgnorable(marcRecord))
       return;
 
-    List<Integer> scores = ThompsonTraillAnalysis.getScores(marcRecord);
+    List<Integer> scores = thompsonTraillAnalysis.getScores(marcRecord);
     String id = parameters.getTrimId()
               ? marcRecord.getId().trim()
               : marcRecord.getId();
+
     String message = String.format(
       "\"%s\",%s%n",
       id, StringUtils.join(scores, ",")
@@ -128,7 +139,7 @@ public class ThompsonTraillCompleteness extends QACli<ThompsonTraillCompleteness
 
   @Override
   public void fileProcessed() {
-
+    // The file processed method is not implemented.
   }
 
   @Override
@@ -162,17 +173,35 @@ public class ThompsonTraillCompleteness extends QACli<ThompsonTraillCompleteness
     var path = Paths.get(parameters.getOutputDir(), "tt-completeness-fields.csv");
     try (var writer = Files.newBufferedWriter(path)) {
       writer.write(createRow("name", "transformed", "fields"));
-      BibliographicRecord record = getParameters().getSchemaType().equals(SchemaType.MARC21) ? new Marc21Record() : new PicaRecord();
-      Map<ThompsonTraillFields, List<String>> map = record.getThompsonTraillTagsMap();
+      Map<ThompsonTraillFields, List<String>> map = thompsonTraillAnalysis.getThompsonTraillTagsMap();
       for (ThompsonTraillFields field : ThompsonTraillFields.values()) {
-        try {
-          writer.write(createRow(field.getLabel(), field.getMachine(), quote(StringUtils.join(map.getOrDefault(field, List.of()), ","))));
-        } catch (IOException e) {
-          logger.log(Level.SEVERE, "printFields", e);
-        }
+        writeFieldRow(writer, field, map);
       }
     } catch (IOException e) {
       logger.log(Level.SEVERE, "printFields", e);
+    }
+  }
+
+  private void writeFieldRow(BufferedWriter writer, ThompsonTraillFields field, Map<ThompsonTraillFields, List<String>> map) {
+    try {
+      writer.write(createRow(field.getLabel(), field.getMachine(), quote(StringUtils.join(map.getOrDefault(field, List.of()), ","))));
+    } catch (IOException e) {
+      logger.log(Level.SEVERE, "printFields", e);
+    }
+  }
+
+  private void setThompsonTraillAnalysis() {
+    switch (parameters.getSchemaType()) {
+      case PICA:
+        thompsonTraillAnalysis = new PicaThompsonTraillAnalysis();
+        break;
+      case UNIMARC:
+        thompsonTraillAnalysis = new UnimarcThompsonTraillAnalysis();
+        break;
+      case MARC21:
+      default:
+        thompsonTraillAnalysis = new Marc21ThompsonTraillAnalysis();
+        break;
     }
   }
 }

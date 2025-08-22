@@ -13,27 +13,28 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PicaSchemaReader {
 
   private static final Logger logger = Logger.getLogger(PicaSchemaReader.class.getCanonicalName());
 
-  private JSONParser parser = new JSONParser(JSONParser.MODE_RFC4627);
-  private Map<String, PicaFieldDefinition> map = new HashMap<>();
-  private PicaSchemaManager schema = new PicaSchemaManager();
+  private final JSONParser parser = new JSONParser(JSONParser.MODE_RFC4627);
+  private final Map<String, PicaFieldDefinition> map = new HashMap<>();
+  private final PicaSchemaManager schema = new PicaSchemaManager();
 
   private PicaSchemaReader(String fileName) {
     try {
       readFile(fileName);
-    } catch (IOException | ParseException | URISyntaxException e) {
+    } catch (IOException | ParseException e) {
       logger.severe(e.getLocalizedMessage());
     }
   }
@@ -41,7 +42,7 @@ public class PicaSchemaReader {
   private PicaSchemaReader(InputStream inputStream) {
     try {
       readStream(inputStream);
-    } catch (IOException | ParseException | URISyntaxException e) {
+    } catch (ParseException e) {
       logger.severe(e.getLocalizedMessage());
     }
   }
@@ -63,7 +64,7 @@ public class PicaSchemaReader {
 
   public static PicaSchemaManager createSchemaManager(String picaSchemaFile) {
     logger.info("read schema");
-    PicaSchemaManager picaSchemaManager;
+    PicaSchemaManager picaSchemaManager = null;
     String schemaFile = null;
     if (StringUtils.isNotEmpty(picaSchemaFile)) {
       logger.info("getPicaSchemaFile");
@@ -71,33 +72,41 @@ public class PicaSchemaReader {
     } else if (new File("src/main/resources/pica/avram-k10plus-title.json").exists()) {
       logger.info("default file");
       schemaFile = Paths.get("src/main/resources/pica/avram-k10plus-title.json").toAbsolutePath().toString();
+    } else if (new File("avram-schemas/k10plus-title.json").exists()) {
+      logger.info("from avram-schemas directory");
+      schemaFile = Paths.get("avram-schemas/k10plus-title.json").toAbsolutePath().toString();
     }
 
     if (schemaFile != null && new File(schemaFile).exists()) {
-      logger.info("read from file: " + schemaFile);
+      logger.log(Level.INFO, "read from file: {0}", schemaFile);
       picaSchemaManager = PicaSchemaReader.createSchema(schemaFile);
     } else {
       logger.info("read from resource");
-      picaSchemaManager = PicaSchemaReader.createSchema(PicaSchemaReader.class.getClassLoader().getResourceAsStream("pica/avram-k10plus-title.json"));
+      ClassLoader classLoader = PicaSchemaReader.class.getClassLoader();
+      URL resource = classLoader.getResource("pica/avram-k10plus-title.json");
+      if (resource != null) {
+        logger.info("Resource's URL is " + resource.toString());
+        InputStream schemaStream = classLoader.getResourceAsStream("pica/avram-k10plus-title.json");
+        picaSchemaManager = PicaSchemaReader.createSchema(schemaStream);
+      } else {
+        logger.info("resource is null, Avram schema is not available this way");
+        new IllegalStateException("Avram schema is not available");
+      }
     }
     return picaSchemaManager;
   }
 
-  private void readFile(String fileName) throws IOException, ParseException, URISyntaxException {
+  private void readFile(String fileName) throws IOException, ParseException {
     JSONObject obj = (JSONObject) parser.parse(new FileReader(fileName));
     process(obj);
   }
 
-  private void readStream(InputStream inputStream) throws IOException, ParseException, URISyntaxException {
+  private void readStream(InputStream inputStream) throws ParseException {
     JSONObject obj = (JSONObject) parser.parse(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
     process(obj);
   }
 
-  private void process(JSONObject obj) throws IOException, ParseException, URISyntaxException {
-    // Path tagsFile = FileUtils.getPath(fileName);
-
-    // Object obj = parser.parse(new FileReader(fileName));
-    JSONObject jsonObject = (JSONObject) obj;
+  private void process(JSONObject jsonObject) {
     JSONObject fields = (JSONObject) jsonObject.get("fields");
     for (Map.Entry<String, Object> entry : fields.entrySet()) {
       String id = entry.getKey();
@@ -115,7 +124,7 @@ public class PicaSchemaReader {
       tag.setOccurrence((String) field.get("occurrence"));
       tag.setCounter((String) field.get("counter"));
       if (tag.getCounter() != null && tag.getOccurrence() != null) {
-        logger.info(id + " has both counter and occurrence");
+        logger.log(Level.INFO, "{0} has both counter and occurrence", id);
       }
       processSubfields(field, tag);
       PicaFieldDefinition definition = new PicaFieldDefinition(tag);
@@ -130,15 +139,20 @@ public class PicaSchemaReader {
   private void processSubfields(JSONObject field, PicaTagDefinition tag) {
     Object subfieldsRaw = field.get("subfields");
     List<SubfieldDefinition> subfieldDefinitions = new LinkedList<>();
-    if (subfieldsRaw != null) {
-      if (subfieldsRaw instanceof JSONObject) {
-        JSONObject subfields = (JSONObject) subfieldsRaw;
-        for (Map.Entry<String, Object> entry : subfields.entrySet())
-          processSubfield(entry.getValue(), subfieldDefinitions);
-      } else if (subfieldsRaw instanceof JSONArray) {
-        JSONArray subfields = (JSONArray) subfieldsRaw;
-        for (var i = 0; i < subfields.size(); i++)
-          processSubfield(subfields.get(i), subfieldDefinitions);
+    if (subfieldsRaw == null) {
+      tag.setSubfields(subfieldDefinitions);
+      return;
+    }
+
+    if (subfieldsRaw instanceof JSONObject) {
+      JSONObject subfields = (JSONObject) subfieldsRaw;
+      for (Map.Entry<String, Object> entry : subfields.entrySet()) {
+        processSubfield(entry.getValue(), subfieldDefinitions);
+      }
+    } else if (subfieldsRaw instanceof JSONArray) {
+      JSONArray subfields = (JSONArray) subfieldsRaw;
+      for (Object subfield : subfields) {
+        processSubfield(subfield, subfieldDefinitions);
       }
     }
     tag.setSubfields(subfieldDefinitions);
@@ -152,30 +166,29 @@ public class PicaSchemaReader {
   }
 
   private SubfieldDefinition extractSubfield(Object o) {
-    SubfieldDefinition definition = null;
-    if (o instanceof JSONObject) {
-      JSONObject subfield = (JSONObject) o;
-      String code = (String) subfield.get("code");
-      String label = (String) subfield.get("label");
-      String cardinalityCode = ((boolean) subfield.get("repeatable")) ? Cardinality.Repeatable.getCode() : Cardinality.Nonrepeatable.getCode();
-      definition = new SubfieldDefinition(code, label, cardinalityCode);
-      for (String key : subfield.keySet()) {
-        // Object value = entry.getValue();
-        if (key.equals("code")) {
-        } else if (key.equals("label")) {
-        } else if (key.equals("repeatable")) {
-        } else if (key.equals("modified")) {
-          // skip
-        } else if (key.equals("order")) {
-          // skip
-        } else if (key.equals("pica3")) {
-          // skip
-        } else {
-          logger.warning("unhandled key in subfield: " + key);
-        }
+    if (!(o instanceof JSONObject)) {
+      logger.log(Level.WARNING, "the JSON node's type is not JSONObject, but {0}", o.getClass().getCanonicalName());
+      return null;
+    }
+    JSONObject subfield = (JSONObject) o;
+    String code = (String) subfield.get("code");
+    String label = (String) subfield.get("label");
+    String cardinalityCode = ((boolean) subfield.get("repeatable")) ? Cardinality.Repeatable.getCode() : Cardinality.Nonrepeatable.getCode();
+    SubfieldDefinition definition = new SubfieldDefinition(code, label, cardinalityCode);
+    for (String key : subfield.keySet()) {
+      // Object value = entry.getValue();
+      if (key.equals("code")) {
+      } else if (key.equals("label")) {
+      } else if (key.equals("repeatable")) {
+      } else if (key.equals("modified")) {
+        // skip
+      } else if (key.equals("order")) {
+        // skip
+      } else if (key.equals("pica3")) {
+        // skip
+      } else {
+        logger.log(Level.WARNING, "unhandled key in subfield: {0}", key);
       }
-    } else {
-      logger.warning("the JSON node's type is not JSONObject, but " + o.getClass().getCanonicalName());
     }
     return definition;
   }

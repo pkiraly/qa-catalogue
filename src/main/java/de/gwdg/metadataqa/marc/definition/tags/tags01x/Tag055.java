@@ -56,18 +56,18 @@ public class Tag055 extends DataFieldDefinition {
       .setMqTag("heldByLAC")
       .setFrbrFunctions(DiscoverySelect, DiscoveryObtain);
 
-    ind2 = new Indicator("Type, completeness, source of class/call number")
+    ind2 = new Indicator("Type, completeness, source of call/class number")
       .setCodes(
-        "0", "LC-based call number assigned by LAC",
-        "1", "Complete LC class number assigned by LAC",
-        "2", "Incomplete LC class number assigned by LAC",
-        "3", "LC-based call number assigned by the contributing library",
-        "4", "Complete LC class number assigned by the contributing library",
-        "5", "Incomplete LC class number assigned by the contributing library",
+        "0", "LCC (or LCC-compatible) call number assigned by LAC",
+        "1", "Complete LCC (or LCC-compatible) class number assigned by LAC",
+        "2", "Incomplete LCC (or LCC-compatible) class number assigned by LAC",
+        "3", "LCC (or LCC-compatible) call number assigned by a Canadian organization other than LAC",
+        "4", "Complete LCC (or LCC-compatible) class number assigned by a Canadian organization other than LAC",
+        "5", "Incomplete LCC (or LCC-compatible) class number assigned by a Canadian organization other than LAC",
         "6", "Other call number assigned by LAC",
         "7", "Other class number assigned by LAC",
-        "8", "Other call number assigned by the contributing library",
-        "9", "Other class number assigned by the contributing library"
+        "8", "Other call number assigned by a Canadian organization other than LAC",
+        "9", "Other class number assigned by a Canadian organization other than LAC"
       )
       .setMqTag("type")
       .setFrbrFunctions(ManagementIdentify, ManagementProcess);

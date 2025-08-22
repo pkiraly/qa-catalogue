@@ -1,12 +1,12 @@
 package de.gwdg.metadataqa.marc.cli.parameters;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordIgnorator;
-import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordIgnoratorFactory;
+import de.gwdg.metadataqa.marc.cli.utils.IgnorableFields;
 import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordFilter;
 import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordFilterFactory;
-import de.gwdg.metadataqa.marc.dao.Leader;
-import de.gwdg.metadataqa.marc.cli.utils.IgnorableFields;
+import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordIgnorator;
+import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordIgnoratorFactory;
+import de.gwdg.metadataqa.marc.dao.MarcLeader;
 import de.gwdg.metadataqa.marc.definition.DataSource;
 import de.gwdg.metadataqa.marc.definition.MarcFormat;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
@@ -38,7 +38,7 @@ public class CommonParameters implements Serializable {
   protected int limit = -1;
   protected int offset = -1;
   protected String id = null;
-  protected Leader.Type defaultRecordType = Leader.Type.BOOKS;
+  protected MarcLeader.Type defaultRecordType = MarcLeader.Type.BOOKS;
   protected boolean fixAlephseq = false;
   protected boolean fixAlma = false;
   protected boolean fixKbr = false;
@@ -47,6 +47,8 @@ public class CommonParameters implements Serializable {
   protected boolean lineSeparated = false;
   protected boolean trimId = false;
   private String outputDir = DEFAULT_OUTPUT_DIR;
+  protected String ignorableRecords;
+  @JsonIgnore
   protected RecordIgnorator recordIgnorator;
   protected RecordFilter recordFilter;
   protected IgnorableFields ignorableFields = new IgnorableFields();
@@ -67,6 +69,7 @@ public class CommonParameters implements Serializable {
   private String groupBy;
   private String groupListFile;
   private String solrForScoresUrl;
+  private Boolean processRecordsWithoutId = false;
 
   protected void setOptions() {
     if (!isOptionSet) {
@@ -94,13 +97,14 @@ public class CommonParameters implements Serializable {
       options.addOption("2", "picaIdField", true, "PICA id field");
       options.addOption("u", "picaSubfieldSeparator", true, "PICA subfield separator");
       options.addOption("j", "picaSchemaFile", true, "Avram PICA schema file");
+      // For now, I'll be using picaSchemaFile for both PICA and UNIMARC. The option could be renamed later or a separate option could be added
       options.addOption("w", "schemaType", true, "metadata schema type ('MARC21', 'UNIMARC', or 'PICA')");
       options.addOption("k", "picaRecordType", true, "picaRecordType");
       options.addOption("c", "allowableRecords", true, "allow records for the analysis");
       options.addOption("e", "groupBy", true, "group the results by the value of this data element (e.g. the ILN of  library)");
       options.addOption("3", "groupListFile", true, "the file which contains a list of ILN codes");
       options.addOption("4", "solrForScoresUrl", true, "the URL of the Solr server used to store scores");
-
+      options.addOption("5", "processRecordsWithoutId", false, "process the record even it does not have an identifier");
       isOptionSet = true;
     }
   }
@@ -143,6 +147,7 @@ public class CommonParameters implements Serializable {
     readGroupBy();
     readGroupListFile();
     readSolrForScoresUrl();
+    readProcessRecordsWithoutId();
 
     args = cmd.getArgs();
   }
@@ -193,7 +198,7 @@ public class CommonParameters implements Serializable {
   }
 
   private void readIgnorableRecords() {
-    String ignorableRecords = cmd.hasOption("ignorableRecords") ? cmd.getOptionValue("ignorableRecords") : "";
+    ignorableRecords = cmd.hasOption("ignorableRecords") ? cmd.getOptionValue("ignorableRecords") : "";
     setRecordIgnorator(ignorableRecords);
   }
 
@@ -258,6 +263,11 @@ public class CommonParameters implements Serializable {
   private void readMarcVersion() throws ParseException {
     if (cmd.hasOption("marcVersion"))
       setMarcVersion(cmd.getOptionValue("marcVersion"));
+  }
+
+  private void readProcessRecordsWithoutId() {
+    if (cmd.hasOption("processRecordsWithoutId"))
+      processRecordsWithoutId = true;
   }
 
   private void setAlephseqLineType(String alephseqLineTypeInput) throws ParseException {
@@ -372,16 +382,16 @@ public class CommonParameters implements Serializable {
     this.id = id;
   }
 
-  public Leader.Type getDefaultRecordType() {
+  public MarcLeader.Type getDefaultRecordType() {
     return defaultRecordType;
   }
 
-  public void setDefaultRecordType(Leader.Type defaultRecordType) {
+  public void setDefaultRecordType(MarcLeader.Type defaultRecordType) {
     this.defaultRecordType = defaultRecordType;
   }
 
   public void setDefaultRecordType(String defaultRecordType) throws ParseException {
-    this.defaultRecordType = Leader.Type.valueOf(defaultRecordType);
+    this.defaultRecordType = MarcLeader.Type.valueOf(defaultRecordType);
     if (this.defaultRecordType == null)
       throw new ParseException(String.format("Unrecognized defaultRecordType parameter value: '%s'", defaultRecordType));
   }
@@ -485,6 +495,7 @@ public class CommonParameters implements Serializable {
 
   public void setRecordFilter(String allowableRecords) {
     this.recordFilter = RecordFilterFactory.create(schemaType, allowableRecords.trim());
+    System.err.println(this.recordFilter);
   }
 
   public InputStream getStream() {
@@ -543,6 +554,10 @@ public class CommonParameters implements Serializable {
     return schemaType.equals(SchemaType.PICA);
   }
 
+  public boolean isUnimarc() {
+    return schemaType.equals(SchemaType.UNIMARC);
+  }
+
   public String getGroupBy() {
     return groupBy;
   }
@@ -553,6 +568,14 @@ public class CommonParameters implements Serializable {
 
   public String getSolrForScoresUrl() {
     return solrForScoresUrl;
+  }
+
+  public Boolean getProcessRecordsWithoutId() {
+    return processRecordsWithoutId;
+  }
+
+  public void setProcessRecordsWithoutId(Boolean processRecordsWithoutId) {
+    this.processRecordsWithoutId = processRecordsWithoutId;
   }
 
   public String formatParameters() {
@@ -586,6 +609,7 @@ public class CommonParameters implements Serializable {
     text += String.format("groupBy: %s%n", groupBy);
     text += String.format("groupListFile: %s%n", groupListFile);
     text += String.format("solrForScoresUrl: %s%n", solrForScoresUrl);
+    text += String.format("processRecordsWithoutId: %s%n", processRecordsWithoutId);
 
     return text;
   }

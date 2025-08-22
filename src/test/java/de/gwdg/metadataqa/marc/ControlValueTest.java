@@ -2,7 +2,7 @@ package de.gwdg.metadataqa.marc;
 
 import de.gwdg.metadataqa.marc.analysis.validator.ControlValueValidator;
 import de.gwdg.metadataqa.marc.dao.Control006;
-import de.gwdg.metadataqa.marc.dao.Leader;
+import de.gwdg.metadataqa.marc.dao.MarcLeader;
 import de.gwdg.metadataqa.marc.definition.ControlValue;
 import de.gwdg.metadataqa.marc.definition.controlpositions.Control008Positions;
 import de.gwdg.metadataqa.marc.definition.controlpositions.LeaderPositions;
@@ -15,7 +15,6 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public class ControlValueTest {
@@ -92,14 +91,14 @@ public class ControlValueTest {
 
   @Test
   public void testGetLabel() {
-    Control006 field = new Control006("e|||||||a|||||||||", Leader.Type.MAPS);
+    Control006 field = new Control006("e|||||||a|||||||||", MarcLeader.Type.MAPS);
     ControlValue value = field.getTag006all00();
     assertEquals("Form of material", value.getLabel());
   }
 
   @Test
   public void testId() {
-    Control006 field = new Control006("e|||||||a|||||||||", Leader.Type.MAPS);
+    Control006 field = new Control006("e|||||||a|||||||||", MarcLeader.Type.MAPS);
     ControlValue value = field.getTag006all00();
     assertEquals("006all00", value.getId());
   }
@@ -111,7 +110,7 @@ public class ControlValueTest {
     assertEquals(0, subfield.getPositionStart());
     assertEquals(5, subfield.getPositionEnd());
     assertEquals("https://www.loc.gov/marc/bibliographic/bdleader.html", subfield.getDescriptionUrl());
-    assertNull(subfield.getCodes());
+    assertTrue(subfield.getCodes().isEmpty());
   }
 
   private void testLeader05(ControlfieldPositionDefinition subfield) {
@@ -197,7 +196,7 @@ public class ControlValueTest {
     assertEquals(12, subfield.getPositionStart());
     assertEquals(17, subfield.getPositionEnd());
     assertEquals("https://www.loc.gov/marc/bibliographic/bdleader.html", subfield.getDescriptionUrl());
-    assertNull(subfield.getCodes());
+    assertTrue(subfield.getCodes().isEmpty());
   }
 
   private void testLeader17(ControlfieldPositionDefinition subfield) {

@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -eu
+
+cd $(dirname $(readlink -f $0))
+
+tohtml() {
+    html=$(basename ${1%.json}.html)
+    echo "$1 => $html"
+    # somehow piping does not work because of some kind of buffering (wtf?)
+    npm run --silent avram -- --document html < "$1" > tmp.html
+    sed "s|/dev/stdin|$1|" tmp.html > "$html"
+    rm tmp.html
+}
+
+tohtml marc.json
+tohtml k10plus-title.json
+tohtml unimarc.json

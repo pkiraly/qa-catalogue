@@ -5,14 +5,19 @@ import org.apache.commons.lang3.StringUtils;
 
 public class PicaFieldDefinition extends DataFieldDefinition {
 
+  private static final long serialVersionUID = -3948232120690668303L;
   private String modified;
   private String pica3;
   private String occurrence;
   private PicaRange range;
+  /**
+   * Represents the key of the field in the JSON PICA schema definition. It's usually the tag with or
+   * without the occurrence, depending on how the field is defined in the schema.
+   */
   private String id;
   private String counter;
 
-  private PicaFieldDefinition(){};
+  private PicaFieldDefinition() {}
 
   public PicaFieldDefinition(PicaTagDefinition picaTagDefinition) {
     tag = picaTagDefinition.getTag();
@@ -54,20 +59,21 @@ public class PicaFieldDefinition extends DataFieldDefinition {
   }
 
   public boolean inRange(String occurrence) {
-    if (range != null && range.getUnitLength() == occurrence.length())
-      if (range.isHasRange()) {
-        if (range.getStart().compareTo(occurrence) > 0 || range.getEnd().compareTo(occurrence) < 0)
-          return false;
-        return true;
-      } else
-        return range.getStart().equals(occurrence);
+    if (range == null || range.getUnitLength() != occurrence.length()) {
+      return false;
+    }
 
-    return false;
+    if (range.isHasRange()) {
+      return range.getStart().compareTo(occurrence) <= 0 && range.getEnd().compareTo(occurrence) >= 0;
+    }
+
+    return range.getStart().equals(occurrence);
   }
 
   public String getTagWithOccurrence() {
-    if (StringUtils.isBlank(occurrence))
+    if (StringUtils.isBlank(occurrence)) {
       return tag;
+    }
     return tag + "/" + occurrence;
   }
 

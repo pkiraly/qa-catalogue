@@ -4,7 +4,8 @@
 
 NAME=nlm
 TYPE_PARAMS="--emptyLargeCollectors"
-MARC_DIR=${BASE_INPUT_DIR}/nlm
+# index parameters
+TYPE_PARAMS="${TYPE_PARAMS} --indexWithTokenizedField --indexFieldCounts --indexSubfieldCounts"
 MASK=catplusbase.202?
 
 . ./common-script

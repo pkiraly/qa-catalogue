@@ -1,0 +1,45 @@
+---
+title: "Thompson-Traill completeness"
+---
+
+Kelly Thompson and Stacie Traill recently published their approach to calculate
+the quality of ebook records coming from different data sources. Their article
+is _Implementation of the scoring algorithm described in Leveraging Python to
+improve ebook metadata selection, ingest, and management._ In Code4Lib Journal,
+Issue 38, 2017-10-18. http://journal.code4lib.org/articles/12828
+
+```bash
+java -cp $JAR de.gwdg.metadataqa.marc.cli.ThompsonTraillCompleteness [options] <file>
+```
+or with a bash script
+```bash
+./tt-completeness [options] <file>
+```
+or
+```bash
+catalogues/[catalogue].sh tt-completeness
+```
+or
+```bash
+./qa-catalogue --params="[options]" tt-completeness
+```
+
+options:
+
+* [general parameters](#general-parameters)
+* `-F <file>`, `--fileName <file>`: the name of report the program produces.
+  Default is `tt-completeness.csv`.
+
+It produces a CSV file like this:
+
+```
+id,ISBN,Authors,Alternative Titles,Edition,Contributors,Series,TOC,Date 008,Date 26X,LC/NLM, \
+LoC,Mesh,Fast,GND,Other,Online,Language of Resource,Country of Publication,noLanguageOrEnglish, \
+RDA,total
+"010002197",0,0,0,0,0,0,0,1,2,0,0,0,0,0,0,0,1,0,0,0,4
+"01000288X",0,0,1,0,0,1,0,1,2,0,0,0,0,0,0,0,0,0,0,0,5
+"010004483",0,0,1,0,0,0,0,1,2,0,0,0,0,0,0,0,1,0,0,0,5
+"010018883",0,0,0,0,1,0,0,1,2,0,0,0,0,0,0,0,1,1,0,0,6
+"010023623",0,0,3,0,0,0,0,1,2,0,0,0,0,0,0,0,1,0,0,0,7
+"010027734",0,0,3,0,1,2,0,1,2,0,0,0,0,0,0,0,1,0,0,0,10
+```

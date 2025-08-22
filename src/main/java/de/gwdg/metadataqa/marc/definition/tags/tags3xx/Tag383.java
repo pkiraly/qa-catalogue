@@ -11,7 +11,7 @@ import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 import java.util.Arrays;
 
 /**
- * Numeric Designation of Musical Work
+ * Numeric Designation of Musical Work or Expression
  * https://www.loc.gov/marc/bibliographic/bd383.html
  */
 public class Tag383 extends DataFieldDefinition {
@@ -30,12 +30,18 @@ public class Tag383 extends DataFieldDefinition {
 
   private void initialize() {
     tag = "383";
-    label = "Numeric Designation of Musical Work";
+    label = "Numeric Designation of Musical Work or Expression";
     cardinality = Cardinality.Repeatable;
     descriptionUrl = "https://www.loc.gov/marc/bibliographic/bd383.html";
     setCompilanceLevels("O");
 
-    ind1 = new Indicator();
+    ind1 = new Indicator("Type of entity")
+      .setCodes(
+        " ", "No information provided",
+        "0", "Work",
+        "1", "Expression"
+      )
+      .setMqTag("typeOfEntity");
     ind2 = new Indicator();
 
     setSubfieldsWithCardinality(

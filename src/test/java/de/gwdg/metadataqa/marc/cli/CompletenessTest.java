@@ -2,9 +2,11 @@ package de.gwdg.metadataqa.marc.cli;
 
 import com.opencsv.CSVReader;
 import de.gwdg.metadataqa.api.util.FileUtils;
+import de.gwdg.metadataqa.marc.TestUtils;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
 import junit.framework.TestCase;
 import org.apache.commons.lang3.StringUtils;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,8 +30,8 @@ public class CompletenessTest extends CliTestUtils {
 
   @Before
   public void setUp() throws Exception {
-    inputFile = getPath("src/test/resources/alephseq/alephseq-example3.txt");
-    outputDir = getPath("src/test/resources/output");
+    inputFile = TestUtils.getPath("alephseq/alephseq-example3.txt");
+    outputDir = TestUtils.getPath("output");
     outputFiles = Arrays.asList(
       "libraries.csv",
       "libraries003.csv",
@@ -65,9 +67,22 @@ public class CompletenessTest extends CliTestUtils {
     for (String outputFile : outputFiles) {
       File output = new File(outputDir, outputFile);
       assertTrue(output.exists());
-      output.delete();
-      assertFalse(output.exists());
     }
+
+    // Now compare the output files with the expected ones
+    File expectedFile = new File(getTestResource("alephseq/expected-results/completeness/marc-elements.csv"));
+    File actualFile = new File(outputDir, "marc-elements.csv");
+    String expected = org.apache.commons.io.FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");
+    String actual = org.apache.commons.io.FileUtils.readFileToString(actualFile, "UTF-8").replaceAll("\r\n", "\n");
+
+    Assert.assertEquals(expected, actual);
+
+    expectedFile = new File(getTestResource("alephseq/expected-results/completeness/packages.csv"));
+    actualFile = new File(outputDir, "packages.csv");
+    expected = org.apache.commons.io.FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");
+    actual = org.apache.commons.io.FileUtils.readFileToString(actualFile, "UTF-8").replaceAll("\r\n", "\n");
+
+    Assert.assertEquals(expected, actual);
   }
 
   @Test
@@ -78,7 +93,7 @@ public class CompletenessTest extends CliTestUtils {
       "--schemaType", "PICA",
       "--marcForma", "PICA_PLAIN",
       "--outputDir", outputDir,
-      getPath("src/test/resources/pica/k10plus-sample.pica")
+      TestUtils.getPath("pica/k10plus-sample.pica")
     });
     RecordIterator iterator = new RecordIterator(processor);
     iterator.start();
@@ -86,9 +101,22 @@ public class CompletenessTest extends CliTestUtils {
     for (String outputFile : outputFiles) {
       File output = new File(outputDir, outputFile);
       assertTrue(output.exists());
-      output.delete();
-      assertFalse(output.exists());
     }
+
+    // Now compare the output files with the expected ones
+    File expectedFile = new File(getTestResource("pica/expected-results/completeness/marc-elements.csv"));
+    File actualFile = new File(outputDir, "marc-elements.csv");
+    String expected = org.apache.commons.io.FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");
+    String actual = org.apache.commons.io.FileUtils.readFileToString(actualFile, "UTF-8").replaceAll("\r\n", "\n");
+
+    Assert.assertEquals(expected, actual);
+
+    expectedFile = new File(getTestResource("pica/expected-results/completeness/packages.csv"));
+    actualFile = new File(outputDir, "packages.csv");
+    expected = org.apache.commons.io.FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");
+    actual = org.apache.commons.io.FileUtils.readFileToString(actualFile, "UTF-8").replaceAll("\r\n", "\n");
+
+    Assert.assertEquals(expected, actual);
   }
 
   @Test
@@ -104,7 +132,7 @@ public class CompletenessTest extends CliTestUtils {
   public void completeness_pica_groupBy() throws Exception {
     clearOutput(outputDir, groupedOutputFiles);
 
-    String inputFile = getPath("src/test/resources/pica/pica-with-holdings-info.dat");
+    String inputFile = TestUtils.getPath("pica/pica-with-holdings-info.dat");
     assertTrue(new File(inputFile).exists());
 
     Completeness processor = new Completeness(new String[]{
@@ -158,11 +186,10 @@ public class CompletenessTest extends CliTestUtils {
     Completeness processor = new Completeness(new String[]{
       "--schemaType", "PICA",
       "--groupBy", "001@$0",
-      // "--groupListFile", FileUtils.getPath("kxp-uniq-library-names.tsv").toAbsolutePath().toString(),
       "--groupListFile", FileUtils.getPath("k10plus-libraries-by-unique-iln.txt").toAbsolutePath().toString(),
       "--marcFormat", "PICA_NORMALIZED",
       "--outputDir", outputDir,
-      getPath("src/test/resources/pica/pica-with-holdings-info.dat")
+      TestUtils.getPath("pica/pica-with-holdings-info.dat")
     });
     RecordIterator iterator = new RecordIterator(processor);
     iterator.start();
@@ -294,7 +321,6 @@ public class CompletenessTest extends CliTestUtils {
         assertTrue(line.contains("\"trimId\":false,"));
         assertTrue(line.contains("\"outputDir\":\"/"));
         assertTrue(line.contains("/qa-catalogue/src/test/resources/output\","));
-        assertTrue(line.contains("\"recordIgnorator\":{\"criteria\":[],\"booleanCriteria\":null,\"empty\":true},"));
         assertTrue(line.contains("\"recordFilter\":{\"criteria\":[],\"booleanCriteria\":null,\"empty\":true},"));
         assertTrue(line.contains("\"ignorableFields\":{\"fields\":null,\"empty\":true},"));
         assertTrue(line.contains("\"stream\":null,"));
@@ -314,7 +340,7 @@ public class CompletenessTest extends CliTestUtils {
         assertTrue(line.contains("\"pica\":true,"));
         assertTrue(line.contains("\"replacementInControlFields\":null,"));
         assertTrue(line.contains("\"marc21\":false,"));
-        assertTrue(line.contains("\"mqaf.version\":\"0.9.3\","));
+        assertTrue(line.contains("\"mqaf.version\":\"0.9.8\","));
         assertTrue(line.contains("\"qa-catalogue.version\":\"0.8.0-SNAPSHOT\""));
         assertTrue(line.contains("\"duration\":\"00:00:00\""));
         assertTrue(line.contains("\"numberOfprocessedRecords\":10"));
@@ -340,7 +366,58 @@ public class CompletenessTest extends CliTestUtils {
   }
 
   @Test
-  public void dummy() {
-    System.err.println(Math.min(3, 8));
+  public void completeness_whenUnimarc() throws Exception {
+    clearOutput(outputDir, outputFiles);
+
+    Completeness processor = new Completeness(new String[]{
+        "--schemaType", "UNIMARC",
+        "--marcFormat", "MARC_LINE",
+        "--outputDir", outputDir,
+        TestUtils.getPath("unimarc/unimarc.mrctxt")
+    });
+    RecordIterator iterator = new RecordIterator(processor);
+    iterator.start();
+
+    for (String outputFile : outputFiles) {
+      File output = new File(outputDir, outputFile);
+      assertTrue(output.exists());
+    }
+
+    // Now compare the output files with the expected ones
+    File expectedFile = new File(getTestResource("unimarc/expected-results/completeness/marc-elements.csv"));
+    File actualFile = new File(outputDir, "marc-elements.csv");
+    String expected = org.apache.commons.io.FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");
+    String actual = org.apache.commons.io.FileUtils.readFileToString(actualFile, "UTF-8").replaceAll("\r\n", "\n");
+
+    Assert.assertEquals(expected, actual);
+
+    expectedFile = new File(getTestResource("unimarc/expected-results/completeness/packages.csv"));
+    actualFile = new File(outputDir, "packages.csv");
+    expected = org.apache.commons.io.FileUtils.readFileToString(expectedFile, "UTF-8").replaceAll("\r\n", "\n");
+    actual = org.apache.commons.io.FileUtils.readFileToString(actualFile, "UTF-8").replaceAll("\r\n", "\n");
+
+    Assert.assertEquals(expected, actual);
+  }
+
+  @Test
+  public void completeness_picaplain() throws Exception {
+    clearOutput(outputDir, outputFiles);
+
+    Completeness processor = new Completeness(new String[]{
+      "--schemaType", "PICA",
+      "--marcFormat", "PICA_PLAIN",
+      "--outputDir", outputDir,
+      TestUtils.getPath("pica/pica-plain.pp")
+    });
+    RecordIterator iterator = new RecordIterator(processor);
+    iterator.start();
+
+    for (String outputFile : outputFiles) {
+      // System.err.println(outputFile);
+      File output = new File(outputDir, outputFile);
+      assertTrue(output.exists());
+      String expected = org.apache.commons.io.FileUtils.readFileToString(output, "UTF-8");
+      assertTrue(StringUtils.isNotBlank(expected));
+    }
   }
 }

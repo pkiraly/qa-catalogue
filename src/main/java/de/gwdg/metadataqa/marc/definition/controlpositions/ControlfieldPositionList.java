@@ -2,13 +2,16 @@ package de.gwdg.metadataqa.marc.definition.controlpositions;
 
 import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class ControlfieldPositionList {
+public class ControlfieldPositionList implements Serializable {
 
+  private static final long serialVersionUID = -3368938324766612439L;
   protected Map<String, List<ControlfieldPositionDefinition>> positions = new TreeMap<>();
   protected Map<String, ControlfieldPositionDefinition> positionIdMap = new HashMap<>();
 
@@ -21,8 +24,8 @@ public class ControlfieldPositionList {
   }
 
   protected void index() {
-    for (List<ControlfieldPositionDefinition> positions : positions.values()) {
-      for (ControlfieldPositionDefinition position : positions) {
+    for (List<ControlfieldPositionDefinition> positionDefinitions : positions.values()) {
+      for (ControlfieldPositionDefinition position : positionDefinitions) {
         positionIdMap.put(position.getId(), position);
       }
     }
@@ -30,5 +33,10 @@ public class ControlfieldPositionList {
 
   public ControlfieldPositionDefinition getById(String id) {
     return positionIdMap.getOrDefault(id, null);
+  }
+
+  public void setPositions(List<ControlfieldPositionDefinition> positions) {
+    this.positions.computeIfAbsent("ALL_MATERIALS", k -> new ArrayList<>()).addAll(positions);
+    index();
   }
 }

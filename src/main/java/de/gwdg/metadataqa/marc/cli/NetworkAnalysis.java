@@ -1,14 +1,14 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.cli.utils.PairGenerator;
-import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.analysis.NetworkAnalyzer;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.NetworkAction;
 import de.gwdg.metadataqa.marc.cli.parameters.NetworkParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
+import de.gwdg.metadataqa.marc.cli.utils.PairGenerator;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
+import de.gwdg.metadataqa.marc.dao.DataField;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
@@ -47,7 +47,7 @@ public class NetworkAnalysis extends QACli<NetworkParameters> implements Bibliog
     try {
       processor = new NetworkAnalysis(args);
     } catch (ParseException e) {
-      System.err.println(createRow("ERROR. ", e.getLocalizedMessage()));
+      logger.severe(createRow("ERROR. ", e.getLocalizedMessage()));
       System.exit(1);
     }
     NetworkParameters params = (NetworkParameters)processor.getParameters();
@@ -58,7 +58,7 @@ public class NetworkAnalysis extends QACli<NetworkParameters> implements Bibliog
       generator.generatePairs();
     } else {
       if (params.getArgs().length < 1) {
-        System.err.println("Please provide a MARC file name!");
+        logger.severe("Please provide a MARC file name!");
         processor.printHelp(params.getOptions());
         System.exit(0);
       }
@@ -67,6 +67,7 @@ public class NetworkAnalysis extends QACli<NetworkParameters> implements Bibliog
         System.exit(0);
       }
       RecordIterator iterator = new RecordIterator(processor);
+      iterator.setProcessWithErrors(processor.getParameters().getProcessRecordsWithoutId());
       iterator.start();
     }
   }
@@ -82,33 +83,36 @@ public class NetworkAnalysis extends QACli<NetworkParameters> implements Bibliog
   }
 
   @Override
-  public void processRecord(BibliographicRecord marcRecord, int recordNumber, List<ValidationError> errors) throws IOException {
-    // do nothing
+  public void processRecord(BibliographicRecord bibliographicRecord, int recordNumber, List<ValidationError> errors) throws IOException {
+    processRecord(bibliographicRecord, recordNumber);
   }
 
   @Override
-  public void processRecord(BibliographicRecord marcRecord, int recordNumber) throws IOException {
-    if (parameters.getRecordIgnorator().isIgnorable(marcRecord))
+  public void processRecord(BibliographicRecord bibliographicRecord, int recordNumber) throws IOException {
+    if (parameters.getRecordIgnorator().isIgnorable(bibliographicRecord))
       return;
 
-    NetworkAnalyzer analyzer = new NetworkAnalyzer(marcRecord);
-    Set<DataField> collector = analyzer.process(recordNumber);
-    if (!collector.isEmpty()) {
-      for (DataField field : collector) {
-        networkWriter.write(createRow(
-          field.toString().hashCode(),
-          field.getDefinition().getTag(),
-          recordNumber
-        ));
-      }
+    NetworkAnalyzer analyzer = new NetworkAnalyzer(bibliographicRecord);
+    Set<DataField> collector = analyzer.process();
+    orphans.add(bibliographicRecord.getId(true));
+
+    if (collector.isEmpty()) {
+      return;
     }
-    orphans.add(marcRecord.getId(true));
+
+    for (DataField field : collector) {
+      networkWriter.write(createRow(
+        field.toString().hashCode(),
+        field.getDefinition().getTag(),
+        recordNumber
+      ));
+    }
   }
 
   @Override
   public void beforeIteration() {
     var path = Paths.get(parameters.getOutputDir(), "network.csv");
-    logger.info(parameters.formatParameters());
+    logger.info(() -> parameters.formatParameters());
     try {
       networkWriter = Files.newBufferedWriter(path);
       networkWriter.write(createRow("concept", "tag", "id"));
@@ -119,12 +123,12 @@ public class NetworkAnalysis extends QACli<NetworkParameters> implements Bibliog
 
   @Override
   public void fileOpened(Path path) {
-
+    // Do nothing
   }
 
   @Override
   public void fileProcessed() {
-
+    // Do nothing
   }
 
   @Override
@@ -140,7 +144,7 @@ public class NetworkAnalysis extends QACli<NetworkParameters> implements Bibliog
 
   @Override
   public void printHelp(Options options) {
-
+    // Do nothing
   }
 
   @Override

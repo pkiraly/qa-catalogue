@@ -1,14 +1,13 @@
 package de.gwdg.metadataqa.marc.cli.utils.ignorablerecords;
 
+import de.gwdg.metadataqa.marc.TestUtils;
 import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
+import de.gwdg.metadataqa.marc.dao.record.Marc21BibliographicRecord;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.utils.parser.BooleanContainer;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaManager;
 import de.gwdg.metadataqa.marc.utils.pica.PicaSchemaReader;
 import org.junit.Test;
-
-import java.nio.file.Paths;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -16,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 
 public class RecordIgnoratorPicaTest {
 
-  PicaSchemaManager schema = PicaSchemaReader.createSchema(getPathFromMain("pica/avram-k10plus.json"));
+  PicaSchemaManager schema = PicaSchemaReader.createSchema(TestUtils.getPathFromMain("pica/avram-k10plus-title.json"));
 
   @Test
   public void parse_ex1() {
@@ -58,7 +57,7 @@ public class RecordIgnoratorPicaTest {
 
   @Test
   public void isIgnorable_ex1() {
-    BibliographicRecord marcRecord = new Marc21Record("010000011");
+    BibliographicRecord marcRecord = new Marc21BibliographicRecord("010000011");
     marcRecord.addDataField(new DataField(schema.lookup("002@"), " ", " ", "0", "L"));
 
     RecordIgnorator ignorator = new RecordIgnoratorPica("002@.0 =~ '^L'");
@@ -145,14 +144,6 @@ public class RecordIgnoratorPicaTest {
     assertEquals("CriteriumPica{path=002@.0, operator=NOT_MATCH, value='^L'}", ((RecordIgnoratorPica)ignorator).getBooleanCriteria().getChildren().get(0).getValue().toString());
   }
 
-  private String getPath(String fileName) {
-    return Paths.get("src/test/resources/" + fileName).toAbsolutePath().toString();
-  }
-
-  private String getPathFromMain(String fileName) {
-    return Paths.get("src/main/resources/" + fileName).toAbsolutePath().toString();
-  }
-
   private void testParsing(String ignorableRecordsInput, int size, String path, Operator op, String value) {
     RecordIgnorator ignorator = new RecordIgnoratorPica(ignorableRecordsInput);
     assertFalse(ignorator.isEmpty());
@@ -166,14 +157,14 @@ public class RecordIgnoratorPicaTest {
   }
 
   private void isIgnorable(String abk, String ignorableRecordsInput) {
-    BibliographicRecord marcRecord = new Marc21Record("010000011");
+    BibliographicRecord marcRecord = new Marc21BibliographicRecord("010000011");
     marcRecord.addDataField(new DataField(schema.lookup("002@"), " ", " ", "0", abk));
     RecordIgnorator ignorator = new RecordIgnoratorPica(ignorableRecordsInput);
     assertTrue(ignorator.isIgnorable(marcRecord));
   }
 
   private void isIgnorableFailing(String abM, String ignorableRecordsInput) {
-    BibliographicRecord marcRecord = new Marc21Record("010000011");
+    BibliographicRecord marcRecord = new Marc21BibliographicRecord("010000011");
     marcRecord.addDataField(new DataField(schema.lookup("002@"), " ", " ", "0", abM));
     RecordIgnorator ignorator = new RecordIgnoratorPica(ignorableRecordsInput);
     assertFalse(ignorator.isIgnorable(marcRecord));

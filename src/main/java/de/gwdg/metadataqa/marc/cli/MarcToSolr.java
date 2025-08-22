@@ -1,13 +1,13 @@
 package de.gwdg.metadataqa.marc.cli;
 
-import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
+import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.parameters.MarcToSolrParameters;
 import de.gwdg.metadataqa.marc.cli.processor.BibliographicInputProcessor;
 import de.gwdg.metadataqa.marc.cli.utils.RecordIterator;
+import de.gwdg.metadataqa.marc.dao.DataField;
+import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.datastore.MarcSolrClient;
-import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.general.indexer.FieldIndexer;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
@@ -28,7 +28,8 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Path;
 import java.text.DecimalFormat;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,40 +47,49 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
     MarcToSolr.class.getCanonicalName()
   );
   private Options options;
-  private MarcVersion version;
   private MarcSolrClient client;
   private MarcSolrClient validationClient;
   private Path currentFile;
   private boolean readyToProcess;
-  private DecimalFormat decimalFormat = new DecimalFormat();
+  private final DecimalFormat decimalFormat = new DecimalFormat();
   private FieldIndexer groupIndexer;
-  private Map<String, String> escapedTagCache = new HashMap<>();
+  private final Map<String, String> escapedTagCache = new HashMap<>();
 
   public MarcToSolr(String[] args) throws ParseException {
     parameters = new MarcToSolrParameters(args);
     initialize();
   }
 
-  public MarcToSolr(MarcToSolrParameters parameters) throws ParseException {
+  public MarcToSolr(MarcToSolrParameters parameters) {
     this.parameters = parameters;
     initialize();
   }
 
   private void initialize() {
     options = parameters.getOptions();
-    client = parameters.useEmbedded()
+
+    client = parameters.isUseEmbedded()
       ? new MarcSolrClient(parameters.getMainClient())
       : new MarcSolrClient(parameters.getSolrUrl());
     client.setTrimId(parameters.getTrimId());
-    client.indexWithTokenizedField(parameters.indexWithTokenizedField());
+    client.indexWithTokenizedField(parameters.isIndexWithTokenizedField());
+
+    if (parameters.getFieldPrefix() != null) {
+      client.setFieldPrefix(parameters.getFieldPrefix());
+    }
+
     if (parameters.getSolrForScoresUrl() != null) {
-      validationClient = parameters.useEmbedded()
+      validationClient = parameters.isUseEmbedded()
         ? new MarcSolrClient(parameters.getValidationClient())
         : new MarcSolrClient(parameters.getSolrForScoresUrl());
       validationClient.setTrimId(parameters.getTrimId());
+
+      if (parameters.getFieldPrefix() != null) {
+        validationClient.setFieldPrefix(parameters.getFieldPrefix());
+      }
     }
+
     readyToProcess = true;
-    version = parameters.getMarcVersion();
     initializeGroups(parameters.getGroupBy(), parameters.isPica());
     if (doGroups()) {
       groupIndexer = new PicaGroupIndexer().setPicaPath((PicaPath) groupBy);
@@ -89,16 +99,17 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
   public static void main(String[] args) {
     try {
       MarcToSolr processor = new MarcToSolr(args);
-      processor.options.toString();
       if (StringUtils.isBlank(((MarcToSolrParameters) processor.getParameters()).getSolrUrl())) {
-        System.err.println("Please provide a Solr URL and file name!");
+        logger.severe("Please provide a Solr URL and file name!");
         System.exit(1);
       }
 
       RecordIterator iterator = new RecordIterator(processor);
+      iterator.setProcessWithErrors(processor.getParameters().getProcessRecordsWithoutId());
       iterator.start();
+      System.exit(0);
     } catch(Exception e) {
-      System.err.println("ERROR. " + e.getLocalizedMessage());
+      logger.severe(() -> "ERROR. " + e.getLocalizedMessage());
       System.exit(1);
     }
   }
@@ -114,8 +125,8 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
   }
 
   @Override
-  public void processRecord(BibliographicRecord marcRecord, int recordNumber, List<ValidationError> errors) throws IOException {
-    // do nothing
+  public void processRecord(BibliographicRecord bibliographicRecord, int recordNumber, List<ValidationError> errors) throws IOException {
+    processRecord(bibliographicRecord, recordNumber);
   }
 
   @Override
@@ -123,49 +134,84 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
     if (parameters.getRecordIgnorator().isIgnorable(bibliographicRecord))
       return;
 
-    if (bibliographicRecord.getSchemaType().equals(SchemaType.PICA) && doGroups())
-      for (DataField groupField : bibliographicRecord.getDatafield(((PicaPath) groupBy).getTag()))
+    if (bibliographicRecord.getSchemaType().equals(SchemaType.PICA) && doGroups()) {
+      for (DataField groupField : bibliographicRecord.getDatafieldsByTag(((PicaPath) groupBy).getTag())) {
         groupField.addFieldIndexer(groupIndexer);
+      }
+    }
 
-    Map<String, List<String>> map = bibliographicRecord.getKeyValuePairs(
+    Map<String, List<String>> keyValuePairs = bibliographicRecord.getKeyValuePairs(
       parameters.getSolrFieldType(), true, parameters.getMarcVersion()
     );
-    map.put("record_sni", Arrays.asList(bibliographicRecord.asJson()));
-    SolrInputDocument solrDocument = client.createSolrDoc(bibliographicRecord.getId(), map);
-    if (validationClient != null)
+
+    // Add the record itself as a field to the index
+    keyValuePairs.put("record_sni", Collections.singletonList(bibliographicRecord.asJson()));
+
+    // logger.info(bibliographicRecord.getId());
+    SolrInputDocument solrDocument = client.createSolrDoc(bibliographicRecord.getId(), keyValuePairs);
+    if (validationClient != null) {
       indexValidationResults(bibliographicRecord, solrDocument);
-
-    if (parameters.indexFieldCounts())
-      indexFieldCounts(bibliographicRecord, solrDocument);
-
-    client.index(solrDocument);
-
-    if (recordNumber % parameters.getCommitAt() == 0) {
-      if (parameters.doCommit())
-        client.commit();
-      logger.info(
-        String.format(
-          "%s/%s (%s)",
-          currentFile.getFileName().toString(),
-          decimalFormat.format(recordNumber),
-          bibliographicRecord.getId()
-        )
-      );
     }
+
+    if (parameters.isIndexFieldCounts() || parameters.isIndexSubfieldCounts()) {
+      indexFieldCounts(bibliographicRecord, solrDocument);
+    }
+
+    try {
+      client.index(solrDocument);
+    } catch (Exception e) {
+      logger.severe(() -> "ERROR while index." + e.getLocalizedMessage());
+    }
+
+    if (recordNumber % parameters.getCommitAt() != 0) {
+      return;
+    }
+
+    if (parameters.isDoCommit()) {
+      logger.info("do commit @" + recordNumber);
+      client.commit();
+      long indexedRecordCount = client.getCount();
+      if (recordNumber != indexedRecordCount) {
+        logger.severe(String.format("recordNumber: %d != indexedRecordCount: %d", recordNumber, indexedRecordCount));
+      }
+      logger.info("/do commit @" + recordNumber);
+    }
+
+    String logMessage = String.format(
+      "%s/%s (%s)",
+      currentFile.getFileName().toString(),
+      decimalFormat.format(recordNumber),
+      bibliographicRecord.getId()
+    );
+    logger.info(logMessage);
   }
 
   private void indexValidationResults(BibliographicRecord bibliographicRecord, SolrInputDocument document) {
     SolrDocument validationValues = validationClient.get(bibliographicRecord.getId());
-    if (validationValues != null && !validationValues.isEmpty())
-      for (String field : validationValues.getFieldNames())
-        document.addField(field, validationValues.getFieldValues(field));
+    if (validationValues == null || validationValues.isEmpty()) {
+      return;
+    }
+
+    for (String field : validationValues.getFieldNames()) {
+      document.addField(field, validationValues.getFieldValues(field));
+    }
   }
 
-  private void indexFieldCounts(BibliographicRecord bibliographicRecord, SolrInputDocument document) {
-    Counter<String> fieldCounter = new Counter<>();
+  /**
+   * Index field and subfield counts. The solr field will look like <tag>_count_i and
+   * <tag><subfield code>_count_i, the value will be the number of times this element is
+   * available in the record.
+   *
+   * @param bibliographicRecord The bibliographic record
+   * @param document The Solr document
+   */
+  private void indexFieldCounts(BibliographicRecord bibliographicRecord,
+                                SolrInputDocument document) {
+    Counter<String> counter = new Counter<>();
     boolean isPica = bibliographicRecord.getSchemaType().equals(SchemaType.PICA);
+    Map<String, List<Integer>> subfields = new HashMap<>();
     for (DataField field : bibliographicRecord.getDatafields()) {
-      String tag = null;
+      String tag;
       if (field.getDefinition() != null) {
         tag = isPica
           ? ((PicaFieldDefinition)field.getDefinition()).getId()
@@ -173,22 +219,46 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
       } else {
         tag = field.getTag();
       }
-      fieldCounter.count(escape(tag));
+      String safeTag = escape(tag);
+      if (parameters.isIndexFieldCounts())
+        counter.count(safeTag);
+
+      if (parameters.isIndexSubfieldCounts()) {
+        Counter<String> subfieldCounter = new Counter<>();
+        for (MarcSubfield subfield : field.getSubfields()) {
+          String safeSubfieldCode = DataFieldKeyGenerator.escape(subfield.getCode());
+          subfieldCounter.count(safeTag + safeSubfieldCode);
+        }
+        for (Map.Entry<String, Integer> entry : subfieldCounter.entrySet()) {
+          if (!subfields.containsKey(entry.getKey()))
+            subfields.put(entry.getKey(), new ArrayList<>());
+          subfields.get(entry.getKey()).add(entry.getValue());
+        }
+      }
     }
-    for (Map.Entry<String, Integer> entry : fieldCounter.entrySet())
-      document.addField(String.format("%s_count_i", entry.getKey()), entry.getValue());
+    for (Map.Entry<String, Integer> entry : counter.entrySet()) {
+      document.addField(String.format(
+        "%s%s_count_i",
+        parameters.getFieldPrefix(), entry.getKey()), entry.getValue());
+    }
+
+    if (parameters.isIndexSubfieldCounts()) {
+      for (Map.Entry<String, List<Integer>> entry : subfields.entrySet()) {
+        document.addField(String.format(
+          "%s%s_count_is",
+          parameters.getFieldPrefix(), entry.getKey()), entry.getValue());
+      }
+    }
   }
 
   private String escape(String tag) {
-    if (!escapedTagCache.containsKey(tag))
-      escapedTagCache.put(tag, DataFieldKeyGenerator.escape(tag));
-
+    escapedTagCache.putIfAbsent(tag, DataFieldKeyGenerator.escape(tag));
     return escapedTagCache.get(tag);
   }
 
   @Override
   public void beforeIteration() {
-    logger.info(parameters.formatParameters());
+    logger.info(() -> parameters.formatParameters());
     parameters.setMainClient(null);
     parameters.setValidationClient(null);
   }
@@ -200,13 +270,21 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
 
   @Override
   public void fileProcessed() {
-
+    // Do nothing
   }
 
   @Override
   public void afterIteration(int numberOfprocessedRecords, long duration) {
     client.commit();
-    saveParameters("marctosolr.params.json", parameters, Map.of("numberOfprocessedRecords", numberOfprocessedRecords, "duration", duration));
+    logger.info(parameters.toString());
+    saveParameters(
+      "marctosolr.params.json",
+      parameters,
+      Map.of(
+        "numberOfprocessedRecords", numberOfprocessedRecords,
+        "duration", duration
+      )
+    );
   }
 
   @Override

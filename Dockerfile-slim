@@ -1,0 +1,85 @@
+FROM ubuntu:24.04
+
+LABEL maintainer="Péter Király <pkiraly@gwdg.de>, Ákos Takács <rimelek@rimelek.hu>, Jakob Voß <jakob.voss@gbv.de>"
+
+LABEL description="QA catalogue - a metadata quality assessment tool for MARC based library catalogues."
+# the Github repo labels
+LABEL org.opencontainers.image.description="QA catalogue - a metadata quality assessment tool for MARC based library catalogues."
+LABEL org.opencontainers.image.source=https://github.com/pkiraly/qa-catalogue
+LABEL org.opencontainers.image.licenses="GNU General Public License v3.0"
+
+ARG DEBIAN_FRONTEND=noninteractive
+ARG QA_CATALOGUE_VERSION=0.8.0-SNAPSHOT
+ARG QA_CATALOGUE_WEB_VERSION=main
+ARG SOLR_VERSION=8.11.1
+ARG SOLR_INSTALL_SOURCE=remote
+
+# install R
+ENV TZ=Etc/UTC
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
+ && echo $TZ > /etc/timezone
+
+RUN apt-get update \
+ # Install add-apt-repository command
+ && apt-get install -y --no-install-recommends software-properties-common gnupg2 \
+ # add PPA with pre-compiled cran packages
+ && add-apt-repository -y ppa:openjdk-r/ppa \
+ && echo "deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/" > /etc/apt/sources.list.d/cran.list \
+ && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 \
+ && apt-get install -y --no-install-recommends \
+      # install basic OS tools
+      apt-utils \
+      build-essential \
+      nano \
+      jq \
+      curl \
+      wget \
+      openssl \
+      git \
+      # install Java
+      openjdk-11-jre-headless \
+      # Install R
+      r-base \
+      # Install R packages from ppa:marutter
+      r-cran-tidyverse \
+      r-cran-stringr \
+      r-cran-gridextra \
+      r-cran-rsqlite \
+      r-cran-httr \
+      sqlite3 \
+      less \
+      # for Apache Solr
+      lsof \
+      # php \
+      php \
+      php-curl \
+ && apt-get --assume-yes autoremove \
+ && rm -rf /var/lib/apt/lists/*
+
+# install qa-catalogue
+COPY target/qa-catalogue-${QA_CATALOGUE_VERSION}-release.zip /opt
+
+RUN cd /opt \
+ && unzip qa-catalogue-${QA_CATALOGUE_VERSION}-release.zip \
+ && rm qa-catalogue-${QA_CATALOGUE_VERSION}-release.zip \
+ && mv qa-catalogue-${QA_CATALOGUE_VERSION} qa-catalogue \
+ && cd qa-catalogue \
+ && mkdir -p marc/input marc/output marc/logs web-config \
+ && mv setdir.sh.template setdir.sh \
+ && sed -i.bak 's,\(BASE_INPUT_DIR=\)./input,\1/opt/qa-catalogue/marc/input,' setdir.sh \
+ && sed -i.bak 's,\(BASE_OUTPUT_DIR=\)./output,\1/opt/qa-catalogue/marc/output,' setdir.sh \
+ && sed -i.bak 's,\(BASE_LOG_DIR=\)./logs,\1/opt/qa-catalogue/marc/logs,' setdir.sh
+
+# init process supervisor
+RUN echo "install supervisor" \
+ && apt-get update \
+ && apt-get install -y --no-install-recommends supervisor \
+ && mkdir -p /var/log/supervisor \
+ && apt-get --assume-yes autoremove \
+ && rm -rf /var/lib/apt/lists/*
+
+COPY docker/supervisord-slim.conf /etc/supervisord.conf
+
+WORKDIR /opt/qa-catalogue
+
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]

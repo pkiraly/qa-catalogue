@@ -19,14 +19,21 @@ if (length(args) == 0) {
 } else if (length(args) == 1) {
   # default output dir
   OUTPUT_DIR <- args[1]
+  SOLR_HOST <- 'http://localhost:8983'
   SOLR_CORE <- 'validation'
 } else if (length(args) == 2) {
   # default output dir
   OUTPUT_DIR <- args[1]
   SOLR_CORE <- args[2]
+  SOLR_HOST <- 'http://localhost:8983'
+} else if (length(args) == 3) {
+  # default output dir
+  OUTPUT_DIR <- args[1]
+  SOLR_HOST <- args[2]
+  SOLR_CORE <- args[3]
 }
-print(sprintf('[parameters] OUTPUT_DIR: %s, SOLR_CORE: %s', OUTPUT_DIR, SOLR_CORE))
-URL <- paste0('http://localhost:8983/solr/', SOLR_CORE, '/select?q=%s&rows=0')
+print(sprintf('[parameters] OUTPUT_DIR: %s, Solr at %s/%s', OUTPUT_DIR, SOLR_HOST, SOLR_CORE))
+URL <- paste0(SOLR_HOST, '/solr/', SOLR_CORE, '/select?q=%s&rows=0')
 
 print('reading issue-summary.csv')
 summary <- read_csv(sprintf('%s/%s', OUTPUT_DIR, 'issue-summary.csv'))

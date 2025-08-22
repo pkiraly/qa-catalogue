@@ -1,0 +1,13 @@
+frbr-function,avgcount,avgscore
+DiscoverySearch,10.0,0.021551724137931036
+DiscoveryIdentify,23.0,0.023735810113519093
+DiscoverySelect,11.0,0.03151862464183381
+DiscoveryObtain,20.0,0.04395604395604396
+UseRestrict,0.0,0.0
+UseManage,4.0,0.038834951456310676
+UseOperate,1.0,0.015873015873015872
+UseInterpret,1.0,0.00847457627118644
+ManagementIdentify,13.0,0.02636916835699797
+ManagementProcess,34.0,0.062157221206581355
+ManagementSort,2.0,0.07692307692307693
+ManagementDisplay,2.0,0.025

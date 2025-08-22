@@ -5,11 +5,11 @@ import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.definition.general.Linkage;
 import de.gwdg.metadataqa.marc.definition.general.parser.ParserException;
 import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
-import de.gwdg.metadataqa.marc.model.validation.ErrorsCollector;
 import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGenerator;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,17 +18,16 @@ import java.util.logging.Logger;
 public class MarcSubfield implements Serializable { // Validatable
 
   private static final Logger logger = Logger.getLogger(MarcSubfield.class.getCanonicalName());
-
+  private static Map<String, String> prefixCache;
   private BibliographicRecord marcRecord;
   private DataField field;
   private SubfieldDefinition definition;
   private final String code;
   private final String value;
   private String codeForIndex = null;
-  private ErrorsCollector errors = null;
   private Linkage linkage;
   private String referencePath;
-  private static Map<String, String> prefixCache;
+
 
   public MarcSubfield(SubfieldDefinition definition, String code, String value) {
     this.definition = definition;
@@ -75,11 +74,22 @@ public class MarcSubfield implements Serializable { // Validatable
     return label;
   }
 
+  /**
+   * Resolve the subfield value.
+   * @return Either the original value of the subfield or its label.
+   */
   public String resolve() {
     if (definition == null)
       return value;
 
     return definition.resolve(value);
+  }
+
+  public List<String> split() {
+    if (definition == null || !definition.hasContentSplitter())
+      return List.of(value);
+
+    return definition.getContentSplitter().parse(value);
   }
 
   public SubfieldDefinition getDefinition() {
@@ -98,29 +108,40 @@ public class MarcSubfield implements Serializable { // Validatable
     this.marcRecord = marcRecord;
   }
 
+  /**
+   * Get the index code for this subfield. If there's no definition, the code is just the subfield code.
+   * If there's a definition, the code is the index code from the definition.
+   * E.g. no definition: "a" -> "_a", definition: see SubfieldDefinition.getCodeForIndex()
+   * @see SubfieldDefinition#getCodeForIndex()
+   * @return The index code for this subfield.
+   */
   public String getCodeForIndex() {
-    if (codeForIndex == null) {
-      codeForIndex = "_" + code;
-      if (definition != null && definition.getCodeForIndex(marcRecord.getSchemaType()) != null) {
-        codeForIndex = definition.getCodeForIndex(marcRecord.getSchemaType());
-      }
+    if (codeForIndex != null) {
+      return codeForIndex;
+    }
+    codeForIndex = code;
+    if (definition != null && definition.getCodeForIndex() != null) {
+      codeForIndex = definition.getCodeForIndex();
     }
     return codeForIndex;
   }
 
   public Map<String, String> parseContent() {
-    if (definition.hasContentParser())
-      try {
-        return definition.getContentParser().parse(value);
-      } catch (ParserException e) {
-        var msg = String.format(
-          "Error in record: '%s' %s$%s: '%s'. Error message: '%s'",
-          marcRecord.getId(), field.getTag(), definition.getCode(), value, e.getMessage()
-        );
-        logger.severe(msg);
-      }
+    if (!definition.hasContentParser()) {
+      return Collections.emptyMap();
+    }
 
-    return null;
+    try {
+      return definition.getContentParser().parse(value);
+    } catch (ParserException e) {
+      var msg = String.format(
+        "Error in record: '%s' %s$%s: '%s'. Error message: '%s'",
+        marcRecord.getId(), field.getTag(), definition.getCode(), value, e.getMessage()
+      );
+      logger.severe(msg);
+    }
+
+    return Collections.emptyMap();
   }
 
   public Map<String, List<String>> getKeyValuePairs(DataFieldKeyGenerator keyGenerator) {
@@ -129,43 +150,66 @@ public class MarcSubfield implements Serializable { // Validatable
     }
 
     String tagForCache = this.getField().getTag();
-    if (this.getField().getOccurrence() != null)
+    if (this.getField().getOccurrence() != null) {
       tagForCache += "/" + this.getField().getOccurrence();
-    String cacheKey = String.format("%s$%s-%s-%s", tagForCache, code, keyGenerator.getType().getType(), keyGenerator.getMarcVersion());
-    if (!prefixCache.containsKey(cacheKey))
-      prefixCache.put(cacheKey, keyGenerator.forSubfield(this));
+    }
+
+    String cacheKey = String.format(
+      "%s$%s-%s-%s",
+      tagForCache, code, keyGenerator.getClass().getSimpleName(), keyGenerator.getMarcVersion());
+    if (!prefixCache.containsKey(cacheKey)) {
+      String generatedPrefix = keyGenerator.forSubfield(this);
+      prefixCache.put(cacheKey, generatedPrefix);
+    }
     String prefix = prefixCache.get(cacheKey);
 
     Map<String, List<String>> pairs = new HashMap<>();
-    pairs.put(prefix, new ArrayList<>(List.of(resolve())));
-    if (getDefinition() != null) {
-      getKeyValuePairsForPositionalSubfields(pairs, prefix);
-      getKeyValuePairsFromContentParser(keyGenerator, pairs);
+    if (definition != null && definition.hasContentSplitter()) {
+      List<String> items = new ArrayList<>();
+      for (String item : split())
+        items.add(definition.resolve(item));
+
+      pairs.put(prefix, items);
+    } else
+      pairs.put(prefix, new ArrayList<>(List.of(resolve())));
+
+    if (getDefinition() == null) {
+      return pairs;
     }
 
+    getKeyValuePairsForPositionalSubfields(pairs, prefix);
+    getKeyValuePairsFromContentParser(keyGenerator, pairs);
     return pairs;
   }
 
-  private void getKeyValuePairsFromContentParser(DataFieldKeyGenerator keyGenerator, Map<String, List<String>> pairs) {
-    if (getDefinition().hasContentParser()) {
-      Map<String, String> extra = parseContent();
-      if (extra != null) {
-        for (Map.Entry<String, String> entry : extra.entrySet()) {
-          pairs.put(
-            keyGenerator.forSubfield(this, entry.getKey()),
-            new ArrayList<>(List.of(entry.getValue()))
-          );
-        }
-      }
+  private void getKeyValuePairsFromContentParser(DataFieldKeyGenerator keyGenerator,
+                                                 Map<String,
+                                                 List<String>> pairs) {
+    if (!getDefinition().hasContentParser()) {
+      return;
+    }
+
+    Map<String, String> extra = parseContent();
+    if (extra == null) {
+      return;
+    }
+
+    for (Map.Entry<String, String> entry : extra.entrySet()) {
+      pairs.put(
+        String.format("%s_%s", keyGenerator.forSubfield(this), entry.getKey()),
+        new ArrayList<>(List.of(entry.getValue()))
+      );
     }
   }
 
   private void getKeyValuePairsForPositionalSubfields(Map<String, List<String>> pairs, String prefix) {
-    if (getDefinition().hasPositions()) {
-      Map<String, String> extra = getDefinition().resolvePositional(getValue());
-      for (Map.Entry<String, String> entry : extra.entrySet()) {
-        pairs.put(prefix + "_" + entry.getKey(), new ArrayList<>(List.of(entry.getValue())));
-      }
+    if (!getDefinition().hasPositions()) {
+      return;
+    }
+
+    Map<String, String> extra = getDefinition().resolvePositional(getValue());
+    for (Map.Entry<String, String> entry : extra.entrySet()) {
+      pairs.put(prefix + "_" + entry.getKey(), new ArrayList<>(List.of(entry.getValue())));
     }
   }
 

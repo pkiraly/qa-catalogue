@@ -1,0 +1,48 @@
+---
+title: "Shelf-ready completeness"
+---
+
+This analysis is the implementation of the following paper:
+
+Emma Booth (2020) _Quality of Shelf-Ready Metadata. Analysis of survey
+responses and recommendations for suppliers_ Pontefract (UK): National
+Acquisitions Group, 2020. p 31.
+[https://nag.org.uk/wp-content/uploads/2020/06/NAG-Quality-of-Shelf-Ready-Metadata-Survey-Analysis-and-Recommendations_FINAL_June2020.pdf](https://nag.org.uk/wp-content/uploads/2020/06/NAG-Quality-of-Shelf-Ready-Metadata-Survey-Analysis-and-Recommendations_FINAL_June2020.pdf)
+
+The main purpose of the report is to highlight which fields of the printed and
+electronic book records are important when the records are coming from
+different suppliers. 50 libraries participated in the survey, each selected
+which fields are important to them. The report listed those fields which gets
+the highest scores.
+
+The current calculation based on this list of essential fields. If all data
+elements specified are available in the record it gets the full score, if only
+some of them, it gets a proportional score. E.g. under 250 (edition statement)
+there are two subfields. If both are available, it gets score 44. If only one
+of them, it gets the half of it, 22, and if none, it gets 0. For 1XX, 6XX, 7XX
+and 8XX the record gets the full scores if at least one of those fields (with
+subfield $a) is available. The total score became the average. The theoretical
+maximum score would be 28.44, which could be accessed if all the data elements
+are available in the record.
+
+```bash
+java -cp $JAR de.gwdg.metadataqa.marc.cli.ShelfReadyCompleteness [options] <file>
+```
+with a bash script
+```bash
+./shelf-ready-completeness [options] <file>
+```
+or
+```bash
+catalogues/[catalogue].sh shelf-ready-completeness
+```
+or
+```bash
+./qa-catalogue --params="[options]" shelf-ready-completeness
+```
+
+options:
+
+* [general parameters](#general-parameters)
+* `-F <file>`, `--fileName <file>`: the report file name (default is
+  `shelf-ready-completeness.csv`)

@@ -1,0 +1,19 @@
+name: Check shell scripts
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install shellcheck
+      run: sudo apt install shellcheck
+    - name: Detect errors in shell scripts
+      run: make shellerrors
+

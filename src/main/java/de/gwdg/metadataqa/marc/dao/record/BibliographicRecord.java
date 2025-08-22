@@ -5,455 +5,83 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.gwdg.metadataqa.marc.Extractable;
 import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.MarcSubfield;
-import de.gwdg.metadataqa.marc.analysis.AuthorityCategory;
-import de.gwdg.metadataqa.marc.analysis.ShelfReadyFieldsBooks;
-import de.gwdg.metadataqa.marc.analysis.ThompsonTraillFields;
+import de.gwdg.metadataqa.marc.analysis.contextual.authority.AuthorityCategory;
+import de.gwdg.metadataqa.marc.analysis.shelfready.ShelfReadyFieldsBooks;
 import de.gwdg.metadataqa.marc.cli.utils.IgnorableFields;
-import de.gwdg.metadataqa.marc.dao.Control001;
-import de.gwdg.metadataqa.marc.dao.Control003;
-import de.gwdg.metadataqa.marc.dao.Control005;
-import de.gwdg.metadataqa.marc.dao.Control006;
-import de.gwdg.metadataqa.marc.dao.Control007;
-import de.gwdg.metadataqa.marc.dao.Control008;
 import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.Leader;
 import de.gwdg.metadataqa.marc.dao.MarcControlField;
-import de.gwdg.metadataqa.marc.dao.MarcPositionalControlField;
 import de.gwdg.metadataqa.marc.definition.MarcVersion;
 import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
-import de.gwdg.metadataqa.marc.definition.structure.ControlfieldPositionDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
-import de.gwdg.metadataqa.marc.utils.marcspec.legacy.MarcSpec;
-
-import de.gwdg.metadataqa.marc.utils.pica.path.PicaPath;
+import de.gwdg.metadataqa.marc.utils.SchemaSpec;
+import de.gwdg.metadataqa.marc.utils.marcspec.MarcSpec;
+import de.gwdg.metadataqa.marc.utils.marcspec.MarcSpecExtractor;
 import de.gwdg.metadataqa.marc.utils.unimarc.UnimarcConverter;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public abstract class BibliographicRecord implements Extractable, Serializable { // Validatable,
 
+  protected static final Pattern dataFieldPattern = Pattern.compile("^(\\d\\d\\d)\\$(.*)$");
   private static final Logger logger = Logger.getLogger(BibliographicRecord.class.getCanonicalName());
-  private static final Pattern dataFieldPattern = Pattern.compile("^(\\d\\d\\d)\\$(.*)$");
-  private static final Pattern positionalPattern = Pattern.compile("^(Leader|00[678])/(.*)$");
-  private static final List<String> simpleControlTags = Arrays.asList("001", "003", "005");
-  private static final List<String> MARC21_SUBJECT_TAGS = Arrays.asList(
-    "052", "055", "072", "080", "082", "083", "084", "085", "086",
-    "600", "610", "611", "630", "647", "648", "650", "651",
-    "653", "654", "655", "656", "657", "658", "662"
-  );
-  protected static final List<String> PICA_SUBJECT_TAGS = Arrays.asList("045A", "045B", "045F", "045R");
-
-  private static final Map<String, Boolean> undefinedTags = new HashMap<>();
-
-  private Leader leader;
-  private MarcControlField control001;
-  private MarcControlField control003;
-  private MarcControlField control005;
-  private List<Control006> control006 = new ArrayList<>();
-  private List<Control007> control007 = new ArrayList<>();
-  private Control008 control008;
-  private List<DataField> datafields;
-  private Map<String, List<DataField>> datafieldIndex;
-  private Map<String, List<MarcControlField>> controlfieldIndex;
-  Map<String, List<String>> mainKeyValuePairs;
-  // private List<ValidationError> validationErrors = null;
+  private final List<String> unhandledTags;
+  protected transient List<DataField> datafields;
+  /**
+   * Key-value pairs of a tag and list of datafields that have the tag. Gets populated when the record is created.
+   */
+  protected transient Map<String, List<DataField>> datafieldIndex;
+  protected transient Map<String, List<MarcControlField>> controlfieldIndex;
+  protected transient Map<String, List<String>> mainKeyValuePairs;
   protected SchemaType schemaType = SchemaType.MARC21;
+  protected String id;
+  protected List<String> authorityTags;
+  /**
+   * Key-value pairs of tags and a boolean value indicating if the tag is an authority tag.
+   */
+  protected Map<String, Boolean> authorityTagsIndex;
+  /**
+   * Key-value pairs of AuthorityCategory and tags
+   */
+  protected Map<AuthorityCategory, List<String>> authorityTagsMap;
+  protected Map<String, Map<String, Boolean>> skippableAuthoritySubfields;
 
-  public enum RESOLVE {
-    NONE,
-    RESOLVE,
-    BOTH;
-  }
-
-  private List<String> unhandledTags;
-
-  public BibliographicRecord() {
+  protected Map<String, Map<String, Boolean>> skippableSubjectSubfields;
+  protected Map<String, Boolean> subjectTagIndex;
+  protected BibliographicRecord() {
     datafields = new ArrayList<>();
     datafieldIndex = new TreeMap<>();
     controlfieldIndex = new TreeMap<>();
     unhandledTags = new ArrayList<>();
   }
 
-  public BibliographicRecord(String id) {
+  protected BibliographicRecord(String id) {
     this();
-    control001 = new Control001(id);
+    this.id = id;
   }
 
-  public void addDataField(DataField dataField) {
-    dataField.setMarcRecord(this);
-    indexField(dataField);
-    datafields.add(dataField);
-  }
-
-  private void indexField(DataField dataField) {
-    String tag = dataField.getTag();
-    if (tag == null)
-      logger.warning("null tag in indexField() " + dataField);
-
-    datafieldIndex.computeIfAbsent(tag, s -> new ArrayList<>());
-    datafieldIndex.get(tag).add(dataField);
-  }
-
-  public void addUnhandledTags(String tag) {
-    unhandledTags.add(tag);
-  }
-
-  public void setLeader(Leader leader) {
-    this.leader = leader;
-    leader.setMarcRecord(this);
-  }
-
-  public void setLeader(String leader) {
-    this.leader = new Leader(leader);
-    this.leader.setMarcRecord(this);
-  }
-
-  public void setLeader(String leader, MarcVersion marcVersion) {
-    if (marcVersion.equals(MarcVersion.UNIMARC)) {
-      leader = UnimarcConverter.leaderFromUnimarc(leader);
-    }
-
-    this.leader = new Leader(leader);
-    this.leader.setMarcRecord(this);
-  }
-
-  public Leader getLeader() {
-    return leader;
-  }
-
-  public Leader.Type getType() {
-    return leader != null ? leader.getType() : Leader.Type.BOOKS;
-  }
-
-  public MarcControlField getControl001() {
-    return control001;
-  }
-
-  public BibliographicRecord setControl001(MarcControlField control001) {
-    this.control001 = control001;
-    control001.setMarcRecord(this);
-    controlfieldIndex.put(control001.getDefinition().getTag(), Arrays.asList(control001));
-    return this;
-  }
-
-  public MarcControlField getControl003() {
-    return control003;
-  }
-
-  public void setControl003(MarcControlField control003) {
-    this.control003 = control003;
-    control003.setMarcRecord(this);
-    controlfieldIndex.put(control003.getDefinition().getTag(), Arrays.asList(control003));
-  }
-
-  public MarcControlField getControl005() {
-    return control005;
-  }
-
-  public void setControl005(MarcControlField control005) {
-    this.control005 = control005;
-    control005.setMarcRecord(this);
-    controlfieldIndex.put(control005.getDefinition().getTag(), Arrays.asList(control005));
-  }
-
-  public List<Control006> getControl006() {
-    return control006;
-  }
-
-  public void setControl006(Control006 control006) {
-    this.control006.add(control006);
-    control006.setMarcRecord(this);
-    controlfieldIndex.put(control006.getDefinition().getTag(), (List) this.control006);
-  }
-
-  public List<Control007> getControl007() {
-    return control007;
-  }
-
-  public void setControl007(Control007 control007) {
-    this.control007.add(control007);
-    control007.setMarcRecord(this);
-    controlfieldIndex.put(control007.getDefinition().getTag(), (List) this.control007);
-  }
-
-  public Control008 getControl008() {
-    return control008;
-  }
-
-  public void setControl008(Control008 control008) {
-    this.control008 = control008;
-    control008.setMarcRecord(this);
-    controlfieldIndex.put(control008.getDefinition().getTag(), Arrays.asList(control008));
-  }
-
-  public String getId() {
-    return control001 != null ? control001.getContent() : null;
-  }
-
-  public String getId(boolean trim) {
-    String id = getId();
-    if (trim && id != null)
-      id = id.trim();
-    return id;
-  }
-
-  public List<MarcControlField> getControlfields() {
-    List<MarcControlField> list = new ArrayList<>();
-    list.add(control001);
-    if (control003 != null)
-      list.add(control003);
-    if (control005 != null)
-      list.add(control005);
-    if (control006 != null && !control006.isEmpty())
-      list.addAll(control006);
-    if (control007 != null && !control007.isEmpty())
-      list.addAll(control007);
-    if (control008 != null)
-      list.add(control008);
-    return list;
-  }
-
-  public List<MarcControlField> getSimpleControlfields() {
-    return Arrays.asList(
-            control001, control003, control005
-    );
-  }
-
-  public List<MarcPositionalControlField> getPositionalControlfields() {
-    List<MarcPositionalControlField> list = new ArrayList<>();
-    if (control006 != null && !control006.isEmpty())
-      list.addAll(control006);
-    if (control007 != null && !control007.isEmpty())
-      list.addAll(control007);
-    if (control008 != null)
-      list.add(control008);
-    return list;
-  }
-
-  public boolean hasDatafield(String tag) {
-    return datafieldIndex.containsKey(tag);
-  }
-
-  public List<DataField> getDatafield(String tag) {
-    return datafieldIndex.getOrDefault(tag, null);
-  }
-
-  public List<DataField> getDatafields() {
-    return datafields;
-  }
-
-  public boolean exists(String tag) {
-    List<DataField> fields = getDatafield(tag);
-    return (fields != null && !fields.isEmpty());
-  }
-
-  public List<String> extract(String tag, String subfield) {
-    return extract(tag, subfield, RESOLVE.NONE);
-  }
-
-  /**
-   * Extact field value
-   * @param tag
-   * @param subfield
-   * @param doResolve
-   * @return
-   */
-  public List<String> extract(String tag, String subfield, RESOLVE doResolve) {
-    List<String> values = new ArrayList<>();
-    List<DataField> fields = getDatafield(tag);
-    if (fields != null && !fields.isEmpty()) {
-      for (DataField field : fields) {
-        if (subfield.equals("ind1") || subfield.equals("ind2")) {
-          String value;
-          Indicator indicator;
-          if (subfield.equals("ind1")) {
-            value = field.getInd1();
-            indicator = field.getDefinition().getInd1();
-          } else {
-            value = field.getInd2();
-            indicator = field.getDefinition().getInd2();
-          }
-          if (indicator.getCode(value) == null) {
-            values.add(value);
-          } else {
-            values.add(indicator.getCode(value).getLabel());
-          }
-        } else {
-          List<MarcSubfield> subfieldInstances = field.getSubfield(subfield);
-          if (subfieldInstances != null) {
-            for (MarcSubfield subfieldInstance : subfieldInstances) {
-              String value = null;
-              switch (doResolve) {
-                case RESOLVE: value = subfieldInstance.resolve(); break;
-                case NONE: value = subfieldInstance.getValue(); break;
-                case BOTH: value = subfieldInstance.resolve() + "##" + subfieldInstance.getValue(); break;
-              }
-              values.add(value);
-            }
-          }
-        }
-      }
-    }
-    return values;
-  }
-
-  public List<String> getUnhandledTags() {
-    return unhandledTags;
-  }
-
-  public String format() {
-    StringBuffer output = new StringBuffer();
-    for (DataField field : datafields) {
-      output.append(field.format());
-    }
-    return output.toString();
-  }
-
-  public String formatAsText() {
-    StringBuffer output = new StringBuffer();
-    for (DataField field : datafields) {
-      output.append(field.formatAsText());
-    }
-    return output.toString();
-  }
-
-  public String formatAsMarc() {
-    StringBuffer output = new StringBuffer();
-    for (DataField field : datafields) {
-      output.append(field.formatAsMarc());
-    }
-    return output.toString();
-  }
-
-  public String formatForIndex() {
-    StringBuffer output = new StringBuffer();
-    for (DataField field : datafields) {
-      output.append(field.formatForIndex());
-    }
-    return output.toString();
-  }
-
-  public Map<String, List<String>> getKeyValuePairs() {
-    return getKeyValuePairs(SolrFieldType.MARC);
-  }
-
-  public Map<String, List<String>> getKeyValuePairs(SolrFieldType type) {
-    return getKeyValuePairs(type, false, MarcVersion.MARC21);
-  }
-
-  @Override
-  public Map<String, List<String>> getKeyValuePairs(SolrFieldType type, MarcVersion marcVersion) {
-    return getKeyValuePairs(type, false, marcVersion);
-  }
-
-  public Map<String, List<String>> getKeyValuePairs(SolrFieldType type,
-                                                    boolean withDeduplication,
-                                                    MarcVersion marcVersion) {
-    if (mainKeyValuePairs == null) {
-      mainKeyValuePairs = new LinkedHashMap<>();
-
-      if (!schemaType.equals(SchemaType.PICA)) {
-        mainKeyValuePairs.put("type", Arrays.asList(getType().getValue()));
-        mainKeyValuePairs.putAll(leader.getKeyValuePairs(type));
-      }
-
-      for (MarcControlField controlField : getControlfields())
-        if (controlField != null)
-          mainKeyValuePairs.putAll(controlField.getKeyValuePairs(type));
-
-      for (DataField field : datafields) {
-        Map<String, List<String>> keyValuePairs = field.getKeyValuePairs(type, marcVersion);
-        for (Map.Entry<String, List<String>> entry : keyValuePairs.entrySet()) {
-          String key = entry.getKey();
-          List<String> values = entry.getValue();
-          if (mainKeyValuePairs.containsKey(key)) {
-            mainKeyValuePairs.put(
-                    key,
-                    mergeValues(
-                            new ArrayList<>(mainKeyValuePairs.get(key)),
-                            values,
-                            withDeduplication
-                    )
-            );
-          } else {
-            mainKeyValuePairs.put(key, values);
-          }
-        }
-      }
-    }
-
-    return mainKeyValuePairs;
-  }
-
-  private List<String> mergeValues(List<String> existingValues,
-                                   List<String> values,
-                                   boolean withDeduplication) {
-    if (withDeduplication) {
-      for (String value : values) {
-        if (!existingValues.contains(value)) {
-          existingValues.add(value);
-        }
-      }
-    } else {
-      existingValues.addAll(values);
-    }
-    return existingValues;
-  }
-
-  public String asJson() {
-    ObjectMapper mapper = new ObjectMapper();
-
-    Map<String, Object> map = new LinkedHashMap<>();
-    if (!schemaType.equals(SchemaType.PICA))
-      map.put("leader", leader.getContent());
-
-    for (MarcControlField field : getControlfields())
-      if (field != null)
-        map.put(field.getDefinition().getTag(), field.getContent());
-
-    for (DataField field : datafields) {
-      if (field != null) {
-        Map<String, Object> fieldMap = new LinkedHashMap<>();
-
-        if (!schemaType.equals(SchemaType.PICA)) {
-          fieldMap.put("ind1", field.getInd1());
-          fieldMap.put("ind2", field.getInd2());
-        }
-
-        fieldMap.put("subfields", exportSubfieldsToJson(field));
-
-        String tag = field.getOccurrence() != null
-          ? field.getTag() + "/" + field.getOccurrence()
-          : (field.getDefinition() != null
-            ? field.getDefinition().getTag()
-            : field.getTag());
-
-        map.computeIfAbsent(tag, s -> new ArrayList<Map<String, Object>>());
-        ((ArrayList)map.get(tag)).add(fieldMap);
-      }
-    }
-
+  protected static String transformMapToJson(ObjectMapper mapper, Map<String, Object> map) {
     String json = null;
     try {
       json = mapper.writeValueAsString(map);
     } catch (JsonProcessingException e) {
       logger.log(Level.WARNING, "error in asJson()", e);
     }
-
     return json;
   }
 
@@ -475,6 +103,284 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     return subfields;
   }
 
+  protected static String joinAllSubfields(DataField field) {
+    List<String> values = new ArrayList<>();
+    for (MarcSubfield subfield : field.getSubfields()) {
+      values.add(subfield.getValue());
+    }
+    return StringUtils.join(values," ");
+  }
+
+  private static Predicate<DataField> getDataFieldPredicate(String subfieldCode, String subfieldValue) {
+    Predicate<DataField> filterPredicate;
+    // ind1 and ind2 should also be considered as subfield codes
+    if (subfieldCode.equals("ind1")) {
+      filterPredicate = dataField -> dataField.getInd1().equals(subfieldValue);
+    } else if (subfieldCode.equals("ind2")) {
+      filterPredicate = dataField -> dataField.getInd2().equals(subfieldValue);
+    } else {
+      filterPredicate = dataField -> dataField.getSubfield(subfieldCode).stream()
+        .anyMatch(subfield -> subfield.getValue().equals(subfieldValue));
+    }
+    return filterPredicate;
+  }
+
+  public void addDataField(DataField dataField) {
+    dataField.setBibliographicRecord(this);
+    indexField(dataField);
+    datafields.add(dataField);
+  }
+
+  protected void indexField(DataField dataField) {
+    String tag = dataField.getTag();
+    if (tag == null)
+      logger.warning(() -> "null tag in indexField() " + dataField);
+
+    datafieldIndex.computeIfAbsent(tag, s -> new ArrayList<>());
+    datafieldIndex.get(tag).add(dataField);
+  }
+
+  public void addUnhandledTags(String tag) {
+    unhandledTags.add(tag);
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  public String getId(boolean trim) {
+    String trimmedId = getId();
+    if (trim && trimmedId != null) {
+      trimmedId = trimmedId.trim();
+    }
+    return trimmedId;
+  }
+
+  public boolean hasDatafield(String tag) {
+    return datafieldIndex.containsKey(tag);
+  }
+
+  /**
+   * Returns a list of data fields that have the specified tag.
+   * @param tag The tag of the data fields to return.
+   *            The tag can also contain a subfield value test, e.g. "600$a=Test".
+   * @return A list of data fields with the specified tag.
+   */
+  public List<DataField> getDatafieldsByTag(String tag) {
+    // For performance reasons, just check if there's a $ sign first
+    if (!tag.contains("$")) {
+      return datafieldIndex.getOrDefault(tag, null);
+    }
+
+    String[] parts = tag.split("[=$]");
+    String fieldTag = parts[0];
+    String subfieldCode = parts.length > 1 ? parts[1] : null;
+    String subfieldValue = parts.length > 2 ? parts[2] : null;
+
+    List<DataField> fields = datafieldIndex.getOrDefault(fieldTag, null);
+
+    if (subfieldCode == null) {
+      return fields;
+    }
+
+    Predicate<DataField> filterPredicate = getDataFieldPredicate(subfieldCode, subfieldValue);
+
+    if (fields != null) {
+      fields = fields.stream().filter(filterPredicate).collect(Collectors.toList());
+    }
+
+    return fields;
+  }
+
+  public List<DataField> getDatafields() {
+    return datafields;
+  }
+
+  public boolean exists(String tag) {
+    List<DataField> fields = getDatafieldsByTag(tag);
+    return (fields != null && !fields.isEmpty());
+  }
+
+  public List<String> extract(String tag, String subfield) {
+    return extract(tag, subfield, RESOLVE.NONE);
+  }
+
+  /**
+   * Extracts the values of a specified subfield from all data fields with a specified tag.
+   * If the subfield path is "ind1" or "ind2", the method will extract the indicator value.
+   * Otherwise, it will extract the subfield value.
+   * <br/>
+   * If doResolve is set to RESOLVE, the method will resolve the subfield value. In other words, it will return the label
+   * that corresponds to the subfield value. If doResolve is set to NONE, the method will return the subfield value as is.
+   * If doResolve is set to BOTH, the method will return both the resolved label and the subfield value.
+   * @param tag The tag of the data fields to extract from.
+   * @param subfieldPath The path of the subfield to extract.
+   * @param doResolve The resolve option to use when extracting subfield values. Can be set to RESOLVE, NONE, or BOTH.
+   * @return A list of extracted values.
+   */
+  public List<String> extract(String tag, String subfieldPath, RESOLVE doResolve) {
+    List<String> extractedValues = new ArrayList<>();
+    List<DataField> fields = getDatafieldsByTag(tag);
+    if (fields == null || fields.isEmpty()) {
+      return extractedValues;
+    }
+
+    for (DataField field : fields) {
+      if (subfieldPath.equals("ind1") || subfieldPath.equals("ind2")) {
+        String extractedIndicator = extractIndicator(field, subfieldPath);
+        extractedValues.add(extractedIndicator);
+      } else {
+        List<String> extractedSubfields = extractSubfield(field, subfieldPath, doResolve);
+        extractedValues.addAll(extractedSubfields);
+      }
+    }
+    return extractedValues;
+  }
+
+  public List<String> getUnhandledTags() {
+    return unhandledTags;
+  }
+
+  public String format() {
+    StringBuilder output = new StringBuilder();
+    for (DataField field : datafields) {
+      output.append(field.format());
+    }
+    return output.toString();
+  }
+
+  public String formatAsText() {
+    StringBuilder output = new StringBuilder();
+    for (DataField field : datafields) {
+      output.append(field.formatAsText());
+    }
+    return output.toString();
+  }
+
+  public String formatAsMarc() {
+    StringBuilder output = new StringBuilder();
+    for (DataField field : datafields) {
+      output.append(field.formatAsMarc());
+    }
+    return output.toString();
+  }
+
+  public String formatForIndex() {
+    StringBuilder output = new StringBuilder();
+    for (DataField field : datafields) {
+      output.append(field.formatForIndex());
+    }
+    return output.toString();
+  }
+
+  /**
+   * This method can produce wrong results due to the fact that it doesn't take into account the MarcVersion that the
+   * record is in. The method should be used with caution.
+   * @return A map of key-value pairs for the specified Solr field type.
+   */
+  public Map<String, List<String>> getKeyValuePairs() {
+    return getKeyValuePairs(SolrFieldType.MARC);
+  }
+
+  /**
+   * This method can produce wrong results due to the fact that it doesn't take into account the MarcVersion that the
+   * record is in. The method should be used with caution.
+   * @param type The type of the Solr field to get the key-value pairs for. Can be set to MARC, HUMAN, or MIXED.
+   * @return A map of key-value pairs for the specified Solr field type.
+   */
+  public Map<String, List<String>> getKeyValuePairs(SolrFieldType type) {
+    return getKeyValuePairs(type, false, MarcVersion.MARC21);
+  }
+
+  @Override
+  public Map<String, List<String>> getKeyValuePairs(SolrFieldType type, MarcVersion marcVersion) {
+    return getKeyValuePairs(type, false, marcVersion);
+  }
+
+  public Map<String, List<String>> getKeyValuePairs(SolrFieldType type,
+                                                    boolean withDeduplication,
+                                                    MarcVersion marcVersion) {
+    if (mainKeyValuePairs == null) {
+      mainKeyValuePairs = new LinkedHashMap<>();
+      getKeyValuePairsForDatafields(type, withDeduplication, marcVersion);
+    }
+
+    return mainKeyValuePairs;
+  }
+
+  protected void getKeyValuePairsForDatafields(SolrFieldType type, boolean withDeduplication, MarcVersion marcVersion) {
+    for (DataField field : datafields) {
+      // Get the key value pairs for the data field and add them to the mainKeyValuePairs map
+      Map<String, List<String>> keyValuePairs = field.getKeyValuePairs(type, marcVersion);
+      for (Map.Entry<String, List<String>> entry : keyValuePairs.entrySet()) {
+        String key = entry.getKey();
+        List<String> values = entry.getValue();
+        // If mainKeyValuePairs already contains the key, merge the values into the existing list. Essentially extending
+        // the mainKeyValuePairs with the new key value pairs.
+        if (mainKeyValuePairs.containsKey(key)) {
+          ArrayList<String> existingPairs = new ArrayList<>(mainKeyValuePairs.get(key));
+          List<String> mergedPairs = mergeValues(existingPairs, values, withDeduplication);
+          mainKeyValuePairs.put(key, mergedPairs);
+        } else {
+          mainKeyValuePairs.put(key, values);
+        }
+      }
+    }
+  }
+
+  protected List<String> mergeValues(List<String> existingValues,
+                                     List<String> values,
+                                     boolean withDeduplication) {
+    if (!withDeduplication) {
+      existingValues.addAll(values);
+      return existingValues;
+    }
+
+    for (String value : values) {
+      if (!existingValues.contains(value)) {
+        existingValues.add(value);
+      }
+    }
+    return existingValues;
+  }
+
+  public String asJson() {
+    ObjectMapper mapper = new ObjectMapper();
+
+    Map<String, Object> fieldMap = new LinkedHashMap<>();
+    datafieldsAsJson(fieldMap);
+    return transformMapToJson(mapper, fieldMap);
+  }
+
+  protected void datafieldsAsJson(Map<String, Object> tagFieldMap) {
+    for (DataField field : datafields) {
+      if (field == null) {
+        continue;
+      }
+
+      Map<String, Object> fieldMap = new LinkedHashMap<>();
+
+      if (!schemaType.equals(SchemaType.PICA)) {
+        fieldMap.put("ind1", field.getInd1());
+        fieldMap.put("ind2", field.getInd2());
+      }
+
+      fieldMap.put("subfields", exportSubfieldsToJson(field));
+
+      String tag;
+      if (field.getOccurrence() != null) {
+        tag = field.getTag() + "/" + field.getOccurrence();
+      } else if (field.getDefinition() != null) {
+        tag = field.getDefinition().getTag();
+      } else {
+        tag = field.getTag();
+      }
+
+      tagFieldMap.computeIfAbsent(tag, s -> new ArrayList<Map<String, Object>>());
+      ((List) tagFieldMap.get(tag)).add(fieldMap);
+    }
+  }
+
   public boolean isIgnorableField(String tag, IgnorableFields ignorableFields) {
     if (ignorableFields == null)
       return false;
@@ -483,257 +389,275 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
 
   public List<String> search(String path, String query) {
     List<String> results = new ArrayList<>();
-    if (path.equals("001") || path.equals("003") || path.equals("005")) {
-      searchControlField(path, query, results);
-    } else if (path.startsWith("006")) {
-      for (Control006 instance : control006)
-        searchPositionalControlField(instance, path, query, results);
-    } else if (path.startsWith("007")) {
-      for (Control007 instance : control007)
-        searchPositionalControlField(instance, path, query, results);
-    } else if (path.startsWith("008")) {
-      searchPositionalControlField(control008, path, query, results);
-    } else {
-      Matcher matcher = dataFieldPattern.matcher(path);
-      if (matcher.matches()) {
-        String tag = matcher.group(1);
-        String subfieldCode = matcher.group(2);
-        if (datafieldIndex.containsKey(tag)) {
-          for (DataField field : datafieldIndex.get(tag)) {
-            if (searchDatafield(query, results, subfieldCode, field)) break;
-          }
-        }
-      }
-      matcher = positionalPattern.matcher(path);
-      if (matcher.matches()) {
-        searchByPosition(query, results, matcher);
-      }
-    }
-    return results;
-  }
-
-  public List<String> select(MarcSpec selector) {
-    List<String> results = new ArrayList<>();
-    if (selector.getFieldTag().equals("LDR")) {
-      if (selector.hasRangeSelector()) {
-        results.add(selector.selectRange(leader.getContent()));
-      } else {
-        results.add(leader.getContent());
-      }
-    } else if (controlfieldIndex.containsKey(selector.getFieldTag())) {
-      for (MarcControlField field : controlfieldIndex.get(selector.getFieldTag())) {
-        if (field == null)
-          continue;
-        if (!simpleControlTags.contains(field.getDefinition().getTag())) {
-          // TODO: check control subfields
-        }
-        if (selector.hasRangeSelector()) {
-          results.add(selector.selectRange(field.getContent()));
-        } else {
-          results.add(field.getContent());
-        }
-      }
-    } else if (datafieldIndex.containsKey(selector.getFieldTag())) {
-      for (DataField field : datafieldIndex.get(selector.getFieldTag())) {
-        if (field == null)
-          continue;
-        List<String> codes = selector.getSubfieldsAsList();
-        if (codes.isEmpty()) {
-          results.add(joinAllSubfields(field));
-        } else {
-          for (String subfieldCode : codes) {
-            List<MarcSubfield> subfields = field.getSubfield(subfieldCode);
-            if (subfields == null)
-              continue;
-            for (MarcSubfield subfield : subfields)
-              results.add(subfield.getValue());
-          }
-        }
-      }
-    }
-    else if (selector.getFieldTag().equals("008") && control008 != null) {
-      if (selector.getCharStart() != null) {
-        ControlfieldPositionDefinition definition = control008.getSubfieldByPosition(selector.getCharStart());
-        results.add(control008.getMap().get(definition));
-      } else {
-        results.add(control008.getContent());
-      }
-    }
-    return results;
-  }
-
-  private static String joinAllSubfields(DataField field) {
-    List<String> values = new ArrayList<>();
-    for (MarcSubfield subfield : field.getSubfields()) {
-      values.add(subfield.getValue());
-    }
-    return StringUtils.join(values," ");
-  }
-
-  public List<String> select(PicaPath selector) {
-    if (!schemaType.equals(SchemaType.PICA))
-      throw new IllegalArgumentException("The record is not a PICA record");
-
-    List<String> results = new ArrayList<>();
-    List<DataField> dataFields = getDatafield(selector.getTag());
-    if (dataFields != null) {
-      for (DataField dataField : dataFields) {
-        for (String code : selector.getSubfields().getCodes()) {
-          List<MarcSubfield> dubfields = dataField.getSubfield(code);
-          if (dubfields != null) {
-            for (MarcSubfield subfield : dubfields) {
-              results.add(subfield.getValue());
-            }
-          }
-        }
-      }
+    Matcher matcher = dataFieldPattern.matcher(path);
+    if (!matcher.matches()) {
+      return results;
     }
 
-    return results;
-  }
-
-  private void searchByPosition(String query, List<String> results, Matcher matcher) {
     String tag = matcher.group(1);
-    String position = matcher.group(2);
-    int start;
-    int end;
-    if (position.contains("-")) {
-      String[] parts = position.split("-", 2);
-      start = Integer.parseInt(parts[0]);
-      end = Integer.parseInt(parts[1]);
-    } else {
-      start = Integer.parseInt(position);
-      end = start + 1;
-    }
-    String content = null;
-    if (tag.equals("Leader")) {
-      content = leader.getLeaderString();
-    } else {
-      MarcControlField controlField = null;
-      // TODO: fix it!
-      switch (tag) {
-        case "006": controlField = control006.get(0); break;
-        case "007": controlField = control007.get(0); break;
-        case "008": controlField = control008; break;
-        default: break;
-      }
-      if (controlField != null)
-        content = controlField.getContent();
+    String subfieldCode = matcher.group(2);
+    if (!datafieldIndex.containsKey(tag)) {
+      return results;
     }
 
-    if (content != null && content.substring(start, end).equals(query)) {
-      results.add(content.substring(start, end));
+    for (DataField field : datafieldIndex.get(tag)) {
+      if (searchDatafield(query, results, subfieldCode, field)) {
+        break;
+      }
     }
+    return results;
   }
 
-  private boolean searchDatafield(String query, List<String> results,
+
+  /**
+   * Selects the datafields of the record that match the selector. The selected datafields are added to the list of
+   * selected results and returned.
+   * @param selector The selector that lists the field and its subfields to select
+   * @return The final result of the selection
+   */
+  public List<String> select(SchemaSpec selector) {
+    /*
+    if (selector instanceof MarcSpec) {
+      MarcSpec spec = (MarcSpec) selector;
+      if (!datafieldIndex.containsKey(spec.getFieldTag())) {
+        return new ArrayList<>();
+      }
+      return selectDatafields(spec);
+    }
+    else if (selector instanceof MarcSpec2) {
+
+     */
+      MarcSpec spec = (MarcSpec) selector;
+      if (!datafieldIndex.containsKey(spec.getTag())) {
+        return new ArrayList<>();
+      }
+      return selectDatafields(spec);
+    // }
+    // return new ArrayList<>();
+  }
+
+  /**
+   * Selects the datafield's subfields that are listed in the selector. If no subfields are listed in the selector,
+   * then all subfields of the field are selected. The selected subfields are added to the list of selected results.
+   * <br/>
+   * If no subfields are specified in the selector, then all subfields of the field get selected.
+   * @param field The datafield to select from.
+   * @param selector The selector that lists subfields to select.
+   * @return The final result of the selection.
+   */
+  /*
+  protected List<String> selectDatafield(DataField field, MarcSpec selector) {
+    List<String> selectedResults = new ArrayList<>();
+    if (field == null) {
+      return selectedResults;
+    }
+
+    List<String> selectorSubfieldCodes = selector.getSubfieldsAsList();
+
+    // If the subfield list of the selector is empty, then we want to select all subfields of the field
+    if (selectorSubfieldCodes.isEmpty()) {
+      selectedResults.add(joinAllSubfields(field));
+      return selectedResults;
+    }
+
+    // Otherwise, we select the field's subfields that are listed in the selector
+    for (String subfieldCode : selectorSubfieldCodes) {
+      List<MarcSubfield> subfields = field.getSubfield(subfieldCode);
+      if (subfields == null) {
+        continue;
+      }
+      for (MarcSubfield subfield : subfields) {
+        selectedResults.add(subfield.getValue());
+      }
+    }
+
+    return selectedResults;
+  }
+
+   */
+
+  /*
+  protected List<String> selectDatafields(MarcSpec selector) {
+    List<String> selectedResults = new ArrayList<>();
+
+    String selectorFieldTag = selector.getFieldTag();
+    List<DataField> selectedDatafields = datafieldIndex.get(selectorFieldTag);
+
+    for (DataField field : selectedDatafields) {
+      List<String> selectedFromDatafield = selectDatafield(field, selector);
+      selectedResults.addAll(selectedFromDatafield);
+    }
+
+    return selectedResults;
+  }
+  */
+
+  protected <T extends Object>  List<T> selectDatafields(MarcSpec selector) {
+    return (List<T>) MarcSpecExtractor.extract((Marc21Record) this, selector);
+    /*
+    List<String> selectedResults = new ArrayList<>();
+
+    String selectorFieldTag = selector.getTag();
+    List<DataField> selectedDatafields = datafieldIndex.get(selectorFieldTag);
+
+    for (DataField field : selectedDatafields) {
+      List<String> selectedFromDatafield = selectDatafield(field, selector);
+      selectedResults.addAll(selectedFromDatafield);
+    }
+
+    return selectedResults;
+    */
+  }
+
+
+  protected boolean searchDatafield(String query, List<String> results,
                                   String subfieldCode, DataField field) {
     if (subfieldCode.equals("ind1") && field.getInd1().equals(query)) {
       results.add(field.getInd1());
       return true;
-    } else if (subfieldCode.equals("ind2") && field.getInd2().equals(query)) {
+    }
+    if (subfieldCode.equals("ind2") && field.getInd2().equals(query)) {
       results.add(field.getInd2());
       return true;
-    } else {
-      List<MarcSubfield> subfields = field.getSubfield(subfieldCode);
-      if (subfields != null) {
-        for (MarcSubfield subfield : subfields) {
-          if (subfield.getValue().equals(query)) {
-            results.add(subfield.getValue());
-            return true;
-          }
-        }
+    }
+
+    List<MarcSubfield> subfields = field.getSubfield(subfieldCode);
+    if (subfields == null) {
+      return false;
+    }
+
+    for (MarcSubfield subfield : subfields) {
+      if (subfield.getValue().equals(query)) {
+        results.add(subfield.getValue());
+        return true;
       }
     }
+
     return false;
   }
 
-  private void searchControlField(String path, String query, List<String> results) {
-    MarcControlField controlField = null;
-    switch (path) {
-      case "001": controlField = control001; break;
-      case "003": controlField = control003; break;
-      case "005": controlField = control005; break;
-      default: break;
-    }
-    if (controlField != null && controlField.getContent().equals(query))
-      results.add(controlField.getContent());
-  }
-
-  private void searchPositionalControlField(MarcPositionalControlField controlField,
-                                            String path, String query, List<String> results) {
-    if (controlField != null) {
-      Map<ControlfieldPositionDefinition, String> map = controlField.getMap();
-      for (ControlfieldPositionDefinition subfield : controlField.getMap().keySet()) {
-        if (subfield.getId().equals(path)) {
-          if (map.get(subfield).equals(query))
-            results.add(map.get(subfield));
-          break;
-        }
-      }
-    }
-  }
-
-  public List<DataField> getAuthorityFields(List<String> tags) {
-    List<DataField> subjects = new ArrayList<>();
+  /**
+   * Given the tags of the record, returns the datafields that have the specified tags.
+   * @param tags The tags of the datafields to return.
+   * @return A list of datafields with the specified tags.
+   */
+  public List<DataField> getFieldsFromTags(List<String> tags) {
+    List<DataField> allFields = new ArrayList<>();
     for (String tag : tags) {
-      List<DataField> fields = getDatafield(tag);
+      List<DataField> fields = getDatafieldsByTag(tag);
       if (fields != null && !fields.isEmpty())
-        subjects.addAll(fields);
+        allFields.addAll(fields);
     }
-    return subjects;
+    return allFields;
   }
 
-
-  public Map<DataField, AuthorityCategory> getAuthorityFields(Map<AuthorityCategory, List<String>> tags) {
+  /**
+   * Returns a map of datafields and their corresponding authority categories. Essentially, produces a map of
+   * fields and their categories, such that the fields can only correspond to the tags that are listed in the
+   * authority categories.
+   * <br>
+   * E.g. if an authority category "1" has tags "600" and "610", then the map will contain the fields that have
+   * the tags "600" and "610" as keys, and the authority category "1" as the value. Not that it isn't necessarily
+   * only two fields that will be returned, but all fields that have the tags "600" and "610".
+   * @param categoryTags The tags of the datafields to return.
+   * @return A map of datafields and their corresponding authority categories.
+   */
+  public Map<DataField, AuthorityCategory> getAuthorityFields(Map<AuthorityCategory, List<String>> categoryTags) {
     Map<DataField, AuthorityCategory> subjects = new LinkedHashMap<>();
-    for (Map.Entry<AuthorityCategory, List<String>> entry : tags.entrySet()) {
+    for (Map.Entry<AuthorityCategory, List<String>> entry : categoryTags.entrySet()) {
       AuthorityCategory category = entry.getKey();
-      for (String tag : entry.getValue()) {
-        List<DataField> fields = getDatafield(tag);
-        if (fields != null && !fields.isEmpty()) {
-          for (DataField field : fields)
-            subjects.put(field, category);
+      List<String> tags = entry.getValue();
+      for (String tag : tags) {
+        List<DataField> fields = getDatafieldsByTag(tag);
+        if (fields == null || fields.isEmpty()) {
+          continue;
+        }
+        for (DataField field : fields) {
+          subjects.put(field, category);
         }
       }
     }
     return subjects;
   }
 
-  public abstract List<DataField> getAuthorityFields();
-  public abstract Map<DataField, AuthorityCategory> getAuthorityFieldsMap();
-  public abstract boolean isAuthorityTag(String tag);
-  public abstract boolean isSkippableAuthoritySubfield(String tag, String code);
-  public abstract boolean isSubjectTag(String tag);
-  public abstract boolean isSkippableSubjectSubfield(String tag, String code);
+  public List<DataField> getAuthorityFields() {
+    if (authorityTags == null) {
+      initializeAuthorityTags();
+    }
+    return getFieldsFromTags(authorityTags);
+  }
+
+  public boolean isAuthorityTag(String tag) {
+    if (authorityTagsIndex == null) {
+      initializeAuthorityTags();
+    }
+    return authorityTagsIndex.getOrDefault(tag, false);
+  }
+
+  /**
+   * Returns a map of a datafield of the record and the authority category of the field. That map is produced from the
+   * previously defined authorityTagsMap which maps authority categories to tags.
+   */
+  public Map<DataField, AuthorityCategory> getAuthorityFieldsMap() {
+    if (authorityTags == null) {
+      initializeAuthorityTags();
+    }
+    return getAuthorityFields(authorityTagsMap);
+  }
+
+  protected void initializeAuthorityTags() {
+    authorityTags = new ArrayList<>();
+    authorityTagsIndex = new HashMap<>();
+    skippableAuthoritySubfields = new HashMap<>();
+    authorityTagsMap = new EnumMap<>(AuthorityCategory.class);
+    subjectTagIndex = new HashMap<>();
+    skippableSubjectSubfields = new HashMap<>();
+  }
+
+  public boolean isSkippableSubjectSubfield(String tag, String code) {
+    if (subjectTagIndex == null) {
+      initializeAuthorityTags();
+    }
+
+    if (!skippableSubjectSubfields.containsKey(tag)) {
+      return false;
+    }
+
+    return skippableSubjectSubfields.get(tag).getOrDefault(code, false);
+  }
+
+  public boolean isSkippableAuthoritySubfield(String tag, String code) {
+    if (authorityTagsIndex == null)
+      initializeAuthorityTags();
+
+    if (!skippableAuthoritySubfields.containsKey(tag))
+      return false;
+
+    return skippableAuthoritySubfields.get(tag).getOrDefault(code, false);
+  }
+
+  public boolean isSubjectTag(String tag) {
+    if (subjectTagIndex == null) {
+      initializeAuthorityTags();
+    }
+    return subjectTagIndex.getOrDefault(tag, false);
+  }
+
+  public abstract List<String> getAllowedControlFieldTags();
+
   public abstract Map<ShelfReadyFieldsBooks, Map<String, List<String>>> getShelfReadyMap();
-  public abstract Map<ThompsonTraillFields, List<String>> getThompsonTraillTagsMap();
+
+  protected abstract List<String> getSubjectTags();
 
   public List<DataField> getSubjects() {
     List<DataField> subjects = new ArrayList<>();
-    List<String> tags;
-    switch (schemaType) {
-      case PICA:
-        tags = PICA_SUBJECT_TAGS; break;
-      case MARC21:
-      default:
-        tags = MARC21_SUBJECT_TAGS; break;
-    }
-    for (String tag : tags) {
-      List<DataField> fields = getDatafield(tag);
-      if (fields != null && !fields.isEmpty())
-        subjects.addAll(fields);
-    }
-    return subjects;
-  }
+    List<String> tags = getSubjectTags();
 
-  public List<DataField> getSubject6xx() {
-    List<DataField> subjects = new ArrayList<>();
-    List<String> tags = Arrays.asList("600", "610", "611", "630", "648", "650", "651");
     for (String tag : tags) {
-      List<DataField> fields = getDatafield(tag);
-      if (fields != null && !fields.isEmpty())
+      List<DataField> fields = getDatafieldsByTag(tag);
+      if (fields != null && !fields.isEmpty()) {
         subjects.addAll(fields);
+      }
     }
     return subjects;
   }
@@ -748,50 +672,22 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
       tag = UnimarcConverter.tagFromUnimarc(tag);
     }
 
-    if (tag.equals("001")) {
-      setControl001(new Control001(content));
-    } else if (tag.equals("003")) {
-      setControl003(new Control003(content));
-    } else if (tag.equals("005")) {
-      setControl005(new Control005(content, this));
-    } else if (tag.equals("006")) {
-      setControl006(new Control006(content, this));
-    } else if (tag.equals("007")) {
-      setControl007(new Control007(content, this));
-    } else if (tag.equals("008")) {
-      setControl008(new Control008(content, this));
-    } else {
-      DataFieldDefinition definition = MarcFactory.getDataFieldDefinition(tag, marcVersion);
-      if (definition == null) {
-        addUnhandledTags(tag);
-      }
-
-      DataField dataField = new DataField(tag, content, marcVersion);
-      addDataField(dataField);
+    DataFieldDefinition definition = MarcFactory.getDataFieldDefinition(tag, marcVersion);
+    if (definition == null) {
+      addUnhandledTags(tag);
     }
+
+    DataField dataField = new DataField(tag, content, marcVersion);
+    addDataField(dataField);
   }
 
   public void setField(String tag, String ind1, String ind2, String content, MarcVersion marcVersion) {
 
-    if (tag.equals("001")) {
-      setControl001(new Control001(content));
-    } else if (tag.equals("003")) {
-      setControl003(new Control003(content));
-    } else if (tag.equals("005")) {
-      setControl005(new Control005(content, this));
-    } else if (tag.equals("006")) {
-      setControl006(new Control006(content, this));
-    } else if (tag.equals("007")) {
-      setControl007(new Control007(content, this));
-    } else if (tag.equals("008")) {
-      setControl008(new Control008(content, this));
-    } else {
-      DataFieldDefinition definition = MarcFactory.getDataFieldDefinition(tag, marcVersion);
-      if (definition == null) {
-        addUnhandledTags(tag);
-      }
-      addDataField(new DataField(tag, ind1, ind2, content, marcVersion));
+    DataFieldDefinition definition = MarcFactory.getDataFieldDefinition(tag, marcVersion);
+    if (definition == null) {
+      addUnhandledTags(tag);
     }
+    addDataField(new DataField(tag, ind1, ind2, content, marcVersion));
   }
 
   public SchemaType getSchemaType() {
@@ -800,5 +696,65 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
 
   public void setSchemaType(SchemaType schemaType) {
     this.schemaType = schemaType;
+  }
+
+  private String extractIndicator(DataField field, String subfieldPath) {
+    String value;
+    Indicator indicator;
+
+    // Check which indicator to extract
+    if (subfieldPath.equals("ind1")) {
+      value = field.getInd1();
+      indicator = field.getDefinition().getInd1();
+    } else {
+      value = field.getInd2();
+      indicator = field.getDefinition().getInd2();
+    }
+
+    if (indicator.getCode(value) == null) {
+      return value;
+    } else {
+      return indicator.getCode(value).getLabel();
+    }
+  }
+
+  /**
+   * Extracts the values of a specified subfield from a data field of the record. If doResolve is set to RESOLVE,
+   * the method will resolve the subfield value. In other words, it will return the label that corresponds to the
+   * subfield value.
+   * <br/>
+   * If doResolve is set to NONE, the method will return the subfield value as is.
+   * <br/>
+   * If doResolve is set to BOTH, the method will return both the resolved label and the subfield value.
+   * @param field The data field to extract from
+   * @param subfieldPath The path of the subfield to extract
+   * @param doResolve The resolve option to use when extracting subfield values. Can be set to RESOLVE, NONE, or BOTH.
+   * @return A list of extracted values or labels.
+   */
+  private List<String> extractSubfield(DataField field, String subfieldPath, RESOLVE doResolve) {
+    List<MarcSubfield> subfieldInstances = field.getSubfield(subfieldPath);
+    if (subfieldInstances == null) {
+      return new ArrayList<>();
+    }
+
+    List<String> extractedValues = new ArrayList<>();
+
+    for (MarcSubfield subfieldInstance : subfieldInstances) {
+      String value = null;
+      switch (doResolve) {
+        case RESOLVE: value = subfieldInstance.resolve(); break;
+        case NONE: value = subfieldInstance.getValue(); break;
+        case BOTH: value = subfieldInstance.resolve() + "##" + subfieldInstance.getValue(); break;
+      }
+      extractedValues.add(value);
+    }
+
+    return extractedValues;
+  }
+
+  public enum RESOLVE {
+    NONE,
+    RESOLVE,
+    BOTH;
   }
 }

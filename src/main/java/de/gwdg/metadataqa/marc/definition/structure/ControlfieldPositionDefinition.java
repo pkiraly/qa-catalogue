@@ -1,16 +1,17 @@
 package de.gwdg.metadataqa.marc.definition.structure;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Pattern;
-
 import de.gwdg.metadataqa.marc.EncodedValue;
 import de.gwdg.metadataqa.marc.definition.FRBRFunction;
 import de.gwdg.metadataqa.marc.definition.general.codelist.CodeList;
 import de.gwdg.metadataqa.marc.definition.general.parser.SubfieldContentParser;
 import de.gwdg.metadataqa.marc.definition.general.validator.SubfieldValidator;
 import org.apache.commons.lang3.StringUtils;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -19,6 +20,7 @@ import org.apache.commons.lang3.StringUtils;
 public class ControlfieldPositionDefinition implements Serializable {
 
   protected static final Pattern TRIMMABLE = Pattern.compile("^[^ ]+ +$");
+  private static final long serialVersionUID = 1094865179514850215L;
 
   protected String id;
   protected String label;
@@ -27,12 +29,20 @@ public class ControlfieldPositionDefinition implements Serializable {
   protected int positionStart;
   protected int positionEnd;
   protected boolean hasCodelist = true;
-  protected List<EncodedValue> codes;
+  protected List<EncodedValue> codes = new ArrayList<>();
   protected List<EncodedValue> historicalCodes;
+  /**
+   * Represents a list of valid codes extracted from the codes list. It serves as a cache for the list of valid codes
+   * which aren't regex patterns, but simple string codes.
+   */
+  protected List<String> validCodes = new ArrayList<>();
+  /**
+   * Used in case the codes are separately defined in some code list. Used mostly if the list of codes would otherwise
+   * be frequently repeated in the definition.
+   */
   protected CodeList codeList;
   protected ControlfieldPositionDefinition codeListReference;
 
-  protected List<String> validCodes = new ArrayList<>();
   protected int unitLength = -1;
   protected boolean repeatableContent = false;
   protected String defaultCode;
@@ -47,7 +57,6 @@ public class ControlfieldPositionDefinition implements Serializable {
     this.label = label;
     this.positionStart = positionStart;
     this.positionEnd = positionEnd;
-    validCodes = new ArrayList<>();
   }
 
   public ControlfieldPositionDefinition(String label, int positionStart, int positionEnd,
@@ -148,29 +157,85 @@ public class ControlfieldPositionDefinition implements Serializable {
   }
 
   public boolean validate(String code) {
-    if (validCodes != null && !validCodes.isEmpty())
-      if (isRepeatableContent())
-        return validateRepeatable(code);
-      else
-        return validCodes.contains(code);
-    return true;
+    // Blanks should probably be identified somehow differently
+    // In the avram-unimarc schema, they are represented as a ' ' character, but in the records they can also be '#' or
+    // '-', or even '^' OR EVEN '|' for some reason
+
+    // The codes could also be validated case insensitively
+    // Get the regex pattern if it exists. The current implementation assumes at most one regex pattern per code,
+    // and it also assumes that the regex pattern is a valid regex pattern
+
+    boolean regexValid = validateRegexPattern(code);
+
+    if (!regexValid) {
+      return false;
+    }
+
+    // Now check if the code is valid
+    if (codes == null || codes.isEmpty()) {
+      return true;
+    }
+
+    if (repeatableContent) {
+      return validateRepeatableCode(code);
+    }
+
+    return validateNonRepeatableCode(code);
   }
 
-  private boolean validateRepeatable(String code) {
-    for (int i=0; i < code.length(); i += unitLength) {
-      String unit = code.substring(i, i+unitLength);
-      if (!validCodes.contains(unit))
+  private boolean validateRegexPattern(String code) {
+    EncodedValue regexPattern = codes.stream().filter(EncodedValue::isRegex).findFirst().orElse(null);
+
+    if (regexPattern == null) {
+      return true;
+    }
+
+    // Create a pattern from the regex pattern
+    // The pattern should be case-insensitive
+
+    Pattern pattern = Pattern.compile(regexPattern.getCode(), Pattern.CASE_INSENSITIVE);
+
+    // Check if the code matches the pattern
+    Matcher patternMatcher = pattern.matcher(code);
+
+    // There is no checking for groups, so that should be implemented as well
+    // TODO implement group checking
+
+    return patternMatcher.matches();
+  }
+
+  /**
+   * Validates repeatable codes. The method assumes that the code is repeatable and that all codes occur at equal
+   * distances from each other.
+   * In other words, if the unitLength is 3, then only the substring at positions divisible by 3 are checked.
+   * @param code The code to validate
+   * @return True if the code is valid, false otherwise
+   */
+  private boolean validateRepeatableCode(String code) {
+    for (int i = 0; i < code.length(); i += unitLength) {
+      String unit = code.substring(i, i + unitLength);
+      if (!validCodes.contains(unit)) {
         return false;
+      }
     }
     return true;
   }
 
+  private boolean validateNonRepeatableCode(String code) {
+    return validCodes.stream()
+      .anyMatch(e -> e.equals(code));
+  }
+
   public String resolve(String inputCode) {
-    if (codes != null || codeList != null)
-      if (repeatableContent)
-        inputCode = resolveRepeatable(inputCode);
-      else
-        inputCode = resolveSingleCode(inputCode);
+    if (codes == null && codeList == null) {
+      return inputCode;
+    }
+
+    if (repeatableContent) {
+      inputCode = resolveRepeatable(inputCode);
+    } else {
+      inputCode = resolveSingleCode(inputCode);
+    }
 
     return inputCode;
   }
@@ -211,10 +276,14 @@ public class ControlfieldPositionDefinition implements Serializable {
   }
 
   protected void extractValidCodes() {
-    if (codes == null)
+    if (codes == null) {
       return;
-    for (EncodedValue code : codes)
-      validCodes.add(code.getCode());
+    }
+    for (EncodedValue code : codes) {
+      if (!code.isRegex()) {
+        validCodes.add(code.getCode());
+      }
+    }
   }
 
   public List<String> getValidCodes() {
@@ -228,10 +297,14 @@ public class ControlfieldPositionDefinition implements Serializable {
   }
 
   public String getControlField() {
-    String className = this.getClass().getSimpleName();
-    if (className.startsWith("Leader"))
+    // The original implementation used to be quite closely tied to the original MARC21-in-code representation.
+    // For now, I'm going to resort to a hacky approach where we use the ID of the control field
+    // TODO rethink and reimplement this
+
+    if (id.toLowerCase().startsWith("leader"))
       return "Leader";
-    return this.getClass().getSimpleName().substring(3, 6);
+
+    return id.substring(0, 3);
   }
 
   public EncodedValue getCode(String otherCode) {
@@ -313,7 +386,6 @@ public class ControlfieldPositionDefinition implements Serializable {
         ", positionStart=" + positionStart +
         ", positionEnd=" + positionEnd +
         ", codes=" + codes +
-        ", validCodes=" + validCodes +
         ", unitLength=" + unitLength +
         ", repeatableContent=" + repeatableContent +
         ", mqTag=" + mqTag +

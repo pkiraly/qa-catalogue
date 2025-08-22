@@ -3,7 +3,7 @@ package de.gwdg.metadataqa.marc.definition.tags.bltags;
 import de.gwdg.metadataqa.marc.analysis.validator.DataFieldValidator;
 import de.gwdg.metadataqa.marc.analysis.validator.ValidatorConfiguration;
 import de.gwdg.metadataqa.marc.dao.DataField;
-import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
+import de.gwdg.metadataqa.marc.dao.record.Marc21BibliographicRecord;
 import de.gwdg.metadataqa.marc.dao.record.BibliographicRecord;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
@@ -38,8 +38,8 @@ public class BLTagTest {
   }
 
   public void validField(DataField field) {
-    BibliographicRecord marcRecord = new Marc21Record("test");
-    field.setMarcRecord(marcRecord);
+    BibliographicRecord marcRecord = new Marc21BibliographicRecord("test");
+    field.setBibliographicRecord(marcRecord);
 
     MarcSubfield subfield = field.getSubfields().get(0);
 
@@ -65,8 +65,8 @@ public class BLTagTest {
   public void invalidField(String ind1, String subfield, String value) {
     DataField field = new DataField(tag, ind1, " ", subfield, value);
 
-    BibliographicRecord marcRecord = new Marc21Record("test");
-    field.setMarcRecord(marcRecord);
+    BibliographicRecord marcRecord = new Marc21BibliographicRecord("test");
+    field.setBibliographicRecord(marcRecord);
 
     DataFieldValidator validator = new DataFieldValidator();
     assertFalse(
@@ -84,8 +84,8 @@ public class BLTagTest {
 
   public void invalidField(DataField field) {
 
-    BibliographicRecord marcRecord = new Marc21Record("test");
-    field.setMarcRecord(marcRecord);
+    BibliographicRecord marcRecord = new Marc21BibliographicRecord("test");
+    field.setBibliographicRecord(marcRecord);
 
     MarcSubfield subfield = field.getSubfields().get(0);
 
@@ -107,8 +107,8 @@ public class BLTagTest {
   public void invalidFieldInBL(String ind1, String subfield, String value) {
     DataField field = new DataField(tag, ind1, " ", subfield, value);
 
-    BibliographicRecord marcRecord = new Marc21Record("test");
-    field.setMarcRecord(marcRecord);
+    BibliographicRecord marcRecord = new Marc21BibliographicRecord("test");
+    field.setBibliographicRecord(marcRecord);
 
     DataFieldValidator validator = new DataFieldValidator();
     assertTrue(

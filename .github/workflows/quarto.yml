@@ -1,0 +1,39 @@
+name: Quarto
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - docs
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Quarto (Install Quarto)
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+            
+      - name: Install Node modules
+        run: npm ci
+
+      - name: Generate HTML of Avram schemas
+        run: ./avram-schemas/html-schemas
+
+      - name: Render and Publish
+        uses: quarto-dev/quarto-actions/publish@v2
+        with:
+          path: docs
+          target: gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

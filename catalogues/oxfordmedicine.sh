@@ -4,7 +4,8 @@
 
 NAME=oxfordmedicine
 TYPE_PARAMS=""
-MARC_DIR=${BASE_INPUT_DIR}/oxfordmedicine
+# index parameters
+TYPE_PARAMS="${TYPE_PARAMS} --indexWithTokenizedField --indexFieldCounts --indexSubfieldCounts"
 MASK=oxmed*.mrc
 
 . ./common-script

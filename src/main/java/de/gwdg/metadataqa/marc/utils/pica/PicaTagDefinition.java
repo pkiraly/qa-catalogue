@@ -16,7 +16,7 @@ public class PicaTagDefinition implements BibliographicFieldDefinition {
 
   private PicaplusTag tag;
   private final String pica3;
-  private Boolean repeatable;
+  private boolean repeatable;
   private Cardinality cardinality;
   private Boolean hasSheet;
   private final String label;
@@ -32,7 +32,7 @@ public class PicaTagDefinition implements BibliographicFieldDefinition {
     this.pica3 = pica3;
     tag = new PicaplusTag(picaplus);
     this.repeatable = repeatable;
-    cardinality = repeatable ? Cardinality.Repeatable : Cardinality.Nonrepeatable;
+    cardinality = Cardinality.get(repeatable);
     this.hasSheet = sheet;
     this.label = label;
   }
@@ -62,9 +62,9 @@ public class PicaTagDefinition implements BibliographicFieldDefinition {
     switch (input) {
       case "": this.repeatable = false; break;
       case "*": this.repeatable = true; break;
-      default: logger.severe("unhandled 'repeatable' value: " + input);
+      default: logger.log(Level.SEVERE, "unhandled 'repeatable' value: {0}", input);
     }
-    cardinality = repeatable ? Cardinality.Repeatable : Cardinality.Nonrepeatable;
+    cardinality = Cardinality.get(repeatable);
   }
 
   public String getPica3() {

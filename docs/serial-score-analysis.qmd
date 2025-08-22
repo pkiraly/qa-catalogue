@@ -1,0 +1,35 @@
+---
+title: "Serial score analysis"
+---
+
+These scores are calculated for each continuing resources (type of record
+(LDR/6) is language material ('a') and bibliographic level (LDR/7) is serial
+component part ('b'), integrating resource ('i') or serial ('s')).
+
+The calculation is based on a slightly modified version of the method published
+by Jamie Carlstone in the following paper:
+
+Jamie Carlstone (2017) _Scoring the Quality of E-Serials MARC Records Using
+Java_, Serials Review, 43:3-4, pp. 271-277, DOI: [10.1080/00987913.2017.1350525](https://www.tandfonline.com/doi/full/10.1080/00987913.2017.1350525)
+
+```bash
+java -cp $JAR de.gwdg.metadataqa.marc.cli.SerialScore [options] <file>
+```
+with a bash script
+```bash
+./serial-score [options] <file>
+```
+or
+```bash
+catalogues/[catalogue].sh serial-score
+```
+or
+```bash
+./qa-catalogue --params="[options]" serial-score
+```
+
+options:
+
+* [general parameters](#general-parameters)
+* `-F <file>`, `--fileName <file>`: the report file name. Default is
+  `shelf-ready-completeness.csv`.

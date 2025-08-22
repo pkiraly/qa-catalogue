@@ -47,6 +47,7 @@ echo "deleting old CSV files"
 CSVS="count.csv issue-total.csv issue-by-category.csv issue-by-type.csv"
 for CSV_FILE in $CSVS; do
   if [[ -e ${HISTORICAL}/${CSV_FILE} ]]; then
+    echo "remove ${HISTORICAL}/${CSV_FILE}"
     rm ${HISTORICAL}/${CSV_FILE}
   fi
 done
@@ -79,28 +80,30 @@ for DIR in $FILES; do
   echo "processing $DIR"
 
   if [[ -d ${HISTORICAL}/$DIR ]]; then
-    if [[ -f ${HISTORICAL}/$DIR/count.csv.gz ]]; then
-      gunzip ${HISTORICAL}/$DIR/count.csv.gz
-    fi
-    if [[ $(head -1 ${HISTORICAL}/$DIR/count.csv) == "total" ]]; then
-      tail -n +2 ${HISTORICAL}/$DIR/count.csv | awk '{print $1","$1}' | sed "s;^;$DIR,;" >> ${HISTORICAL}/count.csv
-    else
-      tail -n +2 ${HISTORICAL}/$DIR/count.csv | sed "s;^;$DIR,;" >> ${HISTORICAL}/count.csv
-    fi
+    if [[ -f ${HISTORICAL}/$DIR/count.csv.gz || -f ${HISTORICAL}/$DIR/count.csv ]]; then
+      if [[ -f ${HISTORICAL}/$DIR/count.csv.gz ]]; then
+        gunzip ${HISTORICAL}/$DIR/count.csv.gz
+      fi
+      if [[ $(head -1 ${HISTORICAL}/$DIR/count.csv) == "total" ]]; then
+        tail -n +2 ${HISTORICAL}/$DIR/count.csv | awk '{print $1","$1}' | sed "s;^;$DIR,;" >> ${HISTORICAL}/count.csv
+      else
+        tail -n +2 ${HISTORICAL}/$DIR/count.csv | sed "s;^;$DIR,;" >> ${HISTORICAL}/count.csv
+      fi
 
-    if [[ -f ${HISTORICAL}/$DIR/issue-total.csv.gz ]]; then
-      gunzip ${HISTORICAL}/$DIR/issue-total.csv.gz
-    fi
-    grep -v 'type,' ${HISTORICAL}/$DIR/issue-total.csv | sed "s;^;$DIR,;" >> ${HISTORICAL}/issue-total.csv
+      if [[ -f ${HISTORICAL}/$DIR/issue-total.csv.gz ]]; then
+        gunzip ${HISTORICAL}/$DIR/issue-total.csv.gz
+      fi
+      grep -v 'type,' ${HISTORICAL}/$DIR/issue-total.csv | sed "s;^;$DIR,;" >> ${HISTORICAL}/issue-total.csv
 
-    if [[ -f ${HISTORICAL}/$DIR/issue-by-category.csv.gz ]]; then
-      gunzip ${HISTORICAL}/$DIR/issue-by-category.csv.gz
+      if [[ -f ${HISTORICAL}/$DIR/issue-by-category.csv.gz ]]; then
+        gunzip ${HISTORICAL}/$DIR/issue-by-category.csv.gz
+      fi
+      grep -v 'id,category,instances,records' ${HISTORICAL}/$DIR/issue-by-category.csv | sed "s;^;$DIR,;" >> ${HISTORICAL}/issue-by-category.csv
+      if [[ -f ${HISTORICAL}/$DIR/issue-by-type.csv.gz ]]; then
+        gunzip ${HISTORICAL}/$DIR/issue-by-type.csv.gz
+      fi
+      grep -v 'id,categoryId,category,type,instances,records' ${HISTORICAL}/$DIR/issue-by-type.csv | sed "s;^;$DIR,;" >> ${HISTORICAL}/issue-by-type.csv
     fi
-    grep -v 'id,category,instances,records' ${HISTORICAL}/$DIR/issue-by-category.csv | sed "s;^;$DIR,;" >> ${HISTORICAL}/issue-by-category.csv
-    if [[ -f ${HISTORICAL}/$DIR/issue-by-type.csv.gz ]]; then
-      gunzip ${HISTORICAL}/$DIR/issue-by-type.csv.gz
-    fi
-    grep -v 'id,categoryId,category,type,instances,records' ${HISTORICAL}/$DIR/issue-by-type.csv | sed "s;^;$DIR,;" >> ${HISTORICAL}/issue-by-type.csv
   fi
 done
 
@@ -130,6 +133,7 @@ SELECT category, type, version, ROUND((records * 1.0 / processed) * 100, 2) AS p
   JOIN count USING(version) 
 EOF
 
+echo "Rscript $(dirname $0)/timeline.R ${HISTORICAL} $FREQUENCY"
 Rscript $(dirname $0)/timeline.R ${HISTORICAL} $FREQUENCY
 ACTUAL_DIR=$(ls -la ${HISTORICAL}/ | grep -P '^l' | tail -1 | awk '{print $NF}')
 if [[ "${ACTUAL_DIR:0:2}" == ".." ]]; then

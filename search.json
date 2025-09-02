@@ -480,69 +480,102 @@
     ]
   },
   {
+    "objectID": "marcspec.html",
+    "href": "marcspec.html",
+    "title": "Appendix C — MARCspec tutorial",
+    "section": "",
+    "text": "C.1 Get the Leader\nQA Catalogue uses Carsten Klee’s specification, MARCspec - A common MARC record path language for addressing a particular data element in a MARC21 or UNIMARC record. It can be used in filtering, extraction and Shacl4Bib expression. The following provides some examples.\nldr or LDR\nMARC21 record:\nMARCspec\nor\nreturns",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>C</span>  <span class='chapter-title'>MARCspec tutorial</span>"
+    ]
+  },
+  {
+    "objectID": "marcspec.html#get-the-leader",
+    "href": "marcspec.html#get-the-leader",
+    "title": "Appendix C — MARCspec tutorial",
+    "section": "",
+    "text": "LDR 02157cas a2200517Ka 4500\n\nlrd\n\nLDR\n\n02157cas a2200517Ka 4500\n\nC.1.1 Get a position in the leader\nldr/&lt;number+|#&gt; or LDR/&lt;number+|#&gt;\nA number means the Nth position of the Leader string (starts from 0). The special character # means the last position.\nMARC21 record:\nLDR 02157cas a2200517Ka 4500\nMARCspec:\nLDR/6\nreturns a.\nMARCspec:\nLDR/#\nreturns 0.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>C</span>  <span class='chapter-title'>MARCspec tutorial</span>"
+    ]
+  },
+  {
+    "objectID": "marcspec.html#get-a-control-field",
+    "href": "marcspec.html#get-a-control-field",
+    "title": "Appendix C — MARCspec tutorial",
+    "section": "C.2 Get a Control Field",
+    "text": "C.2 Get a Control Field",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>C</span>  <span class='chapter-title'>MARCspec tutorial</span>"
+    ]
+  },
+  {
     "objectID": "institutions-which-reportedly-use-this-tool.html",
     "href": "institutions-which-reportedly-use-this-tool.html",
-    "title": "Appendix C — Institutions which reportedly use this tool",
+    "title": "Appendix D — Institutions which reportedly use this tool",
     "section": "",
     "text": "Universiteitsbibliotheek Gent, Gent, Belgium\nBiblioteksentralen, Oslo, Norway\nDeutsche Digitale Bibliothek, Frankfurt am Main/Berlin, Germany\nBritish Library, London/Boston Spa, United Kingdom\nOrszággyűlési Könyvtár, Budapest, Hungary\nStudijní a vědecká knihovna Plzeňského kraje, Plzeň, Czech Republic\nRoyal Library of Belgium (KBR), Brussels, Belgium\nGemeinsamer Bibliotheksverbund (GBV), Göttingen, Germany\nBinghampton University Libraries, Binghampton, NY, USA\nZentralbibliothek Zürich, Zürich, Switzerland\n\nIf you use this tool as well, please contact me: pkiraly (at) gwdg (dot) de. I really like to hear about your use case and ideas.",
     "crumbs": [
       "Appendices",
-      "<span class='chapter-number'>C</span>  <span class='chapter-title'>Institutions which reportedly use this tool</span>"
+      "<span class='chapter-number'>D</span>  <span class='chapter-title'>Institutions which reportedly use this tool</span>"
     ]
   },
   {
     "objectID": "supporters-and-sponsors.html",
     "href": "supporters-and-sponsors.html",
-    "title": "Appendix D — supporters-and-sponsors",
+    "title": "Appendix E — supporters-and-sponsors",
     "section": "",
     "text": "Gesellschaft für wissenschaftliche Datenverarbeitung mbH Göttingen (GWDG): Hardware, time for research\nGemeinsamer Bibliotheksverbund (GBV): contracting for feature development\nRoyal Library of Belgium (KBR): contracting for feature development\nJetBrains s.r.o.: IntelliJ IDEA development tool community licence",
     "crumbs": [
       "Appendices",
-      "<span class='chapter-number'>D</span>  <span class='chapter-title'>supporters-and-sponsors</span>"
+      "<span class='chapter-number'>E</span>  <span class='chapter-title'>supporters-and-sponsors</span>"
     ]
   },
   {
     "objectID": "special-build-process.html",
     "href": "special-build-process.html",
-    "title": "Appendix E — Special build process",
+    "title": "Appendix F — Special build process",
     "section": "",
     "text": "“deployment” build (when deploying artifacts to Maven Central)\nmvn clean deploy -Pdeploy",
     "crumbs": [
       "Appendices",
-      "<span class='chapter-number'>E</span>  <span class='chapter-title'>Special build process</span>"
+      "<span class='chapter-number'>F</span>  <span class='chapter-title'>Special build process</span>"
     ]
   },
   {
     "objectID": "build-docker-image.html",
     "href": "build-docker-image.html",
-    "title": "Appendix F — Build Docker image",
+    "title": "Appendix G — Build Docker image",
     "section": "",
     "text": "Build and test\n# create the Java library\nmvn clean install\n# create the docker base image\ndocker compose -f docker/build.yml build app\nThe docker compose build command has multiple --build-arg arguments to override defaults:\n\nQA_CATALOGUE_VERSION: the QA catalogue version (default: 0.7.0, current development version is 0.8.0-SNAPSHOT)\nQA_CATALOGUE_WEB_VERSION: it might be a released version such as 0.7.0, or main (default) to use the main branch, or develop to use the develop branch.\nSOLR_VERSION: the Apache Solr version you would like to use (default: 8.11.1)\nSOLR_INSTALL_SOURCE: if its value is remote docker will download it from http://archive.apache.org/. If its value is a local path points to a previously downloaded package (named as solr-${SOLR_VERSION}.zip up to version 8.x.x or solr-${SOLR_VERSION}.tgz from version 9.x.x) the process will copy it from the host to the image file. Depending on the internet connection, download might take a long time, using a previously downloaded package speeds the building process. (Note: it is not possible to specify files outside the current directory, not using symbolic links, but you can create hard links - see an example below.)\n\nUsing the current developer version:\ndocker compose -f docker/build.yml build app \\\n  --build-arg QA_CATALOGUE_VERSION=0.8.0-SNAPSHOT \\\n  --build-arg QA_CATALOGUE_WEB_VERSION=develop \\\n  --build-arg SOLR_VERSION=8.11.3\nUsing a downloaded Solr package:\n# create link temporary\nmkdir download\nln ~/Downloads/solr/solr-8.11.3.zip download/solr-8.11.3.zip\n# run docker\ndocker compose -f docker/build.yml build app \\\n  --build-arg QA_CATALOGUE_VERSION=0.8.0-SNAPSHOT \\\n  --build-arg QA_CATALOGUE_WEB_VERSION=develop \\\n  --build-arg SOLR_VERSION=8.11.3 \\\n  --build-arg SOLR_INSTALL_SOURCE=download/solr-8.11.3.zip\n# delete the temporary link\nrm -rf download\nThen start the container with environment variable IMAGE set to metadata-qa-marc and run analyses as described above.\nFor maintainers only:\nUpload to Docker Hub:\ndocker tag metadata-qa-marc:latest pkiraly/metadata-qa-marc:latest\ndocker login\ndocker push pkiraly/metadata-qa-marc:latest\nCleaning before and after:\n# stop running container\ndocker stop $(docker ps --filter name=metadata-qa-marc -q)\n# remove container\ndocker rm $(docker ps -a --filter name=metadata-qa-marc -q)\n# remove image\ndocker rmi $(docker images metadata-qa-marc -q)\n# clear build cache\ndocker builder prune -a -f",
     "crumbs": [
       "Appendices",
-      "<span class='chapter-number'>F</span>  <span class='chapter-title'>Build Docker image</span>"
+      "<span class='chapter-number'>G</span>  <span class='chapter-title'>Build Docker image</span>"
     ]
   },
   {
     "objectID": "contributing.html",
     "href": "contributing.html",
-    "title": "Appendix G — Contributing",
+    "title": "Appendix H — Contributing",
     "section": "",
-    "text": "G.1 Documentation\nQA catalogue is developed in a git repository at https://github.com/pkiraly/qa-catalogue. Bug reports and feature requests are managed in the corresponding issue tracker.\nContribution is welcome at:\nThe documentation is build with quarto. It is published at https://pkiraly.github.io/qa-catalogue/ with every change on the main branch and on the docs branch.",
+    "text": "H.1 Documentation\nQA catalogue is developed in a git repository at https://github.com/pkiraly/qa-catalogue. Bug reports and feature requests are managed in the corresponding issue tracker.\nContribution is welcome at:\nThe documentation is build with quarto. It is published at https://pkiraly.github.io/qa-catalogue/ with every change on the main branch and on the docs branch.",
     "crumbs": [
       "Appendices",
-      "<span class='chapter-number'>G</span>  <span class='chapter-title'>Contributing</span>"
+      "<span class='chapter-number'>H</span>  <span class='chapter-title'>Contributing</span>"
     ]
   },
   {
     "objectID": "contributing.html#source-code",
     "href": "contributing.html#source-code",
-    "title": "Appendix G — Contributing",
-    "section": "G.2 Source code",
-    "text": "G.2 Source code\nWe try to follow this git workflow:\n\nG.2.1 1st scenario: preparing the first pull request\nclone QA catalogue at https://github.com/pkiraly/qa-catalogue.git then\ngit clone https://github.com/YOUR_NAME/qa-catalogue.git qa-catalogue\ncd qa-catalogue\ncreate a new branch locally for the pull request (the name should reflect the ticket ID and title)\ngit checkout -b 123-COOL-FEATURE\nworking on the branch … then commit changes\ngit commit -am \"issue #123: explanation of changes\"\nupload the new branch to https://github.com/YOUR_NAME/qa-catalogue\ngit push -u origin 123-COOL-FEATURE\n… then create pull request at github.com/YOUR_NAME/qa-catalogue\n\n\nG.2.2 2nd scenario: preparing another pull request some month later\nregister the main QA catalogue repo\ngit remote add upstream https://github.com/pkiraly/qa-catalogue.git\n\ngit checkout main\nupdate local develop branch from https://github.com/pkiraly/qa-catalogue\ngit fetch upstream main\ngit rebase upstream/main\nupdate remote develop branch at https://github.com/YOUR_NAME/qa-catalogue\ngit push\ncreate a new branch locally for the pull request\ngit checkout -b 123-COOL-FEATURE\nwork on the branch and commit changes\ngit commit -am \"#123 explanation of changes\"\nupload the new branch to https://github.com/YOUR_NAME/qa-catalogue\ngit push -u origin 123-COOL-FEATURE\n… then create pull request at github.com/YOUR_NAME/qa-catalogue\n\n\nG.2.3 3rd scenario: synchronize your branch with main branch\ngit checkout main\nupdate local develop branch from https://github.com/pkiraly/qa-catalogue\ngit fetch upstream main\ngit rebase upstream/main\nupdate remote develop branch at https://github.com/YOUR_NAME/qa-catalogue\ngit push\nchange to the already existing feature branch\ngit checkout 123-COOL-FEATURE\nmerge changes of develop to the feature branch\ngit merge main\ncheck if there are conflicts, if there are follow the next command, otherwise skip to next block 1. fix the relevant files (including testing) 2. commit changes\ngit add &lt;fixed files&gt;\ngit commit\nupdate remote feature branch at https://github.com/YOUR_NAME/qa-catalogue\ngit push",
+    "title": "Appendix H — Contributing",
+    "section": "H.2 Source code",
+    "text": "H.2 Source code\nWe try to follow this git workflow:\n\nH.2.1 1st scenario: preparing the first pull request\nclone QA catalogue at https://github.com/pkiraly/qa-catalogue.git then\ngit clone https://github.com/YOUR_NAME/qa-catalogue.git qa-catalogue\ncd qa-catalogue\ncreate a new branch locally for the pull request (the name should reflect the ticket ID and title)\ngit checkout -b 123-COOL-FEATURE\nworking on the branch … then commit changes\ngit commit -am \"issue #123: explanation of changes\"\nupload the new branch to https://github.com/YOUR_NAME/qa-catalogue\ngit push -u origin 123-COOL-FEATURE\n… then create pull request at github.com/YOUR_NAME/qa-catalogue\n\n\nH.2.2 2nd scenario: preparing another pull request some month later\nregister the main QA catalogue repo\ngit remote add upstream https://github.com/pkiraly/qa-catalogue.git\n\ngit checkout main\nupdate local develop branch from https://github.com/pkiraly/qa-catalogue\ngit fetch upstream main\ngit rebase upstream/main\nupdate remote develop branch at https://github.com/YOUR_NAME/qa-catalogue\ngit push\ncreate a new branch locally for the pull request\ngit checkout -b 123-COOL-FEATURE\nwork on the branch and commit changes\ngit commit -am \"#123 explanation of changes\"\nupload the new branch to https://github.com/YOUR_NAME/qa-catalogue\ngit push -u origin 123-COOL-FEATURE\n… then create pull request at github.com/YOUR_NAME/qa-catalogue\n\n\nH.2.3 3rd scenario: synchronize your branch with main branch\ngit checkout main\nupdate local develop branch from https://github.com/pkiraly/qa-catalogue\ngit fetch upstream main\ngit rebase upstream/main\nupdate remote develop branch at https://github.com/YOUR_NAME/qa-catalogue\ngit push\nchange to the already existing feature branch\ngit checkout 123-COOL-FEATURE\nmerge changes of develop to the feature branch\ngit merge main\ncheck if there are conflicts, if there are follow the next command, otherwise skip to next block 1. fix the relevant files (including testing) 2. commit changes\ngit add &lt;fixed files&gt;\ngit commit\nupdate remote feature branch at https://github.com/YOUR_NAME/qa-catalogue\ngit push",
     "crumbs": [
       "Appendices",
-      "<span class='chapter-number'>G</span>  <span class='chapter-title'>Contributing</span>"
+      "<span class='chapter-number'>H</span>  <span class='chapter-title'>Contributing</span>"
     ]
   }
 ]

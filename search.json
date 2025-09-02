@@ -495,7 +495,7 @@
     "href": "marcspec.html#get-the-leader",
     "title": "Appendix C — MARCspec tutorial",
     "section": "",
-    "text": "LDR 02157cas a2200517Ka 4500\n\nlrd\n\nLDR\n\n02157cas a2200517Ka 4500\n\nC.1.1 Get a position in the leader\nldr/&lt;number+|#&gt; or LDR/&lt;number+|#&gt;\nA number means the Nth position of the Leader string (starts from 0). The special character # means the last position.\nMARC21 record:\nLDR 02157cas a2200517Ka 4500\nMARCspec:\nLDR/6\nreturns a.\nMARCspec:\nLDR/#\nreturns 0.",
+    "text": "LDR 02157cas a2200517Ka 4500\n\nlrd\n\nLDR\n\n02157cas a2200517Ka 4500\n\nC.1.1 Get a position in the leader\nldr/&lt;number+|#&gt; or LDR/&lt;number+|#&gt;\nA number means the Nth position of the Leader string (starts from 0). The special character # means the last position.\n\n\n\nMARC21 record\nMARCspec\nreturns\n\n\n\n\nLDR 02157cas a2200517Ka 4500\nLDR/6\na\n\n\n\nLDR/#\n0",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>MARCspec tutorial</span>"

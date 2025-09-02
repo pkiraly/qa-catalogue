@@ -359,14 +359,27 @@ ul.task-list li input[type="checkbox"] {
 <h3 data-number="C.1.1" class="anchored" data-anchor-id="get-a-position-in-the-leader"><span class="header-section-number">C.1.1</span> Get a position in the leader</h3>
 <p><code>ldr/&lt;number+|#&gt;</code> or <code>LDR/&lt;number+|#&gt;</code></p>
 <p>A number means the Nth position of the Leader string (starts from 0). The special character <code>#</code> means the last position.</p>
-<p>MARC21 record:</p>
-<pre><code>LDR 02157cas a2200517Ka 4500</code></pre>
-<p>MARCspec:</p>
-<pre><code>LDR/6</code></pre>
-<p>returns <code>a</code>.</p>
-<p>MARCspec:</p>
-<pre><code>LDR/#</code></pre>
-<p>returns <code>0</code>.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>MARC21 record</th>
+<th>MARCspec</th>
+<th>returns</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>LDR 02157cas a2200517Ka 4500</code></td>
+<td><code>LDR/6</code></td>
+<td><code>a</code></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>LDR/#</td>
+<td><code>0</code></td>
+</tr>
+</tbody>
+</table>
 </section>
 </section>
 <section id="get-a-control-field" class="level2" data-number="C.2">

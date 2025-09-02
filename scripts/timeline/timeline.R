@@ -17,15 +17,18 @@ if (! frequency %in% c('weekly', 'monthly')) {
 }
 
 input_file <- paste0(dir, '/timeline-by-category.csv')
+print(paste('processing', input_file))
 df <- read_csv(input_file)
 .min_version <- df %>% select(version) %>% filter(version == min(version)) %>% distinct() %>% unlist(use.names = FALSE)
 
+print('set levels')
 .levels <- df %>% 
   filter(version == .min_version) %>% 
   arrange(desc(percent)) %>% 
   select(category) %>% 
   unlist(use.names = FALSE)
 
+print('create g')
 g <- df %>% 
   mutate(category = factor(category, levels = .levels)) %>% 
   #mutate(id = factor(id)) %>% 

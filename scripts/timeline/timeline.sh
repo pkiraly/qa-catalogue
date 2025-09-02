@@ -51,7 +51,10 @@ fi
 echo "deleting old CSV files"
 CSVS="count.csv issue-total.csv issue-by-category.csv issue-by-type.csv"
 for CSV_FILE in $CSVS; do
-  rm -f "$HISTORICAL/$CSV_FILE"
+  if [[ -e ${HISTORICAL}/${CSV_FILE} ]]; then
+    echo "remove ${HISTORICAL}/${CSV_FILE}"
+    rm ${HISTORICAL}/${CSV_FILE}
+  fi
 done
 
 echo "initialize CSV files with header"
@@ -78,30 +81,30 @@ for DIR in $FILES; do
 
   echo "processing $DIR"
 
-  if [[ -d "$HISTORICAL/$DIR" ]]; then
-    if [[ -f "$HISTORICAL/$DIR/count.csv.gz" || -f "$HISTORICAL/$DIR/count.csv" ]]; then
-      if [[ -f "$HISTORICAL}/$DIR/count.csv.gz" ]]; then
-        gunzip "$HISTORICAL}/$DIR/count.csv.gz"
+  if [[ -d ${HISTORICAL}/$DIR ]]; then
+    if [[ -f ${HISTORICAL}/$DIR/count.csv.gz || -f ${HISTORICAL}/$DIR/count.csv ]]; then
+      if [[ -f ${HISTORICAL}/$DIR/count.csv.gz ]]; then
+        gunzip ${HISTORICAL}/$DIR/count.csv.gz
       fi
-      if [[ $(head -1 "$HISTORICAL/$DIR/count.csv") == "total" ]]; then
-        tail -n +2 "$HISTORICAL/$DIR/count.csv" | awk '{print $1","$1}' | sed "s;^;$DIR,;" >> "$HISTORICAL/count.csv"
+      if [[ $(head -1 ${HISTORICAL}/$DIR/count.csv) == "total" ]]; then
+        tail -n +2 ${HISTORICAL}/$DIR/count.csv | awk '{print $1","$1}' | sed "s;^;$DIR,;" >> ${HISTORICAL}/count.csv
       else
-        tail -n +2 "$HISTORICAL}/$DIR/count.csv" | sed "s;^;$DIR,;" >> "$HISTORICAL/count.csv"
+        tail -n +2 ${HISTORICAL}/$DIR/count.csv | sed "s;^;$DIR,;" >> ${HISTORICAL}/count.csv
       fi
 
-      if [[ -f "$HISTORICAL/$DIR/issue-total.csv.gz" ]]; then          
-        gunzip "$HISTORICAL/$DIR/issue-total.csv.gz"
+      if [[ -f ${HISTORICAL}/$DIR/issue-total.csv.gz ]]; then
+        gunzip ${HISTORICAL}/$DIR/issue-total.csv.gz
       fi
-      grep -v 'type,' "$HISTORICAL/$DIR/issue-total.csv" | sed "s;^;$DIR,;" >> "$HISTORICAL/issue-total.csv"
+      grep -v 'type,' ${HISTORICAL}/$DIR/issue-total.csv | sed "s;^;$DIR,;" >> ${HISTORICAL}/issue-total.csv
 
-      if [[ -f "$HISTORICAL/$DIR/issue-by-category.csv.gz" ]]; then
-        gunzip "$HISTORICAL/$DIR/issue-by-category.csv.gz"
+      if [[ -f ${HISTORICAL}/$DIR/issue-by-category.csv.gz ]]; then
+        gunzip ${HISTORICAL}/$DIR/issue-by-category.csv.gz
       fi
-      grep -v 'id,category,instances,records' "$HISTORICAL/$DIR/issue-by-category.csv" | sed "s;^;$DIR,;" >> "$HISTORICAL/issue-by-category.csv"
-      if [[ -f "$HISTORICAL/$DIR/issue-by-type.csv.gz" ]]; then
-        gunzip "$HISTORICAL/$DIR/issue-by-type.csv.gz"
+      grep -v 'id,category,instances,records' ${HISTORICAL}/$DIR/issue-by-category.csv | sed "s;^;$DIR,;" >> ${HISTORICAL}/issue-by-category.csv
+      if [[ -f ${HISTORICAL}/$DIR/issue-by-type.csv.gz ]]; then
+        gunzip ${HISTORICAL}/$DIR/issue-by-type.csv.gz
       fi
-      grep -v 'id,categoryId,category,type,instances,records' "$HISTORICAL/$DIR/issue-by-type.csv" | sed "s;^;$DIR,;" >> "$HISTORICAL/issue-by-type.csv"
+      grep -v 'id,categoryId,category,type,instances,records' ${HISTORICAL}/$DIR/issue-by-type.csv | sed "s;^;$DIR,;" >> ${HISTORICAL}/issue-by-type.csv
     fi
   fi
 done
@@ -121,19 +124,20 @@ sqlite3 "$HISTORICAL/history.sqlite" << EOF
 .headers on
 .separator ,
 .output $HISTORICAL/timeline-by-category.csv
-SELECT id, category, version, ROUND((records * 1.0 / processed) * 100, 2) AS percent 
-  FROM issue_category 
-  JOIN count USING(version) 
+SELECT id, category, version, ROUND((records * 1.0 / processed) * 100, 2) AS percent
+  FROM issue_category
+  JOIN count USING(version)
   ORDER BY id, version;
 
 .output $HISTORICAL/timeline-by-type.csv
-SELECT category, type, version, ROUND((records * 1.0 / processed) * 100, 2) AS percent 
+SELECT category, type, version, ROUND((records * 1.0 / processed) * 100, 2) AS percent
   FROM issue_type
-  JOIN count USING(version) 
+  JOIN count USING(version)
 EOF
 
-Rscript $(dirname "$0")/timeline.R "$HISTORICAL" "$FREQUENCY"
-ACTUAL_DIR=$(ls -la "$HISTORICAL/" | grep -P '^l' | tail -1 | awk '{print $NF}')
+echo "Rscript $(dirname $0)/timeline.R ${HISTORICAL} $FREQUENCY"
+Rscript $(dirname $0)/timeline.R "${HISTORICAL}" "$FREQUENCY"
+ACTUAL_DIR=$(ls -la "${HISTORICAL}/" | grep -P '^l' | tail -1 | awk '{print $NF}')
 if [[ "${ACTUAL_DIR:0:2}" == ".." ]]; then
   ACTUAL_DIR=$(realpath "$HISTORICAL/$ACTUAL_DIR")
 fi

@@ -36,20 +36,9 @@ returns
 A number means the Nth position of the Leader string (starts from 0).
 The special character `#` means the last position.
 
-MARC21 record:
-```
-LDR 02157cas a2200517Ka 4500
-```
-MARCspec:
-```
-LDR/6
-```
-returns `a`.
-
-MARCspec:
-```
-LDR/#
-```
-returns `0`.
+| MARC21 record | MARCspec | returns |
+| --- | --- | --- |
+| `LDR 02157cas a2200517Ka 4500` | `LDR/6` | `a` |
+| | LDR/# | `0` |
 
 ## Get a Control Field

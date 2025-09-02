@@ -10,28 +10,17 @@ provides some examples.
 
 ## Get the Leader
 
-`ldr` or `LDR`
+MARCspec expression: `ldr` or `LDR`
 
-MARC21 record:
-```
-LDR 02157cas a2200517Ka 4500
-```
-MARCspec
-```
-lrd
-```
-or
-```
-LDR
-```
-returns
-```
-02157cas a2200517Ka 4500
-```
+
+| MARC21 record | MARCspec | returns |
+| --- | --- | --- |
+| `LDR 02157cas a2200517Ka 4500` | `LDR` | `02157cas a2200517Ka 4500` |
+| | ldr | `02157cas a2200517Ka 4500` |
 
 ### Get a position in the leader
 
-`ldr/<number+|#>` or `LDR/<number+|#>`
+MARCspec expression: `ldr/<number+|#>` or `LDR/<number+|#>`
 
 A number means the Nth position of the Leader string (starts from 0).
 The special character `#` means the last position.
@@ -41,4 +30,39 @@ The special character `#` means the last position.
 | `LDR 02157cas a2200517Ka 4500` | `LDR/6` | `a` |
 | | LDR/# | `0` |
 
+### Get a position range in the Leader
+
+MARCspec expression: `ldr/<number+>-<number+|#>` or `LDR/<number+>-<number+|#>`
+
+A number means the Nth position of the Leader string (starts from 0).
+The special character `#` means the last position.
+
+| MARC21 record | MARCspec | returns |
+| --- | --- | --- |
+| `LDR 02157cas a2200517Ka 4500` | `LDR/0-4` | `02157` |
+
 ## Get a Control Field
+
+MARCspec expression: `00<number>`
+
+| MARC21 record | MARCspec | returns |
+| --- | --- | --- |
+| `001 010000178` | `001` | `010000178` |
+| `003 SIRSI` | `003` | `SIRSI` |
+
+### Get a Control Field position
+
+MARCspec expression: `00<number>/<number+|#>`
+
+| MARC21 record | MARCspec | returns |
+| --- | --- | --- |
+| `001 010000178` | `001/0` | `0` |
+|  | `001/#` | `8` |
+
+### Get a position range in a Control Field
+
+MARCspec expression: `00<number>/<number+>-<number+|#>`
+
+| MARC21 record | MARCspec | returns |
+| --- | --- | --- |
+| `001 010000178` | `001/1-#` | `10000178` |

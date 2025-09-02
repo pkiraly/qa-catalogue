@@ -316,8 +316,13 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#get-the-leader" id="toc-get-the-leader" class="nav-link active" data-scroll-target="#get-the-leader"><span class="header-section-number">C.1</span> Get the Leader</a>
   <ul class="collapse">
   <li><a href="#get-a-position-in-the-leader" id="toc-get-a-position-in-the-leader" class="nav-link" data-scroll-target="#get-a-position-in-the-leader"><span class="header-section-number">C.1.1</span> Get a position in the leader</a></li>
+  <li><a href="#get-a-position-range-in-the-leader" id="toc-get-a-position-range-in-the-leader" class="nav-link" data-scroll-target="#get-a-position-range-in-the-leader"><span class="header-section-number">C.1.2</span> Get a position range in the Leader</a></li>
   </ul></li>
-  <li><a href="#get-a-control-field" id="toc-get-a-control-field" class="nav-link" data-scroll-target="#get-a-control-field"><span class="header-section-number">C.2</span> Get a Control Field</a></li>
+  <li><a href="#get-a-control-field" id="toc-get-a-control-field" class="nav-link" data-scroll-target="#get-a-control-field"><span class="header-section-number">C.2</span> Get a Control Field</a>
+  <ul class="collapse">
+  <li><a href="#get-a-control-field-position" id="toc-get-a-control-field-position" class="nav-link" data-scroll-target="#get-a-control-field-position"><span class="header-section-number">C.2.1</span> Get a Control Field position</a></li>
+  <li><a href="#get-a-position-range-in-a-control-field" id="toc-get-a-position-range-in-a-control-field" class="nav-link" data-scroll-target="#get-a-position-range-in-a-control-field"><span class="header-section-number">C.2.2</span> Get a position range in a Control Field</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/pkiraly/qa-catalogue/blob/main/marcspec.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/pkiraly/qa-catalogue/edit/main/marcspec.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li><li><a href="https://github.com/pkiraly/qa-catalogue/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -346,18 +351,31 @@ ul.task-list li input[type="checkbox"] {
 <p>QA Catalogue uses Carsten Klee’s specification, <a href="https://marcspec.github.io/MARCspec/marc-spec.html#reference-to-substring">MARCspec - A common MARC record path language</a> for addressing a particular data element in a MARC21 or UNIMARC record. It can be used in filtering, extraction and Shacl4Bib expression. The following provides some examples.</p>
 <section id="get-the-leader" class="level2" data-number="C.1">
 <h2 data-number="C.1" class="anchored" data-anchor-id="get-the-leader"><span class="header-section-number">C.1</span> Get the Leader</h2>
-<p><code>ldr</code> or <code>LDR</code></p>
-<p>MARC21 record:</p>
-<pre><code>LDR 02157cas a2200517Ka 4500</code></pre>
-<p>MARCspec</p>
-<pre><code>lrd</code></pre>
-<p>or</p>
-<pre><code>LDR</code></pre>
-<p>returns</p>
-<pre><code>02157cas a2200517Ka 4500</code></pre>
+<p>MARCspec expression: <code>ldr</code> or <code>LDR</code></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>MARC21 record</th>
+<th>MARCspec</th>
+<th>returns</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>LDR 02157cas a2200517Ka 4500</code></td>
+<td><code>LDR</code></td>
+<td><code>02157cas a2200517Ka 4500</code></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>ldr</td>
+<td><code>02157cas a2200517Ka 4500</code></td>
+</tr>
+</tbody>
+</table>
 <section id="get-a-position-in-the-leader" class="level3" data-number="C.1.1">
 <h3 data-number="C.1.1" class="anchored" data-anchor-id="get-a-position-in-the-leader"><span class="header-section-number">C.1.1</span> Get a position in the leader</h3>
-<p><code>ldr/&lt;number+|#&gt;</code> or <code>LDR/&lt;number+|#&gt;</code></p>
+<p>MARCspec expression: <code>ldr/&lt;number+|#&gt;</code> or <code>LDR/&lt;number+|#&gt;</code></p>
 <p>A number means the Nth position of the Leader string (starts from 0). The special character <code>#</code> means the last position.</p>
 <table class="caption-top table">
 <thead>
@@ -381,11 +399,99 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
+<section id="get-a-position-range-in-the-leader" class="level3" data-number="C.1.2">
+<h3 data-number="C.1.2" class="anchored" data-anchor-id="get-a-position-range-in-the-leader"><span class="header-section-number">C.1.2</span> Get a position range in the Leader</h3>
+<p>MARCspec expression: <code>ldr/&lt;number+&gt;-&lt;number+|#&gt;</code> or <code>LDR/&lt;number+&gt;-&lt;number+|#&gt;</code></p>
+<p>A number means the Nth position of the Leader string (starts from 0). The special character <code>#</code> means the last position.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>MARC21 record</th>
+<th>MARCspec</th>
+<th>returns</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>LDR 02157cas a2200517Ka 4500</code></td>
+<td><code>LDR/0-4</code></td>
+<td><code>02157</code></td>
+</tr>
+</tbody>
+</table>
+</section>
 </section>
 <section id="get-a-control-field" class="level2" data-number="C.2">
 <h2 data-number="C.2" class="anchored" data-anchor-id="get-a-control-field"><span class="header-section-number">C.2</span> Get a Control Field</h2>
+<p>MARCspec expression: <code>00&lt;number&gt;</code></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>MARC21 record</th>
+<th>MARCspec</th>
+<th>returns</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>001 010000178</code></td>
+<td><code>001</code></td>
+<td><code>010000178</code></td>
+</tr>
+<tr class="even">
+<td><code>003 SIRSI</code></td>
+<td><code>003</code></td>
+<td><code>SIRSI</code></td>
+</tr>
+</tbody>
+</table>
+<section id="get-a-control-field-position" class="level3" data-number="C.2.1">
+<h3 data-number="C.2.1" class="anchored" data-anchor-id="get-a-control-field-position"><span class="header-section-number">C.2.1</span> Get a Control Field position</h3>
+<p>MARCspec expression: <code>00&lt;number&gt;/&lt;number+|#&gt;</code></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>MARC21 record</th>
+<th>MARCspec</th>
+<th>returns</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>001 010000178</code></td>
+<td><code>001/0</code></td>
+<td><code>0</code></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>001/#</code></td>
+<td><code>8</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="get-a-position-range-in-a-control-field" class="level3" data-number="C.2.2">
+<h3 data-number="C.2.2" class="anchored" data-anchor-id="get-a-position-range-in-a-control-field"><span class="header-section-number">C.2.2</span> Get a position range in a Control Field</h3>
+<p>MARCspec expression: <code>00&lt;number&gt;/&lt;number+&gt;-&lt;number+|#&gt;</code></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>MARC21 record</th>
+<th>MARCspec</th>
+<th>returns</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>001 010000178</code></td>
+<td><code>001/1-#</code></td>
+<td><code>10000178</code></td>
+</tr>
+</tbody>
+</table>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

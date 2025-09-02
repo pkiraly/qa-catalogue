@@ -484,7 +484,7 @@
     "href": "marcspec.html",
     "title": "Appendix C — MARCspec tutorial",
     "section": "",
-    "text": "C.1 Get the Leader\nQA Catalogue uses Carsten Klee’s specification, MARCspec - A common MARC record path language for addressing a particular data element in a MARC21 or UNIMARC record. It can be used in filtering, extraction and Shacl4Bib expression. The following provides some examples.\nldr or LDR\nMARC21 record:\nMARCspec\nor\nreturns",
+    "text": "C.1 Get the Leader\nQA Catalogue uses Carsten Klee’s specification, MARCspec - A common MARC record path language for addressing a particular data element in a MARC21 or UNIMARC record. It can be used in filtering, extraction and Shacl4Bib expression. The following provides some examples.\nMARCspec expression: ldr or LDR",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>MARCspec tutorial</span>"
@@ -495,7 +495,7 @@
     "href": "marcspec.html#get-the-leader",
     "title": "Appendix C — MARCspec tutorial",
     "section": "",
-    "text": "LDR 02157cas a2200517Ka 4500\n\nlrd\n\nLDR\n\n02157cas a2200517Ka 4500\n\nC.1.1 Get a position in the leader\nldr/&lt;number+|#&gt; or LDR/&lt;number+|#&gt;\nA number means the Nth position of the Leader string (starts from 0). The special character # means the last position.\n\n\n\nMARC21 record\nMARCspec\nreturns\n\n\n\n\nLDR 02157cas a2200517Ka 4500\nLDR/6\na\n\n\n\nLDR/#\n0",
+    "text": "MARC21 record\nMARCspec\nreturns\n\n\n\n\nLDR 02157cas a2200517Ka 4500\nLDR\n02157cas a2200517Ka 4500\n\n\n\nldr\n02157cas a2200517Ka 4500\n\n\n\n\nC.1.1 Get a position in the leader\nMARCspec expression: ldr/&lt;number+|#&gt; or LDR/&lt;number+|#&gt;\nA number means the Nth position of the Leader string (starts from 0). The special character # means the last position.\n\n\n\nMARC21 record\nMARCspec\nreturns\n\n\n\n\nLDR 02157cas a2200517Ka 4500\nLDR/6\na\n\n\n\nLDR/#\n0\n\n\n\n\n\nC.1.2 Get a position range in the Leader\nMARCspec expression: ldr/&lt;number+&gt;-&lt;number+|#&gt; or LDR/&lt;number+&gt;-&lt;number+|#&gt;\nA number means the Nth position of the Leader string (starts from 0). The special character # means the last position.\n\n\n\nMARC21 record\nMARCspec\nreturns\n\n\n\n\nLDR 02157cas a2200517Ka 4500\nLDR/0-4\n02157",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>MARCspec tutorial</span>"
@@ -506,7 +506,7 @@
     "href": "marcspec.html#get-a-control-field",
     "title": "Appendix C — MARCspec tutorial",
     "section": "C.2 Get a Control Field",
-    "text": "C.2 Get a Control Field",
+    "text": "C.2 Get a Control Field\nMARCspec expression: 00&lt;number&gt;\n\n\n\nMARC21 record\nMARCspec\nreturns\n\n\n\n\n001 010000178\n001\n010000178\n\n\n003 SIRSI\n003\nSIRSI\n\n\n\n\nC.2.1 Get a Control Field position\nMARCspec expression: 00&lt;number&gt;/&lt;number+|#&gt;\n\n\n\nMARC21 record\nMARCspec\nreturns\n\n\n\n\n001 010000178\n001/0\n0\n\n\n\n001/#\n8\n\n\n\n\n\nC.2.2 Get a position range in a Control Field\nMARCspec expression: 00&lt;number&gt;/&lt;number+&gt;-&lt;number+|#&gt;\n\n\n\nMARC21 record\nMARCspec\nreturns\n\n\n\n\n001 010000178\n001/1-#\n10000178",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>MARCspec tutorial</span>"

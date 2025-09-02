@@ -67,10 +67,10 @@ public class MarcSpecParserTest {
 
   @Test
   public void parse2_indicator() {
-    MarcSpec spec = MarcSpecParser.parse("880^1");
+    MarcSpec spec = MarcSpecParser.parse("880^2");
     assertEquals("880", spec.getTag());
-    assertEquals("1", spec.getIndicator());
-    assertEquals("880^1", spec.encode());
+    assertEquals("2", spec.getIndicator());
+    assertEquals("880^2", spec.encode());
   }
 
   @Test

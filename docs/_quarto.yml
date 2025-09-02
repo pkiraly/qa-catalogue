@@ -43,6 +43,7 @@ book:
   appendices:
     - where-can-I-get-MARC-records.qmd
     - handling-MARC-versions.qmd
+    - marcspec.qmd
     - institutions-which-reportedly-use-this-tool.qmd
     - supporters-and-sponsors.qmd
     - special-build-process.qmd

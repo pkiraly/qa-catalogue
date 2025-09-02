@@ -1,0 +1,55 @@
+---
+title: "MARCspec tutorial"
+---
+
+QA Catalogue uses Carsten Klee's specification,
+[MARCspec - A common MARC record path language](https://marcspec.github.io/MARCspec/marc-spec.html#reference-to-substring)
+for addressing a particular data element in a MARC21 or UNIMARC record. It
+can be used in filtering, extraction and Shacl4Bib expression. The following
+provides some examples.
+
+## Get the Leader
+
+`ldr` or `LDR`
+
+MARC21 record:
+```
+LDR 02157cas a2200517Ka 4500
+```
+MARCspec
+```
+lrd
+```
+or
+```
+LDR
+```
+returns
+```
+02157cas a2200517Ka 4500
+```
+
+### Get a position in the leader
+
+`ldr/<number+|#>` or `LDR/<number+|#>`
+
+A number means the Nth position of the Leader string (starts from 0).
+The special character `#` means the last position.
+
+MARC21 record:
+```
+LDR 02157cas a2200517Ka 4500
+```
+MARCspec:
+```
+LDR/6
+```
+returns `a`.
+
+MARCspec:
+```
+LDR/#
+```
+returns `0`.
+
+## Get a Control Field

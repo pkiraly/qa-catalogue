@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class MarcSpecExtractor {
 
   public static Object extract(MarcRecord marcRecord, MarcSpec spec) {
-    if (spec.getTag().equals("LDR")) {
+    if (spec.getTag().toUpperCase().equals("LDR")) {
       MarcLeader leader = marcRecord.getLeader();
       if (spec.hasIndicator())
         throw new IllegalArgumentException("Leader should not have indicator");
@@ -190,11 +190,13 @@ public class MarcSpecExtractor {
   private static int[] getRange(int length, String start, String end) {
     int first = 0;
     int last = length;
-    if (end == null) {
+    if (end == null || end.equals("null")) {
       if (start.equals("#"))
-        first = last;
-      else
+        first = last - 1;
+      else {
         first = Integer.parseInt(start);
+        last = first + 1;
+      }
     } else {
       if (start.equals("#"))
         first = length - Integer.parseInt(end) - 1;

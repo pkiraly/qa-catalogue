@@ -484,7 +484,7 @@
     "href": "marcspec.html",
     "title": "Appendix C — MARCspec tutorial",
     "section": "",
-    "text": "C.1 Get the Leader\nQA Catalogue uses Carsten Klee’s specification, MARCspec - A common MARC record path language for addressing a particular data element in a MARC21 or UNIMARC record. It can be used in filtering, extraction and Shacl4Bib expression. The following provides some examples.\nTypographical conventions - # represents a space (in the indicator positions) - &lt;A|B&gt; represents list of options (A or B) - &lt;number&gt; represents a number - . represents a character mask fits to any charater\nMARCspec expression: ldr or LDR",
+    "text": "C.1 Get the Leader\nQA Catalogue uses Carsten Klee’s specification, MARCspec - A common MARC record path language for addressing a particular data element in a MARC21 or UNIMARC record. It can be used in filtering, extraction and Shacl4Bib expression. The following provides some examples.\nTypographical conventions:\nMARCspec expression: ldr or LDR",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>MARCspec tutorial</span>"
@@ -517,7 +517,7 @@
     "href": "marcspec.html#get-a-data-field",
     "title": "Appendix C — MARCspec tutorial",
     "section": "C.3 Get a Data Field",
-    "text": "C.3 Get a Data Field\nMARCspec expression: &lt;number&gt;&lt;number&gt;&lt;number&gt;\n\n\n\nMARC21 record\nMARCspec\nreturns\n\n\n\n\n080 ## $a821.124\n080\n080 ## $a821.124\n\n\n\n\nC.3.1 Get a Data Field - with masking\nMARCspec expression: &lt;number|.&gt;&lt;number|.&gt;&lt;number|.&gt;\nWhere . (dot character) represents any number\n\n\n\n\n\n\n\n\nMARC21 record\nMARCspec\nreturns\n\n\n\n\n020 ## $a010000178080 ## $a821.124&lt;br&gt;084 ## $a014\n0.0\n020 ## $a010000178080 ## $a821.124\n\n\n\n\n\nC.3.2 Get an Incicator\nMARCspec expression: &lt;number|.&gt;&lt;number|.&gt;&lt;number|.&gt;^&lt;1|2&gt;\nWhere 1 and 2 represent the first and second indicator.\n\n\n\nMARC21 record\nMARCspec\nreturns\n\n\n\n\n080 ## $a821.124&lt;br&gt;084 ## $a014\n080^1",
+    "text": "C.3 Get a Data Field\nMARCspec expression: &lt;number&gt;&lt;number&gt;&lt;number&gt;\n\n\n\nMARC21 record\nMARCspec\nreturns\n\n\n\n\n080 ## $a821.124\n080\n080 ## $a821.124\n\n\n\n\nC.3.1 Get a Data Field - with masking\nMARCspec expression: &lt;number|.&gt;&lt;number|.&gt;&lt;number|.&gt;\nWhere . (dot character) represents any number\n\n\n\n\n\n\n\n\nMARC21 record\nMARCspec\nreturns\n\n\n\n\n020 ## $a010000178080 ## $a821.124&lt;br&gt;084 ## $a014\n0.0\n020 ## $a010000178080 ## $a821.124\n\n\n\n\n\nC.3.2 Get an Incicator\nMARCspec expression: &lt;number|.&gt;&lt;number|.&gt;&lt;number|.&gt;^&lt;1|2&gt;\nWhere 1 and 2 represent the first and second indicator.\n\n\n\nMARC21 record\nMARCspec\nreturns\n\n\n\n\n080 ## $a821.124084 ## $a014\n080^1\n#",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>MARCspec tutorial</span>"

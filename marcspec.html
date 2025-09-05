@@ -354,7 +354,13 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>QA Catalogue uses Carsten Klee’s specification, <a href="https://marcspec.github.io/MARCspec/marc-spec.html#reference-to-substring">MARCspec - A common MARC record path language</a> for addressing a particular data element in a MARC21 or UNIMARC record. It can be used in filtering, extraction and Shacl4Bib expression. The following provides some examples.</p>
-<p>Typographical conventions - <code>#</code> represents a space (in the indicator positions) - <code>&lt;A|B&gt;</code> represents list of options (<code>A</code> or <code>B</code>) - <code>&lt;number&gt;</code> represents a number - <code>.</code> represents a character mask fits to any charater</p>
+<p>Typographical conventions:</p>
+<ul>
+<li><code>#</code> represents a space (e.g.&nbsp;in the indicator positions)</li>
+<li><code>&lt;number&gt;</code> represents a number</li>
+<li><code>.</code> represents a character mask fits to any charater</li>
+<li><code>&lt;A|B&gt;</code> represents list of options (<code>A</code> or <code>B</code>)</li>
+</ul>
 <section id="get-the-leader" class="level2" data-number="C.1">
 <h2 data-number="C.1" class="anchored" data-anchor-id="get-the-leader"><span class="header-section-number">C.1</span> Get the Leader</h2>
 <p>MARCspec expression: <code>ldr</code> or <code>LDR</code></p>
@@ -556,9 +562,9 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>080 ## $a821.124&lt;br&gt;084 ## $a014</code></td>
+<td><code>080 ## $a821.124</code><br><code>084 ## $a014</code></td>
 <td><code>080^1</code></td>
-<td><code></code></td>
+<td><code>#</code></td>
 </tr>
 </tbody>
 </table>

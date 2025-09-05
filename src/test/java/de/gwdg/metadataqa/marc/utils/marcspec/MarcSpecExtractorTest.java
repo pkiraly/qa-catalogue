@@ -227,6 +227,7 @@ public class MarcSpecExtractorTest {
 
     Marc21Record marcRecord = new Marc21BibliographicRecord("u2407796");
     marcRecord.addDataField(new DataField(Tag080.getInstance(), " ", " ", "a", "821.124"));
+    marcRecord.addDataField(new DataField(Tag084.getInstance(), " ", " ", "a", "014"));
 
     Object extracted = MarcSpecExtractor.extract(marcRecord, spec);
     assertEquals(ArrayList.class, extracted.getClass());
@@ -237,7 +238,6 @@ public class MarcSpecExtractorTest {
     assertEquals(" ", StringUtils.join(values, ", "));
   }
 
-  // 7..
   // 880^1
   // 245$a
   // 245$a$b$c

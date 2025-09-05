@@ -326,6 +326,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#get-a-data-field" id="toc-get-a-data-field" class="nav-link" data-scroll-target="#get-a-data-field"><span class="header-section-number">C.3</span> Get a Data Field</a>
   <ul class="collapse">
   <li><a href="#get-a-data-field---with-masking" id="toc-get-a-data-field---with-masking" class="nav-link" data-scroll-target="#get-a-data-field---with-masking"><span class="header-section-number">C.3.1</span> Get a Data Field - with masking</a></li>
+  <li><a href="#get-an-incicator" id="toc-get-an-incicator" class="nav-link" data-scroll-target="#get-an-incicator"><span class="header-section-number">C.3.2</span> Get an Incicator</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/pkiraly/qa-catalogue/blob/main/marcspec.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/pkiraly/qa-catalogue/edit/main/marcspec.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li><li><a href="https://github.com/pkiraly/qa-catalogue/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -353,6 +354,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>QA Catalogue uses Carsten Klee’s specification, <a href="https://marcspec.github.io/MARCspec/marc-spec.html#reference-to-substring">MARCspec - A common MARC record path language</a> for addressing a particular data element in a MARC21 or UNIMARC record. It can be used in filtering, extraction and Shacl4Bib expression. The following provides some examples.</p>
+<p>Typographical conventions - <code>#</code> represents a space (in the indicator positions) - <code>&lt;A|B&gt;</code> represents list of options (<code>A</code> or <code>B</code>) - <code>&lt;number&gt;</code> represents a number - <code>.</code> represents a character mask fits to any charater</p>
 <section id="get-the-leader" class="level2" data-number="C.1">
 <h2 data-number="C.1" class="anchored" data-anchor-id="get-the-leader"><span class="header-section-number">C.1</span> Get the Leader</h2>
 <p>MARCspec expression: <code>ldr</code> or <code>LDR</code></p>
@@ -536,6 +538,27 @@ ul.task-list li input[type="checkbox"] {
 <td><code>020 ## $a010000178</code><br><code>080 ## $a821.124&lt;br&gt;084 ## $a014</code></td>
 <td><code>0.0</code></td>
 <td><code>020 ## $a010000178</code><br><code>080 ## $a821.124</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="get-an-incicator" class="level3" data-number="C.3.2">
+<h3 data-number="C.3.2" class="anchored" data-anchor-id="get-an-incicator"><span class="header-section-number">C.3.2</span> Get an Incicator</h3>
+<p>MARCspec expression: <code>&lt;number|.&gt;&lt;number|.&gt;&lt;number|.&gt;^&lt;1|2&gt;</code></p>
+<p>Where <code>1</code> and <code>2</code> represent the first and second indicator.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>MARC21 record</th>
+<th>MARCspec</th>
+<th>returns</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>080 ## $a821.124&lt;br&gt;084 ## $a014</code></td>
+<td><code>080^1</code></td>
+<td><code></code></td>
 </tr>
 </tbody>
 </table>

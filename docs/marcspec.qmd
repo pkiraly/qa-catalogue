@@ -67,7 +67,7 @@ MARCspec expression: `00<number>/<number+>-<number+|#>`
 | --- | --- | --- |
 | `001 010000178` | `001/1-#` | `10000178` |
 
-### Get a Data Field
+## Get a Data Field
 
 MARCspec expression: `<number><number><number>`
 
@@ -75,7 +75,7 @@ MARCspec expression: `<number><number><number>`
 | --- | --- | --- |
 | `080 ## $a821.124` | `080` | `080 ## $a821.124` |
 
-### Get a Data Field - the masked version
+### Get a Data Field - with masking
 
 MARCspec expression: `<number|.><number|.><number|.>`
 
@@ -83,4 +83,4 @@ Where `.` (dot character) represents any number
 
 | MARC21 record | MARCspec | returns |
 | --- | --- | --- |
-| `020 ## $a010000178`<br>`080 ## $a821.124` | `0.0` | `020 ## $a010000178`<br>`080 ## $a821.124` |
+| `020 ## $a010000178`<br>`080 ## $a821.124<br>084 ## $a014` | `0.0` | `020 ## $a010000178`<br>`080 ## $a821.124` |

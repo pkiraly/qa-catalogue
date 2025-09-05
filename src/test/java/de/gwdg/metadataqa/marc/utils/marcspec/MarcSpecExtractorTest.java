@@ -238,7 +238,23 @@ public class MarcSpecExtractorTest {
     assertEquals(" ", StringUtils.join(values, ", "));
   }
 
-  // 880^1
+  @Test
+  public void subfield() {
+    MarcSpec spec = MarcSpecParser.parse("245$a");
+
+    Marc21Record marcRecord = new Marc21BibliographicRecord("u2407796");
+    marcRecord.addDataField(new DataField(Tag080.getInstance(), " ", " ", "a", "821.124"));
+    marcRecord.addDataField(new DataField(Tag084.getInstance(), " ", " ", "a", "014"));
+
+    Object extracted = MarcSpecExtractor.extract(marcRecord, spec);
+    assertEquals(ArrayList.class, extracted.getClass());
+    List<Object> fields1 = (List<Object>) extracted;
+    assertEquals(1, fields1.size());
+    assertEquals(String.class, fields1.get(0).getClass());
+    List<String> values = (List<String>) extracted;
+    assertEquals(" ", StringUtils.join(values, ", "));
+  }
+
   // 245$a
   // 245$a$b$c
   // ...$_$$

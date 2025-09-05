@@ -8,11 +8,12 @@ for addressing a particular data element in a MARC21 or UNIMARC record. It
 can be used in filtering, extraction and Shacl4Bib expression. The following
 provides some examples.
 
-Typographical conventions
-- `#` represents a space (in the indicator positions)
-- `<A|B>` represents list of options (`A` or `B`)
-- `<number>` represents a number
-- `.` represents a character mask fits to any charater
+Typographical conventions:
+
+* `#` represents a space (e.g. in the indicator positions)
+* `<number>` represents a number
+* `.` represents a character mask fits to any charater
+* `<A|B>` represents list of options (`A` or `B`)
 
 ## Get the Leader
 
@@ -99,4 +100,4 @@ Where `1` and `2` represent the first and second indicator.
 
 | MARC21 record | MARCspec | returns |
 | --- | --- | --- |
-| `080 ## $a821.124<br>084 ## $a014` | `080^1` | ` ` |
+| `080 ## $a821.124`<br>`084 ## $a014` | `080^1` | `#` |

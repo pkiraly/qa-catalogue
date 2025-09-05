@@ -326,7 +326,9 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#get-a-data-field" id="toc-get-a-data-field" class="nav-link" data-scroll-target="#get-a-data-field"><span class="header-section-number">C.3</span> Get a Data Field</a>
   <ul class="collapse">
   <li><a href="#get-a-data-field---with-masking" id="toc-get-a-data-field---with-masking" class="nav-link" data-scroll-target="#get-a-data-field---with-masking"><span class="header-section-number">C.3.1</span> Get a Data Field - with masking</a></li>
-  <li><a href="#get-an-incicator" id="toc-get-an-incicator" class="nav-link" data-scroll-target="#get-an-incicator"><span class="header-section-number">C.3.2</span> Get an Incicator</a></li>
+  <li><a href="#get-an-indicator" id="toc-get-an-indicator" class="nav-link" data-scroll-target="#get-an-indicator"><span class="header-section-number">C.3.2</span> Get an Indicator</a></li>
+  <li><a href="#get-an-subfield" id="toc-get-an-subfield" class="nav-link" data-scroll-target="#get-an-subfield"><span class="header-section-number">C.3.3</span> Get an Subfield</a></li>
+  <li><a href="#get-multiple-subfields" id="toc-get-multiple-subfields" class="nav-link" data-scroll-target="#get-multiple-subfields"><span class="header-section-number">C.3.4</span> Get multiple Subfields</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/pkiraly/qa-catalogue/blob/main/marcspec.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/pkiraly/qa-catalogue/edit/main/marcspec.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li><li><a href="https://github.com/pkiraly/qa-catalogue/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -358,8 +360,10 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li><code>#</code> represents a space (e.g.&nbsp;in the indicator positions)</li>
 <li><code>&lt;number&gt;</code> represents a number</li>
-<li><code>.</code> represents a character mask fits to any charater</li>
+<li><code>.</code> represents a character mask (fits to any charater)</li>
 <li><code>&lt;A|B&gt;</code> represents list of options (<code>A</code> or <code>B</code>)</li>
+<li><code>+</code> represents repetition (the previous character or character group is repeatable)</li>
+<li><code>(...)+</code> represents a repeatable character group</li>
 </ul>
 <section id="get-the-leader" class="level2" data-number="C.1">
 <h2 data-number="C.1" class="anchored" data-anchor-id="get-the-leader"><span class="header-section-number">C.1</span> Get the Leader</h2>
@@ -548,8 +552,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="get-an-incicator" class="level3" data-number="C.3.2">
-<h3 data-number="C.3.2" class="anchored" data-anchor-id="get-an-incicator"><span class="header-section-number">C.3.2</span> Get an Incicator</h3>
+<section id="get-an-indicator" class="level3" data-number="C.3.2">
+<h3 data-number="C.3.2" class="anchored" data-anchor-id="get-an-indicator"><span class="header-section-number">C.3.2</span> Get an Indicator</h3>
 <p>MARCspec expression: <code>&lt;number|.&gt;&lt;number|.&gt;&lt;number|.&gt;^&lt;1|2&gt;</code></p>
 <p>Where <code>1</code> and <code>2</code> represent the first and second indicator.</p>
 <table class="caption-top table">
@@ -565,6 +569,56 @@ ul.task-list li input[type="checkbox"] {
 <td><code>080 ## $a821.124</code><br><code>084 ## $a014</code></td>
 <td><code>080^1</code></td>
 <td><code>#</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="get-an-subfield" class="level3" data-number="C.3.3">
+<h3 data-number="C.3.3" class="anchored" data-anchor-id="get-an-subfield"><span class="header-section-number">C.3.3</span> Get an Subfield</h3>
+<p>MARCspec expression: <code>&lt;number|.&gt;&lt;number|.&gt;&lt;number|.&gt;$&lt;character&gt;</code></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>MARC21 record</th>
+<th>MARCspec</th>
+<th>returns</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>245 15 $aThe “winter mind” :</code><br><code>$bWilliam Bronk and American letters /</code><br><code>$cBurt Kimmelman</code></td>
+<td><code>245$a</code></td>
+<td><code>The “winter mind” :</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="get-multiple-subfields" class="level3" data-number="C.3.4">
+<h3 data-number="C.3.4" class="anchored" data-anchor-id="get-multiple-subfields"><span class="header-section-number">C.3.4</span> Get multiple Subfields</h3>
+<p>MARCspec expression: <code>&lt;number|.&gt;&lt;number|.&gt;&lt;number|.&gt;($&lt;character&gt;)+</code></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>MARC21 record</th>
+<th>MARCspec</th>
+<th>returns</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>245 15 $aThe “winter mind” :</code><br><code>$bWilliam Bronk and American letters /</code><br><code>$cBurt Kimmelman</code></td>
+<td><code>245$a$b</code></td>
+<td><code>'The “winter mind” :</code>, <code>William Bronk and American letters</code></td>
 </tr>
 </tbody>
 </table>

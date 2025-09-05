@@ -11,6 +11,7 @@ import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 import de.gwdg.metadataqa.marc.definition.tags.tags01x.Tag020;
 import de.gwdg.metadataqa.marc.definition.tags.tags01x.Tag080;
 import de.gwdg.metadataqa.marc.definition.tags.tags01x.Tag084;
+import de.gwdg.metadataqa.marc.definition.tags.tags20x.Tag245;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
@@ -244,7 +245,10 @@ public class MarcSpecExtractorTest {
 
     Marc21Record marcRecord = new Marc21BibliographicRecord("u2407796");
     marcRecord.addDataField(new DataField(Tag080.getInstance(), " ", " ", "a", "821.124"));
-    marcRecord.addDataField(new DataField(Tag084.getInstance(), " ", " ", "a", "014"));
+    marcRecord.addDataField(new DataField(Tag245.getInstance(), " ", " ",
+      "a", "The “winter mind” :",
+      "b", "William Bronk and American letters /",
+      "c", "Burt Kimmelman."));
 
     Object extracted = MarcSpecExtractor.extract(marcRecord, spec);
     assertEquals(ArrayList.class, extracted.getClass());
@@ -252,11 +256,26 @@ public class MarcSpecExtractorTest {
     assertEquals(1, fields1.size());
     assertEquals(String.class, fields1.get(0).getClass());
     List<String> values = (List<String>) extracted;
-    assertEquals(" ", StringUtils.join(values, ", "));
+    assertEquals("The “winter mind” :", StringUtils.join(values, ", "));
   }
 
-  // 245$a
-  // 245$a$b$c
+  @Test
+  public void subfields1() {
+    MarcSpec spec = MarcSpecParser.parse("245$a$b");
+
+    Marc21Record marcRecord = new Marc21BibliographicRecord("u2407796");
+    marcRecord.addDataField(new DataField(Tag080.getInstance(), " ", " ", "a", "821.124"));
+    marcRecord.addDataField(new DataField(Tag245.getInstance(), " ", " ",
+      "a", "The “winter mind” :",
+      "b", "William Bronk and American letters /",
+      "c", "Burt Kimmelman."));
+
+    List<String> extracted = (List<String>) MarcSpecExtractor.extract(marcRecord, spec);
+    assertEquals("The “winter mind” :", extracted.get(0));
+    assertEquals("William Bronk and American letters /", extracted.get(1));
+  }
+
+
   // ...$_$$
   // 300[0]
   // 300[1]

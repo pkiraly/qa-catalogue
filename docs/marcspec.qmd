@@ -12,8 +12,10 @@ Typographical conventions:
 
 * `#` represents a space (e.g. in the indicator positions)
 * `<number>` represents a number
-* `.` represents a character mask fits to any charater
+* `.` represents a character mask (fits to any charater)
 * `<A|B>` represents list of options (`A` or `B`)
+* `+` represents repetition (the previous character or character group is repeatable)
+* `(...)+` represents a repeatable character group
 
 ## Get the Leader
 
@@ -92,7 +94,7 @@ Where `.` (dot character) represents any number
 | --- | --- | --- |
 | `020 ## $a010000178`<br>`080 ## $a821.124<br>084 ## $a014` | `0.0` | `020 ## $a010000178`<br>`080 ## $a821.124` |
 
-### Get an Incicator
+### Get an Indicator
 
 MARCspec expression: `<number|.><number|.><number|.>^<1|2>`
 
@@ -101,3 +103,19 @@ Where `1` and `2` represent the first and second indicator.
 | MARC21 record | MARCspec | returns |
 | --- | --- | --- |
 | `080 ## $a821.124`<br>`084 ## $a014` | `080^1` | `#` |
+
+### Get an Subfield
+
+MARCspec expression: `<number|.><number|.><number|.>$<character>`
+
+| MARC21 record | MARCspec | returns |
+| --- | --- | --- |
+| `245 15 $aThe “winter mind” :`<br>`$bWilliam Bronk and American letters /`<br>`$cBurt Kimmelman` | `245$a` | `The “winter mind” :` |
+
+### Get multiple Subfields
+
+MARCspec expression: `<number|.><number|.><number|.>($<character>)+`
+
+| MARC21 record | MARCspec | returns |
+| --- | --- | --- |
+| `245 15 $aThe “winter mind” :`<br>`$bWilliam Bronk and American letters /`<br>`$cBurt Kimmelman` | `245$a$b` | `'The “winter mind” :`, `William Bronk and American letters` |

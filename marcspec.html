@@ -322,8 +322,10 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#get-a-control-field-position" id="toc-get-a-control-field-position" class="nav-link" data-scroll-target="#get-a-control-field-position"><span class="header-section-number">C.2.1</span> Get a Control Field position</a></li>
   <li><a href="#get-a-position-range-in-a-control-field" id="toc-get-a-position-range-in-a-control-field" class="nav-link" data-scroll-target="#get-a-position-range-in-a-control-field"><span class="header-section-number">C.2.2</span> Get a position range in a Control Field</a></li>
-  <li><a href="#get-a-data-field" id="toc-get-a-data-field" class="nav-link" data-scroll-target="#get-a-data-field"><span class="header-section-number">C.2.3</span> Get a Data Field</a></li>
-  <li><a href="#get-a-data-field---the-masked-version" id="toc-get-a-data-field---the-masked-version" class="nav-link" data-scroll-target="#get-a-data-field---the-masked-version"><span class="header-section-number">C.2.4</span> Get a Data Field - the masked version</a></li>
+  </ul></li>
+  <li><a href="#get-a-data-field" id="toc-get-a-data-field" class="nav-link" data-scroll-target="#get-a-data-field"><span class="header-section-number">C.3</span> Get a Data Field</a>
+  <ul class="collapse">
+  <li><a href="#get-a-data-field---with-masking" id="toc-get-a-data-field---with-masking" class="nav-link" data-scroll-target="#get-a-data-field---with-masking"><span class="header-section-number">C.3.1</span> Get a Data Field - with masking</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/pkiraly/qa-catalogue/blob/main/marcspec.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/pkiraly/qa-catalogue/edit/main/marcspec.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li><li><a href="https://github.com/pkiraly/qa-catalogue/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -492,8 +494,9 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="get-a-data-field" class="level3" data-number="C.2.3">
-<h3 data-number="C.2.3" class="anchored" data-anchor-id="get-a-data-field"><span class="header-section-number">C.2.3</span> Get a Data Field</h3>
+</section>
+<section id="get-a-data-field" class="level2" data-number="C.3">
+<h2 data-number="C.3" class="anchored" data-anchor-id="get-a-data-field"><span class="header-section-number">C.3</span> Get a Data Field</h2>
 <p>MARCspec expression: <code>&lt;number&gt;&lt;number&gt;&lt;number&gt;</code></p>
 <table class="caption-top table">
 <thead>
@@ -511,9 +514,8 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
-</section>
-<section id="get-a-data-field---the-masked-version" class="level3" data-number="C.2.4">
-<h3 data-number="C.2.4" class="anchored" data-anchor-id="get-a-data-field---the-masked-version"><span class="header-section-number">C.2.4</span> Get a Data Field - the masked version</h3>
+<section id="get-a-data-field---with-masking" class="level3" data-number="C.3.1">
+<h3 data-number="C.3.1" class="anchored" data-anchor-id="get-a-data-field---with-masking"><span class="header-section-number">C.3.1</span> Get a Data Field - with masking</h3>
 <p>MARCspec expression: <code>&lt;number|.&gt;&lt;number|.&gt;&lt;number|.&gt;</code></p>
 <p>Where <code>.</code> (dot character) represents any number</p>
 <table class="caption-top table">
@@ -531,7 +533,7 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>020 ## $a010000178</code><br><code>080 ## $a821.124</code></td>
+<td><code>020 ## $a010000178</code><br><code>080 ## $a821.124&lt;br&gt;084 ## $a014</code></td>
 <td><code>0.0</code></td>
 <td><code>020 ## $a010000178</code><br><code>080 ## $a821.124</code></td>
 </tr>

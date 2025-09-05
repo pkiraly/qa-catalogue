@@ -506,7 +506,18 @@
     "href": "marcspec.html#get-a-control-field",
     "title": "Appendix C — MARCspec tutorial",
     "section": "C.2 Get a Control Field",
-    "text": "C.2 Get a Control Field\nMARCspec expression: 00&lt;number&gt;\n\n\n\nMARC21 record\nMARCspec\nreturns\n\n\n\n\n001 010000178\n001\n010000178\n\n\n003 SIRSI\n003\nSIRSI\n\n\n\n\nC.2.1 Get a Control Field position\nMARCspec expression: 00&lt;number&gt;/&lt;number+|#&gt;\n\n\n\nMARC21 record\nMARCspec\nreturns\n\n\n\n\n001 010000178\n001/0\n0\n\n\n\n001/#\n8\n\n\n\n\n\nC.2.2 Get a position range in a Control Field\nMARCspec expression: 00&lt;number&gt;/&lt;number+&gt;-&lt;number+|#&gt;\n\n\n\nMARC21 record\nMARCspec\nreturns\n\n\n\n\n001 010000178\n001/1-#\n10000178\n\n\n\n\n\nC.2.3 Get a Data Field\nMARCspec expression: &lt;number&gt;&lt;number&gt;&lt;number&gt;\n\n\n\nMARC21 record\nMARCspec\nreturns\n\n\n\n\n080 ## $a821.124\n080\n080 ## $a821.124\n\n\n\n\n\nC.2.4 Get a Data Field - the masked version\nMARCspec expression: &lt;number|.&gt;&lt;number|.&gt;&lt;number|.&gt;\nWhere . (dot character) represents any number\n\n\n\n\n\n\n\n\nMARC21 record\nMARCspec\nreturns\n\n\n\n\n020 ## $a010000178080 ## $a821.124\n0.0\n020 ## $a010000178080 ## $a821.124",
+    "text": "C.2 Get a Control Field\nMARCspec expression: 00&lt;number&gt;\n\n\n\nMARC21 record\nMARCspec\nreturns\n\n\n\n\n001 010000178\n001\n010000178\n\n\n003 SIRSI\n003\nSIRSI\n\n\n\n\nC.2.1 Get a Control Field position\nMARCspec expression: 00&lt;number&gt;/&lt;number+|#&gt;\n\n\n\nMARC21 record\nMARCspec\nreturns\n\n\n\n\n001 010000178\n001/0\n0\n\n\n\n001/#\n8\n\n\n\n\n\nC.2.2 Get a position range in a Control Field\nMARCspec expression: 00&lt;number&gt;/&lt;number+&gt;-&lt;number+|#&gt;\n\n\n\nMARC21 record\nMARCspec\nreturns\n\n\n\n\n001 010000178\n001/1-#\n10000178",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>C</span>  <span class='chapter-title'>MARCspec tutorial</span>"
+    ]
+  },
+  {
+    "objectID": "marcspec.html#get-a-data-field",
+    "href": "marcspec.html#get-a-data-field",
+    "title": "Appendix C — MARCspec tutorial",
+    "section": "C.3 Get a Data Field",
+    "text": "C.3 Get a Data Field\nMARCspec expression: &lt;number&gt;&lt;number&gt;&lt;number&gt;\n\n\n\nMARC21 record\nMARCspec\nreturns\n\n\n\n\n080 ## $a821.124\n080\n080 ## $a821.124\n\n\n\n\nC.3.1 Get a Data Field - with masking\nMARCspec expression: &lt;number|.&gt;&lt;number|.&gt;&lt;number|.&gt;\nWhere . (dot character) represents any number\n\n\n\n\n\n\n\n\nMARC21 record\nMARCspec\nreturns\n\n\n\n\n020 ## $a010000178080 ## $a821.124&lt;br&gt;084 ## $a014\n0.0\n020 ## $a010000178080 ## $a821.124",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>C</span>  <span class='chapter-title'>MARCspec tutorial</span>"

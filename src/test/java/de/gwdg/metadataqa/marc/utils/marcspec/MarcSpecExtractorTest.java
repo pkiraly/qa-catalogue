@@ -6,10 +6,11 @@ import de.gwdg.metadataqa.marc.dao.Control005;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.Marc21Leader;
 import de.gwdg.metadataqa.marc.dao.MarcControlField;
-import de.gwdg.metadataqa.marc.dao.SimpleControlField;
 import de.gwdg.metadataqa.marc.dao.record.Marc21BibliographicRecord;
 import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
+import de.gwdg.metadataqa.marc.definition.tags.tags01x.Tag020;
 import de.gwdg.metadataqa.marc.definition.tags.tags01x.Tag080;
+import de.gwdg.metadataqa.marc.definition.tags.tags01x.Tag084;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
@@ -152,10 +153,11 @@ public class MarcSpecExtractorTest {
   }
 
   @Test
-  public void field_numeric() {
+  public void dataField() {
     MarcSpec spec = MarcSpecParser.parse("080");
 
     Marc21Record marcRecord = new Marc21BibliographicRecord("u2407796");
+    marcRecord.addDataField(new DataField(Tag020.getInstance(), " ", " ", "a", "0491001304"));
     marcRecord.addDataField(new DataField(Tag080.getInstance(), " ", " ", "a", "821.124"));
 
     List<DataField> extracted = (List<DataField>) MarcSpecExtractor.extract(marcRecord, spec);
@@ -166,10 +168,11 @@ public class MarcSpecExtractorTest {
   }
 
   @Test
-  public void field_pattern() {
+  public void dataField_pattern1() {
     MarcSpec spec = MarcSpecParser.parse("08.");
 
     Marc21Record marcRecord = new Marc21BibliographicRecord("u2407796");
+    marcRecord.addDataField(new DataField(Tag020.getInstance(), " ", " ", "a", "0491001304"));
     marcRecord.addDataField(new DataField(Tag080.getInstance(), " ", " ", "a", "821.124"));
 
     Object extracted = MarcSpecExtractor.extract(marcRecord, spec);
@@ -179,6 +182,43 @@ public class MarcSpecExtractorTest {
     assertEquals(DataField.class, fields1.get(0).getClass());
     List<DataField> fields = (List<DataField>) extracted;
     assertEquals("821.124", fields.get(0).getSubfield("a").get(0).getValue());
+  }
+
+  @Test
+  public void dataField_pattern2() {
+    MarcSpec spec = MarcSpecParser.parse("0.0");
+
+    Marc21Record marcRecord = new Marc21BibliographicRecord("u2407796");
+    marcRecord.addDataField(new DataField(Tag020.getInstance(), " ", " ", "a", "0491001304"));
+    marcRecord.addDataField(new DataField(Tag080.getInstance(), " ", " ", "a", "821.124"));
+
+    Object extracted = MarcSpecExtractor.extract(marcRecord, spec);
+    assertEquals(ArrayList.class, extracted.getClass());
+    List<DataField> fields1 = (List<DataField>) extracted;
+    assertEquals(2, fields1.size());
+    assertEquals(DataField.class, fields1.get(0).getClass());
+    List<DataField> fields = (List<DataField>) extracted;
+    assertEquals("0491001304", fields.get(0).getSubfield("a").get(0).getValue());
+    assertEquals("821.124", fields.get(1).getSubfield("a").get(0).getValue());
+  }
+
+  @Test
+  public void dataField_pattern3() {
+    MarcSpec spec = MarcSpecParser.parse("0.0");
+
+    Marc21Record marcRecord = new Marc21BibliographicRecord("u2407796");
+    marcRecord.addDataField(new DataField(Tag020.getInstance(), " ", " ", "a", "0491001304"));
+    marcRecord.addDataField(new DataField(Tag080.getInstance(), " ", " ", "a", "821.124"));
+    marcRecord.addDataField(new DataField(Tag084.getInstance(), " ", " ", "a", "014"));
+
+    Object extracted = MarcSpecExtractor.extract(marcRecord, spec);
+    assertEquals(ArrayList.class, extracted.getClass());
+    List<DataField> fields1 = (List<DataField>) extracted;
+    assertEquals(2, fields1.size());
+    assertEquals(DataField.class, fields1.get(0).getClass());
+    List<DataField> fields = (List<DataField>) extracted;
+    assertEquals("0491001304", fields.get(0).getSubfield("a").get(0).getValue());
+    assertEquals("821.124", fields.get(1).getSubfield("a").get(0).getValue());
   }
 
   @Test
@@ -198,7 +238,6 @@ public class MarcSpecExtractorTest {
   }
 
   // 7..
-  // 100
   // 880^1
   // 245$a
   // 245$a$b$c

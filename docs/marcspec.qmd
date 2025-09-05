@@ -118,4 +118,4 @@ MARCspec expression: `<number|.><number|.><number|.>($<character>)+`
 
 | MARC21 record | MARCspec | returns |
 | --- | --- | --- |
-| `245 15 $aThe “winter mind” :`<br>`$bWilliam Bronk and American letters /`<br>`$cBurt Kimmelman` | `245$a$b` | `'The “winter mind” :`, `William Bronk and American letters` |
+| `245 15 $aThe “winter mind” :`<br>`$bWilliam Bronk and American letters /`<br>`$cBurt Kimmelman` | `245$a$b` | [ `'The “winter mind” :'`, `'William Bronk and American letters'` ] |

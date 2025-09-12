@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.34">
+<meta name="generator" content="quarto-1.8.24">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -34,14 +34,15 @@ ul.task-list li input[type="checkbox"] {
 <link href="./handling-MARC-versions.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-e78e88e00c4f3bfbc194be5827d51330.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7348364bef02e149b83741bff427fbde.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-385e69361c00d5c2c7eeb35c9bfda71e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-2be37f768dbdf8fc3870a6b30fb50b1f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -96,7 +97,9 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="./">QA Catalogue</a> 
     </div>
@@ -326,10 +329,14 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#get-a-data-field" id="toc-get-a-data-field" class="nav-link" data-scroll-target="#get-a-data-field"><span class="header-section-number">C.3</span> Get a Data Field</a>
   <ul class="collapse">
   <li><a href="#get-a-data-field---with-masking" id="toc-get-a-data-field---with-masking" class="nav-link" data-scroll-target="#get-a-data-field---with-masking"><span class="header-section-number">C.3.1</span> Get a Data Field - with masking</a></li>
-  <li><a href="#get-an-indicator" id="toc-get-an-indicator" class="nav-link" data-scroll-target="#get-an-indicator"><span class="header-section-number">C.3.2</span> Get an Indicator</a></li>
-  <li><a href="#get-an-subfield" id="toc-get-an-subfield" class="nav-link" data-scroll-target="#get-an-subfield"><span class="header-section-number">C.3.3</span> Get an Subfield</a></li>
-  <li><a href="#get-multiple-subfields" id="toc-get-multiple-subfields" class="nav-link" data-scroll-target="#get-multiple-subfields"><span class="header-section-number">C.3.4</span> Get multiple Subfields</a></li>
+  <li><a href="#get-data-fields-by-index" id="toc-get-data-fields-by-index" class="nav-link" data-scroll-target="#get-data-fields-by-index"><span class="header-section-number">C.3.2</span> Get Data Field(s) by index</a></li>
+  <li><a href="#get-data-fields-by-index-range" id="toc-get-data-fields-by-index-range" class="nav-link" data-scroll-target="#get-data-fields-by-index-range"><span class="header-section-number">C.3.3</span> Get Data Field(s) by index range</a></li>
+  <li><a href="#get-an-indicator" id="toc-get-an-indicator" class="nav-link" data-scroll-target="#get-an-indicator"><span class="header-section-number">C.3.4</span> Get an Indicator</a></li>
+  <li><a href="#get-a-subfield" id="toc-get-a-subfield" class="nav-link" data-scroll-target="#get-a-subfield"><span class="header-section-number">C.3.5</span> Get a Subfield</a></li>
+  <li><a href="#get-multiple-subfields" id="toc-get-multiple-subfields" class="nav-link" data-scroll-target="#get-multiple-subfields"><span class="header-section-number">C.3.6</span> Get multiple Subfields</a></li>
+  <li><a href="#get-subfield-of-an-indexed-datafield" id="toc-get-subfield-of-an-indexed-datafield" class="nav-link" data-scroll-target="#get-subfield-of-an-indexed-datafield"><span class="header-section-number">C.3.7</span> Get Subfield of an indexed DataField</a></li>
   </ul></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><span class="header-section-number">C.4</span> </a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/pkiraly/qa-catalogue/blob/main/marcspec.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/pkiraly/qa-catalogue/edit/main/marcspec.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li><li><a href="https://github.com/pkiraly/qa-catalogue/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -552,8 +559,78 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="get-an-indicator" class="level3" data-number="C.3.2">
-<h3 data-number="C.3.2" class="anchored" data-anchor-id="get-an-indicator"><span class="header-section-number">C.3.2</span> Get an Indicator</h3>
+<section id="get-data-fields-by-index" class="level3" data-number="C.3.2">
+<h3 data-number="C.3.2" class="anchored" data-anchor-id="get-data-fields-by-index"><span class="header-section-number">C.3.2</span> Get Data Field(s) by index</h3>
+<p>MARCspec expression: <code>&lt;number|.&gt;&lt;number|.&gt;&lt;number|.&gt;[&lt;number|#&gt;]</code></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>MARC21 record</th>
+<th>MARCspec</th>
+<th>returns</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>300 ##$a149 pages ;$c23 cm</code><br><code>300 ##$a1 score (16 p.) ;$c29 cm</code><br><code>300 ##$a11 volumes :$billustrations ;$c24 cm</code><br><code>300 ##$a1 map :$bcol. ;$c30 x 55 cm</code></td>
+<td><code>300[0]</code></td>
+<td><code>300 ##$a149 pages ;$c23 cm</code></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>300[1]</code></td>
+<td><code>300 ##$a1 score (16 p.) ;$c29 cm</code></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>300[#]</code></td>
+<td><code>300 ##$a1 map :$bcol. ;$c30 x 55 cm</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="get-data-fields-by-index-range" class="level3" data-number="C.3.3">
+<h3 data-number="C.3.3" class="anchored" data-anchor-id="get-data-fields-by-index-range"><span class="header-section-number">C.3.3</span> Get Data Field(s) by index range</h3>
+<p>MARCspec expression: <code>&lt;number|.&gt;&lt;number|.&gt;&lt;number|.&gt;[&lt;number|#&gt;-&lt;number|#&gt;]</code></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>MARC21 record</th>
+<th>MARCspec</th>
+<th>returns</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>300 ##$a149 pages ;$c23 cm</code><br><code>300 ##$a1 score (16 p.) ;$c29 cm</code><br><code>300 ##$a11 volumes :$billustrations ;$c24 cm</code><br><code>300 ##$a1 map :$bcol. ;$c30 x 55 cm</code></td>
+<td><code>300[0-2]</code></td>
+<td><code>300 ##$a149 pages ;$c23 cm</code><br><code>300 ##$a1 score (16 p.) ;$c29 cm</code><br><code>300 ##$a11 volumes :$billustrations ;$c24 cm</code></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>300[1-#]</code></td>
+<td><code>300 ##$a1 score (16 p.) ;$c29 cm</code><br><code>300 ##$a11 volumes :$billustrations ;$c24 cm</code><br><code>300 ##$a1 map :$bcol. ;$c30 x 55 cm</code></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>300[#-1]</code></td>
+<td><code>300 ##$a11 volumes :$billustrations ;$c24 cm</code><br><code>300 ##$a1 map :$bcol. ;$c30 x 55 cm</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="get-an-indicator" class="level3" data-number="C.3.4">
+<h3 data-number="C.3.4" class="anchored" data-anchor-id="get-an-indicator"><span class="header-section-number">C.3.4</span> Get an Indicator</h3>
 <p>MARCspec expression: <code>&lt;number|.&gt;&lt;number|.&gt;&lt;number|.&gt;^&lt;1|2&gt;</code></p>
 <p>Where <code>1</code> and <code>2</code> represent the first and second indicator.</p>
 <table class="caption-top table">
@@ -572,9 +649,30 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
+<section id="get-indicator-of-an-indexed-datafield" class="level4" data-number="C.3.4.1">
+<h4 data-number="C.3.4.1" class="anchored" data-anchor-id="get-indicator-of-an-indexed-datafield"><span class="header-section-number">C.3.4.1</span> Get Indicator of an indexed DataField</h4>
+<p>MARCspec expression: <code>&lt;number|.&gt;&lt;number|.&gt;&lt;number|.&gt;[&lt;number|#&gt;]^&lt;1|2&gt;</code></p>
+<p>Where <code>1</code> and <code>2</code> represent the first and second indicator.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>MARC21 record</th>
+<th>MARCspec</th>
+<th>returns</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>080 #1 $a821.124</code><br><code>084 #2 $a014</code></td>
+<td><code>080[1]^2</code></td>
+<td><code>2</code></td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="get-an-subfield" class="level3" data-number="C.3.3">
-<h3 data-number="C.3.3" class="anchored" data-anchor-id="get-an-subfield"><span class="header-section-number">C.3.3</span> Get an Subfield</h3>
+</section>
+<section id="get-a-subfield" class="level3" data-number="C.3.5">
+<h3 data-number="C.3.5" class="anchored" data-anchor-id="get-a-subfield"><span class="header-section-number">C.3.5</span> Get a Subfield</h3>
 <p>MARCspec expression: <code>&lt;number|.&gt;&lt;number|.&gt;&lt;number|.&gt;$&lt;character&gt;</code></p>
 <table class="caption-top table">
 <colgroup>
@@ -598,8 +696,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="get-multiple-subfields" class="level3" data-number="C.3.4">
-<h3 data-number="C.3.4" class="anchored" data-anchor-id="get-multiple-subfields"><span class="header-section-number">C.3.4</span> Get multiple Subfields</h3>
+<section id="get-multiple-subfields" class="level3" data-number="C.3.6">
+<h3 data-number="C.3.6" class="anchored" data-anchor-id="get-multiple-subfields"><span class="header-section-number">C.3.6</span> Get multiple Subfields</h3>
 <p>MARCspec expression: <code>&lt;number|.&gt;&lt;number|.&gt;&lt;number|.&gt;($&lt;character&gt;)+</code></p>
 <table class="caption-top table">
 <colgroup>
@@ -622,9 +720,37 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
-
-
 </section>
+<section id="get-subfield-of-an-indexed-datafield" class="level3" data-number="C.3.7">
+<h3 data-number="C.3.7" class="anchored" data-anchor-id="get-subfield-of-an-indexed-datafield"><span class="header-section-number">C.3.7</span> Get Subfield of an indexed DataField</h3>
+<p>MARCspec expression: <code>&lt;number|.&gt;&lt;number|.&gt;&lt;number|.&gt;[&lt;number|#&gt;]($&lt;character&gt;)+</code></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>MARC21 record</th>
+<th>MARCspec</th>
+<th>returns</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>300 ##$a149 pages ;$c23 cm</code><br><code>300 ##$a1 score (16 p.) ;$c29 cm</code></td>
+<td><code>300[1]$a</code></td>
+<td><code>1 score (16 p.) ;</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="section" class="level2" data-number="C.4">
+<h2 data-number="C.4" class="anchored" data-anchor-id="section"><span class="header-section-number">C.4</span> </h2>
+
+
 </section>
 
 </main> <!-- /main -->
@@ -679,13 +805,14 @@ ul.task-list li input[type="checkbox"] {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

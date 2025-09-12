@@ -6,8 +6,10 @@ import de.gwdg.metadataqa.marc.dao.MarcControlField;
 import de.gwdg.metadataqa.marc.dao.MarcLeader;
 import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 import de.gwdg.metadataqa.marc.dao.record.MarcRecord;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,6 +64,7 @@ public class MarcSpecExtractor {
       return marcControlField;
     } else {
       // data fields
+      System.err.println("data fields: " + spec.getTag());
       List<DataField> fields;
       if (spec.isMasked()) {
         Pattern pattern = Pattern.compile(spec.getTag());
@@ -75,10 +78,13 @@ public class MarcSpecExtractor {
         fields = marcRecord.getDatafieldsByTag(spec.getTag());
       }
 
-      if (fields == null || fields.isEmpty())
+      if (fields == null || fields.isEmpty()) {
+        System.err.println(String.format("null fields or empty - %s - %s", (fields == null), (fields == null || fields.isEmpty())));
         return null;
+      }
 
       if (spec.getIndex() != null) {
+        System.err.println("has index");
         if (spec.isMasked()) {
           fields = groupByTagAndExtractIndices(fields, spec.getIndex());
         } else {
@@ -87,6 +93,7 @@ public class MarcSpecExtractor {
       }
 
       if (spec.hasIndicator()) {
+        System.err.println("has indicator");
         return extractIndicators(spec, fields);
       } else if (spec.hasSubfields()) {
         return extractSubfields(spec.getSubfields(), fields);
@@ -161,10 +168,12 @@ public class MarcSpecExtractor {
   }
 
   private static <T extends Object> List<T> extractIndices(List<T> elements, Range index) {
+    System.err.println("extractIndices: " + index);
     List<T> result = new ArrayList<>();
     int[] positions = getRange(elements.size(), index.getStart(), index.getEnd());
+    System.err.println(String.format("positions: %d - %d", positions[0], positions[1]));
     for (int i = 0; i < elements.size(); i++) {
-      if (i >= positions[0] && i <= positions[1])
+      if (i >= positions[0] && i < positions[1])
         result.add(elements.get(i));
     }
     return result;

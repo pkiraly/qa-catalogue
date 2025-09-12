@@ -12,6 +12,7 @@ import de.gwdg.metadataqa.marc.definition.tags.tags01x.Tag020;
 import de.gwdg.metadataqa.marc.definition.tags.tags01x.Tag080;
 import de.gwdg.metadataqa.marc.definition.tags.tags01x.Tag084;
 import de.gwdg.metadataqa.marc.definition.tags.tags20x.Tag245;
+import de.gwdg.metadataqa.marc.definition.tags.tags3xx.Tag300;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
@@ -275,17 +276,148 @@ public class MarcSpecExtractorTest {
     assertEquals("William Bronk and American letters /", extracted.get(1));
   }
 
+  @Test
+  public void dataField_index_0() {
+    MarcSpec spec = MarcSpecParser.parse("300[0]");
 
+    Marc21Record marcRecord = getRecordWithMultiple300();
+
+    Object extracted = MarcSpecExtractor.extract(marcRecord, spec);
+    assertEquals(ArrayList.class, extracted.getClass());
+    List<Object> fields1 = (List<Object>) extracted;
+    assertEquals(1, fields1.size());
+    assertEquals(DataField.class, fields1.get(0).getClass());
+    List<DataField> values = (List<DataField>) extracted;
+    assertEquals("49 pages ;", values.get(0).getSubfield("a").get(0).getValue());
+  }
+
+  @Test
+  public void dataField_index_1() {
+    MarcSpec spec = MarcSpecParser.parse("300[1]");
+
+    Marc21Record marcRecord = getRecordWithMultiple300();
+
+    Object extracted = MarcSpecExtractor.extract(marcRecord, spec);
+    assertEquals(ArrayList.class, extracted.getClass());
+    List<Object> fields1 = (List<Object>) extracted;
+    assertEquals(1, fields1.size());
+    assertEquals(DataField.class, fields1.get(0).getClass());
+    List<DataField> values = (List<DataField>) extracted;
+    assertEquals("1 score (16 p.) ;", values.get(0).getSubfield("a").get(0).getValue());
+  }
+
+  @Test
+  public void dataField_index_0_to_2() {
+    MarcSpec spec = MarcSpecParser.parse("300[0-2]");
+
+    Marc21Record marcRecord = getRecordWithMultiple300();
+
+    Object extracted = MarcSpecExtractor.extract(marcRecord, spec);
+    assertEquals(ArrayList.class, extracted.getClass());
+    List<Object> fields1 = (List<Object>) extracted;
+    assertEquals(3, fields1.size());
+    assertEquals(DataField.class, fields1.get(0).getClass());
+    List<DataField> values = (List<DataField>) extracted;
+    assertEquals("49 pages ;", values.get(0).getSubfield("a").get(0).getValue());
+    assertEquals("1 score (16 p.) ;", values.get(1).getSubfield("a").get(0).getValue());
+    assertEquals("11 volumes :", values.get(2).getSubfield("a").get(0).getValue());
+  }
+
+  @Test
+  public void dataField_index_1_to_last() {
+    MarcSpec spec = MarcSpecParser.parse("300[1-#]");
+
+    Marc21Record marcRecord = getRecordWithMultiple300();
+
+    Object extracted = MarcSpecExtractor.extract(marcRecord, spec);
+    assertEquals(ArrayList.class, extracted.getClass());
+    List<Object> fields1 = (List<Object>) extracted;
+    assertEquals(3, fields1.size());
+    assertEquals(DataField.class, fields1.get(0).getClass());
+    List<DataField> values = (List<DataField>) extracted;
+    assertEquals("1 score (16 p.) ;", values.get(0).getSubfield("a").get(0).getValue());
+    assertEquals("11 volumes :",      values.get(1).getSubfield("a").get(0).getValue());
+    assertEquals("1 map :",           values.get(2).getSubfield("a").get(0).getValue());
+  }
+
+  @Test
+  public void dataField_index_last() {
+    MarcSpec spec = MarcSpecParser.parse("300[#]");
+
+    Marc21Record marcRecord = getRecordWithMultiple300();
+
+    Object extracted = MarcSpecExtractor.extract(marcRecord, spec);
+    assertEquals(ArrayList.class, extracted.getClass());
+    List<Object> fields1 = (List<Object>) extracted;
+    assertEquals(1, fields1.size());
+    assertEquals(DataField.class, fields1.get(0).getClass());
+    List<DataField> values = (List<DataField>) extracted;
+    assertEquals("1 map :",           values.get(0).getSubfield("a").get(0).getValue());
+  }
+
+  @Test
+  public void dataField_index_last_to_1() {
+    MarcSpec spec = MarcSpecParser.parse("300[#-1]");
+
+    Marc21Record marcRecord = getRecordWithMultiple300();
+
+    Object extracted = MarcSpecExtractor.extract(marcRecord, spec);
+    assertEquals(ArrayList.class, extracted.getClass());
+    List<Object> fields1 = (List<Object>) extracted;
+    assertEquals(2, fields1.size());
+    assertEquals(DataField.class, fields1.get(0).getClass());
+    List<DataField> values = (List<DataField>) extracted;
+    assertEquals("11 volumes :",      values.get(0).getSubfield("a").get(0).getValue());
+    assertEquals("1 map :",           values.get(1).getSubfield("a").get(0).getValue());
+  }
+
+  @Test
+  public void dataField_index_0_subfield_a() {
+    MarcSpec spec = MarcSpecParser.parse("300[0]$a");
+
+    Marc21Record marcRecord = getRecordWithMultiple300();
+
+    Object extracted = MarcSpecExtractor.extract(marcRecord, spec);
+    assertEquals(ArrayList.class, extracted.getClass());
+    List<Object> fields1 = (List<Object>) extracted;
+    assertEquals(1, fields1.size());
+    assertEquals(String.class, fields1.get(0).getClass());
+    List<String> values = (List<String>) extracted;
+    assertEquals("49 pages ;", values.get(0));
+  }
+
+  @Test
+  public void dataField_index_0_with_incicator() {
+    MarcSpec spec = MarcSpecParser.parse("300[1]^2");
+
+    Marc21Record marcRecord = getRecordWithMultiple300();
+
+    Object extracted = MarcSpecExtractor.extract(marcRecord, spec);
+    assertNotNull("880[1]^2 should not return null", extracted);
+    assertEquals(ArrayList.class, extracted.getClass());
+    List<Object> fields1 = (List<Object>) extracted;
+    assertEquals(1, fields1.size());
+    assertEquals(String.class, fields1.get(0).getClass());
+    List<String> values = (List<String>) extracted;
+    assertEquals("1", values.get(0));
+  }
+
+  private static Marc21Record getRecordWithMultiple300() {
+    Marc21Record marcRecord = new Marc21BibliographicRecord("u2407796");
+    marcRecord.addDataField(
+      new DataField(Tag300.getInstance(), " ", " ", "a", "49 pages ;", "c", "23 cm"));
+    marcRecord.addDataField(
+      new DataField(Tag300.getInstance(), " ", "1", "a", "1 score (16 p.) ;", "c", "29 cm"));
+    marcRecord.addDataField(
+      new DataField(Tag300.getInstance(), " ", " ", "a", "11 volumes :", "b", "illustrations ;", "c", "24 cm"));
+    marcRecord.addDataField(
+      new DataField(Tag300.getInstance(), " ", " ", "a", "1 map :", "b", "col. ;", "c", "30 x 55 cm"));
+    return marcRecord;
+  }
+
+  // These are not yet implemented correctly
   // ...$_$$
-  // 300[0]
-  // 300[1]
-  // 300[0-2]
-  // 300[1-#]
-  // 300[#]
-  // 300[#-1]
-  // 300[0]$a
   // 300$a[0]
   // 300$a[#]
   // 300$a[#-1]
-  // 880[1]^2
 }

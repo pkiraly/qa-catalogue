@@ -135,7 +135,7 @@ Where `1` and `2` represent the first and second indicator.
 
 | MARC21 record | MARCspec | returns |
 | --- | --- | --- |
-| `080 #1 $a821.124`<br>`084 #2 $a014` | `080[1]^2` | `2` |
+| `080 #1 $a821.124`<br>`080 #2 $a014` | `080[1]^2` | `2` |
 
 ### Get a Subfield
 
@@ -161,4 +161,3 @@ MARCspec expression: `<number|.><number|.><number|.>[<number|#>]($<character>)+`
 | --- | --- | --- |
 | `300 ##$a149 pages ;$c23 cm`<br>`300 ##$a1 score (16 p.) ;$c29 cm` | `300[1]$a` | `1 score (16 p.) ;` |
 
-##

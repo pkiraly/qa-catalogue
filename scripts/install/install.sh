@@ -4,14 +4,14 @@
 #
 
 # create directories
-mkdir docker input output web-config
+mkdir docker input output web-config solr-data
 
 # download necessary files
 wget --inet4-only --quiet https://raw.githubusercontent.com/pkiraly/qa-catalogue/main/docker-compose.yml
 wget --inet4-only --quiet https://raw.githubusercontent.com/pkiraly/qa-catalogue/main/docker-compose-slim.yml
 wget --inet4-only --quiet https://raw.githubusercontent.com/pkiraly/qa-catalogue/main/scripts/install/qa-catalogue.env
 wget --inet4-only --quiet \
-  --output-document=docker/configuration.cnf \
+  --output-document=web-config/configuration.cnf \
   https://raw.githubusercontent.com/pkiraly/qa-catalogue/main/scripts/install/web-configuration.cnf
 cd docker
 wget --inet4-only --quiet https://raw.githubusercontent.com/pkiraly/qa-catalogue/main/docker/qa-catalogue

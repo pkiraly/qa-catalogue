@@ -3,9 +3,9 @@
 # download the minimum set of files necessary for run the dockerized QA Catalogue
 #
 
-wget https://raw.githubusercontent.com/pkiraly/qa-catalogue/main/docker-compose.yml
+curl -fsSL --output docker-compose.yml https://raw.githubusercontent.com/pkiraly/qa-catalogue/main/docker-compose.yml
 mkdir docker
 cd docker
-wget https://raw.githubusercontent.com/pkiraly/qa-catalogue/main/docker/qa-catalogue
+curl -fsSL --output qa-catalogue https://raw.githubusercontent.com/pkiraly/qa-catalogue/main/docker/qa-catalogue
 chmod +x qa-catalogue
 cd ..

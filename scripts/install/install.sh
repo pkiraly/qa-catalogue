@@ -11,7 +11,7 @@ wget --inet4-only --quiet https://raw.githubusercontent.com/pkiraly/qa-catalogue
 wget --inet4-only --quiet https://raw.githubusercontent.com/pkiraly/qa-catalogue/main/docker-compose-slim.yml
 wget --inet4-only --quiet https://raw.githubusercontent.com/pkiraly/qa-catalogue/main/scripts/install/qa-catalogue.env
 wget --inet4-only --quiet \
-  -o docker/configuration.cnf
+  --output-document=docker/configuration.cnf \
   https://raw.githubusercontent.com/pkiraly/qa-catalogue/main/scripts/install/web-configuration.cnf
 cd docker
 wget --inet4-only --quiet https://raw.githubusercontent.com/pkiraly/qa-catalogue/main/docker/qa-catalogue

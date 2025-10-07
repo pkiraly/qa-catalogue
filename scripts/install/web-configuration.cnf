@@ -1,0 +1,5 @@
+default-tab=completeness
+label=My custom Catalogue
+url=https://my-catalogue.org
+linkTemplate=https://my-catalogue.org/catalogue/{id}
+language=en

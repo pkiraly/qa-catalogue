@@ -10,7 +10,6 @@
 # frontend
 # WEB_IMAGE: the frontend Docker image (ghcr.io/pkiraly/qa-catalogue-web:main)
 # WEB_CONTAINER: the name of frontend Docker container
-# BASE_OUTPUT_DIR
 # WEB_PORT: the port where the frontend can be accessed
 # WEB_CONFIG: the directory where web config take place
 #

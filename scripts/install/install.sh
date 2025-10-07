@@ -7,14 +7,14 @@
 mkdir docker input output web-config solr-data
 
 # download necessary files
-wget --inet4-only --quiet https://raw.githubusercontent.com/pkiraly/qa-catalogue/main/docker-compose.yml
-wget --inet4-only --quiet https://raw.githubusercontent.com/pkiraly/qa-catalogue/main/docker-compose-slim.yml
-wget --inet4-only --quiet https://raw.githubusercontent.com/pkiraly/qa-catalogue/main/scripts/install/qa-catalogue.env
+wget --inet4-only --quiet --output-document=docker-compose.yml \
+  https://raw.githubusercontent.com/pkiraly/qa-catalogue/main/docker-compose-slim.yml
 wget --inet4-only --quiet \
-  --output-document=web-config/configuration.cnf \
+  https://raw.githubusercontent.com/pkiraly/qa-catalogue/main/scripts/install/qa-catalogue.env
+wget --inet4-only --quiet --output-document=web-config/configuration.cnf \
   https://raw.githubusercontent.com/pkiraly/qa-catalogue/main/scripts/install/web-configuration.cnf
-cd docker
-wget --inet4-only --quiet https://raw.githubusercontent.com/pkiraly/qa-catalogue/main/docker/qa-catalogue
-chmod +x qa-catalogue
-cd ..
+wget --inet4-only --quiet --output-document=docker/qa-catalogue \
+  https://raw.githubusercontent.com/pkiraly/qa-catalogue/main/docker/qa-catalogue
+chmod +x docker/qa-catalogue
+
 

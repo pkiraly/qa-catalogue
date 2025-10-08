@@ -13,6 +13,8 @@ wget --inet4-only --quiet \
   https://raw.githubusercontent.com/pkiraly/qa-catalogue/main/scripts/install/qa-catalogue.env
 wget --inet4-only --quiet \
   https://raw.githubusercontent.com/pkiraly/qa-catalogue/main/scripts/install/service.sh
+wget --inet4-only --quiet \
+  https://raw.githubusercontent.com/pkiraly/qa-catalogue/main/scripts/install/README.txt
 wget --inet4-only --quiet --output-document=web-config/configuration.cnf \
   https://raw.githubusercontent.com/pkiraly/qa-catalogue/main/scripts/install/web-configuration.cnf
 wget --inet4-only --quiet --output-document=docker/qa-catalogue \
@@ -25,21 +27,4 @@ chmod +x docker/qa-catalogue
 chmod +x service.sh
 sudo chown -R 8983:8983 ./solr-data && sudo chmod -R 777 ./solr-data
 
-echo "Welcome to QA catalogue"
-echo ""
-echo "The stage is yours! Typical next steps follow as"
-echo ""
-echo "  1) copy bibliographical records to 'input' directory, adjust 'qa-catalogue.env', and 'web-config/configuration.cnf'"
-echo "  2) start services with './service.sh up'"
-echo "  3) run analyses with 'docker/qa-catalogue ...'"
-echo "  4) check it at http://localhost:90"
-echo "  if you do not need it anymore"
-echo "  5) shut services down with './service.sh down'"
-echo "  6) remove all files with './service.sh clear-files'"
-echo ""
-echo "more info:"
-echo "  - https://pkiraly.github.io/qa-catalogue (documentation)"
-echo "  - https://github.com/pkiraly/qa-catalogue (back-end code)"
-echo "  - https://github.com/pkiraly/qa-catalogue-web (front-end code)"
-echo ""
-echo "Happy analyses!"
+cat README.txt

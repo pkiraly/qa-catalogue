@@ -20,7 +20,7 @@ done
 
 [ -f "$env_file" ] && source "$env_file"
 
-CONTAINER=${CONTAINER:=metadata-qa-marc}
+CONTAINER=${CONTAINER:=qa-catalogue}
 
 if [ ${#args[@]} == 0 ]; then
   echo "Usage: $0 [options] <command[,command...]>"
@@ -42,6 +42,9 @@ else
     -e TYPE_PARAMS="${TYPE_PARAMS:-}" \
     -e UPDATE="${UPDATE:-}" \
     -e VERSION="${VERSION:-}" \
+    -e BASE_INPUT_DIR="${BASE_INPUT_DIR:-marc/input}" \
+    -e BASE_OUTPUT_DIR="${BASE_OUTPUT_DIR:-marc/output}" \
+    -e BASE_LOG_DIR="${BASE_LOG_DIR:-marc/logs}" \
     "$CONTAINER" \
     ./qa-catalogue \
     "${args[@]}"

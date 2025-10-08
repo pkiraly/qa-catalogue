@@ -4,7 +4,7 @@
 #
 
 # create directories
-mkdir docker input output web-config solr-data
+mkdir docker input output logs web-config solr-data
 
 # download necessary files
 wget --inet4-only --quiet --output-document=docker-compose.yml \

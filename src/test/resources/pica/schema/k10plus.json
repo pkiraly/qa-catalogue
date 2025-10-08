@@ -22786,7 +22786,7 @@
       }
    },
    "language" : "de",
-   "profile" : "http://format.gbv.de/pica/k10plus",
+   "uri" : "http://format.gbv.de/pica/k10plus",
    "title" : "K10plus-Standard-Format",
    "url" : "https://format.k10plus.de/k10plushelp.pl?cmd=pplist&katalog=Standard"
 }

@@ -12806,7 +12806,7 @@
     }
   },
   "language": "de",
-  "profile": "http://format.gbv.de/pica/k10plus-title",
+  "uri": "http://format.gbv.de/pica/k10plus-title",
   "title": "K10plus Titeldaten",
   "url": "https://format.k10plus.de/k10plushelp.pl?cmd=pplist&katalog=Standard#titel"
 }

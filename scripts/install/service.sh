@@ -79,7 +79,7 @@ if [ $# -eq 1 ]; then
         uninstall
         exit
     ;;
-    help|h)
+    help|h|?)
         usage
         exit
     ;;

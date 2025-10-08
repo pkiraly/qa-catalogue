@@ -4,15 +4,17 @@ set -e
 ARGV="$@"
 
 up () {
-  echo "up()"
+  echo "Starting docker services..."
   docker compose --env-file qa-catalogue.env up -d
 }
 
 down () {
+  echo "Stoping docker services..."
   docker compose --env-file qa-catalogue.env down
 }
 
 clear_files () {
+  echo "Removing docker images and clean up this directory..."
   ids=$(docker image ls --filter reference=*/pkiraly/qa-catalogue* -q)
   if [[ "$ids" != "" ]]; then
     docker rmi $ids

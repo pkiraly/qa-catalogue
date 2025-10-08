@@ -71,7 +71,7 @@ BASE_OUTPUT_DIR=${BASE_OUTPUT_DIR:-./output}
 BASE_LOG_DIR=${BASE_LOG_DIR:-./logs}
 MASK=${MASK:-*}
 NAME=${NAME:-qa-catalogue}
-INPUT_DIR=${INPUT_DIR:-$NAME}
+# INPUT_DIR=${INPUT_DIR:-$NAME}
 TYPE_PARAMS=${TYPE_PARAMS:-}
 SCHEMA=${SCHEMA:-MARC21}
 WEB_CONFIG=${WEB_CONFIG:-}
@@ -114,7 +114,7 @@ fi
 fail() {
   echo >&2 ""
   echo >&2 "AN ERROR OCCURRED"
-  echo >&2 "Please consult log files in $BASE_INPUT_DIR/_reports/$NAME"
+  echo >&2 "Please consult log files in $BASE_LOG_DIR/$NAME"
   exit 1
 }
 

@@ -177,32 +177,34 @@ create_all_pictures <- function(dir, field, file_name) {
     summarise(count = n()) %>%
     mutate(machine_name = sub(' ', '-', tolower(documenttype)))
 
-  print('the summary frame')
-  print(df_summary)
+  if (nrow(df_summary) > 0) {
+    print('the summary frame')
+    print(df_summary)
 
-  nr_rows <- dim(df_summary)[1]
-  for (i in 1:nr_rows) {
-    row <- df_summary[i,]
-    print(paste('generating', row$documenttype))
-    machine_name <- row$machine_name
-    picture <- create_plot(dir, field, row$documenttype)
+    nr_rows <- dim(df_summary)[1]
+    for (i in 1:nr_rows) {
+      row <- df_summary[i,]
+      print(paste('generating', row$documenttype))
+      machine_name <- row$machine_name
+      picture <- create_plot(dir, field, row$documenttype)
 
-    img_dir <- sprintf('%s/img', dir)
-    print(paste('saving to directory ', img_dir))
+      img_dir <- sprintf('%s/img', dir)
+      print(paste('saving to directory ', img_dir))
 
-    if (!dir.exists(img_dir)) {
-      if (file.exists(img_dir)) {
-        file.remove(img_dir)
+      if (!dir.exists(img_dir)) {
+        if (file.exists(img_dir)) {
+          file.remove(img_dir)
+        }
+        print(paste('creating directory ', img_dir))
+        dir.create(img_dir)
       }
-      print(paste('creating directory ', img_dir))
-      dir.create(img_dir)
+      ggsave(
+        sprintf(
+          '%s/frequency-explained-%s.png',
+          img_dir, row$machine_name
+        ),
+        picture, width = 8, height = 8 * 0.6
+      )
     }
-    ggsave(
-      sprintf(
-        '%s/frequency-explained-%s.png',
-        img_dir, row$machine_name
-      ),
-      picture, width = 8, height = 8 * 0.6
-    )
   }
 }

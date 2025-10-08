@@ -14,13 +14,15 @@ down () {
 
 clear_files () {
   ids=$(docker image ls --filter reference=*/pkiraly/qa-catalogue* -q)
-  if [ "$ids" != "" ]; then
+  if [[ "$ids" != "" ]]; then
     docker rmi $ids
   fi
-  ids=$(docker image solr:9.6.1 -q)
-  if [ "$ids" != "" ]; then
+
+  ids=$(docker images solr:9.6.1 -q)
+  if [[ "$ids" != "" ]]; then
     docker rmi $ids
   fi
+
   sudo rm -rf *
 }
 

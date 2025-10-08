@@ -29,7 +29,7 @@ stop () {
   docker compose --env-file qa-catalogue.env stop solr
 }
 
-clear_files () {
+uninstall () {
   echo "Removing docker images and clean up this directory..."
   ids=$(docker image ls --filter reference=*/pkiraly/qa-catalogue* -q)
   if [[ "$ids" != "" ]]; then
@@ -54,7 +54,7 @@ usage () {
   echo "- down|d - stop and remove docker containers"
   echo "- start - start docker containers"
   echo "- stop - stop docker containers"
-  echo "- clear-files|c - remove docker images and all the files in the current directory"
+  echo "- uninstall - remove docker images and all the files in the current directory"
 }
 
 if [ $# -eq 1 ]; then
@@ -75,8 +75,8 @@ if [ $# -eq 1 ]; then
         stop
         exit
     ;;
-    clear-files|c)
-        clear_files
+    uninstall)
+        uninstall
         exit
     ;;
     help|h)

@@ -82,9 +82,9 @@ services:
   app:
     image: ${WEB_IMAGE:-ghcr.io/pkiraly/qa-catalogue-web:main}
     volumes:
-      - ./${OUTPUT:-output}:/var/www/html/metadata-qa
+      - ./${OUTPUT:-./output}:/var/www/html/metadata-qa
       # - ./${CONFIG:-config}:/var/www/html/config
-      - ./${WEB_CONFIG:-web-config}:/var/www/html/config
+      - ./${WEB_CONFIG:-./web-config}:/var/www/html/config
       - /etc/timezone:/etc/timezone:ro    # Sync timezone
       - /etc/localtime:/etc/localtime:ro  # Sync localtime
     ports:

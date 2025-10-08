@@ -56,11 +56,11 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ./${INPUT:-input}:/opt/qa-catalogue/marc/input
-      - ./${OUTPUT:-output}:/opt/qa-catalogue/marc/output
-      - ./${LOGS:-logs}:/opt/qa-catalogue/marc/logs
+      - ./${INPUT:-./input}:/opt/qa-catalogue/marc/input
+      - ./${OUTPUT:-./output}:/opt/qa-catalogue/marc/output
+      - ./${LOGS:-./logs}:/opt/qa-catalogue/marc/logs
       - ./catalogues:/opt/qa-catalogue/catalogues
-      - ./${WEB_CONFIG:-web-config}:/opt/qa-catalogue/web-config
+      - ./${WEB_CONFIG:-./web-config}:/opt/qa-catalogue/web-config
       #      - ./${WEB_CONFIG:-web-config}:/var/www/html/qa-catalogue/web-config
       - /etc/timezone:/etc/timezone:ro    # Sync timezone
       - /etc/localtime:/etc/localtime:ro  # Sync localtime

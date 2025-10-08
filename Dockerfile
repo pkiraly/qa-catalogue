@@ -1,3 +1,4 @@
+# TODO: regularly test with ubuntu:24.10 - once it worked, not the base image has a problem with "apt update"
 FROM ubuntu:24.04
 
 LABEL maintainer="Péter Király <pkiraly@gwdg.de>, Ákos Takács <rimelek@rimelek.hu>, Jakob Voß <jakob.voss@gbv.de>"

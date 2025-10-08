@@ -14,8 +14,7 @@
                     "pica3": "\u00ac;\u00ac",
                     "label": "Useflag (0-9,A-Z)",
                     "repeatable": false,
-                    "modified": "2017-05-29 08:57:51",
-                    "position": 2
+                    "modified": "2017-05-29 08:57:51"
                 }
             }
         },
@@ -31,8 +30,7 @@
                     "code": "0",
                     "label": "Kennung und Datum der Ersterfassung",
                     "repeatable": false,
-                    "modified": "2017-05-29 08:57:51",
-                    "position": 1
+                    "modified": "2017-05-29 08:57:51"
                 }
             }
         },
@@ -49,8 +47,7 @@
                     "pica3": ";_",
                     "label": "Uhrzeit",
                     "repeatable": false,
-                    "modified": "2017-06-08 11:57:32",
-                    "position": 2
+                    "modified": "2017-06-08 11:57:32"
                 }
             }
         },
@@ -66,8 +63,7 @@
                     "code": "0",
                     "label": "Kennung und Datum",
                     "repeatable": false,
-                    "modified": "2017-09-28 10:47:22",
-                    "position": 1
+                    "modified": "2017-09-28 10:47:22"
                 }
             }
         },
@@ -84,8 +80,7 @@
                     "pica3": ";\u00ac",
                     "label": "Uhrzeit",
                     "repeatable": false,
-                    "modified": "2017-09-28 09:55:11",
-                    "position": 2
+                    "modified": "2017-09-28 09:55:11"
                 }
             }
         },
@@ -101,8 +96,7 @@
                     "code": "0",
                     "label": "MRM: UTC-Zeitstempel der letzten \u00c4nderung",
                     "repeatable": false,
-                    "modified": "2017-05-29 08:57:51",
-                    "position": 1
+                    "modified": "2017-05-29 08:57:51"
                 }
             }
         },
@@ -119,8 +113,7 @@
                     "pica3": "\u00ac=\u00ac",
                     "label": "Warnungsmeldung - Text",
                     "repeatable": false,
-                    "modified": "2017-05-29 08:57:51",
-                    "position": 4
+                    "modified": "2017-05-29 08:57:51"
                 }
             }
         },
@@ -136,8 +129,7 @@
                     "code": "0",
                     "label": "Unicode-Kennzeichen",
                     "repeatable": false,
-                    "modified": "2017-05-29 08:57:51",
-                    "position": 1
+                    "modified": "2017-05-29 08:57:51"
                 }
             }
         },
@@ -153,8 +145,7 @@
                     "code": "0",
                     "label": "Title owner",
                     "repeatable": false,
-                    "modified": "2017-05-29 08:57:51",
-                    "position": 1
+                    "modified": "2017-05-29 08:57:51"
                 }
             }
         },
@@ -170,8 +161,7 @@
                     "code": "0",
                     "label": "Bibliografische Gattung und Status",
                     "repeatable": false,
-                    "modified": "2017-09-21 16:04:25",
-                    "position": 1
+                    "modified": "2017-09-21 16:04:25"
                 }
             }
         },
@@ -188,8 +178,7 @@
                     "pica3": "$X",
                     "label": "Zuordnung",
                     "repeatable": false,
-                    "modified": "2017-12-18 17:59:02",
-                    "position": 5
+                    "modified": "2017-12-18 17:59:02"
                 }
             }
         },
@@ -206,8 +195,7 @@
                     "pica3": "$X",
                     "label": "Zuordnung",
                     "repeatable": false,
-                    "modified": "2017-12-18 18:00:19",
-                    "position": 5
+                    "modified": "2017-12-18 18:00:19"
                 }
             }
         },
@@ -224,8 +212,7 @@
                     "pica3": "$X",
                     "label": "Zuordnung",
                     "repeatable": false,
-                    "modified": "2017-12-18 18:00:35",
-                    "position": 5
+                    "modified": "2017-12-18 18:00:35"
                 }
             }
         },
@@ -241,8 +228,7 @@
                     "code": "0",
                     "label": "MRM: Datum\/Uhrzeit der Master-TA",
                     "repeatable": false,
-                    "modified": "2017-05-29 08:57:51",
-                    "position": 1
+                    "modified": "2017-05-29 08:57:51"
                 }
             }
         },
@@ -258,8 +244,7 @@
                     "code": "0",
                     "label": "Pica-Produktionsnummer",
                     "repeatable": false,
-                    "modified": "2018-01-17 14:09:33",
-                    "position": 1
+                    "modified": "2018-01-17 14:09:33"
                 }
             }
         },
@@ -275,8 +260,7 @@
                     "code": "0",
                     "label": "MRM: PPN der Slave-TA",
                     "repeatable": false,
-                    "modified": "2017-05-29 08:57:51",
-                    "position": 1
+                    "modified": "2017-05-29 08:57:51"
                 }
             }
         },
@@ -292,8 +276,7 @@
                     "code": "0",
                     "label": "PPN",
                     "repeatable": false,
-                    "modified": "2017-05-29 08:57:51",
-                    "position": 1
+                    "modified": "2017-05-29 08:57:51"
                 }
             }
         },
@@ -310,8 +293,7 @@
                     "pica3": "$v",
                     "label": "Datum",
                     "repeatable": false,
-                    "modified": "2017-11-27 11:25:09",
-                    "position": 4
+                    "modified": "2017-11-27 11:25:09"
                 }
             }
         },
@@ -327,8 +309,7 @@
                     "code": "0",
                     "label": "SWB-Pica-Produktionsnummer",
                     "repeatable": false,
-                    "modified": "2017-05-29 08:57:51",
-                    "position": 1
+                    "modified": "2017-05-29 08:57:51"
                 }
             }
         },
@@ -345,8 +326,7 @@
                     "pica3": "$v",
                     "label": "Datum",
                     "repeatable": false,
-                    "modified": "2017-06-29 09:14:42",
-                    "position": 3
+                    "modified": "2017-06-29 09:14:42"
                 }
             }
         },
@@ -363,8 +343,7 @@
                     "pica3": "$t",
                     "label": "MRM: Zeitstempel der letzten Lieferung",
                     "repeatable": false,
-                    "modified": "2017-05-29 08:57:51",
-                    "position": 3
+                    "modified": "2017-05-29 08:57:51"
                 }
             }
         },
@@ -381,8 +360,7 @@
                     "pica3": "$f",
                     "label": "Kommentar zur ISBN, Einbandart, Lieferbedingungen und\/oder Preis",
                     "repeatable": false,
-                    "modified": "2017-06-21 14:09:19",
-                    "position": 4
+                    "modified": "2017-06-21 14:09:19"
                 }
             }
         },
@@ -398,8 +376,7 @@
                     "code": "0",
                     "label": "UPC",
                     "repeatable": false,
-                    "modified": "2017-06-29 10:07:47",
-                    "position": 1
+                    "modified": "2017-06-29 10:07:47"
                 }
             }
         },
@@ -416,8 +393,7 @@
                     "pica3": "$f",
                     "label": "Kommentar zur ISBN, Einbandart, Lieferbedingungen und\/oder Preis",
                     "repeatable": false,
-                    "modified": "2017-06-21 14:09:19",
-                    "position": 4
+                    "modified": "2017-06-21 14:09:19"
                 }
             }
         },
@@ -434,8 +410,7 @@
                     "pica3": "$f",
                     "label": "Kommentar zur ISMN, Einbandart, Lieferbedingungen und\/oder Preis",
                     "repeatable": false,
-                    "modified": "2017-11-17 11:28:43",
-                    "position": 4
+                    "modified": "2017-11-17 11:28:43"
                 }
             }
         },
@@ -452,8 +427,7 @@
                     "pica3": "$f",
                     "label": "Kommentar zur ISMN, Einbandart, Lieferbedingungen und\/oder Preis",
                     "repeatable": false,
-                    "modified": "2017-09-29 13:32:39",
-                    "position": 4
+                    "modified": "2017-09-29 13:32:39"
                 }
             }
         },
@@ -469,8 +443,7 @@
                     "code": "0",
                     "label": "EAN",
                     "repeatable": false,
-                    "modified": "2017-06-29 10:05:32",
-                    "position": 1
+                    "modified": "2017-06-29 10:05:32"
                 }
             }
         },
@@ -486,8 +459,7 @@
                     "code": "0",
                     "label": "ISRN",
                     "repeatable": false,
-                    "modified": "2017-08-03 14:30:15",
-                    "position": 1
+                    "modified": "2017-08-03 14:30:15"
                 }
             }
         },
@@ -504,8 +476,7 @@
                     "pica3": "$f",
                     "label": "Kommentar zur ISBN, Einbandart, Lieferbedingungen und\/oder Preis",
                     "repeatable": false,
-                    "modified": "2017-06-21 14:09:19",
-                    "position": 5
+                    "modified": "2017-06-21 14:09:19"
                 }
             }
         },
@@ -521,8 +492,7 @@
                     "code": "0",
                     "label": "Handle",
                     "repeatable": false,
-                    "modified": "2017-05-29 08:57:51",
-                    "position": 1
+                    "modified": "2017-05-29 08:57:51"
                 }
             }
         },
@@ -538,8 +508,7 @@
                     "code": "0",
                     "label": "URN",
                     "repeatable": false,
-                    "modified": "2017-05-29 08:57:51",
-                    "position": 1
+                    "modified": "2017-05-29 08:57:51"
                 }
             }
         },
@@ -555,8 +524,7 @@
                     "code": "0",
                     "label": "DOI",
                     "repeatable": false,
-                    "modified": "2017-05-29 08:57:51",
-                    "position": 1
+                    "modified": "2017-05-29 08:57:51"
                 }
             }
         },
@@ -572,8 +540,7 @@
                     "code": "0",
                     "label": "DOI",
                     "repeatable": false,
-                    "modified": "2017-05-29 08:57:51",
-                    "position": 1
+                    "modified": "2017-05-29 08:57:51"
                 }
             }
         },
@@ -590,8 +557,7 @@
                     "pica3": "$f",
                     "label": "Kommentar zur ISSN, Einbandart, Lieferbedingungen und\/oder Preis",
                     "repeatable": false,
-                    "modified": "2017-06-29 14:34:32",
-                    "position": 4
+                    "modified": "2017-06-29 14:34:32"
                 }
             }
         },
@@ -608,8 +574,7 @@
                     "pica3": "$f",
                     "label": "Kommentar zur ISSN, Einbandart, Lieferbedingungen und\/oder Preis",
                     "repeatable": false,
-                    "modified": "2017-06-29 14:35:01",
-                    "position": 4
+                    "modified": "2017-06-29 14:35:01"
                 }
             }
         },
@@ -626,8 +591,7 @@
                     "pica3": "$f",
                     "label": "Kommentar zur ISSN",
                     "repeatable": false,
-                    "modified": "2017-06-21 14:09:19",
-                    "position": 2
+                    "modified": "2017-06-21 14:09:19"
                 }
             }
         },
@@ -644,8 +608,7 @@
                     "pica3": "$f",
                     "label": "Kommentar zur ISSN, Einbandart, Lieferbedingungen und\/oder Preis",
                     "repeatable": false,
-                    "modified": "2017-09-29 13:28:45",
-                    "position": 5
+                    "modified": "2017-09-29 13:28:45"
                 }
             }
         },
@@ -661,8 +624,7 @@
                     "code": "0",
                     "label": "LoC-Nummer",
                     "repeatable": false,
-                    "modified": "2017-06-28 15:48:51",
-                    "position": 1
+                    "modified": "2017-06-28 15:48:51"
                 }
             }
         },
@@ -678,8 +640,7 @@
                     "code": "0",
                     "label": "BNB-Nummer",
                     "repeatable": false,
-                    "modified": "2017-06-28 15:41:04",
-                    "position": 1
+                    "modified": "2017-06-28 15:41:04"
                 }
             }
         },
@@ -695,8 +656,7 @@
                     "code": "0",
                     "label": "DNB-Nummer",
                     "repeatable": false,
-                    "modified": "2017-06-29 09:02:51",
-                    "position": 1
+                    "modified": "2017-06-29 09:02:51"
                 }
             }
         },
@@ -712,8 +672,7 @@
                     "code": "0",
                     "label": "Nummer",
                     "repeatable": false,
-                    "modified": "2017-09-27 10:31:51",
-                    "position": 2
+                    "modified": "2017-09-27 10:31:51"
                 }
             }
         },
@@ -729,8 +688,7 @@
                     "code": "0",
                     "label": "PPN",
                     "repeatable": false,
-                    "modified": "2017-05-29 08:57:51",
-                    "position": 1
+                    "modified": "2017-05-29 08:57:51"
                 }
             }
         },
@@ -746,8 +704,7 @@
                     "code": "0",
                     "label": "CIP-Nummer",
                     "repeatable": false,
-                    "modified": "2017-06-29 09:30:34",
-                    "position": 1
+                    "modified": "2017-06-29 09:30:34"
                 }
             }
         },
@@ -763,8 +720,7 @@
                     "code": "0",
                     "label": "WV-Nummer",
                     "repeatable": false,
-                    "modified": "2017-06-29 09:39:13",
-                    "position": 1
+                    "modified": "2017-06-29 09:39:13"
                 }
             }
         },
@@ -780,8 +736,7 @@
                     "code": "a",
                     "label": "Nummer",
                     "repeatable": false,
-                    "modified": "2017-05-29 08:57:51",
-                    "position": 2
+                    "modified": "2017-05-29 08:57:51"
                 }
             }
         },
@@ -797,8 +752,7 @@
                     "code": "0",
                     "label": "Nummer",
                     "repeatable": false,
-                    "modified": "2017-12-18 10:38:47",
-                    "position": 1
+                    "modified": "2017-12-18 10:38:47"
                 }
             }
         },
@@ -814,8 +768,7 @@
                     "code": "0",
                     "label": "ZDB-Nummer",
                     "repeatable": false,
-                    "modified": "2017-05-29 08:57:51",
-                    "position": 1
+                    "modified": "2017-05-29 08:57:51"
                 }
             }
         },
@@ -831,8 +784,7 @@
                     "code": "0",
                     "label": "CODEN",
                     "repeatable": false,
-                    "modified": "2017-06-29 10:02:14",
-                    "position": 1
+                    "modified": "2017-06-29 10:02:14"
                 }
             }
         },
@@ -849,8 +801,7 @@
                     "pica3": "$f",
                     "label": "Kommentar zur Nummer",
                     "repeatable": false,
-                    "modified": "2017-09-28 11:05:43",
-                    "position": 4
+                    "modified": "2017-09-28 11:05:43"
                 }
             }
         },
@@ -866,8 +817,7 @@
                     "code": "0",
                     "label": "Identnummer",
                     "repeatable": false,
-                    "modified": "2017-09-27 14:19:07",
-                    "position": 2
+                    "modified": "2017-09-27 14:19:07"
                 }
             }
         },
@@ -883,8 +833,7 @@
                     "code": "0",
                     "label": "Nummer",
                     "repeatable": false,
-                    "modified": "2017-11-24 12:21:13",
-                    "position": 2
+                    "modified": "2017-11-24 12:21:13"
                 }
             }
         },
@@ -901,8 +850,7 @@
                     "pica3": "$b",
                     "label": "Redaktionskennzeichen",
                     "repeatable": false,
-                    "modified": "2017-11-20 16:34:41",
-                    "position": 1
+                    "modified": "2017-11-20 16:34:41"
                 }
             }
         },
@@ -918,8 +866,7 @@
                     "code": "b",
                     "label": "Code",
                     "repeatable": false,
-                    "modified": "2018-01-17 15:50:52",
-                    "position": 2
+                    "modified": "2018-01-17 15:50:52"
                 }
             }
         },
@@ -936,8 +883,7 @@
                     "pica3": "$c",
                     "label": "Sprache des Originals",
                     "repeatable": true,
-                    "modified": "2018-01-19 12:30:14",
-                    "position": 2
+                    "modified": "2018-01-19 12:30:14"
                 }
             }
         },
@@ -954,8 +900,7 @@
                     "pica3": "$e",
                     "label": "Beschreibungsfestlegung",
                     "repeatable": false,
-                    "modified": "2017-11-09 14:27:42",
-                    "position": 2
+                    "modified": "2017-11-09 14:27:42"
                 }
             }
         },
@@ -972,8 +917,7 @@
                     "pica3": "$r",
                     "label": "Datum des Originals in Vorlageform",
                     "repeatable": false,
-                    "modified": "2017-06-27 12:51:13",
-                    "position": 6
+                    "modified": "2017-06-27 12:51:13"
                 }
             }
         },
@@ -990,8 +934,7 @@
                     "pica3": "$p",
                     "label": "Herstellungsdatum",
                     "repeatable": false,
-                    "modified": "2017-06-28 14:53:39",
-                    "position": 5
+                    "modified": "2017-06-28 14:53:39"
                 }
             }
         },
@@ -1008,8 +951,7 @@
                     "pica3": "$2",
                     "label": "Quelle",
                     "repeatable": false,
-                    "modified": "2017-06-14 16:28:21",
-                    "position": 8
+                    "modified": "2017-06-14 16:28:21"
                 }
             }
         },
@@ -1026,8 +968,7 @@
                     "pica3": "$2",
                     "label": "Quelle",
                     "repeatable": false,
-                    "modified": "2017-09-28 08:37:13",
-                    "position": 5
+                    "modified": "2017-09-28 08:37:13"
                 }
             }
         },
@@ -1044,8 +985,7 @@
                     "pica3": "$2",
                     "label": "Quelle",
                     "repeatable": false,
-                    "modified": "2017-06-29 13:37:27",
-                    "position": 5
+                    "modified": "2017-06-29 13:37:27"
                 }
             }
         },
@@ -1062,8 +1002,7 @@
                     "pica3": "$7",
                     "label": "Vorl\u00e4ufiger Link",
                     "repeatable": false,
-                    "modified": "2017-09-28 07:52:11",
-                    "position": 4
+                    "modified": "2017-09-28 07:52:11"
                 }
             }
         },
@@ -1080,8 +1019,7 @@
                     "pica3": "$a",
                     "label": "Ver\u00f6ffentlichungsart und Inhalt",
                     "repeatable": true,
-                    "modified": "2018-01-10 10:28:07",
-                    "position": 1
+                    "modified": "2018-01-10 10:28:07"
                 }
             }
         },
@@ -1097,8 +1035,7 @@
                     "code": "0",
                     "label": "Materialspezifische Codes f\u00fcr elektronische Ressourcen",
                     "repeatable": false,
-                    "modified": "2018-01-10 10:06:30",
-                    "position": 1
+                    "modified": "2018-01-10 10:06:30"
                 }
             }
         },
@@ -1115,8 +1052,7 @@
                     "pica3": "$a",
                     "label": "Code",
                     "repeatable": true,
-                    "modified": "2018-01-10 09:38:37",
-                    "position": 1
+                    "modified": "2018-01-10 09:38:37"
                 }
             }
         },
@@ -1132,8 +1068,7 @@
                     "code": "0",
                     "label": "Materialspezifische Codes f\u00fcr Mikroformen",
                     "repeatable": false,
-                    "modified": "2018-01-10 10:18:34",
-                    "position": 1
+                    "modified": "2018-01-10 10:18:34"
                 }
             }
         },
@@ -1150,8 +1085,7 @@
                     "pica3": "$B",
                     "label": "Codierung f\u00fcr Anzeige",
                     "repeatable": false,
-                    "modified": "2018-01-10 11:15:39",
-                    "position": 16
+                    "modified": "2018-01-10 11:15:39"
                 }
             }
         },
@@ -1168,8 +1102,7 @@
                     "pica3": "$B",
                     "label": "Codierung f\u00fcr Anzeige",
                     "repeatable": false,
-                    "modified": "2018-01-10 11:17:41",
-                    "position": 15
+                    "modified": "2018-01-10 11:17:41"
                 }
             }
         },
@@ -1186,8 +1119,7 @@
                     "pica3": "$5",
                     "label": "Bezugswerk (Code)",
                     "repeatable": false,
-                    "modified": "2018-01-10 11:18:39",
-                    "position": 5
+                    "modified": "2018-01-10 11:18:39"
                 }
             }
         },
@@ -1219,8 +1151,7 @@
                     "code": "a",
                     "label": "Code f\u00fcr Erscheinungsfrequenz",
                     "repeatable": true,
-                    "modified": "2018-01-10 10:32:53",
-                    "position": 1
+                    "modified": "2018-01-10 10:32:53"
                 }
             }
         },
@@ -1237,8 +1168,7 @@
                     "pica3": "$a",
                     "label": "Code f\u00fcr Erscheinungsland",
                     "repeatable": true,
-                    "modified": "2017-11-17 09:49:45",
-                    "position": 1
+                    "modified": "2017-11-17 09:49:45"
                 }
             }
         },
@@ -1255,8 +1185,7 @@
                     "pica3": "$h",
                     "label": "Verantwortlichkeitsangabe, die sich auf den Haupttitel bezieht",
                     "repeatable": false,
-                    "modified": "2017-08-09 07:20:11",
-                    "position": 6
+                    "modified": "2017-08-09 07:20:11"
                 }
             }
         },
@@ -1273,8 +1202,7 @@
                     "pica3": "$h",
                     "label": "Verantwortlichkeitsangabe",
                     "repeatable": false,
-                    "modified": "2017-08-09 07:20:11",
-                    "position": 8
+                    "modified": "2017-08-09 07:20:11"
                 }
             }
         },
@@ -1291,8 +1219,7 @@
                     "pica3": "$h",
                     "label": "Parallele Verantwortlichkeitsangabe",
                     "repeatable": false,
-                    "modified": "2017-08-09 07:20:11",
-                    "position": 6
+                    "modified": "2017-08-09 07:20:11"
                 }
             }
         },
@@ -1309,8 +1236,7 @@
                     "pica3": "$h",
                     "label": "Verantwortlichkeitsangabe",
                     "repeatable": false,
-                    "modified": "2017-08-09 07:20:11",
-                    "position": 6
+                    "modified": "2017-08-09 07:20:11"
                 }
             }
         },
@@ -1326,8 +1252,7 @@
                     "code": "a",
                     "label": "Titelzus\u00e4tze und Verantwortlichkeitsangabe zur gesamten Vorlage",
                     "repeatable": false,
-                    "modified": "2017-10-25 09:24:06",
-                    "position": 3
+                    "modified": "2017-10-25 09:24:06"
                 }
             }
         },
@@ -1345,8 +1270,7 @@
                     "pica3": "$A",
                     "label": "Quelle",
                     "repeatable": false,
-                    "modified": "2017-09-28 13:27:01",
-                    "position": 17
+                    "modified": "2017-09-28 13:27:01"
                 }
             }
         },
@@ -1364,8 +1288,7 @@
                     "pica3": "$A",
                     "label": "Quelle",
                     "repeatable": false,
-                    "modified": "2017-09-28 13:27:21",
-                    "position": 17
+                    "modified": "2017-09-28 13:27:21"
                 }
             }
         },
@@ -1381,8 +1304,7 @@
                     "code": "a",
                     "label": "Abweichender Titel",
                     "repeatable": false,
-                    "modified": "2017-05-02 10:39:16",
-                    "position": 3
+                    "modified": "2017-05-02 10:39:16"
                 }
             }
         },
@@ -1399,8 +1321,7 @@
                     "pica3": "$4",
                     "label": "Beziehungskennzeichnung (Code)",
                     "repeatable": true,
-                    "modified": "2017-11-24 15:30:22",
-                    "position": 17
+                    "modified": "2017-11-24 15:30:22"
                 }
             }
         },
@@ -1417,8 +1338,7 @@
                     "pica3": "$4",
                     "label": "Beziehungskennzeichnung (Code)",
                     "repeatable": true,
-                    "modified": "2017-11-24 15:30:22",
-                    "position": 14
+                    "modified": "2017-11-24 15:30:22"
                 }
             }
         },
@@ -1435,8 +1355,7 @@
                     "pica3": "$4",
                     "label": "Beziehungskennzeichnung (Code)",
                     "repeatable": true,
-                    "modified": "2017-11-24 15:30:22",
-                    "position": 14
+                    "modified": "2017-11-24 15:30:22"
                 }
             }
         },
@@ -1453,8 +1372,7 @@
                     "pica3": "$4",
                     "label": "Beziehungskennzeichnung (Code)",
                     "repeatable": true,
-                    "modified": "2017-07-21 08:28:30",
-                    "position": 14
+                    "modified": "2017-07-21 08:28:30"
                 }
             }
         },
@@ -1470,8 +1388,7 @@
                     "code": "a",
                     "label": "Z\u00e4hlung von fortlaufenden Ressourcen",
                     "repeatable": false,
-                    "modified": "2017-10-05 11:25:33",
-                    "position": 1
+                    "modified": "2017-10-05 11:25:33"
                 }
             }
         },
@@ -1488,8 +1405,7 @@
                     "pica3": "$y",
                     "label": "Modifizierte Anzeigeform",
                     "repeatable": false,
-                    "modified": "2017-11-09 14:27:42",
-                    "position": 9
+                    "modified": "2017-11-09 14:27:42"
                 }
             }
         },
@@ -1506,8 +1422,7 @@
                     "pica3": ";\u00ac",
                     "label": "Kettung von Beginn- und Endegruppen",
                     "repeatable": true,
-                    "modified": "2017-12-01 14:24:48",
-                    "position": 12
+                    "modified": "2017-12-01 14:24:48"
                 }
             }
         },
@@ -1524,8 +1439,7 @@
                     "pica3": "$h",
                     "label": "Verantwortlichkeitsangabe",
                     "repeatable": false,
-                    "modified": "2017-09-29 11:32:29",
-                    "position": 4
+                    "modified": "2017-09-29 11:32:29"
                 }
             }
         },
@@ -1542,8 +1456,7 @@
                     "pica3": "$2",
                     "label": "Quelle",
                     "repeatable": false,
-                    "modified": "2017-07-31 15:12:11",
-                    "position": 7
+                    "modified": "2017-07-31 15:12:11"
                 }
             }
         },
@@ -1560,8 +1473,7 @@
                     "pica3": "$2",
                     "label": "Quelle",
                     "repeatable": false,
-                    "modified": "2017-07-31 14:59:51",
-                    "position": 5
+                    "modified": "2017-07-31 14:59:51"
                 }
             }
         },
@@ -1578,8 +1490,7 @@
                     "pica3": "$2",
                     "label": "Quelle",
                     "repeatable": true,
-                    "modified": "2017-07-31 13:28:28",
-                    "position": 10
+                    "modified": "2017-07-31 13:28:28"
                 }
             }
         },
@@ -1596,8 +1507,7 @@
                     "pica3": "$2",
                     "label": "Quelle",
                     "repeatable": false,
-                    "modified": "2017-07-31 13:57:00",
-                    "position": 6
+                    "modified": "2017-07-31 13:57:00"
                 }
             }
         },
@@ -1614,8 +1524,7 @@
                     "pica3": "$b",
                     "label": "Tonart der Expression",
                     "repeatable": false,
-                    "modified": "2017-07-31 14:08:44",
-                    "position": 2
+                    "modified": "2017-07-31 14:08:44"
                 }
             }
         },
@@ -1632,8 +1541,7 @@
                     "pica3": "$z",
                     "label": "Zeitliche G\u00fcltigkeit",
                     "repeatable": false,
-                    "modified": "2017-08-04 08:06:15",
-                    "position": 7
+                    "modified": "2017-08-04 08:06:15"
                 }
             }
         },
@@ -1650,8 +1558,7 @@
                     "pica3": "$z",
                     "label": "Zeitliche G\u00fcltigkeit",
                     "repeatable": false,
-                    "modified": "2017-07-27 14:36:03",
-                    "position": 6
+                    "modified": "2017-07-27 14:36:03"
                 }
             }
         },
@@ -1668,8 +1575,7 @@
                     "pica3": "$4",
                     "label": "Beziehungskennzeichnung (Code)",
                     "repeatable": true,
-                    "modified": "2018-01-10 11:04:11",
-                    "position": 7
+                    "modified": "2018-01-10 11:04:11"
                 }
             }
         },
@@ -1686,8 +1592,7 @@
                     "pica3": "$z",
                     "label": "Zeitliche G\u00fcltigkeit",
                     "repeatable": false,
-                    "modified": "2017-10-17 14:06:00",
-                    "position": 6
+                    "modified": "2017-10-17 14:06:00"
                 }
             }
         },
@@ -1704,8 +1609,7 @@
                     "pica3": "$z",
                     "label": "Zeitliche G\u00fcltigkeit",
                     "repeatable": false,
-                    "modified": "2017-11-24 16:05:49",
-                    "position": 6
+                    "modified": "2017-11-24 16:05:49"
                 }
             }
         },
@@ -1722,8 +1626,7 @@
                     "pica3": "$7",
                     "label": "Vorl\u00e4ufiger Link",
                     "repeatable": false,
-                    "modified": "2017-09-28 13:40:08",
-                    "position": 5
+                    "modified": "2017-09-28 13:40:08"
                 }
             }
         },
@@ -1739,8 +1642,7 @@
                     "code": "a",
                     "label": "Umfangsangabe bzw. Anzahl der physischen Einheiten",
                     "repeatable": false,
-                    "modified": "2017-09-14 13:08:59",
-                    "position": 3
+                    "modified": "2017-09-14 13:08:59"
                 }
             }
         },
@@ -1756,8 +1658,7 @@
                     "code": "a",
                     "label": "Format, Ma\u00dfangaben bzw. physikalische Gr\u00f6\u00dfe des Datentr\u00e4gers",
                     "repeatable": false,
-                    "modified": "2017-09-28 14:51:53",
-                    "position": 3
+                    "modified": "2017-09-28 14:51:53"
                 }
             }
         },
@@ -1773,8 +1674,7 @@
                     "code": "a",
                     "label": "Begleitmaterial",
                     "repeatable": false,
-                    "modified": "2017-08-09 07:20:11",
-                    "position": 3
+                    "modified": "2017-08-09 07:20:11"
                 }
             }
         },
@@ -1790,8 +1690,7 @@
                     "code": "a",
                     "label": "Illustrationsangabe bzw. sonstige physische und technische Angaben",
                     "repeatable": false,
-                    "modified": "2017-08-09 07:20:11",
-                    "position": 3
+                    "modified": "2017-08-09 07:20:11"
                 }
             }
         },
@@ -1808,8 +1707,7 @@
                     "pica3": "$g",
                     "label": "Ma\u00dfstab (Sortierform)",
                     "repeatable": false,
-                    "modified": "2017-08-04 07:52:43",
-                    "position": 5
+                    "modified": "2017-08-04 07:52:43"
                 }
             }
         },
@@ -1825,8 +1723,7 @@
                     "code": "a",
                     "label": "Projektion",
                     "repeatable": false,
-                    "modified": "2017-07-10 11:00:41",
-                    "position": 3
+                    "modified": "2017-07-10 11:00:41"
                 }
             }
         },
@@ -1843,8 +1740,7 @@
                     "pica3": "$d",
                     "label": "S\u00fcdlichster Punkt",
                     "repeatable": false,
-                    "modified": "2017-07-10 11:00:41",
-                    "position": 6
+                    "modified": "2017-07-10 11:00:41"
                 }
             }
         },
@@ -1860,8 +1756,7 @@
                     "code": "a",
                     "label": "\u00c4quinoktium",
                     "repeatable": false,
-                    "modified": "2017-07-10 11:36:53",
-                    "position": 1
+                    "modified": "2017-07-10 11:36:53"
                 }
             }
         },
@@ -1878,8 +1773,7 @@
                     "pica3": "$A",
                     "label": "Quelle",
                     "repeatable": false,
-                    "modified": "2017-07-07 12:06:16",
-                    "position": 4
+                    "modified": "2017-07-07 12:06:16"
                 }
             }
         },
@@ -1895,8 +1789,7 @@
                     "code": "a",
                     "label": "Aufzeichnungsort und Aufzeichnungsdatum",
                     "repeatable": false,
-                    "modified": "2017-08-04 08:16:54",
-                    "position": 3
+                    "modified": "2017-08-04 08:16:54"
                 }
             }
         },
@@ -1913,8 +1806,7 @@
                     "pica3": "$A",
                     "label": "Quelle",
                     "repeatable": false,
-                    "modified": "2017-09-28 13:27:36",
-                    "position": 8
+                    "modified": "2017-09-28 13:27:36"
                 }
             }
         },
@@ -1931,8 +1823,7 @@
                     "pica3": "$p",
                     "label": "Produktionsjahr",
                     "repeatable": true,
-                    "modified": "2017-10-20 10:08:29",
-                    "position": 3
+                    "modified": "2017-10-20 10:08:29"
                 }
             }
         },
@@ -1948,8 +1839,7 @@
                     "code": "a",
                     "label": "Technische Angabe zum elektronischen Dokument",
                     "repeatable": false,
-                    "modified": "2017-09-14 13:08:59",
-                    "position": 3
+                    "modified": "2017-09-14 13:08:59"
                 }
             }
         },
@@ -1965,8 +1855,7 @@
                     "code": "a",
                     "label": "Copyrightvermerk",
                     "repeatable": false,
-                    "modified": "2017-09-14 13:08:59",
-                    "position": 3
+                    "modified": "2017-09-14 13:08:59"
                 }
             }
         },
@@ -1983,8 +1872,7 @@
                     "pica3": "$c",
                     "label": "Weitere Beschreibung des Einbands",
                     "repeatable": true,
-                    "modified": "2017-10-18 13:06:38",
-                    "position": 3
+                    "modified": "2017-10-18 13:06:38"
                 }
             }
         },
@@ -2001,8 +1889,7 @@
                     "pica3": "$6",
                     "label": "ID (z. B. ZDB-ID, DNB-ID, PPN)",
                     "repeatable": true,
-                    "modified": "2017-11-09 14:27:42",
-                    "position": 18
+                    "modified": "2017-11-09 14:27:42"
                 }
             }
         },
@@ -2019,8 +1906,7 @@
                     "pica3": "$6",
                     "label": "ID (z. B. ZDB-ID, DNB-ID, PPN)",
                     "repeatable": true,
-                    "modified": "2017-11-09 14:27:42",
-                    "position": 18
+                    "modified": "2017-11-09 14:27:42"
                 }
             }
         },
@@ -2037,8 +1923,7 @@
                     "pica3": "!...!",
                     "label": "PPN",
                     "repeatable": false,
-                    "modified": "2017-05-29 08:57:51",
-                    "position": 1
+                    "modified": "2017-05-29 08:57:51"
                 }
             }
         },
@@ -2055,8 +1940,7 @@
                     "pica3": "$c",
                     "label": "Form\/Gattung",
                     "repeatable": false,
-                    "modified": "2018-01-05 12:47:17",
-                    "position": 3
+                    "modified": "2018-01-05 12:47:17"
                 }
             }
         },
@@ -2073,8 +1957,7 @@
                     "pica3": "$a",
                     "label": "Schlagwort",
                     "repeatable": false,
-                    "modified": "2017-07-21 08:35:25",
-                    "position": 2
+                    "modified": "2017-07-21 08:35:25"
                 }
             }
         },
@@ -2090,8 +1973,7 @@
                     "code": "a",
                     "label": "Gattungsbegriff (nur in Importdaten)",
                     "repeatable": false,
-                    "modified": "2018-01-11 16:12:38",
-                    "position": 4
+                    "modified": "2018-01-11 16:12:38"
                 }
             }
         },
@@ -2107,8 +1989,7 @@
                     "code": "a",
                     "label": "Notation",
                     "repeatable": false,
-                    "modified": "2017-07-06 08:12:03",
-                    "position": 1
+                    "modified": "2017-07-06 08:12:03"
                 }
             }
         },
@@ -2126,8 +2007,7 @@
                     "pica3": "$a",
                     "label": "Notation",
                     "repeatable": false,
-                    "modified": "2017-07-06 08:12:03",
-                    "position": 1
+                    "modified": "2017-07-06 08:12:03"
                 }
             }
         },
@@ -2145,8 +2025,7 @@
                     "pica3": "$a",
                     "label": "Notation",
                     "repeatable": false,
-                    "modified": "2017-07-06 08:12:03",
-                    "position": 1
+                    "modified": "2017-07-06 08:12:03"
                 }
             }
         },
@@ -2164,8 +2043,7 @@
                     "pica3": "$a",
                     "label": "Notation",
                     "repeatable": false,
-                    "modified": "2017-07-06 08:23:01",
-                    "position": 1
+                    "modified": "2017-07-06 08:23:01"
                 }
             }
         },
@@ -2183,8 +2061,7 @@
                     "pica3": "$a",
                     "label": "Notation",
                     "repeatable": false,
-                    "modified": "2017-07-06 08:12:03",
-                    "position": 1
+                    "modified": "2017-07-06 08:12:03"
                 }
             }
         },
@@ -2202,8 +2079,7 @@
                     "pica3": "$a",
                     "label": "Notation",
                     "repeatable": false,
-                    "modified": "2017-07-06 08:12:03",
-                    "position": 1
+                    "modified": "2017-07-06 08:12:03"
                 }
             }
         },
@@ -2221,8 +2097,7 @@
                     "pica3": "$a",
                     "label": "Notation",
                     "repeatable": false,
-                    "modified": "2017-07-06 08:12:03",
-                    "position": 1
+                    "modified": "2017-07-06 08:12:03"
                 }
             }
         },
@@ -2238,8 +2113,7 @@
                     "code": "a",
                     "label": "Notation",
                     "repeatable": true,
-                    "modified": "2017-07-06 08:12:03",
-                    "position": 1
+                    "modified": "2017-07-06 08:12:03"
                 }
             }
         },
@@ -2256,8 +2130,7 @@
                     "pica3": "$a",
                     "label": "Sachgruppe",
                     "repeatable": true,
-                    "modified": "2017-07-06 09:08:29",
-                    "position": 1
+                    "modified": "2017-07-06 09:08:29"
                 }
             }
         },
@@ -2274,8 +2147,7 @@
                     "pica3": "$A",
                     "label": "Quelle",
                     "repeatable": false,
-                    "modified": "2018-01-03 14:03:22",
-                    "position": 4
+                    "modified": "2018-01-03 14:03:22"
                 }
             }
         },
@@ -2292,8 +2164,7 @@
                     "pica3": "$A",
                     "label": "Quelle \/ liefernde Institution",
                     "repeatable": false,
-                    "modified": "2017-09-28 13:26:15",
-                    "position": 2
+                    "modified": "2017-09-28 13:26:15"
                 }
             }
         },
@@ -2310,8 +2181,7 @@
                     "pica3": "$A",
                     "label": "Quelle",
                     "repeatable": false,
-                    "modified": "2017-09-28 13:26:26",
-                    "position": 5
+                    "modified": "2017-09-28 13:26:26"
                 }
             }
         },
@@ -2328,8 +2198,7 @@
                     "pica3": "$a",
                     "label": "Notation",
                     "repeatable": true,
-                    "modified": "2017-07-06 09:19:42",
-                    "position": 1
+                    "modified": "2017-07-06 09:19:42"
                 }
             }
         },
@@ -2346,8 +2215,7 @@
                     "pica3": "$a",
                     "label": "ZDB-Notation",
                     "repeatable": true,
-                    "modified": "2017-11-17 13:23:04",
-                    "position": 1
+                    "modified": "2017-11-17 13:23:04"
                 }
             }
         },
@@ -2364,8 +2232,7 @@
                     "pica3": "$q",
                     "label": "ISIL",
                     "repeatable": false,
-                    "modified": "2017-07-06 10:28:28",
-                    "position": 3
+                    "modified": "2017-07-06 10:28:28"
                 }
             }
         },
@@ -2382,8 +2249,7 @@
                     "pica3": "$A",
                     "label": "Quelle",
                     "repeatable": false,
-                    "modified": "2017-09-28 11:32:03",
-                    "position": 7
+                    "modified": "2017-09-28 11:32:03"
                 }
             }
         },
@@ -2399,8 +2265,7 @@
                     "code": "a",
                     "label": "Abweichender Titel",
                     "repeatable": false,
-                    "modified": "2017-08-09 07:20:11",
-                    "position": 4
+                    "modified": "2017-08-09 07:20:11"
                 }
             }
         },
@@ -2417,8 +2282,7 @@
                     "pica3": "$z",
                     "label": "Codierte Angabe",
                     "repeatable": false,
-                    "modified": "2017-05-29 08:57:51",
-                    "position": 5
+                    "modified": "2017-05-29 08:57:51"
                 }
             }
         },
@@ -2435,8 +2299,7 @@
                     "pica3": "$A",
                     "label": "Quelle",
                     "repeatable": false,
-                    "modified": "2017-09-28 13:26:04",
-                    "position": 4
+                    "modified": "2017-09-28 13:26:04"
                 }
             }
         },
@@ -2452,8 +2315,7 @@
                     "code": "a",
                     "label": "Voraussichtlicher Erscheinungstermin",
                     "repeatable": false,
-                    "modified": "2017-07-10 15:58:48",
-                    "position": 1
+                    "modified": "2017-07-10 15:58:48"
                 }
             }
         },
@@ -2469,8 +2331,7 @@
                     "code": "a",
                     "label": "Angaben \u00fcber Sprache und Schrift der Expression",
                     "repeatable": false,
-                    "modified": "2017-07-07 12:06:16",
-                    "position": 3
+                    "modified": "2017-07-07 12:06:16"
                 }
             }
         },
@@ -2486,8 +2347,7 @@
                     "code": "a",
                     "label": "Anmerkungen zu Interpreten, Ausf\u00fchrenden, Erz\u00e4hlern und\/oder Pr\u00e4sentatorenAnmerk",
                     "repeatable": false,
-                    "modified": "2017-10-19 11:14:53",
-                    "position": 3
+                    "modified": "2017-10-19 11:14:53"
                 }
             }
         },
@@ -2503,8 +2363,7 @@
                     "code": "a",
                     "label": "Erl\u00e4uterung zur Z\u00e4hlung",
                     "repeatable": false,
-                    "modified": "2017-08-09 07:20:11",
-                    "position": 3
+                    "modified": "2017-08-09 07:20:11"
                 }
             }
         },
@@ -2521,8 +2380,7 @@
                     "pica3": "$b",
                     "label": "Land",
                     "repeatable": false,
-                    "modified": "2017-07-21 08:33:47",
-                    "position": 2
+                    "modified": "2017-07-21 08:33:47"
                 }
             }
         },
@@ -2538,8 +2396,7 @@
                     "code": "a",
                     "label": "K\u00fcnstlerische und\/oder technische Angabe",
                     "repeatable": false,
-                    "modified": "2017-11-17 13:04:31",
-                    "position": 3
+                    "modified": "2017-11-17 13:04:31"
                 }
             }
         },
@@ -2555,8 +2412,7 @@
                     "code": "a",
                     "label": "Kommentarfeld",
                     "repeatable": false,
-                    "modified": "2017-05-29 08:57:51",
-                    "position": 1
+                    "modified": "2017-05-29 08:57:51"
                 }
             }
         },
@@ -2573,8 +2429,7 @@
                     "pica3": "$p",
                     "label": "Anmerkung",
                     "repeatable": false,
-                    "modified": "2017-09-18 16:09:53",
-                    "position": 7
+                    "modified": "2017-09-18 16:09:53"
                 }
             }
         },
@@ -2590,8 +2445,7 @@
                     "code": "a",
                     "label": "Allgemeiner Bearbeitungshinweis",
                     "repeatable": false,
-                    "modified": "2017-07-07 12:06:16",
-                    "position": 1
+                    "modified": "2017-07-07 12:06:16"
                 }
             }
         },
@@ -2608,8 +2462,7 @@
                     "pica3": "$A",
                     "label": "Quelle",
                     "repeatable": false,
-                    "modified": "2017-09-28 13:27:29",
-                    "position": 4
+                    "modified": "2017-09-28 13:27:29"
                 }
             }
         },
@@ -2626,8 +2479,7 @@
                     "pica3": "$b",
                     "label": "Statistik aus Broadcast-\u00dcbernahme \/ Nachricht aus ehem. BIS-Feld \"rem\"",
                     "repeatable": true,
-                    "modified": "2017-07-27 11:55:09",
-                    "position": 2
+                    "modified": "2017-07-27 11:55:09"
                 }
             }
         },
@@ -2643,8 +2495,7 @@
                     "code": "a",
                     "label": "Zusammenfassende Register",
                     "repeatable": false,
-                    "modified": "2017-05-02 10:39:16",
-                    "position": 3
+                    "modified": "2017-05-02 10:39:16"
                 }
             }
         },
@@ -2661,8 +2512,7 @@
                     "pica3": "$v",
                     "label": "Bemerkung (Rechtsgegenstand, Rechtsgrund)",
                     "repeatable": false,
-                    "modified": "2017-10-18 13:43:22",
-                    "position": 12
+                    "modified": "2017-10-18 13:43:22"
                 }
             }
         },
@@ -2679,8 +2529,7 @@
                     "pica3": "$v",
                     "label": "Freitext",
                     "repeatable": false,
-                    "modified": "2017-10-18 13:59:21",
-                    "position": 8
+                    "modified": "2017-10-18 13:59:21"
                 }
             }
         },
@@ -2696,8 +2545,7 @@
                     "code": "a",
                     "label": "Systemvoraussetzungen f\u00fcr elektronische Ressourcen",
                     "repeatable": false,
-                    "modified": "2018-01-12 11:16:49",
-                    "position": 3
+                    "modified": "2018-01-12 11:16:49"
                 }
             }
         },
@@ -2714,8 +2562,7 @@
                     "pica3": "--",
                     "label": "Expansion",
                     "repeatable": false,
-                    "modified": "2017-09-22 08:59:21",
-                    "position": 2
+                    "modified": "2017-09-22 08:59:21"
                 }
             }
         },
@@ -2732,8 +2579,7 @@
                     "pica3": "$b",
                     "label": "Empf\u00e4ngeradresse",
                     "repeatable": false,
-                    "modified": "2017-08-04 08:43:07",
-                    "position": 2
+                    "modified": "2017-08-04 08:43:07"
                 }
             }
         },
@@ -2749,8 +2595,7 @@
                     "code": "a",
                     "label": "Mitteilungstext",
                     "repeatable": false,
-                    "modified": "2017-07-26 15:43:57",
-                    "position": 1
+                    "modified": "2017-07-26 15:43:57"
                 }
             }
         }

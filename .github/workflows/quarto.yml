@@ -33,10 +33,10 @@ jobs:
       - name: Build API documentation with Maven
         run: >
           mvn -B javadoc:javadoc --file pom.xml 
-          cp -r target/reports/apidocs docs 
-          find docs/apidocs/de | grep -P "html$" | sed 's,docs/,  - ,' > apidoc-list 
-          sed -i.bak -e '/- apidocs\/index.html/r./apidoc-list' docs/apidoc.qmd
-          rm apidoc-list
+          && cp -r target/reports/apidocs docs 
+          && find docs/apidocs/de | grep -P "html$" | sed 's,docs/,  - ,' > apidoc-list 
+          && sed -i.bak -e '/- apidocs\/index.html/r./apidoc-list' docs/apidoc.qmd
+          && rm apidoc-list docs/apidoc.qmd.bak
 
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2

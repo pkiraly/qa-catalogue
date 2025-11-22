@@ -18,7 +18,7 @@ public class ShaclUtils  {
 
   /**
    * Reads the schema from file
-   * @param parameters
+   * @param shaclConfigurationFile The Shacl4bib configuration file
    * @return
    * @param <T>
    */

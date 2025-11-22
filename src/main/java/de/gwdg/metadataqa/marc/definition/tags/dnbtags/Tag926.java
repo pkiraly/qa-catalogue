@@ -6,7 +6,7 @@ import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 
 /**
  * Thema-Klassifikation
- * http://swbtools.bsz-bw.de/cgi-bin/help.pl?cmd=kat&val=4010
+ * http://swbtools.bsz-bw.de/cgi-bin/help.pl?cmd=kat&amp;val=4010
  */
 public class Tag926 extends DataFieldDefinition {
 

@@ -514,7 +514,7 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     // return new ArrayList<>();
   }
 
-  /**
+  /*
    * Selects the datafield's subfields that are listed in the selector. If no subfields are listed in the selector,
    * then all subfields of the field are selected. The selected subfields are added to the list of selected results.
    * <br/>

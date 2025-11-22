@@ -57,14 +57,26 @@ public class BasicStatistics {
     stdDev = Math.sqrt(sum) / count;
   }
 
+  /**
+   * Get minimum
+   * @return
+   */
   public Integer getMin() {
     return min;
   }
 
+  /**
+   * Get the maximum
+   * @return
+   */
   public Integer getMax() {
     return max;
   }
 
+  /**
+   * Get mean
+   * @return
+   */
   public Double getMean() {
     return mean;
   }

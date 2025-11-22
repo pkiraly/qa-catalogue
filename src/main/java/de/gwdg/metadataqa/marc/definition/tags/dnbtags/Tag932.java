@@ -6,7 +6,7 @@ import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 
 /**
  * Online-Contents-Ausschnittskennung - ZDB
- * http://swbtools.bsz-bw.de/cgi-bin/help.pl?cmd=kat&val=4010
+ * http://swbtools.bsz-bw.de/cgi-bin/help.pl?cmd=kat&amp;val=4010
  */
 public class Tag932 extends DataFieldDefinition {
 

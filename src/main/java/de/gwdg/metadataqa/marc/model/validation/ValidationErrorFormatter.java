@@ -49,7 +49,7 @@ public class ValidationErrorFormatter {
   }
 
   /**
-   * Creates a [recordId]<separator>[errorId1];[errorId2]...\n string
+   * Creates a [recordId]&lt;separator&gt;[errorId1];[errorId2]...\n string
    * @param recordId
    * @param format
    * @param errorIdCounter

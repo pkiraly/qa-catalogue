@@ -111,7 +111,8 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     return StringUtils.join(values," ");
   }
 
-  private static Predicate<DataField> getDataFieldPredicate(String subfieldCode, String subfieldValue) {
+  private static Predicate<DataField> getDataFieldPredicate(String subfieldCode,
+                                                            String subfieldValue) {
     Predicate<DataField> filterPredicate;
     // ind1 and ind2 should also be considered as subfield codes
     if (subfieldCode.equals("ind1")) {
@@ -125,12 +126,20 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     return filterPredicate;
   }
 
+  /**
+   * Add a datafield to the record
+   * @param dataField
+   */
   public void addDataField(DataField dataField) {
     dataField.setBibliographicRecord(this);
     indexField(dataField);
     datafields.add(dataField);
   }
 
+  /**
+   * Index a datafield to enable retrieval
+   * @param dataField
+   */
   protected void indexField(DataField dataField) {
     String tag = dataField.getTag();
     if (tag == null)
@@ -140,14 +149,27 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     datafieldIndex.get(tag).add(dataField);
   }
 
+  /**
+   * Add a tag without definition
+   * @param tag
+   */
   public void addUnhandledTags(String tag) {
     unhandledTags.add(tag);
   }
 
+  /**
+   * Return record identifier
+   * @return
+   */
   public String getId() {
     return id;
   }
 
+  /**
+   * Return record identifier without spaces at the beginning and end
+   * @param trim
+   * @return
+   */
   public String getId(boolean trim) {
     String trimmedId = getId();
     if (trim && trimmedId != null) {
@@ -156,6 +178,11 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     return trimmedId;
   }
 
+  /**
+   * Check if a record has a particular data field
+   * @param tag
+   * @return
+   */
   public boolean hasDatafield(String tag) {
     return datafieldIndex.containsKey(tag);
   }
@@ -192,15 +219,33 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     return fields;
   }
 
+  /**
+   * Returns all data fields
+   * @return
+   */
   public List<DataField> getDatafields() {
     return datafields;
   }
 
+  /**
+   * Check if a field exists and has value
+   * @param tag
+   * @return
+   */
   public boolean exists(String tag) {
     List<DataField> fields = getDatafieldsByTag(tag);
     return (fields != null && !fields.isEmpty());
   }
 
+  /**
+   * Extracts the values of a specified subfield from all data fields with a specified tag.
+   * If the subfield path is "ind1" or "ind2", the method will extract the indicator value.
+   * Otherwise, it will extract the subfield value.
+   *
+   * @param tag The tag of the data fields to extract from.
+   * @param subfield The subfield to extract.
+   * @return A list of extracted values
+   */
   public List<String> extract(String tag, String subfield) {
     return extract(tag, subfield, RESOLVE.NONE);
   }
@@ -210,8 +255,9 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
    * If the subfield path is "ind1" or "ind2", the method will extract the indicator value.
    * Otherwise, it will extract the subfield value.
    * <br/>
-   * If doResolve is set to RESOLVE, the method will resolve the subfield value. In other words, it will return the label
-   * that corresponds to the subfield value. If doResolve is set to NONE, the method will return the subfield value as is.
+   * If doResolve is set to RESOLVE, the method will resolve the subfield value. In other words,
+   * it will return the label that corresponds to the subfield value. If doResolve is set to NONE,
+   * the method will return the subfield value as is.
    * If doResolve is set to BOTH, the method will return both the resolved label and the subfield value.
    * @param tag The tag of the data fields to extract from.
    * @param subfieldPath The path of the subfield to extract.
@@ -237,10 +283,19 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     return extractedValues;
   }
 
+  /**
+   * Get those tags that do not have definition
+   * @return
+   */
   public List<String> getUnhandledTags() {
     return unhandledTags;
   }
 
+  /**
+   * Format the record
+   * // TODO: more explanation!
+   * @return
+   */
   public String format() {
     StringBuilder output = new StringBuilder();
     for (DataField field : datafields) {
@@ -249,6 +304,11 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     return output.toString();
   }
 
+  /**
+   * Format the record as text
+   * // TODO: more explanation
+   * @return
+   */
   public String formatAsText() {
     StringBuilder output = new StringBuilder();
     for (DataField field : datafields) {
@@ -257,6 +317,10 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     return output.toString();
   }
 
+  /**
+   * Format the record as MARC
+   * @return
+   */
   public String formatAsMarc() {
     StringBuilder output = new StringBuilder();
     for (DataField field : datafields) {
@@ -265,6 +329,10 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     return output.toString();
   }
 
+  /**
+   * Format the record as for indexing
+   * @return
+   */
   public String formatForIndex() {
     StringBuilder output = new StringBuilder();
     for (DataField field : datafields) {
@@ -344,6 +412,10 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     return existingValues;
   }
 
+  /**
+   * Format record as JSON
+   * @return
+   */
   public String asJson() {
     ObjectMapper mapper = new ObjectMapper();
 
@@ -381,11 +453,18 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     }
   }
 
+  /**
+   * Should the field be ignored - based on the configuration
+   * @param tag
+   * @param ignorableFields
+   * @return
+   */
   public boolean isIgnorableField(String tag, IgnorableFields ignorableFields) {
     if (ignorableFields == null)
       return false;
     return ignorableFields.contains(tag);
   }
+
 
   public List<String> search(String path, String query) {
     List<String> results = new ArrayList<>();
@@ -407,7 +486,6 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     }
     return results;
   }
-
 
   /**
    * Selects the datafields of the record that match the selector. The selected datafields are added to the list of
@@ -580,6 +658,10 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     return subjects;
   }
 
+  /**
+   * Get fields containing authority information
+   * @return
+   */
   public List<DataField> getAuthorityFields() {
     if (authorityTags == null) {
       initializeAuthorityTags();
@@ -587,6 +669,11 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     return getFieldsFromTags(authorityTags);
   }
 
+  /**
+   * Is the field and authorify field?
+   * @param tag
+   * @return
+   */
   public boolean isAuthorityTag(String tag) {
     if (authorityTagsIndex == null) {
       initializeAuthorityTags();
@@ -752,6 +839,9 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     return extractedValues;
   }
 
+  /**
+   * Enumeration used to denote it a request should return the content as it is, the resolved value or both.
+   */
   public enum RESOLVE {
     NONE,
     RESOLVE,

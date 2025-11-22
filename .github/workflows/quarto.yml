@@ -30,10 +30,15 @@ jobs:
       - name: Generate HTML of Avram schemas
         run: ./avram-schemas/html-schemas
 
+      - name: Build API documentation with Maven
+        run: mvn -B javadoc:javadoc --file pom.xml && cp -r target/reports/apidocs docs
+
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
         with:
+          # the current location of the documentation
           path: docs
+          # the target is GitHub pages
           target: gh-pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

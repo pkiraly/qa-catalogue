@@ -3,3 +3,7 @@ title: "Java API"
 resources:
   - apidocs/index.html
 ---
+
+See
+* [Table of contents](./apidocs/index.html)
+* [BibliographicRecord](./apidocs/de/gwdg/metadataqa/marc/dao/record/BibliographicRecord.html)

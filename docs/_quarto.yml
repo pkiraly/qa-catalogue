@@ -6,7 +6,7 @@ repo-url: https://github.com/pkiraly/qa-catalogue
 resources:
   - avram-schemas/*.json
   - avram-schemas/*.html
-  - apidocs/*.html
+  - apidocs/*
 
 book:
   title: "QA Catalogue"

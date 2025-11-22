@@ -19,7 +19,6 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Péter Király <peter.kiraly at gwdg.de>
  */
 public class Control007 extends MarcPositionalControlField implements Serializable {
 

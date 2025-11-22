@@ -35,8 +35,6 @@ import java.util.logging.Logger;
 /**
  * usage:
  * java -cp target/qa-catalogue-0.1-SNAPSHOT-jar-with-dependencies.jar de.gwdg.metadataqa.marc.cli.Validator [MARC21 file]
- *
- * @author Péter Király <peter.kiraly at gwdg.de>
  */
 public class Formatter implements BibliographicInputProcessor {
 

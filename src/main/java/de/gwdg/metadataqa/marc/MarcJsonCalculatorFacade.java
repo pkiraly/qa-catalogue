@@ -15,7 +15,6 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Péter Király <peter.kiraly at gwdg.de>
  */
 public class MarcJsonCalculatorFacade extends CalculatorFacade {
 

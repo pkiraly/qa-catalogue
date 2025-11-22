@@ -5,7 +5,6 @@ import java.util.regex.Pattern;
 
 /**
  *
- * @author Péter Király <peter.kiraly at gwdg.de>
  */
 public class X035aSystemControlNumber implements Serializable {
   private String code;

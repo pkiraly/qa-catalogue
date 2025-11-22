@@ -420,4 +420,27 @@ public class CompletenessTest extends CliTestUtils {
       assertTrue(StringUtils.isNotBlank(expected));
     }
   }
+
+  @Test
+  public void completeness_marcxml() throws Exception {
+    clearOutput(outputDir, outputFiles);
+
+    Completeness processor = new Completeness(new String[]{
+      "--marcxml",
+      "--schemaType", "MARC21",
+      "--marcVersion", "GENT",
+      "--outputDir", outputDir,
+      TestUtils.getPath("marcxml/wrong-marcxml.xml")
+    });
+    RecordIterator iterator = new RecordIterator(processor);
+    iterator.start();
+
+    for (String outputFile : outputFiles) {
+      // System.err.println(outputFile);
+      File output = new File(outputDir, outputFile);
+      assertTrue(output.exists());
+      String expected = org.apache.commons.io.FileUtils.readFileToString(output, "UTF-8");
+      assertTrue(StringUtils.isNotBlank(expected));
+    }
+  }
 }

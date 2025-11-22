@@ -15,10 +15,6 @@ import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-/**
- *
- * @author Péter Király <peter.kiraly at gwdg.de>
- */
 public class Control007Test {
 
   @Test

@@ -2,7 +2,6 @@ package de.gwdg.metadataqa.marc.codes;
 
 /**
  *
- * @author Péter Király <peter.kiraly at gwdg.de>
  */
 public class StandardIdentifier {
   private String code;

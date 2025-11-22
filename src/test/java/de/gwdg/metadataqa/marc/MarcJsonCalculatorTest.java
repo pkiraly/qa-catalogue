@@ -24,10 +24,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-/**
- *
- * @author Péter Király <peter.kiraly at gwdg.de>
- */
 public class MarcJsonCalculatorTest {
 
   @Test

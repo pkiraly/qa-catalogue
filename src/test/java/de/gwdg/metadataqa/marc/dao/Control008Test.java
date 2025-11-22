@@ -14,10 +14,6 @@ import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- *
- * @author Péter Király <peter.kiraly at gwdg.de>
- */
 public class Control008Test {
 
   public Control008Test() {

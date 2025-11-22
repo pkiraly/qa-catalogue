@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<marc:collection xmlns:marc="http://www.loc.gov/MARC21/slim">
+    <marc:record>
+        <marc:leader>00000cam  22002771  4500</marc:leader>
+        <marc:controlfield tag="005">20120110164854.0</marc:controlfield>
+        <marc:controlfield tag="008">830221s1872    fr      ob    000 0 fre  </marc:controlfield>
+        <marc:controlfield tag="001">9936904069009161</marc:controlfield>
+        <marc:datafield tag="035" ind1=" " ind2=" ">
+            <marc:subfield code="a">(BKT01)000251052</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="040" ind1=" " ind2=" ">
+            <marc:subfield code="a">DLC</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="100" ind1="1" ind2=" ">
+            <marc:subfield code="a">Wilmart, Alexandre</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="245" ind1="1" ind2="0">
+            <marc:subfield code="a">Des ruptures utérines.</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="260" ind1=" " ind2=" ">
+            <marc:subfield code="a">Bruxelles :</marc:subfield>
+            <marc:subfield code="b">Imprimerie de T. Lesigne,</marc:subfield>
+            <marc:subfield code="c">1872.</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="300" ind1=" " ind2=" ">
+            <marc:subfield code="a">122 p.</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="540" ind1=" " ind2=" ">
+            <marc:subfield code="a">NOC-NC</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="591" ind1=" " ind2=" ">
+            <marc:subfield code="a">Europeana-GoogleBooks</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="599" ind1=" " ind2=" ">
+            <marc:subfield code="a">BIB.MED.003851;900000208428;GENT029-20120222;ONLINE</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="650" ind1=" " ind2="0">
+            <marc:subfield code="a">Uterus</marc:subfield>
+            <marc:subfield code="x">Rupture.</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="856" ind1="4" ind2=" ">
+            <marc:subfield code="u">https://books.google.be/books?vid=GENT900000208428</marc:subfield>
+            <marc:subfield code="3">Full text</marc:subfield>
+            <marc:subfield code="y">BIB.MED.003851</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="920" ind1=" " ind2=" ">
+            <marc:subfield code="a">ebook</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="SID" ind1=" " ind2=" ">
+            <marc:subfield code="a">Z39</marc:subfield>
+            <marc:subfield code="b">LOC</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="952" ind1=" " ind2=" ">
+            <marc:subfield code="a">53278062880009161</marc:subfield>
+            <marc:subfield code="8">53278062880009161</marc:subfield>
+        </marc:datafield>
+    </marc:record>
+    <marc:record>
+        <marc:leader>00000nam a22      u 4500</marc:leader>
+        <marc:controlfield tag="005">20111012151959.0</marc:controlfield>
+        <marc:controlfield tag="008">080108s1853    xx      o     000 0 ger d</marc:controlfield>
+        <marc:controlfield tag="001">9936904069109161</marc:controlfield>
+        <marc:datafield tag="035" ind1=" " ind2=" ">
+            <marc:subfield code="a">(BKT01)000305939</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="040" ind1=" " ind2=" ">
+            <marc:subfield code="a">BE-GnUNI</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="100" ind1="1" ind2=" ">
+            <marc:subfield code="a">Sengler, Jacob</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="245" ind1="1" ind2="0">
+            <marc:subfield code="a">Gedaechtnissrede auf Anselm Feuerbach bei dessen akademischen Todtenfeier.</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="260" ind1=" " ind2=" ">
+            <marc:subfield code="a">Freiburg im Breisgau :</marc:subfield>
+            <marc:subfield code="b">H. M. Poppen,</marc:subfield>
+            <marc:subfield code="c">1853.</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="300" ind1=" " ind2=" ">
+            <marc:subfield code="a">4°.</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="540" ind1=" " ind2=" ">
+            <marc:subfield code="a">NOC-NC</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="591" ind1=" " ind2=" ">
+            <marc:subfield code="a">Europeana-GoogleBooks</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="599" ind1=" " ind2=" ">
+            <marc:subfield code="a">BIB.HIST.000512/9;900000055849;GENT021-20080819;CONVOLUUT;ONLINE</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="700" ind1="1" ind2=" ">
+            <marc:subfield code="a">Feuerbach, Joseph Anselm,</marc:subfield>
+            <marc:subfield code="d">1798-1851.</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="856" ind1="4" ind2=" ">
+            <marc:subfield code="u">https://books.google.be/books?vid=GENT900000055849</marc:subfield>
+            <marc:subfield code="3">Full text</marc:subfield>
+            <marc:subfield code="y">BIB.HIST.000512/9</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="920" ind1=" " ind2=" ">
+            <marc:subfield code="a">ebook</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="952" ind1=" " ind2=" ">
+            <marc:subfield code="a">53278079960009161</marc:subfield>
+            <marc:subfield code="8">53278079960009161</marc:subfield>
+        </marc:datafield>
+    </marc:record>
+    <marc:record>
+        <marc:leader>00000nam  22      a4500</marc:leader>
+        <marc:controlfield tag="005">20111012152000.0</marc:controlfield>
+        <marc:controlfield tag="008">060426n1844    xx      o     000 0 fre d</marc:controlfield>
+        <marc:controlfield tag="001">9936904069209161</marc:controlfield>
+        <marc:datafield tag="035" ind1=" " ind2=" ">
+            <marc:subfield code="a">(BKT01)000306321</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="040" ind1=" " ind2=" ">
+            <marc:subfield code="a">BE-GnUNI</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="100" ind1="1" ind2=" ">
+            <marc:subfield code="a">De Mersseman, Jacques Olivier Marie</marc:subfield>
+            <marc:subfield code="d">1805-1853</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="245" ind1="1" ind2="0">
+            <marc:subfield code="a">Notice sur Corneille Van Baersdorp /</marc:subfield>
+            <marc:subfield code="c">Par J. De Mersseman.</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="260" ind1=" " ind2=" ">
+            <marc:subfield code="a">Bruges :</marc:subfield>
+            <marc:subfield code="b">Vandecasteele-Werbrouck,</marc:subfield>
+            <marc:subfield code="c">1844.</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="300" ind1=" " ind2=" ">
+            <marc:subfield code="a">14 p.; ill.; 4°.</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="500" ind1=" " ind2=" ">
+            <marc:subfield code="a">Ex libris: Bibliothèque de Th. de Jonghe</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="540" ind1=" " ind2=" ">
+            <marc:subfield code="a">NOC-NC</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="591" ind1=" " ind2=" ">
+            <marc:subfield code="a">Europeana-GoogleBooks</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="599" ind1=" " ind2=" ">
+            <marc:subfield code="a">BIB.HIST.000657/1;900000052929;GENT021-20080819;CONVOLUUT;000000517765;ONLINE</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="700" ind1="1" ind2=" ">
+            <marc:subfield code="a">Van Baersdorp, Cornelis</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="856" ind1="4" ind2=" ">
+            <marc:subfield code="u">https://books.google.be/books?vid=GENT900000052929</marc:subfield>
+            <marc:subfield code="3">Full text</marc:subfield>
+            <marc:subfield code="y">BIB.HIST.000657/1</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="920" ind1=" " ind2=" ">
+            <marc:subfield code="a">ebook</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="952" ind1=" " ind2=" ">
+            <marc:subfield code="a">53278092860009161</marc:subfield>
+            <marc:subfield code="8">53278092860009161</marc:subfield>
+        </marc:datafield>
+    </marc:record>
+</marc:collection>

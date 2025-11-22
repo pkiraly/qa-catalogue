@@ -9,7 +9,6 @@ import java.util.Map;
 
 /**
  *
- * @author Péter Király <peter.kiraly at gwdg.de>
  */
 public class StandardIdentifierReader {
 

@@ -24,7 +24,6 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Péter Király <peter.kiraly at gwdg.de>
  */
 public class SubfieldDefinition implements Serializable {
 
@@ -55,7 +54,7 @@ public class SubfieldDefinition implements Serializable {
   /**
    * Returns the subfield code needed for Solr indexing. If MQ or BIBFRAME tags are defined, they are used in that order.
    * Otherwise, the code is prefixed with an underscore (and special characters are replaced with their names).
-   * @implNote The code that's referred to here is the identifier of the subfield and not code in the sense of possible
+   * Note: The code that's referred to here is the identifier of the subfield and not code in the sense of possible
    * values of the subfield.
    * @return The subfield code for Solr indexing.
    */

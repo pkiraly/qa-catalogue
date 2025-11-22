@@ -17,8 +17,6 @@ import java.util.logging.Logger;
 /**
  * usage:
  * java -cp target/qa-catalogue-0.1-SNAPSHOT-jar-with-dependencies.jar de.gwdg.metadataqa.marc.cli.SolrKeyGenerator http://localhost:8983/solr/tardit 0001.0000000.formatted.json
- *
- * @author Péter Király <peter.kiraly at gwdg.de>
  */
 public class MarcJsonToSolr {
 

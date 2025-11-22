@@ -12,7 +12,6 @@ import de.gwdg.metadataqa.marc.definition.structure.SubfieldDefinition;
 
 /**
  *
- * @author Péter Király <peter.kiraly at gwdg.de>
  */
 public class MarcStructureDefinitionReader {
 

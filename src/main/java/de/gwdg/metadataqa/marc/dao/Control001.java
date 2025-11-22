@@ -5,7 +5,6 @@ import de.gwdg.metadataqa.marc.definition.tags.control.Control001Definition;
 
 /**
  *
- * @author Péter Király <peter.kiraly at gwdg.de>
  */
 public class Control001 extends SimpleControlField implements Extractable {
 

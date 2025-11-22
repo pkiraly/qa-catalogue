@@ -14,10 +14,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
-/**
- *
- * @author Péter Király <peter.kiraly at gwdg.de>
- */
 public class LeaderTest {
 
   @Test

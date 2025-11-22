@@ -11,10 +11,6 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-/**
- *
- * @author Péter Király <peter.kiraly at gwdg.de>
- */
 public class MarcFieldTest {
 
   private MarcField field;

@@ -38,8 +38,6 @@ import static de.gwdg.metadataqa.marc.Utils.quote;
  * usage:
  * java -cp target/qa-catalogue-0.1-SNAPSHOT-jar-with-dependencies.jar \
  * de.gwdg.metadataqa.marc.cli.ThompsonTraillCompleteness [MARC21 file]
- *
- * @author Péter Király <peter.kiraly at gwdg.de>
  */
 public class ThompsonTraillCompleteness extends QACli<ThompsonTraillCompletenessParameters> implements BibliographicInputProcessor, Serializable {
 

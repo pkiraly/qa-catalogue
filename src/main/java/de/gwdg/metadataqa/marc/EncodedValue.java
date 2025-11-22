@@ -6,7 +6,6 @@ import java.util.Map;
 
 /**
  *
- * @author Péter Király <peter.kiraly at gwdg.de>
  */
 public class EncodedValue implements Serializable {
   private static final long serialVersionUID = -8662632239051931116L;

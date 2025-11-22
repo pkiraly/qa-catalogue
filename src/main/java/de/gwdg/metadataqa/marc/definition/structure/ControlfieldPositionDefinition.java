@@ -15,7 +15,6 @@ import java.util.regex.Pattern;
 
 /**
  *
- * @author Péter Király <peter.kiraly at gwdg.de>
  */
 public class ControlfieldPositionDefinition implements Serializable {
 

@@ -16,7 +16,6 @@ import java.util.regex.Pattern;
 
 /**
  *
- * @author Péter Király <peter.kiraly at gwdg.de>
  */
 public class Control005  extends SimpleControlField implements Extractable {
   private static final Logger logger = Logger.getLogger(Control005.class.getCanonicalName());

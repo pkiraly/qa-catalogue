@@ -21,10 +21,6 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-/**
- *
- * @author Péter Király <peter.kiraly at gwdg.de>
- */
 public class MarcFieldExtractorTest {
 
   public MarcFieldExtractorTest() {

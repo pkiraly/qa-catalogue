@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * @author Péter Király <peter.kiraly at gwdg.de>
+ * Utility methods used elsewhere in the tool
  */
 public class Utils {
 

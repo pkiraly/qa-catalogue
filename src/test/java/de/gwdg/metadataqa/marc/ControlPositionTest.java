@@ -13,7 +13,6 @@ import static org.junit.Assert.assertTrue;
 
 /**
  *
- * @author Péter Király <peter.kiraly at gwdg.de>
  */
 public class ControlPositionTest {
 

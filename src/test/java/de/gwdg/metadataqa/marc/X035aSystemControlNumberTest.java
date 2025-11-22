@@ -3,10 +3,6 @@ package de.gwdg.metadataqa.marc;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
-/**
- *
- * @author Péter Király <peter.kiraly at gwdg.de>
- */
 public class X035aSystemControlNumberTest {
 
   @Test

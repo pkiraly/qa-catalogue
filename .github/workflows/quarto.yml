@@ -30,13 +30,13 @@ jobs:
       - name: Generate HTML of Avram schemas
         run: ./avram-schemas/html-schemas
 
-      - name: Build API documentation with Maven
-        run: >
+      - name: Generare Java API documentation and insert it to Quarto documentation
+        run: |
           mvn -B javadoc:javadoc --file pom.xml 
-          && cp -r target/reports/apidocs docs 
-          && find docs/apidocs/de | grep -P "html$" | sed 's,docs/,  - ,' > apidoc-list 
-          && sed -i.bak -e '/- apidocs\/index.html/r./apidoc-list' docs/apidoc.qmd
-          && rm apidoc-list docs/apidoc.qmd.bak
+          cp -r target/reports/apidocs docs 
+          find docs/apidocs/de | grep -P "html$" | sed 's,docs/,  - ,' > apidoc-list 
+          sed -i.bak -e '/- apidocs\/index.html/r./apidoc-list' docs/apidoc.qmd
+          rm apidoc-list docs/apidoc.qmd.bak
 
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2

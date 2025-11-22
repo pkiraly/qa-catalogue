@@ -4,10 +4,6 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 
-/**
- * Unterreihenangaben in strukturierter Form - ZDB
- * http://swbtools.bsz-bw.de/cgi-bin/help.pl?cmd=kat&val=4010
- */
 public class Tag920 extends DataFieldDefinition {
 
   private static Tag920 uniqueInstance;

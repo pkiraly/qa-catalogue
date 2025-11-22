@@ -4,10 +4,6 @@ import de.gwdg.metadataqa.marc.definition.Cardinality;
 import de.gwdg.metadataqa.marc.definition.structure.DataFieldDefinition;
 import de.gwdg.metadataqa.marc.definition.structure.Indicator;
 
-/**
- * Ausgabebezeichnung in normierter Form
- * http://swbtools.bsz-bw.de/cgi-bin/help.pl?cmd=kat&val=4010
- */
 public class Tag520 extends DataFieldDefinition {
 
   private static Tag520 uniqueInstance;

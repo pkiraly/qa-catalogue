@@ -6,6 +6,7 @@ repo-url: https://github.com/pkiraly/qa-catalogue
 resources:
   - avram-schemas/*.json
   - avram-schemas/*.html
+  - apidocs/*.html
 
 book:
   title: "QA Catalogue"
@@ -49,7 +50,7 @@ book:
     - special-build-process.qmd
     - build-docker-image.qmd
     - contributing.qmd
-#    - apidoc.qmd
+    - apidoc.qmd
 #    - summary.qmd
 #    - references.qmd
 

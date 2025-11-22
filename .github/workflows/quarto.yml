@@ -31,7 +31,14 @@ jobs:
         run: ./avram-schemas/html-schemas
 
       - name: Build API documentation with Maven
-        run: mvn -B javadoc:javadoc --file pom.xml && cp -r target/reports/apidocs docs
+        run: mvn -B javadoc:javadoc --file pom.xml \
+             && cp -r target/reports/apidocs docs \
+             && grep '<a href="de/' docs/apidocs/overview-tree.html \
+                | sed -e 's,^.*<a href="\(de/[^"]*\)".*,  - apidocs/\1,' \
+                | sort \
+                | uniq \
+                > apidoc-list          
+             && sed -i.bak -e '/- apidocs\/index.html/r./apidoc-list' docs/apidoc.qmd
 
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2

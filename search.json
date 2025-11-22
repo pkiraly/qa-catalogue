@@ -588,5 +588,16 @@
       "Appendices",
       "<span class='chapter-number'>H</span>  <span class='chapter-title'>Contributing</span>"
     ]
+  },
+  {
+    "objectID": "apidoc.html",
+    "href": "apidoc.html",
+    "title": "Appendix I — Java API",
+    "section": "",
+    "text": "See * Table of contents * BibliographicRecord",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>I</span>  <span class='chapter-title'>Java API</span>"
+    ]
   }
 ]

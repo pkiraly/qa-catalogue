@@ -1,0 +1,105 @@
+---
+title: "Accessing QA Catalogue's functionalities from Python"
+---
+
+Nowadays Python seems to be the most popular language among Digital Humanists, that motivated to
+allow them to use the rich functionalities of QA Catalogue. This yet an experimental feature, so
+if you have any suggestion, please contact us via email or issue tracker.
+
+The communication between QA Catalogue and Pythin is based on the Python package [Py4J](https://www.py4j.org/).
+It has two component, a Java part and a Python script. Py4J provides an server-client setup, where
+QA Catalogue runs in a special server mode, and the Pythin script behaves as a client. The server
+does not mean that you have to install a HTTP server - you should just start the application
+in the command line without any further installation. To enable the client, you should install the
+Python package.
+
+As this is an experiemental feature, at the time of writing there is no downloadable binary distribution,
+so you should have [Java Development Kit](https://en.wikipedia.org/wiki/Java_Development_Kit)
+(such as [OpenJDK](https://openjdk.org/)) and [Maven](https://maven.apache.org/) in order to test it.
+
+## The Java part:
+
+```bash
+git clone https://github.com/pkiraly/qa-catalogue.git
+cd qa-catalogue
+mvn clean package
+java -cp target/qa-catalogue-0.8.0-SNAPSHOT-jar-with-dependencies.jar de.gwdg.metadataqa.marc.cli.PythonGateway
+```
+
+It will display something like this:
+```
+Nov 24, 2025 10:43:38 AM de.gwdg.metadataqa.marc.cli.PythonGateway main
+INFO: Welcome to PythonGateway of QA Catalogue!
+
+Nov 24, 2025 10:43:38 AM de.gwdg.metadataqa.marc.cli.PythonGateway main
+INFO: The server is ready to process requests.
+```
+but it does not give you back the cursor. The server is waiting for the client's requests.
+In the background it open port 25333 at the localhost.
+
+## The Python part:
+
+Installation in a virtual environment:
+```
+python -m venv py4j
+py4j/bin/pip install py4j
+```
+
+To run your script, first activate the environment, run the script, then you can deactivate it, if you
+do not want to use it (we use `qa.py` as an example, you can use any file name):
+
+```
+source py4j/bin/activate
+python3 qa.py
+deactivate
+```
+
+An example script:
+
+```python
+from py4j.java_gateway import JavaGateway, CallbackServerParameters
+
+class Processor(object):
+
+    def __init__(self, gateway):
+        self.gateway = gateway
+
+    def getParameters(self):
+        print("getParameters")
+
+    def processRecord(self, marcRecord, recordNumber):
+        # print("processRecord 3")
+        print(marcRecord.getId())
+        for subject in marcRecord.getSubjects():
+            print(subject.getHumanReadableMap())
+
+    def beforeIteration(self):
+        print("beforeIteration")
+
+    def fileOpened(self, path):
+        print("fileOpened")
+
+    def fileProcessed(self):
+        print("processRecord")
+
+    def afterIteration(self, numberOfprocessedRecords, duration):
+        print("afterIteration")
+
+    def printHelp(self, options):
+        print("printHelp")
+
+    def readyToProcess(self):
+        # print("readyToProcess")
+        return True
+
+    class Java:
+        implements = ["de.gwdg.metadataqa.marc.cli.processor.MinimalProcessor"]
+
+if __name__ == "__main__":
+    gateway = JavaGateway(callback_server_parameters=CallbackServerParameters())
+    processor = Processor(gateway)
+    gateway.entry_point.setProcessor(processor)
+    gateway.entry_point.setParameters('--schemaType MARC21 --marcxml --defaultRecordType BOOKS marc.xml.gz')
+    gateway.entry_point.start()
+    gateway.shutdown()
+```

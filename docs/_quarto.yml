@@ -51,6 +51,7 @@ book:
     - build-docker-image.qmd
     - contributing.qmd
     - apidoc.qmd
+    - python.qmd
 #    - summary.qmd
 #    - references.qmd
 

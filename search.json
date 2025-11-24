@@ -603,34 +603,34 @@
   {
     "objectID": "python.html",
     "href": "python.html",
-    "title": "Appendix J — Accessing QA Catalogue’s functionalities from Python",
+    "title": "Appendix J — For Python developers",
     "section": "",
     "text": "J.1 The Java part:\nNowadays Python seems to be the most popular language among Digital Humanists, that motivated to allow them to use the rich functionalities of QA Catalogue. This yet an experimental feature, so if you have any suggestion, please contact us via email or issue tracker.\nThe communication between QA Catalogue and Pythin is based on the Python package Py4J. It has two component, a Java part and a Python script. Py4J provides an server-client setup, where QA Catalogue runs in a special server mode, and the Pythin script behaves as a client. The server does not mean that you have to install a HTTP server - you should just start the application in the command line without any further installation. To enable the client, you should install the Python package.\nAs this is an experiemental feature, at the time of writing there is no downloadable binary distribution, so you should have Java Development Kit (such as OpenJDK) and Maven in order to test it.\nIt will display something like this:\nbut it does not give you back the cursor. The server is waiting for the client’s requests. In the background it open port 25333 at the localhost.",
     "crumbs": [
       "Appendices",
-      "<span class='chapter-number'>J</span>  <span class='chapter-title'>Accessing QA Catalogue's functionalities from Python</span>"
+      "<span class='chapter-number'>J</span>  <span class='chapter-title'>For Python developers</span>"
     ]
   },
   {
     "objectID": "python.html#the-java-part",
     "href": "python.html#the-java-part",
-    "title": "Appendix J — Accessing QA Catalogue’s functionalities from Python",
+    "title": "Appendix J — For Python developers",
     "section": "",
     "text": "git clone https://github.com/pkiraly/qa-catalogue.git\ncd qa-catalogue\nmvn clean package\njava -cp target/qa-catalogue-0.8.0-SNAPSHOT-jar-with-dependencies.jar de.gwdg.metadataqa.marc.cli.PythonGateway\n\nNov 24, 2025 10:43:38 AM de.gwdg.metadataqa.marc.cli.PythonGateway main\nINFO: Welcome to PythonGateway of QA Catalogue!\n\nNov 24, 2025 10:43:38 AM de.gwdg.metadataqa.marc.cli.PythonGateway main\nINFO: The server is ready to process requests.",
     "crumbs": [
       "Appendices",
-      "<span class='chapter-number'>J</span>  <span class='chapter-title'>Accessing QA Catalogue's functionalities from Python</span>"
+      "<span class='chapter-number'>J</span>  <span class='chapter-title'>For Python developers</span>"
     ]
   },
   {
     "objectID": "python.html#the-python-part",
     "href": "python.html#the-python-part",
-    "title": "Appendix J — Accessing QA Catalogue’s functionalities from Python",
+    "title": "Appendix J — For Python developers",
     "section": "J.2 The Python part:",
-    "text": "J.2 The Python part:\nInstallation in a virtual environment:\npython -m venv py4j\npy4j/bin/pip install py4j\nTo run your script, first activate the environment, run the script, then you can deactivate it, if you do not want to use it (we use qa.py as an example, you can use any file name):\nsource py4j/bin/activate\npython3 qa.py\ndeactivate\nAn example script:\nfrom py4j.java_gateway import JavaGateway, CallbackServerParameters\n\nclass Processor(object):\n\n    def __init__(self, gateway):\n        self.gateway = gateway\n\n    def getParameters(self):\n        print(\"getParameters\")\n\n    def processRecord(self, marcRecord, recordNumber):\n        # print(\"processRecord 3\")\n        print(marcRecord.getId())\n        for subject in marcRecord.getSubjects():\n            print(subject.getHumanReadableMap())\n\n    def beforeIteration(self):\n        print(\"beforeIteration\")\n\n    def fileOpened(self, path):\n        print(\"fileOpened\")\n\n    def fileProcessed(self):\n        print(\"processRecord\")\n\n    def afterIteration(self, numberOfprocessedRecords, duration):\n        print(\"afterIteration\")\n\n    def printHelp(self, options):\n        print(\"printHelp\")\n\n    def readyToProcess(self):\n        # print(\"readyToProcess\")\n        return True\n\n    class Java:\n        implements = [\"de.gwdg.metadataqa.marc.cli.processor.MinimalProcessor\"]\n\nif __name__ == \"__main__\":\n    gateway = JavaGateway(callback_server_parameters=CallbackServerParameters())\n    processor = Processor(gateway)\n    gateway.entry_point.setProcessor(processor)\n    gateway.entry_point.setParameters('--schemaType MARC21 --marcxml --defaultRecordType BOOKS marc.xml.gz')\n    gateway.entry_point.start()\n    gateway.shutdown()",
+    "text": "J.2 The Python part:\nInstallation in a virtual environment:\npython -m venv py4j\npy4j/bin/pip install py4j\nTo run your script, first activate the environment, run the script, then you can deactivate it, if you do not want to use it (we use qa.py as an example, you can use any file name):\nsource py4j/bin/activate\npython3 qa.py\ndeactivate\nAn example script:\nfrom py4j.java_gateway import JavaGateway, CallbackServerParameters\n\nclass Processor(object):\n\n    def __init__(self, gateway):\n        self.gateway = gateway\n\n    def getParameters(self):\n        print(\"getParameters\")\n\n    def processRecord(self, marcRecord, recordNumber):\n        # print(\"processRecord 3\")\n        print(marcRecord.getId())\n        for subject in marcRecord.getSubjects():\n            print(subject.getHumanReadableMap())\n\n    def beforeIteration(self):\n        print(\"beforeIteration\")\n\n    def fileOpened(self, path):\n        print(\"fileOpened\")\n\n    def fileProcessed(self):\n        print(\"processRecord\")\n\n    def afterIteration(self, numberOfprocessedRecords, duration):\n        print(\"afterIteration\")\n\n    def printHelp(self, options):\n        print(\"printHelp\")\n\n    def readyToProcess(self):\n        # print(\"readyToProcess\")\n        return True\n\n    class Java:\n        implements = [\"de.gwdg.metadataqa.marc.cli.processor.MinimalProcessor\"]\n\nif __name__ == \"__main__\":\n    gateway = JavaGateway(callback_server_parameters=CallbackServerParameters())\n    processor = Processor(gateway)\n    gateway.entry_point.setProcessor(processor)\n    gateway.entry_point\\\n      .setParameters('--schemaType MARC21 --marcxml --defaultRecordType BOOKS marc.xml.gz')\n    gateway.entry_point.start()\n    gateway.shutdown()\nThis is an event-driven approach. The Java PythonGateway Java class accepts a class that implements the MinimalProcessor interface (events happens during the reading of input data), and generic parameters. The process calls the Processor’s implemented methods when some event happens: opening or closing a file, before and after the iteration etc. Here only one important event is really implemented: processRecord that has two parameters: marcRecord and recordNumber. The later is simply a count number, the first one is a BibliographicRecord object that represents a bibliographical record (MARC21, PICA or UNIMARC). Another important class is DataField representing a data field of a bibliographic record.",
     "crumbs": [
       "Appendices",
-      "<span class='chapter-number'>J</span>  <span class='chapter-title'>Accessing QA Catalogue's functionalities from Python</span>"
+      "<span class='chapter-number'>J</span>  <span class='chapter-title'>For Python developers</span>"
     ]
   }
 ]

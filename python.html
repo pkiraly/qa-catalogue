@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Appendix J — Accessing QA Catalogue’s functionalities from Python – QA Catalogue</title>
+<title>Appendix J — For Python developers – QA Catalogue</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -118,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./where-can-I-get-MARC-records.html">Appendices</a></li><li class="breadcrumb-item"><a href="./python.html"><span class="chapter-number">J</span>&nbsp; <span class="chapter-title">Accessing QA Catalogue’s functionalities from Python</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./where-can-I-get-MARC-records.html">Appendices</a></li><li class="breadcrumb-item"><a href="./python.html"><span class="chapter-number">J</span>&nbsp; <span class="chapter-title">For Python developers</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -345,7 +345,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./python.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">J</span>&nbsp; <span class="chapter-title">Accessing QA Catalogue’s functionalities from Python</span></span></a>
+ <span class="menu-text"><span class="chapter-number">J</span>&nbsp; <span class="chapter-title">For Python developers</span></span></a>
   </div>
 </li>
       </ul>
@@ -368,9 +368,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./where-can-I-get-MARC-records.html">Appendices</a></li><li class="breadcrumb-item"><a href="./python.html"><span class="chapter-number">J</span>&nbsp; <span class="chapter-title">Accessing QA Catalogue’s functionalities from Python</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./where-can-I-get-MARC-records.html">Appendices</a></li><li class="breadcrumb-item"><a href="./python.html"><span class="chapter-number">J</span>&nbsp; <span class="chapter-title">For Python developers</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Appendix J — Accessing QA Catalogue’s functionalities from Python</h1>
+<h1 class="title">Appendix J — For Python developers</h1>
 </div>
 
 
@@ -456,9 +456,11 @@ deactivate</code></pre>
 <span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>    gateway <span class="op">=</span> JavaGateway(callback_server_parameters<span class="op">=</span>CallbackServerParameters())</span>
 <span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>    processor <span class="op">=</span> Processor(gateway)</span>
 <span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>    gateway.entry_point.setProcessor(processor)</span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>    gateway.entry_point.setParameters(<span class="st">'--schemaType MARC21 --marcxml --defaultRecordType BOOKS marc.xml.gz'</span>)</span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>    gateway.entry_point.start()</span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>    gateway.shutdown()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>    gateway.entry_point<span class="op">\</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>      .setParameters(<span class="st">'--schemaType MARC21 --marcxml --defaultRecordType BOOKS marc.xml.gz'</span>)</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>    gateway.entry_point.start()</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>    gateway.shutdown()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This is an event-driven approach. The Java PythonGateway Java class accepts a class that implements the MinimalProcessor interface (events happens during the reading of input data), and <a href="usage.html#general-parameters">generic parameters</a>. The process calls the Processor’s implemented methods when some event happens: opening or closing a file, before and after the iteration etc. Here only one important event is really implemented: <code>processRecord</code> that has two parameters: marcRecord and recordNumber. The later is simply a count number, the first one is a <a href="./apidocs/de/gwdg/metadataqa/marc/dao/record/BibliographicRecord.html">BibliographicRecord</a> object that represents a bibliographical record (MARC21, PICA or UNIMARC). Another important class is <a href="./apidocs/de/gwdg/metadataqa/marc/dao/DataField.html">DataField</a> representing a data field of a bibliographic record.</p>
 
 
 </section>

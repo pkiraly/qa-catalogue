@@ -51,6 +51,7 @@ public class CommonParameters implements Serializable {
   @JsonIgnore
   protected RecordIgnorator recordIgnorator;
   protected RecordFilter recordFilter;
+  /** The fields that can be ignored during analyses */
   protected IgnorableFields ignorableFields = new IgnorableFields();
   protected InputStream stream = null;
   protected String defaultEncoding = null;

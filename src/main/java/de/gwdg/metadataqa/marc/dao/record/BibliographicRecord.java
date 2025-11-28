@@ -7,6 +7,7 @@ import de.gwdg.metadataqa.marc.MarcFactory;
 import de.gwdg.metadataqa.marc.MarcSubfield;
 import de.gwdg.metadataqa.marc.analysis.contextual.authority.AuthorityCategory;
 import de.gwdg.metadataqa.marc.analysis.shelfready.ShelfReadyFieldsBooks;
+import de.gwdg.metadataqa.marc.cli.parameters.CommonParameters;
 import de.gwdg.metadataqa.marc.cli.utils.IgnorableFields;
 import de.gwdg.metadataqa.marc.dao.DataField;
 import de.gwdg.metadataqa.marc.dao.MarcControlField;
@@ -36,17 +37,24 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+/**
+ * The bibliographic record
+ */
 public abstract class BibliographicRecord implements Extractable, Serializable { // Validatable,
 
-  protected static final Pattern dataFieldPattern = Pattern.compile("^(\\d\\d\\d)\\$(.*)$");
   private static final Logger logger = Logger.getLogger(BibliographicRecord.class.getCanonicalName());
-  private final List<String> unhandledTags;
+
+  /** Regular expression for MARC/Unimarc datafield */
+  protected static final Pattern dataFieldPattern = Pattern.compile("^(\\d\\d\\d)\\$(.*)$");
+  /** List of tags that are not defined */
+   private final List<String> unhandledTags;
+   /** List of datafields */
   protected transient List<DataField> datafields;
-  /**
-   * Key-value pairs of a tag and list of datafields that have the tag. Gets populated when the record is created.
-   */
+  /** Key-value pairs of a tag and list of datafields that have the tag. Gets populated when the record is created. */
   protected transient Map<String, List<DataField>> datafieldIndex;
+  /** Key-value pairs of control fields */
   protected transient Map<String, List<MarcControlField>> controlfieldIndex;
+  /** */
   protected transient Map<String, List<String>> mainKeyValuePairs;
   protected SchemaType schemaType = SchemaType.MARC21;
   protected String id;
@@ -376,7 +384,9 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     return mainKeyValuePairs;
   }
 
-  protected void getKeyValuePairsForDatafields(SolrFieldType type, boolean withDeduplication, MarcVersion marcVersion) {
+  protected void getKeyValuePairsForDatafields(SolrFieldType type,
+                                               boolean withDeduplication,
+                                               MarcVersion marcVersion) {
     for (DataField field : datafields) {
       // Get the key value pairs for the data field and add them to the mainKeyValuePairs map
       Map<String, List<String>> keyValuePairs = field.getKeyValuePairs(type, marcVersion);
@@ -413,7 +423,7 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
   }
 
   /**
-   * Format record as JSON
+   * Format record's datafields as JSON
    * @return
    */
   public String asJson() {
@@ -424,6 +434,10 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     return transformMapToJson(mapper, fieldMap);
   }
 
+  /**
+   * Get the
+   * @param tagFieldMap
+   */
   protected void datafieldsAsJson(Map<String, Object> tagFieldMap) {
     for (DataField field : datafields) {
       if (field == null) {
@@ -455,6 +469,7 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
 
   /**
    * Should the field be ignored - based on the configuration
+   * @see CommonParameters#getIgnorableFields()
    * @param tag
    * @param ignorableFields
    * @return
@@ -465,7 +480,12 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     return ignorableFields.contains(tag);
   }
 
-
+  /**
+   * Search
+   * @param path
+   * @param query
+   * @return
+   */
   public List<String> search(String path, String query) {
     List<String> results = new ArrayList<>();
     Matcher matcher = dataFieldPattern.matcher(path);
@@ -494,24 +514,11 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
    * @return The final result of the selection
    */
   public List<String> select(SchemaSpec selector) {
-    /*
-    if (selector instanceof MarcSpec) {
-      MarcSpec spec = (MarcSpec) selector;
-      if (!datafieldIndex.containsKey(spec.getFieldTag())) {
-        return new ArrayList<>();
-      }
-      return selectDatafields(spec);
-    }
-    else if (selector instanceof MarcSpec2) {
-
-     */
       MarcSpec spec = (MarcSpec) selector;
       if (!datafieldIndex.containsKey(spec.getTag())) {
         return new ArrayList<>();
       }
       return selectDatafields(spec);
-    // }
-    // return new ArrayList<>();
   }
 
   /*
@@ -554,39 +561,10 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
 
    */
 
-  /*
-  protected List<String> selectDatafields(MarcSpec selector) {
-    List<String> selectedResults = new ArrayList<>();
-
-    String selectorFieldTag = selector.getFieldTag();
-    List<DataField> selectedDatafields = datafieldIndex.get(selectorFieldTag);
-
-    for (DataField field : selectedDatafields) {
-      List<String> selectedFromDatafield = selectDatafield(field, selector);
-      selectedResults.addAll(selectedFromDatafield);
-    }
-
-    return selectedResults;
-  }
-  */
 
   protected <T extends Object>  List<T> selectDatafields(MarcSpec selector) {
     return (List<T>) MarcSpecExtractor.extract((Marc21Record) this, selector);
-    /*
-    List<String> selectedResults = new ArrayList<>();
-
-    String selectorFieldTag = selector.getTag();
-    List<DataField> selectedDatafields = datafieldIndex.get(selectorFieldTag);
-
-    for (DataField field : selectedDatafields) {
-      List<String> selectedFromDatafield = selectDatafield(field, selector);
-      selectedResults.addAll(selectedFromDatafield);
-    }
-
-    return selectedResults;
-    */
   }
-
 
   protected boolean searchDatafield(String query, List<String> results,
                                   String subfieldCode, DataField field) {
@@ -701,6 +679,12 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     skippableSubjectSubfields = new HashMap<>();
   }
 
+  /**
+   * Is the subfield is among the skippable content subfield?
+   * @param tag The fiels's tag
+   * @param code The subfield code
+   * @return
+   */
   public boolean isSkippableSubjectSubfield(String tag, String code) {
     if (subjectTagIndex == null) {
       initializeAuthorityTags();
@@ -713,6 +697,12 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     return skippableSubjectSubfields.get(tag).getOrDefault(code, false);
   }
 
+  /**
+   * Is the subfield is among the skippable authority subfield?
+   * @param tag The fiels's tag
+   * @param code The subfield code
+   * @return
+   */
   public boolean isSkippableAuthoritySubfield(String tag, String code) {
     if (authorityTagsIndex == null)
       initializeAuthorityTags();
@@ -723,6 +713,11 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     return skippableAuthoritySubfields.get(tag).getOrDefault(code, false);
   }
 
+  /**
+   * Is it a subject field's tag?
+   * @param tag The field's tag
+   * @return
+   */
   public boolean isSubjectTag(String tag) {
     if (subjectTagIndex == null) {
       initializeAuthorityTags();
@@ -730,12 +725,24 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     return subjectTagIndex.getOrDefault(tag, false);
   }
 
+  /**
+   * Get the allowed control fields' tags
+   * @return
+   */
   public abstract List<String> getAllowedControlFieldTags();
 
+  /**
+   * Get the map of shelf-ready fields/subfields
+   * @return
+   */
   public abstract Map<ShelfReadyFieldsBooks, Map<String, List<String>>> getShelfReadyMap();
 
   protected abstract List<String> getSubjectTags();
 
+  /**
+   * Get the subject related data fields
+   * @return
+   */
   public List<DataField> getSubjects() {
     List<DataField> subjects = new ArrayList<>();
     List<String> tags = getSubjectTags();
@@ -749,10 +756,21 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     return subjects;
   }
 
+  /**
+   * Add a field to the record
+   * @param tag
+   * @param content
+   */
   public void setField(String tag, String content) {
     setField(tag, content, MarcVersion.MARC21);
   }
 
+  /**
+   * Add a field to the record
+   * @param tag
+   * @param content
+   * @param marcVersion
+   */
   public void setField(String tag, String content, MarcVersion marcVersion) {
     if (marcVersion.equals(MarcVersion.UNIMARC)) {
       content = UnimarcConverter.contentFromUnimarc(tag, content);
@@ -768,6 +786,14 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     addDataField(dataField);
   }
 
+  /**
+   * Add a field to the record
+   * @param tag
+   * @param ind1
+   * @param ind2
+   * @param content
+   * @param marcVersion
+   */
   public void setField(String tag, String ind1, String ind2, String content, MarcVersion marcVersion) {
 
     DataFieldDefinition definition = MarcFactory.getDataFieldDefinition(tag, marcVersion);
@@ -777,10 +803,18 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
     addDataField(new DataField(tag, ind1, ind2, content, marcVersion));
   }
 
+  /**
+   * Get the metadata schema type
+   * @return
+   */
   public SchemaType getSchemaType() {
     return schemaType;
   }
 
+  /**
+   * Set the metadata schema type
+   * @param schemaType
+   */
   public void setSchemaType(SchemaType schemaType) {
     this.schemaType = schemaType;
   }
@@ -818,7 +852,9 @@ public abstract class BibliographicRecord implements Extractable, Serializable {
    * @param doResolve The resolve option to use when extracting subfield values. Can be set to RESOLVE, NONE, or BOTH.
    * @return A list of extracted values or labels.
    */
-  private List<String> extractSubfield(DataField field, String subfieldPath, RESOLVE doResolve) {
+  private List<String> extractSubfield(DataField field,
+                                       String subfieldPath,
+                                       RESOLVE doResolve) {
     List<MarcSubfield> subfieldInstances = field.getSubfield(subfieldPath);
     if (subfieldInstances == null) {
       return new ArrayList<>();

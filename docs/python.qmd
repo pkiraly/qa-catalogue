@@ -100,14 +100,16 @@ if __name__ == "__main__":
     processor = Processor(gateway)
     gateway.entry_point.setProcessor(processor)
     gateway.entry_point\
-      .setParameters('--schemaType MARC21 --marcxml --defaultRecordType BOOKS marc.xml.gz')
+      .setParameters(
+        '--schemaType MARC21 --marcxml --defaultRecordType BOOKS marc.xml.gz')
     gateway.entry_point.start()
     gateway.shutdown()
 ```
 
-This is an event-driven approach. The Java PythonGateway Java class accepts a class that
+As probably visible from the example, the connector provides an event-driven approach.
+The Java PythonGateway Java class accepts a class that
 implements the MinimalProcessor interface (events happens during the reading of input data),
-and [generic parameters](usage.html#general-parameters). The process calls the Processor's
+and [general parameters](usage.html#general-parameters). The process calls the Processor's
 implemented methods when some event happens: opening or closing a file, before and after the
 iteration etc. Here only one important event is really implemented: `processRecord` that
 has two parameters: marcRecord and recordNumber. The later is simply a count number, the first

@@ -6,6 +6,9 @@ import de.gwdg.metadataqa.marc.utils.marcspec.MarcSpecParser;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Enumeration of the shelf-ready subfield categories
+ */
 public enum ShelfReadyFieldsBooks {
   LDR06("LDR/6", "Type of record", 38, "a", "language material"),
   LDR07("LDR/7", "Bibliographic level", 40, "m", "monograph"),
@@ -55,6 +58,12 @@ public enum ShelfReadyFieldsBooks {
   private double normalizedScore;
   private boolean oneOf = false;
 
+  /**
+   * Cretae a ShelfReadyFieldsBooks category
+   * @param marcPath The list of MARCSpec expressions
+   * @param label The label of category
+   * @param score The score that denotes the importance of the group (max. 50)
+   */
   ShelfReadyFieldsBooks(String marcPath, String label, int score) {
     this.marcPath = marcPath;
     this.label = label;

@@ -30,23 +30,38 @@ public class CommonParameters implements Serializable {
   public static final String DEFAULT_OUTPUT_DIR = ".";
   public static final MarcVersion DEFAULT_MARC_VERSION = MarcVersion.MARC21;
 
+  /** MARC version (like 'OCLC' or 'DNB') */
   protected MarcVersion marcVersion = DEFAULT_MARC_VERSION;
+  /** serialization format (like 'ISO' or 'MARCXML') */
   protected MarcFormat marcFormat = MarcFormat.ISO;
+  /** data source ('file' or 'stream') */
   protected DataSource dataSource = DataSource.FILE;
-  protected boolean doHelp;
-  protected boolean doLog = true;
+  protected boolean doHelp; // TODO: add to options
+  protected boolean doLog = true; // TODO: add to options
+  /** limit the number of records to process */
   protected int limit = -1;
+  /** the first record to process */
   protected int offset = -1;
+  /** the field used as identifier of the record (content of 001) */
   protected String id = null;
+  /** the default record type if the record's type is undetectable */
   protected MarcLeader.Type defaultRecordType = MarcLeader.Type.BOOKS;
+  /** fix the known issues of Alephseq format */
   protected boolean fixAlephseq = false;
+  /** fix the known issues of Alma format */
   protected boolean fixAlma = false;
+  /** fix the known issues of Alma format in KBR records */
   protected boolean fixKbr = false;
+  /** the source is in Alephseq format */
   protected boolean alephseq = false;
+  /** the source is in MARCXML format */
   protected boolean marcxml = false;
+  /** the source is in line separated MARC format */
   protected boolean lineSeparated = false;
+  /** remove spaces from the end of record IDs */
   protected boolean trimId = false;
   private String outputDir = DEFAULT_OUTPUT_DIR;
+  /** ignore records from the analysis */
   protected String ignorableRecords;
   @JsonIgnore
   protected RecordIgnorator recordIgnorator;
@@ -54,6 +69,7 @@ public class CommonParameters implements Serializable {
   /** The fields that can be ignored during analyses */
   protected IgnorableFields ignorableFields = new IgnorableFields();
   protected InputStream stream = null;
+  /** default character encoding */
   protected String defaultEncoding = null;
 
   @JsonIgnore
@@ -79,7 +95,7 @@ public class CommonParameters implements Serializable {
       options.addOption("n", "nolog", false, "do not display log messages");
       options.addOption("l", "limit", true, "limit the number of records to process");
       options.addOption("o", "offset", true, "the first record to process");
-      options.addOption("i", "id", true, "the MARC identifier (content of 001)");
+      options.addOption("i", "id", true, "the field used as identifier of the record (content of 001)");
       options.addOption("d", "defaultRecordType", true, "the default record type if the record's type is undetectable");
       options.addOption("q", "fixAlephseq", false, "fix the known issues of Alephseq format");
       options.addOption("a", "fixAlma", false, "fix the known issues of Alma format");
@@ -92,7 +108,7 @@ public class CommonParameters implements Serializable {
       options.addOption("z", "ignorableFields", true, "ignore fields from the analysis");
       options.addOption("v", "ignorableRecords", true, "ignore records from the analysis");
       options.addOption("f", "marcFormat", true, "MARC format (like 'ISO' or 'MARCXML')");
-      options.addOption("s", "dataSource", true, "data source (file of stream)");
+      options.addOption("s", "dataSource", true, "data source (file or stream)");
       options.addOption("g", "defaultEncoding", true, "default character encoding");
       options.addOption("1", "alephseqLineType", true, "Alephseq line type");
       options.addOption("2", "picaIdField", true, "PICA id field");
@@ -474,6 +490,11 @@ public class CommonParameters implements Serializable {
     this.trimId = trimId;
   }
 
+  /**
+   * Returns the ignorable fields
+   * @see #ignorableFields
+   * @return
+   */
   public IgnorableFields getIgnorableFields() {
     return ignorableFields;
   }
@@ -496,7 +517,6 @@ public class CommonParameters implements Serializable {
 
   public void setRecordFilter(String allowableRecords) {
     this.recordFilter = RecordFilterFactory.create(schemaType, allowableRecords.trim());
-    System.err.println(this.recordFilter);
   }
 
   public InputStream getStream() {

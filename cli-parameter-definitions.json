@@ -34,7 +34,7 @@
       "short": "i",
       "long": "id",
       "hasArg": true,
-      "description": "the MARC identifier (content of 001)"
+      "description": "the field used as identifier of the record (content of 001)"
     },
     {
       "short": "d",
@@ -112,7 +112,7 @@
       "short": "s",
       "long": "dataSource",
       "hasArg": true,
-      "description": "data source (file of stream)"
+      "description": "data source (file or stream)"
     },
     {
       "short": "g",
@@ -311,6 +311,12 @@
       "long": "fieldPrefix",
       "hasArg": true,
       "description": "field prefix"
+    },
+    {
+      "short": "H",
+      "long": "compoundFields",
+      "hasArg": true,
+      "description": "compound fields"
     }
   ],
   "classifications": [

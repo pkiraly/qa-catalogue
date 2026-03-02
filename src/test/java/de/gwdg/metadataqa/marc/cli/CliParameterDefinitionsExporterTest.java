@@ -70,7 +70,7 @@ public class CliParameterDefinitionsExporterTest {
       assertEquals("the summary file name (provides a summary of issues, such as the number of instance and number of records having the particular issue)", firstItem.get("description"));
 
       assertTrue(parameters.containsKey("index"));
-      assertEquals(9, ((List) parameters.get("index")).size());
+      assertEquals(10, ((List) parameters.get("index")).size());
       firstItem = (Map) ((List) parameters.get("index")).get(0);
       assertEquals(4, firstItem.size());
       assertEquals("S", firstItem.get("short"));

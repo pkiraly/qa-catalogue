@@ -1,10 +1,22 @@
 package de.gwdg.metadataqa.marc.cli.parameters;
 
+import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.model.SolrFieldType;
+import de.gwdg.metadataqa.marc.utils.SchemaSpec;
+import de.gwdg.metadataqa.marc.utils.marcspec.MarcSpecParser;
+import de.gwdg.metadataqa.marc.utils.pica.path.PicaSpec;
 import org.apache.commons.cli.ParseException;
 import org.apache.solr.client.solrj.SolrClient;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Logger;
+
 public class MarcToSolrParameters extends CommonParameters {
+
+  private static final Logger logger = Logger.getLogger(TranslationParameters.class.getCanonicalName());
 
   private int DEFAULT_COMMIT_AT = 10000;
   private boolean useEmbedded = false;
@@ -20,6 +32,8 @@ public class MarcToSolrParameters extends CommonParameters {
   private boolean indexFieldCounts = false;
   private boolean indexSubfieldCounts = false;
   private String fieldPrefix = null;
+  private String compoundFieldsInput = null;
+  private Map<String, List<SchemaSpec>> compoundFields = null;
 
   @Override
   protected void setOptions() {
@@ -35,6 +49,7 @@ public class MarcToSolrParameters extends CommonParameters {
       options.addOption("E", "indexFieldCounts", false, "index the count of field instances");
       options.addOption("G", "indexSubfieldCounts", false, "index the count of subfield instances");
       options.addOption("F", "fieldPrefix", true, "field prefix");
+      options.addOption("H", "compoundFields", true, "compound fields");
       isOptionSet = true;
     }
   }
@@ -72,6 +87,44 @@ public class MarcToSolrParameters extends CommonParameters {
 
     if (cmd.hasOption("fieldPrefix"))
       fieldPrefix = cmd.getOptionValue("fieldPrefix");
+
+    if (cmd.hasOption("compoundFields")) {
+      compoundFieldsInput = cmd.getOptionValue("compoundFields");
+      logger.info("compoundFieldsInput: " + compoundFieldsInput);
+      try {
+        compoundFields = parseCompoundFields(compoundFieldsInput);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+      logger.info("compoundFields: " + compoundFields);
+    }
+  }
+
+  /**
+   * Parse the compound field input and transforms it to a maps of solr field - bibliographic fields pairs.
+   * @param compoundFieldsInput The compound field configuration. It should fit the follwoing pattern:
+   *                            solrfield1=biblfield1,biblfield2|solrfield2=biblfield3,biblfield4
+   * @return
+   */
+  private Map<String, List<SchemaSpec>> parseCompoundFields(String compoundFieldsInput) {
+    logger.info("parseCompoundFields: " + compoundFieldsInput);
+    Map<String, List<SchemaSpec>> compoundFieldsMap = new HashMap<>();
+    String[] fields = compoundFieldsInput.split("\\|");
+    for (String field : fields) {
+      logger.info("field: " + field);
+      String[] fieldParts = field.split("=", 2);
+      String solrField = fieldParts[0];
+      String[] bibFields = fieldParts[1].split(",");
+      List<SchemaSpec> bibliographicFields = new ArrayList<>();
+      for (String bibField : bibFields) {
+        if (getSchemaType().equals(SchemaType.PICA))
+          bibliographicFields.add(new PicaSpec(bibField));
+        else
+          bibliographicFields.add(MarcSpecParser.parse(bibField));
+      }
+      compoundFieldsMap.put(solrField, bibliographicFields);
+    }
+    return compoundFieldsMap;
   }
 
   public String getSolrUrl() {
@@ -130,6 +183,10 @@ public class MarcToSolrParameters extends CommonParameters {
     this.fieldPrefix = fieldPrefix;
   }
 
+  public Map<String, List<SchemaSpec>> getCompoundFields() {
+    return compoundFields;
+  }
+
   @Override
   public String formatParameters() {
     String text = super.formatParameters();
@@ -141,6 +198,7 @@ public class MarcToSolrParameters extends CommonParameters {
     text += String.format("indexFieldCounts: %s%n", indexFieldCounts);
     text += String.format("indexSubfieldCounts: %s%n", indexSubfieldCounts);
     text += String.format("fieldPrefix: %s%n", fieldPrefix);
+    text += String.format("compoundFields: %s%n", compoundFieldsInput);
     return text;
   }
 

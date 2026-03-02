@@ -12,7 +12,9 @@ import de.gwdg.metadataqa.marc.definition.bibliographic.SchemaType;
 import de.gwdg.metadataqa.marc.definition.general.indexer.FieldIndexer;
 import de.gwdg.metadataqa.marc.model.validation.ValidationError;
 import de.gwdg.metadataqa.marc.utils.Counter;
+import de.gwdg.metadataqa.marc.utils.SchemaSpec;
 import de.gwdg.metadataqa.marc.utils.keygenerator.DataFieldKeyGenerator;
+import de.gwdg.metadataqa.marc.utils.marcspec.MarcSpecExtractor;
 import de.gwdg.metadataqa.marc.utils.pica.PicaFieldDefinition;
 import de.gwdg.metadataqa.marc.utils.pica.PicaGroupIndexer;
 import de.gwdg.metadataqa.marc.utils.pica.path.PicaPath;
@@ -31,8 +33,10 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Logger;
 
 /**
@@ -40,7 +44,8 @@ import java.util.logging.Logger;
  * java -cp target/qa-catalogue-0.1-SNAPSHOT-jar-with-dependencies.jar de.gwdg.metadataqa.marc.cli.SolrKeyGenerator http://localhost:8983/solr/tardit 0001.0000000.formatted.json
  *
  */
-public class MarcToSolr extends QACli<MarcToSolrParameters> implements BibliographicInputProcessor, Serializable {
+public class MarcToSolr extends QACli<MarcToSolrParameters>
+                        implements BibliographicInputProcessor, Serializable {
 
   private static final Logger logger = Logger.getLogger(
     MarcToSolr.class.getCanonicalName()
@@ -156,6 +161,13 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
       indexFieldCounts(bibliographicRecord, solrDocument);
     }
 
+
+    if (parameters.getCompoundFields() != null) {
+      indexCompoundFields(bibliographicRecord, solrDocument);
+    } else {
+
+    }
+
     try {
       client.index(solrDocument);
     } catch (Exception e) {
@@ -185,7 +197,24 @@ public class MarcToSolr extends QACli<MarcToSolrParameters> implements Bibliogra
     logger.info(logMessage);
   }
 
-  private void indexValidationResults(BibliographicRecord bibliographicRecord, SolrInputDocument document) {
+  private void indexCompoundFields(BibliographicRecord bibliographicRecord,
+                                   SolrInputDocument solrDocument) {
+    for (Map.Entry<String, List<SchemaSpec>> compoundEntry : parameters.getCompoundFields().entrySet()) {
+      String solrField = String.format("%s%s_ss", parameters.getFieldPrefix(), compoundEntry.getKey());
+      Set<String> allValues = new HashSet<>();
+      for (SchemaSpec bibliographicField : compoundEntry.getValue()) {
+        List<String> values = bibliographicRecord.select(bibliographicField);
+        if (!values.isEmpty()) {
+          // logger.info(solrField + " -> " + values.getClass());
+          allValues.addAll(values);
+        }
+      }
+      solrDocument.addField(solrField, allValues);
+    }
+  }
+
+  private void indexValidationResults(BibliographicRecord bibliographicRecord,
+                                      SolrInputDocument document) {
     SolrDocument validationValues = validationClient.get(bibliographicRecord.getId());
     if (validationValues == null || validationValues.isEmpty()) {
       return;

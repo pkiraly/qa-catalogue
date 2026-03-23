@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>4&nbsp; Validating MARC records – QA Catalogue</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -69,15 +72,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="./usage.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-6b2306b05fee0b85d8c2d824c36e28c3.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-529a1ed200d4cc95ab40158660c96166.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-908a66bbeefc8e8cf211bb87241dc2e8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-d30a71ebcd61c41a2249535e19ea9567.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -110,7 +112,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -567,22 +569,21 @@ window.Quarto = {
 <dl>
 <dt>Usage</dt>
 <dd>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>  <span class="ex">./qa-catalogue</span> <span class="at">--params</span><span class="op">=</span><span class="st">"[options]"</span> validate</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># or</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">catalogues/</span><span class="op">&lt;</span>catalogue<span class="op">&gt;</span>.sh validate</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./qa-catalogue</span> <span class="at">--params</span><span class="op">=</span><span class="st">"[options]"</span> validate</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">catalogues/</span><span class="op">&lt;</span>catalogue<span class="op">&gt;</span>.sh validate</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </dd>
 <dt>Options</dt>
 <dd>
 <ul>
-<li><a href="usage.html#general-parameters">general parameters</a>
+<li><a href="usage.html#general-parameters">general parameters</a></li>
+<li>granularity of the report
 <ul>
-<li>granularity of the report</li>
-</ul></li>
 <li><code>-S</code>, <code>--summary</code>: creating a summary report instead of record level reports</li>
-<li><code>-H</code>, <code>--details</code>: provides record level details of the issues
-<ul>
-<li>output parameters:</li>
+<li><code>-H</code>, <code>--details</code>: provides record level details of the issues</li>
 </ul></li>
+<li>output parameters:
+<ul>
 <li><code>-G &lt;file&gt;</code>, <code>--summaryFileName &lt;file&gt;</code>: the name of summary report the program produces. The file provides a summary of issues, such as the number of instance and number of records having the particular issue.</li>
 <li><code>-F &lt;file&gt;</code>, <code>--detailsFileName &lt;file&gt;</code>: the name of report the program produces. Default is <code>validation-report.txt</code>. If you use “stdout”, it won’t create file, but put results into the standard output.</li>
 <li><code>-R &lt;format&gt;</code>, <code>--format &lt;format&gt;</code>: format specification of the output. Possible values:
@@ -590,10 +591,12 @@ window.Quarto = {
 <li><code>text</code> (default),</li>
 <li><code>tab-separated</code> or <code>tsv</code>,</li>
 <li><code>comma-separated</code> or <code>csv</code></li>
+</ul></li>
+</ul></li>
 <li><code>-W</code>, <code>--emptyLargeCollectors</code>: the output files are created during the process and not only at the end of it. It helps in memory management if the input is large, and it has lots of errors, on the other hand the output file will be segmented, which should be handled after the process.</li>
 <li><code>-T</code>, <code>--collectAllErrors</code>: collect all errors (useful only for validating small number of records). Default is turned off.</li>
-<li><code>-I &lt;types&gt;</code>, <code>--ignorableIssueTypes &lt;types&gt;</code>: comma separated list of issue types not to collect. The valid values are (for details see the <a href="#issue-types">issue types</a> table):</li>
-</ul></li>
+<li><code>-I &lt;types&gt;</code>, <code>--ignorableIssueTypes &lt;types&gt;</code>: comma separated list of issue types not to collect. The valid values are (for details see the <a href="#issue-types">issue types</a> table):
+<ul>
 <li><code>undetectableType</code>: undetectable type</li>
 <li><code>invalidLinkage</code>: invalid linkage</li>
 <li><code>ambiguousLinkage</code>: ambiguous linkage</li>
@@ -616,6 +619,7 @@ window.Quarto = {
 <li><code>unparsableContent</code>: content is not well-formatted</li>
 <li><code>nullCode</code>: null subfield code</li>
 <li><code>invalidValue</code>: invalid value</li>
+</ul></li>
 </ul>
 </dd>
 </dl>
@@ -915,9 +919,9 @@ awk -F "\t" '{print $1}' validation-report.txt | uniq -c | wc -l
 <dl>
 <dt>Usage</dt>
 <dd>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>  <span class="ex">./qa-catalogue</span> <span class="at">--params</span><span class="op">=</span><span class="st">"[options]"</span> validate-sqlite</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># or</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">catalogues/</span><span class="op">&lt;</span>catalogue<span class="op">&gt;</span>.sh validate-sqlite</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./qa-catalogue</span> <span class="at">--params</span><span class="op">=</span><span class="st">"[options]"</span> validate-sqlite</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="ex">catalogues/</span><span class="op">&lt;</span>catalogue<span class="op">&gt;</span>.sh validate-sqlite</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </dd>
 </dl>
 <p>Options are the same as for validation.</p>

@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>16&nbsp; Indexing bibliographic records with Solr – QA Catalogue</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -69,15 +72,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="./import-tables-to-SQLite.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-6b2306b05fee0b85d8c2d824c36e28c3.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-529a1ed200d4cc95ab40158660c96166.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-908a66bbeefc8e8cf211bb87241dc2e8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-d30a71ebcd61c41a2249535e19ea9567.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -516,12 +518,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">autoSoftCommit</span>&gt;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>It needs if you choose to disable QA catalogue to issue commit messages (see <code>--commitAt</code> parameter), which makes indexing faster.</p>
 <p>In schema.xml (or in Solr web interface) you should be sure that you have the following dynamic fields:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode xml code-with-copy"><code class="sourceCode xml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">dynamicField</span><span class="ot"> name=</span><span class="st">"*_ss"</span><span class="ot"> type=</span><span class="st">"strings"</span><span class="ot"> indexed=</span><span class="st">"true"</span><span class="ot"> stored=</span><span class="st">"true"</span>/&gt;</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">dynamicField</span><span class="ot"> name=</span><span class="st">"*_tt"</span><span class="ot"> type=</span><span class="st">"text_general"</span><span class="ot"> indexed=</span><span class="st">"true"</span><span class="ot"> stored=</span><span class="st">"false"</span>/&gt;</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">dynamicField</span><span class="ot"> name=</span><span class="st">"*_is"</span><span class="ot"> type=</span><span class="st">"pints"</span><span class="ot"> indexed=</span><span class="st">"true"</span><span class="ot"> stored=</span><span class="st">"true"</span> /&gt;</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">dynamicField</span><span class="ot"> name=</span><span class="st">"*_sni"</span><span class="ot"> type=</span><span class="st">"string_big"</span><span class="ot"> docValues=</span><span class="st">"false"</span><span class="ot"> multiValued=</span><span class="st">"false"</span><span class="ot"> indexed=</span><span class="st">"false"</span><span class="ot"> stored=</span><span class="st">"true"</span>/&gt;</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode xml code-with-copy"><code class="sourceCode xml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">dynamicField</span> <span class="ot">name=</span><span class="st">"*_ss"</span> <span class="ot">type=</span><span class="st">"strings"</span> <span class="ot">indexed=</span><span class="st">"true"</span> <span class="ot">stored=</span><span class="st">"true"</span>/&gt;</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">dynamicField</span> <span class="ot">name=</span><span class="st">"*_tt"</span> <span class="ot">type=</span><span class="st">"text_general"</span> <span class="ot">indexed=</span><span class="st">"true"</span> <span class="ot">stored=</span><span class="st">"false"</span>/&gt;</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">dynamicField</span> <span class="ot">name=</span><span class="st">"*_is"</span> <span class="ot">type=</span><span class="st">"pints"</span> <span class="ot">indexed=</span><span class="st">"true"</span> <span class="ot">stored=</span><span class="st">"true"</span> /&gt;</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">dynamicField</span> <span class="ot">name=</span><span class="st">"*_sni"</span> <span class="ot">type=</span><span class="st">"string_big"</span> <span class="ot">docValues=</span><span class="st">"false"</span> <span class="ot">multiValued=</span><span class="st">"false"</span> <span class="ot">indexed=</span><span class="st">"false"</span> <span class="ot">stored=</span><span class="st">"true"</span>/&gt;</span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">copyField</span><span class="ot"> source=</span><span class="st">"*_ss"</span><span class="ot"> dest=</span><span class="st">"_text_"</span>/&gt;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">copyField</span> <span class="ot">source=</span><span class="st">"*_ss"</span> <span class="ot">dest=</span><span class="st">"_text_"</span>/&gt;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>or use Solr API:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="va">NAME</span><span class="op">=</span>dnb</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="va">SOLR</span><span class="op">=</span>http://localhost:8983/solr/<span class="va">$NAME</span>/schema</span>

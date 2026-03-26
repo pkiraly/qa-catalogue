@@ -205,7 +205,7 @@ public class MarcToSolr extends QACli<MarcToSolrParameters>
       for (SchemaSpec bibliographicField : compoundEntry.getValue()) {
         List<String> values = bibliographicRecord.select(bibliographicField);
         if (!values.isEmpty()) {
-          // logger.info(solrField + " -> " + values.getClass());
+          // logger.info(solrField + " -> " + StringUtils.join(values, " -<>- "));
           allValues.addAll(values);
         }
       }

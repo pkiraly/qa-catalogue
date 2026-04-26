@@ -8,7 +8,7 @@ The stage is yours! Typical next steps follow as
   4) check it at http://localhost:90
   if you do not need it anymore
   5) shut services down with './service.sh down'
-  6) remove all files with './service.sh clear-files'
+  6) remove all files with './service.sh uninstall'
 
 more info:
   - https://pkiraly.github.io/qa-catalogue (documentation)

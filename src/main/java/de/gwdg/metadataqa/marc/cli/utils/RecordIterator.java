@@ -284,7 +284,7 @@ public class RecordIterator {
 
   private boolean skipRecord(Record marc4jRecord) {
     return processor.getParameters().hasId()
-      && !marc4jRecord.getControlNumber().trim().equals(processor.getParameters().getId());
+      && !processor.getParameters().getId().contains(marc4jRecord.getControlNumber().trim());
   }
 
   private void extracted(int i, Record marc4jRecord, Exception e, String message) {

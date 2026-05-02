@@ -3,6 +3,8 @@ package de.gwdg.metadataqa.marc.cli.parameters;
 import org.apache.commons.cli.ParseException;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -49,7 +51,35 @@ public class FormatterParametersTest {
       FormatterParameters parameters = new FormatterParameters(arguments);
 
       assertNotNull(parameters.getId());
-      assertEquals("xyz", parameters.getId());
+      assertEquals(List.of("xyz"), parameters.getId());
+
+    } catch (ParseException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Test
+  public void testId_multi() {
+    String[] arguments = new String[]{"--id", "x,y,z", "a-marc-file.mrc"};
+    try {
+      FormatterParameters parameters = new FormatterParameters(arguments);
+
+      assertNotNull(parameters.getId());
+      assertEquals(List.of("x", "y", "z"), parameters.getId());
+
+    } catch (ParseException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Test
+  public void testId_file() {
+    String[] arguments = new String[]{"--id", "file:src/main/resources/ids.csv", "a-marc-file.mrc"};
+    try {
+      FormatterParameters parameters = new FormatterParameters(arguments);
+
+      assertNotNull(parameters.getId());
+      assertEquals(List.of("x", "y", "z"), parameters.getId());
 
     } catch (ParseException e) {
       e.printStackTrace();

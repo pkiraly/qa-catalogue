@@ -132,7 +132,7 @@ public class Formatter implements BibliographicInputProcessor {
     String id = marc4jRecord.getControlNumber() != null ?
       marc4jRecord.getControlNumber().trim() : null;
 
-    boolean hasSpecifiedId = parameters.hasId() && id != null && id.equals(parameters.getId());
+    boolean hasSpecifiedId = parameters.hasId() && id != null && parameters.getId().contains(id);
 
     if (!hasSpecifiedId)
       hasSpecifiedId = id != null
@@ -161,7 +161,7 @@ public class Formatter implements BibliographicInputProcessor {
 
   @Override
   public void processRecord(BibliographicRecord bibliographicRecord, int recordNumber) throws IOException {
-    if (parameters.hasId() && bibliographicRecord.getId().trim().equals(parameters.getId())) {
+    if (parameters.hasId() && parameters.getId().contains(bibliographicRecord.getId().trim())) { // TODO: trim?
       for (DataField field : bibliographicRecord.getDatafields()) {
        logger.info(field.getTag());
       }

@@ -1,6 +1,7 @@
 package de.gwdg.metadataqa.marc.cli.parameters;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import de.gwdg.metadataqa.api.util.FileUtils;
 import de.gwdg.metadataqa.marc.cli.utils.IgnorableFields;
 import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordFilter;
 import de.gwdg.metadataqa.marc.cli.utils.ignorablerecords.RecordFilterFactory;
@@ -19,8 +20,12 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class CommonParameters implements Serializable {
 
@@ -43,7 +48,7 @@ public class CommonParameters implements Serializable {
   /** the first record to process */
   protected int offset = -1;
   /** the field used as identifier of the record (content of 001) */
-  protected String id = null;
+  protected List<String> ids = null;
   /** the default record type if the record's type is undetectable */
   protected MarcLeader.Type defaultRecordType = MarcLeader.Type.BOOKS;
   /** fix the known issues of Alephseq format */
@@ -87,6 +92,7 @@ public class CommonParameters implements Serializable {
   private String groupListFile;
   private String solrForScoresUrl;
   private Boolean processRecordsWithoutId = false;
+  private Boolean hasId;
 
   protected void setOptions() {
     if (!isOptionSet) {
@@ -240,8 +246,23 @@ public class CommonParameters implements Serializable {
   }
 
   private void readId() {
-    if (cmd.hasOption("id"))
-      id = cmd.getOptionValue("id").trim();
+    if (cmd.hasOption("id")) {
+      String raWid = cmd.getOptionValue("id").trim();
+      if (!raWid.isEmpty()) {
+        if (raWid.startsWith("file:")) {
+          String fileName = raWid.substring("file:".length());
+          try {
+            ids = FileUtils.readLinesFromFile(fileName);
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
+        } else if (raWid.contains(",")) {
+          ids = List.of(raWid.split(","));
+        } else {
+          ids = List.of(raWid);
+        }
+      }
+    }
   }
 
   private void readOffset() {
@@ -388,15 +409,17 @@ public class CommonParameters implements Serializable {
   }
 
   public boolean hasId() {
-    return StringUtils.isNotBlank(id);
+    if (hasId == null)
+      hasId = ids != null && !ids.isEmpty() && StringUtils.isNotBlank(ids.get(0));
+    return hasId;
   }
 
-  public String getId() {
-    return id;
+  public List<String> getId() {
+    return ids;
   }
 
-  public void setId(String id) {
-    this.id = id;
+  public void setId(List<String> id) {
+    this.ids = id;
   }
 
   public MarcLeader.Type getDefaultRecordType() {
@@ -493,7 +516,7 @@ public class CommonParameters implements Serializable {
   /**
    * Returns the ignorable fields
    * @see #ignorableFields
-   * @return
+   * @return the ignorable fields
    */
   public IgnorableFields getIgnorableFields() {
     return ignorableFields;
@@ -608,7 +631,7 @@ public class CommonParameters implements Serializable {
     text += String.format("limit: %d%n", limit);
     text += String.format("offset: %s%n", offset);
     text += String.format("MARC files: %s%n", StringUtils.join(args, ", "));
-    text += String.format("id: %s%n", id);
+    text += String.format("id: %s%n", StringUtils.join(ids, ", "));
     text += String.format("defaultRecordType: %s%n", defaultRecordType);
     text += String.format("fixAlephseq: %s%n", fixAlephseq);
     text += String.format("fixAlma: %s%n", fixAlma);

@@ -529,6 +529,12 @@ public class LanguageCodes extends CodeList {
       "zza", "Zaza"
     );
     indexCodes();
+    deprecated = Utils.generateLookupDict(
+      "ajm", "cam", "esk", "esp", "eth", "far", "fri", "gae", "gag",
+      "gal", "gua", "int", "iri", "kus", "lan", "lap", "max", "mla", "mol",
+      "sao", "scc", "scr", "sho", "snh", "sso", "swz", "tag", "taj", "tar",
+      "tru", "tsw"
+    );
   }
 
   private static LanguageCodes uniqueInstance;

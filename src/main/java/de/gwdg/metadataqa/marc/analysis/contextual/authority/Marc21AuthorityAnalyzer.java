@@ -10,19 +10,21 @@ import de.gwdg.metadataqa.marc.definition.SourceSpecificationType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Marc21AuthorityAnalyzer extends AuthorityAnalyzer {
   private static final Logger logger = Logger.getLogger(Marc21AuthorityAnalyzer.class.getCanonicalName());
 
-  public Marc21AuthorityAnalyzer(BibliographicRecord marcRecord, AuthorityStatistics authoritiesStatistics) {
+  public Marc21AuthorityAnalyzer(BibliographicRecord marcRecord,
+                                 AuthorityStatistics authoritiesStatistics) {
     super(marcRecord, authoritiesStatistics);
   }
 
   @Override
-  protected int processField(DataField field, AuthorityCategory category, Map<AuthorityCategory, Integer> categoryCounter) {
+  protected int processField(DataField field,
+                             AuthorityCategory category,
+                             Map<AuthorityCategory, Integer> categoryCounter) {
     var type = field.getDefinition().getSourceSpecificationType();
     if (type == null) {
       return 0;

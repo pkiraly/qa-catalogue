@@ -290,45 +290,45 @@ public class ValidatorCliTest extends CliTestUtils {
       List<String> lines = FileUtils.readLinesFromFile(TestUtils.getPath("output/" + outputFile));
       if (outputFile.equals("issue-details.csv")) {
         assertEquals(6, lines.size());
-        assertEquals("003141910,1:1;2:1", lines.get(1).trim());
-        assertEquals("003141911,1:1;2:1", lines.get(2).trim());
-        assertEquals("unknown,3:1;4:1", lines.get(3).trim());
-        assertEquals("003141913,1:1;2:1", lines.get(4).trim());
-        assertEquals("003141914,1:1;2:1", lines.get(5).trim());
-
+        assertEquals("003141910,1:1;2:1;3:2;4:1;5:1", lines.get(1).trim());
+        assertEquals("003141911,4:1;5:1;6:1", lines.get(2).trim());
+        assertEquals("unknown,7:1;8:1", lines.get(3).trim());
+        assertEquals("003141913,4:1;5:1;6:1", lines.get(4).trim());
+        assertEquals("003141914,4:1;5:1;6:1", lines.get(5).trim());
       } else if (outputFile.equals("issue-summary.csv")) {
-        assertEquals(5, lines.size());
+        assertEquals(9, lines.size());
         assertEquals("id,MarcPath,categoryId,typeId,type,message,url,instances,records", lines.get(0).trim());
-        assertTrue(lines.contains("1,852,5,13,undefined subfield,4,https://www.loc.gov/marc/bibliographic/bd852.html,4,4"));
-        assertTrue(lines.contains("2,852,5,13,undefined subfield,5,https://www.loc.gov/marc/bibliographic/bd852.html,4,4"));
-        assertTrue(lines.contains("4,leader,1,23,parsing error,missing,,1,1"));
-        assertTrue(lines.contains("3,record,1,23,parsing error,\"Leader length is not 24 char long, but 23\",,1,1"));
+        assertTrue(lines.contains("4,852,5,13,undefined subfield,4,https://www.loc.gov/marc/bibliographic/bd852.html,4,4"));
+        assertTrue(lines.contains("5,852,5,13,undefined subfield,5,https://www.loc.gov/marc/bibliographic/bd852.html,4,4"));
+        assertTrue(lines.contains("8,leader,1,23,parsing error,missing,,1,1"));
+        assertTrue(lines.contains("7,record,1,23,parsing error,\"Leader length is not 24 char long, but 23\",,1,1"));
 
       } else if (outputFile.equals("issue-by-category.csv")) {
         assertEquals(3, lines.size());
         assertEquals("id,category,instances,records", lines.get(0).trim());
         assertEquals("1,record,2,1", lines.get(1).trim());
-        assertEquals("5,subfield,8,4", lines.get(2).trim());
+        assertEquals("5,subfield,15,4", lines.get(2).trim());
 
       } else if (outputFile.equals("issue-by-type.csv")) {
-        assertEquals(3, lines.size());
+        assertEquals(4, lines.size());
         assertEquals("id,categoryId,category,type,instances,records", lines.get(0).trim());
         assertEquals("13,5,subfield,undefined subfield,8,4", lines.get(1).trim());
-        assertEquals("23,1,record,parsing error,2,1", lines.get(2).trim());
+        assertEquals("22,5,subfield,invalid value,7,4", lines.get(2).trim());
+        assertEquals("23,1,record,parsing error,2,1", lines.get(3).trim());
 
       } else if (outputFile.equals("issue-collector.csv")) {
-        assertEquals(5, lines.size());
+        assertEquals(9, lines.size());
         assertEquals("errorId,recordIds", lines.get(0).trim());
-        assertEquals("1,003141910;003141911;003141913;003141914", lines.get(1).trim());
-        assertEquals("2,003141910;003141911;003141913;003141914", lines.get(2).trim());
-        assertEquals("3,unknown", lines.get(3).trim());
-        assertEquals("4,unknown", lines.get(4).trim());
+        assertEquals("1,003141910", lines.get(1).trim());
+        assertEquals("2,003141910", lines.get(2).trim());
+        assertEquals("3,003141910", lines.get(3).trim());
+        assertEquals("4,003141910;003141911;003141913;003141914", lines.get(4).trim());
 
       } else if (outputFile.equals("issue-total.csv")) {
         assertEquals(3, lines.size());
         assertEquals("type,instances,records", lines.get(0).trim());
-        assertEquals("1,10,5", lines.get(1).trim());
-        assertEquals("2,10,5", lines.get(2).trim());
+        assertEquals("1,17,5", lines.get(1).trim());
+        assertEquals("2,17,5", lines.get(2).trim());
 
       } else if (outputFile.equals("count.csv")) {
         assertEquals(2, lines.size());

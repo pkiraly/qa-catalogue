@@ -17,7 +17,8 @@ public abstract class AuthorityAnalyzer extends ContextualAnalyzer<AuthorityStat
   private static final Logger logger = Logger.getLogger(AuthorityAnalyzer.class.getCanonicalName());
   public static final String UNDETECTABLE = "undetectable";
 
-  protected AuthorityAnalyzer(BibliographicRecord bibliographicRecord, AuthorityStatistics authoritiesStatistics) {
+  protected AuthorityAnalyzer(BibliographicRecord bibliographicRecord,
+                              AuthorityStatistics authoritiesStatistics) {
     super(bibliographicRecord, authoritiesStatistics);
   }
 
@@ -38,7 +39,9 @@ public abstract class AuthorityAnalyzer extends ContextualAnalyzer<AuthorityStat
     return count;
   }
 
-  protected abstract int processField(DataField field, AuthorityCategory category, Map<AuthorityCategory, Integer> categoryCounter);
+  protected abstract int processField(DataField field,
+                                      AuthorityCategory category,
+                                      Map<AuthorityCategory, Integer> categoryCounter);
 
   private void updateAuthorityCategoryStatistics(Map<AuthorityCategory, Integer> categoryCounter) {
     for (Map.Entry<AuthorityCategory, Integer> entry : categoryCounter.entrySet()) {

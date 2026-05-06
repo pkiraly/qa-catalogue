@@ -53,7 +53,8 @@ public class DataFieldValidator extends AbstractValidator {
     }
 
     // From here on, we know the tag is either MARC21 and defined, or not MARC21
-    // This LinkageHandler can later be further abstracted into an abstract LinkageHandler for UNIMARC in case that's needed
+    // This LinkageHandler can later be further abstracted into an abstract
+    // LinkageHandler for UNIMARC in case that's needed
     Marc21LinkageHandler linkageHandler = new Marc21LinkageHandler(configuration, errors);
     DataField associatedField = linkageHandler.handleLinkage(field, definition);
     errors.addAll(linkageHandler.getErrors());

@@ -10,7 +10,7 @@ public class Tag979Test extends BLTagTest {
 
   @Test
   public void testValidFields() {
-    validField("a", "British Library", "b", "DSC", "j", "0900.324840N");
+    validField("a", "UKM", "b", "DSC", "j", "0900.324840N");
     validField("j", "MN");
   }
 

@@ -52,7 +52,7 @@ public class BLTagTest {
     validator = new DataFieldValidator(new ValidatorConfiguration().withMarcVersion(MarcVersion.BL));
     boolean isValid = validator.validate(field);
     assertTrue(
-      String.format("%s$%s=%s should be valid in BL case (%s)",
+      String.format("%s$%s='%s' should be valid in BL case (%s)",
         tag.getTag(), subfield.getCode(), subfield.getValue(),
         validator.getValidationErrors()),
       isValid);
@@ -120,5 +120,4 @@ public class BLTagTest {
       String.format("%s$%s=%s should be invalid in BL", tag.getTag(), subfield, value),
       validator.validate(field));
   }
-
 }

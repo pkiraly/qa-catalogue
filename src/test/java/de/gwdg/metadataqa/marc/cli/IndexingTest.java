@@ -31,7 +31,7 @@ public class IndexingTest {
       List.of("2013822-2", "101809441", "19168161X"),
       index.get("7100_AddedCorporateName_authorityRecordControlNumber_recordNumber"));
     assertEquals(
-      List.of("Gemeinsame Normdatei", "Bibliotheksservice-Zentrum Baden-Württemberg (BSZ)"),
+      List.of("Gemeinsame Normdatei", "K10plus", "Bibliotheksservice-Zentrum Baden-Württemberg (BSZ)"),
       index.get("7100_AddedCorporateName_authorityRecordControlNumber_organization"));
     assertEquals(
       List.of("DE-588", "DE-627", "DE-576"),

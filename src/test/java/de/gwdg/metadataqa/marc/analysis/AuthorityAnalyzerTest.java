@@ -31,7 +31,7 @@ public class AuthorityAnalyzerTest {
     assertEquals(2, recordStats.size());
     Schema first = (Schema) recordStats.keySet().toArray()[0];
 
-    assertEquals("DE-627", first.getSchema());
+    assertEquals("undetectable", first.getSchema());
     assertEquals(1, (int) recordStats.get(first));
     assertEquals(1, (int) statistics.getInstances().get(first));
     Map<List<String>, Integer> subfieldMap = statistics.getSubfields().get(first);

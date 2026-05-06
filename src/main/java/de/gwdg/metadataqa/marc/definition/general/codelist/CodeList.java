@@ -16,6 +16,10 @@ public class CodeList implements Validator, Serializable {
   protected String url;
   protected List<EncodedValue> codes;
   protected Map<String, EncodedValue> index = new HashMap<>();
+  /**
+   * a lookup table for deprecated values
+   */
+  protected Map<String, Boolean> deprecated = new HashMap<>();
 
   protected void indexCodes() {
     for (EncodedValue code : codes) {
@@ -45,6 +49,10 @@ public class CodeList implements Validator, Serializable {
 
   public String getUrl() {
     return url;
+  }
+
+  public Map<String, Boolean> getDeprecated() {
+    return deprecated;
   }
 
   @Override

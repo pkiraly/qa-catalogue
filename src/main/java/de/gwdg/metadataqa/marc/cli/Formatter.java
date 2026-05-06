@@ -108,8 +108,8 @@ public class Formatter implements BibliographicInputProcessor {
         logger.log(Level.WARNING, "beforeIteration", e);
       }
     }
-    if (parameters.getIds() != null && !parameters.getIds().isEmpty()
-        && parameters.getFormat().equals("xml")) {
+    if (parameters.getFormat() != null && parameters.getFormat().equals("xml") &&
+        (parameters.hasId() || (parameters.getIds() != null && !parameters.getIds().isEmpty()))) {
       var path = Paths.get(parameters.getOutputDir(), parameters.getFileName());
       logger.info("path: " + path.toAbsolutePath());
       try {
@@ -144,7 +144,7 @@ public class Formatter implements BibliographicInputProcessor {
       && parameters.getCountNr() == recordNumber;
 
     if (hasSpecifiedId || hasSpecifiedRecordNumber) {
-      if (parameters.getFormat().equals("xml")) {
+      if (parameters.getFormat() != null && parameters.getFormat().equals("xml")) {
         marcXmlWriter.write(marc4jRecord);
         // MarcXmlWriter.writeSingleRecord(marc4jRecord, System.out, true);
         // MarcXmlWriter.writeSingleRecord(marc4jRecord, outputStream, true);
@@ -161,12 +161,6 @@ public class Formatter implements BibliographicInputProcessor {
 
   @Override
   public void processRecord(BibliographicRecord bibliographicRecord, int recordNumber) throws IOException {
-    if (parameters.hasId() && parameters.getId().contains(bibliographicRecord.getId().trim())) { // TODO: trim?
-      for (DataField field : bibliographicRecord.getDatafields()) {
-       logger.info(field.getTag());
-      }
-    }
-
     if (parameters.hasSearch()) {
       List<String> results = bibliographicRecord.search(parameters.getPath(), parameters.getQuery());
       if (!results.isEmpty()) {

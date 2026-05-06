@@ -22,7 +22,7 @@ public class LanguageCodes extends CodeList {
       "afh", "Afrihili (Artificial language)",
       "afr", "Afrikaans",
       "ain", "Ainu",
-      "-ajm", "Aljamía",
+      "ajm", "Aljamía", // deprecated
       "aka", "Akan",
       "akk", "Akkadian",
       "alb", "Albanian",
@@ -82,7 +82,7 @@ public class LanguageCodes extends CodeList {
       "byn", "Bilin",
       "cad", "Caddo",
       "cai", "Central American Indian (Other)",
-      "-cam", "Khmer",
+      "cam", "Khmer", // deprecated
       "car", "Carib",
       "cat", "Catalan",
       "cau", "Caucasian (Other)",
@@ -139,15 +139,15 @@ public class LanguageCodes extends CodeList {
       "eng", "English",
       "enm", "English, Middle (1100-1500)",
       "epo", "Esperanto",
-      "-esk", "Eskimo languages",
-      "-esp", "Esperanto",
+      "esk", "Eskimo languages", // deprecated
+      "esp", "Esperanto", // deprecated
       "est", "Estonian",
-      "-eth", "Ethiopic",
+      "eth", "Ethiopic", // deprecated
       "ewe", "Ewe",
       "ewo", "Ewondo",
       "fan", "Fang",
       "fao", "Faroese",
-      "-far", "Faroese",
+      "far", "Faroese", // deprecated
       "fat", "Fanti",
       "fij", "Fijian",
       "fil", "Filipino",
@@ -155,7 +155,7 @@ public class LanguageCodes extends CodeList {
       "fiu", "Finno-Ugrian (Other)",
       "fon", "Fon",
       "fre", "French",
-      "-fri", "Frisian",
+      "fri", "Frisian", // deprecated
       "frm", "French, Middle (ca. 1300-1600)",
       "fro", "French, Old (ca. 842-1300)",
       "frr", "North Frisian",
@@ -164,9 +164,9 @@ public class LanguageCodes extends CodeList {
       "ful", "Fula",
       "fur", "Friulian",
       "gaa", "Gã",
-      "-gae", "Scottish Gaelix",
-      "-gag", "Galician",
-      "-gal", "Oromo",
+      "gae", "Scottish Gaelix", // deprecated
+      "gag", "Galician", // deprecated
+      "gal", "Oromo", // deprecated
       "gay", "Gayo",
       "gba", "Gbaya",
       "gem", "Germanic (Other)",
@@ -188,7 +188,7 @@ public class LanguageCodes extends CodeList {
       "gre", "Greek, Modern (1453-)",
       "grn", "Guarani",
       "gsw", "Swiss German",
-      "-gua", "Guarani",
+      "gua", "Guarani", // deprecated
       "guj", "Gujarati",
       "gwi", "Gwich'in",
       "hai", "Haida",
@@ -221,10 +221,10 @@ public class LanguageCodes extends CodeList {
       "ind", "Indonesian",
       "ine", "Indo-European (Other)",
       "inh", "Ingush",
-      "-int", "Interlingua (International Auxiliary Language Association)",
+      "int", "Interlingua (International Auxiliary Language Association)", // deprecated
       "ipk", "Inupiaq",
       "ira", "Iranian (Other)",
-      "-iri", "Irish",
+      "iri", "Irish", // deprecated
       "iro", "Iroquoian (Other)",
       "ita", "Italian",
       "jav", "Javanese",
@@ -265,14 +265,14 @@ public class LanguageCodes extends CodeList {
       "kua", "Kuanyama",
       "kum", "Kumyk",
       "kur", "Kurdish",
-      "-kus", "Kusaie",
+      "kus", "Kusaie", // deprecated
       "kut", "Kootenai",
       "lad", "Ladino",
       "lah", "Lahndā",
       "lam", "Lamba (Zambia and Congo)",
-      "-lan", "Occitan (post 1500)",
+      "lan", "Occitan (post 1500)", // deprecated
       "lao", "Lao",
-      "-lap", "Sami",
+      "lap", "Sami", // deprecated
       "lat", "Latin",
       "lav", "Latvian",
       "lez", "Lezgian",
@@ -301,7 +301,7 @@ public class LanguageCodes extends CodeList {
       "map", "Austronesian (Other)",
       "mar", "Marathi",
       "mas", "Maasai",
-      "-max", "Manx",
+      "max", "Manx", // deprecated
       "may", "Malay",
       "mdf", "Moksha",
       "mdr", "Mandar",
@@ -311,14 +311,14 @@ public class LanguageCodes extends CodeList {
       "min", "Minangkabau",
       "mis", "Miscellaneous languages",
       "mkh", "Mon-Khmer (Other)",
-      "-mla", "Malagasy",
+      "mla", "Malagasy", // deprecated
       "mlg", "Malagasy",
       "mlt", "Maltese",
       "mnc", "Manchu",
       "mni", "Manipuri",
       "mno", "Manobo languages",
       "moh", "Mohawk",
-      "-mol", "Moldavian",
+      "mol", "Moldavian", // deprecated
       "mon", "Mongolian",
       "mos", "Mooré",
       "mul", "Multiple languages",
@@ -400,19 +400,19 @@ public class LanguageCodes extends CodeList {
       "sal", "Salishan languages",
       "sam", "Samaritan Aramaic",
       "san", "Sanskrit",
-      "-sao", "Samoan",
+      "sao", "Samoan", // deprecated
       "sas", "Sasak",
       "sat", "Santali",
-      "-scc", "Serbian",
+      "scc", "Serbian", // deprecated
       "scn", "Sicilian Italian",
       "sco", "Scots",
-      "-scr", "Croatian",
+      "scr", "Croatian", // deprecated
       "sel", "Selkup",
       "sem", "Semitic (Other)",
       "sga", "Irish, Old (to 1100)",
       "sgn", "Sign languages",
       "shn", "Shan",
-      "-sho", "Shona",
+      "sho", "Shona", // deprecated
       "sid", "Sidamo",
       "sin", "Sinhalese",
       "sio", "Siouan (Other)",
@@ -429,7 +429,7 @@ public class LanguageCodes extends CodeList {
       "sms", "Skolt Sami",
       "sna", "Shona",
       "snd", "Sindhi",
-      "-snh", "Sinhalese",
+      "snh", "Sinhalese", // deprecated
       "snk", "Soninke",
       "sog", "Sogdian",
       "som", "Somali",
@@ -441,7 +441,7 @@ public class LanguageCodes extends CodeList {
       "srp", "Serbian",
       "srr", "Serer",
       "ssa", "Nilo-Saharan (Other)",
-      "-sso", "Sotho",
+      "sso", "Sotho", // deprecated
       "ssw", "Swazi",
       "suk", "Sukuma",
       "sun", "Sundanese",
@@ -449,15 +449,15 @@ public class LanguageCodes extends CodeList {
       "sux", "Sumerian",
       "swa", "Swahili",
       "swe", "Swedish",
-      "-swz", "Swazi",
+      "swz", "Swazi", // deprecated
       "syc", "Syriac",
       "syr", "Syriac, Modern",
-      "-tag", "Tagalog",
+      "tag", "Tagalog", // deprecated
       "tah", "Tahitian",
       "tai", "Tai (Other)",
-      "-taj", "Tajik",
+      "taj", "Tajik", // deprecated
       "tam", "Tamil",
-      "-tar", "Tatar",
+      "tar", "Tatar", // deprecated
       "tat", "Tatar",
       "tel", "Telugu",
       "tem", "Temne",
@@ -477,11 +477,11 @@ public class LanguageCodes extends CodeList {
       "tog", "Tonga (Nyasa)",
       "ton", "Tongan",
       "tpi", "Tok Pisin",
-      "-tru", "Truk",
+      "tru", "Truk", // deprecated
       "tsi", "Tsimshian",
       "tsn", "Tswana",
       "tso", "Tsonga",
-      "-tsw", "Tswana",
+      "tsw", "Tswana", // deprecated
       "tuk", "Turkmen",
       "tum", "Tumbuka",
       "tup", "Tupi languages",

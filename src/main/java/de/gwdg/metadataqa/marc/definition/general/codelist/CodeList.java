@@ -55,6 +55,10 @@ public class CodeList implements Validator, Serializable {
     return deprecated;
   }
 
+  public boolean isDeprecated(String code) {
+    return deprecated.containsKey(code);
+  }
+
   @Override
   public List<ValidationError> getValidationErrors() {
     return Collections.emptyList();

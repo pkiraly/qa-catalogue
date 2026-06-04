@@ -10,7 +10,7 @@ TYPE_PARAMS="${TYPE_PARAMS} --indexWithTokenizedField --indexFieldCounts --index
 
 # translations
 QAC_ROOT=$(realpath $(dirname ${0})/..)
-TYPE_PARAMS="${TYPE_PARAMS} --translationConfigurationFile ${QAC_ROOT}/scripts/translations/translations-shacl.yml"
+TYPE_PARAMS="${TYPE_PARAMS} --translationConfigurationFile ${QAC_ROOT}/scripts/translations/translations-shacl-hunmarc.yml"
 TYPE_PARAMS="${TYPE_PARAMS} --shaclOutputType STATUS"
 TYPE_PARAMS="${TYPE_PARAMS} --translationDebugFailedRules 245c,7004"
 TYPE_PARAMS="${TYPE_PARAMS} --translationPlaceNameDictionaryDir ${QAC_ROOT}/../pkiraly/place-names/data"

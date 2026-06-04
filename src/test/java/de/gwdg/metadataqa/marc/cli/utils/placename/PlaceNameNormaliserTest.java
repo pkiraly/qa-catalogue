@@ -36,6 +36,21 @@ public class PlaceNameNormaliserTest {
   }
 
   @Test
+  public void resolve_duplicate() {
+    assertEquals(
+      List.of(normaliser.getCoords().get("Trnava"), normaliser.getCoords().get("Buda")),
+      normaliser.resolve("Budán és Nagy-Szombatban"));
+
+    assertEquals(
+      List.of(normaliser.getCoords().get("Augsburg"), normaliser.getCoords().get("Dillingen")),
+      normaliser.resolve("Augustae Vindelicorum & Dilingae"));
+
+    assertEquals(
+      List.of(normaliser.getCoords().get("Bratislava"), normaliser.getCoords().get("Košice")),
+      normaliser.resolve("Posonii & Cassoviae"));
+  }
+
+  @Test
   public void normalizer() {
     assertEquals("Łódź", Normalizer.normalize("Łódź", Normalizer.Form.NFKC));
   }

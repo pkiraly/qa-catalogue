@@ -69,7 +69,11 @@ public class ContributorNormaliser {
     "francziából ford.", "angolból átd.", "szerk. és ford.", "a meséket ford.",
     "válogatta, fordította, az utószót és a jegyzeteket írta", "ford., szerk.",
     "... ford., az előszót és a jegyzeteket írta", "bev. és ford.", "vál., ford., utószó",
-    "introd., transl.", "... übertr. von"
+    "introd., transl.", "... übertr. von",
+    // Norwegian
+    "utg.", "oversatt", "Overs.av", "på norsk ved", "til norsk ved", "oversatt fra tysk av",
+    "oversatt og med forord av", "oversatt og med etterord av", "oversatt fra tysk og med etterord av",
+    "oversatt av", "frå tysk ved", "oversettelse", "oversetter"
   );
   private static final List<String> TRANSLATOR_SUFFIXES = List.of(
     "fordításában", "átköltésében", "ford.", "fordításai", "műfordításai", "fordításában és utószavával"
@@ -103,7 +107,9 @@ public class ContributorNormaliser {
     "előszó", "vál., szerk., az utószót és az életrajzi jegyzeteket írta",
     "vál., szerk., jegyz.", "zsgest. von", "zost.", "ured.", "red.", "összeáll. és magyarázatokkal ellátta",
     "with a pref. and ill. by", "vál., életrajzi jegyz.", "... az utószót ... írta",
-    "intr. by", "a bev. tanulmányt írta", "a cura di"
+    "intr. by", "a bev. tanulmányt írta", "a cura di",
+    // Norwegian
+    "redaktør"
   );
   private static final List<String> EDITOR_SUFFIXES = List.of(
     "válogatása", "válogatásában", "összeállítása", "főszerk.", "fel. szerk."
@@ -114,7 +120,12 @@ public class ContributorNormaliser {
     "az ifjúság számára átdolg.", "alapján", "adaptációja", "művei", "eredeti regényét átd.", "meséit átd.",
     "ötlete alapján írta", "nyomán írta", "regénye", "ötletéből ... írta", "meséjét átd.", "meséje",
     "nacherzählt von", "írásait átd.", "adapted by", "munkája", "tollából", "texte et photos", "par",
-    "forgatókönyve alapján írta", "sorozata alapján írta", "a meséket átd."
+    "forgatókönyve alapján írta", "sorozata alapján írta", "a meséket átd.",
+    // Norwegian
+    "tekst", "written by"
+  );
+  private static final List<String> AUTHOR_SUFFIXES = List.of(
+    "writer"
   );
 
   private static final List<String> ILLUSTRATOR_PREFIXES = List.of(

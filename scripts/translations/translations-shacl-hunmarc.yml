@@ -113,6 +113,96 @@ fields:
             - Till? svenska av
             - Tr\. de l'allemand par
           scope: anyOf
+  # e, i, l, H, E, I, L
+  - name: 245$e
+    path: 245$e
+    rules:
+      - id: 245e
+        description: Statement of responsibility
+        mqafPattern:
+          pattern:
+            - ubersetzer|ubersetzung
+            - uberset\.
+            - ubers\.
+            - ubertr\.
+            - vert\.
+            - translator|[Tt]ranslated|transla\.
+            - translations
+            - "[Tt]radotto"
+            - "[Tt]raducere"
+            - "[Tt]raducido"
+            - "[Tt]raduction"
+            - "[Tt]raduit"
+            - "[Tt]raduzione"
+            - Traducción
+            - traducir
+            - trad\\.
+            - traducao
+            - traduire
+            - traduccion
+            - trans\.
+            - transl\.
+            - tr\.
+            - trad\.
+            - traduc\.
+            - Tr\. from
+            - "[Tt]radution"
+            - Tr\. dal tedesco
+            - metafrasmeno
+            - nihongo
+            - fanyi
+            - vertalen
+            - tlumaczyc
+            - meklet
+            - cevir
+            - prekladat
+            - suomeksi
+            - suom\.
+            - terjemahkan
+            - eadar
+            - Översättning
+            - Översättning
+            - Öfversättning
+            - Oversatt av
+            - oversat af
+            - oversatta
+            - overs\.
+            - metafr\.
+            - pereklav
+            - perevedeno
+            - "[Pp]erevod s nemet︠s︡kogo"
+            - perev\.
+            - prekl\.
+            - prelozit
+            - Přeložila
+            - Prěložil
+            - prel\.
+            - prevoditi
+            - prevezhdam
+            - prevezh\.
+            - prev\.
+            - prijevod
+            - prij\.
+            - tlumac\.
+            - mekl\.
+            - cev\.
+            - terj\.
+            - eadar\.
+            - Aus d\.
+            - Dt\.
+            # Hungarian
+            - Fordította|fordt́otta|Forditotta|Fordították
+            - "[Ff]ord\\."
+            - "[Áá]td\\."
+            - "[Vv]ertaald door"
+            - Uit het duitsch
+            - Geautoriseerde vertaling
+            - Vertaling
+            - "[Ss]aksan kielestä suomentanut"
+            - Fran tyskan av
+            - Till? svenska av
+            - Tr\. de l'allemand par
+          scope: anyOf
   - name: 700$4
     path: 700$4
     rules:

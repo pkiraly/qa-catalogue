@@ -33,7 +33,10 @@ public class PlaceNameNormaliser {
     "Berkeley, CA", "Philadelphia, PA", "'s-Gravenhage", "São Paulo", "Kentfield, CA", "Avon, CN"
   );
    */
-  public static final List<String> UNKNOWN_PLACE_NAMES = List.of("Miejsce nieznane", "S.l.", "S.I.", "s.l.", "s.l", "S. l.", "S. I.", "n.p.", "s.n.");
+  public static final List<String> UNKNOWN_PLACE_NAMES = List.of("Miejsce nieznane", "S.l.", "S.I.", "s.l.", "s.l", "S. l.", "S. I.", "n.p.", "s.n.",
+    // Norwegian
+    "Utgivelsessted ikke identifisert", "Utgiversted ikke identifisert"
+  );
 
   private final String translationPlaceNameDictionaryDir;
   private final String outputDir;
@@ -74,9 +77,8 @@ public class PlaceNameNormaliser {
   }
 
   private void processSynonyms(List<String[]> rows) {
-    for (String[] row : rows) {
+    for (String[] row : rows)
       synonyms.computeIfAbsent(row[0], k -> new ArrayList<>()).add(row[1]);
-    }
   }
 
   public void reportUnresolvedPlaceNames() {
@@ -89,7 +91,6 @@ public class PlaceNameNormaliser {
       .collect(Collectors.joining("\n"));
 
     try {
-
       FileUtils.writeStringToFile(new File(outputDir, UNRESOLVED_PLACE_NAMES_FILE), summary, StandardCharsets.UTF_8, false);
       FileUtils.writeStringToFile(new File(outputDir, UNRESOLVED_PLACE_NAMES_FILE), content, StandardCharsets.UTF_8, true);
     } catch (IOException e) {

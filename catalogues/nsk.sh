@@ -20,9 +20,9 @@ TYPE_PARAMS="${TYPE_PARAMS} --indexWithTokenizedField --indexFieldCounts --index
 # TYPE_PARAMS="${TYPE_PARAMS} --shaclConfigurationFile /home/qa_admin/git/data-validation-rules/kbr-full.yaml"
 # TYPE_PARAMS="${TYPE_PARAMS} --shaclOutputType STATUS"
 
-PLACE_NAME_DIR=$(realpath ${QAC_ROOT}/../place-names/data)
+PLACE_NAME_DIR=$(realpath ${QAC_ROOT}/../pkiraly/place-names/data)
 
-# echo "PLACE_NAME_DIR: ${PLACE_NAME_DIR}"
+echo "PLACE_NAME_DIR: ${PLACE_NAME_DIR}"
 
 # translations
 TYPE_PARAMS="${TYPE_PARAMS} --translationConfigurationFile ${QAC_ROOT}/scripts/translations/translations-shacl.yml"
@@ -30,6 +30,7 @@ TYPE_PARAMS="${TYPE_PARAMS} --translationDebugFailedRules 245c,7004"
 TYPE_PARAMS="${TYPE_PARAMS} --translationPlaceNameDictionaryDir ${PLACE_NAME_DIR}"
 TYPE_PARAMS="${TYPE_PARAMS} --translationExport translations-export.jsonld"
 
-MASK=${MASK:-000*.xml.gz}
+MASK=${MASK:-nsk?.xml.gz}
+
 
 . ./common-script

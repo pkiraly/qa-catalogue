@@ -112,6 +112,19 @@ fields:
             - Fran tyskan av
             - Till? svenska av
             - Tr\. de l'allemand par
+            # Norwegian
+            - utg\.
+            - oversatt av
+            - oversatt
+            - Overs.av
+            - på norsk ved
+            - til norsk ved
+            - oversatt fra tysk av
+            - oversatt og med forord av
+            - oversatt og med etterord av
+            - oversatt fra tysk og med etterord av
+            - frå tysk ved
+            - oversettelse
           scope: anyOf
   - name: 700$4
     path: 700$4
@@ -121,7 +134,7 @@ fields:
         mqafPattern: 
           pattern:
             - "[Tt]ranslator(\\.|,)?"
-            - "tr|trl|Tłumaczenie"
+            - "tr|trl|trlor|Tłumaczenie"
             # Hungarian
             - "vál\\., ford\\.|ford\\.|fordító|ford\\., bev\\.|szerk\\., ford\\.|szerk\\., ford\\.|ford\\., szerk\\."
             - "ford\\., magy\\.|ford|ford\\., jegyz\\.|ford\\., átd\\.|ford\\., sajtó alá rend\\.|szerk\\. és ford\\."

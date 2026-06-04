@@ -16,6 +16,7 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.lang3.StringUtils;
 import org.marc4j.MarcException;
+import org.marc4j.MarcStreamWriter;
 import org.marc4j.MarcXmlWriter;
 import org.marc4j.marc.Record;
 
@@ -23,7 +24,6 @@ import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -44,6 +44,7 @@ public class Formatter implements BibliographicInputProcessor {
   private final boolean readyToProcess;
   private BufferedWriter writer;
   private MarcXmlWriter marcXmlWriter;
+  private MarcStreamWriter marcStreamWriter;
 
   public Formatter(String[] args) throws ParseException {
     parameters = new FormatterParameters(args);
@@ -120,6 +121,14 @@ public class Formatter implements BibliographicInputProcessor {
         logger.log(Level.WARNING, "beforeIteration", e);
       }
     }
+    if (parameters.getFormat() != null && parameters.getFormat().equals("iso")) {
+      var path = Paths.get(parameters.getOutputDir(), parameters.getFileName());
+      try {
+        marcStreamWriter = new MarcStreamWriter(new FileOutputStream(path.toFile()));
+      } catch (FileNotFoundException e) {
+        throw new RuntimeException(e);
+      }
+    }
   }
 
   @Override
@@ -148,6 +157,8 @@ public class Formatter implements BibliographicInputProcessor {
         marcXmlWriter.write(marc4jRecord);
         // MarcXmlWriter.writeSingleRecord(marc4jRecord, System.out, true);
         // MarcXmlWriter.writeSingleRecord(marc4jRecord, outputStream, true);
+      } else if (parameters.getFormat() != null && parameters.getFormat().equals("iso")) {
+        marcStreamWriter.write(marc4jRecord);
       } else {
         logger.info(marc4jRecord::toString);
       }
@@ -208,6 +219,13 @@ public class Formatter implements BibliographicInputProcessor {
     if (marcXmlWriter != null)
       try {
         marcXmlWriter.close();
+      } catch (MarcException e) {
+        logger.log(Level.SEVERE, "afterIteration", e);
+      }
+
+    if (marcStreamWriter != null)
+      try {
+        marcStreamWriter.close();
       } catch (MarcException e) {
         logger.log(Level.SEVERE, "afterIteration", e);
       }

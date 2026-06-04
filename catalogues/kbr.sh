@@ -20,6 +20,9 @@ TYPE_PARAMS="${TYPE_PARAMS} --indexWithTokenizedField --indexFieldCounts --index
 TYPE_PARAMS="${TYPE_PARAMS} --shaclConfigurationFile /home/qa_admin/git/data-validation-rules/kbr-full.yaml"
 TYPE_PARAMS="${TYPE_PARAMS} --shaclOutputType STATUS"
 
+TYPE_PARAMS="${TYPE_PARAMS} --id file:/home/pkiraly/data/marc21/input/kbr/data-loss-issue/ids-wanted"
+
+
 PLACE_NAME_DIR=$(realpath ${QAC_ROOT}/../place-names/data)
 
 echo "PLACE_NAME_DIR: ${PLACE_NAME_DIR}"

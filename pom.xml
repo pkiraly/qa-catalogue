@@ -165,7 +165,7 @@
 		<dependency>
 			<artifactId>solr-solrj</artifactId>
 			<groupId>org.apache.solr</groupId>
-			<version>9.8.1</version>
+			<version>9.9.0</version>
 		</dependency>
 		<!-- it is needed for Solr embedded server -->
 		<dependency>

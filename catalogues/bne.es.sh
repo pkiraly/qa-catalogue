@@ -11,13 +11,13 @@ TYPE_PARAMS="--emptyLargeCollectors"
 # index parameters
 TYPE_PARAMS="${TYPE_PARAMS} --indexWithTokenizedField --indexFieldCounts --indexSubfieldCounts"
 
+PLACE_NAME_DIR=$(realpath ${QAC_ROOT}/../place-names/data)
+echo "PLACE_NAME_DIR: ${PLACE_NAME_DIR}"
+
 TYPE_PARAMS="${TYPE_PARAMS} --translationConfigurationFile ${QAC_ROOT}/scripts/translations/translations-shacl.yml"
 TYPE_PARAMS="${TYPE_PARAMS} --translationDebugFailedRules 245c,7004"
 TYPE_PARAMS="${TYPE_PARAMS} --translationPlaceNameDictionaryDir ${PLACE_NAME_DIR}"
 TYPE_PARAMS="${TYPE_PARAMS} --translationExport translations-export.jsonld"
-
-PLACE_NAME_DIR=$(realpath ${QAC_ROOT}/../place-names/data)
-echo "PLACE_NAME_DIR: ${PLACE_NAME_DIR}"
 
 MASK=*.mrc.gz
 

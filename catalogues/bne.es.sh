@@ -9,8 +9,11 @@ NAME=bne
 MARC_DIR=${BASE_INPUT_DIR}/bne.es
 TYPE_PARAMS="--emptyLargeCollectors"
 # index parameters
+TYPE_PARAMS="${TYPE_PARAMS} --solrForScoresUrl http://localhost:8983/solr/bne_validation"
 TYPE_PARAMS="${TYPE_PARAMS} --indexWithTokenizedField --indexFieldCounts --indexSubfieldCounts"
+TYPE_PARAMS="${TYPE_PARAMS} --fieldPrefix bib"
 
+# translations
 PLACE_NAME_DIR=$(realpath ${QAC_ROOT}/../place-names/data)
 echo "PLACE_NAME_DIR: ${PLACE_NAME_DIR}"
 

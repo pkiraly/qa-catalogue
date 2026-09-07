@@ -3,7 +3,7 @@
 [![Java CI with Maven](https://github.com/pkiraly/qa-catalogue/actions/workflows/maven.yml/badge.svg)](https://github.com/pkiraly/qa-catalogue/actions/workflows/maven.yml)
 [![Coverage Status](https://coveralls.io/repos/github/pkiraly/metadata-qa-marc/badge.svg?branch=main)](https://coveralls.io/github/pkiraly/metadata-qa-marc?branch=main)
 
-QA catalogue is a set of software packages for bibliographical record quality assessment. It reads MARC or PICA files (in different formats), analyses some  quality dimensions, and saves the results into CSV files. These CSV files could be used in different context, we provide a lightweight, web-based [user interface](#user-interface) for that. Some of the functionalities are available as a [web service](https://github.com/pkiraly/metadata-qa-marc-ws), so the validation could be built into a cataloguing/quality assessment workflow.
+QA catalogue is a set of software packages for bibliographical record quality assessment. It reads MARC21, UNIMARC or PICA files (in different formats), and analyses different quality dimensions. It also has web-based [user interface](#user-interface) for displaying and visualizing the results. Some of the functionalities are available as a [web service](https://github.com/pkiraly/metadata-qa-marc-ws), so the validation could be built into a cataloguing/quality assessment workflow.
 
 ![Output sample](https://github.com/pkiraly/metadata-qa-marc-web/raw/gh-pages/img/issues-v1.gif)
 Screenshot from the web UI of the QA catalogue

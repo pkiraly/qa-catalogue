@@ -73,7 +73,10 @@ public class ContributorNormaliser {
     // Norwegian
     "utg.", "oversatt", "Overs.av", "på norsk ved", "til norsk ved", "oversatt fra tysk av",
     "oversatt og med forord av", "oversatt og med etterord av", "oversatt fra tysk og med etterord av",
-    "oversatt av", "frå tysk ved", "oversettelse", "oversetter"
+    "oversatt av", "frå tysk ved", "oversettelse", "oversetter",
+    // Spanish
+    "traducción,", "traducción de"
+
   );
   private static final List<String> TRANSLATOR_SUFFIXES = List.of(
     "fordításában", "átköltésében", "ford.", "fordításai", "műfordításai", "fordításában és utószavával"
@@ -107,9 +110,11 @@ public class ContributorNormaliser {
     "előszó", "vál., szerk., az utószót és az életrajzi jegyzeteket írta",
     "vál., szerk., jegyz.", "zsgest. von", "zost.", "ured.", "red.", "összeáll. és magyarázatokkal ellátta",
     "with a pref. and ill. by", "vál., életrajzi jegyz.", "... az utószót ... írta",
-    "intr. by", "a bev. tanulmányt írta", "a cura di",
+    "intr. by", "a bev. tanulmányt írta", "a cura di", "edited by",
     // Norwegian
-    "redaktør"
+    "redaktør",
+    // Spanish
+    "edición preparada por"
   );
   private static final List<String> EDITOR_SUFFIXES = List.of(
     "válogatása", "válogatásában", "összeállítása", "főszerk.", "fel. szerk."
@@ -129,7 +134,9 @@ public class ContributorNormaliser {
   );
 
   private static final List<String> ILLUSTRATOR_PREFIXES = List.of(
-    "rajz", "... összefirkálta", "fot.", "fotó", "photos by", "phot."
+    "rajz", "... összefirkálta", "fot.", "fotó", "photos by", "phot.",
+    // Spanish
+    "ilustraciones de", "ilustraciones,", "ilustraciones", "diagramación e ilustración"
   );
   private static final List<String> ILLUSTRATOR_SUFFIXES = List.of(
     "illusztrációival", "rajzaival"

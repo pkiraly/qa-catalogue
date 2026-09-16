@@ -125,6 +125,8 @@ fields:
             - oversatt fra tysk og med etterord av
             - frå tysk ved
             - oversettelse
+            # Spanish
+            - "[Tt]raducción?"
           scope: anyOf
   - name: 700$4
     path: 700$4

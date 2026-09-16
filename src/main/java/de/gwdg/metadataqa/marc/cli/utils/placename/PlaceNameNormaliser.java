@@ -100,7 +100,8 @@ public class PlaceNameNormaliser {
 
   private void processCoords(List<String[]> rows) {
     for (String[] row : rows) {
-      coords.put(row[0], new PlaceName(row));
+      if (!row[0].startsWith("#"))
+        coords.put(row[0], new PlaceName(row));
     }
   }
 

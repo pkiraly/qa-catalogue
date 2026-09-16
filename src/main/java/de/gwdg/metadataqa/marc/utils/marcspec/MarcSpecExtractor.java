@@ -58,8 +58,11 @@ public class MarcSpecExtractor {
       if (spec.hasPosition()) {
         if (marcControlField instanceof List)
           return extractControlFieldsPosition(spec.getPosition(), (List<MarcControlField>) marcControlField);
-        else
-          return extractPosition(spec.getPosition(), ((MarcControlField) marcControlField).getContent());
+        else {
+          MarcControlField _marcControlField = (MarcControlField) marcControlField;
+          if (_marcControlField != null)
+            return extractPosition(spec.getPosition(), _marcControlField.getContent());
+        }
       }
       return marcControlField;
     } else {

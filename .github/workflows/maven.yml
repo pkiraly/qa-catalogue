@@ -66,3 +66,13 @@ jobs:
       - name: Coveralls Coverage Report Submission
         if: ${{ github.actor != 'dependabot[bot]' }}
         run: mvn coveralls:report -DrepoToken=${{ secrets.COVERALL_REPO_TOKEN }}
+
+      - name: Generate Software Bill of Material (sbom)
+        uses: sbomify/sbomify-action@master
+        env:
+          LOCK_FILE: pom.xml
+          OUTPUT_FILE: sbom.cdx.json
+          COMPONENT_NAME: my-java-app
+          COMPONENT_VERSION: ${{ github.ref_name }}
+          ENRICH: true
+          UPLOAD: false

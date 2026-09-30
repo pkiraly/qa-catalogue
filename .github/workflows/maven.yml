@@ -72,7 +72,8 @@ jobs:
         env:
           LOCK_FILE: pom.xml
           OUTPUT_FILE: sbom.cdx.json
-          COMPONENT_NAME: my-java-app
+          COMPONENT_ID: ${{ matrix.component_id }}
+          COMPONENT_NAME: ${{ matrix.component_name }}
           COMPONENT_VERSION: ${{ github.ref_name }}
           ENRICH: true
           UPLOAD: false

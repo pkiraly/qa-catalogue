@@ -338,6 +338,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#nd-scenario-preparing-another-pull-request-some-month-later" id="toc-nd-scenario-preparing-another-pull-request-some-month-later" class="nav-link" data-scroll-target="#nd-scenario-preparing-another-pull-request-some-month-later"><span class="header-section-number">H.2.2</span> 2nd scenario: preparing another pull request some month later</a></li>
   <li><a href="#rd-scenario-synchronize-your-branch-with-main-branch" id="toc-rd-scenario-synchronize-your-branch-with-main-branch" class="nav-link" data-scroll-target="#rd-scenario-synchronize-your-branch-with-main-branch"><span class="header-section-number">H.2.3</span> 3rd scenario: synchronize your branch with main branch</a></li>
   </ul></li>
+  <li><a href="#entry-points" id="toc-entry-points" class="nav-link" data-scroll-target="#entry-points"><span class="header-section-number">H.3</span> Entry points</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/pkiraly/qa-catalogue/blob/main/contributing.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/pkiraly/qa-catalogue/edit/main/contributing.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li><li><a href="https://github.com/pkiraly/qa-catalogue/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -426,9 +427,24 @@ git rebase upstream/main</code></pre>
 git commit</code></pre>
 <p>update remote feature branch at https://github.com/YOUR_NAME/qa-catalogue</p>
 <pre><code>git push</code></pre>
-
-
 </section>
+</section>
+<section id="entry-points" class="level2" data-number="H.3">
+<h2 data-number="H.3" class="anchored" data-anchor-id="entry-points"><span class="header-section-number">H.3</span> Entry points</h2>
+<p>The entry points of the application are the classes in the <code>de.gwdg.metadataqa.marc.cli</code> package (https://github.com/pkiraly/metadata-qa-marc/blob/main/src/main/java/de/gwdg/metadataqa/marc/cli/). These classes can be called directly from the command line.</p>
+<p>The main idea is that there is a record iterator (<code>RecordIterator</code>), which iterates all over the files and records, and calls methods of the current class. During the iteration there are different events, and classes (usually extending the <code>QACli</code> class) as subscribers react to these events.</p>
+<p>The events themselves are defined in the <code>BibliographicInputProcessor</code> interface, and the command line classes implement it. Here are the events:</p>
+<ul>
+<li><code>beforeIteration()</code>: calls it before the start of the iteration. Good for preparation steps, such as initializing things</li>
+<li><code>fileOpened(Path path)</code>: a file is opened</li>
+<li><code>processRecord(Record marc4jRecord, int recordNumber)</code>: a record is read. Here the record is in a low levele, semanticness-less “Record” class (mart of the external marc4j library), which contains the basic structure. You do not have to add any code here</li>
+<li><code>processRecord(BibliographicRecord bibliographicRecord, int recordNumber)</code>: a record is read. Here the record is a BibliographicRecord class, which is our main class. You have to implement this method.</li>
+<li><code>fileProcessed()</code>: we get to the end of a file, no more record in the file</li>
+<li><code>afterIteration(int numberOfprocessedRecords)</code>: the iteration is finished, no more files to process. You can print out all collected information, close open resources (if any) etc.</li>
+</ul>
+<p>Please check classes in the <code>de.gwdg.metadataqa.marc.cli</code> package, such as the <code>Completeness</code> to study concrete examples.</p>
+
+
 </section>
 
 </main> <!-- /main -->

@@ -117,4 +117,32 @@ update remote feature branch at https://github.com/YOUR_NAME/qa-catalogue
 git push
 ```
 
+## Entry points
 
+The entry points of the application are the classes in the `de.gwdg.metadataqa.marc.cli`
+package (https://github.com/pkiraly/metadata-qa-marc/blob/main/src/main/java/de/gwdg/metadataqa/marc/cli/).
+These classes can be called directly from the command line.
+
+The main idea is that there is a record iterator (`RecordIterator`), which iterates all over the
+files and records, and calls methods of the current class. During the iteration there are different
+events, and classes (usually extending the `QACli` class)
+as subscribers react to these events.
+
+The events themselves are defined in the `BibliographicInputProcessor` interface, and the
+command line classes implement it. Here are the events:
+
+* `beforeIteration()`: calls it before the start of the iteration. Good for preparation steps,
+   such as initializing things
+* `fileOpened(Path path)`: a file is opened
+* `processRecord(Record marc4jRecord, int recordNumber)`: a record is read. Here the record
+   is in a low levele, semanticness-less "Record" class (mart of the external marc4j library),
+   which contains the basic structure. You do not have to add any code here
+* `processRecord(BibliographicRecord bibliographicRecord, int recordNumber)`: a record is read.
+   Here the record is a BibliographicRecord class, which is our main class. You have to
+   implement this method.
+* `fileProcessed()`: we get to the end of a file, no more record in the file
+* `afterIteration(int numberOfprocessedRecords)`: the iteration is finished, no more files
+   to process. You can print out all collected information, close open resources (if any) etc.
+
+Please check classes in the `de.gwdg.metadataqa.marc.cli` package, such as the `Completeness`
+to study concrete examples.

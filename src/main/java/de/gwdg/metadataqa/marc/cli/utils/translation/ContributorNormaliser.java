@@ -70,6 +70,10 @@ public class ContributorNormaliser {
     "válogatta, fordította, az utószót és a jegyzeteket írta", "ford., szerk.",
     "... ford., az előszót és a jegyzeteket írta", "bev. és ford.", "vál., ford., utószó",
     "introd., transl.", "... übertr. von",
+    // German
+    "übersetzt von", "Übersetzt von", "Übersetzung von", "Übers. von",
+    "übertragen von", "Übertragen von", "ins Deutsche übertragen von",
+    "[Aa]us dem \\p{L}+ (?:übersetzt |übertragen )?von",
     // Norwegian
     "utg.", "oversatt", "Overs.av", "på norsk ved", "til norsk ved", "oversatt fra tysk av",
     "oversatt og med forord av", "oversatt og med etterord av", "oversatt fra tysk og med etterord av",

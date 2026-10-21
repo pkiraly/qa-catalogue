@@ -84,7 +84,7 @@ MASK=*.mrc
 Three variables are important here:
 
 1. `NAME` is a name for the output directory. The analysis result will land
-   under $BASE_OUTPUT_DIR/$NAME directory
+   under `$BASE_OUTPUT_DIR/$NAME` directory
 2. `MARC_DIR` is the location of MARC files. All the files should be in the
    same directory
 3. `MASK` is a file mask, such as `*.mrc`, `*.marc` or `*.dat.gz`. Files ending

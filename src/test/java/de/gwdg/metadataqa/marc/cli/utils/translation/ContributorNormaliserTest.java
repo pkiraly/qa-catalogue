@@ -211,4 +211,25 @@ public class ContributorNormaliserTest {
     assertTrue(matcher.matches());
     assertEquals("Faludy György", matcher.group(1));
   }
+
+  @Test
+  public void getGermanTranslators() {
+    contributorNormaliser.process(List.of(new XmlFieldInstance("übersetzt von Anna Schmidt")));
+    assertEquals(List.of("Anna Schmidt"), contributorNormaliser.getContributors().get(TRANSLATOR));
+
+    contributorNormaliser.process(List.of(new XmlFieldInstance("Übersetzung von Karl Meier")));
+    assertEquals(List.of("Karl Meier"), contributorNormaliser.getContributors().get(TRANSLATOR));
+
+    contributorNormaliser.process(List.of(new XmlFieldInstance("Übers. von Lena Roth")));
+    assertEquals(List.of("Lena Roth"), contributorNormaliser.getContributors().get(TRANSLATOR));
+
+    contributorNormaliser.process(List.of(new XmlFieldInstance("Aus dem Englischen übersetzt von Hans Müller")));
+    assertEquals(List.of("Hans Müller"), contributorNormaliser.getContributors().get(TRANSLATOR));
+
+    contributorNormaliser.process(List.of(new XmlFieldInstance("aus dem Französischen von Eva Klein")));
+    assertEquals(List.of("Eva Klein"), contributorNormaliser.getContributors().get(TRANSLATOR));
+
+    contributorNormaliser.process(List.of(new XmlFieldInstance("ins Deutsche übertragen von Paul Weber")));
+    assertEquals(List.of("Paul Weber"), contributorNormaliser.getContributors().get(TRANSLATOR));
+  }
 }

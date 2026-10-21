@@ -22,7 +22,6 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.marc4j.MarcException;
 import org.marc4j.MarcReader;
 import org.marc4j.marc.Record;
-import org.marc4j.marc.VariableField;
 import org.marc4j.marc.impl.ControlFieldImpl;
 
 import java.io.FileInputStream;
@@ -172,6 +171,8 @@ public class RecordIterator {
               parameters
             );
             processContent(marcReader, fileName + "::" + entry.getName());
+            if (isOverLimit(processor.getParameters().getLimit(), recordNumber))
+              break;
           } catch(RuntimeException e) {
             System.err.println("ERROR: " + fileName + "::" + entry.getName() + " " + e.getMessage());
             logger.severe(fileName + "::" + entry.getName() + " -- " + e.getMessage());
@@ -196,6 +197,7 @@ public class RecordIterator {
         try {
           IteratorResponse iteratorResponse = getNextMarc4jRecord(recordNumber, lastKnownId, reader);
           recordNumber++;
+          logger.info("recordNumber: " + recordNumber);
           processIteratorResponse(iteratorResponse, fileName);
         } catch (MarcException ex) {
           logger.log(Level.SEVERE, "catched MarcException", ex);

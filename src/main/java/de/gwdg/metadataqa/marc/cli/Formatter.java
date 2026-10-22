@@ -109,13 +109,15 @@ public class Formatter implements BibliographicInputProcessor {
         logger.log(Level.WARNING, "beforeIteration", e);
       }
     }
-    if (parameters.getFormat() != null && parameters.getFormat().equals("xml") &&
-        (parameters.hasId() || (parameters.getIds() != null && !parameters.getIds().isEmpty()))) {
+    if (parameters.getFormat() != null && parameters.getFormat().equals("xml")
+        // && (parameters.hasId() || (parameters.getIds() != null && !parameters.getIds().isEmpty()))
+    ) {
       var path = Paths.get(parameters.getOutputDir(), parameters.getFileName());
       logger.info("path: " + path.toAbsolutePath());
       try {
         // outputStream = new FileOutputStream(path.toFile());
         marcXmlWriter = new MarcXmlWriter(new FileOutputStream(path.toFile()));
+        // TODO: create a parameter for that!
         marcXmlWriter.setIndent(true);
       } catch (FileNotFoundException e) {
         logger.log(Level.WARNING, "beforeIteration", e);
@@ -123,6 +125,7 @@ public class Formatter implements BibliographicInputProcessor {
     }
     if (parameters.getFormat() != null && parameters.getFormat().equals("iso")) {
       var path = Paths.get(parameters.getOutputDir(), parameters.getFileName());
+      logger.info("path: " + path.toAbsolutePath());
       try {
         marcStreamWriter = new MarcStreamWriter(new FileOutputStream(path.toFile()));
       } catch (FileNotFoundException e) {
@@ -152,7 +155,7 @@ public class Formatter implements BibliographicInputProcessor {
     boolean hasSpecifiedRecordNumber = parameters.getCountNr() > -1
       && parameters.getCountNr() == recordNumber;
 
-    if (hasSpecifiedId || hasSpecifiedRecordNumber) {
+    if (hasSpecifiedId || hasSpecifiedRecordNumber || parameters.hasNoCountNr()) {
       if (parameters.getFormat() != null && parameters.getFormat().equals("xml")) {
         marcXmlWriter.write(marc4jRecord);
         // MarcXmlWriter.writeSingleRecord(marc4jRecord, System.out, true);
@@ -160,7 +163,9 @@ public class Formatter implements BibliographicInputProcessor {
       } else if (parameters.getFormat() != null && parameters.getFormat().equals("iso")) {
         marcStreamWriter.write(marc4jRecord);
       } else {
-        logger.info(marc4jRecord::toString);
+        if (marc4jRecord.getLeader() != null) {
+          logger.info(marc4jRecord::toString);
+        }
       }
     }
   }

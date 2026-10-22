@@ -25,6 +25,7 @@ public class FormatterParameters extends CommonParameters {
   private List<String> ids;
 
   private boolean isOptionSet = false;
+  private Boolean countNrHasBeenSet = null;
 
   @Override
   protected void setOptions() {
@@ -134,6 +135,12 @@ public class FormatterParameters extends CommonParameters {
 
   public List<String> getIds() {
     return ids;
+  }
+
+  public boolean hasNoCountNr() {
+    if (countNrHasBeenSet == null)
+      countNrHasBeenSet = countNr == -1;
+    return countNrHasBeenSet;
   }
 
   @Override

@@ -16,6 +16,7 @@ options:
 * `-f`, `--format`: the MARC output format
   * if not set, the output format follows the examples in the MARC21 documentation (see the example below)
   * `xml`: the output will be MARCXML
+  * `iso`: the output will be binary MARC (ISO 2709)
 * `-c <number>`, `-countNr <number>`: count number of the record (e.g. 1 means the first record)
 * `-s [path=query]`, `-search [path=query]`: print records matching the query. The query part is the content of the element. The path should be one of the following types:
   * control field tag (e.g. `001`, `002`, `003`)

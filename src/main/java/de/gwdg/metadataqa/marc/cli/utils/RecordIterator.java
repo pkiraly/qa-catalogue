@@ -197,7 +197,6 @@ public class RecordIterator {
         try {
           IteratorResponse iteratorResponse = getNextMarc4jRecord(recordNumber, lastKnownId, reader);
           recordNumber++;
-          logger.info("recordNumber: " + recordNumber);
           processIteratorResponse(iteratorResponse, fileName);
         } catch (MarcException ex) {
           logger.log(Level.SEVERE, "catched MarcException", ex);

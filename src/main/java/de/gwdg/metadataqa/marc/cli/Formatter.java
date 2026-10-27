@@ -155,7 +155,7 @@ public class Formatter implements BibliographicInputProcessor {
     boolean hasSpecifiedRecordNumber = parameters.getCountNr() > -1
       && parameters.getCountNr() == recordNumber;
 
-    if (hasSpecifiedId || hasSpecifiedRecordNumber || parameters.hasNoCountNr()) {
+    if (parameters.hasNoCountNr() || hasSpecifiedId || hasSpecifiedRecordNumber) {
       if (parameters.getFormat() != null && parameters.getFormat().equals("xml")) {
         marcXmlWriter.write(marc4jRecord);
         // MarcXmlWriter.writeSingleRecord(marc4jRecord, System.out, true);
@@ -163,7 +163,7 @@ public class Formatter implements BibliographicInputProcessor {
       } else if (parameters.getFormat() != null && parameters.getFormat().equals("iso")) {
         marcStreamWriter.write(marc4jRecord);
       } else {
-        if (marc4jRecord.getLeader() != null) {
+        if ((hasSpecifiedId || hasSpecifiedRecordNumber) && marc4jRecord.getLeader() != null) {
           logger.info(marc4jRecord::toString);
         }
       }

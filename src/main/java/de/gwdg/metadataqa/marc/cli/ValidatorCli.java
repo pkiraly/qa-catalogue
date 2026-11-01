@@ -389,8 +389,14 @@ public class ValidatorCli extends QACli<ValidatorParameters> implements Bibliogr
     String header = ValidationErrorFormatter.formatHeaderForSummary(parameters.getFormat(), doGroups());
     print(summaryFile, header);
 
-    Comparator<Map.Entry<ValidationError, Integer>> comparator = Comparator.comparing(a -> a.getKey().getType().getId());
-    comparator = comparator.thenComparing(a -> validatorDAO.getRecordBasedErrorCounter().get(a.getKey().getId()));
+    Comparator<Map.Entry<ValidationError, Integer>> comparator = Comparator.comparing(
+      a -> a.getKey().getType().getId());
+    comparator = comparator.thenComparing((a, b) -> {
+        int x = validatorDAO.getRecordBasedErrorCounter().get(a.getKey().getId());
+        int y = validatorDAO.getRecordBasedErrorCounter().get(b.getKey().getId());
+        return Integer.compare(y, x);
+      }
+    );
     comparator = comparator.thenComparing(a -> a.getKey().getId());
 
     validatorDAO.getInstanceBasedErrorCounter()
@@ -401,10 +407,12 @@ public class ValidatorCli extends QACli<ValidatorParameters> implements Bibliogr
         entry -> {
           ValidationError error = entry.getKey();
           int instanceCount = entry.getValue();
+
           List<Serializable> cells = new ArrayList<>();
           cells.add(error.getId());
           cells.addAll(Arrays.asList(ValidationErrorFormatter.asArrayWithoutId(error)));
           cells.addAll(Arrays.asList(instanceCount, validatorDAO.getRecordBasedErrorCounter().get(error.getId())));
+
           // TODO: separator
           print(summaryFile, CsvUtils.createCsv(cells));
         }

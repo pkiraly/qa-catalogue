@@ -10,16 +10,18 @@ NAME=kbr
 MARC_DIR=${BASE_INPUT_DIR}/current
 TYPE_PARAMS="--emptyLargeCollectors --marcVersion KBR --marcxml --fixKbr"
 # 911
-TYPE_PARAMS="${TYPE_PARAMS} --ignorableFields 590,591,592,593,594,595,596,659,900,912,916,940,941,942,944,945,946,948,949,950,951,952,953,954,970,971,972,973,975,977,988,989"
+TYPE_PARAMS="${TYPE_PARAMS} --ignorableFields 590,591,592,593,594,595,596,659,900,910,912,916,940,941,942,944,945,946,948,949,950,951,952,953,954,970,971,972,973,975,977,988,989"
 TYPE_PARAMS="${TYPE_PARAMS} --compoundFields subject=600\$*,610\$*,647\$*,648\$*,650\$*,651\$*,654\$*"
-# TYPE_PARAMS="${TYPE_PARAMS} --solrForScoresUrl http://localhost:8983/solr/kbr_scores"
+TYPE_PARAMS="${TYPE_PARAMS} --solrForScoresUrl http://localhost:8983/solr/kbr_scores"
 # index parameters
 TYPE_PARAMS="${TYPE_PARAMS} --indexWithTokenizedField --indexFieldCounts --indexSubfieldCounts"
 
 # TYPE_PARAMS="${TYPE_PARAMS} --shaclConfigurationFile /opt/shacl4bib/kbr-full.yaml"
-TYPE_PARAMS="${TYPE_PARAMS} --shaclConfigurationFile /home/qa_admin/git/data-validation-rules/kbr-full.yaml"
+VALIDATION_RULES_DIR=$(realpath ${QAC_ROOT}/../data-validation-rules)
+TYPE_PARAMS="${TYPE_PARAMS} --shaclConfigurationFile ${VALIDATION_RULES_DIR}/kbr-full.yaml"
 TYPE_PARAMS="${TYPE_PARAMS} --shaclOutputType STATUS"
 
+echo "QAC_ROOT: ${QAC_ROOT}"
 PLACE_NAME_DIR=$(realpath ${QAC_ROOT}/../place-names/data)
 
 echo "PLACE_NAME_DIR: ${PLACE_NAME_DIR}"

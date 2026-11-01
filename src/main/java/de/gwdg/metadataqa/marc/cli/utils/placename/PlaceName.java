@@ -44,4 +44,16 @@ public class PlaceName {
   public float getLongitude() {
     return longitude;
   }
+
+  @Override
+  public String toString() {
+    return "PlaceName{" +
+      "city='" + city + '\'' +
+      ", geoid=" + geoid +
+      ", geoname='" + geoname + '\'' +
+      ", country='" + country + '\'' +
+      ", latitude=" + latitude +
+      ", longitude=" + longitude +
+      '}';
+  }
 }

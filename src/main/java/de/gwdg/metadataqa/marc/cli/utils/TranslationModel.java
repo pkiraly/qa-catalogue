@@ -130,20 +130,8 @@ public class TranslationModel {
               .stream()
               .map(s -> resultLanguageCode(s.trim().toLowerCase()))
               .collect(Collectors.toList()));
-          else if (!value.contains(" ")) {
-            if (value.length() > 3) {
-              for (int i = 0; i < value.length(); i += 3) {
-                int end = i + 3;
-                String abr = (value.length() >= end)
-                  ? value.substring(i, end).toLowerCase()
-                  : value.substring(i).toLowerCase();
-                extracted.add(resultLanguageCode(abr));
-              }
-            } else {
-              extracted.add(resultLanguageCode(value.toLowerCase()));
-            }
-          } else {
-            logger.warning(String.format("%s - Unhandled language: '%s'", path, value));
+          else {
+            extractLanguage(path, value, extracted);
           }
         }
       }
@@ -170,16 +158,44 @@ public class TranslationModel {
               logger.warning(String.format("%s - null in place name: '%s'", path, StringUtils.join(extracted, "' -- '")));
             }
           }
-          return placeNames.stream()
-            .filter(s -> s.getCity() != null)
-            .map(PlaceName::getCity)
-            .collect(Collectors.toList());
+          try {
+            return placeNames.stream()
+              .filter(s -> s != null)
+              .filter(s -> s.getCity() != null)
+              .map(PlaceName::getCity)
+              .collect(Collectors.toList());
+          } catch(NullPointerException e) {
+            logger.severe(String.format("null pointer exception while processing place names: %s (is null? %s, size: %d)",
+              StringUtils.join(placeNames, " -- "),
+              placeNames == null,
+              placeNames.size()));
+            return null;
+          }
         }
       } else if (path.equals("260$c") && yearNormaliser != null) {
         return yearNormaliser.processYear(extracted);
       }
     }
     return extracted;
+  }
+
+  private static void extractLanguage(String path, String value, List<String> extracted) {
+    if (value.contains(" ")) {
+      logger.warning(String.format("%s - removing space from language string: '%s'", path, value));
+      value = value.replace(" ", "");
+    }
+
+    if (value.length() > 3) {
+      for (int i = 0; i < value.length(); i += 3) {
+        int end = i + 3;
+        String abr = (value.length() >= end)
+          ? value.substring(i, end).toLowerCase()
+          : value.substring(i).toLowerCase();
+        extracted.add(resultLanguageCode(abr));
+      }
+    } else {
+      extracted.add(resultLanguageCode(value.toLowerCase()));
+    }
   }
 
   private List<XmlFieldInstance> getAuthorsFromHunmarc() {

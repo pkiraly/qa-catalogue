@@ -12,6 +12,7 @@ title: "Institutions which reportedly use this tool"
 * [Gemeinsamer Bibliotheksverbund (GBV)](https://www.gbv.de/informationen/Verbund/), Göttingen, Germany
 * [Binghampton University Libraries](https://www.binghamton.edu/libraries/), Binghampton, NY, USA
 * [Zentralbibliothek Zürich](https://www.zb.uzh.ch/de), Zürich, Switzerland
+* [Národní knihovna České republiky](https://www.nkp.cz), Prague, Czech Republic
 
 If you use this tool as well, please contact me: pkiraly (at) gwdg (dot) de. I
 really like to hear about your use case and ideas.

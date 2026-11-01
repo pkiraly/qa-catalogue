@@ -100,6 +100,11 @@ fields:
             - eadar\.
             - Aus d\.
             - Dt\.
+            - "[Üü]bersetz"
+            - "[Üü]bertrag"
+            - "[Üü]bers\\."
+            - "[Üü]bertr\\."
+            - "[Aa]us dem (Englischen|Französischen|Italienischen|Spanischen|Russischen|Lateinischen|Griechischen|Niederländischen|Polnischen) von"
             # Hungarian
             - Fordította|fordt́otta|Forditotta|Fordították
             - "[Ff]ord\\."
@@ -112,6 +117,21 @@ fields:
             - Fran tyskan av
             - Till? svenska av
             - Tr\. de l'allemand par
+            # Norwegian
+            - utg\.
+            - oversatt av
+            - oversatt
+            - Overs.av
+            - på norsk ved
+            - til norsk ved
+            - oversatt fra tysk av
+            - oversatt og med forord av
+            - oversatt og med etterord av
+            - oversatt fra tysk og med etterord av
+            - frå tysk ved
+            - oversettelse
+            # Spanish
+            - "[Tt]raducción?"
           scope: anyOf
   - name: 700$4
     path: 700$4
@@ -120,7 +140,14 @@ fields:
         description: Authorized translator name
         mqafPattern: 
           pattern:
-            - "(translator|trl)"
+            - "[Tt]ranslator(\\.|,)?"
+            - "tr|trl|trlor|Tłumaczenie"
+            # Hungarian
+            - "vál\\., ford\\.|ford\\.|fordító|ford\\., bev\\.|szerk\\., ford\\.|szerk\\., ford\\.|ford\\., szerk\\."
+            - "ford\\., magy\\.|ford|ford\\., jegyz\\.|ford\\., átd\\.|ford\\., sajtó alá rend\\.|szerk\\. és ford\\."
+            - "ford\\., előszó|sajtó alá rend\\., ford\\.|ford\\., közrem\\.|bev\\., ford\\.|közrem\\., ford\\."
+            - "ford\\., összeáll\\.|fordító, átdolgozó|ford\\., komm\\.|német ford\\."
+            - "m\\. szöveg|magyar szöv\\.|magyar szöveg"
           scope: anyOf
   - name: 700$e
     path: 700$e
@@ -129,7 +156,14 @@ fields:
         description: Authorized translator name
         mqafPattern:
           pattern:
-            - "(translator|trl|Tłumaczenie)"
+            - "[Tt]ranslator(\\.|,)?"
+            - "tr|trl|Tłumaczenie"
+            # Hungarian
+            - "vál\\., ford\\.|ford\\.|fordító|ford\\., bev\\.|szerk\\., ford\\.|szerk\\., ford\\.|ford\\., szerk\\."
+            - "ford\\., magy\\.|ford|ford\\., jegyz\\.|ford\\., átd\\.|ford\\., sajtó alá rend\\.|szerk\\. és ford\\."
+            - "ford\\., előszó|sajtó alá rend\\., ford\\.|ford\\., közrem\\.|bev\\., ford\\.|közrem\\., ford\\."
+            - "ford\\., összeáll\\.|fordító, átdolgozó|ford\\., komm\\.|német ford\\."
+            - "m\\. szöveg|magyar szöv\\.|magyar szöveg"
           scope: anyOf
   - name: 500$a
     path: 500$a
@@ -139,7 +173,8 @@ fields:
         # debug: true
         mqafPattern: 
           pattern:
-            - "[Tt]ranslated by"
+            - "[Tt]ranslated (by|from)"
+            - "[Ff]ord\\.|fordította|fordítás"
           scope: anyOf
   # TODO: add
   # 130 - Main Entry - Uniform Title

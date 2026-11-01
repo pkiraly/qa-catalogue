@@ -16,6 +16,7 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.lang3.StringUtils;
 import org.marc4j.MarcException;
+import org.marc4j.MarcStreamWriter;
 import org.marc4j.MarcXmlWriter;
 import org.marc4j.marc.Record;
 
@@ -23,7 +24,6 @@ import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -44,6 +44,7 @@ public class Formatter implements BibliographicInputProcessor {
   private final boolean readyToProcess;
   private BufferedWriter writer;
   private MarcXmlWriter marcXmlWriter;
+  private MarcStreamWriter marcStreamWriter;
 
   public Formatter(String[] args) throws ParseException {
     parameters = new FormatterParameters(args);
@@ -108,16 +109,27 @@ public class Formatter implements BibliographicInputProcessor {
         logger.log(Level.WARNING, "beforeIteration", e);
       }
     }
-    if (parameters.getIds() != null && !parameters.getIds().isEmpty()
-        && parameters.getFormat().equals("xml")) {
+    if (parameters.getFormat() != null && parameters.getFormat().equals("xml")
+        // && (parameters.hasId() || (parameters.getIds() != null && !parameters.getIds().isEmpty()))
+    ) {
       var path = Paths.get(parameters.getOutputDir(), parameters.getFileName());
       logger.info("path: " + path.toAbsolutePath());
       try {
         // outputStream = new FileOutputStream(path.toFile());
         marcXmlWriter = new MarcXmlWriter(new FileOutputStream(path.toFile()));
+        // TODO: create a parameter for that!
         marcXmlWriter.setIndent(true);
       } catch (FileNotFoundException e) {
         logger.log(Level.WARNING, "beforeIteration", e);
+      }
+    }
+    if (parameters.getFormat() != null && parameters.getFormat().equals("iso")) {
+      var path = Paths.get(parameters.getOutputDir(), parameters.getFileName());
+      logger.info("path: " + path.toAbsolutePath());
+      try {
+        marcStreamWriter = new MarcStreamWriter(new FileOutputStream(path.toFile()));
+      } catch (FileNotFoundException e) {
+        throw new RuntimeException(e);
       }
     }
   }
@@ -132,7 +144,7 @@ public class Formatter implements BibliographicInputProcessor {
     String id = marc4jRecord.getControlNumber() != null ?
       marc4jRecord.getControlNumber().trim() : null;
 
-    boolean hasSpecifiedId = parameters.hasId() && id != null && id.equals(parameters.getId());
+    boolean hasSpecifiedId = parameters.hasId() && id != null && parameters.getId().contains(id);
 
     if (!hasSpecifiedId)
       hasSpecifiedId = id != null
@@ -143,13 +155,17 @@ public class Formatter implements BibliographicInputProcessor {
     boolean hasSpecifiedRecordNumber = parameters.getCountNr() > -1
       && parameters.getCountNr() == recordNumber;
 
-    if (hasSpecifiedId || hasSpecifiedRecordNumber) {
-      if (parameters.getFormat().equals("xml")) {
+    if (parameters.hasNoCountNr() || hasSpecifiedId || hasSpecifiedRecordNumber) {
+      if (parameters.getFormat() != null && parameters.getFormat().equals("xml")) {
         marcXmlWriter.write(marc4jRecord);
         // MarcXmlWriter.writeSingleRecord(marc4jRecord, System.out, true);
         // MarcXmlWriter.writeSingleRecord(marc4jRecord, outputStream, true);
+      } else if (parameters.getFormat() != null && parameters.getFormat().equals("iso")) {
+        marcStreamWriter.write(marc4jRecord);
       } else {
-        logger.info(marc4jRecord::toString);
+        if ((hasSpecifiedId || hasSpecifiedRecordNumber) && marc4jRecord.getLeader() != null) {
+          logger.info(marc4jRecord::toString);
+        }
       }
     }
   }
@@ -161,12 +177,6 @@ public class Formatter implements BibliographicInputProcessor {
 
   @Override
   public void processRecord(BibliographicRecord bibliographicRecord, int recordNumber) throws IOException {
-    if (parameters.hasId() && bibliographicRecord.getId().trim().equals(parameters.getId())) {
-      for (DataField field : bibliographicRecord.getDatafields()) {
-       logger.info(field.getTag());
-      }
-    }
-
     if (parameters.hasSearch()) {
       List<String> results = bibliographicRecord.search(parameters.getPath(), parameters.getQuery());
       if (!results.isEmpty()) {
@@ -214,6 +224,13 @@ public class Formatter implements BibliographicInputProcessor {
     if (marcXmlWriter != null)
       try {
         marcXmlWriter.close();
+      } catch (MarcException e) {
+        logger.log(Level.SEVERE, "afterIteration", e);
+      }
+
+    if (marcStreamWriter != null)
+      try {
+        marcStreamWriter.close();
       } catch (MarcException e) {
         logger.log(Level.SEVERE, "afterIteration", e);
       }

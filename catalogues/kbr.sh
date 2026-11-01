@@ -22,11 +22,12 @@ TYPE_PARAMS="${TYPE_PARAMS} --shaclConfigurationFile ${VALIDATION_RULES_DIR}/kbr
 TYPE_PARAMS="${TYPE_PARAMS} --shaclOutputType STATUS"
 
 echo "QAC_ROOT: ${QAC_ROOT}"
-PLACE_NAME_DIR=$(realpath ${QAC_ROOT}/../place-names/data)
-
-echo "PLACE_NAME_DIR: ${PLACE_NAME_DIR}"
+# TYPE_PARAMS="${TYPE_PARAMS} --id file:/home/pkiraly/data/marc21/input/kbr/data-loss-issue/ids-wanted"
 
 # translations
+PLACE_NAME_DIR=$(realpath ${QAC_ROOT}/../place-names/data)
+echo "PLACE_NAME_DIR: ${PLACE_NAME_DIR}"
+
 TYPE_PARAMS="${TYPE_PARAMS} --translationConfigurationFile ${QAC_ROOT}/scripts/translations/translations-shacl.yml"
 TYPE_PARAMS="${TYPE_PARAMS} --translationDebugFailedRules 245c,7004"
 TYPE_PARAMS="${TYPE_PARAMS} --translationPlaceNameDictionaryDir ${PLACE_NAME_DIR}"

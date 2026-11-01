@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 
 import static de.gwdg.metadataqa.marc.cli.utils.translation.ContributorNormaliser.TYPE.AUTHOR;
 import static de.gwdg.metadataqa.marc.cli.utils.translation.ContributorNormaliser.TYPE.EDITOR;
+import static de.gwdg.metadataqa.marc.cli.utils.translation.ContributorNormaliser.TYPE.ILLUSTRATOR;
 import static de.gwdg.metadataqa.marc.cli.utils.translation.ContributorNormaliser.TYPE.TRANSLATOR;
 import static org.junit.Assert.*;
 
@@ -124,6 +125,10 @@ public class ContributorNormaliserTest {
 
     contributorNormaliser.process(List.of(new XmlFieldInstance("a meséket ford. Vikár Béla valamint Kozma Andor és Zempléni Árpád")));
     assertEquals(List.of("Vikár Béla", "Kozma Andor", "Zempléni Árpád"), contributorNormaliser.getContributors().get(TRANSLATOR));
+
+    // Spanish
+    contributorNormaliser.process(List.of(new XmlFieldInstance("traducido por Elena Greggio")));
+    assertEquals(List.of("Elena Greggio"), contributorNormaliser.getContributors().get(TRANSLATOR));
   }
 
   @Test
@@ -166,6 +171,17 @@ public class ContributorNormaliserTest {
 
     contributorNormaliser.process(List.of(new XmlFieldInstance("Marion Auer regénye")));
     assertEquals(List.of("Marion Auer"), contributorNormaliser.getContributors().get(AUTHOR));
+
+    // Spanish
+    contributorNormaliser.process(List.of(new XmlFieldInstance("autor, Luis Bonilla")));
+    assertEquals(List.of("Luis Bonilla"), contributorNormaliser.getContributors().get(AUTHOR));
+
+  }
+
+  @Test
+  public void getIllustrator() {
+    contributorNormaliser.process(List.of(new XmlFieldInstance("ilustraciones, Riot Über Alles")));
+    assertEquals(List.of("Riot Über Alles"), contributorNormaliser.getContributors().get(ILLUSTRATOR));
   }
 
   @Test
@@ -194,5 +210,26 @@ public class ContributorNormaliserTest {
     matcher = regex.matcher("Faludy György átköltésében");
     assertTrue(matcher.matches());
     assertEquals("Faludy György", matcher.group(1));
+  }
+
+  @Test
+  public void getGermanTranslators() {
+    contributorNormaliser.process(List.of(new XmlFieldInstance("übersetzt von Anna Schmidt")));
+    assertEquals(List.of("Anna Schmidt"), contributorNormaliser.getContributors().get(TRANSLATOR));
+
+    contributorNormaliser.process(List.of(new XmlFieldInstance("Übersetzung von Karl Meier")));
+    assertEquals(List.of("Karl Meier"), contributorNormaliser.getContributors().get(TRANSLATOR));
+
+    contributorNormaliser.process(List.of(new XmlFieldInstance("Übers. von Lena Roth")));
+    assertEquals(List.of("Lena Roth"), contributorNormaliser.getContributors().get(TRANSLATOR));
+
+    contributorNormaliser.process(List.of(new XmlFieldInstance("Aus dem Englischen übersetzt von Hans Müller")));
+    assertEquals(List.of("Hans Müller"), contributorNormaliser.getContributors().get(TRANSLATOR));
+
+    contributorNormaliser.process(List.of(new XmlFieldInstance("aus dem Französischen von Eva Klein")));
+    assertEquals(List.of("Eva Klein"), contributorNormaliser.getContributors().get(TRANSLATOR));
+
+    contributorNormaliser.process(List.of(new XmlFieldInstance("ins Deutsche übertragen von Paul Weber")));
+    assertEquals(List.of("Paul Weber"), contributorNormaliser.getContributors().get(TRANSLATOR));
   }
 }

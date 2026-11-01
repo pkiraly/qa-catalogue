@@ -22,16 +22,22 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.marc4j.MarcException;
 import org.marc4j.MarcReader;
 import org.marc4j.marc.Record;
-import org.marc4j.marc.VariableField;
 import org.marc4j.marc.impl.ControlFieldImpl;
 
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
+import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.GZIPInputStream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipException;
+import java.util.zip.ZipFile;
 
 /**
  * usage:
@@ -109,8 +115,13 @@ public class RecordIterator {
 
     try {
       processor.fileOpened(path);
-      MarcReader reader = getMarcFileReader(processor.getParameters(), path);
-      processContent(reader, fileName);
+      if (path.toString().endsWith(".zip")) {
+        processZip(processor.getParameters(), path);
+      } else {
+        MarcReader reader = getMarcFileReader(processor.getParameters(), path);
+        processContent(reader, fileName);
+      }
+
       if (processor.getParameters().doLog())
         logger.log(Level.INFO, "Finished processing file. Processed {0} records.", new Object[]{decimalFormat.format(recordNumber)});
 
@@ -141,6 +152,37 @@ public class RecordIterator {
       }
       // logger.log(Level.SEVERE, "start2", ex);
       // System.exit(1);
+    }
+  }
+
+  private void processZip(CommonParameters parameters, Path fileName) {
+    logger.info("process zip: " + fileName);
+                                                            // Charset.forName("UTF-8")
+    try (ZipFile zipFile = new ZipFile(fileName.toString(), StandardCharsets.ISO_8859_1)) {
+      Enumeration<? extends ZipEntry> entries = zipFile.entries();
+      while (entries.hasMoreElements()) {
+        ZipEntry entry = entries.nextElement();
+        if (!entry.isDirectory()) {
+          try (InputStream inputStream = zipFile.getInputStream(entry)) {
+            logger.info(fileName + "::" + entry.getName());
+            MarcReader marcReader = QAMarcReaderFactory.getStreamReader(
+              parameters.getMarcFormat(),
+              inputStream,
+              parameters
+            );
+            processContent(marcReader, fileName + "::" + entry.getName());
+            if (isOverLimit(processor.getParameters().getLimit(), recordNumber))
+              break;
+          } catch(RuntimeException e) {
+            System.err.println("ERROR: " + fileName + "::" + entry.getName() + " " + e.getMessage());
+            logger.severe(fileName + "::" + entry.getName() + " -- " + e.getMessage());
+          }
+        }
+      }
+    } catch (ZipException e) {
+      logger.severe("Zip exception " + e.getMessage());
+    } catch (IOException e) {
+      logger.severe("I/O exception " + e.getMessage());
     }
   }
 
@@ -241,7 +283,9 @@ public class RecordIterator {
     }
   }
 
-  private MarcReader getMarcFileReader(CommonParameters parameters, Path path) throws Exception {
+  private MarcReader getMarcFileReader(CommonParameters parameters,
+                                       Path path)
+      throws Exception {
     MarcReader marcReader;
     if (path.toString().endsWith(".gz")) {
       marcReader = QAMarcReaderFactory.getStreamReader(
@@ -284,7 +328,7 @@ public class RecordIterator {
 
   private boolean skipRecord(Record marc4jRecord) {
     return processor.getParameters().hasId()
-      && !marc4jRecord.getControlNumber().trim().equals(processor.getParameters().getId());
+      && !processor.getParameters().getId().contains(marc4jRecord.getControlNumber().trim());
   }
 
   private void extracted(int i, Record marc4jRecord, Exception e, String message) {

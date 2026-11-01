@@ -34,6 +34,7 @@ public enum ValidationErrorType {
   SUBFIELD_UNPARSABLE_CONTENT(20, "unparsableContent", "content is not well-formatted", ValidationErrorCategory.SUBFIELD),
   SUBFIELD_NULL_CODE(21, "nullCode", "null subfield code", ValidationErrorCategory.SUBFIELD),
   SUBFIELD_INVALID_VALUE(22, "invalidValue", "invalid value", ValidationErrorCategory.SUBFIELD),
+  SUBFIELD_DEPRECATED_VALUE(23, "deprecatedValue", "deprecated value", ValidationErrorCategory.SUBFIELD),
   ;
 
   private final int id;

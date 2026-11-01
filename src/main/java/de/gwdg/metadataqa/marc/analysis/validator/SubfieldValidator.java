@@ -61,35 +61,38 @@ public class SubfieldValidator extends AbstractValidator {
       validateWithValidator();
     } else if (definition.hasContentParser()) {
       validateWithParser();
-    } else if (definition.getCodes() != null && !definition.getCodes().isEmpty() && definition.getCode(subfield.getValue()) == null) {
+    } else if (definition.getCodes() != null
+               && !definition.getCodes().isEmpty()
+               && definition.getCode(subfield.getValue()) == null) {
       // If a subfield has a list of codes defined, and the value is not in the codelist, then it is invalid
-      String message = subfield.getValue();
-      if (subfield.getReferencePath() != null) {
-        message += String.format(" (the field is embedded in %s)", subfield.getReferencePath());
+      createCodeError(subfield, ValidationErrorType.SUBFIELD_INVALID_VALUE);
+    } else if (definition.getCodeList() != null) {
+      if (!definition.getCodeList().isValid(subfield.getValue())) {
+        createCodeError(subfield, ValidationErrorType.SUBFIELD_INVALID_VALUE);
       }
-      String path = subfield.getReferencePath() == null
-        ? definition.getPath()
-        : subfield.getReferencePath() + "->" + definition.getPath();
-      addError(path, ValidationErrorType.SUBFIELD_INVALID_VALUE, message);
-    /*
-    } else if (definition.getCodeList() != null &&
-               !definition.getCodeList().isValid(value)) {
-      String message = value;
-      if (referencePath != null) {
-        message += String.format(" (the field is embedded in %s)", referencePath);
+      if (definition.getCodeList().isDeprecated(subfield.getValue())) {
+        createCodeError(subfield, ValidationErrorType.SUBFIELD_DEPRECATED_VALUE);
       }
-      String path = (referencePath == null
-        ? definition.getPath()
-        : referencePath + "->" + definition.getPath());
-      addError(path, ValidationErrorType.SUBFIELD_INVALID_VALUE, message);
-      isValid = false;
-    */
+      // isValid = false;
+      /**/
     } else if (definition.hasPositions()) {
       validatePositions();
     }
 
     validationErrors.addAll(errors.getErrors());
     return errors.isEmpty();
+  }
+
+  private void createCodeError(MarcSubfield subfield, ValidationErrorType errorType) {
+    String message = subfield.getValue();
+    String referencePath = subfield.getReferencePath();
+    if (referencePath != null) {
+      message += String.format(" (the field is embedded in %s)", referencePath);
+    }
+    String path = (referencePath == null
+      ? definition.getPath()
+      : referencePath + "->" + definition.getPath());
+    addError(path, errorType, message);
   }
 
   private void validatePositions() {

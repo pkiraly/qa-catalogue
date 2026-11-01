@@ -69,7 +69,17 @@ public class ContributorNormaliser {
     "francziából ford.", "angolból átd.", "szerk. és ford.", "a meséket ford.",
     "válogatta, fordította, az utószót és a jegyzeteket írta", "ford., szerk.",
     "... ford., az előszót és a jegyzeteket írta", "bev. és ford.", "vál., ford., utószó",
-    "introd., transl.", "... übertr. von"
+    "introd., transl.", "... übertr. von",
+    // German
+    "übersetzt von", "Übersetzt von", "Übersetzung von", "Übers. von",
+    "übertragen von", "Übertragen von", "ins Deutsche übertragen von",
+    "[Aa]us dem \\p{L}+ (?:übersetzt |übertragen )?von",
+    // Norwegian
+    "utg.", "oversatt", "Overs.av", "på norsk ved", "til norsk ved", "oversatt fra tysk av",
+    "oversatt og med forord av", "oversatt og med etterord av", "oversatt fra tysk og med etterord av",
+    "oversatt av", "frå tysk ved", "oversettelse", "oversetter",
+    // Spanish
+    "traducción,", "traducción de", "traducido por", "tradução,", "traductor,", "traducción del inglés,", "traducció i adaptació,"
   );
   private static final List<String> TRANSLATOR_SUFFIXES = List.of(
     "fordításában", "átköltésében", "ford.", "fordításai", "műfordításai", "fordításában és utószavával"
@@ -103,7 +113,11 @@ public class ContributorNormaliser {
     "előszó", "vál., szerk., az utószót és az életrajzi jegyzeteket írta",
     "vál., szerk., jegyz.", "zsgest. von", "zost.", "ured.", "red.", "összeáll. és magyarázatokkal ellátta",
     "with a pref. and ill. by", "vál., életrajzi jegyz.", "... az utószót ... írta",
-    "intr. by", "a bev. tanulmányt írta", "a cura di"
+    "intr. by", "a bev. tanulmányt írta", "a cura di", "edited by",
+    // Norwegian
+    "redaktør",
+    // Spanish
+    "edición preparada por"
   );
   private static final List<String> EDITOR_SUFFIXES = List.of(
     "válogatása", "válogatásában", "összeállítása", "főszerk.", "fel. szerk."
@@ -114,11 +128,20 @@ public class ContributorNormaliser {
     "az ifjúság számára átdolg.", "alapján", "adaptációja", "művei", "eredeti regényét átd.", "meséit átd.",
     "ötlete alapján írta", "nyomán írta", "regénye", "ötletéből ... írta", "meséjét átd.", "meséje",
     "nacherzählt von", "írásait átd.", "adapted by", "munkája", "tollából", "texte et photos", "par",
-    "forgatókönyve alapján írta", "sorozata alapján írta", "a meséket átd."
+    "forgatókönyve alapján írta", "sorozata alapján írta", "a meséket átd.",
+    // Norwegian
+    "tekst", "written by",
+    // Spanish
+    "autor,"
+  );
+  private static final List<String> AUTHOR_SUFFIXES = List.of(
+    "writer"
   );
 
   private static final List<String> ILLUSTRATOR_PREFIXES = List.of(
-    "rajz", "... összefirkálta", "fot.", "fotó", "photos by", "phot."
+    "rajz", "... összefirkálta", "fot.", "fotó", "photos by", "phot.",
+    // Spanish
+    "ilustraciones de", "ilustraciones,", "ilustraciones", "diagramación e ilustración"
   );
   private static final List<String> ILLUSTRATOR_SUFFIXES = List.of(
     "illusztrációival", "rajzaival"
@@ -197,23 +220,23 @@ public class ContributorNormaliser {
     text = text.replaceAll("(\\[|\\])", "").replaceAll("\\s+", " ");
 
     if (hasContributor(text) || hasLowercase(text)) {
-      String translationPattern = extractPattern(text);
-      if (!translationPattern.equals("")) {
+      String contributorType = extractContributorType(text);
+      if (!contributorType.equals("")) {
         // System.err.println(text);
         unresolvedContributors.put(
-          translationPattern,
-          unresolvedContributors.getOrDefault(translationPattern, 0) + 1
+          contributorType,
+          unresolvedContributors.getOrDefault(contributorType, 0) + 1
         );
-        if (   !translationPattern.equals("TRANSLATOR")
-            && !translationPattern.equals("EDITOR")
-            && !translationPattern.equals("AUTHOR")
-            && !translationPattern.equals("ILLUSTRATOR")
+        if (   !contributorType.equals("TRANSLATOR")
+            && !contributorType.equals("EDITOR")
+            && !contributorType.equals("AUTHOR")
+            && !contributorType.equals("ILLUSTRATOR")
         ) {
-          if (!unresolvedContributorsSamples.containsKey(translationPattern))
-            unresolvedContributorsSamples.put(translationPattern, new ArrayList());
-          if (    unresolvedContributorsSamples.get(translationPattern).size() < 5
-              && !unresolvedContributorsSamples.get(translationPattern).contains(text))
-            unresolvedContributorsSamples.get(translationPattern).add(text);
+          if (!unresolvedContributorsSamples.containsKey(contributorType))
+            unresolvedContributorsSamples.put(contributorType, new ArrayList());
+          if (    unresolvedContributorsSamples.get(contributorType).size() < 5
+              && !unresolvedContributorsSamples.get(contributorType).contains(text))
+            unresolvedContributorsSamples.get(contributorType).add(text);
         }
       }
     }
@@ -243,7 +266,7 @@ public class ContributorNormaliser {
     }
   }
 
-  private String extractPattern(String text) {
+  private String extractContributorType(String text) {
 
     if (matches(text, TRANSLATOR, "^" + translatorPrefixes + " ([\\p{javaUpperCase}][\\p{javaLowerCase}\\.]*(( |-|\\. | és |, | and | u\\. | valamint )[\\p{javaUpperCase}]([\\p{javaLowerCase}]+|\\.))+)(?: et al\\.|\\.| \\.\\.\\. et al\\.)?$")) {
       return "TRANSLATOR";

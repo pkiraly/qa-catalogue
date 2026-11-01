@@ -38,6 +38,14 @@ public class Utils {
     return codes;
   }
 
+  public static Map<String, Boolean> generateLookupDict(String... input) {
+    Map<String, Boolean> lookupDict = new HashMap<>();
+    for (String key : input) {
+      lookupDict.put(key, true);
+    }
+    return lookupDict;
+  }
+
   public static List<ControlfieldPositionDefinition> generateControlPositionList(ControlfieldPositionDefinition... input) {
     List<ControlfieldPositionDefinition> list = new ArrayList<>();
     list.addAll(Arrays.asList(input));

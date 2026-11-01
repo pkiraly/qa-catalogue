@@ -88,9 +88,9 @@ public class MarclineReaderTest {
       "[035: System Control Number]\n" +
       "System control number: (OCoLC)255971256\n" +
       "[040: Cataloging Source]\n" +
-      "Original cataloging agency: DE-627\n" +
+      "Original cataloging agency: K10plus\n" +
       "Language of cataloging: German\n" +
-      "Transcribing agency: DE-627\n" +
+      "Transcribing agency: K10plus\n" +
       "Description conventions: Regeln für die alphabetische Katalogisierung an wissenschaftlichen Bibliotheken (Berlin: Deutsches Bibliotheksinstitut)\n" +
       "[041: Language Code]\n" +
       "Translation indication: No information provided\n" +
@@ -269,9 +269,9 @@ public class MarclineReaderTest {
     expected = "035_a: (DE-627)010000011\n" +
       "035_a: (DE-599)GBV010000011\n" +
       "035_a: (OCoLC)255971256\n" +
-      "040_a: DE-627\n" +
+      "040_a: K10plus\n" +
       "040_b: German\n" +
-      "040_c: DE-627\n" +
+      "040_c: K10plus\n" +
       "040_e: Regeln für die alphabetische Katalogisierung an wissenschaftlichen Bibliotheken (Berlin: Deutsches Bibliotheksinstitut)\n" +
       "041_ind1: No information provided\n" +
       "041_ind2: MARC language code\n" +

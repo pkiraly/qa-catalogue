@@ -6,17 +6,17 @@ import de.gwdg.metadataqa.marc.dao.MarcControlField;
 import de.gwdg.metadataqa.marc.dao.MarcLeader;
 import de.gwdg.metadataqa.marc.dao.record.Marc21Record;
 import de.gwdg.metadataqa.marc.dao.record.MarcRecord;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class MarcSpecExtractor {
+  private static Logger logger = Logger.getLogger(MarcSpecExtractor.class.getCanonicalName());
 
   public static Object extract(MarcRecord marcRecord, MarcSpec spec) {
     if (spec.getTag().toUpperCase().equals("LDR")) {
@@ -58,8 +58,11 @@ public class MarcSpecExtractor {
       if (spec.hasPosition()) {
         if (marcControlField instanceof List)
           return extractControlFieldsPosition(spec.getPosition(), (List<MarcControlField>) marcControlField);
-        else
-          return extractPosition(spec.getPosition(), ((MarcControlField) marcControlField).getContent());
+        else {
+          MarcControlField _marcControlField = (MarcControlField) marcControlField;
+          if (_marcControlField != null)
+            return extractPosition(spec.getPosition(), _marcControlField.getContent());
+        }
       }
       return marcControlField;
     } else {
@@ -175,7 +178,18 @@ public class MarcSpecExtractor {
 
   private static String extractPosition(Range position, String input) {
     int[] positions = getRange(input.length(), position.getStart(), position.getEnd());
-    return input.substring(positions[0], positions[1]);
+    if (positions[0] > input.length())
+      return null;
+    try {
+      return (positions[1] > input.length())
+        ? input.substring(positions[0])
+        : input.substring(positions[0], positions[1]);
+    } catch (StringIndexOutOfBoundsException e) {
+      e.printStackTrace();
+      logger.severe(String.format("Failed to extract poitions %d-%d from a string %d char long",
+        positions[0], positions[1], input.length()));
+      return null;
+    }
   }
 
   private static List<String> extractIndicators(MarcSpec spec, List<DataField> fields) {

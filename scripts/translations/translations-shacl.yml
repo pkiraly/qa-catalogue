@@ -100,11 +100,11 @@ fields:
             - eadar\.
             - Aus d\.
             - Dt\.
-            - "(?:[Üü]|[Uu]\u0308)bersetz"
-            - "(?:[Üü]|[Uu]\u0308)bertrag"
-            - "(?:[Üü]|[Uu]\u0308)bers\\."
-            - "(?:[Üü]|[Uu]\u0308)bertr\\."
-            - "[Aa]us dem (Englischen|Franz(?:ö|o\u0308)sischen|Italienischen|Spanischen|Russischen|Lateinischen|Griechischen|Niederl(?:ä|a\u0308)ndischen|Polnischen) von"
+            - "(?:[Üü]|[Uu]\u0308)bersetz(?:t|ung|er)?(?: von|:)"
+            - "(?:[Üü]|[Uu]\u0308)bertragen(?: von|:)"
+            - "(?:[Üü]|[Uu]\u0308)bers\\.(?: von|:| :| \\p{Lu}| ins )"
+            - "(?:[Üü]|[Uu]\u0308)bertr\\.(?: von|:)"
+            - "[Aa]us dem (?!Nachla)[\\p{L}\\p{M}.]{2,25}(?: (?:(?:ü|u\u0308)bers(?:\\.|etzt)|(?:ü|u\u0308)bertragen))? von"
             # Hungarian
             - Fordította|fordt́otta|Forditotta|Fordították
             - "[Ff]ord\\."

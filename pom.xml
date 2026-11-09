@@ -159,7 +159,7 @@
 		<dependency>
 			<artifactId>solr-core</artifactId>
 			<groupId>org.apache.solr</groupId>
-			<version>9.8.1</version>
+			<version>9.10.1</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
